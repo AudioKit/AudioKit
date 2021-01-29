@@ -3,7 +3,7 @@
 #ifndef SoulDSP_hpp
 #define SoulDSP_hpp
 
-#import "DSPBase.h"
+#include "DSPBase.h"
 
 template<typename SoulPatchType>
 class SoulDSP : public DSPBase {

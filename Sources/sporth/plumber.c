@@ -10,7 +10,7 @@
 #include "ugens.h"
 
 #define SPORTH_UGEN(key, func, macro, ninputs, noutputs) \
-    int func(sporth_stack *stack, void *ud);
+    extern int func(sporth_stack *stack, void *ud);
 SPORTH_UGENS
 #undef SPORTH_UGEN
 

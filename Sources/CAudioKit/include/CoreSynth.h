@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #ifdef __cplusplus
-#import <memory>
+#include <memory>
 
 #define SYNTH_CHUNKSIZE 16            // process samples in "chunks" this size
 

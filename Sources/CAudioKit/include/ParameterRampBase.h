@@ -8,7 +8,7 @@
 #include "AudioToolbox_NonApplePorting.h"
 #endif // __APPLE__
 
-#import "DSPBase.h"  // have to put this here to get it included in umbrella header
+#include "DSPBase.h"  // have to put this here to get it included in umbrella header
 
 #ifdef __cplusplus
 

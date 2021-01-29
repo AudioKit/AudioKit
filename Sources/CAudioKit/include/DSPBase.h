@@ -2,7 +2,7 @@
 
 #pragma once
 
-#import "Interop.h"
+#include "Interop.h"
 #if __APPLE__
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
@@ -10,8 +10,23 @@
 #include "AudioToolbox_NonApplePorting.h"
 #endif // __APPLE__
 
-#import "TPCircularBuffer.h"
-#import "TPCircularBuffer.h"
+#ifdef _MSC_VER
+#include <memory> // For unique_ptr
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+#pragma warning(push)
+#pragma warning(disable:4018) // more "signed/unsigned mismatch"
+#pragma warning(disable:4100) // unreferenced formal parameter
+#pragma warning(disable:4101) // unreferenced local variable
+#pragma warning(disable:4245) // 'return': conversion from 'int' to 'size_t', signed/unsigned mismatch
+#pragma warning(disable:4305) // truncation from 'double' to 'float'
+#pragma warning(disable:4456) // Declaration hides previous local declaration
+#pragma warning(disable:4458) // declaration ... hides class member
+#pragma warning(disable:4505) // unreferenced local function has been removed
+#endif
+
+#include "TPCircularBuffer.h"
+#include "TPCircularBuffer.h"
 
 #include <stdarg.h>
 
@@ -58,7 +73,7 @@ AK_API bool akGetTapData(DSPRef dsp, size_t frames, float* leftData, float* righ
 #ifdef __APPLE__
 #import <Foundation/Foundation.h>
 #endif // __APPLE__
-#import <vector>
+#include <vector>
 
 /**
  Base class for DSPKernels. Many of the methods are virtual, because the base AudioUnit class

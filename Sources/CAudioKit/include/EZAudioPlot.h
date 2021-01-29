@@ -19,8 +19,8 @@
 //  THE SOFTWARE.
 
 #import <QuartzCore/QuartzCore.h>
-#import "EZPlot.h"
-#import "EZAudioDisplayLink.h"
+#include "EZPlot.h"
+#include "EZAudioDisplayLink.h"
 
 @class EZAudio;
 

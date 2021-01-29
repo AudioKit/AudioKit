@@ -25,7 +25,7 @@
 #import <AVFoundation/AVFoundation.h>
 #elif TARGET_OS_MAC
 #endif
-#import "TPCircularBuffer.h"
+#include "TPCircularBuffer.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Data Structures

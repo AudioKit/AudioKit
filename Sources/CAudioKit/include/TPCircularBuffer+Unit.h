@@ -6,7 +6,7 @@
 extern "C++" {
 #endif
 
-#import "TPCircularBuffer.h"
+#include "TPCircularBuffer.h"
 
 #ifdef __APPLE__
 /**

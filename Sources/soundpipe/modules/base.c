@@ -44,12 +44,9 @@ int sp_destroy(sp_data **spp)
     return 0;
 }
 
-#if __APPLE__
-#else // __APPLE__
 #ifndef NO_LIBSNDFILE
-#define NO_LIBSNDFILE
+#define NO_LIBSNDFILE // MPC
 #endif // NO_LIBSNDFILE
-#endif // __APPLE__
 
 #ifndef NO_LIBSNDFILE
 

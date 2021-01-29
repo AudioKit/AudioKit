@@ -116,7 +116,13 @@ static int64_t get_length (void *id)
     if (fHandle == INVALID_HANDLE_VALUE)
         return 0;
 
+#ifdef _WIN64
+    DWORD dwResult;
+    Size.u.LowPart = GetFileSize(fHandle, &dwResult);
+    Size.u.HighPart = (LONG)dwResult;
+#else // _WIN64
     Size.u.LowPart = GetFileSize(fHandle, &Size.u.HighPart);
+#endif // _WIN64
 
     if (Size.u.LowPart == INVALID_FILE_SIZE && GetLastError() != NO_ERROR)
         return 0;
@@ -156,7 +162,7 @@ static int32_t write_bytes (void *id, void *data, int32_t bcount)
 
 static int truncate_here (void *id)
 {
-    FILE *file = id;
+    FILE *file = (FILE*)id;
     int64_t curr_pos = _ftelli64 (file);
 
     return _chsize_s (fileno (file), curr_pos);

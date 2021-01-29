@@ -3,7 +3,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
-#import "Interop.h"
+#include "Interop.h"
 
 /// Sequence Event
 typedef struct {

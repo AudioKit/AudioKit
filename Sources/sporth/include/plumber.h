@@ -2,9 +2,17 @@
 #include "sporth.h"
 #include "ugens.h"
 
-#ifdef __cplusplus
-extern "C" {
+#ifdef _MSC_VER
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+#pragma warning(push)
+#pragma warning(disable:4100) // unreferenced formal parameter
+#pragma warning(disable:4018) // more "signed/unsigned mismatch"
+#pragma warning(disable:4245) // 'return': conversion from 'int' to 'size_t', signed/unsigned mismatch
+#pragma warning(disable:4505) // unreferenced local function has been removed
+#pragma warning(disable:4101) // unreferenced local variable
 #endif
+
 
 /* implement macros */
 #define SPORTH_UGEN(key, func, macro, ninputs, noutputs)  macro,
@@ -134,6 +142,10 @@ typedef struct {
     unsigned short type;
     void *ud;
 } plumber_ptr;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 int plumber_init(plumber_data *plumb);
 int plumber_register(plumber_data *plumb);

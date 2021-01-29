@@ -29,6 +29,10 @@
 
 #include "wavpack_local.h"
 
+#ifdef _MSC_VER
+#include <intrin.h>
+#endif // _MSC_VER
+
 #if defined (HAVE___BUILTIN_CTZ) || defined (_WIN64)
 #define USE_CTZ_OPTIMIZATION    // use ctz intrinsic (or Windows equivalent) to count trailing ones
 #else
@@ -67,7 +71,12 @@ static uint32_t __inline read_code (Bitstream *bs, uint32_t maxcode);
 int32_t FASTCALL get_word (WavpackStream *wps, int chan, int32_t *correction)
 {
     struct entropy_data *c = wps->w.c + chan;
+#ifdef _WIN64
+    unsigned long ones_count;
+    uint32_t low, mid, high;
+#else // _MSC_VER
     uint32_t ones_count, low, mid, high;
+#endif  // _MSC_VER
     int32_t value;
     int sign;
 
@@ -124,7 +133,7 @@ int32_t FASTCALL get_word (WavpackStream *wps, int chan, int32_t *correction)
             wps->wvbits.bc += sizeof (*(wps->wvbits.ptr)) * 8;
         }
 
-#ifdef _WIN32
+#ifdef _MSC_VER
         _BitScanForward (&ones_count, ~wps->wvbits.sr);
 #else
         ones_count = __builtin_ctz (~wps->wvbits.sr);
@@ -327,7 +336,14 @@ int32_t FASTCALL get_word (WavpackStream *wps, int chan, int32_t *correction)
 int32_t get_words_lossless (WavpackStream *wps, int32_t *buffer, int32_t nsamples)
 {
     struct entropy_data *c = wps->w.c;
-    uint32_t ones_count, low, high;
+
+#ifdef _WIN64
+    unsigned long ones_count;
+    uint32_t low, mid, high;
+#else // _MSC_VER
+    uint32_t ones_count, low, mid, high;
+#endif  // _MSC_VER
+
     Bitstream *bs = &wps->wvbits;
     int32_t csamples;
 #ifdef USE_NEXT8_OPTIMIZATION
@@ -403,7 +419,7 @@ int32_t get_words_lossless (WavpackStream *wps, int32_t *buffer, int32_t nsample
             bs->bc += sizeof (*(bs->ptr)) * 8;
         }
 
-#ifdef _WIN32
+#ifdef _MSC_VER
         _BitScanForward (&ones_count, ~wps->wvbits.sr);
 #else
         ones_count = __builtin_ctz (~wps->wvbits.sr);

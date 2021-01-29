@@ -14,44 +14,44 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
-#import "DSPBase.h"
-#import "SoundpipeDSPBase.h"
+#include "DSPBase.h"
+#include "SoundpipeDSPBase.h"
 
-#import "ExceptionCatcher.h"
-#import "Globals.h"
-#import "AUParameterTreeExt.h"
+#include "ExceptionCatcher.h"
+#include "Globals.h"
+#include "AUParameterTreeExt.h"
 
 // Testing
-#import "DebugDSP.h"
+#include "DebugDSP.h"
 
 // Analysis
-#import "PitchTracker.h"
+#include "PitchTracker.h"
 
 // Effects / Modulation
 #import "ModulatedDelay_Typedefs.h"
-#import "ModulatedDelay.h"
-#import "ModulatedDelayDSP.h"
+#include "ModulatedDelay.h"
+#include "ModulatedDelayDSP.h"
 
 // Synth example
-#import "SynthDSP.h"
+#include "SynthDSP.h"
 
 // Playback
-#import "PresetManager.h"
+#include "PresetManager.h"
 #import "Sampler_Typedefs.h"
-#import "CoreSampler.h"
-#import "CoreSynth.h"
-#import "SamplerDSP.h"
+#include "CoreSampler.h"
+#include "CoreSynth.h"
+#include "SamplerDSP.h"
 
 // Sequencing / MIDI
-#import "SequencerEngine.h"
+#include "SequencerEngine.h"
 
 // Automation
-#import "ParameterRamper.h"
-#import "ParameterAutomation.h"
-#import "LinearParameterRamp.h"
+#include "ParameterRamper.h"
+#include "ParameterAutomation.h"
+#include "LinearParameterRamp.h"
 
 // Swift/ObjC/C/C++ Inter-operability
-#import "Interop.h"
+#include "Interop.h"
 
 // Custom interop
 AK_API void akCombFilterReverbSetLoopDuration(DSPRef dsp, float duration);
@@ -70,13 +70,13 @@ AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback);
 #define OscillatorDebugPhase 0
 
 // EZAudio
-#import "EZAudio.h"
-#import "EZAudioPlot.h"
-#import "EZAudioFFT.h"
+#include "EZAudio.h"
+#include "EZAudioPlot.h"
+#include "EZAudioFFT.h"
 
 // TPCircularBuffer
-#import "TPCircularBuffer+Unit.h"
-#import "TPCircularBuffer+AudioBufferList.h"
+#include "TPCircularBuffer+Unit.h"
+#include "TPCircularBuffer+AudioBufferList.h"
 
 // Misc
-#import "BufferedAudioBus.h"
+#include "BufferedAudioBus.h"

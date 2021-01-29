@@ -17,7 +17,7 @@
 #include "AudioToolbox_NonApplePorting.h"
 #endif // __APPLE__
 
-#import <atomic>
+#include <atomic>
 
 class ParameterRamper {
     float clampLow, clampHigh;

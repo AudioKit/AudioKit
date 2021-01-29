@@ -107,12 +107,9 @@ int sp_gen_sine(sp_data *sp, sp_ftbl *ft)
     return SP_OK;
 }
 
-#if __APPLE__
-#else // __APPLE__
 #ifndef NO_LIBSNDFILE
-#define NO_LIBSNDFILE
+#define NO_LIBSNDFILE // porting
 #endif // NO_LIBSNDFILE
-#endif // __APPLE__
 
 #ifndef NO_LIBSNDFILE
 int sp_gen_file(sp_data *sp, sp_ftbl *ft, const char *filename)

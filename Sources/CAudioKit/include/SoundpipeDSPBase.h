@@ -2,7 +2,7 @@
 
 #pragma once
 
-#import "DSPBase.h"
+#include "DSPBase.h"
 
 #ifdef __cplusplus
 

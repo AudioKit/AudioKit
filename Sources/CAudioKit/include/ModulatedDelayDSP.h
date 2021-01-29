@@ -5,7 +5,7 @@
 #ifdef __APPLE__
 #import <AVFoundation/AVFoundation.h>
 #endif // __APPLE__
-#import "Interop.h"
+#include "Interop.h"
 
 #ifdef __APPLE__
 typedef NS_ENUM(AUParameterAddress, ModulatedDelayParameter) {
@@ -54,9 +54,9 @@ AK_API DSPRef akFlangerCreateDSP(void);
 
 #ifdef __cplusplus
 
-#import "DSPBase.h"
-#import "ModulatedDelay.h"
-#import "ParameterRamper.h"
+#include "DSPBase.h"
+#include "ModulatedDelay.h"
+#include "ParameterRamper.h"
 
 struct ModulatedDelayDSP : DSPBase
 {

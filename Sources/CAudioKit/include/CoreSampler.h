@@ -6,7 +6,7 @@
 #include <memory>
 #else
 #import "Sampler_Typedefs.h"
-#import <memory>
+#include <memory>
 #endif
 
 // process samples in "chunks" this size

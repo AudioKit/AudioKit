@@ -1,8 +1,8 @@
 #include <stdlib.h>
 
-#ifndef NO_LIBDL
-#define NO_LIBDL // porting
-#endif // NO_LIBDL
+#ifdef _MSC_VER
+#define NO_LIBDL
+#endif
 
 #ifndef NO_LIBDL
 #include <dlfcn.h>
@@ -14,9 +14,7 @@ typedef struct {
     const char *name;
 } sporth_fclose_d;
 
-#ifndef NO_LIBSNDFILE
-#define NO_LIBSNDFILE // porting
-#endif // NO_LIBSNDFILE
+#define NO_LIBDL // Porting
 
 int sporth_fload(sporth_stack *stack, void *ud)
 {
@@ -66,7 +64,7 @@ int sporth_fload(sporth_stack *stack, void *ud)
 #ifdef DEBUG_MODE
             plumber_print(pd, "fload: initialising\n");
 #endif
-            fload = pd->last->ud;
+            fload = (sp_fload*)pd->last->ud;
             fload->filename= sporth_stack_pop_string(stack);
             fload->name = sporth_stack_pop_string(stack);
 

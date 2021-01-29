@@ -2,7 +2,7 @@
 
 #pragma once
 
-#import "ParameterRampBase.h" // have to put this here to get it included in umbrella header
+#include "ParameterRampBase.h" // have to put this here to get it included in umbrella header
 
 #ifdef __cplusplus
 

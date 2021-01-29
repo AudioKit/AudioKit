@@ -5,7 +5,7 @@
 
 #include "ModulatedDelay_Typedefs.h"
 
-#import <memory>
+#include <memory>
 
 class ModulatedDelay
 {
