@@ -1,3 +1,5 @@
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 import AVFoundation
 import Foundation
 
@@ -82,6 +84,7 @@ open class BaseTap: Toggleable {
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         // Call on the main thread so the client doesn't have to worry
         // about thread safety.
+        buffer.frameLength = bufferSize
         DispatchQueue.main.async {
             // Create trackers as needed.
             self.lock()

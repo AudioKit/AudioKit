@@ -21,8 +21,8 @@ public class MIDI {
     /// Array of MIDI In ports
     public var inputPorts = [MIDIUniqueID: MIDIPortRef]()
 
-    /// Virtual MIDI Input destination
-    public var virtualInput = MIDIPortRef()
+    /// Array of Virtual MIDI Input destination
+    public var virtualInputs = [MIDIPortRef()]
 
     /// MIDI In Port Name
     internal let inputPortName: CFString = "MIDI In Port" as CFString
@@ -30,8 +30,8 @@ public class MIDI {
     /// MIDI Out Port Reference
     public var outputPort = MIDIPortRef()
 
-    /// Virtual MIDI output
-    public var virtualOutput = MIDIPortRef()
+    /// Array of Virtual MIDI output
+    public var virtualOutputs = [MIDIPortRef()]
 
     /// MIDI Out Port Name
     var outputPortName: CFString = "MIDI Out Port" as CFString

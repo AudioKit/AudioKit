@@ -57,7 +57,6 @@ class NodeTests: XCTestCase {
         audio.append(newAudio2)
 
         testMD5(audio)
-        //audio.audition()
     }
 
     func testDynamicConnection() {
@@ -109,7 +108,6 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        //audio.audition()
     }
 
     func testDynamicConnection3() {
@@ -136,7 +134,49 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        //audio.audition()
+    }
+
+    func testDynamicConnection4() {
+        let engine = AudioEngine()
+        let outputMixer = Mixer()
+        let osc = Oscillator()
+        outputMixer.addInput(osc)
+        engine.output = outputMixer
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        osc.start()
+
+        audio.append(engine.render(duration: 1.0))
+
+        let osc2 = Oscillator()
+        osc2.frequency = 880
+
+        let localMixer = Mixer()
+        localMixer.addInput(osc2)
+        outputMixer.addInput(localMixer)
+
+        osc2.start()
+        audio.append(engine.render(duration: 1.0))
+
+//        testMD5(audio)
+    }
+
+    func testDynamicConnection5() {
+        let engine = AudioEngine()
+        let outputMixer = Mixer()
+        engine.output = outputMixer
+        let audio = engine.startTest(totalDuration: 1.0)
+
+        let osc = Oscillator()
+        let mixer = Mixer()
+        mixer.addInput(osc)
+
+        outputMixer.addInput(mixer) // change mixer to osc and this will play
+
+        osc.start()
+        audio.append(engine.render(duration: 1.0))
+
+//        testMD5(audio)
     }
 
     func testDisconnect() {
@@ -157,7 +197,6 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        //audio.audition()
     }
 
     func testNodeDetach() {
@@ -272,6 +311,26 @@ class NodeTests: XCTestCase {
         exampleStop()
     }
 
+    func testAutomationAfterDelayedConnection() {
+        let engine = AudioEngine()
+        let osc = Oscillator()
+        let osc2 = Oscillator()
+        let mixer = Mixer()
+        let events = [AutomationEvent(targetValue: 1320, startTime: 0.0, rampDuration: 0.5)]
+        engine.output = mixer
+        mixer.addInput(osc)
+        let audio = engine.startTest(totalDuration: 2.0)
+        osc.play()
+        osc.$frequency.automate(events: events)
+        audio.append(engine.render(duration: 1.0))
+        mixer.removeInput(osc)
+        mixer.addInput(osc2)
+        osc2.play()
+        osc2.$frequency.automate(events: events)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
@@ -330,10 +389,11 @@ class NodeTests: XCTestCase {
         let osc = Oscillator()
         let verb = CostelloReverb(osc)
         let mixer = Mixer(osc, verb)
+        let mixerAddress = MemoryAddress(of: mixer).description
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
-        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(Node.connectionTreeLinePrefix) ↳Oscillator
         \(Node.connectionTreeLinePrefix) ↳CostelloReverb
         \(Node.connectionTreeLinePrefix)  ↳Oscillator
@@ -345,12 +405,13 @@ class NodeTests: XCTestCase {
         let sampler = MIDISampler(name: nameString)
         let compressor = Compressor(sampler)
         let mixer = Mixer(compressor)
+        let mixerAddress = MemoryAddress(of: mixer).description
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
-        \(Node.connectionTreeLinePrefix)↳Mixer
+        \(Node.connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(Node.connectionTreeLinePrefix) ↳Compressor
-        \(Node.connectionTreeLinePrefix)  ↳MIDISampler(\"\(nameString)\")
+        \(Node.connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
         """)
     }
 

@@ -15,13 +15,16 @@ public class AudioPlayer: Node {
     /// The output of the AudioPlayer and provides sample rate conversion if needed
     public private(set) var mixerNode = AVAudioMixerNode()
 
-    /// Just the playerNode's property
+    /// Just the playerNode's property, values above 1 will have gain applied
     public var volume: AUValue {
         get { playerNode.volume }
         set { playerNode.volume = newValue }
     }
 
+    /// Whether or not the playing is playing
     public private(set) var isPlaying: Bool = false
+
+    /// Whether or not the playing is paused
     public private(set) var isPaused: Bool = false
 
     /// Will be true if there is an existing scheduled event
@@ -40,6 +43,7 @@ public class AudioPlayer: Node {
         }
     }
 
+    /// Length of the audio file in seconds
     public var duration: TimeInterval {
         bufferDuration ?? file?.duration ?? 0
     }
@@ -158,11 +162,19 @@ public class AudioPlayer: Node {
 
     // MARK: - Loading
 
+    /// Load file at a URL, optionally buffered
+    /// - Parameters:
+    ///   - url: URL of the audio file
+    ///   - buffered: Boolean of whether you want the audio buffered
     public func load(url: URL, buffered: Bool = false) throws {
         let file = try AVAudioFile(forReading: url)
         try load(file: file, buffered: buffered)
     }
 
+    /// Load an AVAudioFIle, optionally buffered
+    /// - Parameters:
+    ///   - file: File to play
+    ///   - buffered: Boolean of whether you want the audio buffered
     public func load(file: AVAudioFile, buffered: Bool = false) throws {
         if buffered, let buffer = try AVAudioPCMBuffer(file: file) {
             load(buffer: buffer)
@@ -171,6 +183,8 @@ public class AudioPlayer: Node {
         }
     }
 
+    /// Load a buffer for playing directly
+    /// - Parameter buffer: Buffer to play
     public func load(buffer: AVAudioPCMBuffer) {
         self.buffer = buffer
     }
@@ -265,6 +279,11 @@ extension AudioPlayer {
         }
     }
 
+    /// Schedule a buffer to play at a a specific time, with options
+    /// - Parameters:
+    ///   - buffer: Buffer to play
+    ///   - when: Time to pay
+    ///   - options: Buffer options
     @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
                                at when: AVAudioTime?,
@@ -274,6 +293,11 @@ extension AudioPlayer {
         schedule(at: when)
     }
 
+    /// Schedule a buffer to play from a URL, at a a specific time, with options
+    /// - Parameters:
+    ///   - url: URL Location of buffer
+    ///   - when: Time to pay
+    ///   - options: Buffer options
     @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleBuffer(url: URL,
                                at when: AVAudioTime?,
@@ -285,6 +309,11 @@ extension AudioPlayer {
         scheduleBuffer(buffer, at: when, options: options)
     }
 
+    /// Schedule a file to play at a a specific time
+    /// - Parameters:
+    ///   - file: File to play
+    ///   - when: Time to pay
+    ///   - options: Buffer options
     @available(*, deprecated, renamed: "schedule(at:)")
     public func scheduleFile(_ file: AVAudioFile,
                              at when: AVAudioTime?) {

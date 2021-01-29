@@ -275,8 +275,22 @@ extension AVAudioSession.CategoryOptions: Occupiable {}
 #endif
 
 extension Sequence where Self.Element: Equatable {
+    /// Easer to read alternative to !contains
     @inline(__always)
     public func doesNotContain(_ member: Element) -> Bool {
         return !contains(member)
+    }
+}
+
+extension String {
+    /// Useful fo converting camel case enums to UI strings
+    public func titleCase() -> String {
+        return self
+            .replacingOccurrences(of: "([A-Z])",
+                                  with: " $1",
+                                  options: .regularExpression,
+                                  range: range(of: self))
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .capitalized // If input is in llamaCase
     }
 }

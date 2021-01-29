@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Guitar head and cab simulator.
 ///
-public class RhinoGuitarProcessor: Node, AudioUnitContainer, Tappable, Toggleable {
+public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "rhgp"
     public static let ComponentDescription = AudioComponentDescription(effect: "rhgp")

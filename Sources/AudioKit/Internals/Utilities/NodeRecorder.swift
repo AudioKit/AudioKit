@@ -56,8 +56,7 @@ open class NodeRecorder: NSObject {
 
     /// Initialize the node recorder
     ///
-    /// Recording buffer size is defaulted to be Settings.bufferLength
-    /// You can set a different value by setting an Settings.recordingBufferLength
+    /// Recording buffer size is Settings.recordingBufferLength
     ///
     /// - Parameters:
     ///   - node: Node to record from

@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Panner
-public class Panner: Node, AudioUnitContainer, Tappable, Toggleable {
+public class Panner: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "pan2"
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")

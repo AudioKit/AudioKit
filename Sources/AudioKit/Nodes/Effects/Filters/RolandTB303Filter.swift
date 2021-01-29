@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Emulation of the Roland TB-303 filter
-public class RolandTB303Filter: Node, AudioUnitContainer, Tappable, Toggleable {
+public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "tb3f"
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")

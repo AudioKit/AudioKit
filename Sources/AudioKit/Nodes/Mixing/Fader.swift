@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Fader.
-public class Fader: Node, AudioUnitContainer, Tappable, Toggleable {
+public class Fader: Node, AudioUnitContainer, Toggleable {
     /// Unique four-letter identifier "fder"
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
 
@@ -19,8 +19,8 @@ public class Fader: Node, AudioUnitContainer, Tappable, Toggleable {
     /// Amplification Factor, from 0 ... 4
     open var gain: AUValue = 1 {
         willSet {
-            leftGain = gain
-            rightGain = gain
+            leftGain = newValue
+            rightGain = newValue
         }
     }
 

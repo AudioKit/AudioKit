@@ -64,10 +64,6 @@ AK_API void deleteDSP(DSPRef pDSP);
 /// Reset random seed to ensure deterministic results in tests.
 AK_API void akSetSeed(unsigned int);
 
-AK_API void akInstallTap(DSPRef dsp);
-AK_API void akRemoveTap(DSPRef dsp);
-AK_API bool akGetTapData(DSPRef dsp, size_t frames, float* leftData, float* rightData);
-
 #ifdef __cplusplus
 
 #ifdef __APPLE__
@@ -96,7 +92,6 @@ protected:
     size_t tapCount = 0;
     size_t filledTapCount = 0;
 
-    // To support AKAudioUnit functions
     bool isInitialized = false;
     std::atomic<bool> isStarted{true};
 
@@ -192,10 +187,6 @@ public:
     static DSPRef create(const char* name);
 
     virtual void startRamp(const AUParameterEvent& event);
-
-    virtual void installTap();
-    virtual void removeTap();
-    virtual bool getTapData(size_t frames, float* leftData, float* rightData);
 
     TPCircularBuffer leftBuffer;
     TPCircularBuffer rightBuffer;
