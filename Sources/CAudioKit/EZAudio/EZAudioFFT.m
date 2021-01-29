@@ -18,7 +18,11 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+#if __APPLE__
 #import "EZAudioFFT.h"
+#else // __APPLE__
+#include "EZAudioFFT.h"
+#endif // __APPLE__
 #import "EZAudioUtilities.h"
 #import "EZPlotHistoryInfo.h"
 

@@ -48,7 +48,11 @@ AK_API void akSynthSustainPedal(DSPRef pDSP, bool pedalDown);
 #ifdef __cplusplus
 
 #include "DSPBase.h"
+#if __APPLE__
+#import "CoreSynth.h"
+#else // __APPLE__
 #include "CoreSynth.h"
+#endif // __APPLE__
 #include "LinearParameterRamp.h"
 
 struct SynthDSP : DSPBase, CoreSynth

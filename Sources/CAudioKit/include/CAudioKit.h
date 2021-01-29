@@ -38,8 +38,13 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Playback
 #include "PresetManager.h"
 #import "Sampler_Typedefs.h"
+#if __APPLE__
+#import "CoreSampler.h"
+#import "CoreSynth.h"
+#else // __APPLE__
 #include "CoreSampler.h"
 #include "CoreSynth.h"
+#endif // __APPLE__
 #include "SamplerDSP.h"
 
 // Sequencing / MIDI
@@ -72,7 +77,11 @@ AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback);
 // EZAudio
 #include "EZAudio.h"
 #include "EZAudioPlot.h"
+#if __APPLE__
+#import "EZAudioFFT.h"
+#else // __APPLE__
 #include "EZAudioFFT.h"
+#endif // __APPLE__
 
 // TPCircularBuffer
 #include "TPCircularBuffer+Unit.h"

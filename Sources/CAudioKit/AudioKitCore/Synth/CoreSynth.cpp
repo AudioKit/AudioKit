@@ -1,6 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if __APPLE__
+#import "CoreSynth.h"
+#else // __APPLE__
 #include "CoreSynth.h"
+#endif // __APPLE__
 #include "FunctionTable.hpp"
 #include "SynthVoice.hpp"
 #include "WaveStack.hpp"

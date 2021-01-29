@@ -1,6 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if __APPLE__
+#import "CoreSampler.h"
+#else // __APPLE__
 #include "CoreSampler.h"
+#endif // __APPLE__
 #include "SamplerVoice.hpp"
 #include "FunctionTable.hpp"
 #include "SustainPedalLogic.hpp"

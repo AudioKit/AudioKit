@@ -75,7 +75,11 @@ AK_API void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown);
 #ifdef __cplusplus
 
 #include "DSPBase.h"
+#if __APPLE__
+#import "CoreSampler.h"
+#else // __APPLE__
 #include "CoreSampler.h"
+#endif // __APPLE__
 #include "LinearParameterRamp.h"
 
 struct SamplerDSP : DSPBase, CoreSampler
