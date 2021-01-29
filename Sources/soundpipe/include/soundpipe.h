@@ -4,7 +4,7 @@
 #include "dr_wav.h"
 #include "md5.h"
 
-#ifdef __cplusplus__
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -1886,7 +1886,7 @@ int sp_padsynth_ifft(int N, SPFLOAT *freq_amp,
 
 int sp_padsynth_normalize(int N, SPFLOAT *smp);
 
-#ifdef __cplusplus__
+#ifdef __cplusplus
 }
 #endif
 
