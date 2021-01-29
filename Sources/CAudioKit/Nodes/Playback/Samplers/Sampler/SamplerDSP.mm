@@ -1,6 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "SamplerDSP.h"
+#if __APPLE__
+#import "include/SamplerDSP.h"
+#else // __APPLE__
+#include "../../../include/SamplerDSP.h"
+#endif // __APPLE__
+
+#include "Shakers.h"
 #include "wavpack.h"
 #include <math.h>
 
@@ -401,37 +407,3 @@ void SamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
         CoreSampler::render(channelCount, chunkSize, outBuffers);
     }
 }
-
-AK_REGISTER_PARAMETER(SamplerParameterMasterVolume)
-AK_REGISTER_PARAMETER(SamplerParameterPitchBend)
-AK_REGISTER_PARAMETER(SamplerParameterVibratoDepth)
-AK_REGISTER_PARAMETER(SamplerParameterVibratoFrequency)
-AK_REGISTER_PARAMETER(SamplerParameterVoiceVibratoDepth)
-AK_REGISTER_PARAMETER(SamplerParameterVoiceVibratoFrequency)
-AK_REGISTER_PARAMETER(SamplerParameterFilterCutoff)
-AK_REGISTER_PARAMETER(SamplerParameterFilterStrength)
-AK_REGISTER_PARAMETER(SamplerParameterFilterResonance)
-AK_REGISTER_PARAMETER(SamplerParameterGlideRate)
-AK_REGISTER_PARAMETER(SamplerParameterAttackDuration)
-AK_REGISTER_PARAMETER(SamplerParameterHoldDuration)
-AK_REGISTER_PARAMETER(SamplerParameterDecayDuration)
-AK_REGISTER_PARAMETER(SamplerParameterSustainLevel)
-AK_REGISTER_PARAMETER(SamplerParameterReleaseHoldDuration)
-AK_REGISTER_PARAMETER(SamplerParameterReleaseDuration)
-AK_REGISTER_PARAMETER(SamplerParameterFilterAttackDuration)
-AK_REGISTER_PARAMETER(SamplerParameterFilterDecayDuration)
-AK_REGISTER_PARAMETER(SamplerParameterFilterSustainLevel)
-AK_REGISTER_PARAMETER(SamplerParameterFilterReleaseDuration)
-AK_REGISTER_PARAMETER(SamplerParameterFilterEnable)
-AK_REGISTER_PARAMETER(SamplerParameterRestartVoiceLFO)
-AK_REGISTER_PARAMETER(SamplerParameterPitchAttackDuration)
-AK_REGISTER_PARAMETER(SamplerParameterPitchDecayDuration)
-AK_REGISTER_PARAMETER(SamplerParameterPitchSustainLevel)
-AK_REGISTER_PARAMETER(SamplerParameterPitchReleaseDuration)
-AK_REGISTER_PARAMETER(SamplerParameterPitchADSRSemitones)
-AK_REGISTER_PARAMETER(SamplerParameterLoopThruRelease)
-AK_REGISTER_PARAMETER(SamplerParameterMonophonic)
-AK_REGISTER_PARAMETER(SamplerParameterLegato)
-AK_REGISTER_PARAMETER(SamplerParameterKeyTrackingFraction)
-AK_REGISTER_PARAMETER(SamplerParameterFilterEnvelopeVelocityScaling)
-AK_REGISTER_PARAMETER(SamplerParameterRampDuration)

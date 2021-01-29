@@ -71,7 +71,7 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_blsquare_compute(sp, blsquare, nil, &temp);
+                        sp_blsquare_compute(sp, blsquare, nullptr, &temp);
                     }
                     *out = temp;
                 } else {

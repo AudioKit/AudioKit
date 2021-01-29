@@ -47,7 +47,7 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_noise_compute(sp, noise, nil, &temp);
+                        sp_noise_compute(sp, noise, nullptr, &temp);
                     }
                     *out = temp;
                 } else {

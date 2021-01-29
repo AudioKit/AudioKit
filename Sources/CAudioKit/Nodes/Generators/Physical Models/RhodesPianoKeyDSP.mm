@@ -1,11 +1,16 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "STKInstrumentDSP.hpp"
+#if __APPLE__
+#include "STKInstrumentDSP.hpp"
+#else // __APPLE__
+#include "STKInstrumentDSP.hpp"
+#endif // __APPLE__
 
 #include "Rhodey.h"
 #include "sinewave_raw.h"
 #include "fwavblnk_raw.h"
 
+#ifdef __APPLE__
 class RhodesPianoKeyDSP : public STKInstrumentDSP {
 private:
     stk::Rhodey *rhodesPiano = nullptr;
@@ -51,3 +56,4 @@ public:
 };
 
 AK_REGISTER_DSP(RhodesPianoKeyDSP);
+#endif // __APPLE__

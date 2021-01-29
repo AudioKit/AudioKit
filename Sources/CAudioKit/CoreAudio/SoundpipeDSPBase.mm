@@ -1,6 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "SoundpipeDSPBase.h"
+#if __APPLE__
+#include "SoundpipeDSPBase.h"
+#else // __APPLE__
+#include "SoundpipeDSPBase.h"
+#endif // __APPLE__
 
 #include "soundpipe.h"
 #include "vocwrapper.h"

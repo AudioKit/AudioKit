@@ -48,7 +48,7 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_brown_compute(sp, brown, nil, &temp);
+                        sp_brown_compute(sp, brown, nullptr, &temp);
                     }
                     *out = temp * amplitude;
                 } else {

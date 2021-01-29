@@ -72,7 +72,7 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_vocwrapper_compute(sp, vocwrapper, nil, &temp);
+                        sp_vocwrapper_compute(sp, vocwrapper, nullptr, &temp);
                     }
                     *out = temp;
                 } else {

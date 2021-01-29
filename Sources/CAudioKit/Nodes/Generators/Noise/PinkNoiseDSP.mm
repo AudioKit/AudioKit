@@ -47,7 +47,7 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_pinknoise_compute(sp, pinknoise, nil, &temp);
+                        sp_pinknoise_compute(sp, pinknoise, nullptr, &temp);
                     }
                     *out = temp;
                 } else {

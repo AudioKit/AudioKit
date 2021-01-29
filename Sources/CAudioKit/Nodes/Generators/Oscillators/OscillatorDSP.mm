@@ -72,7 +72,7 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_osc_compute(sp, osc, nil, &temp);
+                        sp_osc_compute(sp, osc, nullptr, &temp);
                         // AKDebugDSP(OscillatorDebugPhase, osc->lphs);
                     }
                     *out = temp;

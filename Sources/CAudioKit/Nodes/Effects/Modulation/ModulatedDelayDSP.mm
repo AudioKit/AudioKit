@@ -1,8 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if __APPLE__
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
+#endif // __APPLE__
+
 #include <math.h>
 
 #include "ModulatedDelayDSP.h"
@@ -17,7 +20,12 @@ DSPRef akFlangerCreateDSP()
     return new ModulatedDelayDSP(kFlanger);
 }
 
+#if __APPLE__
 #import "AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
+#else // __APPLE__
+#include "../../../AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
+#endif // __APPLE__
+
 const float kChorus_DefaultFrequency = kChorusDefaultModFreqHz;
 const float kChorus_DefaultDepth = kChorusDefaultDepth;
 const float kChorus_DefaultFeedback = kChorusDefaultFeedback;

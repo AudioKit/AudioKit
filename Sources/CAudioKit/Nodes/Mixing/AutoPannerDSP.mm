@@ -4,7 +4,7 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 
-#import <vector>
+#include <vector>
 
 enum AutoPannerParameter : AUParameterAddress {
     AutoPannerParameterFrequency,

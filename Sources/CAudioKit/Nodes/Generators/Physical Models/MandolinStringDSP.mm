@@ -1,9 +1,15 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "STKInstrumentDSP.hpp"
+#if __APPLE__
+#include "STKInstrumentDSP.hpp"
+#else // __APPLE__
+#include "STKInstrumentDSP.hpp"
+#endif // __APPLE__
 
 #include "Mandolin.h"
 #include "mand_raw.h"
+
+#ifdef __APPLE__
 
 class MandolinStringDSP : public STKInstrumentDSP {
 private:
@@ -62,3 +68,4 @@ public:
 };
 
 AK_REGISTER_DSP(MandolinStringDSP);
+#endif // __APPLE__

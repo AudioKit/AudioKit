@@ -74,7 +74,7 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_fosc_compute(sp, fosc, nil, &temp);
+                        sp_fosc_compute(sp, fosc, nullptr, &temp);
                     }
                     *out = temp;
                 } else {

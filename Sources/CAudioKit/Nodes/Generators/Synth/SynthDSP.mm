@@ -1,6 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "SynthDSP.h"
+#if __APPLE__
+#include "SynthDSP.h"
+#else // __APPLE__
+#include "SynthDSP.h"
+#endif // __APPLE__
+
 #include <math.h>
 
 DSPRef akSynthCreateDSP() {
@@ -179,19 +184,3 @@ void SynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOff
         CoreSynth::render(channelCount, chunkSize, outBuffers);
     }
 }
-
-AK_REGISTER_PARAMETER(SynthParameterMasterVolume)
-AK_REGISTER_PARAMETER(SynthParameterPitchBend)
-AK_REGISTER_PARAMETER(SynthParameterVibratoDepth)
-AK_REGISTER_PARAMETER(SynthParameterFilterCutoff)
-AK_REGISTER_PARAMETER(SynthParameterFilterStrength)
-AK_REGISTER_PARAMETER(SynthParameterFilterResonance)
-AK_REGISTER_PARAMETER(SynthParameterAttackDuration)
-AK_REGISTER_PARAMETER(SynthParameterDecayDuration)
-AK_REGISTER_PARAMETER(SynthParameterSustainLevel)
-AK_REGISTER_PARAMETER(SynthParameterReleaseDuration)
-AK_REGISTER_PARAMETER(SynthParameterFilterAttackDuration)
-AK_REGISTER_PARAMETER(SynthParameterFilterDecayDuration)
-AK_REGISTER_PARAMETER(SynthParameterFilterSustainLevel)
-AK_REGISTER_PARAMETER(SynthParameterFilterReleaseDuration)
-AK_REGISTER_PARAMETER(SynthParameterRampDuration)

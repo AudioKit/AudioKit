@@ -78,7 +78,7 @@ public:
 
                 if (isStarted) {
                     if (channel == 0) {
-                        sp_oscmorph_compute(sp, oscmorph, nil, &temp);
+                        sp_oscmorph_compute(sp, oscmorph, nullptr, &temp);
                     }
                     *out = temp;
                 } else {
