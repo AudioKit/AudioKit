@@ -1,0 +1,1377 @@
+PORTING
+=======
+
+Last update: 29 January 2021
+Author: Pete Cole
+
+AudioKit has been ported to platforms other than iOS (macOS, tvOS).
+
+Specifically, the software has been modified such that it compiles and links on both Android and Windows 10 (using Visual Studio 2019).
+
+General changes:
+- the .cpp, .c files are all compiled using C++ 17
+- the .mm files need to be renamed to .cpp before they can be added to project files and compiled.
+
+Two important changes that were necessitated by the Windows port:
+- change #import to #include
+- some files were renamed; Visual Studio 2019 does not support the building of projects where there are multiple files (irrespective of case) the same project that share the same base name (e.g. file.c, File.cpp, file.cc)
+
+Note that porting would be simplified, if the core .mm files were renamed to .cpp, and compiled as Objective-C++.
+
+Windows
+=======
+
+Notes:
+- code to merge-in to your .vcxproj files given below (as of time of writing - 29 January 2021); merge-in to your own project file as required.
+- the various .mm files have been duplicated/renamed to .cpp files - look for "_PORT.cpp"
+- as noted below, AdditionalIncludeDirectories needs to be configured for the #include statements to resolve
+- change paths to suit your project!
+- the code was built under Windows, using Visual Studio 2019 in 64-bit mode.
+
+The following needs to be merged in to your build file (.vcxproj);
+change paths to suit:
+
+      <AdditionalIncludeDirectories>[YOUR STUFF HERE];..\..\..\..\..\lib\Vendor\AudioKit\include;..\..\..\..\..\lib\Vendor\AudioKit\Sources\AudioKit\Internals;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Common;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Modulated Delay;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\CoreAudio;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\include;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\include\FFTReal;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\EZAudio;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\include;..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Playback\Samplers\Apple Sampler;..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\external;..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\include;..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\lib\inih;..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\lib\kissfft;..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules;..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\test;..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\include;..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Common\ADSREnvelope.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Common\AHDSHREnvelope.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Common\EnvelopeGeneratorBase.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Common\FunctionTable.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Common\ResonantLowPassFilter.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Common\SustainPedalLogic.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Modulated Delay\AdjustableDelayLine.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Modulated Delay\ModulatedDelay.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Modulated Delay\StereoDelay.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\CoreSampler.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\SampleBuffer.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\SamplerVoice.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\common_utils.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\decorr_utils.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\entropy_utils.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\extra1.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\extra2.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\open_filename.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\open_legacy.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\open_raw.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\open_utils.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\pack.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\pack_dns.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\pack_dsd.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\pack_floats.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\pack_utils.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\read_words.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\tags.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\tag_utils.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\unpack.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\unpack3.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\unpack3_open.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\unpack3_seek.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\unpack_dsd.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\unpack_floats.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\unpack_seek.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\unpack_utils.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Sampler\Wavpack\write_words.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Synth\CoreSynth.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Synth\DrawbarsOscillator.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Synth\EnsembleOscillator.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Synth\Envelope.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Synth\MultiStageFilter.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Synth\SynthVoice.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\AudioKitCore\Synth\WaveStack.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\CoreAudio\DSPBase_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\CoreAudio\Globals_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\CoreAudio\SoulDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\CoreAudio\SoundpipeDSPBase_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\CDelay.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\CombFilter.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\Compressor.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\DelayAPF.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\Equalisator.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\LPFCombFilter.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\MikeFilter.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\OnePoleLPF.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\pluginobjects.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Devoloop\RageProcessor.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Internals\Utilities\DebugDSP.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Callback Instrument\CallbackInstrumentDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Delay\StereoDelayDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Delay\VariableDelayDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Distortion\BitCrusherDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Distortion\ClipperDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Distortion\DiodeClipperDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Distortion\TanhDistortionDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Dynamics\DynamicRangeCompressorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Envelopes\AmplitudeEnvelopeDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Envelopes\TremoloDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\BandPassButterworthFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\BandRejectButterworthFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\DCBlockDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\EqualizerFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\FormantFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\HighPassButterworthFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\HighShelfParametricEqualizerFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\KorgLowPassFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\LowPassButterworthFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\LowShelfParametricEqualizerFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\ModalResonanceFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\MoogLadderDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\PeakingParametricEqualizerFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\ResonantFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\RolandTB303FilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\StringResonatorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\ThreePoleLowpassFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\ToneComplementFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Filters\ToneFilterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Guitar Processors\AutoWahDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Guitar Processors\DynaRageCompressorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Guitar Processors\RhinoGuitarProcessorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Modulation\ModulatedDelayDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Modulation\PhaserDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Pitch Shifter\PitchShifterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Reverb\ChowningReverbDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Reverb\CombFilterReverbDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Reverb\ConvolutionDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Reverb\CostelloReverbDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Reverb\FlatFrequencyResponseReverbDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Effects\Reverb\ZitaReverbDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Noise\BrownianNoiseDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Noise\PinkNoiseDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Noise\WhiteNoiseDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\FMOscillatorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\MorphingOscillatorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\OscillatorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\PhaseDistortionOscillatorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Oscillators\PWMOscillatorDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\ClarinetDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\DripDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\FluteDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\MandolinStringDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\MetalBarDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\PluckedStringDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\RhodesPianoKeyDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\ShakerDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\STKInstrumentDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\TubularBellsDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Physical Models\VocalTractDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Generators\Synth\SynthDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Mixing\AutoPannerDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Mixing\BalancerDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Mixing\DryWetMixerDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Mixing\FaderDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Mixing\PannerDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Mixing\StereoFieldLimiterDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Playback\PhaseLockedVocoderDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\Nodes\Playback\Samplers\Sampler\SamplerDSP_PORT.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\TPCircularBuffer\TPCircularBuffer+AudioBufferList.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\TPCircularBuffer\TPCircularBuffer+Unit.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\CAudioKit\TPCircularBuffer\TPCircularBuffer.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\external\growl.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\external\vocwrapper.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\lib\dr_wav\dr_wav.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\lib\fft\fft.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\lib\inih\ini.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\adsr.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\allpass.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\atone.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\autowah.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\bal.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\bar.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\base.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\biquad_c.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\biscale.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\bitcrush.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\blsaw.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\blsquare.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\bltriangle.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\brown.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\butbp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\butbr.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\buthp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\butlp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\clamp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\clip.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\clock.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\comb.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\compressor_c.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\conv.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\count.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\crossfade.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\dcblock.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\delay_c.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\diode.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\dist.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\dmetro.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\drip.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\dtrig.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\dust.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\eqfil.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\expon.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\fftwrapper.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\fof.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\fofilt.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\fog.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\fold.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\foo.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\fosc.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\ftbl.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\gbuzz.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\hilbert.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\in.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\incr.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\jcrev_c.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\jitter.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\line.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\lpf18.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\maygate.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\metro.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\mincer.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\mode.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\moogladder.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\noise_c.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\nsmp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\osc.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\oscmorph.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\oscmorph2d.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\padsynth.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\pan2.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\panst.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\pareq.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\paulstretch.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\pdhalf.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\peaklim.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\phaser.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\phasor.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\pinknoise.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\pitchamdf.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\pluck.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\port.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\posc3.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\progress.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\prop.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\pshift.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\ptrack.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\randh.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\randi.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\randmt.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\random_c.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\reson.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\reverse.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\revsc.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\rms.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\rpt.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\rspline.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\samphold.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\saturator.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\scale.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\scrambler.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\sdelay.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\slice.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\smoothdelay.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\sndwarp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\streson.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\switch.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tabread.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tadsr.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\talkbox.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tblrec.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tbvcf.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tdiv.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tenv.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tenv2.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tenvx.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tevent.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tgate.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\thresh.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\timer.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tin.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tone.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\trand.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tseg.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\tseq.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\vdelay.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\voc.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\vocoder.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\waveset.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\wavin.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\wavout.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\wpkorg35.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\modules\zitarev.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\test\md5.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\soundpipe\test\test.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ftmap.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\func.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\hash.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\parse.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\plumber.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\sporth.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\stack.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_adsr.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_allpass.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_atone.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_autowah.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_bal.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_basic.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_biscale.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_bitcrush.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_bitwise.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_blsaw.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_blsquare.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_bltriangle.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_bpm.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_brown.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_butbp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_butbr.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_buthp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_butlp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_changed.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_clip.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_clock.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_comb.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_conv.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_count.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_crossfade.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_dcblock.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_delay.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_diode.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_dist.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_dmetro.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_drip.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_dtrig.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_dust.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_eqfil.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_eval.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_expon.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_f.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_fm.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_fof.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_fog.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_fosc.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_ftsum.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gbuzz.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_composite.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_eval.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_line.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_padsynth.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_rand.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_sine.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_sinesum.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_sporth.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_gen_vals.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_hilbert.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_in.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_incr.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_jcrev.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_jitter.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_line.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_load.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_lpf18.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_mark.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_maygate.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_maytrig.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_metro.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_mincer.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_mode.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_moogladder.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_noise.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_nsmp.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_osc.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_oscmorph.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_p.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_pan.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_panst.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_pareq.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_paulstretch.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_pdhalf.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_peaklim.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_phaser.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_phasor.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_pinknoise.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_pluck.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_port.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_posc3.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_print.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_prop.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_pshift.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_ptrack.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_rand.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_randh.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_randi.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_ref.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_render.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_reson.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_reverse.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_revsc.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_rms.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_rpt.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_rspline.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_samphold.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_saturator.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_say.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_scale.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_scrambler.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_sdelay.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_slice.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_slist.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_smoothdelay.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_srand.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_streson.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_switch.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_t.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tabread.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tadsr.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tblrec.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tdiv.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tenv.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tenv2.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tenvx.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tgate.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_thresh.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tick.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_timer.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tin.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tog.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tone.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tphasor.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_trand.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tseg.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_tseq.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_v.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_vdelay.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_voc.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_waveset.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_wpkorg35.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_writecode.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_zeros.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\sporth\ugens\ugens_zitarev.c" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\ADSR_STK.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Asymp.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\BandedWG.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\BeeThree.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\BiQuad.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Blit.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\BlitSaw.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\BlitSquare.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\BlowBotl.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\BlowHole.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Bowed.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Brass.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Chorus.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Clarinet.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Delay.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\DelayA.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\DelayL.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Drummer.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Echo.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\STKEnvelope.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FileLoop.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FileRead.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FileWrite.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FileWvIn.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FileWvOut.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Fir.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Flute.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FM.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FMVoices.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FormSwep.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\FreeVerb.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Granulate.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Guitar.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\HevyMetl.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Iir.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\JCRev.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\LentPitShift.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Mandolin.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Mesh2D.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Messager.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\MidiFileIn.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Modal.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\ModalBar.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Modulate.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Moog.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Noise.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\NRev.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\OnePole.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\OneZero.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\PercFlut.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Phonemes.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\PitShift.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Plucked.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\PoleZero.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\PRCRev.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Resonate.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Rhodey.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Sampler.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Saxofony.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Shakers.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Simple.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\SineWave.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\SingWave.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Sitar.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Skini.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Sphere.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\StifKarp.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Stk.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\TubeBell.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Twang.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\TwoPole.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\TwoZero.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Voicer.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\VoicForm.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Whistle.cpp" />
+    <ClCompile Include="..\..\..\..\..\lib\Vendor\AudioKit\Sources\STK\Wurley.cpp" />
+
+Android
+=======
+
+Notes:
+- the bare-bones of an Android CMakeLists.txt file is as follows (as of time of writing - 29 January 2021); merge-in to your own project file as required.
+- the various .mm files have been duplicated/renamed to .cpp files - look for "_PORT.cpp"
+- the .c files are configured to compile as C++17
+- the header paths need to be specified for the #include statements to resolve
+- change paths to suit your project!
+
+>>>
+# Build AudioKit .c files as .cpp
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/common_utils.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/decorr_utils.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/entropy_utils.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/extra1.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/extra2.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/open_filename.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/open_legacy.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/open_raw.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/open_utils.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack_dns.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack_dsd.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack_floats.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack_utils.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/read_words.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/tags.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/tag_utils.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack3.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack3_open.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack3_seek.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack_dsd.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack_floats.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack_seek.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack_utils.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/write_words.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Internals/Utilities/DebugDSP.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/TPCircularBuffer/TPCircularBuffer+AudioBufferList.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/TPCircularBuffer/TPCircularBuffer+Unit.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/TPCircularBuffer/TPCircularBuffer.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/external/growl.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/external/vocwrapper.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/dr_wav/dr_wav.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/fft/fft.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/inih/ini.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+#set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/kissfft/kiss_fft.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+#set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/kissfft/kiss_fftr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/adsr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/allpass.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/atone.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/autowah.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/bal.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/bar.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/base.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/biquad_c.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/biscale.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/bitcrush.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/blsaw.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/blsquare.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/bltriangle.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/brown.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/butbp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/butbr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/buthp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/butlp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/clamp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/clip.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/clock.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/comb.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/compressor_c.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/conv.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/count.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/crossfade.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dcblock.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/delay_c.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/diode.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dist.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dmetro.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/drip.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dtrig.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dust.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/eqfil.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/expon.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fftwrapper.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fof.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fofilt.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fog.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fold.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/foo.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fosc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/ftbl.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/gbuzz.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/hilbert.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/in.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/incr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/jcrev_c.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/jitter.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/line.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/lpf18.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/maygate.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/metro.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/mincer.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/mode.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/moogladder.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/noise_c.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/nsmp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/osc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/oscmorph.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/oscmorph2d.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/padsynth.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pan2.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/panst.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pareq.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/paulstretch.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pdhalf.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/peaklim.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/phaser.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/phasor.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pinknoise.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pitchamdf.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pluck.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/port.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/posc3.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/progress.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/prop.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pshift.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/ptrack.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/randh.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/randi.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/randmt.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/random_c.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/reson.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/reverse.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/revsc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/rms.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/rpt.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/rspline.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/samphold.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/saturator.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/scale.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/scrambler.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/sdelay.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/slice.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/smoothdelay.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/sndwarp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/streson.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/switch.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tabread.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tadsr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/talkbox.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tblrec.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tbvcf.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tdiv.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tenv.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tenv2.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tenvx.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tevent.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tgate.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/thresh.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/timer.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tin.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tone.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/trand.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tseg.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tseq.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/vdelay.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/voc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/vocoder.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/waveset.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/wavin.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/wavout.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/wpkorg35.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/zitarev.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/test/md5.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/test/test.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ftmap.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/func.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/hash.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/parse.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/plumber.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/sporth.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/stack.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_adsr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_allpass.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_atone.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_autowah.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bal.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_basic.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_biscale.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bitcrush.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bitwise.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_blsaw.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_blsquare.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bltriangle.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bpm.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_brown.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_butbp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_butbr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_buthp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_butlp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_changed.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_clip.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_clock.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_comb.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_conv.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_count.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_crossfade.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dcblock.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_delay.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_diode.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dist.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dmetro.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_drip.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dtrig.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dust.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_eqfil.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_eval.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_expon.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_f.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_fm.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_fof.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_fog.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_fosc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_ftsum.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gbuzz.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_composite.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_eval.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_line.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_padsynth.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_rand.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_sine.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_sinesum.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_sporth.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_vals.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_hilbert.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_in.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_incr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_jcrev.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_jitter.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_line.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_load.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_lpf18.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_mark.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_maygate.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_maytrig.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_metro.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_mincer.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_mode.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_moogladder.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_noise.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_nsmp.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_osc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_oscmorph.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_p.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pan.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_panst.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pareq.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_paulstretch.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pdhalf.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_peaklim.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_phaser.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_phasor.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pinknoise.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pluck.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_port.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_posc3.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_print.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_prop.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pshift.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_ptrack.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_rand.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_randh.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_randi.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_ref.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_render.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_reson.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_reverse.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_revsc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_rms.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_rpt.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_rspline.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_samphold.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_saturator.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_say.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_scale.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_scrambler.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_sdelay.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_slice.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_slist.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_smoothdelay.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_srand.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_streson.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_switch.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_t.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tabread.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tadsr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tblrec.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tdiv.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tenv.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tenv2.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tenvx.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tgate.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_thresh.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tick.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_timer.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tin.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tog.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tone.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tphasor.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_trand.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tseg.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tseq.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_v.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_vdelay.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_voc.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_waveset.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_wpkorg35.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_writecode.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_zeros.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_zitarev.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/duktape-2.4.0/src/duktape.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/jpommier-pffft-29e4f76ac53b/fftpack.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/jpommier-pffft-29e4f76ac53b/pffft.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/buffer.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/fftwrap.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/filterbank.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/libspeexdsp_jitter.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/kiss_fft.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/kiss_fftr.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/mdf.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/preprocess.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/resample.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/scal.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/dep/speexdsp-SpeexDSP-1.2rc3/libspeexdsp/smallft.c" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/plugins/AudibleInstruments/eurorack/braids/analog_oscillator.cc" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/plugins/AudibleInstruments/eurorack/braids/digital_oscillator.cc" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/plugins/AudibleInstruments/eurorack/braids/macro_oscillator.cc" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/plugins/AudibleInstruments/eurorack/braids/quantizer.cc" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/plugins/AudibleInstruments/eurorack/braids/resources.cc" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+set_source_files_properties("../../../../../../lib/Vendor/VCVRack/Rack/plugins/AudibleInstruments/eurorack/stmlib/utils/random_cc.cc" PROPERTIES COMPILE_FLAGS "-x c++ -std=c++17")
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
+include_directories( AFTER
+    "../../../../../../lib/Vendor/AudioKit/include"
+    "../../../../../../lib/Vendor/AudioKit/Sources/AudioKit/Internals"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Common"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Modulated Delay"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/CoreAudio"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/include"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/include/FFTReal"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/EZAudio"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/include"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Playback/Samplers/Apple Sampler"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/external"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/include"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/inih"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/kissfft"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/test"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/include"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/include"
+)
+
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Common/ADSREnvelope.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Common/AHDSHREnvelope.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Common/EnvelopeGeneratorBase.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Common/FunctionTable.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Common/ResonantLowPassFilter.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Common/SustainPedalLogic.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Modulated Delay/AdjustableDelayLine.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Modulated Delay/ModulatedDelay.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Modulated Delay/StereoDelay.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/CoreSampler.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/SampleBuffer.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/SamplerVoice.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/common_utils.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/decorr_utils.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/entropy_utils.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/extra1.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/extra2.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/open_filename.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/open_legacy.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/open_raw.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/open_utils.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack_dns.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack_dsd.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack_floats.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/pack_utils.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/read_words.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/tags.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/tag_utils.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack3.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack3_open.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack3_seek.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack_dsd.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack_floats.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack_seek.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/unpack_utils.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Sampler/Wavpack/write_words.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Synth/CoreSynth.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Synth/DrawbarsOscillator.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Synth/EnsembleOscillator.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Synth/Envelope.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Synth/MultiStageFilter.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Synth/SynthVoice.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/AudioKitCore/Synth/WaveStack.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/CoreAudio/DSPBase_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/CoreAudio/Globals_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/CoreAudio/SoulDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/CoreAudio/SoundpipeDSPBase_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/CDelay.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/CombFilter.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/Compressor.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/DelayAPF.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/Equalisator.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/LPFCombFilter.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/MikeFilter.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/OnePoleLPF.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/pluginobjects.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Devoloop/RageProcessor.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Internals/Utilities/DebugDSP.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Callback Instrument/CallbackInstrumentDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Delay/StereoDelayDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Delay/VariableDelayDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Distortion/BitCrusherDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Distortion/ClipperDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Distortion/DiodeClipperDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Distortion/TanhDistortionDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Dynamics/DynamicRangeCompressorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Envelopes/AmplitudeEnvelopeDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Envelopes/TremoloDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/BandPassButterworthFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/BandRejectButterworthFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/DCBlockDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/EqualizerFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/FormantFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/HighPassButterworthFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/HighShelfParametricEqualizerFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/KorgLowPassFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/LowPassButterworthFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/LowShelfParametricEqualizerFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/ModalResonanceFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/MoogLadderDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/PeakingParametricEqualizerFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/ResonantFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/RolandTB303FilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/StringResonatorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/ThreePoleLowpassFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/ToneComplementFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Filters/ToneFilterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Guitar Processors/AutoWahDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Guitar Processors/DynaRageCompressorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Guitar Processors/RhinoGuitarProcessorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Modulation/ModulatedDelayDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Modulation/PhaserDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Pitch Shifter/PitchShifterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Reverb/ChowningReverbDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Reverb/CombFilterReverbDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Reverb/ConvolutionDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Reverb/CostelloReverbDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Reverb/FlatFrequencyResponseReverbDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Effects/Reverb/ZitaReverbDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Noise/BrownianNoiseDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Noise/PinkNoiseDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Noise/WhiteNoiseDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/FMOscillatorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/MorphingOscillatorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/OscillatorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/PhaseDistortionOscillatorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Oscillators/PWMOscillatorDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/ClarinetDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/DripDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/FluteDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/MandolinStringDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/MetalBarDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/PluckedStringDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/RhodesPianoKeyDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/ShakerDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/STKInstrumentDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/TubularBellsDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Physical Models/VocalTractDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Generators/Synth/SynthDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Mixing/AutoPannerDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Mixing/BalancerDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Mixing/DryWetMixerDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Mixing/FaderDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Mixing/PannerDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Mixing/StereoFieldLimiterDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Playback/PhaseLockedVocoderDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/Nodes/Playback/Samplers/Sampler/SamplerDSP_PORT.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/TPCircularBuffer/TPCircularBuffer+AudioBufferList.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/TPCircularBuffer/TPCircularBuffer+Unit.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/CAudioKit/TPCircularBuffer/TPCircularBuffer.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/external/growl.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/external/vocwrapper.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/dr_wav/dr_wav.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/fft/fft.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/inih/ini.c"
+#    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/kissfft/kiss_fft.c"
+#    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/lib/kissfft/kiss_fftr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/adsr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/allpass.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/atone.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/autowah.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/bal.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/bar.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/base.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/biquad_c.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/biscale.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/bitcrush.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/blsaw.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/blsquare.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/bltriangle.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/brown.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/butbp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/butbr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/buthp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/butlp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/clamp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/clip.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/clock.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/comb.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/compressor_c.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/conv.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/count.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/crossfade.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dcblock.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/delay_c.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/diode.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dist.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dmetro.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/drip.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dtrig.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/dust.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/eqfil.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/expon.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fftwrapper.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fof.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fofilt.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fog.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fold.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/foo.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/fosc.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/ftbl.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/gbuzz.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/hilbert.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/in.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/incr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/jcrev_c.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/jitter.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/line.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/lpf18.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/maygate.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/metro.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/mincer.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/mode.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/moogladder.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/noise_c.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/nsmp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/osc.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/oscmorph.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/oscmorph2d.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/padsynth.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pan2.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/panst.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pareq.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/paulstretch.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pdhalf.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/peaklim.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/phaser.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/phasor.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pinknoise.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pitchamdf.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pluck.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/port.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/posc3.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/progress.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/prop.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/pshift.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/ptrack.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/randh.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/randi.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/randmt.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/random_c.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/reson.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/reverse.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/revsc.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/rms.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/rpt.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/rspline.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/samphold.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/saturator.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/scale.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/scrambler.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/sdelay.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/slice.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/smoothdelay.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/sndwarp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/streson.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/switch.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tabread.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tadsr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/talkbox.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tblrec.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tbvcf.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tdiv.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tenv.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tenv2.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tenvx.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tevent.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tgate.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/thresh.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/timer.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tin.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tone.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/trand.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tseg.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/tseq.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/vdelay.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/voc.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/vocoder.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/waveset.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/wavin.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/wavout.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/wpkorg35.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/modules/zitarev.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/test/md5.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/soundpipe/test/test.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ftmap.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/func.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/hash.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/parse.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/plumber.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/sporth.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/stack.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_adsr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_allpass.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_atone.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_autowah.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bal.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_basic.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_biscale.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bitcrush.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bitwise.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_blsaw.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_blsquare.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bltriangle.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_bpm.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_brown.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_butbp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_butbr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_buthp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_butlp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_changed.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_clip.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_clock.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_comb.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_conv.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_count.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_crossfade.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dcblock.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_delay.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_diode.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dist.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dmetro.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_drip.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dtrig.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_dust.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_eqfil.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_eval.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_expon.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_f.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_fm.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_fof.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_fog.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_fosc.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_ftsum.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gbuzz.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_composite.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_eval.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_line.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_padsynth.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_rand.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_sine.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_sinesum.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_sporth.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_gen_vals.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_hilbert.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_in.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_incr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_jcrev.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_jitter.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_line.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_load.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_lpf18.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_mark.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_maygate.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_maytrig.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_metro.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_mincer.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_mode.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_moogladder.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_noise.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_nsmp.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_osc.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_oscmorph.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_p.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pan.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_panst.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pareq.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_paulstretch.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pdhalf.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_peaklim.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_phaser.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_phasor.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pinknoise.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pluck.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_port.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_posc3.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_print.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_prop.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_pshift.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_ptrack.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_rand.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_randh.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_randi.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_ref.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_render.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_reson.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_reverse.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_revsc.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_rms.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_rpt.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_rspline.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_samphold.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_saturator.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_say.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_scale.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_scrambler.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_sdelay.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_slice.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_slist.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_smoothdelay.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_srand.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_streson.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_switch.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_t.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tabread.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tadsr.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tblrec.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tdiv.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tenv.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tenv2.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tenvx.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tgate.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_thresh.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tick.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_timer.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tin.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tog.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tone.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tphasor.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_trand.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tseg.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_tseq.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_v.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_vdelay.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_voc.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_waveset.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_wpkorg35.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_writecode.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_zeros.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/sporth/ugens/ugens_zitarev.c"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/ADSR_STK.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Asymp.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/BandedWG.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/BeeThree.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/BiQuad.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Blit.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/BlitSaw.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/BlitSquare.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/BlowBotl.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/BlowHole.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Bowed.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Brass.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Chorus.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Clarinet.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Delay.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/DelayA.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/DelayL.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Drummer.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Echo.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/STKEnvelope.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FileLoop.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FileRead.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FileWrite.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FileWvIn.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FileWvOut.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Fir.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Flute.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FM.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FMVoices.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FormSwep.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/FreeVerb.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Granulate.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Guitar.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/HevyMetl.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Iir.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/JCRev.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/LentPitShift.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Mandolin.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Mesh2D.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Messager.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/MidiFileIn.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Modal.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/ModalBar.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Modulate.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Moog.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Noise.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/NRev.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/OnePole.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/OneZero.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/PercFlut.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Phonemes.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/PitShift.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Plucked.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/PoleZero.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/PRCRev.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Resonate.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Rhodey.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Sampler.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Saxofony.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Shakers.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Simple.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/SineWave.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/SingWave.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Sitar.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Skini.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Sphere.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/StifKarp.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Stk.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/TubeBell.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Twang.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/TwoPole.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/TwoZero.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Voicer.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/VoicForm.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Whistle.cpp"
+    "../../../../../../lib/Vendor/AudioKit/Sources/STK/Wurley.cpp"
