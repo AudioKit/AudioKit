@@ -1,10 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#if __APPLE__
 #include "SynthDSP.h"
-#else // __APPLE__
-#include "SynthDSP.h"
-#endif // __APPLE__
 
 #include <math.h>
 

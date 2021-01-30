@@ -127,7 +127,7 @@ int CoreSynth::init(double sampleRate)
     data->segParameters[0].finalLevel = 0.2f;
     data->segParameters[0].seconds = 0.01f;
     data->segParameters[1].initialLevel = 0.2f;   // hold at 0.2 for 1 sec
-    data->segParameters[1].finalLevel = 0.2F;
+    data->segParameters[1].finalLevel = 0.2f;
     data->segParameters[1].seconds = 1.0f;
     data->segParameters[2].initialLevel = 0.2f;   // decay: fall to 0.0 in 0.5 sec
     data->segParameters[2].finalLevel = 0.0f;

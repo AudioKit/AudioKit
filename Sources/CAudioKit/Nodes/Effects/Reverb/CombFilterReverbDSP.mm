@@ -12,7 +12,7 @@ class CombFilterReverbDSP : public SoundpipeDSPBase {
 private:
     sp_comb *comb0;
     sp_comb *comb1;
-    float loopDuration = 0.1F;
+    float loopDuration = 0.1f;
     ParameterRamper reverbDurationRamp;
 
 public:
