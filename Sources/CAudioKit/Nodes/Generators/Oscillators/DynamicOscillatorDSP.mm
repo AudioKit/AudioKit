@@ -12,24 +12,33 @@ enum DynamicOscillatorParameter : AUParameterAddress {
     DynamicOscillatorParameterDetuningMultiplier,
 };
 
+struct WavetableInfo {
+    sp_ftbl* table;
+
+    ~WavetableInfo() {
+        sp_ftbl_destroy(&table);
+    }
+
+    /// Is the audio thread done with the wavetable?
+    std::atomic<bool> done{false};
+};
+
 class DynamicOscillatorDSP : public SoundpipeDSPBase {
 private:
-    sp_dynamicosc *osc = nullptr;    // soundpipe oscillator
-    std::vector<float> waveform;    // this seems to translate Table.content into what SoundPipe's table is looking for
-    sp_ftbl *ftbl_one = nullptr;    // soundpipe table one
-    sp_ftbl *ftbl_two = nullptr;    // soundpipe table two
-    bool isSetup = false;           // allows us to use setWavetable for initial setup and for dynamic wavetable setting
-    bool isSwapped = false;         // table one = false, table two = true
-    bool isFading = false;          // while true, tables won't be set (inc limits how fast new tables can be set)
-    float tableOneFactor = 1.0;     // ratio of table one's float value included in output
-    float tableTwoFactor = 0.0;     // ratio of table two's float value included in output
-    float inc = 0.005;              // how fast should we fade on each frame?
+    sp_dynamicosc *osc = nullptr;
+    std::vector<float> initialWavetable;
+    WavetableInfo *oldTable = nullptr;
+    WavetableInfo *newTable = nullptr;
+    double crossfade = 1.0;
     
     ParameterRamper frequencyRamp;
     ParameterRamper tremoloFrequencyRamp;
     ParameterRamper amplitudeRamp;
     ParameterRamper detuningOffsetRamp;
     ParameterRamper detuningMultiplierRamp;
+
+    TPCircularBuffer waveformQueue;
+    std::vector<std::unique_ptr<WavetableInfo>> oldTables;
 
 public:
     DynamicOscillatorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
@@ -38,45 +47,63 @@ public:
         parameters[DynamicOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[DynamicOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
         isStarted = false;
+
+        TPCircularBufferInit(&waveformQueue, 4096);
+    }
+
+    ~DynamicOscillatorDSP() {
+        TPCircularBufferCleanup(&waveformQueue);
+    }
+
+    void collectTables() {
+        auto newEnd = std::remove_if(oldTables.begin(), oldTables.end(), [](auto& info) { return info->done.load(); });
+        oldTables.erase(newEnd, oldTables.end());
     }
 
     void setWavetable(const float* table, size_t length, int index) override {
-        if (!isSetup) {
-            waveform = std::vector<float>(table, table + length);
-            reset();
-            isSetup = true;
-        } else if (!isFading) {
-            waveform = std::vector<float>(table, table + length);
-            if(isSwapped) {
-                sp_ftbl_destroy(&ftbl_one);
-                sp_ftbl_create(sp, &ftbl_one, waveform.size());
-                std::copy(waveform.cbegin(), waveform.cend(), ftbl_one->tbl);
-            } else {
-                sp_ftbl_destroy(&ftbl_two);
-                sp_ftbl_create(sp, &ftbl_two, waveform.size());
-                std::copy(waveform.cbegin(), waveform.cend(), ftbl_two->tbl);
-            }
-            isFading = true;
+
+        if(sp) {
+            sendWavetable(table, length);
+        } else {
+            initialWavetable = std::vector<float>(table, table + length);
         }
+
+    }
+
+    void sendWavetable(const float* table, size_t length) {
+
+        auto info = new WavetableInfo;
+
+        sp_ftbl_create(sp, &info->table, length);
+        std::copy(table, table+length, info->table->tbl);
+
+        // Send the new table to the audio thread.
+        if(TPCircularBufferProduceBytes(&waveformQueue, &info, sizeof(WavetableInfo*))) {
+
+           // Store the table for collection later.
+           oldTables.push_back(std::unique_ptr<WavetableInfo>(info));
+
+        } else {
+            delete info;
+        }
+
+        // Clean up any tables that are done.
+        collectTables();
+
     }
 
     void init(int channelCount, double sampleRate) override {
         SoundpipeDSPBase::init(channelCount, sampleRate);
-        
-        sp_ftbl_create(sp, &ftbl_one, waveform.size());
-        std::copy(waveform.cbegin(), waveform.cend(), ftbl_one->tbl);
-        sp_ftbl_create(sp, &ftbl_two, waveform.size());
-        std::copy(waveform.cbegin(), waveform.cend(), ftbl_two->tbl);
-        
+
         sp_dynamicosc_create(&osc);
         sp_dynamicosc_init(sp, osc, 0);
+
+        sendWavetable(initialWavetable.data(), initialWavetable.size());
     }
 
     void deinit() override {
         SoundpipeDSPBase::deinit();
         sp_dynamicosc_destroy(&osc);
-        sp_ftbl_destroy(&ftbl_one);
-        sp_ftbl_destroy(&ftbl_two);
     }
 
     void reset() override {
@@ -85,7 +112,25 @@ public:
         sp_dynamicosc_init(sp, osc, 0);
     }
 
+    void updateTables() {
+
+        // Check for new waveforms.
+        int32_t bytes;
+        if(auto nextWaveform = (WavetableInfo**) TPCircularBufferTail(&waveformQueue, &bytes)) {
+
+            if(oldTable) { oldTable->done = true; }
+            oldTable = newTable;
+            if(oldTable) { crossfade = 0; }
+            newTable = *nextWaveform;
+
+            TPCircularBufferConsume(&waveformQueue, sizeof(WavetableInfo*));
+        }
+    }
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
+        updateTables();
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             float frequency = frequencyRamp.getAndStep();
@@ -93,59 +138,32 @@ public:
             float detuneOffset = detuningOffsetRamp.getAndStep();
             osc->freq = frequency * detuneMultiplier + detuneOffset;
             osc->amp = amplitudeRamp.getAndStep();
-            float temp = 0;
-            float temp2 = 0;
-            
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (isStarted) {
-                    if (channel == 0) {
-                        if (isFading) {
-                            // get values from both tables
-                            sp_dynamicosc_compute(sp, osc, ftbl_one, nullptr, &temp, false); // does not move phase
-                            sp_dynamicosc_compute(sp, osc, ftbl_two, nullptr, &temp2, true); // does move phase
-                            stepFade();
-                        }
-                        else {
-                            // if we are not fading, grab from clean table (other table is dirty - could be overwritten at any moment)
-                            if(!isSwapped) {
-                                sp_dynamicosc_compute(sp, osc, ftbl_one, nullptr, &temp, true);
-                            } else {
-                                sp_dynamicosc_compute(sp, osc, ftbl_two, nullptr, &temp2, true);
-                            }
-                        }
-                    }
-                    *out = temp * tableOneFactor + temp2 * tableTwoFactor; // simple crossfade algorithm
-                } else {
+            if(isStarted) {
+                crossfade += 0.005;
+                if(crossfade > 1) { crossfade = 1; }
+
+                float temp1 = 0;
+                float temp2 = 0;
+
+                if(oldTable) {
+                    sp_dynamicosc_compute(sp, osc, oldTable->table, nil, &temp1, false); // does not move phase
+                }
+
+                if(newTable) {
+                    sp_dynamicosc_compute(sp, osc, newTable->table, nil, &temp2, true); // does move phase
+                }
+
+                for (int channel = 0; channel < channelCount; ++channel) {
+                    float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
+                    *out = temp1 * (1-crossfade) + temp2 * crossfade;
+                }
+            } else {
+                for (int channel = 0; channel < channelCount; ++channel) {
+                    float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
                     *out = 0.0;
                 }
             }
         }
-    }
-    
-    void stepFade(){
-        if(!isSwapped) {
-            // table one is fading into two
-            tableOneFactor = tableOneFactor - inc;
-            tableTwoFactor = tableTwoFactor + inc;
-            if( tableTwoFactor >= 1.0){
-                endFade();
-            }
-        } else {
-            // table two is fading into one
-            tableOneFactor = tableOneFactor + inc;
-            tableTwoFactor = tableTwoFactor - inc;
-            if( tableOneFactor >= 1.0){
-                endFade();
-            }
-        }
-    }
-    
-    void endFade(){
-        tableOneFactor = isSwapped ? 1.0 : 0.0;
-        tableTwoFactor = isSwapped ? 0.0 : 1.0;
-        isSwapped = !isSwapped;
-        isFading = false;
     }
     
 };
