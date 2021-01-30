@@ -3,7 +3,7 @@
 import AVFoundation
 
 /// Supported default table types
-public enum TableType: Int, Codable, CaseIterable {
+public enum TableType {
     /// Standard sine waveform
     case sine
 
@@ -33,6 +33,9 @@ public enum TableType: Int, Codable, CaseIterable {
 
     /// Reversed sawtooth waveform from 0-1
     case positiveReverseSawtooth
+    
+    /// Sine root + harmonics, with harmonic amplitudes as percentages of root amplitude
+    case harmonic([Float])
 
     /// Zeros
     case zero
@@ -42,7 +45,7 @@ public enum TableType: Int, Codable, CaseIterable {
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-public class Table: NSObject, MutableCollection, Codable {
+public class Table: NSObject, MutableCollection {
     /// Index by an integer
     public typealias Index = Int
     /// Index distance, or count
@@ -141,6 +144,8 @@ public class Table: NSObject, MutableCollection, Codable {
             positiveReverseSawtoothWave()
         case .positiveSquare:
             positiveSquareWave()
+        case let .harmonic(partialAmplitudes):
+            harmonicWave(with: partialAmplitudes)
         case .zero:
             zero()
         case .custom:
@@ -236,6 +241,24 @@ public class Table: NSObject, MutableCollection, Codable {
     func standardSineWave() {
         for i in indices {
             content[i] = Float(sin(2 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+        }
+    }
+    
+    /// Instantiate the table as root frequency with partials, where the partial amplitudes are a percentage of the root frequency amplitude
+    func harmonicWave(with partialAmplitudes: [Float]) {
+        for i in indices {
+            var sum: Float = 0
+            
+            // Root
+            sum = Float(sin(2 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+
+            // Partials
+            for j in 0..<partialAmplitudes.count {
+                let partial = Float(sin(2 * 3.14_159_265 * Float((i * (j + 2)) + phaseOffset) / Float(count)))
+                sum += partial * partialAmplitudes[j]
+            }
+            
+            content[i] = sum
         }
     }
 
