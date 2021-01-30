@@ -255,7 +255,12 @@ public class Table: NSObject, MutableCollection {
 
             // Partials
             for ampIndex in 0..<partialAmplitudes.count {
-                let partial = Float(sin(2 * 3.14_159_265 * Float((index * (ampIndex + 2)) + phaseOffset) / Float(count)))
+                let partial =
+                    Float(
+                        sin(2 * 3.14_159_265 *
+                                Float((index * (ampIndex + 2)) + phaseOffset)
+                                / Float(count))
+                    )
                 sum += partial * partialAmplitudes[ampIndex]
             }
 
