@@ -1,12 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#if __APPLE__
 #include "DSPBase.h"
 #include "ParameterRamper.h"
-#else // __APPLE__
-#include "DSPBase.h"
-#include "ParameterRamper.h"
-#endif // __APPLE__
 
 #include <map>
 #include <string>

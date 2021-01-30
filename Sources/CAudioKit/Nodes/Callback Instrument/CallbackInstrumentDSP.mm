@@ -2,11 +2,7 @@
 
 #include "DSPBase.h"
 
-#if __APPLE__
 #include "TPCircularBuffer.h"
-#else // __APPLE__
-#include "TPCircularBuffer.h"
-#endif // __APPLE__
 
 #ifdef __APPLE__
 typedef void (^CMIDICallback)(uint8_t, uint8_t, uint8_t);

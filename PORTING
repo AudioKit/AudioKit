@@ -1382,3 +1382,91 @@ include_directories( AFTER
     "../../../../../../lib/Vendor/AudioKit/Sources/STK/VoicForm.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/STK/Whistle.cpp"
     "../../../../../../lib/Vendor/AudioKit/Sources/STK/Wurley.cpp"
+
+EXAMPLE USAGE
+=============
+
+void testMoogLadderDSP() {
+
+  // 1) Construct the unit, at the given sample rate, in stereo!
+
+  const float cSampleRate = 48000.F;
+  const int cNumberOfSampleFrames = 10;
+  const int cNumberOfChannels = 2;
+
+  auto dsp = akCreateDSP("MoogLadderDSP");
+  assert(dsp != nullptr);
+
+  dsp->init(cNumberOfChannels, cSampleRate);
+
+  // Get access to process(...) method
+  auto soundpipeDSP = dynamic_cast<SoundpipeDSPBase*>(dsp);
+  assert(soundpipeDSP != nullptr);
+
+  // 2) Set-up the initial parameter values... these might change dynamically, of course
+
+  auto parameterAddress0 = akGetParameterAddress("MoogLadderParameterCutoffFrequency");
+  dsp->setParameter(parameterAddress0, 500.0F, true); // true means immediate - otherwise, is ramped-in!
+  auto parameterAddress1 = akGetParameterAddress("MoogLadderParameterResonance");
+  dsp->setParameter(parameterAddress1, 0.9F, true); // true means immediate - otherwise, is ramped-in!
+
+  // 3) Start the DSP Running...
+
+  dsp->start();
+
+  // 4) Process a single block of audio.
+  //    This could be done by an adaptor class, which handles the Prepare method (see also init!)
+
+  UInt32 bufferSizeBytes = cNumberOfSampleFrames * sizeof(float);
+  auto propertySize = offsetof(AudioBufferList, mBuffers[0]) + (sizeof(AudioBuffer) * cNumberOfChannels);
+
+  AudioBufferList* inputBufferList = (AudioBufferList *) calloc(propertySize, 1);
+  inputBufferList->mNumberBuffers = cNumberOfChannels;
+
+  for (auto i = 0; i < inputBufferList->mNumberBuffers; ++i)
+  {
+    inputBufferList->mBuffers[i].mNumberChannels = 1;
+    inputBufferList->mBuffers[i].mDataByteSize = bufferSizeBytes;
+    inputBufferList->mBuffers[i].mData = calloc(bufferSizeBytes, 1);
+  }
+
+  AudioBufferList* outputBufferList = (AudioBufferList *) calloc(propertySize, 1);
+  outputBufferList->mNumberBuffers = cNumberOfChannels;
+
+  for (auto i = 0; i < outputBufferList->mNumberBuffers; ++i)
+  {
+    outputBufferList->mBuffers[i].mNumberChannels = 1;
+    outputBufferList->mBuffers[i].mDataByteSize = bufferSizeBytes;
+    outputBufferList->mBuffers[i].mData = calloc(bufferSizeBytes, 1);
+  }
+
+  soundpipeDSP->inputBufferLists.clear();
+  soundpipeDSP->inputBufferLists.push_back(inputBufferList);
+  soundpipeDSP->outputBufferList = outputBufferList;
+
+  // TODO: prepare the source data, into the separated input buffer list (channels)
+
+  soundpipeDSP->process(cNumberOfSampleFrames, 0);
+
+  // TODO: extract the data from the output buffer list, and pass back out...
+
+  // 5) Stop it playing...
+
+  dsp->stop();
+
+  // 6) destroy it!
+  delete dsp;
+
+  // 7) tidy-up buffers
+  for (auto i = 0; i < inputBufferList->mNumberBuffers; ++i)
+  {
+    free(inputBufferList->mBuffers[i].mData);
+  }
+  free(inputBufferList);
+
+  for (auto i = 0; i < outputBufferList->mNumberBuffers; ++i)
+  {
+    free(outputBufferList->mBuffers[i].mData);
+  }
+  free(outputBufferList);
+}

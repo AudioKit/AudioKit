@@ -72,7 +72,12 @@ int sp_revsc_init(sp_data *sp, sp_revsc *p)
     sp_auxdata_alloc(&p->aux, nBytes);
     nBytes = 0;
     for (i = 0; i < 8; i++) {
-        p->delayLines[i].buf = (p->aux.ptr) + nBytes;
+        // PORTING - aux.ptr is a void* that is treated as a float*.
+        // However, we (literally) want to advance this by a number of bytes
+        // (so, nBytes is always an integer multiple of sizeof(float) ...).
+        // As you can't safely increment a void*, aux.ptr first needs casting to
+        // a char*, then we add nBytes, and then cast back to float*.
+        p->delayLines[i].buf = (float*)(((char*)p->aux.ptr) + nBytes);
         init_delay_line(p, &p->delayLines[i], i);
         nBytes += delay_line_bytes_alloc(sp->sr, 1, i);
     }
