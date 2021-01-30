@@ -33,7 +33,7 @@ public enum TableType {
 
     /// Reversed sawtooth waveform from 0-1
     case positiveReverseSawtooth
-    
+
     /// Sine root + harmonics, with harmonic amplitudes as percentages of root amplitude
     case harmonic([Float])
 
@@ -243,22 +243,23 @@ public class Table: NSObject, MutableCollection {
             content[i] = Float(sin(2 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
         }
     }
-    
-    /// Instantiate the table as root frequency with partials, where the partial amplitudes are a percentage of the root frequency amplitude
+
+    /// Instantiate the table as root frequency with partials, where the partial amplitudes are
+    /// a percentage of the root frequency amplitude
     func harmonicWave(with partialAmplitudes: [Float]) {
-        for i in indices {
+        for index in indices {
             var sum: Float = 0
-            
+
             // Root
-            sum = Float(sin(2 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+            sum = Float(sin(2 * 3.14_159_265 * Float(index + phaseOffset) / Float(count)))
 
             // Partials
-            for j in 0..<partialAmplitudes.count {
-                let partial = Float(sin(2 * 3.14_159_265 * Float((i * (j + 2)) + phaseOffset) / Float(count)))
-                sum += partial * partialAmplitudes[j]
+            for ampIndex in 0..<partialAmplitudes.count {
+                let partial = Float(sin(2 * 3.14_159_265 * Float((index * (ampIndex + 2)) + phaseOffset) / Float(count)))
+                sum += partial * partialAmplitudes[ampIndex]
             }
-            
-            content[i] = sum
+
+            content[index] = sum
         }
     }
 
