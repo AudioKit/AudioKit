@@ -139,7 +139,7 @@ let validatedMD5s: [String: String] = [
     "-[DynamicOscillatorTests testNewAutomationAmplitude]": "b8e89a1380f3159979b37d3f8dff441e",
     "-[DynamicOscillatorTests testNewAutomationMultiple]": "3b499b52ae246e9c0403bc4f79b0e050",
     "-[DynamicOscillatorTests testNewAutomationDelayed]": "1e27ce4bd7bc90a6d336f575d1667414",
-    "-[DynamicOscillatorTests testSetWavetable]": "05f9a96cbb7081c46823a241c9c54f37",
+    "-[DynamicOscillatorTests testSetWavetable]": "b8a90867e0736e04de7dd6e4794ec494",
     "-[DynamicOscillatorTests testGetWavetableValues]": "33fc3ddee3e17226ddfc976f080b7e00",
     "-[DynamicOscillatorTests testWavetableUpdateHandler]": "33fc3ddee3e17226ddfc976f080b7e00",
     "-[DynamicRangeCompressorTests testAttackDuration]": "61f5b1d44ffe85a5fb99e35097f3c16d",

@@ -37,7 +37,7 @@ private:
     ParameterRamper detuningOffsetRamp;
     ParameterRamper detuningMultiplierRamp;
 
-    TPCircularBuffer waveformQueue;
+    std::atomic<WavetableInfo*> nextWavetable;
     std::vector<std::unique_ptr<WavetableInfo>> oldTables;
 
 public:
@@ -47,17 +47,18 @@ public:
         parameters[DynamicOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[DynamicOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
         isStarted = false;
-
-        TPCircularBufferInit(&waveformQueue, 4096);
-    }
-
-    ~DynamicOscillatorDSP() {
-        TPCircularBufferCleanup(&waveformQueue);
     }
 
     void collectTables() {
-        auto newEnd = std::remove_if(oldTables.begin(), oldTables.end(), [](auto& info) { return info->done.load(); });
-        oldTables.erase(newEnd, oldTables.end());
+
+        // Once we find a finished table, all older tables can be released.
+        int i;
+        for(i=(int)oldTables.size()-1; i>=0; --i) {
+            if(oldTables[i]->done)
+                break;
+        }
+
+        oldTables.erase(oldTables.begin(), oldTables.begin()+i+1);
     }
 
     void setWavetable(const float* table, size_t length, int index) override {
@@ -77,15 +78,10 @@ public:
         sp_ftbl_create(sp, &info->table, length);
         std::copy(table, table+length, info->table->tbl);
 
-        // Send the new table to the audio thread.
-        if(TPCircularBufferProduceBytes(&waveformQueue, &info, sizeof(WavetableInfo*))) {
+        nextWavetable = info;
 
-           // Store the table for collection later.
-           oldTables.push_back(std::unique_ptr<WavetableInfo>(info));
-
-        } else {
-            delete info;
-        }
+        // Store the table for collection later.
+        oldTables.push_back(std::unique_ptr<WavetableInfo>(info));
 
         // Clean up any tables that are done.
         collectTables();
@@ -116,14 +112,13 @@ public:
 
         // Check for new waveforms.
         int32_t bytes;
-        if(auto nextWaveform = (WavetableInfo**) TPCircularBufferTail(&waveformQueue, &bytes)) {
 
+        auto next = nextWavetable.load();
+        if(next != newTable) {
             if(oldTable) { oldTable->done = true; }
             oldTable = newTable;
             if(oldTable) { crossfade = 0; }
-            newTable = *nextWaveform;
-
-            TPCircularBufferConsume(&waveformQueue, sizeof(WavetableInfo*));
+            newTable = next;
         }
     }
 
