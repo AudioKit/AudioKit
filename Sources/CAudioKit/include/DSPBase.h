@@ -5,7 +5,6 @@
 #import "Interop.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
-#import "TPCircularBuffer.h"
 
 #include <stdarg.h>
 
@@ -62,10 +61,6 @@ protected:
     
     /// Subclasses should process in place and set this to true if possible
     bool bCanProcessInPlace = false;
-
-    /// Number of things attached to this node's data
-    size_t tapCount = 0;
-    size_t filledTapCount = 0;
 
     bool isInitialized = false;
     std::atomic<bool> isStarted{true};
@@ -160,9 +155,6 @@ public:
     static DSPRef create(const char* name);
 
     virtual void startRamp(const AUParameterEvent& event);
-
-    TPCircularBuffer leftBuffer;
-    TPCircularBuffer rightBuffer;
     
 private:
 

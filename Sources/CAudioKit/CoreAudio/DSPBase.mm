@@ -91,9 +91,6 @@ DSPBase::DSPBase(int inputBusCount)
 , inputBufferLists(inputBusCount)
 {
     std::fill(parameters, parameters+maxParameters, nullptr);
-
-    TPCircularBufferInit(&leftBuffer, 4096 * sizeof(float));
-    TPCircularBufferInit(&rightBuffer, 4096 * sizeof(float));
 }
 
 void DSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
@@ -183,11 +180,7 @@ void DSPBase::deinit()
 {
     isInitialized = false;
 }
-DSPBase::~DSPBase()
-{
-    TPCircularBufferCleanup(&leftBuffer);
-    TPCircularBufferCleanup(&rightBuffer);
-}
+DSPBase::~DSPBase() {}
 
 void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
@@ -230,10 +223,6 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
             now += framesThisSegment;
         }
         performAllSimultaneousEvents(now, event);
-    }
-    if (tapCount > 0) {
-        TPCircularBufferProduceBytes(&leftBuffer,  outputBufferList->mBuffers[0].mData, frameCount * sizeof(float));
-        TPCircularBufferProduceBytes(&rightBuffer, outputBufferList->mBuffers[1].mData, frameCount * sizeof(float));
     }
 }
 
