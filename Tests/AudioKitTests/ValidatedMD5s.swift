@@ -164,6 +164,7 @@ let validatedMD5s: [String: String] = [
     "-[ExpanderTests testDefault]": "df47ebd58262370633c79f9813780d23",
     "-[FFTTapTests testBasic]": "31521ba97588f48cb20505205b0cd8f3",
     "-[FFTTapTests testWithoutNormalization]": "df0a73e2987dc2490ff17c0de477fbf3",
+    "-[FFTTapTests testWithZeroPadding]": "31521ba97588f48cb20505205b0cd8f3",
     "-[FMOscillatorOperationTests testDefault]": "e82a86ae4e7d47f24eeba9700e4745d4",
     "-[FMOscillatorOperationTests testFMOscillatorOperation]": "691ee890bdeee00f0b5e79d471fd82ee",
     "-[FMOscillatorTests testDefault]": "2ab6d83efd88014de7c8af0cde83f784",

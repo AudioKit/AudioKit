@@ -12,6 +12,8 @@ open class FFTTap: BaseTap {
     public typealias Handler = ([Float]) -> Void
     /// Determines if the returned FFT data is normalized
     public var isNormalized: Bool = true
+    /// Determines the ratio of zeros padding the input of the FFT (default 0 = no padding)
+    public var zeroPaddingFactor: UInt32 = 0
 
     private var handler: Handler = { _ in }
 
@@ -30,12 +32,12 @@ open class FFTTap: BaseTap {
     override internal func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
-        fftData = FFTTap.performFFT(buffer: buffer, isNormalized: isNormalized)
+        fftData = FFTTap.performFFT(buffer: buffer, isNormalized: isNormalized, zeroPaddingFactor: zeroPaddingFactor)
         handler(fftData)
     }
 
-    static func performFFT(buffer: AVAudioPCMBuffer, isNormalized: Bool = true) -> [Float] {
-        let frameCount = buffer.frameLength
+    static func performFFT(buffer: AVAudioPCMBuffer, isNormalized: Bool = true, zeroPaddingFactor: UInt32 = 0) -> [Float] {
+        let frameCount = buffer.frameLength + buffer.frameLength * zeroPaddingFactor
         let log2n = UInt(round(log2(Double(frameCount))))
         let bufferSizePOT = Int(1 << log2n)
         let inputCount = bufferSizePOT / 2
@@ -74,15 +76,15 @@ open class FFTTap: BaseTap {
                 vDSP_zvmags(&output, 1, &magnitudes, 1, vDSP_Length(inputCount))
 
                 var scaledMagnitudes = [Float](repeating: 0.0, count: inputCount)
-                
+
                 // Scale appropriate to the algorithm - results in strictly negative amplitude values (tested against Ableton Live's Spectrum Analyzer)
-                var scaleMultiplier = [Float(1.0 / Double(frameCount))];
-                
+                var scaleMultiplier = [Float(1.0 / Double(frameCount))]
+
                 if isNormalized {
                     // Normalising
                     scaleMultiplier = [1.0 / (magnitudes.max() ?? 1.0)]
                 }
-                
+
                 vDSP_vsmul(&magnitudes,
                            1,
                            &scaleMultiplier,
