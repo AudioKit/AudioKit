@@ -95,8 +95,12 @@ DSPBase::DSPBase(int inputBusCount)
 
 void DSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
 {
-    if (internalBuffers.size() <= busIndex) internalBuffers.resize(busIndex + 1);
+    if (internalBuffers.size() <= busIndex) {
+        internalBuffers.resize(busIndex + 1);
+        internalBufferLists.resize(busIndex + 1);
+    }
     internalBuffers[busIndex] = buffer;
+    internalBufferLists[busIndex] = buffer.mutableAudioBufferList;
 }
 
 AUInternalRenderBlock DSPBase::internalRenderBlock()
@@ -123,14 +127,14 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
             else {
                 // pull input to internal buffer
                 for (size_t i = 0; i < inputBufferLists.size(); i++) {
-                    inputBufferLists[i] = internalBuffers[i].mutableAudioBufferList;
+                    inputBufferLists[i] = internalBufferLists[i];
                     
                     UInt32 byteSize = frameCount * sizeof(float);
-                    inputBufferLists[i]->mNumberBuffers = internalBuffers[i].audioBufferList->mNumberBuffers;
+                    inputBufferLists[i]->mNumberBuffers = internalBufferLists[i]->mNumberBuffers;
                     for (UInt32 ch = 0; ch < inputBufferLists[i]->mNumberBuffers; ch++) {
                         inputBufferLists[i]->mBuffers[ch].mDataByteSize = byteSize;
-                        inputBufferLists[i]->mBuffers[ch].mNumberChannels = internalBuffers[i].audioBufferList->mBuffers[ch].mNumberChannels;
-                        inputBufferLists[i]->mBuffers[ch].mData = internalBuffers[i].audioBufferList->mBuffers[ch].mData;
+                        inputBufferLists[i]->mBuffers[ch].mNumberChannels = internalBufferLists[i]->mBuffers[ch].mNumberChannels;
+                        inputBufferLists[i]->mBuffers[ch].mData = internalBufferLists[i]->mBuffers[ch].mData;
                     }
                     
                     AudioUnitRenderActionFlags inputFlags = 0;

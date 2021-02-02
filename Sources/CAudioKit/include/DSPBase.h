@@ -53,6 +53,7 @@ AK_API void akSetSeed(unsigned int);
 class DSPBase {
     
     std::vector<const AVAudioPCMBuffer*> internalBuffers;
+    std::vector<AudioBufferList*> internalBufferLists;
     
 protected:
 
