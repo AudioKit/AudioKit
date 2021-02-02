@@ -4,7 +4,6 @@ import AudioKit
 import XCTest
 
 class FFTTapTests: XCTestCase {
-
     func testBasic() {
         let engine = AudioEngine()
 
@@ -43,7 +42,7 @@ class FFTTapTests: XCTestCase {
             XCTAssertEqual(fftData[i], knownValues[i])
         }
     }
-    
+
     func testWithoutNormalization() {
         let engine = AudioEngine()
 
@@ -82,7 +81,7 @@ class FFTTapTests: XCTestCase {
             XCTAssertTrue(fftData[i] > 1)
         }
     }
-    
+
     func testWithZeroPadding() {
         let engine = AudioEngine()
 
@@ -122,5 +121,4 @@ class FFTTapTests: XCTestCase {
             XCTAssertEqual(fftData[i], knownValues[i])
         }
     }
-
 }
