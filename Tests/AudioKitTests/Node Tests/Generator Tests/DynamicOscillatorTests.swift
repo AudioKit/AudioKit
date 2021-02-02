@@ -169,8 +169,9 @@ class DynamicOscillatorTests: XCTestCase {
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 0.5))
         oscillator.setWaveTable(waveform: Table(.square))
-        audio.append(engine.render(duration: 1.0))
+        audio.append(engine.render(duration: 0.5))
         testMD5(audio)
     }
 

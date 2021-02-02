@@ -25,9 +25,6 @@ typedef SSIZE_T ssize_t;
 #pragma warning(disable:4505) // unreferenced local function has been removed
 #endif
 
-#include "TPCircularBuffer.h"
-#include "TPCircularBuffer.h"
-
 #include <stdarg.h>
 
 AK_API DSPRef akCreateDSP(const char* name);
@@ -87,10 +84,6 @@ protected:
     
     /// Subclasses should process in place and set this to true if possible
     bool bCanProcessInPlace = false;
-
-    /// Number of things attached to this node's data
-    size_t tapCount = 0;
-    size_t filledTapCount = 0;
 
     bool isInitialized = false;
     std::atomic<bool> isStarted{true};
@@ -187,9 +180,6 @@ public:
     static DSPRef create(const char* name);
 
     virtual void startRamp(const AUParameterEvent& event);
-
-    TPCircularBuffer leftBuffer;
-    TPCircularBuffer rightBuffer;
     
 private:
 
