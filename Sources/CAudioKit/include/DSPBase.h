@@ -48,7 +48,9 @@ AK_API void akSetSeed(unsigned int);
  does not know the type of the subclass at compile time.
  */
 
-class DSPBase {
+struct DSPBase {
+
+private:
 
     std::vector<AudioBufferList*> internalBufferLists;
     
