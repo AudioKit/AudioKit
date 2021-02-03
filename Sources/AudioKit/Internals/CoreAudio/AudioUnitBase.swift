@@ -31,7 +31,7 @@ open class AudioUnitBase: AUAudioUnit {
             }
         }
 
-        allocateRenderResourcesDSP(dsp, format)
+        allocateRenderResourcesDSP(dsp, format.channelCount, format.sampleRate)
     }
 
     /// Delllocate Render Resources

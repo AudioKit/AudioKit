@@ -18,7 +18,7 @@ AK_API size_t outputBusCountDSP(DSPRef pDSP);
 AK_API bool canProcessInPlaceDSP(DSPRef pDSP);
 
 AK_API void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex);
-AK_API void allocateRenderResourcesDSP(DSPRef pDSP, AVAudioFormat* format);
+AK_API void allocateRenderResourcesDSP(DSPRef pDSP, uint32_t channelCount, double sampleRate);
 AK_API void deallocateRenderResourcesDSP(DSPRef pDSP);
 AK_API void resetDSP(DSPRef pDSP);
 

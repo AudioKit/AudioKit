@@ -30,9 +30,9 @@ void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex)
     pDSP->setBuffer(buffer, busIndex);
 }
 
-void allocateRenderResourcesDSP(DSPRef pDSP, AVAudioFormat* format)
+void allocateRenderResourcesDSP(DSPRef pDSP, uint32_t channelCount, double sampleRate)
 {
-    pDSP->init(format.channelCount, format.sampleRate);
+    pDSP->init(channelCount, sampleRate);
 }
 
 void deallocateRenderResourcesDSP(DSPRef pDSP)
