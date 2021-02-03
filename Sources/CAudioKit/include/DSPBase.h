@@ -4,7 +4,6 @@
 
 #import "Interop.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import <AVFoundation/AVFoundation.h>
 
 #include <stdarg.h>
 
