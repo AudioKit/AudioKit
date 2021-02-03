@@ -41,7 +41,6 @@ AK_API void akSetSeed(unsigned int);
 
 #ifdef __cplusplus
 
-#import <Foundation/Foundation.h>
 #import <vector>
 
 /**
