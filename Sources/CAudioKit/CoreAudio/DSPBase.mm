@@ -25,7 +25,7 @@ bool canProcessInPlaceDSP(DSPRef pDSP)
     return pDSP->canProcessInPlace();
 }
 
-void setBufferDSP(DSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex)
+void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex)
 {
     pDSP->setBuffer(buffer, busIndex);
 }
@@ -93,14 +93,12 @@ DSPBase::DSPBase(int inputBusCount)
     std::fill(parameters, parameters+maxParameters, nullptr);
 }
 
-void DSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
+void DSPBase::setBuffer(AudioBufferList* buffer, size_t busIndex)
 {
-    if (internalBuffers.size() <= busIndex) {
-        internalBuffers.resize(busIndex + 1);
+    if (internalBufferLists.size() <= busIndex) {
         internalBufferLists.resize(busIndex + 1);
     }
-    internalBuffers[busIndex] = buffer;
-    internalBufferLists[busIndex] = buffer.mutableAudioBufferList;
+    internalBufferLists[busIndex] = buffer;
 }
 
 AUInternalRenderBlock DSPBase::internalRenderBlock()
