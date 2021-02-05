@@ -294,3 +294,39 @@ extension String {
             .capitalized // If input is in llamaCase
     }
 }
+
+extension Double {
+    /// Map the value to a new range
+    /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
+    ///
+    /// - Parameters:
+    ///   - to: Desired range (Default: 0...1.0)
+    ///   - from: Source range (Default: 0...1.0)
+    public func mapped(to: ClosedRange<Double> = 0...1.0, from: ClosedRange<Double> = 0...1.0) -> Double {
+        return ((self - from.lowerBound) / (from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+    }
+}
+
+extension CGFloat {
+    /// Map the value to a new range
+    /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
+    ///
+    /// - Parameters:
+    ///   - to: Desired range (Default: 0...1.0)
+    ///   - from: Source range (Default: 0...1.0)
+    public func mapped(to: ClosedRange<CGFloat> = 0...1.0, from: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
+        return ((self - from.lowerBound) / (from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+    }
+}
+
+extension Int {
+    /// Map the value to a new range
+    /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
+    ///
+    /// - Parameters:
+    ///   - to: Desired range (Default: 0...1.0)
+    ///   - from: Source range
+    public func mapped(to: ClosedRange<CGFloat> = 0...1.0, from: ClosedRange<Int>) -> CGFloat {
+        return (CGFloat(self - from.lowerBound) / CGFloat(from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+    }
+}
