@@ -300,10 +300,10 @@ extension Double {
     /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
     ///
     /// - Parameters:
-    ///   - to: Desired range (Default: 0...1.0)
-    ///   - from: Source range (Default: 0...1.0)
-    public func mapped(to: ClosedRange<Double> = 0...1.0, from: ClosedRange<Double> = 0...1.0) -> Double {
-        return ((self - from.lowerBound) / (from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+    ///   - from source: Current range (Default: 0...1.0)
+    ///   - to target: Desired range (Default: 0...1.0)
+    public func mapped(from source: ClosedRange<Double> = 0...1.0, to target: ClosedRange<Double> = 0...1.0) -> Double {
+        return ((self - source.lowerBound) / (source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
     }
 }
 
@@ -312,10 +312,10 @@ extension CGFloat {
     /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
     ///
     /// - Parameters:
-    ///   - to: Desired range (Default: 0...1.0)
-    ///   - from: Source range (Default: 0...1.0)
-    public func mapped(to: ClosedRange<CGFloat> = 0...1.0, from: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
-        return ((self - from.lowerBound) / (from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+    ///   - from source: Current range (Default: 0...1.0)
+    ///   - to target: Desired range (Default: 0...1.0)
+    public func mapped(from source: ClosedRange<CGFloat> = 0...1.0, to target: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
+        return ((self - source.lowerBound) / (source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
     }
 }
 
@@ -324,9 +324,9 @@ extension Int {
     /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
     ///
     /// - Parameters:
-    ///   - to: Desired range (Default: 0...1.0)
-    ///   - from: Source range
-    public func mapped(to: ClosedRange<CGFloat> = 0...1.0, from: ClosedRange<Int>) -> CGFloat {
-        return (CGFloat(self - from.lowerBound) / CGFloat(from.upperBound - from.lowerBound)) * (to.upperBound - to.lowerBound) + to.lowerBound
+    ///   - from source: Current range
+    ///   - to target: Desired range (Default: 0...1.0)
+    public func mapped(from source: ClosedRange<Int>, to target: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
+        return (CGFloat(self - source.lowerBound) / CGFloat(source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
     }
 }
