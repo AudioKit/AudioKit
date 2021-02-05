@@ -114,7 +114,6 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
     {
 
         assert( (outputBusNumber == 0) && "We don't yet support multiple output busses" );
-
         if (pullInputBlock) {
             if (bCanProcessInPlace && inputBufferLists.size() == 1) {
                 // pull input directly to output buffer
