@@ -317,6 +317,24 @@ extension CGFloat {
     public func mapped(from source: ClosedRange<CGFloat> = 0...1.0, to target: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
         return ((self - source.lowerBound) / (source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
     }
+    
+    /// Map the value to a new range at a base-10 logarithmic scaling
+    /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
+    ///
+    /// - Parameters:
+    ///   - from source: Current range (Default: 0...1.0)
+    ///   - to target: Desired range (Default: 0...1.0)
+    public func mappedLog10(from source: ClosedRange<CGFloat> = 0...1.0, to target: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
+        let logN = log10(self)
+        let logStart1 = log10(source.lowerBound)
+        let logStop1 = log10(source.upperBound)
+        let result = ((logN - logStart1 ) / (logStop1 - logStart1)) * (target.upperBound - target.lowerBound) + target.lowerBound
+        if(result.isNaN){
+            return 0.0
+        } else {
+            return ((logN - logStart1 ) / (logStop1 - logStart1)) * (target.upperBound - target.lowerBound) + target.lowerBound
+        }
+    }
 }
 
 extension Int {
