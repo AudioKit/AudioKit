@@ -12,7 +12,7 @@ import CAudioKit
 ///
 /// NOTE:  This node is CPU intensitve and will drop packet if your buffer size is
 /// too short. It requires at least 64 samples on an iPhone X, for example.
-public class VocalTract: Node, AudioUnitContainer, Tappable, Toggleable {
+public class VocalTract: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "vocw"
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")

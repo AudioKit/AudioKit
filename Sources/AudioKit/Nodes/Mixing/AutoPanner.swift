@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Table-lookup panning with linear interpolation
 ///
-public class AutoPanner: Node, AudioUnitContainer, Tappable, Toggleable {
+public class AutoPanner: Node, AudioUnitContainer, Toggleable {
 
     /// Four letter unique description "apan"
     public static let ComponentDescription = AudioComponentDescription(effect: "apan")

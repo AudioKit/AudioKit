@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
-public class ZitaReverb: Node, AudioUnitContainer, Tappable, Toggleable {
+public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "zita"
     public static let ComponentDescription = AudioComponentDescription(effect: "zita")

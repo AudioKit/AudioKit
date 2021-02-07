@@ -10,6 +10,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #define SP_BUFSIZE 4096
 #ifndef SPFLOAT
@@ -571,6 +572,17 @@ int sp_dust_create(sp_dust **p);
 int sp_dust_destroy(sp_dust **p);
 int sp_dust_init(sp_data *sp, sp_dust *p);
 int sp_dust_compute(sp_data *sp, sp_dust *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    SPFLOAT freq, amp, iphs;
+    int32_t   lphs;
+    int inc;
+} sp_dynamicosc;
+
+int sp_dynamicosc_create(sp_dynamicosc **customosc);
+int sp_dynamicosc_destroy(sp_dynamicosc **customosc);
+int sp_dynamicosc_init(sp_data *sp, sp_dynamicosc *dynamicosc, SPFLOAT iphs);
+int sp_dynamicosc_compute(sp_data *sp, sp_dynamicosc *dynamicosc, sp_ftbl *ft, SPFLOAT *in, SPFLOAT *out, bool shouldInc);
+
 typedef struct {
   SPFLOAT freq, bw, gain;
   SPFLOAT z1,z2, sr;

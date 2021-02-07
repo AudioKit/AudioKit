@@ -16,7 +16,7 @@ class PitchTapTests: XCTestCase {
         sine.start()
 
         var pitches: [Float] = []
-        let knownValues: [Float] = [447.32297, 455.59183, 481.56384, 497.71292, 519.39923, 542.7518, 555.37006, 583.9163, 602.96344, 621.56274]
+        let knownValues: [Float] = [100.0, 447.32297, 455.59183, 481.56384, 497.71292, 519.39923, 542.7518, 555.37006, 583.9163, 602.96344]
 
         engine.output = sine
 

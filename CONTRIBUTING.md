@@ -12,14 +12,14 @@ Audio programming is full of abbreviations, difficult concepts, and new terminol
 
 Since the highest level language we're using is AudioKit, students of AudioKit will learn that first.
 As they dig deeper, they will be exposed to other languages, specifically C-variants, and they should
-not be surprised the variables in those languages.  In specific, this means camel case variable naming
+not be surprised at the variables in those languages.  In specific, this means camel case variable naming
 with a lowercase first character (except for Classes, which are uppercase).  No Hungarian notation.
 
 ### Variable names with descriptors should have descriptors in front of the word
 
 Example: 'leftOutput' not 'outputLeft'
 
-The primary reason for adding descriptors to the right is some sort of vertical alignment or alphabetical arrangement to your variables. Unfortuanately, English is the opposite from this, so to maximize readability, the descriptors come before the nounds.
+The primary reason for adding descriptors to the right is some sort of vertical alignment or alphabetical arrangement to your variables. Unfortuanately, English is the opposite from this, so to maximize readability, the descriptors come before the nouns.
 
 ### Variables should not include the units of the variable unless absolutely necessary
 
@@ -43,7 +43,7 @@ While some acronyms are pronouncable (like 'MIDI') many are not, and when you se
 
 ### Time Intervals are "Durations"
 
-When you're writing audio apps, often timing is a very important issue and the distinction between the time something takes to be done and the time the action should start can become confusing if both are called "times".  So, to distinguish, any amount of time is labeled as a Duration and a time is an actual moment in time.
+When you're writing audio apps, timing is often a very important issue.  The distinction between the time something takes to be done and the time the action should start can become confusing if both are called "times".  So, to distinguish, any amount of time is labeled as a Duration and a time is an actual moment in time.
 
 ### Boolean variable should start with "is" and if a verb, should end with "ed" or "ing"
 
@@ -51,7 +51,7 @@ Examples: 'isLooping' not 'loop' and 'isFilterEnabled' not 'filterEnable'
 
 ## Documentation / Commenting
 
-Ideally, our code would not need comments because it would be so clear to read the code directly, but this often impossible so commenting is important.
+Ideally, our code would not need comments because it would be so clear to read the code directly, but this is often impossible, so commenting is important.
 
 ### Comments should be documentation generating
 

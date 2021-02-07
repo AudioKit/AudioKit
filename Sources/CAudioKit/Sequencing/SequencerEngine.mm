@@ -8,10 +8,17 @@
 #include <vector>
 #include <stdio.h>
 #include <atomic>
-#include <mutex>
+#include "../../Internals/Utilities/readerwriterqueue.h"
 
 #define NOTEON 0x90
 #define NOTEOFF 0x80
+
+using moodycamel::ReaderWriterQueue;
+
+struct SequencerEvent {
+    bool notesOff = false;
+    double seekPosition = NAN;
+};
 
 struct SequencerEngine {
     std::vector<SequenceNote> playingNotes;
@@ -22,14 +29,7 @@ struct SequencerEngine {
     std::atomic<bool> isStarted{false};
     AUScheduleMIDIEventBlock midiBlock = nullptr;
 
-    // Mutex for changes from the main thread.
-    std::mutex updateMutex;
-
-    // Tell the DSP thread to turn off notes.
-    bool notesOff{false};
-
-    // Tell the DSP thread to seek.
-    double seekPosition{NAN};
+    ReaderWriterQueue<SequencerEvent> eventQueue;
 
     // Current position as reported to the UI.
     std::atomic<double> uiPosition{0};
@@ -98,20 +98,16 @@ struct SequencerEngine {
 
     void processEvents() {
 
-        // Process updates from the main thread.
-        std::unique_lock<std::mutex> lock(updateMutex, std::try_to_lock);
-        if(lock.owns_lock()) {
-            if(notesOff) {
+        SequencerEvent event;
+        while(eventQueue.try_dequeue(event)) {
+            if(event.notesOff) {
                 while (playingNotes.size() > 0) {
                     stopPlayingNote(playingNotes[0], 0, 0);
                 }
-                notesOff = false;
             }
 
-            double seekPos = seekPosition;
-            if(!isnan(seekPos)) {
-                seekTo(seekPos);
-                seekPosition = NAN;
+            if(!isnan(event.seekPosition)) {
+                seekTo(event.seekPosition);
             }
         }
 
@@ -242,8 +238,9 @@ double akSequencerEngineGetPosition(SequencerEngineRef engine) {
 }
 
 void akSequencerEngineSeekTo(SequencerEngineRef engine, double position) {
-    std::unique_lock<std::mutex> lock(engine->updateMutex);
-    engine->seekPosition = position;
+    SequencerEvent event;
+    event.seekPosition = position;
+    engine->eventQueue.enqueue(event);
 }
 
 void akSequencerEngineSetPlaying(SequencerEngineRef engine, bool playing) {
@@ -255,8 +252,9 @@ bool akSequencerEngineIsPlaying(SequencerEngineRef engine) {
 }
 
 void akSequencerEngineStopPlayingNotes(SequencerEngineRef engine) {
-    std::unique_lock<std::mutex> lock(engine->updateMutex);
-    engine->notesOff = true;
+    SequencerEvent event;
+    event.notesOff = true;
+    engine->eventQueue.enqueue(event);
 }
 
 #endif

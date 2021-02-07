@@ -6,7 +6,7 @@ import CAudioKit
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls
 ///
-public class DynaRageCompressor: Node, AudioUnitContainer, Tappable, Toggleable {
+public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "dyrc"
     public static let ComponentDescription = AudioComponentDescription(effect: "dyrc")

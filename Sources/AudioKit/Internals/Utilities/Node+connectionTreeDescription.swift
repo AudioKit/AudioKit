@@ -6,6 +6,7 @@ extension Node {
 
     static let connectionTreeLinePrefix = "AudioKit | "
 
+    /// Nice printout of all the node connections
     public var connectionTreeDescription: String {
         return String(createConnectionTreeDescription().dropLast())
     }

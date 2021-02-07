@@ -38,35 +38,6 @@
         /// Enable AudioKit AVAudioSession Category Management
         public static var disableAVAudioSessionCategoryManagement: Bool = false
 
-        /// If set to true, AudioKit will not deactivate the AVAudioSession when stopping
-        public static var disableAudioSessionDeactivationOnStop: Bool = false
-
-        /// If set to false, AudioKit will not handle the AVAudioSession route change
-        /// notification (AVAudioSessionRouteChange) and will not restart the AVAudioEngine
-        /// instance when such notifications are posted. The developer can instead subscribe
-        /// to these notifications and restart AudioKit after rebuilding their audio chain.
-        public static var enableRouteChangeHandling: Bool = true
-
-        /// Whether to allow audio playback to override the mute setting
-        public static var playbackWhileMuted: Bool = false
-
-        /// Whether we will allow our audio to mix with other applications
-        public static var mixWithOthers: Bool = true
-
-        /// Whether to output to the speaker (rather than receiver) when audio input is enabled
-        public static var defaultToSpeaker: Bool = false
-
-        /// Whether to use bluetooth when audio input is enabled
-        public static var useBluetooth: Bool = false
-
-        /// Whether AirPlay is enabled when audio input is enabled
-        public static var allowAirPlay: Bool = false
-
-        /// Additional control over the options to use for bluetooth
-        public static var bluetoothOptions: AVAudioSession.CategoryOptions = []
-
-        /// Enable / disable voice processing (echo canellation)
-        public static var enableEchoCancellation: Bool = false
 
         /// The hardware ioBufferDuration. Setting this will request the new value, getting
         /// will query the hardware.
@@ -155,65 +126,6 @@
                 Log("Cannot set AVAudioSession.setActive to true \(error)", log: OSLog.settings, type: .error)
                 throw error
             }
-        }
-
-        /// Computed Session Category
-        public static func computedSessionCategory() -> SessionCategory {
-            if Settings.audioInputEnabled {
-                return .playAndRecord
-            } else if Settings.playbackWhileMuted {
-                return .playback
-            } else {
-                return .ambient
-            }
-        }
-
-        /// Computed Session Options
-        public static func computedSessionOptions() -> AVAudioSession.CategoryOptions {
-            var options: AVAudioSession.CategoryOptions = []
-
-            if Settings.mixWithOthers {
-                options = options.union(.mixWithOthers)
-            }
-
-            if Settings.audioInputEnabled {
-                #if !os(tvOS)
-                    if #available(iOS 10.0, *) {
-                        // Blueooth Options
-                        // .allowBluetooth can only be set with the categories .playAndRecord and .record
-                        // .allowBluetoothA2DP comes for free if the category is .ambient, .soloAmbient, or
-                        // .playback. This option is cleared if the category is .record, or .multiRoute. If this
-                        // option and .allowBluetooth are set and a device supports Hands-Free Profile (HFP) and the
-                        // Advanced Audio Distribution Profile (A2DP), the Hands-Free ports will be given a higher
-                        // priority for routing.
-                        if !Settings.bluetoothOptions.isEmpty {
-                            options = options.union(Settings.bluetoothOptions)
-                        } else if Settings.useBluetooth {
-                            // If bluetoothOptions aren't specified
-                            // but useBluetooth is then we will use these defaults
-                            options = options.union([.allowBluetooth,
-                                                     .allowBluetoothA2DP])
-                        }
-
-                        // AirPlay
-                        if Settings.allowAirPlay {
-                            options = options.union(.allowAirPlay)
-                        }
-                    } else if !Settings.bluetoothOptions.isEmpty ||
-                        Settings.useBluetooth ||
-                        Settings.allowAirPlay {
-                        Log("Some of the specified Settings are not supported by iOS 9 and were ignored.")
-                    }
-
-                    // Default to Speaker
-                    if Settings.defaultToSpeaker {
-                        options = options.union(.defaultToSpeaker)
-                    }
-
-                #endif
-            }
-
-            return options
         }
 
         /// Checks if headphones are connected

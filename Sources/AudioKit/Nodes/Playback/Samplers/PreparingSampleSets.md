@@ -210,6 +210,137 @@ while 1:
 This script makes use of the [chunk](https://docs.python.org/2/library/chunk.html) Python library, together with specific data gleaned from the [AIFF-C format specifications](http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/AIFF/AIFF.html).
 The obvious next step is to combine elements of both scripts, to produce a better version of the first one.
 
+## Simple Example of a simple SFZ file
+
+If your sampling needs are not very complex, as in, you simply just need to load your `Sampler` with a variety samples, here is an example of a working SFZ File:
+
+```
+<control>
+default_path=samples/
+<global>
+<group>key=33
+<region> sample=A1.wv
+<group>key=34
+<region> sample=A#1.wv
+<group>key=35
+<region> sample=B1.wv
+<group>key=36
+<region> sample=C2.wv
+<group>key=37
+<region> sample=C#2.wv
+<group>key=38
+<region> sample=D2.wv
+<group>key=39
+<region> sample=D#2.wv
+<group>key=40
+<region> sample=E2.wv
+<group>key=41
+<region> sample=F2.wv
+<group>key=42
+<region> sample=F#2.wv
+<group>key=43
+<region> sample=G2.wv
+<group>key=44
+<region> sample=G#2.wv
+<group>key=45
+<region> sample=A2.wv
+<group>key=46
+<region> sample=A#2.wv
+<group>key=47
+<region> sample=B2.wv
+<group>key=48
+<region> sample=C3.wv
+<group>key=49
+<region> sample=C#3.wv
+<group>key=50
+<region> sample=D3.wv
+<group>key=51
+<region> sample=D#3.wv
+<group>key=52
+<region> sample=E3.wv
+<group>key=53
+<region> sample=F3.wv
+<group>key=54
+<region> sample=F#3.wv
+<group>key=55
+<region> sample=G3.wv
+<group>key=56
+<region> sample=G#3.wv
+<group>key=57
+<region> sample=A3.wv
+<group>key=58
+<region> sample=A#3.wv
+<group>key=59
+<region> sample=B3.wv
+<group>key=60
+<region> sample=C4.wv
+<group>key=61
+<region> sample=C#4.wv
+<group>key=62
+<region> sample=D4.wv
+<group>key=63
+<region> sample=D#4.wv
+<group>key=64
+<region> sample=E4.wv
+<group>key=65
+<region> sample=F4.wv
+<group>key=66
+<region> sample=F#4.wv
+<group>key=67
+<region> sample=G4.wv
+<group>key=68
+<region> sample=G#4.wv
+<group>key=69
+<region> sample=A4.wv
+<group>key=70
+<region> sample=A#4.wv
+<group>key=71
+<region> sample=B4.wv
+<group>lokey=72 hikey=80 pitch_keycenter=72
+<region> sample=C5.wv
+```
+
+This SFZ file is an example of a piano sampler with samples matched note for note in most octaves. Let's go over from top to bottom:
+
+`<control>`
+
+This is a necessary SFZ keyword to deonte that this is indeed a SFZ file.
+
+`default_path=samples/`
+
+The path in which the samples you are describing in the SFZ file reside. In this example SFZ file, we have a folder named `samples` that is in the same directory as the SFZ file. You may name your folder any name, as long as it is described correctly in the SFZ file. *You will need to ensure that your folder of samples and the path is described correctly. If your SFZ file resides in a different directory, please be sure find the correct path for the folder of samples so that the SFZ can correctly find them* 
+
+`<group>key=33`
+
+For more information on the `<group>` SFZ keyword, please read [here](https://sfzformat.com/headers/group). Here we are preparing the MIDI note 33 to be assigned to a sample.
+
+`<region> sample=A1.wv>` 
+
+For more information on the `<region>` SFZ keyword, please read [here](https://sfzformat.com/headers/region).
+
+Here we are assigning a specific sample you have collected to the above group/key. 
+
+So now with:
+`<group>key=33`
+`<region> sample=A1.wv>`
+
+Our sampler will assign key 33 to the sample `A1.wv`.
+
+In this example file, we are just continuing to assign 1 to 1 keys to samples.
+
+Lets look at the last 2 lines:
+
+`<group>lokey=72 hikey=80 pitch_keycenter=72
+<region> sample=C5.wv`
+
+`lokey` and `hikey` allows us to use one sample to map to multiple keys or MIDI notes. `pitch_keycenter` tells us where to center the key or MIDI note for the sample. In these two lines, we are assigning the sample `C5.wv` to MIDI notes (or keys) 72 *through* 80. The sampler will pitch shift the sample in order to accomdate the higher/lower notes. Be aware that small amounts of pitch shifting will be hard to descern, but anything past a Perfect 5th (7 semitones) will start to exhibit pitch shifting artifacts. Check out more information on [`lokey` and `hikey`](https://sfzformat.com/opcodes/hikey), and [`pitch_keycenter`](https://sfzformat.com/opcodes/pitch_keycenter).
+
+**IMPORTANT** 
+
+**In order for the Audiokit `Sampler` to load your samples correctly, in your `<region>` declarations, the sample assignment MUST BE THE LAST ELEMENT of your `<region>` declarations.**
+
+`<region>` has other opcodes you can use such as `lovel` and `hivel`, if you do not place your `sample=YOURSAMPLENAME.YOURFILEFORMAT` as the last element in the `<region>` line, the samples will not load!
+
 ## Testing
 Whatever methods you use to create samples and metadata files, it's important to test, test, test, to make sure things are working the way you want.
 

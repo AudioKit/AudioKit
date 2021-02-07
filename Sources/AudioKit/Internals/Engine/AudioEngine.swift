@@ -36,6 +36,7 @@ public class AudioEngine {
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1_024
 
+    /// Main mixer at the end of the signal chain
     public private(set) var mainMixerNode: Mixer?
 
     /// Input node mixer
@@ -51,6 +52,9 @@ public class AudioEngine {
     let _input = InputNode()
 
     /// Input for microphone or other device is created when this is accessed
+    /// If adjusting AudioKit.Settings, do so before setting up the microphone.
+    /// Setting the .defaultToSpeaker option in AudioKit.Settings.session.setCategory after setting up your mic
+    /// can cause the AVAudioEngine to stop running.
     public var input: InputNode? {
         if #available(macOS 10.14, *) {
             guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
@@ -108,7 +112,7 @@ public class AudioEngine {
     private func createEngineMixer() {
         guard mainMixerNode == nil else { return }
 
-        let mixer = Mixer()
+        let mixer = Mixer(name: "AudioKit Engine Mixer")
         avEngine.attach(mixer.avAudioNode)
         avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
         mainMixerNode = mixer
@@ -134,6 +138,11 @@ public class AudioEngine {
     /// Stop the engine
     public func stop() {
         avEngine.stop()
+    }
+
+    /// Pause the engine
+    public func pause() {
+        avEngine.pause()
     }
 
     /// Start testing for a specified total duration

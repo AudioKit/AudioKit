@@ -203,7 +203,7 @@ extension MIDI {
         
         let umpSysExStatus = UMPSysEx7bitStatus(rawValue: getMSB(from: bytes[0])) // status byte
         let validBytesCount = getLSB(from: bytes[0]) // valid bytes count field
-        let validBytes = Array(bytes[1...Int(validBytesCount)])
+        let validBytes = Array(bytes[1..<1+Int(validBytesCount)])
         
         guard (umpSysExStatus != nil) else {
             Log("UMP SYSEX - Got unsupported UMPSysEx7bitStatus", log: OSLog.midi)
@@ -249,8 +249,7 @@ extension MIDI {
     }
 
     /// Parsing UMP Messages
-    #if os(iOS) && !targetEnvironment(macCatalyst)
-    @available(iOS 14.0, *)
+    @available(iOS 14.0, macOS 11.0, *)
     private func processUMPMessages(_ midiEventPacket: MIDIEventList.UnsafeSequence.Element) -> [MIDIEvent] {
         // Collection of UInt32 words
         let words = MIDIEventPacket.WordCollection(midiEventPacket)
@@ -263,9 +262,6 @@ extension MIDI {
         while (wordIndex < midiEventPacket.pointee.wordCount) {
             let word = words[wordIndex]
             
-            //print("Word number: \(wordIndex + 1) of \(midiEventPacket.pointee.wordCount)")
-            //print(word32Bit)
-            
             // Parsing UMP words
             var (umpMessageType, umpMessageBytes) = self.getUMPMessageTypeWithByteArray(from: word)
             
@@ -273,25 +269,18 @@ extension MIDI {
                 Log("Got invalid UMP Message Type, skipping rest of the packet", log: OSLog.midi)
                 return midiEvents
             }
-            
-            //print("Got UMP Message Type: \(String(describing: umpMessageType))")
-            
+
             switch umpMessageType {
             case .Utility32bit, .SystemRealTimeAndCommon32bit, .MIDI1ChannelVoice32bit:
-                //print("Got 32 bit UMP message of type: \(String(describing: umpMessageType))")
-                //print(wordCollection[wordIndex])
-                
+
                 midiEvents.append(MIDIEvent(data: umpMessageBytes, offset: timeStamp))
                 wordIndex += 1
                 break
             case .Reserved32bit_1, .Reserved32bit_2:
                 Log("Got unsupported 32 bit UMP message of type: \(String(describing: umpMessageType))", log: OSLog.midi)
-                //print(wordCollection[wordIndex])
                 wordIndex += 1
                 break
             case .DataAndSysEx64bit:
-                //print("Got 64 bit UMP message of type: \(String(describing: umpMessageType))")
-                
                 // Appending bytes from second word to byte array
                 let secondWordBytes = byteArray(from: words[wordIndex + 1])
                 umpMessageBytes.append(contentsOf: secondWordBytes)
@@ -302,17 +291,14 @@ extension MIDI {
                 break
             case .MIDI2ChannelVoice64bit, .Reserved64bit_3, .Reserved64bit_4, .Reserved64bit_5:
                 Log("Got unsupported 64 bit UMP message of type: \(String(describing: umpMessageType))", log: OSLog.midi)
-                //print(Array(wordCollection[wordIndex...wordIndex + 1]))
                 wordIndex += 2
                 break
             case .Reserved96bit_6, .Reserved96bit_7:
                 Log("Got unsupported 96 bit UMP message of type: \(String(describing: umpMessageType))", log: OSLog.midi)
-                //print(Array(wordCollection[wordIndex...wordIndex + 2]))
                 wordIndex += 3
                 break
             case .Data128bit, .Reserved128bit_8, .Reserved128bit_9, .Reserved128bit_10:
                 Log("Got unsupported 128 bit UMP message of type \(String(describing: umpMessageType))", log: OSLog.midi)
-                //print(Array(wordCollection[wordIndex...wordIndex + 3]))
                 wordIndex += 4
                 break
             default:
@@ -325,7 +311,6 @@ extension MIDI {
         
         return midiEvents
     }
-    #endif
 
     /// Open a MIDI Input port
     ///
@@ -340,41 +325,28 @@ extension MIDI {
                     var inputPortCreationResult = noErr
                     
                     // Using MIDIInputPortCreateWithProtocol on iOS 14+
-                    if #available(iOS 14.0, *) {
-                        #if os(iOS) && !targetEnvironment(macCatalyst)
+                    if #available(iOS 14.0, macOS 11.0, *) {
                         // Hardcoded MIDI protocol version 1.0 here, consider to have an option somewhere
                         inputPortCreationResult = MIDIInputPortCreateWithProtocol(client, inputPortName, ._1_0, &port) { eventPacketList, _ in
-                            
+
                             guard (eventPacketList.pointee.protocol == ._1_0) else {
                                 Log("Got unsupported MIDI 2.0 MIDIEventList, skipping", log: OSLog.midi)
                                 return
                             }
-                            
-                            //var eventPacketCount = 1
-                            
+
                             for midiEventPacket in eventPacketList.unsafeSequence() {
-                                
-                                //print("MIDIEventPacket \(eventPacketCount) of \(eventPacketList.pointee.numPackets)")
-                                //print(midiEventPacket.pointee)
-                                //print("Processing words: \(midiEventPacket.pointee.wordCount)")
-                                
+
                                 let midiEvents = self.processUMPMessages(midiEventPacket)
                                 let transformedMIDIEventList = self.transformMIDIEventList(midiEvents)
                                 for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
                                     || transformedEvent.command != nil {
                                     self.handleMIDIMessage(transformedEvent, fromInput: inputUID)
                                 }
-                                
-                                //eventPacketCount += 1
                             }
-
                         }
-                        #endif
                     } else {
                         // Using MIDIInputPortCreateWithBlock on iOS 9 - 13
                         inputPortCreationResult = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
-                            
-                            //var packetCount = 1
                             
                             for packet in packetList.pointee {
                                 // a CoreMIDI packet may contain multiple MIDI events -
@@ -386,12 +358,9 @@ extension MIDI {
                                     || transformedEvent.command != nil {
                                     self.handleMIDIMessage(transformedEvent, fromInput: inputUID)
                                 }
-                                
-                                //packetCount += 1
                             }
                         }
                     }
-
                     if inputPortCreationResult != noErr {
                         Log("Error creating MIDI Input Port: \(inputPortCreationResult)")
                     }

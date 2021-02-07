@@ -243,7 +243,10 @@ extension MIDI {
     /// - Parameters:
     ///   - data: Array of MIDI Bytes
     ///   - offset: Timestamp offset
-    public func sendMessage(_ data: [MIDIByte], offset: MIDITimeStamp = 0) {
+    public func sendMessage(_ data: [MIDIByte],
+                            offset: MIDITimeStamp = 0,
+                            endpointsUIDs: [MIDIUniqueID]? = nil,
+                            virtualOutputPorts: [MIDIPortRef]? = nil) {
 
         // Create a buffer that is big enough to hold the data to be sent and
         // all the necessary headers.
@@ -277,15 +280,25 @@ extension MIDI {
                     return
                 }
 
-                for endpoint in endpoints.values {
+                var endpointsRef: [MIDIEndpointRef] = []
+
+                if let endpointsUIDS = endpointsUIDs {
+                    for endpointUID in endpointsUIDS {
+                        if let endpoint = endpoints[endpointUID] {endpointsRef.append(endpoint)}
+                    }
+                } else {
+                    endpointsRef = Array(endpoints.values)
+                }
+
+                for endpoint in endpointsRef {
                     let result = MIDISend(outputPort, endpoint, packetListPointer)
                     if result != noErr {
                         Log("error sending midi: \(result)", log: OSLog.midi, type: .error)
                     }
                 }
 
-                if virtualOutput != 0 {
-                    MIDIReceived(virtualOutput, packetListPointer)
+                if virtualOutputs != [0] {
+                    virtualOutputPorts?.forEach {MIDIReceived($0, packetListPointer)}
                 }
             }
         }
@@ -298,8 +311,10 @@ extension MIDI {
 
     /// Send Messsage from MIDI event data
     /// - Parameter event: Event so send
-    public func sendEvent(_ event: MIDIEvent) {
-        sendMessage(event.data)
+    public func sendEvent(_ event: MIDIEvent,
+                          endpointsUIDs: [MIDIUniqueID]? = nil,
+                          virtualOutputPorts: [MIDIPortRef]? = nil) {
+        sendMessage(event.data, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
     }
 
     /// Send a Note On Message
@@ -309,10 +324,12 @@ extension MIDI {
     ///   - channel: MIDI Channel (default: 0)
     public func sendNoteOnMessage(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
-                                  channel: MIDIChannel = 0) {
+                                  channel: MIDIChannel = 0,
+                                  endpointsUIDs: [MIDIUniqueID]? = nil,
+                                  virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = noteOnByte + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
-        self.sendMessage(message)
+        self.sendMessage(message, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
     }
 
     /// Send a Note Off Message
@@ -322,10 +339,12 @@ extension MIDI {
     ///   - channel: MIDI Channel (default: 0)
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
                                    velocity: MIDIVelocity,
-                                   channel: MIDIChannel = 0) {
+                                   channel: MIDIChannel = 0,
+                                   endpointsUIDs: [MIDIUniqueID]? = nil,
+                                   virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = noteOffByte + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
-        self.sendMessage(message)
+        self.sendMessage(message, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
     }
 
     /// Send a Continuous Controller message
@@ -333,10 +352,14 @@ extension MIDI {
     ///   - control: MIDI Control number
     ///   - value: Value to assign
     ///   - channel: MIDI Channel (default: 0)
-    public func sendControllerMessage(_ control: MIDIByte, value: MIDIByte, channel: MIDIChannel = 0) {
+    public func sendControllerMessage(_ control: MIDIByte,
+                                      value: MIDIByte,
+                                      channel: MIDIChannel = 0,
+                                      endpointsUIDs: [MIDIUniqueID]? = nil,
+                                      virtualOutputPorts: [MIDIPortRef]? = nil) {
         let controlCommand: MIDIByte = MIDIByte(0xB0) + channel
         let message: [MIDIByte] = [controlCommand, control, value]
-        self.sendMessage(message)
+        self.sendMessage(message, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
     }
 
     /// Send a pitch bend message.
@@ -344,13 +367,16 @@ extension MIDI {
     /// - Parameters:
     ///   - value: Value of pitch shifting between 0 and 16383. Send 8192 for no pitch bending.
     ///   - channel: Channel you want to send pitch bend message. Defaults 0.
-    public func sendPitchBendMessage(value: UInt16, channel: MIDIChannel = 0) {
+    public func sendPitchBendMessage(value: UInt16,
+                                     channel: MIDIChannel = 0,
+                                     endpointsUIDs: [MIDIUniqueID]? = nil,
+                                     virtualOutputPorts: [MIDIPortRef]? = nil) {
         let pitchCommand = MIDIByte(0xE0) + channel
         let mask: UInt16 = 0x007F
         let byte1 = MIDIByte(value & mask) // MSB, bit shift right 7
         let byte2 = MIDIByte((value & (mask << 7)) >> 7) // LSB, mask of 127
         let message: [MIDIByte] = [pitchCommand, byte1, byte2]
-        self.sendMessage(message)
+        self.sendMessage(message, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
     }
 
     // MARK: - Expand api to include MIDITimeStamp
@@ -364,10 +390,14 @@ extension MIDI {
     public func sendNoteOnMessageWithTime(noteNumber: MIDINoteNumber,
                                           velocity: MIDIVelocity,
                                           channel: MIDIChannel = 0,
-                                          time: MIDITimeStamp = 0) {
+                                          time: MIDITimeStamp = 0,
+                                          endpointsUIDs: [MIDIUniqueID]? = nil,
+                                          virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = MIDIByte(0x90) + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
-        self.sendMessageWithTime(message, time: time)
+        self.sendMessageWithTime(message, time: time,
+                                 endpointsUIDs: endpointsUIDs,
+                                 virtualOutputPorts: virtualOutputPorts)
     }
 
     /// Send a Note Off Message with timestamp
@@ -379,34 +409,50 @@ extension MIDI {
     public func sendNoteOffMessageWithTime(noteNumber: MIDINoteNumber,
                                            velocity: MIDIVelocity,
                                            channel: MIDIChannel = 0,
-                                           time: MIDITimeStamp = 0) {
+                                           time: MIDITimeStamp = 0,
+                                           endpointsUIDs: [MIDIUniqueID]? = nil,
+                                           virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = MIDIByte(0x80) + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
-        self.sendMessageWithTime(message, time: time)
+        self.sendMessageWithTime(message, time: time,
+                                 endpointsUIDs: endpointsUIDs,
+                                 virtualOutputPorts: virtualOutputPorts)
     }
 
     /// Send Message with data with timestamp
     /// - Parameters:
     ///   - data: Array of MIDI Bytes
     ///   - time: MIDI Timestamp
-    public func sendMessageWithTime(_ data: [MIDIByte], time: MIDITimeStamp) {
+    public func sendMessageWithTime(_ data: [MIDIByte],
+                                    time: MIDITimeStamp,
+                                    endpointsUIDs: [MIDIUniqueID]? = nil,
+                                    virtualOutputPorts: [MIDIPortRef]? = nil) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
 
         var packet: UnsafeMutablePointer<MIDIPacket> = MIDIPacketListInit(packetListPointer)
         packet = MIDIPacketListAdd(packetListPointer, 1_024, packet, time, data.count, data)
 
-        for endpoint in endpoints.values {
+        var endpointsRef: [MIDIEndpointRef] = []
+
+        if let endpointsUIDS = endpointsUIDs {
+            for endpointUID in endpointsUIDS {
+                if let endpoint = endpoints[endpointUID] {endpointsRef.append(endpoint)}
+            }
+        } else {
+            endpointsRef = Array(endpoints.values)
+        }
+
+        for endpoint in endpointsRef {
             let result = MIDISend(outputPort, endpoint, packetListPointer)
             if result != noErr {
                 Log("error sending midi: \(result)", log: OSLog.midi, type: .error)
             }
         }
 
-        if virtualOutput != 0 {
-            MIDIReceived(virtualOutput, packetListPointer)
+        if virtualOutputs != [0] {
+            virtualOutputPorts?.forEach {MIDIReceived($0, packetListPointer)}
         }
     }
-
 }
 
 #endif

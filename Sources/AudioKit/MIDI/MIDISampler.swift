@@ -17,7 +17,7 @@ open class MIDISampler: AppleSampler, NamedNode {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "MIDI Sampler"
+    open var name = "(unset)"
 
     /// Initialize the MIDI Sampler
     ///
@@ -25,7 +25,7 @@ open class MIDISampler: AppleSampler, NamedNode {
     ///
     public init(name midiOutputName: String? = nil) {
         super.init()
-        name = midiOutputName ?? name
+        name = midiOutputName ?? MemoryAddress(of: self).description
         enableMIDI(name: name)
         hideVirtualMIDIPort()
     }
@@ -38,8 +38,9 @@ open class MIDISampler: AppleSampler, NamedNode {
     ///   - name: Name to connect with
     ///
     public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
-                           name: String = "MIDI Sampler") {
-        CheckError(MIDIDestinationCreateWithBlock(midiClient, name as CFString, &midiIn) { packetList, _ in
+                           name: String? = nil) {
+        let cfName = (name ?? self.name) as CFString
+        CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
             for e in packetList.pointee {
                 e.forEach { (event) in
                     if event.length == 3 {

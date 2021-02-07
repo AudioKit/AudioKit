@@ -26,7 +26,7 @@ public struct NodeParameterDef {
     ///   - address: Address
     ///   - range: Value range
     ///   - unit: Physical units
-    ///   - flags: <#flags description#>Options
+    ///   - flags: Audio Unit Parameter options
     public init(identifier: String,
                 name: String,
                 address: AUParameterAddress,
@@ -93,7 +93,11 @@ public class NodeParameter {
         var lastRenderTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
 
         if !lastRenderTime.isSampleTimeValid {
-            lastRenderTime = AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
+            if let engine = avAudioUnit.engine, engine.isInManualRenderingMode {
+                lastRenderTime = AVAudioTime(sampleTime: engine.manualRenderingSampleTime, atRate: Settings.sampleRate)
+            } else {
+                lastRenderTime = AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
+            }
         }
 
         var lastTime = startTime ?? lastRenderTime

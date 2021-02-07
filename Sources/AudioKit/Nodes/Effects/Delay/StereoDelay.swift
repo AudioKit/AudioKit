@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
-public class StereoDelay: Node, AudioUnitContainer, Tappable, Toggleable {
+public class StereoDelay: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "sdly"
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")

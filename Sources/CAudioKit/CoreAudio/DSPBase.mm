@@ -25,14 +25,14 @@ bool canProcessInPlaceDSP(DSPRef pDSP)
     return pDSP->canProcessInPlace();
 }
 
-void setBufferDSP(DSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex)
+void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex)
 {
     pDSP->setBuffer(buffer, busIndex);
 }
 
-void allocateRenderResourcesDSP(DSPRef pDSP, AVAudioFormat* format)
+void allocateRenderResourcesDSP(DSPRef pDSP, uint32_t channelCount, double sampleRate)
 {
-    pDSP->init(format.channelCount, format.sampleRate);
+    pDSP->init(channelCount, sampleRate);
 }
 
 void deallocateRenderResourcesDSP(DSPRef pDSP)
@@ -91,15 +91,14 @@ DSPBase::DSPBase(int inputBusCount)
 , inputBufferLists(inputBusCount)
 {
     std::fill(parameters, parameters+maxParameters, nullptr);
-
-    TPCircularBufferInit(&leftBuffer, 4096 * sizeof(float));
-    TPCircularBufferInit(&rightBuffer, 4096 * sizeof(float));
 }
 
-void DSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
+void DSPBase::setBuffer(AudioBufferList* buffer, size_t busIndex)
 {
-    if (internalBuffers.size() <= busIndex) internalBuffers.resize(busIndex + 1);
-    internalBuffers[busIndex] = buffer;
+    if (internalBufferLists.size() <= busIndex) {
+        internalBufferLists.resize(busIndex + 1);
+    }
+    internalBufferLists[busIndex] = buffer;
 }
 
 AUInternalRenderBlock DSPBase::internalRenderBlock()
@@ -126,14 +125,14 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
             else {
                 // pull input to internal buffer
                 for (size_t i = 0; i < inputBufferLists.size(); i++) {
-                    inputBufferLists[i] = internalBuffers[i].mutableAudioBufferList;
+                    inputBufferLists[i] = internalBufferLists[i];
                     
                     UInt32 byteSize = frameCount * sizeof(float);
-                    inputBufferLists[i]->mNumberBuffers = internalBuffers[i].audioBufferList->mNumberBuffers;
+                    inputBufferLists[i]->mNumberBuffers = internalBufferLists[i]->mNumberBuffers;
                     for (UInt32 ch = 0; ch < inputBufferLists[i]->mNumberBuffers; ch++) {
                         inputBufferLists[i]->mBuffers[ch].mDataByteSize = byteSize;
-                        inputBufferLists[i]->mBuffers[ch].mNumberChannels = internalBuffers[i].audioBufferList->mBuffers[ch].mNumberChannels;
-                        inputBufferLists[i]->mBuffers[ch].mData = internalBuffers[i].audioBufferList->mBuffers[ch].mData;
+                        inputBufferLists[i]->mBuffers[ch].mNumberChannels = internalBufferLists[i]->mBuffers[ch].mNumberChannels;
+                        inputBufferLists[i]->mBuffers[ch].mData = internalBufferLists[i]->mBuffers[ch].mData;
                     }
                     
                     AudioUnitRenderActionFlags inputFlags = 0;
@@ -183,11 +182,7 @@ void DSPBase::deinit()
 {
     isInitialized = false;
 }
-DSPBase::~DSPBase()
-{
-    TPCircularBufferCleanup(&leftBuffer);
-    TPCircularBufferCleanup(&rightBuffer);
-}
+DSPBase::~DSPBase() {}
 
 void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
@@ -230,10 +225,6 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
             now += framesThisSegment;
         }
         performAllSimultaneousEvents(now, event);
-    }
-    if (tapCount > 0) {
-        TPCircularBufferProduceBytes(&leftBuffer,  outputBufferList->mBuffers[0].mData, frameCount * sizeof(float));
-        TPCircularBufferProduceBytes(&rightBuffer, outputBufferList->mBuffers[1].mData, frameCount * sizeof(float));
     }
 }
 
@@ -340,59 +331,6 @@ void DSPBase::addParameter(const char* name, AUParameterAddress address) {
 
 }
 
-void DSPBase::installTap() {
-    tapCount++;
-}
-
-void DSPBase::removeTap() {
-    if (tapCount > 0) { tapCount--; }
-}
-
-bool DSPBase::getTapData(size_t frames, float* leftData, float* rightData) {
-    // Consume bytes and return arrays
-
-    int availableBytes = 0;
-    float *data = (float*) TPCircularBufferTail(&leftBuffer, &availableBytes);
-    int n = availableBytes / sizeof(float);
-    if (n < frames) { return false; }
-    for(int i = 0; i < frames; i++) {
-        leftData[i] = data[i];
-    }
-
-    data = (float*) TPCircularBufferTail(&rightBuffer, &availableBytes);
-    n = availableBytes / sizeof(float);
-    if (n < frames) { return false; }
-    for(int i = 0; i < frames; i++) {
-        rightData[i] = data[i];
-    }
-
-    filledTapCount++;
-
-    if (filledTapCount >= tapCount) {
-        TPCircularBufferConsume(&leftBuffer, (int32_t)(frames * sizeof(float)));
-        TPCircularBufferConsume(&rightBuffer, (int32_t)(frames * sizeof(float)));
-        filledTapCount = 0;
-    }
-
-    return true;
-}
-
 void akSetSeed(unsigned int seed) {
     srand(seed);
-}
-
-AK_API void akInstallTap(DSPRef dspRef) {
-    auto dsp = dynamic_cast<DSPBase *>(dspRef);
-    assert(dsp);
-    dsp->installTap();
-}
-AK_API void akRemoveTap(DSPRef dspRef) {
-    auto dsp = dynamic_cast<DSPBase *>(dspRef);
-    assert(dsp);
-    dsp->removeTap();
-}
-AK_API bool akGetTapData(DSPRef dspRef, size_t frames, float* leftData, float* rightData) {
-    auto dsp = dynamic_cast<DSPBase *>(dspRef);
-    assert(dsp);
-    return dsp->getTapData(frames, leftData, rightData);
 }

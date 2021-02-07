@@ -10,15 +10,15 @@ class AutomationCurveTests: XCTestCase {
     typealias Point = ParameterAutomationPoint
 
     func testReplaceAutomationBasic() {
-        let curve = AutomationCurve(points: [ Point(targetValue: 440,
-                                                      startTime: 0,
-                                                      rampDuration: 0.1),
-                                                Point(targetValue: 880,
-                                                      startTime: 1,
-                                                      rampDuration: 0.1),
-                                                Point(targetValue: 440,
-                                                      startTime: 2,
-                                                      rampDuration: 0.1)])
+        let curve = AutomationCurve(points: [Point(targetValue: 440,
+                                                   startTime: 0,
+                                                   rampDuration: 0.1),
+                                             Point(targetValue: 880,
+                                                   startTime: 1,
+                                                   rampDuration: 0.1),
+                                             Point(targetValue: 440,
+                                                   startTime: 2,
+                                                   rampDuration: 0.1)])
 
         let events: [(Float, AUValue)] = [ (0.5, 100), (1.5, 200) ]
 
@@ -41,15 +41,15 @@ class AutomationCurveTests: XCTestCase {
     }
 
     func testReplaceAutomationErase() {
-        let curve = AutomationCurve(points: [ Point(targetValue: 440,
-                                                      startTime: 0,
-                                                      rampDuration: 0.1),
-                                                Point(targetValue: 880,
-                                                      startTime: 1,
-                                                      rampDuration: 0.1),
-                                                Point(targetValue: 440,
-                                                      startTime: 2,
-                                                      rampDuration: 0.1)])
+        let curve = AutomationCurve(points: [Point(targetValue: 440,
+                                                   startTime: 0,
+                                                   rampDuration: 0.1),
+                                             Point(targetValue: 880,
+                                                   startTime: 1,
+                                                   rampDuration: 0.1),
+                                             Point(targetValue: 440,
+                                                   startTime: 2,
+                                                   rampDuration: 0.1)])
 
         let events: [(Float, AUValue)] = [ ]
 

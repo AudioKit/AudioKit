@@ -46,141 +46,114 @@ public class SynthAudioUnit: AudioUnitBase {
 
         let nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
-        var parameterAddress: AUParameterAddress = 0
         masterVolume = AUParameter(
             identifier: "masterVolume",
             name: "Master Volume",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterMasterVolume"),
             range: 0.0...1.0,
             unit: .generic,
             flags: .default)
-
-        parameterAddress += 1
 
         pitchBend = AUParameter(
             identifier: "pitchBend",
             name: "Pitch Offset (semitones)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterPitchBend"),
             range: -1_000.0...1_000.0,
             unit: .relativeSemiTones,
             flags: .default)
 
-        parameterAddress += 1
-
         vibratoDepth = AUParameter(
             identifier: "vibratoDepth",
             name: "Vibrato amount (semitones)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterVibratoDepth"),
             range: 0.0...24.0,
             unit: .relativeSemiTones,
             flags: .default)
 
-        parameterAddress += 1
-
         filterCutoff = AUParameter(
             identifier: "filterCutoff",
             name: "Filter cutoff (harmonic))",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterFilterCutoff"),
             range: 1.0...1_000.0,
             unit: .ratio,
             flags: .default)
 
-        parameterAddress += 1
-
         filterStrength = AUParameter(
             identifier: "filterStrength",
             name: "Filter EG strength",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterFilterStrength"),
             range: 0.0...1_000.0,
             unit: .ratio,
             flags: .default)
 
-        parameterAddress += 1
-
         filterResonance = AUParameter(
             identifier: "filterResonance",
             name: "Filter resonance (dB))",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterFilterResonance"),
             range: -20.0...20.0,
             unit: .decibels,
             flags: .default)
-
-        parameterAddress += 1
-
+    
         attackDuration = AUParameter(
             identifier: "attackDuration",
             name: "Amplitude Attack duration (seconds)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterAttackDuration"),
             range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
-
-        parameterAddress += 1
 
         decayDuration = AUParameter(
             identifier: "decayDuration",
             name: "Amplitude Decay duration (seconds)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterDecayDuration"),
             range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
-
-        parameterAddress += 1
 
         sustainLevel = AUParameter(
             identifier: "sustainLevel",
             name: "Amplitude Sustain level (fraction)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterSustainLevel"),
             range: 0.0...1.0,
             unit: .generic,
             flags: nonRampFlags)
-
-        parameterAddress += 1
 
         releaseDuration = AUParameter(
             identifier: "releaseDuration",
             name: "Amplitude Release duration (seconds)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterReleaseDuration"),
             range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
-
-        parameterAddress += 1
 
         filterAttackDuration = AUParameter(
             identifier: "filterAttackDuration",
             name: "Filter Attack duration (seconds)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterFilterAttackDuration"),
             range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
-
-        parameterAddress += 1
 
         filterDecayDuration = AUParameter(
             identifier: "filterDecayDuration",
             name: "Filter Decay duration (seconds)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterFilterDecayDuration"),
             range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)
 
-        parameterAddress += 1
-
         filterSustainLevel = AUParameter(
             identifier: "filterSustainLevel",
             name: "Filter Sustain level (fraction)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterFilterSustainLevel"),
             range: 0.0...1.0,
             unit: .generic,
             flags: nonRampFlags)
 
-        parameterAddress += 1
-
         filterReleaseDuration = AUParameter(
             identifier: "filterReleaseDuration",
             name: "Filter Release duration (seconds)",
-            address: parameterAddress,
+            address: akGetParameterAddress("SynthParameterFilterReleaseDuration"),
             range: 0.0...1_000.0,
             unit: .seconds,
             flags: nonRampFlags)

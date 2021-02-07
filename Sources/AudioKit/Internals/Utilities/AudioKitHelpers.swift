@@ -275,8 +275,76 @@ extension AVAudioSession.CategoryOptions: Occupiable {}
 #endif
 
 extension Sequence where Self.Element: Equatable {
+    /// Easer to read alternative to !contains
     @inline(__always)
     public func doesNotContain(_ member: Element) -> Bool {
         return !contains(member)
+    }
+}
+
+extension String {
+    /// Useful fo converting camel case enums to UI strings
+    public func titleCase() -> String {
+        return self
+            .replacingOccurrences(of: "([A-Z])",
+                                  with: " $1",
+                                  options: .regularExpression,
+                                  range: range(of: self))
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .capitalized // If input is in llamaCase
+    }
+}
+
+extension Double {
+    /// Map the value to a new range
+    /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
+    ///
+    /// - Parameters:
+    ///   - from source: Current range (Default: 0...1.0)
+    ///   - to target: Desired range (Default: 0...1.0)
+    public func mapped(from source: ClosedRange<Double> = 0...1.0, to target: ClosedRange<Double> = 0...1.0) -> Double {
+        return ((self - source.lowerBound) / (source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
+    }
+}
+
+extension CGFloat {
+    /// Map the value to a new range
+    /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
+    ///
+    /// - Parameters:
+    ///   - from source: Current range (Default: 0...1.0)
+    ///   - to target: Desired range (Default: 0...1.0)
+    public func mapped(from source: ClosedRange<CGFloat> = 0...1.0, to target: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
+        return ((self - source.lowerBound) / (source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
+    }
+
+    /// Map the value to a new range at a base-10 logarithmic scaling
+    /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
+    ///
+    /// - Parameters:
+    ///   - from source: Current range (Default: 0...1.0)
+    ///   - to target: Desired range (Default: 0...1.0)
+    public func mappedLog10(from source: ClosedRange<CGFloat> = 0...1.0, to target: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
+        let logN = log10(self)
+        let logStart1 = log10(source.lowerBound)
+        let logStop1 = log10(source.upperBound)
+        let result = ((logN - logStart1 ) / (logStop1 - logStart1)) * (target.upperBound - target.lowerBound) + target.lowerBound
+        if result.isNaN {
+            return 0.0
+        } else {
+            return ((logN - logStart1 ) / (logStop1 - logStart1)) * (target.upperBound - target.lowerBound) + target.lowerBound
+        }
+    }
+}
+
+extension Int {
+    /// Map the value to a new range
+    /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range
+    ///
+    /// - Parameters:
+    ///   - from source: Current range
+    ///   - to target: Desired range (Default: 0...1.0)
+    public func mapped(from source: ClosedRange<Int>, to target: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
+        return (CGFloat(self - source.lowerBound) / CGFloat(source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
     }
 }

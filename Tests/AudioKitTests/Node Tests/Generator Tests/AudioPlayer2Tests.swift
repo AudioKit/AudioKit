@@ -174,6 +174,73 @@ extension AudioPlayer2Tests {
         XCTAssertTrue(player.isBuffered, "isBuffered isn't true")
         XCTAssertTrue(player.duration == file.duration, "Duration is wrong")
     }
+
+    func testAVDynamicConnection() {
+
+        guard let url = generateTestFile(ofDuration: 2,
+                                         frequencies: [220, 440]),
+            let buffer = try? AVAudioPCMBuffer(url: url) else {
+            XCTFail("Failed to create buffer")
+            return
+        }
+
+        let engine = AVAudioEngine()
+        let outputMixer = AVAudioMixerNode()
+
+        engine.attach(outputMixer)
+        engine.connect(outputMixer, to: engine.mainMixerNode, format: nil)
+
+        // Start the engine here and this breaks.
+        // try! engine.start()
+
+        let player = AVAudioPlayerNode()
+        let mixer = AVAudioMixerNode()
+
+        engine.attach(mixer)
+        engine.connect(mixer, to: outputMixer, format: nil)
+        engine.attach(player)
+        engine.connect(player, to: mixer, format: nil)
+
+        player.scheduleBuffer(buffer, completionHandler: nil)
+
+        // Start here and test passes.
+        try! engine.start()
+
+        //player.play()
+        //sleep(6)
+    }
+
+    func testPlayerConnectionWithMixer() {
+        return
+        let engine = AudioEngine()
+        let outputMixer = Mixer()
+        guard let player = createPlayer(duration: 1) else {
+            XCTFail("Failed to create AudioPlayer")
+            return
+        }
+        outputMixer.addInput(player)
+        engine.output = outputMixer
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        player.play()
+
+        audio.append(engine.render(duration: 1.0))
+
+        guard let player2 = createPlayer(duration: 1) else {
+            XCTFail("Failed to create AudioPlayer")
+            return
+        }
+        let localMixer = Mixer()
+
+        localMixer.addInput(player2)
+        outputMixer.addInput(localMixer)
+
+        player2.play()
+        audio.append(engine.render(duration: 1.0))
+
+//        testMD5(audio)
+        // audio.audition()
+    }
 }
 
 extension AudioPlayer2Tests {
