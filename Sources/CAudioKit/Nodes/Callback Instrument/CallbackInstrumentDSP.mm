@@ -59,7 +59,7 @@ public:
 
     void consumer() {
         int32_t availableBytes;
-        AUMIDIEvent event;
+        AUMIDIEvent event = AUMIDIEvent();
         midiBuffer.try_dequeue(event);
         if(event.length > 0) {
             int32_t messageCount = sizeof(event.data) / 3;
