@@ -11,7 +11,6 @@ class CallbackInstrumentDSP : public DSPBase {
 public:
     // MARK: Member Functions
 
-//    TPCircularBuffer midiBuffer;
     ReaderWriterQueue<AUMIDIEvent> midiBuffer;
     NSTimer* timer;
 
