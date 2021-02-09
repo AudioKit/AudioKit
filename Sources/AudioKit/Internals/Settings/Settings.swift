@@ -9,7 +9,7 @@ public class Settings: NSObject {
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
-    public enum BufferLength: Int {
+    public enum BufferLength: Int, CaseIterable {
         /// Shortest: 32 samples = 0.7 ms @ 44100 kz
         case shortest = 5
 
@@ -33,6 +33,12 @@ public class Settings: NSObject {
 
         /// Longest: 4096 samples = 92.9 ms @ 44100 Hz
         case longest = 12
+        
+        public init?(bufferSizeInSamples: UInt) {
+            guard let size = BufferLength.allCases.first(where: { $0.samplesCount == bufferSizeInSamples })
+            else { return nil }
+            self = size
+        }
 
         /// The buffer Length expressed as number of samples
         public var samplesCount: AVAudioFrameCount {
