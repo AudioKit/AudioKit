@@ -1,7 +1,6 @@
 #ifndef SOUNDPIPE_H
 #define SOUNDPIPE_H
 
-#include "dr_wav.h"
 #include "md5.h"
 
 #ifdef __cplusplus
@@ -1747,29 +1746,6 @@ int sp_waveset_create(sp_waveset **p);
 int sp_waveset_destroy(sp_waveset **p);
 int sp_waveset_init(sp_data *sp, sp_waveset *p, SPFLOAT ilen);
 int sp_waveset_compute(sp_data *sp, sp_waveset *p, SPFLOAT *in, SPFLOAT *out);
-
-#define WAVIN_BUFSIZE 1024
-typedef struct {
-    SPFLOAT buf[WAVIN_BUFSIZE];
-    int count;
-    drwav wav;
-    unsigned long pos;
-    unsigned long buf_start;
-    unsigned long buf_end;
-} sp_wavin;
-int sp_wavin_create(sp_wavin **p);
-int sp_wavin_destroy(sp_wavin **p);
-int sp_wavin_init(sp_data *sp, sp_wavin *p, const char *filename);
-int sp_wavin_compute(sp_data *sp, sp_wavin *p, SPFLOAT *in, SPFLOAT *out);
-int sp_wavin_get_sample(sp_data *sp, sp_wavin *p, SPFLOAT *out, SPFLOAT pos);
-int sp_wavin_reset_to_start(sp_data *sp, sp_wavin *p);
-int sp_wavin_seek(sp_data *sp, sp_wavin *p, unsigned long sample);
-
-typedef struct sp_wavout sp_wavout;
-int sp_wavout_create(sp_wavout **p);
-int sp_wavout_destroy(sp_wavout **p);
-int sp_wavout_init(sp_data *sp, sp_wavout *p, const char *filename);
-int sp_wavout_compute(sp_data *sp, sp_wavout *p, SPFLOAT *in, SPFLOAT *out);
 
 typedef struct {
     /* LPF1 */
