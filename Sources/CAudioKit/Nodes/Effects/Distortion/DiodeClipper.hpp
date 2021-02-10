@@ -274,7 +274,11 @@ public:
     static constexpr bool      hasMIDIInput = false;
     static constexpr uint32_t  numParameters = 2;
 
-    static const std::array<const ParameterProperties, numParameters> parameters;
+    static constexpr const std::array<const ParameterProperties, numParameters> parameters =
+    {
+        ParameterProperties {  "cutoffFrequency",  "Cutoff",  "",  20.0f,  20000.0f,  10.0f,  10000.0f,  true,  false,  false,  "",  ""  },
+        ParameterProperties {  "gaindB",           "Gain",    "",  0.0f,   40.0f,     0.1f,   20.0f,     true,  false,  false,  "",  ""  }
+    };
 
     static span<const ParameterProperties> getParameterProperties() { return { parameters.data(), numParameters }; }
 

@@ -44,7 +44,8 @@ let package = Package(
                 .headerSearchPath("AudioKitCore/Common"),
                 .headerSearchPath("Devoloop/include"),
                 .headerSearchPath("include"),
-                .headerSearchPath(".")
+                .headerSearchPath("."),
+                .unsafeFlags(["--std=c++17"])
             ]
         ),
         .target(
