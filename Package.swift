@@ -38,6 +38,7 @@ let package = Package(
         .target(
             name: "sporth",
             dependencies: ["soundpipe"],
+            exclude: ["README.md"],
             publicHeadersPath: "include"),
         .target(
             name: "CAudioKit",
