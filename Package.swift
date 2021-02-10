@@ -20,7 +20,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "STK",
-                exclude: ["rawwaves"],
+                exclude: ["rawwaves", "LICENSE"],
                 publicHeadersPath: "include"),
         .target(name: "soundpipe",
                 publicHeadersPath: "include",
