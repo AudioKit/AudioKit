@@ -19,7 +19,9 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
-        .target(name: "STK", publicHeadersPath: "include"),
+        .target(name: "STK",
+                exclude: ["rawwaves"],
+                publicHeadersPath: "include"),
         .target(name: "soundpipe",
                 publicHeadersPath: "include",
                 cSettings: [
