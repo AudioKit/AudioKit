@@ -1,21 +1,23 @@
 /*
     == SOUL example code ==
-    == Designed by Ivan COHEN ==
-
-    This is an algorithm simulating a Diode Clipper, which is an analog low-pass
-    filter with a resistance, a capacitance, and two parallel diodes put in
-    opposite directions. The linear part is simulated using the TPT structure,
-    and the nonlinear part uses the Newton-Raphson's method to solve the roots
-    of the implicit equation.
+    == Author: Ivan Cohen ==
 */
+
+/// Title: Diode Clipper example
+///
+/// This is an algorithm simulating a Diode Clipper, which is an analog low-pass
+/// filter with a resistance, a capacitance, and two parallel diodes put in
+/// opposite directions. The linear part is simulated using the TPT structure,
+/// and the nonlinear part uses the Newton-Raphson's method to solve the roots
+/// of the implicit equation.
 
 graph Diode  [[ main ]]
 {
     input  stream float audioIn;    // just using mono in and out
     output stream float audioOut;
 
-    input event float cutoffFrequency   [[ min: 20,  max: 20000,  init: 10000,  step: 10    ]];
-    input event float gaindB            [[ min:  0,  max:    40,  init:    20,  step:  0.1  ]];
+    input event float cutoffFrequency   [[ name: "Cutoff", min: 20, max: 20000, init: 10000, step: 10  ]];
+    input event float gaindB            [[ name: "Gain",   min: 0,  max:    40, init:    20, step: 0.1 ]];
 
     let diodeClipper = DiodeClipper * 4;  // oversampling 4 times
 
