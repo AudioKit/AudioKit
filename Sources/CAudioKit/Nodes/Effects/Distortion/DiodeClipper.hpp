@@ -209,9 +209,9 @@ public:
     {
         return
         {
-            EndpointDetails { "audioIn",         "in:audioIn",         EndpointType::stream, "float32", 1, ""                                                               },
-            EndpointDetails { "cutoffFrequency", "in:cutoffFrequency", EndpointType::event,  "float32", 0, "{ \"min\": 20, \"max\": 20000, \"init\": 10000, \"step\": 10 }" },
-            EndpointDetails { "gaindB",          "in:gaindB",          EndpointType::event,  "float32", 0, "{ \"min\": 0, \"max\": 40, \"init\": 20, \"step\": 0.1 }"       }
+            EndpointDetails { "audioIn",         "in:audioIn",         EndpointType::stream, "float32", 1, ""                                                                                     },
+            EndpointDetails { "cutoffFrequency", "in:cutoffFrequency", EndpointType::event,  "float32", 0, "{ \"name\": \"Cutoff\", \"min\": 20, \"max\": 20000, \"init\": 10000, \"step\": 10 }" },
+            EndpointDetails { "gaindB",          "in:gaindB",          EndpointType::event,  "float32", 0, "{ \"name\": \"Gain\", \"min\": 0, \"max\": 40, \"init\": 20, \"step\": 0.1 }"         }
         };
     }
 
