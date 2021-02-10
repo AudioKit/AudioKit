@@ -23,6 +23,10 @@ let package = Package(
                 exclude: ["rawwaves", "LICENSE"],
                 publicHeadersPath: "include"),
         .target(name: "soundpipe",
+                exclude: ["README.md",
+                          "lib/kissfft/COPYING",
+                          "lib/kissfft/README",
+                          "lib/inih/LICENSE.txt"],
                 publicHeadersPath: "include",
                 cSettings: [
                     .headerSearchPath("lib/kissfft"),
