@@ -13,19 +13,21 @@ public:
     
     using MIDIMessage = typename SoulPatchType::MIDIMessage;
     using ParameterProperties = typename SoulPatchType::ParameterProperties;
+    using ParameterList = typename SoulPatchType::ParameterList;
     
     std::vector<MIDIMessage> midiMessages;
-    std::vector<ParameterProperties> properties;
+    ParameterList params;
     
     SoulDSP() {
         // Reserve space for MIDI messages so we don't have to allocate.
         midiMessages.reserve(1024);
-        properties = patch.getParameterProperties();
+
+        params = patch.createParameterList();
     }
     
     void setParameter(AUParameterAddress address, float value, bool immediate) override {
-        if(address < properties.size()) {
-            properties[address].setValue(value);
+        if(address < params.size()) {
+            params[address].setValue(value);
         }
     }
     
@@ -34,8 +36,8 @@ public:
         patch.init(sampleRate, /*sessionID*/ 0);
         
         // init will clear the properties, so set them back to their value
-        for(auto& property : properties) {
-            property.setValue(property.currentValue);
+        for(auto& param : params) {
+            param.setValue(param.getValue());
         }
     }
     
@@ -54,8 +56,8 @@ public:
 
     void startRamp(const AUParameterEvent &event) override {
         auto address = event.parameterAddress;
-        if(address < properties.size()) {
-            properties[address].setValue(event.value);
+        if(address < params.size()) {
+            params[address].setValue(event.value);
         }
     }
     
