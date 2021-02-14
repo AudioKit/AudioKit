@@ -14,10 +14,10 @@ class SequencerEngineTests: XCTestCase {
         let engine = akSequencerEngineCreate()
 
         let settings = SequenceSettings(maximumPlayCount: 1,
-                                          length: 4,
-                                          tempo: 120,
-                                          loopEnabled: true,
-                                          numberOfLoops: 0)
+                                        length: 4,
+                                        tempo: 120,
+                                        loopEnabled: true,
+                                        numberOfLoops: 0)
 
         var events = [MIDIEvent]()
 
@@ -34,13 +34,13 @@ class SequencerEngineTests: XCTestCase {
         sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
             sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<SequenceNote>) -> Void in
                 let observer = SequencerEngineUpdateSequence(engine,
-                                                               eventsPtr.baseAddress,
-                                                               sequence.events.count,
-                                                               notesPtr.baseAddress,
-                                                               sequence.notes.count,
-                                                               settings,
-                                                               44100,
-                                                               block)!
+                                                             eventsPtr.baseAddress,
+                                                             sequence.events.count,
+                                                             notesPtr.baseAddress,
+                                                             sequence.notes.count,
+                                                             settings,
+                                                             44100,
+                                                             block)!
 
                 var timeStamp = AudioTimeStamp()
                 timeStamp.mSampleTime = 0
@@ -56,7 +56,9 @@ class SequencerEngineTests: XCTestCase {
         }
 
         // One second at 120bpm is two beats
-        XCTAssertEqual(akSequencerEngineGetPosition(engine), fmod(2.0 * Double(Int(frameCount) * renderCallCount) / 44100, 4), accuracy: 0.0001)
+        XCTAssertEqual(akSequencerEngineGetPosition(engine),
+                       fmod(2.0 * Double(Int(frameCount) * renderCallCount) / 44100, 4),
+                       accuracy: 0.0001)
 
         akSequencerEngineDestroy(engine)
 
@@ -113,8 +115,8 @@ class SequencerEngineTests: XCTestCase {
         XCTAssertEqual(events.map { $0.noteNumber! },
                        [60, 60, 63, 63, 60, 60, 63, 63, 60, 60,
                         63, 63, 60, 60, 63, 63, 60, 60, 63, 63])
-        XCTAssertEqual(events.map { $0.offset },[0, 157, 34, 191, 136, 37, 170, 71, 16, 173, 50,
-                                                 207, 152, 53, 186, 87, 32, 189, 66, 223])
+        XCTAssertEqual(events.map { $0.offset }, [0, 157, 34, 191, 136, 37, 170, 71, 16, 173, 50,
+                                                  207, 152, 53, 186, 87, 32, 189, 66, 223])
     }
 
     func testOverlap() {

@@ -76,15 +76,26 @@ struct SequencerEngine {
 
     void addPlayingNote(SequenceNote note, int offset) {
         if (note.noteOn.data2 > 0) {
-            sendMidiData(note.noteOn.status, note.noteOn.data1, note.noteOn.data2, offset, note.noteOn.beat);
+            sendMidiData(note.noteOn.status,
+                         note.noteOn.data1,
+                         note.noteOn.data2,
+                         offset,
+                         note.noteOn.beat);
             playingNotes.push_back(note);
         } else {
-            sendMidiData(note.noteOff.status, note.noteOff.data1, note.noteOff.data2, offset, note.noteOn.beat);
+            sendMidiData(note.noteOff.status,
+                         note.noteOff.data1,
+                         note.noteOff.data2,
+                         offset, note.noteOn.beat);
         }
     }
 
     void stopPlayingNote(SequenceNote note, int offset, int index) {
-        sendMidiData(note.noteOff.status, note.noteOff.data1, note.noteOff.data2, offset, note.noteOff.beat);
+        sendMidiData(note.noteOff.status,
+                     note.noteOff.data1,
+                     note.noteOff.data2,
+                     offset,
+                     note.noteOff.beat);
         playingNotes.erase(playingNotes.begin() + index);
     }
 
