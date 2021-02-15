@@ -47,10 +47,10 @@ public class AudioPlayer: Node {
     public var duration: TimeInterval {
         bufferDuration ?? file?.duration ?? 0
     }
-    
+
     /// Time in audio file where track was started (allows retrieval of playback time after playerNode is seeked)
     private var segmentStartTime: TimeInterval = 0.0
-    
+
     /// Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
     private var stoppedTime: TimeInterval = 0.0
 
@@ -227,11 +227,12 @@ public class AudioPlayer: Node {
         playerNode.pause()
         isPaused = true
     }
-    
+
     /// Gets the accurate playhead time regardless of seeking and pausing
     /// Can't be relied on if playerNode has its playstate modified directly
     public func getCurrentTime() -> TimeInterval {
-        if let nodeTime = self.playerNode.lastRenderTime, let playerTime = self.playerNode.playerTime(forNodeTime: nodeTime) {
+        if let nodeTime = self.playerNode.lastRenderTime,
+           let playerTime = self.playerNode.playerTime(forNodeTime: nodeTime) {
            return Double(Double(playerTime.sampleTime) / playerTime.sampleRate) + segmentStartTime
         }
         return stoppedTime
@@ -328,12 +329,12 @@ extension AudioPlayer {
         self.file = file
         schedule(at: when)
     }
-    
+
     /// Sets the player's audio file to a certain time in the track (in seconds)
     /// and respects the players current play state
     /// - Parameters:
     ///   - time seconds into the audio file to set playhead
-    public func seek(time: Float){
+    public func seek(time: Float) {
         let wasPlaying = self.isPlaying
         self.playerNode.stop()
         if let audioFile = self.file {
@@ -342,7 +343,7 @@ extension AudioPlayer {
             let sampleRate = Float(processingFormat.sampleRate)
             let startSample = floor(time * sampleRate)
             let lengthSamples = Float(sampleLength) - startSample
-            
+
             self.playerNode.scheduleSegment(audioFile,
                                    startingFrame: AVAudioFramePosition(startSample),
                                    frameCount: AVAudioFrameCount(lengthSamples),
