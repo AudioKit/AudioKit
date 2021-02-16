@@ -118,4 +118,61 @@ class AudioPlayerTests: XCTestCase {
 
         testMD5(audio)
     }
+
+    func testSeek() {
+        guard let url = generateTestFile() else {
+            XCTFail("Didn't generate test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.isLooping = true
+
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        do {
+            try player.load(url: url, buffered: true)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+        player.seek(time: 0.5)
+        player.play()
+        audio.append(engine.render(duration: 2.0))
+        engine.stop()
+
+        testMD5(audio)
+    }
+
+    func testGetCurrentTime() {
+        guard let url = generateTestFile() else {
+            XCTFail("Didn't generate test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.isLooping = true
+
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        do {
+            try player.load(url: url, buffered: true)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+        player.seek(time: 0.5)
+        player.play()
+        audio.append(engine.render(duration: 2.0))
+        engine.stop()
+
+        let currentTime = player.getCurrentTime()
+        XCTAssertEqual(currentTime, 0.5)
+
+        testMD5(audio)
+    }
 }
