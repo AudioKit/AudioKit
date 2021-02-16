@@ -52,7 +52,7 @@ public class AudioPlayer: Node {
     private var segmentStartTime: TimeInterval = 0.0
 
     /// Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
-    private var stoppedTime: TimeInterval = 0.0
+    private var pausedTime: TimeInterval = 0.0
 
     /// Completion handler to be called when file or buffer is done playing.
     /// This also will be called when looping from disk,
@@ -223,7 +223,7 @@ public class AudioPlayer: Node {
     /// Pauses audio player. Calling play() will resume from the paused time.
     public func pause() {
         guard isPlaying, !isPaused else { return }
-        stoppedTime = getCurrentTime()
+        pausedTime = getCurrentTime()
         playerNode.pause()
         isPaused = true
     }
@@ -235,7 +235,7 @@ public class AudioPlayer: Node {
            let playerTime = self.playerNode.playerTime(forNodeTime: nodeTime) {
            return Double(Double(playerTime.sampleTime) / playerTime.sampleRate) + segmentStartTime
         }
-        return stoppedTime
+        return pausedTime
     }
 }
 
@@ -251,7 +251,7 @@ extension AudioPlayer: Toggleable {
     /// Stop audio player. This won't generate a callback event
     public func stop() {
         guard isPlaying else { return }
-        stoppedTime = getCurrentTime()
+        pausedTime = getCurrentTime()
         isPlaying = false
         playerNode.stop()
         scheduleTime = nil
@@ -356,7 +356,7 @@ extension AudioPlayer {
         if wasPlaying && !isPaused {
             self.playerNode.play()
         } else {
-            self.stoppedTime = TimeInterval(time)
+            self.pausedTime = TimeInterval(time)
         }
     }
 }
