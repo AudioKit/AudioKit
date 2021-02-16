@@ -169,10 +169,10 @@ class AudioPlayerTests: XCTestCase {
         player.play()
         audio.append(engine.render(duration: 2.0))
         engine.stop()
-        
+
         let currentTime = player.getCurrentTime()
         XCTAssertEqual(currentTime, 0.5)
-        
+
         testMD5(audio)
     }
 }
