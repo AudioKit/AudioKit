@@ -6,6 +6,7 @@
 
 #include "SequencerEngine.h"
 #include <vector>
+#include <bitset>
 #include <stdio.h>
 #include <atomic>
 #include "../../Internals/Utilities/readerwriterqueue.h"
@@ -15,13 +16,15 @@
 
 using moodycamel::ReaderWriterQueue;
 
+typedef std::bitset<128> RunningStatus;
+
 struct SequencerEvent {
     bool notesOff = false;
     double seekPosition = NAN;
 };
 
 struct SequencerEngine {
-    std::vector<SequenceNote> playingNotes;
+    RunningStatus runningStatus;
     long positionInSamples = 0;
     UInt64 framesCounted = 0;
     SequenceSettings settings = {0, 4.0, 120.0, true, 0};
@@ -34,11 +37,7 @@ struct SequencerEngine {
     // Current position as reported to the UI.
     std::atomic<double> uiPosition{0};
 
-    SequencerEngine() {
-        // Try to reserve enough notes so allocation on the DSP
-        // thread is unlikely. (This is not ideal)
-        playingNotes.reserve(256);
-    }
+    SequencerEngine() {}
 
     int beatToSamples(double beat) const {
         return (int)(beat / settings.tempo * 60 * sampleRate);
@@ -70,37 +69,41 @@ struct SequencerEngine {
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, int offset, double time) {
         if(midiBlock) {
             UInt8 midiBytes[3] = {status, data1, data2};
-            midiBlock(AUEventSampleTimeImmediate + offset, 0, 3, midiBytes);
+            int noteOffOffset = 0;
+            if(status == NOTEOFF) {
+                noteOffOffset = - 1;
+            }
+            int adjustedOffset = (int)(AUEventSampleTimeImmediate + offset + noteOffOffset);
+            printf("note status: %x %i \n", status, adjustedOffset);
+            midiBlock(adjustedOffset, 0, 3, midiBytes);
         }
     }
 
-    void addPlayingNote(SequenceNote note, int offset) {
-        if (note.noteOn.data2 > 0) {
-            sendMidiData(note.noteOn.status,
-                         note.noteOn.data1,
-                         note.noteOn.data2,
-                         offset,
-                         note.noteOn.beat);
-            playingNotes.push_back(note);
-        } else {
-            sendMidiData(note.noteOff.status,
-                         note.noteOff.data1,
-                         note.noteOff.data2,
-                         offset, note.noteOn.beat);
+    /// Keeps a bitset up to date with note playing status
+    void updateRunningStatus(UInt8 status, UInt8 data1, UInt8 data2) {
+        if(status == NOTEOFF) {
+            runningStatus.set(data1, 0);
+        }
+        if(status == NOTEON) {
+            runningStatus.set(data1, 1);
         }
     }
 
-    void stopPlayingNote(SequenceNote note, int offset, int index) {
-        sendMidiData(note.noteOff.status,
-                     note.noteOff.data1,
-                     note.noteOff.data2,
-                     offset,
-                     note.noteOff.beat);
-        playingNotes.erase(playingNotes.begin() + index);
+    /// Stops all notes tracked by running status as playing
+    /// If panic arg is set to true, this will send a note off msg for all notes
+    void stopAllPlayingNotes(bool panic = false) {
+        if(runningStatus.any() || panic) {
+            for(int i = (int)runningStatus.size(); i >= 0; i--) {
+                if(runningStatus[i] == 1 || panic) {
+                    sendMidiData(NOTEOFF, (UInt8)i, 0, 1, 0);
+                }
+            }
+        }
     }
 
     void stop() {
         isStarted = false;
+        stopAllPlayingNotes();
     }
 
     void seekTo(double position) {
@@ -112,9 +115,7 @@ struct SequencerEngine {
         SequencerEvent event;
         while(eventQueue.try_dequeue(event)) {
             if(event.notesOff) {
-                while (playingNotes.size() > 0) {
-                    stopPlayingNote(playingNotes[0], 0, 0);
-                }
+                stopAllPlayingNotes();
             }
 
             if(!isnan(event.seekPosition)) {
@@ -131,12 +132,13 @@ struct SequencerEngine {
         processEvents();
 
         if (isStarted) {
-            if (positionInSamples >= lengthInSamples()){
+            if (positionInSamples >= lengthInSamples()) {
                 if (!settings.loopEnabled) { //stop if played enough
                     stop();
                     return;
                 }
             }
+
             long currentStartSample = positionModulo();
             long currentEndSample = currentStartSample + frameCount;
 
@@ -160,46 +162,6 @@ struct SequencerEngine {
                                      offset, events[i].beat);
                     }
                 }
-            }
-
-            // Check scheduled notes for note ons
-            for (int i = 0; i < notes.size(); i++) {
-                int triggerTime = beatToSamples(notes[i].noteOn.beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    int offset = (int)(triggerTime - currentStartSample);
-                    addPlayingNote(notes[i], offset);
-                } else if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
-                    if (triggerTime < samplesOfBufferForNewLoop) {
-                        int offset = (int)triggerTime + loopRestartInBuffer;
-                        addPlayingNote(notes[i], offset);
-                    }
-                }
-            }
-
-            // Check the playing notes for note offs
-            int i = 0;
-            while (i < playingNotes.size()) {
-                int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    // Note-offs 1 sample early to assure repeating self-same notes are ordered correctly
-                    int offset = (int)(triggerTime - currentStartSample - 1);
-                    stopPlayingNote(playingNotes[i], offset, i);
-                    continue;
-                }
-
-                if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
-                    if (triggerTime < samplesOfBufferForNewLoop) {
-                        // Note-offs 1 sample early to assure repeating self-same notes are ordered correctly
-                        int offset = (int)triggerTime + loopRestartInBuffer - 1;
-                        stopPlayingNote(playingNotes[i], offset, i);
-                        continue;
-                    }
-                }
-                i++;
             }
 
             positionInSamples += frameCount;

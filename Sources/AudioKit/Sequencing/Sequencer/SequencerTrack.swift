@@ -132,13 +132,18 @@ open class SequencerTrack {
                                           loopEnabled: loopEnabled,
                                           numberOfLoops: 0)
 
-        sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
-            sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<SequenceNote>) -> Void in
+        var notes = sequence.notes
+        var events: [SequenceEvent] = sequence.events
+        events.append(contentsOf: sequence.orderedNoteEvents())
+        notes.removeAll()
+
+        events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
+            notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<SequenceNote>) -> Void in
                 guard let observer = SequencerEngineUpdateSequence(engine,
                                                                      eventsPtr.baseAddress,
-                                                                     sequence.events.count,
+                                                                     events.count,
                                                                      notesPtr.baseAddress,
-                                                                     sequence.notes.count,
+                                                                     notes.count,
                                                                      settings,
                                                                      Settings.sampleRate,
                                                                      block) else { return }

@@ -151,7 +151,7 @@ class SequencerEngineTests: XCTestCase {
         XCTAssertEqual(events.map { $0.status!.type }, [.noteOn, .noteOff, .noteOn, .noteOff])
         XCTAssertEqual(events.map { $0.offset }, [0, 22049, 22050, 33074])
     }
-    
+
     func testSameNoteRepeatingInChords() {
 
         var seq = NoteEventSequence()
@@ -162,7 +162,7 @@ class SequencerEngineTests: XCTestCase {
         seq.add(noteNumber: 61, position: 1.0, duration: 0.5)
         seq.add(noteNumber: 64, position: 1.0, duration: 0.5)
         seq.add(noteNumber: 62, position: 1.0, duration: 0.5)
-        
+
         let events = observerTest(sequence: seq)
         XCTAssertEqual(events.count, 12)
 
@@ -171,7 +171,7 @@ class SequencerEngineTests: XCTestCase {
                                                         .noteOn, .noteOn, .noteOn, .noteOff, .noteOff,.noteOff])
         XCTAssertEqual(events.map { $0.offset }, [0, 0, 0, 22049, 22049, 22049, 22050, 22050, 22050, 33074, 33074, 33074])
     }
-    
+
     func testSameNoteRepeatingInChordsAcrossLoop() {
 
         var seq = NoteEventSequence()
@@ -182,7 +182,7 @@ class SequencerEngineTests: XCTestCase {
         seq.add(noteNumber: 60, position: 1.0, duration: 1.0)
         seq.add(noteNumber: 62, position: 1.0, duration: 1.0)
         seq.add(noteNumber: 64, position: 1.0, duration: 1.0)
-        
+
         let events = observerTest(sequence: seq, frameCount:512, renderCallCount: 44_100 * 4 / 512)
         XCTAssertEqual(events.count, 24)
 

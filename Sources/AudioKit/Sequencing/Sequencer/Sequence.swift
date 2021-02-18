@@ -103,6 +103,41 @@ public struct NoteEventSequence: Equatable {
             add(status: status, data1: event.data[1], data2: event.data[2], position: position)
         }
     }
+    
+    /// Return an ordered sequence of MIDI events from the current Note
+    public func orderedNoteEvents() -> [SequenceEvent] {
+        /// Get all SequenceEvents from NoteEvents
+        var noteEvents: [SequenceEvent] = []
+        notes.forEach { note in
+            noteEvents.append(note.noteOn)
+            noteEvents.append(note.noteOff)
+        }
+        /// Sort note messages by earliest time, note off is earlier when events are simultaneous
+        let sorted = noteEvents.sorted(by: { (event1:SequenceEvent, event2:SequenceEvent) -> Bool in
+            if(event1.beat == event2.beat) {
+                if(isNoteOn(event1.status) && isNoteOff(event2.status)) {
+                    return false
+                }
+                if(isNoteOff(event1.status) && isNoteOn(event2.status)) {
+                    return true
+                }
+            }
+            return event1.beat < event2.beat
+        })
+        print("TestApp: Sequence Updated (sorted)")
+        sorted.forEach { event in
+            print("\(event.data1) \(event.status == 144 ? "ON" : "OFF") \(event.beat)")
+        }
+        return sorted
+    }
+    
+    private func isNoteOn(_ statusByte: UInt8) -> Bool {
+        return statusByte >> 4 == 0x90
+    }
+    
+    private func isNoteOff(_ statusByte: UInt8) -> Bool {
+        return statusByte >> 4 == 0x80
+    }
 }
 
 #endif
