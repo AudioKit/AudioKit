@@ -16,6 +16,8 @@
 
 using moodycamel::ReaderWriterQueue;
 
+/// NOTE: To support more than a single channel, RunningStatus can be made larger
+/// e.g. typedef std::bitset<128 * 16> RunningStatus; would track 16 channels of notes
 typedef std::bitset<128> RunningStatus;
 
 struct SequencerEvent {
@@ -69,17 +71,11 @@ struct SequencerEngine {
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, int offset, double time) {
         if(midiBlock) {
             UInt8 midiBytes[3] = {status, data1, data2};
-            int noteOffOffset = 0;
-//            if(status == NOTEOFF) {
-//                noteOffOffset = - 1;
-//            }
-            int adjustedOffset = (int)(AUEventSampleTimeImmediate + offset + noteOffOffset);
-            printf("%05i status: %x note: %i \n", adjustedOffset, status, data1);
-            midiBlock(adjustedOffset, 0, 3, midiBytes);
+            midiBlock(AUEventSampleTimeImmediate + offset, 0, 3, midiBytes);
         }
     }
 
-    /// Keeps a bitset up to date with note playing status
+    /// Update note playing status
     void updateRunningStatus(UInt8 status, UInt8 data1, UInt8 data2) {
         if(status == NOTEOFF) {
             runningStatus.set(data1, 0);
@@ -89,8 +85,8 @@ struct SequencerEngine {
         }
     }
 
-    /// Stops all notes tracked by running status as playing
-    /// If panic arg is set to true, this will send a note off msg for all notes
+    /// Stop all notes whose running status is currently on
+    /// If panic is set to true, a note-off message will be sent for all notes
     void stopAllPlayingNotes(bool panic = false) {
         if(runningStatus.any() || panic) {
             for(int i = (int)runningStatus.size(); i >= 0; i--) {
@@ -152,20 +148,14 @@ struct SequencerEngine {
                         // this event would trigger early enough in the next loop that it should happen in this buffer
                         // ie. this buffer contains events from the previous loop, and the next loop
                         int offset = (int)triggerTime + loopRestartInBuffer;
-                        printf("sent - in next loop check\n");
                         sendMidiData(events[i].status, events[i].data1, events[i].data2,
                                      offset, events[i].beat);
-                    } else {
-                        printf("skipped in loop check\n");
                     }
                 } else if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
                     // this event is supposed to trigger between currentStartSample and currentEndSample
                     int offset = (int)(triggerTime - currentStartSample);
-                    printf("sent - contained in buffer\n");
                     sendMidiData(events[i].status, events[i].data1, events[i].data2,
                                  offset, events[i].beat);
-                } else {
-//                    printf("skipped\n");
                 }
             }
 
