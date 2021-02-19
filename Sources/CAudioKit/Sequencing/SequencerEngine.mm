@@ -70,11 +70,11 @@ struct SequencerEngine {
         if(midiBlock) {
             UInt8 midiBytes[3] = {status, data1, data2};
             int noteOffOffset = 0;
-            if(status == NOTEOFF) {
-                noteOffOffset = - 1;
-            }
+//            if(status == NOTEOFF) {
+//                noteOffOffset = - 1;
+//            }
             int adjustedOffset = (int)(AUEventSampleTimeImmediate + offset + noteOffOffset);
-            printf("note status: %x %i \n", status, adjustedOffset);
+            printf("%05i status: %x note: %i \n", adjustedOffset, status, data1);
             midiBlock(adjustedOffset, 0, 3, midiBytes);
         }
     }
@@ -125,9 +125,7 @@ struct SequencerEngine {
 
     }
 
-    void process(const std::vector<SequenceEvent>& events,
-                 const std::vector<SequenceNote>& notes,
-                 AUAudioFrameCount frameCount) {
+    void process(const std::vector<SequenceEvent>& events, AUAudioFrameCount frameCount) {
 
         processEvents();
 
@@ -145,22 +143,29 @@ struct SequencerEngine {
             for (int i = 0; i < events.size(); i++) {
                 // go through every event
                 int triggerTime = beatToSamples(events[i].beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    // this event is supposed to trigger between currentStartSample and currentEndSample
-                    int offset = (int)(triggerTime - currentStartSample);
-                    sendMidiData(events[i].status, events[i].data1, events[i].data2,
-                                 offset, events[i].beat);
-                } else if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
-                    // this buffer extends beyond the length of the loop and looping is on
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+
+                if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
+                // this buffer extends beyond the length of the loop and looping is on
+                int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
                     if (triggerTime < samplesOfBufferForNewLoop) {
                         // this event would trigger early enough in the next loop that it should happen in this buffer
                         // ie. this buffer contains events from the previous loop, and the next loop
                         int offset = (int)triggerTime + loopRestartInBuffer;
+                        printf("sent - in next loop check\n");
                         sendMidiData(events[i].status, events[i].data1, events[i].data2,
                                      offset, events[i].beat);
+                    } else {
+                        printf("skipped in loop check\n");
                     }
+                } else if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                    // this event is supposed to trigger between currentStartSample and currentEndSample
+                    int offset = (int)(triggerTime - currentStartSample);
+                    printf("sent - contained in buffer\n");
+                    sendMidiData(events[i].status, events[i].data1, events[i].data2,
+                                 offset, events[i].beat);
+                } else {
+//                    printf("skipped\n");
                 }
             }
 
@@ -185,15 +190,11 @@ void akSequencerEngineDestroy(SequencerEngineRef engine) {
 AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
                                                  const SequenceEvent* eventsPtr,
                                                  size_t eventCount,
-                                                 const SequenceNote* notesPtr,
-                                                 size_t noteCount,
                                                  SequenceSettings settings,
                                                  double sampleRate,
                                                  AUScheduleMIDIEventBlock block) {
 
     const std::vector<SequenceEvent> events{eventsPtr, eventsPtr+eventCount};
-    const std::vector<SequenceNote> notes{notesPtr, notesPtr+noteCount};
-
     return ^void(AudioUnitRenderActionFlags actionFlags,
                  const AudioTimeStamp *timestamp,
                  AUAudioFrameCount frameCount,
@@ -204,7 +205,7 @@ AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
         engine->sampleRate = sampleRate;
         engine->midiBlock = block;
         engine->settings = settings;
-        engine->process(events, notes, frameCount);
+        engine->process(events, frameCount);
     };
 }
 

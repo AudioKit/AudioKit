@@ -40,8 +40,6 @@ AK_API void akSequencerEngineDestroy(SequencerEngineRef engine);
 AK_API AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
                                                         const SequenceEvent* events,
                                                         size_t eventCount,
-                                                        const SequenceNote* notes,
-                                                        size_t noteCount,
                                                         SequenceSettings settings,
                                                         double sampleRate,
                                                         AUScheduleMIDIEventBlock block);
