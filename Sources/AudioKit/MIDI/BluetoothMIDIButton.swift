@@ -51,11 +51,22 @@ public class BluetoothMIDIButton: UIButton {
                                                     y: displayView.bounds.midY,
                                                     width: 0,
                                                     height: 0) : self.frame
-            let controller = displayView.next as? UIViewController
+            let controller = nextResponderAsViewController(responder: displayView.next)
             controller?.present(navController, animated: true, completion: nil)
 
             popC?.sourceView = controller?.view
             bluetoothMIDIViewController.uiViewController = controller
+        }
+    }
+    
+    private func nextResponderAsViewController(responder: UIResponder?) -> UIViewController? {
+        let next: UIResponder? = responder?.next
+        if let vc = next as? UIViewController {
+            return vc
+        } else if next == nil {
+            return nil
+        } else {
+            return nextResponderAsViewController(responder: next)
         }
     }
 
