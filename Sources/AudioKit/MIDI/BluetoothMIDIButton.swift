@@ -58,11 +58,11 @@ public class BluetoothMIDIButton: UIButton {
             bluetoothMIDIViewController.uiViewController = controller
         }
     }
-    
+
     private func nextResponderAsViewController(responder: UIResponder?) -> UIViewController? {
         let next: UIResponder? = responder?.next
-        if let vc = next as? UIViewController {
-            return vc
+        if let viewController = next as? UIViewController {
+            return viewController
         } else if next == nil {
             return nil
         } else {
