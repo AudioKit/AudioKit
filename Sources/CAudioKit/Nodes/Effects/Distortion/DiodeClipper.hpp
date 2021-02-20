@@ -4,19 +4,21 @@
 //     |_____|_____|_____|_____|     https://soul.dev
 //
 
-#include <vector>
 #include <array>
 #include <functional>
 #include <cmath>
 #include <cstddef>
 #include <limits>
 #include <cstring>
-#include <cassert>
-
-#define SOUL_CPP_ASSERT(x) assert (x)
 
 #ifndef SOUL_CPP_ASSERT
  #define SOUL_CPP_ASSERT(x)
+#endif
+
+// If you need to provide custom implementations of the instrinsics that soul uses,
+// you can set this macro to provide your own namespace containing them.
+#ifndef SOUL_INTRINSICS
+ #define SOUL_INTRINSICS std
 #endif
 
 //==============================================================================
@@ -29,10 +31,25 @@ public:
     ~Diode() = default;
 
     //==============================================================================
-    static constexpr uint32_t maxBlockSize = 1024;
-    template <typename Type, int size> struct Vector;
-    template <typename Type, int size> struct FixedArray;
+    template <typename Type, int32_t size> struct Vector;
+    template <typename Type, int32_t size> struct FixedArray;
     template <typename Type> struct DynamicArray;
+
+    static constexpr uint32_t maxBlockSize  = 1024;
+    static constexpr uint32_t latency       = 0;
+
+    template <typename Item>
+    struct span
+    {
+        Item* start = nullptr;
+        size_t numItems = 0;
+
+        constexpr size_t size() const               { return numItems; }
+        constexpr bool empty() const                { return numItems == 0; }
+        constexpr Item* begin() const               { return start; }
+        constexpr Item* end() const                 { return start + numItems; }
+        const Item& operator[] (size_t index) const { SOUL_CPP_ASSERT (index < numItems); return start[index]; }
+    };
 
     struct _RenderStats;
     struct _SparseStreamStatus;
@@ -51,7 +68,7 @@ public:
 
     void init (double newSampleRate, int sessionID)
     {
-        memset (&state, 0, sizeof (state));
+        memset (reinterpret_cast<void*> (std::addressof (state)), 0, sizeof (state));
         sampleRate = newSampleRate;
         _initialise (state, sessionID);
         initialisedState = state;
@@ -188,21 +205,21 @@ public:
         const char* annotation;
     };
 
-    std::vector<EndpointDetails> getInputEndpoints() const
+    std::array<EndpointDetails, 3> getInputEndpoints() const
     {
         return
         {
-            { "audioIn",         "in:audioIn",         EndpointType::stream, "float32", 1, ""                                                               },
-            { "cutoffFrequency", "in:cutoffFrequency", EndpointType::event,  "float32", 0, "{ \"min\": 20, \"max\": 20000, \"init\": 10000, \"step\": 10 }" },
-            { "gaindB",          "in:gaindB",          EndpointType::event,  "float32", 0, "{ \"min\": 0, \"max\": 40, \"init\": 20, \"step\": 0.1 }"       }
+            EndpointDetails { "audioIn",         "in:audioIn",         EndpointType::stream, "float32", 1, ""                                                                                     },
+            EndpointDetails { "cutoffFrequency", "in:cutoffFrequency", EndpointType::event,  "float32", 0, "{ \"name\": \"Cutoff\", \"min\": 20, \"max\": 20000, \"init\": 10000, \"step\": 10 }" },
+            EndpointDetails { "gaindB",          "in:gaindB",          EndpointType::event,  "float32", 0, "{ \"name\": \"Gain\", \"min\": 0, \"max\": 40, \"init\": 20, \"step\": 0.1 }"         }
         };
     }
 
-    std::vector<EndpointDetails> getOutputEndpoints() const
+    std::array<EndpointDetails, 1> getOutputEndpoints() const
     {
         return
         {
-            { "audioOut", "out:audioOut", EndpointType::stream, "float32", 1, "" }
+            EndpointDetails { "audioOut", "out:audioOut", EndpointType::stream, "float32", 1, "" }
         };
     }
 
@@ -219,6 +236,11 @@ public:
         bool isAutomatable, isBoolean, isHidden;
         const char* group;
         const char* textValues;
+    };
+
+    struct Parameter
+    {
+        ParameterProperties properties;
         float currentValue;
         std::function<void(float)> applyValue;
 
@@ -236,10 +258,10 @@ public:
     private:
         float snapToLegalValue (float v) const
         {
-            if (step > 0)
-                v = minValue + step * std::floor ((v - minValue) / step + 0.5f);
+            if (properties.step > 0)
+                v = properties.minValue + properties.step * SOUL_INTRINSICS::floor ((v - properties.minValue) / properties.step + 0.5f);
 
-            return v < minValue ? minValue : (v > maxValue ? maxValue : v);
+            return v < properties.minValue ? properties.minValue : (v > properties.maxValue ? properties.maxValue : v);
         }
     };
 
@@ -252,24 +274,68 @@ public:
     static constexpr bool      hasMIDIInput = false;
     static constexpr uint32_t  numParameters = 2;
 
-    std::vector<ParameterProperties> getParameterProperties()
+    static const std::array<const ParameterProperties, numParameters> parameters;
+
+    static span<const ParameterProperties> getParameterProperties() { return { parameters.data(), numParameters }; }
+
+    static constexpr uint32_t numInputBuses  = 1;
+    static constexpr uint32_t numOutputBuses = 1;
+
+    static constexpr std::array<const AudioBus, numInputBuses>  inputBuses = { AudioBus { "audioIn", 1 } };
+
+    static constexpr std::array<const AudioBus, numOutputBuses> outputBuses = { AudioBus { "audioOut", 1 } };
+
+    static span<const AudioBus> getInputBuses()  { return { inputBuses.data(), numInputBuses }; }
+    static span<const AudioBus> getOutputBuses() { return { outputBuses.data(), numOutputBuses }; }
+
+    struct ParameterList
+    {
+        Parameter* begin()                      { return params; }
+        Parameter* end()                        { return params + numParameters; }
+        size_t size() const                     { return numParameters; }
+        Parameter& operator[] (size_t index)    { SOUL_CPP_ASSERT (index < numParameters); return params[index]; }
+
+        Parameter params[numParameters == 0 ? 1 : numParameters];
+    };
+
+    ParameterList createParameterList()
     {
         return
         {
-            {  "cutoffFrequency",  "cutoffFrequency",  "",  20.0f,  20000.0f,  10.0f,  10000.0f,  true,  false,  false,  "",  "",  10000.0f,  [this] (float v) { addInputEvent_cutoffFrequency (v); }  },
-            {  "gaindB",           "gaindB",           "",  0.0f,   40.0f,     0.1f,   20.0f,     true,  false,  false,  "",  "",  20.0f,     [this] (float v) { addInputEvent_gaindB (v); }           }
+            {
+                Parameter {  parameters[0],  10000.0f,  [this] (float v) { addInputEvent_cutoffFrequency (v); }  },
+                Parameter {  parameters[1],  20.0f,     [this] (float v) { addInputEvent_gaindB (v); }           }
+            }
         };
     }
 
-    std::vector<AudioBus> getInputBuses() const   { return { { "audioIn", 1 } }; }
+    static constexpr bool hasTimelineEndpoints = false;
 
-    std::vector<AudioBus> getOutputBuses() const   { return { { "audioOut", 1 } }; }
+    void setTimeSignature (int32_t newNumerator, int32_t newDenominator)
+    {
+        (void) newNumerator; (void) newDenominator;
+    }
+
+    void setTempo (float newBPM)
+    {
+        (void) newBPM;
+    }
+
+    void setTransportState (int32_t newState)
+    {
+        (void) newState;
+    }
+
+    void setPosition (int64_t currentFrame, double currentQuarterNote, double lastBarStartQuarterNote)
+    {
+        (void) currentFrame; (void) currentQuarterNote; (void) lastBarStartQuarterNote;
+    }
 
     //==============================================================================
     struct ZeroInitialiser
     {
-        template <typename Type>
-        operator Type() const   { return {}; }
+        template <typename Type>   operator Type() const   { return {}; }
+        template <typename Index>  ZeroInitialiser operator[] (Index) const { return {}; }
     };
 
     //==============================================================================
@@ -313,7 +379,7 @@ public:
         FixedArray& operator= (ZeroInitialiser)
         {
             for (auto& e : elements)
-                e = {};
+                e = ElementType {};
 
             return *this;
         }
@@ -348,6 +414,13 @@ public:
                 element = value;
         }
 
+        template <typename OtherType>
+        constexpr Vector (const Vector<OtherType, size>& other)
+        {
+            for (int32_t i = 0; i < size; ++i)
+                elements[i] = static_cast<Type> (other.elements[i]);
+        }
+
         constexpr Vector (std::initializer_list<Type> i)
         {
             int n = 0;
@@ -367,6 +440,8 @@ public:
         constexpr Vector operator/ (const Vector& rhs) const                { return apply<Vector> (rhs, [] (Type a, Type b) { return a / b; }); }
         constexpr Vector operator% (const Vector& rhs) const                { return apply<Vector> (rhs, [] (Type a, Type b) { return a % b; }); }
         constexpr Vector operator-() const                                  { return apply<Vector> ([] (Type n) { return -n; }); }
+        constexpr Vector operator~() const                                  { return apply<Vector> ([] (Type n) { return ~n; }); }
+        constexpr Vector operator!() const                                  { return apply<Vector> ([] (Type n) { return ! n; }); }
 
         Vector& operator= (ZeroInitialiser)
         {
@@ -443,24 +518,24 @@ public:
     //==============================================================================
     //==============================================================================
 
-    template <typename Vec>  static Vec _vec_sqrt  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::sqrt (x); }); }
-    template <typename Vec>  static Vec _vec_pow   (Vec a, Vec b)  { return a.template apply<Vec> ([&] (typename Vec::ElementType x) { return std::pow (x, b); }); }
-    template <typename Vec>  static Vec _vec_exp   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::exp (x); }); }
-    template <typename Vec>  static Vec _vec_log   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::log (x); }); }
-    template <typename Vec>  static Vec _vec_log10 (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::log10 (x); }); }
-    template <typename Vec>  static Vec _vec_sin   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::sin (x); }); }
-    template <typename Vec>  static Vec _vec_cos   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::cos (x); }); }
-    template <typename Vec>  static Vec _vec_tan   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::tan (x); }); }
-    template <typename Vec>  static Vec _vec_sinh  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::sinh (x); }); }
-    template <typename Vec>  static Vec _vec_cosh  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::cosh (x); }); }
-    template <typename Vec>  static Vec _vec_tanh  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::tanh (x); }); }
-    template <typename Vec>  static Vec _vec_asinh (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::asinh (x); }); }
-    template <typename Vec>  static Vec _vec_acosh (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::acosh (x); }); }
-    template <typename Vec>  static Vec _vec_atanh (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::atanh (x); }); }
-    template <typename Vec>  static Vec _vec_asin  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::asin (x); }); }
-    template <typename Vec>  static Vec _vec_acos  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::acos (x); }); }
-    template <typename Vec>  static Vec _vec_atan  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return std::atan (x); }); }
-    template <typename Vec>  static Vec _vec_atan2 (Vec a, Vec b)  { return a.template apply<Vec> ([&] (typename Vec::ElementType x) { return std::atan2 (x, b); }); }
+    template <typename Vec>  static Vec _vec_sqrt  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::sqrt (x); }); }
+    template <typename Vec>  static Vec _vec_pow   (Vec a, Vec b)  { return a.template apply<Vec> ([&] (typename Vec::ElementType x) { return SOUL_INTRINSICS::pow (x, b); }); }
+    template <typename Vec>  static Vec _vec_exp   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::exp (x); }); }
+    template <typename Vec>  static Vec _vec_log   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::log (x); }); }
+    template <typename Vec>  static Vec _vec_log10 (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::log10 (x); }); }
+    template <typename Vec>  static Vec _vec_sin   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::sin (x); }); }
+    template <typename Vec>  static Vec _vec_cos   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::cos (x); }); }
+    template <typename Vec>  static Vec _vec_tan   (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::tan (x); }); }
+    template <typename Vec>  static Vec _vec_sinh  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::sinh (x); }); }
+    template <typename Vec>  static Vec _vec_cosh  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::cosh (x); }); }
+    template <typename Vec>  static Vec _vec_tanh  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::tanh (x); }); }
+    template <typename Vec>  static Vec _vec_asinh (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::asinh (x); }); }
+    template <typename Vec>  static Vec _vec_acosh (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::acosh (x); }); }
+    template <typename Vec>  static Vec _vec_atanh (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::atanh (x); }); }
+    template <typename Vec>  static Vec _vec_asin  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::asin (x); }); }
+    template <typename Vec>  static Vec _vec_acos  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::acos (x); }); }
+    template <typename Vec>  static Vec _vec_atan  (Vec a)         { return a.template apply<Vec> ([]  (typename Vec::ElementType x) { return SOUL_INTRINSICS::atan (x); }); }
+    template <typename Vec>  static Vec _vec_atan2 (Vec a, Vec b)  { return a.template apply<Vec> ([&] (typename Vec::ElementType x) { return SOUL_INTRINSICS::atan2 (x, b); }); }
 
     static constexpr int32_t _intrin_clamp (int32_t n, int32_t low, int32_t high)  { return n < low ? low : (n > high ? high : n); }
     static constexpr int32_t _intrin_wrap (int32_t n, int32_t range)   { if (range == 0) return 0; auto x = n % range; return x < 0 ? x + range : x; }
@@ -483,11 +558,11 @@ public:
             monoDest[i] = static_cast<DestFloatType> (source[i]);
     }
 
-    template <typename SourceFloatType, typename DestFloatType, int numChannels>
+    template <typename SourceFloatType, typename DestFloatType, int32_t numChannels>
     static inline void copyToInterleaved (Vector<DestFloatType, numChannels>* vectorDest, const SourceFloatType* const* sourceChannels, uint32_t sourceStartFrame, uint32_t numFrames)
     {
         for (uint32_t i = 0; i < numFrames; ++i)
-            for (uint32_t chan = 0; chan < numChannels; ++chan)
+            for (uint32_t chan = 0; chan < static_cast<uint32_t> (numChannels); ++chan)
                 vectorDest[i].elements[chan] = static_cast<DestFloatType> (sourceChannels[chan][sourceStartFrame + i]);
     }
 
@@ -500,11 +575,11 @@ public:
             dest[i] = static_cast<DestFloatType> (monoSource[i]);
     }
 
-    template <typename SourceFloatType, typename DestFloatType, int numChannels>
+    template <typename SourceFloatType, typename DestFloatType, int32_t numChannels>
     static inline void copyFromInterleaved (DestFloatType* const* destChannels, uint32_t destStartFrame, const Vector<SourceFloatType, numChannels>* vectorSource, uint32_t numFrames)
     {
         for (uint32_t i = 0; i < numFrames; ++i)
-            for (uint32_t chan = 0; chan < numChannels; ++chan)
+            for (uint32_t chan = 0; chan < static_cast<uint32_t> (numChannels); ++chan)
                 destChannels[chan][destStartFrame + i] = static_cast<DestFloatType> (vectorSource[i].elements[chan]);
     }
 
@@ -794,7 +869,7 @@ public:
         float _2 = {}, _3 = {}, _4 = {}, _T0 = {};
 
         if (! (decibels > -100.0f)) goto _ternary_false_0;
-        _ternary_true_0: { _2 = std::pow (10.0f, decibels * 0.05f);
+        _ternary_true_0: { _2 = SOUL_INTRINSICS::pow (10.0f, decibels * 0.05f);
                            _T0 = _2;
                            goto _ternary_end_0;
         }
@@ -807,135 +882,135 @@ public:
     }
 
     //==============================================================================
-    float soul__intrinsics___pow_specialised_2_f32_f32 (float a, float b) noexcept
+    float soul__intrinsics___pow_specialised (float a, float b) noexcept
     {
         return 0;
     }
 
-    float soul__intrinsics___sin_specialised_1_f32 (float n) noexcept
+    double soul__intrinsics___log_specialised_2 (double n) noexcept
     {
         return 0;
     }
 
-    double soul__intrinsics___acosh_specialised_1_const_f64 (double n) noexcept
+    float soul__intrinsics___sin_specialised (float n) noexcept
+    {
+        return 0;
+    }
+
+    double soul__intrinsics___sqrt_specialised (double n) noexcept
+    {
+        return 0;
+    }
+
+    double soul__intrinsics___acosh_specialised (double n) noexcept
     {
         double _2 = {}, _3 = {};
 
-        _2 = std::sqrt ((n * n) - 1.0);
-        _3 = std::log (n + _2);
+        _2 = SOUL_INTRINSICS::sqrt ((n * n) - 1.0);
+        _3 = SOUL_INTRINSICS::log (n + _2);
         return _3;
     }
 
-    double soul__intrinsics___abs_specialised_1_f64 (double n) noexcept
+    double soul__intrinsics___abs_specialised (double n) noexcept
     {
-        double _2 = {}, _3 = {}, _4 = {}, _T7 = {};
+        double _2 = {}, _3 = {}, _4 = {}, _T0 = {};
 
-        if (! (n < 0)) goto _ternary_false_7;
-        _ternary_true_7: { _2 = -n;
-                           _T7 = _2;
-                           goto _ternary_end_7;
+        if (! (n < 0)) goto _ternary_false_0;
+        _ternary_true_0: { _2 = -n;
+                           _T0 = _2;
+                           goto _ternary_end_0;
         }
-        _ternary_false_7: { _3 = n;
-                            _T7 = _3;
+        _ternary_false_0: { _3 = n;
+                            _T0 = _3;
         }
-        _ternary_end_7: { _4 = _T7;
+        _ternary_end_0: { _4 = _T0;
                           return _4;
         }
     }
 
-    double soul__intrinsics___sinh_specialised_1_f64 (double n) noexcept
+    double soul__intrinsics___sinh_specialised (double n) noexcept
     {
         double _2 = {}, _3 = {};
 
-        _2 = std::exp (n);
-        _3 = std::exp (-n);
+        _2 = SOUL_INTRINSICS::exp (n);
+        _3 = SOUL_INTRINSICS::exp (-n);
         return (_2 - _3) / 2.0;
     }
 
-    double soul__intrinsics___cosh_specialised_1_f64 (double n) noexcept
+    double soul__intrinsics___cosh_specialised (double n) noexcept
     {
         double _2 = {}, _3 = {};
 
-        _2 = std::exp (n);
-        _3 = std::exp (-n);
+        _2 = SOUL_INTRINSICS::exp (n);
+        _3 = SOUL_INTRINSICS::exp (-n);
         return (_2 + _3) / 2.0;
     }
 
-    float soul__intrinsics___clamp_specialised_3_f32_f32_f32 (float n, float low, float high) noexcept
+    float soul__intrinsics___clamp_specialised (float n, float low, float high) noexcept
     {
-        float _2 = {}, _3 = {}, _4 = {}, _5 = {}, _6 = {}, _T9 = {}, _T8 = {};
+        float _2 = {}, _3 = {}, _4 = {}, _5 = {}, _6 = {}, _T1 = {}, _T0 = {};
 
-        if (! (n < low)) goto _ternary_false_8;
-        _ternary_true_8: { _2 = low;
-                           _T8 = _2;
-                           goto _ternary_end_8;
+        if (! (n < low)) goto _ternary_false_0;
+        _ternary_true_0: { _2 = low;
+                           _T0 = _2;
+                           goto _ternary_end_0;
         }
-        _ternary_false_8: { if (! (n > high)) goto _ternary_false_9; }
-        _ternary_true_9: { _3 = high;
-                           _T9 = _3;
-                           goto _ternary_end_9;
+        _ternary_false_0: { if (! (n > high)) goto _ternary_false_1; }
+        _ternary_true_1: { _3 = high;
+                           _T1 = _3;
+                           goto _ternary_end_1;
         }
-        _ternary_false_9: { _4 = n;
-                            _T9 = _4;
+        _ternary_false_1: { _4 = n;
+                            _T1 = _4;
         }
-        _ternary_end_9: { _5 = _T9;
-                          _T8 = _5;
+        _ternary_end_1: { _5 = _T1;
+                          _T0 = _5;
         }
-        _ternary_end_8: { _6 = _T8;
+        _ternary_end_0: { _6 = _T0;
                           return _6;
         }
     }
 
-    double soul__intrinsics___sqrt_specialised_1_f64 (double n) noexcept
+    double soul__intrinsics___exp_specialised (double n) noexcept
     {
         return 0;
     }
 
-    double soul__intrinsics___exp_specialised_1_f64 (double n) noexcept
+    double soul__intrinsics___clamp_specialised_2 (double n, double low, double high) noexcept
     {
-        return 0;
-    }
+        double _2 = {}, _3 = {}, _4 = {}, _5 = {}, _6 = {}, _T1 = {}, _T0 = {};
 
-    double soul__intrinsics___log_specialised_1_f64 (double n) noexcept
-    {
-        return 0;
-    }
-
-    double soul__intrinsics___clamp_specialised_3_const_f64_const_f64_const_f64 (double n, double low, double high) noexcept
-    {
-        double _2 = {}, _3 = {}, _4 = {}, _5 = {}, _6 = {}, _T11 = {}, _T10 = {};
-
-        if (! (n < low)) goto _ternary_false_10;
-        _ternary_true_10: { _2 = low;
-                            _T10 = _2;
-                            goto _ternary_end_10;
+        if (! (n < low)) goto _ternary_false_0;
+        _ternary_true_0: { _2 = low;
+                           _T0 = _2;
+                           goto _ternary_end_0;
         }
-        _ternary_false_10: { if (! (n > high)) goto _ternary_false_11; }
-        _ternary_true_11: { _3 = high;
-                            _T11 = _3;
-                            goto _ternary_end_11;
+        _ternary_false_0: { if (! (n > high)) goto _ternary_false_1; }
+        _ternary_true_1: { _3 = high;
+                           _T1 = _3;
+                           goto _ternary_end_1;
         }
-        _ternary_false_11: { _4 = n;
-                             _T11 = _4;
+        _ternary_false_1: { _4 = n;
+                            _T1 = _4;
         }
-        _ternary_end_11: { _5 = _T11;
-                           _T10 = _5;
+        _ternary_end_1: { _5 = _T1;
+                          _T0 = _5;
         }
-        _ternary_end_10: { _6 = _T10;
-                           return _6;
+        _ternary_end_0: { _6 = _T0;
+                          return _6;
         }
     }
 
-    float soul__intrinsics___tan_specialised_1_f32 (float n) noexcept
+    float soul__intrinsics___tan_specialised (float n) noexcept
     {
         float _2 = {}, _3 = {};
 
-        _2 = std::sin (n);
-        _3 = std::cos (n);
+        _2 = SOUL_INTRINSICS::sin (n);
+        _3 = SOUL_INTRINSICS::cos (n);
         return _2 / _3;
     }
 
-    float soul__intrinsics___cos_specialised_1_f32 (float n) noexcept
+    float soul__intrinsics___cos_specialised (float n) noexcept
     {
         return 0;
     }
@@ -967,7 +1042,7 @@ public:
                     _state.m_out = 0;
         }
         _body_0: { DiodeClipper__updateFilterVariables (_state);
-                   _3 = std::acosh (static_cast<double> (0.022775999999999999 / (0.000005544 * static_cast<double> (_state.m_G))));
+                   _3 = SOUL_INTRINSICS::acosh (static_cast<double> (0.022775999999999999 / (0.000005544 * static_cast<double> (_state.m_G))));
                    _state.m_deltaLim = static_cast<double> (0.045551999999999998 * _3);
                    _state.m_counter_1 = 8;
         }
@@ -979,14 +1054,14 @@ public:
                    counter_2 = 64;
         }
         _loop_2: { if (! (counter_2 > 0)) goto _break_2; }
-        _body_2: { _4 = soul__intrinsics___abs_specialised_1_f64 (delta);
+        _body_2: { _4 = soul__intrinsics___abs_specialised (delta);
                    if (_4 <= 1e-12) goto _break_2;
         }
-        _ifnot_0: { _5 = std::sinh (_state.m_out / 0.045551999999999998);
+        _ifnot_0: { _5 = SOUL_INTRINSICS::sinh (_state.m_out / 0.045551999999999998);
                     J = (static_cast<double> (p) - (((static_cast<double> (2.0f * _state.m_G) * 2200.0) * 2.52e-9) * static_cast<double> (_5))) - static_cast<double> (_state.m_out);
-                    _6 = std::cosh (_state.m_out / 0.045551999999999998);
+                    _6 = SOUL_INTRINSICS::cosh (_state.m_out / 0.045551999999999998);
                     dJ = -1.0 - ((((static_cast<double> (_state.m_G * 2.0f) * 2200.0) * 2.52e-9) / 0.045551999999999998) * static_cast<double> (_6));
-                    _7 = soul__intrinsics___clamp_specialised_3_const_f64_const_f64_const_f64 (static_cast<double> ((-J) / dJ), static_cast<double> (-_state.m_deltaLim), static_cast<double> (_state.m_deltaLim));
+                    _7 = soul__intrinsics___clamp_specialised_2 (static_cast<double> ((-J) / dJ), static_cast<double> (-_state.m_deltaLim), static_cast<double> (_state.m_deltaLim));
                     delta = _7;
                     _state.m_out = _state.m_out + delta;
                     counter_2 = counter_2 - 1;
@@ -1009,9 +1084,9 @@ public:
         float _2 = {}, _3 = {}, _4 = {};
         float cutoff = {}, g = {};
 
-        _2 = soul__intrinsics___clamp_specialised_3_f32_f32_f32 (_state.m_cutoffFrequency, 10.0f, static_cast<float> ((sampleRate * 4.0)) * 0.49999f);
+        _2 = soul__intrinsics___clamp_specialised (_state.m_cutoffFrequency, 10.0f, static_cast<float> ((sampleRate * 4.0)) * 0.49999f);
         cutoff = static_cast<float> (_2);
-        _3 = std::tan ((3.1415927f * static_cast<float> (cutoff)) / static_cast<float> ((sampleRate * 4.0)));
+        _3 = SOUL_INTRINSICS::tan ((3.1415927f * static_cast<float> (cutoff)) / static_cast<float> ((sampleRate * 4.0)));
         g = static_cast<float> (_3);
         _state.m_G = static_cast<float> (g / (1.0f + g));
         _4 = soul__dBtoGain (_state.m_gaindB);
@@ -1189,5 +1264,4 @@ public:
     uint32_t framesToAdvance = 0;
     uint64_t totalFramesElapsed = 0;
 };
-
 

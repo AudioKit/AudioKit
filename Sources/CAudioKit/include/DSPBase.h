@@ -4,8 +4,6 @@
 
 #import "Interop.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import <AVFoundation/AVFoundation.h>
-#import "TPCircularBuffer.h"
 
 #include <stdarg.h>
 
@@ -18,8 +16,8 @@ AK_API size_t inputBusCountDSP(DSPRef pDSP);
 AK_API size_t outputBusCountDSP(DSPRef pDSP);
 AK_API bool canProcessInPlaceDSP(DSPRef pDSP);
 
-AK_API void setBufferDSP(DSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex);
-AK_API void allocateRenderResourcesDSP(DSPRef pDSP, AVAudioFormat* format);
+AK_API void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex);
+AK_API void allocateRenderResourcesDSP(DSPRef pDSP, uint32_t channelCount, double sampleRate);
 AK_API void deallocateRenderResourcesDSP(DSPRef pDSP);
 AK_API void resetDSP(DSPRef pDSP);
 
@@ -43,7 +41,6 @@ AK_API void akSetSeed(unsigned int);
 
 #ifdef __cplusplus
 
-#import <Foundation/Foundation.h>
 #import <vector>
 
 /**
@@ -51,9 +48,11 @@ AK_API void akSetSeed(unsigned int);
  does not know the type of the subclass at compile time.
  */
 
-class DSPBase {
-    
-    std::vector<const AVAudioPCMBuffer*> internalBuffers;
+struct DSPBase {
+
+private:
+
+    std::vector<AudioBufferList*> internalBufferLists;
     
 protected:
 
@@ -62,10 +61,6 @@ protected:
     
     /// Subclasses should process in place and set this to true if possible
     bool bCanProcessInPlace = false;
-
-    /// Number of things attached to this node's data
-    size_t tapCount = 0;
-    size_t filledTapCount = 0;
 
     bool isInitialized = false;
     std::atomic<bool> isStarted{true};
@@ -91,7 +86,7 @@ public:
     
     inline bool canProcessInPlace() const { return bCanProcessInPlace; }
     
-    void setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex);
+    void setBuffer(AudioBufferList* buffer, size_t busIndex);
     
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
@@ -160,9 +155,6 @@ public:
     static DSPRef create(const char* name);
 
     virtual void startRamp(const AUParameterEvent& event);
-
-    TPCircularBuffer leftBuffer;
-    TPCircularBuffer rightBuffer;
     
 private:
 

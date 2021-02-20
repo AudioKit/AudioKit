@@ -8,10 +8,12 @@
 #include <vector>
 #include <stdio.h>
 #include <atomic>
-#include "TPCircularBuffer.h"
+#include "../../Internals/Utilities/readerwriterqueue.h"
 
 #define NOTEON 0x90
 #define NOTEOFF 0x80
+
+using moodycamel::ReaderWriterQueue;
 
 struct SequencerEvent {
     bool notesOff = false;
@@ -27,7 +29,7 @@ struct SequencerEngine {
     std::atomic<bool> isStarted{false};
     AUScheduleMIDIEventBlock midiBlock = nullptr;
 
-    TPCircularBuffer eventQueue;
+    ReaderWriterQueue<SequencerEvent> eventQueue;
 
     // Current position as reported to the UI.
     std::atomic<double> uiPosition{0};
@@ -36,12 +38,6 @@ struct SequencerEngine {
         // Try to reserve enough notes so allocation on the DSP
         // thread is unlikely. (This is not ideal)
         playingNotes.reserve(256);
-
-        TPCircularBufferInit(&eventQueue, 4096);
-    }
-
-    ~SequencerEngine() {
-        TPCircularBufferCleanup(&eventQueue);
     }
 
     int beatToSamples(double beat) const {
@@ -80,15 +76,26 @@ struct SequencerEngine {
 
     void addPlayingNote(SequenceNote note, int offset) {
         if (note.noteOn.data2 > 0) {
-            sendMidiData(note.noteOn.status, note.noteOn.data1, note.noteOn.data2, offset, note.noteOn.beat);
+            sendMidiData(note.noteOn.status,
+                         note.noteOn.data1,
+                         note.noteOn.data2,
+                         offset,
+                         note.noteOn.beat);
             playingNotes.push_back(note);
         } else {
-            sendMidiData(note.noteOff.status, note.noteOff.data1, note.noteOff.data2, offset, note.noteOn.beat);
+            sendMidiData(note.noteOff.status,
+                         note.noteOff.data1,
+                         note.noteOff.data2,
+                         offset, note.noteOn.beat);
         }
     }
 
     void stopPlayingNote(SequenceNote note, int offset, int index) {
-        sendMidiData(note.noteOff.status, note.noteOff.data1, note.noteOff.data2, offset, note.noteOff.beat);
+        sendMidiData(note.noteOff.status,
+                     note.noteOff.data1,
+                     note.noteOff.data2,
+                     offset,
+                     note.noteOff.beat);
         playingNotes.erase(playingNotes.begin() + index);
     }
 
@@ -102,11 +109,8 @@ struct SequencerEngine {
 
     void processEvents() {
 
-        int32_t availableBytes;
-        auto* events = (SequencerEvent*) TPCircularBufferTail(&eventQueue, &availableBytes);
-        int n = availableBytes / sizeof(SequencerEvent);
-        for(int i=0;i<n;++i) {
-            auto& event = events[i];
+        SequencerEvent event;
+        while(eventQueue.try_dequeue(event)) {
             if(event.notesOff) {
                 while (playingNotes.size() > 0) {
                     stopPlayingNote(playingNotes[0], 0, 0);
@@ -117,7 +121,6 @@ struct SequencerEngine {
                 seekTo(event.seekPosition);
             }
         }
-        TPCircularBufferConsume(&eventQueue, n * sizeof(SequencerEvent));
 
     }
 
@@ -180,7 +183,8 @@ struct SequencerEngine {
             while (i < playingNotes.size()) {
                 int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
                 if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    int offset = (int)(triggerTime - currentStartSample);
+                    // Note-offs 1 sample early to assure repeating self-same notes are ordered correctly
+                    int offset = (int)(triggerTime - currentStartSample - 1);
                     stopPlayingNote(playingNotes[i], offset, i);
                     continue;
                 }
@@ -189,7 +193,8 @@ struct SequencerEngine {
                     int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
                     int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
                     if (triggerTime < samplesOfBufferForNewLoop) {
-                        int offset = (int)triggerTime + loopRestartInBuffer;
+                        // Note-offs 1 sample early to assure repeating self-same notes are ordered correctly
+                        int offset = (int)triggerTime + loopRestartInBuffer - 1;
                         stopPlayingNote(playingNotes[i], offset, i);
                         continue;
                     }
@@ -248,7 +253,7 @@ double akSequencerEngineGetPosition(SequencerEngineRef engine) {
 void akSequencerEngineSeekTo(SequencerEngineRef engine, double position) {
     SequencerEvent event;
     event.seekPosition = position;
-    TPCircularBufferProduceBytes(&engine->eventQueue, &event, sizeof(SequencerEvent));
+    engine->eventQueue.enqueue(event);
 }
 
 void akSequencerEngineSetPlaying(SequencerEngineRef engine, bool playing) {
@@ -262,7 +267,7 @@ bool akSequencerEngineIsPlaying(SequencerEngineRef engine) {
 void akSequencerEngineStopPlayingNotes(SequencerEngineRef engine) {
     SequencerEvent event;
     event.notesOff = true;
-    TPCircularBufferProduceBytes(&engine->eventQueue, &event, sizeof(SequencerEvent));
+    engine->eventQueue.enqueue(event);
 }
 
 #endif

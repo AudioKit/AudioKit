@@ -25,14 +25,14 @@ bool canProcessInPlaceDSP(DSPRef pDSP)
     return pDSP->canProcessInPlace();
 }
 
-void setBufferDSP(DSPRef pDSP, AVAudioPCMBuffer* buffer, size_t busIndex)
+void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex)
 {
     pDSP->setBuffer(buffer, busIndex);
 }
 
-void allocateRenderResourcesDSP(DSPRef pDSP, AVAudioFormat* format)
+void allocateRenderResourcesDSP(DSPRef pDSP, uint32_t channelCount, double sampleRate)
 {
-    pDSP->init(format.channelCount, format.sampleRate);
+    pDSP->init(channelCount, sampleRate);
 }
 
 void deallocateRenderResourcesDSP(DSPRef pDSP)
@@ -91,15 +91,14 @@ DSPBase::DSPBase(int inputBusCount)
 , inputBufferLists(inputBusCount)
 {
     std::fill(parameters, parameters+maxParameters, nullptr);
-
-    TPCircularBufferInit(&leftBuffer, 4096 * sizeof(float));
-    TPCircularBufferInit(&rightBuffer, 4096 * sizeof(float));
 }
 
-void DSPBase::setBuffer(const AVAudioPCMBuffer* buffer, size_t busIndex)
+void DSPBase::setBuffer(AudioBufferList* buffer, size_t busIndex)
 {
-    if (internalBuffers.size() <= busIndex) internalBuffers.resize(busIndex + 1);
-    internalBuffers[busIndex] = buffer;
+    if (internalBufferLists.size() <= busIndex) {
+        internalBufferLists.resize(busIndex + 1);
+    }
+    internalBufferLists[busIndex] = buffer;
 }
 
 AUInternalRenderBlock DSPBase::internalRenderBlock()
@@ -115,7 +114,6 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
     {
 
         assert( (outputBusNumber == 0) && "We don't yet support multiple output busses" );
-
         if (pullInputBlock) {
             if (bCanProcessInPlace && inputBufferLists.size() == 1) {
                 // pull input directly to output buffer
@@ -126,14 +124,14 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
             else {
                 // pull input to internal buffer
                 for (size_t i = 0; i < inputBufferLists.size(); i++) {
-                    inputBufferLists[i] = internalBuffers[i].mutableAudioBufferList;
+                    inputBufferLists[i] = internalBufferLists[i];
                     
                     UInt32 byteSize = frameCount * sizeof(float);
-                    inputBufferLists[i]->mNumberBuffers = internalBuffers[i].audioBufferList->mNumberBuffers;
+                    inputBufferLists[i]->mNumberBuffers = internalBufferLists[i]->mNumberBuffers;
                     for (UInt32 ch = 0; ch < inputBufferLists[i]->mNumberBuffers; ch++) {
                         inputBufferLists[i]->mBuffers[ch].mDataByteSize = byteSize;
-                        inputBufferLists[i]->mBuffers[ch].mNumberChannels = internalBuffers[i].audioBufferList->mBuffers[ch].mNumberChannels;
-                        inputBufferLists[i]->mBuffers[ch].mData = internalBuffers[i].audioBufferList->mBuffers[ch].mData;
+                        inputBufferLists[i]->mBuffers[ch].mNumberChannels = internalBufferLists[i]->mBuffers[ch].mNumberChannels;
+                        inputBufferLists[i]->mBuffers[ch].mData = internalBufferLists[i]->mBuffers[ch].mData;
                     }
                     
                     AudioUnitRenderActionFlags inputFlags = 0;
@@ -183,11 +181,7 @@ void DSPBase::deinit()
 {
     isInitialized = false;
 }
-DSPBase::~DSPBase()
-{
-    TPCircularBufferCleanup(&leftBuffer);
-    TPCircularBufferCleanup(&rightBuffer);
-}
+DSPBase::~DSPBase() {}
 
 void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount,
                                   AURenderEvent const *events)
@@ -230,10 +224,6 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
             now += framesThisSegment;
         }
         performAllSimultaneousEvents(now, event);
-    }
-    if (tapCount > 0) {
-        TPCircularBufferProduceBytes(&leftBuffer,  outputBufferList->mBuffers[0].mData, frameCount * sizeof(float));
-        TPCircularBufferProduceBytes(&rightBuffer, outputBufferList->mBuffers[1].mData, frameCount * sizeof(float));
     }
 }
 

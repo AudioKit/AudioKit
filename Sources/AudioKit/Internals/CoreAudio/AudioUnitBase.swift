@@ -10,6 +10,7 @@ open class AudioUnitBase: AUAudioUnit {
 
     private var inputBusArray: [AUAudioUnitBus] = []
     private var outputBusArray: [AUAudioUnitBus] = []
+    private var internalBuffers: [AVAudioPCMBuffer] = []
 
     /// Allocate the render resources
     override public func allocateRenderResources() throws {
@@ -23,18 +24,21 @@ open class AudioUnitBase: AUAudioUnit {
         // we don't need to allocate a buffer if we can process in place
         if !canProcessInPlace || inputBusArray.count > 1 {
             for i in inputBusArray.indices {
-                let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: maximumFramesToRender)
-                setBufferDSP(dsp, buffer, i)
+                if let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: maximumFramesToRender) {
+                    setBufferDSP(dsp, buffer.mutableAudioBufferList, i)
+                    internalBuffers.append(buffer)
+                }
             }
         }
 
-        allocateRenderResourcesDSP(dsp, format)
+        allocateRenderResourcesDSP(dsp, format.channelCount, format.sampleRate)
     }
 
     /// Delllocate Render Resources
     override public func deallocateRenderResources() {
         super.deallocateRenderResources()
         deallocateRenderResourcesDSP(dsp)
+        internalBuffers = []
     }
 
     /// Reset the DSP
