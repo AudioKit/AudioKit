@@ -183,7 +183,8 @@ struct SequencerEngine {
             while (i < playingNotes.size()) {
                 int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
                 if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    int offset = (int)(triggerTime - currentStartSample);
+                    // Note-offs 1 sample early to assure repeating self-same notes are ordered correctly
+                    int offset = (int)(triggerTime - currentStartSample - 1);
                     stopPlayingNote(playingNotes[i], offset, i);
                     continue;
                 }
@@ -192,7 +193,8 @@ struct SequencerEngine {
                     int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
                     int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
                     if (triggerTime < samplesOfBufferForNewLoop) {
-                        int offset = (int)triggerTime + loopRestartInBuffer;
+                        // Note-offs 1 sample early to assure repeating self-same notes are ordered correctly
+                        int offset = (int)triggerTime + loopRestartInBuffer - 1;
                         stopPlayingNote(playingNotes[i], offset, i);
                         continue;
                     }
