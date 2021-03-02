@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import Accelerate
 import AVFoundation
 
 extension AVAudioPCMBuffer {
@@ -254,5 +255,21 @@ extension AVAudioPCMBuffer {
 
         // set the buffer now to be the faded one
         return fadeBuffer
+    }
+}
+
+extension AVAudioPCMBuffer {
+    var rms: Float {
+        guard let data = floatChannelData  else { return 0 }
+
+        let channelCount = Int(format.channelCount)
+        var rms: Float = 0.0
+        for i in 0 ..< channelCount {
+            var channelRms: Float = 0.0
+            vDSP_rmsqv(data[i], 1, &channelRms, vDSP_Length(frameLength))
+            rms += abs(channelRms)
+        }
+        let value = (rms / Float(channelCount))
+        return value
     }
 }
