@@ -1,6 +1,4 @@
-//  MultiChannelInputNodeTap.swift
-//  Created by Ryan Francesconi on 2/14/21.
-//  Copyright © 2021 Audio Design Desk. All rights reserved.
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 
@@ -87,7 +85,7 @@ public class MultiChannelInputNodeTap {
     }
 
     private let filesAccessQueue = DispatchQueue(label:
-        "com.audiodesigndesk.ADD.MultiChannelInputNodeTap.filesAccessQueue")
+        "io.audiokit.MultiChannelInputNodeTap.filesAccessQueue")
 
     // The files to record to
     private var _files = [WriteableFile]()
