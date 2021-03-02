@@ -109,7 +109,7 @@ open class AudioUnitBase: AUAudioUnit {
     /// - Parameters:
     ///   - componentDescription: Audio Component Description
     ///   - options: Audio Component Instantiation Options
-    /// - Throws: <#description#>
+    /// - Throws: error
     override public init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
