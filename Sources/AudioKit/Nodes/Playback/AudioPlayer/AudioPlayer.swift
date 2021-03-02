@@ -208,8 +208,13 @@ public class AudioPlayer: Node {
     ) {
         guard !isPlaying || isPaused else { return }
 
-        guard playerNode.engine != nil else {
+        guard let engine = playerNode.engine else {
             Log("🛑 Error: AudioPlayer must be attached before playback.")
+            return
+        }
+
+        guard engine.isRunning else {
+            Log("🛑 Error: AudioPlayer's engine must be running before playback.")
             return
         }
 
