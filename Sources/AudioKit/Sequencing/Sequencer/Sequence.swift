@@ -31,6 +31,34 @@ extension SequenceEvent: Equatable {
     }
 }
 
+extension Array where Element == SequenceEvent {
+    /// Sort an array of SequenceEvents by earliest beat time (Double)
+    /// - Parameters: none
+    /// - Returns: [SequenceEvent]
+    public func beatTimeOrdered() -> [SequenceEvent] {
+        return self.sorted(by: { (event1:SequenceEvent, event2:SequenceEvent) -> Bool in
+            let event1Beat = event1.beat
+            let event2Beat = event2.beat
+            let simultaneous = (event1Beat == event2Beat) && (event1.data1 == event2.data1)
+            if(isNoteOn(event1.status) && isNoteOff(event2.status) && simultaneous) {
+                return false
+            }
+            if(isNoteOff(event1.status) && isNoteOn(event2.status) && simultaneous) {
+                return true
+            }
+            return event1Beat < event2Beat
+        })
+    }
+
+    private func isNoteOn(_ statusByte: UInt8) -> Bool {
+        return statusByte & noteOnByte == noteOnByte
+    }
+
+    private func isNoteOff(_ statusByte: UInt8) -> Bool {
+        return statusByte & noteOffByte == noteOffByte
+    }
+}
+
 /// A value type for sequences.
 public struct NoteEventSequence: Equatable {
     /// Array of sequence notes
@@ -102,6 +130,21 @@ public struct NoteEventSequence: Equatable {
         if let status = event.status, event.data.count > 2 {
             add(status: status, data1: event.data[1], data2: event.data[2], position: position)
         }
+    }
+    /// All MIDI events ordered by earliest beat time
+    /// - Returns: Array of SequenceEvents
+    public func beatTimeOrderedEvents() -> [SequenceEvent] {
+        /// Get all SequenceEvents
+        var allEvents: [SequenceEvent] = []
+        allEvents.append(contentsOf: events)
+        /// Get all SequenceEvents from Notes
+        var noteEvents: [SequenceEvent] = []
+        notes.forEach { note in
+            noteEvents.append(note.noteOn)
+            noteEvents.append(note.noteOff)
+        }
+        allEvents.append(contentsOf: noteEvents)
+        return allEvents.beatTimeOrdered()
     }
 }
 

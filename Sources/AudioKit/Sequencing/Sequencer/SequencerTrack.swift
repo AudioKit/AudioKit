@@ -132,25 +132,22 @@ open class SequencerTrack {
                                           loopEnabled: loopEnabled,
                                           numberOfLoops: 0)
 
-        sequence.events.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
-            sequence.notes.withUnsafeBufferPointer { (notesPtr: UnsafeBufferPointer<SequenceNote>) -> Void in
-                guard let observer = SequencerEngineUpdateSequence(engine,
-                                                                     eventsPtr.baseAddress,
-                                                                     sequence.events.count,
-                                                                     notesPtr.baseAddress,
-                                                                     sequence.notes.count,
-                                                                     settings,
-                                                                     Settings.sampleRate,
-                                                                     block) else { return }
+        let orderedEvents = sequence.beatTimeOrderedEvents()
+        orderedEvents.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
+            guard let observer = SequencerEngineUpdateSequence(engine,
+                                                                 eventsPtr.baseAddress,
+                                                                 orderedEvents.count,
+                                                                 settings,
+                                                                 Settings.sampleRate,
+                                                                 block) else { return }
 
-                guard let auAudioUnit = targetNode?.avAudioUnit?.auAudioUnit else { return }
+            guard let auAudioUnit = targetNode?.avAudioUnit?.auAudioUnit else { return }
 
-                if let token = renderObserverToken {
-                    auAudioUnit.removeRenderObserver(token)
-                }
-
-                renderObserverToken = auAudioUnit.token(byAddingRenderObserver: observer)
+            if let token = renderObserverToken {
+                auAudioUnit.removeRenderObserver(token)
             }
+
+            renderObserverToken = auAudioUnit.token(byAddingRenderObserver: observer)
         }
     }
 }

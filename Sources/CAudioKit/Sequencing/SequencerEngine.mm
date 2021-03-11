@@ -6,6 +6,7 @@
 
 #include "SequencerEngine.h"
 #include <vector>
+#include <bitset>
 #include <stdio.h>
 #include <atomic>
 #include "../../Internals/Utilities/readerwriterqueue.h"
@@ -15,13 +16,17 @@
 
 using moodycamel::ReaderWriterQueue;
 
+/// NOTE: To support more than a single channel, RunningStatus can be made larger
+/// e.g. typedef std::bitset<128 * 16> RunningStatus; would track 16 channels of notes
+typedef std::bitset<128> RunningStatus;
+
 struct SequencerEvent {
     bool notesOff = false;
     double seekPosition = NAN;
 };
 
 struct SequencerEngine {
-    std::vector<SequenceNote> playingNotes;
+    RunningStatus runningStatus;
     long positionInSamples = 0;
     UInt64 framesCounted = 0;
     SequenceSettings settings = {0, 4.0, 120.0, true, 0};
@@ -34,11 +39,7 @@ struct SequencerEngine {
     // Current position as reported to the UI.
     std::atomic<double> uiPosition{0};
 
-    SequencerEngine() {
-        // Try to reserve enough notes so allocation on the DSP
-        // thread is unlikely. (This is not ideal)
-        playingNotes.reserve(256);
-    }
+    SequencerEngine() {}
 
     int beatToSamples(double beat) const {
         return (int)(beat / settings.tempo * 60 * sampleRate);
@@ -74,33 +75,31 @@ struct SequencerEngine {
         }
     }
 
-    void addPlayingNote(SequenceNote note, int offset) {
-        if (note.noteOn.data2 > 0) {
-            sendMidiData(note.noteOn.status,
-                         note.noteOn.data1,
-                         note.noteOn.data2,
-                         offset,
-                         note.noteOn.beat);
-            playingNotes.push_back(note);
-        } else {
-            sendMidiData(note.noteOff.status,
-                         note.noteOff.data1,
-                         note.noteOff.data2,
-                         offset, note.noteOn.beat);
+    /// Update note playing status
+    void updateRunningStatus(UInt8 status, UInt8 data1, UInt8 data2) {
+        if(status == NOTEOFF) {
+            runningStatus.set(data1, 0);
+        }
+        if(status == NOTEON) {
+            runningStatus.set(data1, 1);
         }
     }
 
-    void stopPlayingNote(SequenceNote note, int offset, int index) {
-        sendMidiData(note.noteOff.status,
-                     note.noteOff.data1,
-                     note.noteOff.data2,
-                     offset,
-                     note.noteOff.beat);
-        playingNotes.erase(playingNotes.begin() + index);
+    /// Stop all notes whose running status is currently on
+    /// If panic is set to true, a note-off message will be sent for all notes
+    void stopAllPlayingNotes(bool panic = false) {
+        if(runningStatus.any() || panic) {
+            for(int i = (int)runningStatus.size(); i >= 0; i--) {
+                if(runningStatus[i] == 1 || panic) {
+                    sendMidiData(NOTEOFF, (UInt8)i, 0, 1, 0);
+                }
+            }
+        }
     }
 
     void stop() {
         isStarted = false;
+        stopAllPlayingNotes();
     }
 
     void seekTo(double position) {
@@ -112,9 +111,7 @@ struct SequencerEngine {
         SequencerEvent event;
         while(eventQueue.try_dequeue(event)) {
             if(event.notesOff) {
-                while (playingNotes.size() > 0) {
-                    stopPlayingNote(playingNotes[0], 0, 0);
-                }
+                stopAllPlayingNotes();
             }
 
             if(!isnan(event.seekPosition)) {
@@ -124,34 +121,29 @@ struct SequencerEngine {
 
     }
 
-    void process(const std::vector<SequenceEvent>& events,
-                 const std::vector<SequenceNote>& notes,
-                 AUAudioFrameCount frameCount) {
+    void process(const std::vector<SequenceEvent>& events, AUAudioFrameCount frameCount) {
 
         processEvents();
 
         if (isStarted) {
-            if (positionInSamples >= lengthInSamples()){
+            if (positionInSamples >= lengthInSamples()) {
                 if (!settings.loopEnabled) { //stop if played enough
                     stop();
                     return;
                 }
             }
+
             long currentStartSample = positionModulo();
             long currentEndSample = currentStartSample + frameCount;
 
             for (int i = 0; i < events.size(); i++) {
                 // go through every event
                 int triggerTime = beatToSamples(events[i].beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    // this event is supposed to trigger between currentStartSample and currentEndSample
-                    int offset = (int)(triggerTime - currentStartSample);
-                    sendMidiData(events[i].status, events[i].data1, events[i].data2,
-                                 offset, events[i].beat);
-                } else if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
-                    // this buffer extends beyond the length of the loop and looping is on
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+
+                if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
+                // this buffer extends beyond the length of the loop and looping is on
+                int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
                     if (triggerTime < samplesOfBufferForNewLoop) {
                         // this event would trigger early enough in the next loop that it should happen in this buffer
                         // ie. this buffer contains events from the previous loop, and the next loop
@@ -159,47 +151,12 @@ struct SequencerEngine {
                         sendMidiData(events[i].status, events[i].data1, events[i].data2,
                                      offset, events[i].beat);
                     }
-                }
-            }
-
-            // Check scheduled notes for note ons
-            for (int i = 0; i < notes.size(); i++) {
-                int triggerTime = beatToSamples(notes[i].noteOn.beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                } else if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
+                    // this event is supposed to trigger between currentStartSample and currentEndSample
                     int offset = (int)(triggerTime - currentStartSample);
-                    addPlayingNote(notes[i], offset);
-                } else if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
-                    if (triggerTime < samplesOfBufferForNewLoop) {
-                        int offset = (int)triggerTime + loopRestartInBuffer;
-                        addPlayingNote(notes[i], offset);
-                    }
+                    sendMidiData(events[i].status, events[i].data1, events[i].data2,
+                                 offset, events[i].beat);
                 }
-            }
-
-            // Check the playing notes for note offs
-            int i = 0;
-            while (i < playingNotes.size()) {
-                int triggerTime = beatToSamples(playingNotes[i].noteOff.beat);
-                if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
-                    // Note-offs 1 sample early to assure repeating self-same notes are ordered correctly
-                    int offset = (int)(triggerTime - currentStartSample - 1);
-                    stopPlayingNote(playingNotes[i], offset, i);
-                    continue;
-                }
-
-                if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
-                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
-                    if (triggerTime < samplesOfBufferForNewLoop) {
-                        // Note-offs 1 sample early to assure repeating self-same notes are ordered correctly
-                        int offset = (int)triggerTime + loopRestartInBuffer - 1;
-                        stopPlayingNote(playingNotes[i], offset, i);
-                        continue;
-                    }
-                }
-                i++;
             }
 
             positionInSamples += frameCount;
@@ -223,15 +180,11 @@ void akSequencerEngineDestroy(SequencerEngineRef engine) {
 AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
                                                  const SequenceEvent* eventsPtr,
                                                  size_t eventCount,
-                                                 const SequenceNote* notesPtr,
-                                                 size_t noteCount,
                                                  SequenceSettings settings,
                                                  double sampleRate,
                                                  AUScheduleMIDIEventBlock block) {
 
     const std::vector<SequenceEvent> events{eventsPtr, eventsPtr+eventCount};
-    const std::vector<SequenceNote> notes{notesPtr, notesPtr+noteCount};
-
     return ^void(AudioUnitRenderActionFlags actionFlags,
                  const AudioTimeStamp *timestamp,
                  AUAudioFrameCount frameCount,
@@ -242,7 +195,7 @@ AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
         engine->sampleRate = sampleRate;
         engine->midiBlock = block;
         engine->settings = settings;
-        engine->process(events, notes, frameCount);
+        engine->process(events, frameCount);
     };
 }
 

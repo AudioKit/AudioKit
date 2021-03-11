@@ -72,7 +72,6 @@ class SequencerTrackTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 5.0)
         audio.append(engine.render(duration: 5.0))
         testMD5(audio)
-
     }
 
 }
