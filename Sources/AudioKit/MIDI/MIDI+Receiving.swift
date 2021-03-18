@@ -9,7 +9,7 @@
 //      * Simplicty in removing an individual listeners from a source input
 //      * Simplicty in removing all listeners
 //      * Simplicty to close all ports
-//      * Ports must be identifies using MIDIUniqueIDs because ports can share the same name across devices and clients
+//      * Ports must be identifiers using MIDIUniqueIDs because ports can share the same name across devices and clients
 //
 
 #if !os(tvOS)
