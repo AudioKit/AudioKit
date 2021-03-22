@@ -280,7 +280,7 @@ extension AudioPlayer {
     ) {
         if isBuffered, let buffer = buffer {
             playerNode.scheduleBuffer(buffer,
-                                      at: nil,
+                                      at: when,
                                       options: bufferOptions,
                                       completionCallbackType: completionCallbackType) { _ in
                 self.internalCompletionHandler()
