@@ -241,6 +241,7 @@ public class AudioPlayer: Node {
     /// Can't be relied on if playerNode has its playstate modified directly
     public func getCurrentTime() -> TimeInterval {
         if let nodeTime = self.playerNode.lastRenderTime,
+           nodeTime.isSampleTimeValid && nodeTime.isHostTimeValid,
            let playerTime = self.playerNode.playerTime(forNodeTime: nodeTime) {
            return Double(Double(playerTime.sampleTime) / playerTime.sampleRate) + segmentStartTime
         }
