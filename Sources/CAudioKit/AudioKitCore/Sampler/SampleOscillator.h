@@ -3,7 +3,7 @@
 #pragma once
 #include <math.h>
 
-#include "SampleBuffer.hpp"
+#include "SampleBuffer.h"
 
 namespace AudioKitCore
 {

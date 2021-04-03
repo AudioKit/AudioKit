@@ -55,7 +55,7 @@ private:
 
 }
 
-#include "OscSinCos.hpp"
+#include "OscSinCos.h"
 
 #endif
 

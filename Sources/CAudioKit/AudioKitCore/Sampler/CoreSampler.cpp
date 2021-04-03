@@ -1,9 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "CoreSampler.h"
-#include "SamplerVoice.hpp"
-#include "FunctionTable.hpp"
-#include "SustainPedalLogic.hpp"
+#include "SamplerVoice.h"
+#include "FunctionTable.h"
+#include "SustainPedalLogic.h"
 
 #include <math.h>
 #include <list>

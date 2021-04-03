@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "FunctionTable.hpp"
-#include "WaveStack.hpp"
+#include "FunctionTable.h"
+#include "WaveStack.h"
 
 namespace AudioKitCore
 {

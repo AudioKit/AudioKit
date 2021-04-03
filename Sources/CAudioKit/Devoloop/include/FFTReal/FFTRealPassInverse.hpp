@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-        FFTRealPassInverse.hpp
+        FFTRealPassInverse.h
         By Laurent de Soras
 
 --- Legal stuff ---

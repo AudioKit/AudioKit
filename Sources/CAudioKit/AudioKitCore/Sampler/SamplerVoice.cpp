@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "SamplerVoice.hpp"
+#include "SamplerVoice.h"
 #include <stdio.h>
 
 #define MIDDLE_C_HZ 262.626f

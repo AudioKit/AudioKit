@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-        FFTReal.hpp
+        FFTReal.h
         By Laurent de Soras
 
 --- Legal stuff ---

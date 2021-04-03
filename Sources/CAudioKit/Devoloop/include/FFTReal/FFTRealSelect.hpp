@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-        FFTRealSelect.hpp
+        FFTRealSelect.h
         By Laurent de Soras
 
 --- Legal stuff ---

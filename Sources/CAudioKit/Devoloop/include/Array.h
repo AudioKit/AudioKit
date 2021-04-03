@@ -48,7 +48,7 @@ private:
 
 }
 
-#include "ffft/Array.hpp"
+#include "ffft/Array.h"
 
 #endif
 

@@ -96,7 +96,7 @@ private:
 
 }
 
-#include "FFTReal.hpp"
+#include "FFTReal.h"
 
 #endif
 

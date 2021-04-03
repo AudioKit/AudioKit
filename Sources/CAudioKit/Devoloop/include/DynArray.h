@@ -52,7 +52,7 @@ private:
 
 }
 
-#include "DynArray.hpp"
+#include "DynArray.h"
 
 #endif
 

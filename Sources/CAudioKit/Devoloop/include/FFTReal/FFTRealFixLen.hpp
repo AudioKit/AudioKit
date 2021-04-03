@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-        FFTRealFixLen.hpp
+        FFTRealFixLen.h
         By Laurent de Soras
 
 --- Legal stuff ---

@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-        FFTRealUseTrigo.hpp
+        FFTRealUseTrigo.h
         By Laurent de Soras
 
 --- Legal stuff ---

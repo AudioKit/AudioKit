@@ -51,7 +51,7 @@ private:
 
 }
 
-#include "ffft/FFTRealUseTrigo.hpp"
+#include "ffft/FFTRealUseTrigo.h"
 
 #endif
 

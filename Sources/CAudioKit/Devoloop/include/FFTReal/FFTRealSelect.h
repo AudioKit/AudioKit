@@ -43,7 +43,7 @@ private:
 
 }
 
-#include "ffft/FFTRealSelect.hpp"
+#include "ffft/FFTRealSelect.h"
 
 #endif
 

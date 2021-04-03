@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "DiodeClipper.hpp"
-#include "SoulDSP.hpp"
+#include "DiodeClipper.h"
+#include "SoulDSP.h"
 
 // XXX: For some reason this would result in a link error with it only defined inside Diode.
 constexpr const std::array<const Diode::ParameterProperties, Diode::numParameters> Diode::parameters =

@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-        DynArray.hpp
+        DynArray.h
         By Laurent de Soras
 
 --- Legal stuff ---

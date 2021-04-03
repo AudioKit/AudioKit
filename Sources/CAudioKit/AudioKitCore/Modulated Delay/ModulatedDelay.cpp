@@ -3,8 +3,8 @@
 #include "ModulatedDelay.h"
 #include "ModulatedDelay_Defines.h"
 
-#include "AdjustableDelayLine.hpp"
-#include "FunctionTable.hpp"
+#include "AdjustableDelayLine.h"
+#include "FunctionTable.h"
 
 struct ModulatedDelay::InternalData
 {

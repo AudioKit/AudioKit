@@ -61,7 +61,7 @@ private:
 
 }
 
-#include "ffft/FFTRealPassInverse.hpp"
+#include "ffft/FFTRealPassInverse.h"
 
 #endif
 

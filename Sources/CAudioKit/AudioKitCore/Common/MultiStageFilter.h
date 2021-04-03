@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "ResonantLowPassFilter.hpp"
+#include "ResonantLowPassFilter.h"
 
 namespace AudioKitCore
 {

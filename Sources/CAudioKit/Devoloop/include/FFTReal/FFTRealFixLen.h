@@ -83,7 +83,7 @@ private:
 
 }
 
-#include "ffft/FFTRealFixLen.hpp"
+#include "ffft/FFTRealFixLen.h"
 
 #endif
 

@@ -51,7 +51,7 @@ private:
 
 }
 
-#include "ffft/FFTRealPassDirect.hpp"
+#include "ffft/FFTRealPassDirect.h"
 
 #endif
 

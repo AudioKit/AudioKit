@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-        FFTRealPassDirect.hpp
+        FFTRealPassDirect.h
         By Laurent de Soras
 
 --- Legal stuff ---

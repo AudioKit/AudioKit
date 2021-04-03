@@ -1,6 +1,6 @@
 /*****************************************************************************
 
-        OscSinCos.hpp
+        OscSinCos.h
         By Laurent de Soras
 
 --- Legal stuff ---
