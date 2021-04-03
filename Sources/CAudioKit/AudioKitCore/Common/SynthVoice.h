@@ -6,7 +6,7 @@
 #include "EnsembleOscillator.h"
 #include "DrawbarsOscillator.h"
 #include "ADSREnvelope.h"
-#include "Envelope.hpp"
+#include "CoreEnvelope.h"
 #include "MultiStageFilter.h"
 
 namespace AudioKitCore
