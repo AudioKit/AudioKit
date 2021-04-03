@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "STKInstrumentDSP.hpp"
+#include "STKInstrumentDSP.h"
 
 STKInstrumentDSP::STKInstrumentDSP() : DSPBase(/*inputBusCount*/0) {
     isStarted = false;
