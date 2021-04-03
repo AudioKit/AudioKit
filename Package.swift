@@ -23,10 +23,12 @@ let package = Package(
                 exclude: ["rawwaves", "LICENSE"],
                 publicHeadersPath: "include"),
         .target(name: "soundpipe",
-                exclude: ["README.md",
-                          "lib/kissfft/COPYING",
-                          "lib/kissfft/README",
-                          "lib/inih/LICENSE.txt"],
+                exclude: [
+                    "README.md",
+                    "lib/kissfft/COPYING",
+                    "lib/kissfft/README",
+                    "lib/inih/LICENSE.txt",
+                ],
                 publicHeadersPath: "include",
                 cSettings: [
                     .headerSearchPath("lib/kissfft"),
@@ -44,7 +46,6 @@ let package = Package(
             name: "CAudioKit",
             dependencies: ["STK", "soundpipe", "sporth"],
             exclude: [
-                "Nodes/Generators/Synth/PadSynth.soul",
                 "AudioKitCore/Modulated Delay/README.md",
                 "AudioKitCore/Sampler/Wavpack/license.txt",
                 "AudioKitCore/Common/README.md",
