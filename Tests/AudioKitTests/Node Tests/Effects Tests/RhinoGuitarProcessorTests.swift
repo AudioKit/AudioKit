@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class RhinGuitarProcessorTests: XCTestCase {
+class RhinoGuitarProcessorTests: XCTestCase {
 
     func testDistortion() {
         let engine = AudioEngine()
