@@ -43,6 +43,12 @@ let package = Package(
         .target(
             name: "CAudioKit",
             dependencies: ["STK", "soundpipe", "sporth"],
+            exclude: ["AudioKitCore/README.md",
+                      "AudioKitCore/Common/README.md",
+                      "AudioKitCore/Modulated Delay/README.md",
+                      "AudioKitCore/Sampler/README.md",
+                      "Sampler/README.md",
+            ],
             publicHeadersPath: "include",
             cxxSettings: [
                 .headerSearchPath("CoreAudio"),
@@ -55,7 +61,11 @@ let package = Package(
         .target(
             name: "AudioKit",
             dependencies: ["CAudioKit"],
-            exclude: ["README.md", "MIDI/README.md"]),
+            exclude: ["README.md",
+                      "MIDI/README.md",
+                      "Nodes/README.md",
+                      "AudioKitCore/Sampler/README.md",
+            ]),
         .testTarget(
             name: "AudioKitTests",
             dependencies: ["AudioKit"]),
