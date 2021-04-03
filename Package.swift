@@ -54,7 +54,8 @@ let package = Package(
         ),
         .target(
             name: "AudioKit",
-            dependencies: ["CAudioKit"]),
+            dependencies: ["CAudioKit"],
+            exclude: ["README.md", "MIDI/README.md"]),
         .testTarget(
             name: "AudioKitTests",
             dependencies: ["AudioKit"]),
