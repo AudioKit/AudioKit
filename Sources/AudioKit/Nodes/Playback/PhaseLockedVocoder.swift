@@ -25,7 +25,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
         address: akGetParameterAddress("PhaseLockedVocoderParameterPosition"),
-        range: 0 ... 1,
+        range: 0 ... 100_000,
         unit: .generic,
         flags: .default)
 
