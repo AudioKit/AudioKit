@@ -90,7 +90,7 @@ public:
                 if (isStarted) {
                     if (channel == 0) {
                         sp_phasor_compute(sp, phasor, NULL, &ph);
-//                        AKDebugDSP(PhaseDistortionOscillatorDebugPhase, ph);
+//                        DebugDSP(PhaseDistortionOscillatorDebugPhase, ph);
                         sp_pdhalf_compute(sp, pdhalf, &ph, &pd);
                         tabread->index = pd;
                         sp_tabread_compute(sp, tabread, NULL, &temp);
