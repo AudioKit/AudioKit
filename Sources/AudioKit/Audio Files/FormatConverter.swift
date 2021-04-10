@@ -17,7 +17,7 @@ import AVFoundation
  })
  ```
  */
-open class FormatConverter: NSObject {
+open class FormatConverter {
     /// FormatConverterCallback is the callback format for start()
     /// - Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
     public typealias FormatConverterCallback = (_ error: Error?) -> Void
