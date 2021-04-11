@@ -2,6 +2,7 @@
 
 import AudioKit
 import XCTest
+import AVFoundation
 
 class DryWetMixerTests: XCTestCase {
     let input1 = Oscillator()
@@ -97,6 +98,50 @@ class DryWetMixerTests: XCTestCase {
         
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
+    }
+    */
+    
+    /*
+    var dryWet: AVAudioUnit!
+    
+    func testReattachInputMixerAV() {
+        
+        let engine = AVAudioEngine()
+        
+        let player = AVAudioPlayerNode()
+        engine.attach(player)
+        
+        AUAudioUnit.registerSubclass(DryWetMixer.InternalAU.self,
+                                     as: DryWetMixer.ComponentDescription,
+                                     name: "Local DryWetMixer",
+                                     version: .max)
+        AVAudioUnit.instantiate(with: DryWetMixer.ComponentDescription) { avAudioUnit, _ in
+            guard let au = avAudioUnit else {
+                fatalError("Unable to instantiate AVAudioUnit")
+            }
+            self.dryWet = au
+            print("instantiated")
+        }
+        
+        engine.attach(dryWet)
+        
+        let outputMixer = AVAudioMixerNode()
+        engine.attach(outputMixer)
+        engine.connect(dryWet, to: outputMixer, format: nil)
+        
+        let someOtherMixer = AVAudioMixerNode()
+        engine.attach(someOtherMixer)
+        engine.connect(someOtherMixer, to: outputMixer, format: nil)
+        
+        engine.connect(outputMixer, to: engine.mainMixerNode, format: nil)
+        
+        try! engine.start()
+        engine.connect(player, to: [.init(node: dryWet, bus: 0), .init(node: dryWet, bus: 1), .init(node: someOtherMixer, bus: someOtherMixer.nextAvailableInputBus)], fromBus: 0, format: nil)
+        
+        sleep(2)
+        
+        engine.stop()
+        
     }
     */
 }
