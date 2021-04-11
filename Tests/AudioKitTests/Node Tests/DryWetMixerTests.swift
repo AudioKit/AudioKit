@@ -18,6 +18,17 @@ class DryWetMixerTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+    
+    func testDuplicateInput() {
+        let engine = AudioEngine()
+        let mixer = DryWetMixer(dry: input1, wet: input1)
+        engine.output = mixer
+
+        input1.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
 
     func testBalance0() {
         let engine = AudioEngine()

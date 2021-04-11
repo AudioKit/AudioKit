@@ -21,8 +21,22 @@ extension AVAudioNode {
     public func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-            if points.contains(where: { $0.node === self }) { return }
+            if points.contains(where: {
+                $0.node === self && $0.bus == bus
+            }) { return }
             points.append(AVAudioConnectionPoint(node: self, bus: bus))
+            engine.connect(input, to: points, fromBus: 0, format: format)
+        }
+    }
+}
+
+extension AVAudioMixerNode {
+    /// Make a connection without breaking other connections.
+    public func connectMixer(input: AVAudioNode, format: AVAudioFormat? = Settings.audioFormat) {
+        if let engine = engine {
+            var points = engine.outputConnectionPoints(for: input, outputBus: 0)
+            if points.contains(where: { $0.node === self }) { return }
+            points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
             engine.connect(input, to: points, fromBus: 0, format: format)
         }
     }
