@@ -69,11 +69,7 @@ class DryWetMixerTests: XCTestCase {
     /*
     func testReattachInputMixer() {
         let engine = AudioEngine()
-        let input1Mixer = Mixer()
-        input1Mixer.addInput(input1)
-        
-        let effect = Reverb(input1Mixer)
-        let dryWet = DryWetMixer(dry: input1Mixer, wet: effect)
+        let dryWet = DryWetMixer(dry: input1, wet: input1)
         
         let outputMixer = Mixer()
         outputMixer.addInput(dryWet)
@@ -85,9 +81,8 @@ class DryWetMixerTests: XCTestCase {
         
         input1.start()
         
-        
         let audio = engine.startTest(totalDuration: 1.0)
-        someOtherMixer.addInput(input1Mixer)
+        someOtherMixer.addInput(input1)
         
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
