@@ -129,6 +129,7 @@ let validatedMD5s: [String: String] = [
     "-[DryWetMixerTests testBalance0]": "f4cc261bdf98ae17320f9561941c8664",
     "-[DryWetMixerTests testBalance1]": "97fcf6571400101defdfbb1c5cb39ab6",
     "-[DryWetMixerTests testDefault]": "da695836ce37e13aec5bda3b015f16b7",
+    "-[DryWetMixerTests testDetachWhileHavingAnInputMixer]": "9df204fbc98bb8965081cb30a89715fc",
     "-[DynamicOscillatorTests testAmpitude]": "86497903abc5f53ef15fecf5660709bb",
     "-[DynamicOscillatorTests testDefault]": "7a3dc1fdc7f7c4d113ba9d1119143e67",
     "-[DynamicOscillatorTests testDetuningMultiplier]": "b9caf0d0e39aa5bf6073f861ff7cdd23",
