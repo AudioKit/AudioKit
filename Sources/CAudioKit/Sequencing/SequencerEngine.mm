@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <atomic>
 #include "../../Internals/Utilities/readerwriterqueue.h"
-
 #define NOTEON 0x90
 #define NOTEOFF 0x80
 
@@ -39,7 +38,9 @@ struct SequencerEngine {
     // Current position as reported to the UI.
     std::atomic<double> uiPosition{0};
 
-    SequencerEngine() {}
+    SequencerEngine() {
+        runningStatus.reset();
+    }
 
     int beatToSamples(double beat) const {
         return (int)(beat / settings.tempo * 60 * sampleRate);
@@ -71,6 +72,7 @@ struct SequencerEngine {
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, int offset, double time) {
         if(midiBlock) {
             UInt8 midiBytes[3] = {status, data1, data2};
+            updateRunningStatus(status, data1, data2);
             midiBlock(AUEventSampleTimeImmediate + offset, 0, 3, midiBytes);
         }
     }
@@ -88,9 +90,9 @@ struct SequencerEngine {
     /// Stop all notes whose running status is currently on
     /// If panic is set to true, a note-off message will be sent for all notes
     void stopAllPlayingNotes(bool panic = false) {
-        if(runningStatus.any() || panic) {
+        if(runningStatus.any() || (panic == true)) {
             for(int i = (int)runningStatus.size(); i >= 0; i--) {
-                if(runningStatus[i] == 1 || panic) {
+                if(runningStatus[i] == 1 || (panic == true)) {
                     sendMidiData(NOTEOFF, (UInt8)i, 0, 1, 0);
                 }
             }
