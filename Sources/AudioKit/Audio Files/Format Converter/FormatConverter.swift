@@ -121,18 +121,9 @@ extension FormatConverter {
 
     /// Formats that this class can read
     public static let inputFormats = FormatConverter.outputFormats + [
-        "mp3",
-        "snd",
-        "au",
-        "sd2",
-        "aif",
-        "aiff",
-        "aifc",
-        "aac",
-        "mp4",
-        "m4v",
-        "mov",
-        "ts",
+        "mp3", "snd", "au", "sd2",
+        "aif", "aiff", "aifc", "aac",
+        "mp4", "m4v", "mov", "ts",
         "", // allow files with no extension. convertToPCM can still read the type
     ]
 

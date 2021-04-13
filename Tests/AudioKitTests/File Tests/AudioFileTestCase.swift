@@ -26,7 +26,7 @@ class AudioFileTestCase: XCTestCase {
 
         let pitchDuration = AUValue(duration) / AUValue(frequencies.count)
 
-        Log("duration", duration, "pitchDuration", pitchDuration)
+        // Log("duration", duration, "pitchDuration", pitchDuration)
 
         let osc = Oscillator(waveform: Table(.square))
         let engine = AudioEngine()
@@ -62,14 +62,14 @@ class AudioFileTestCase: XCTestCase {
                                        startTime: AUValue(duration) - pitchDuration,
                                        rampDuration: pitchDuration)]
 
-        Log(name, "duration", duration, "notes will play at", notes.map { $0.startTime })
+        // Log(name, "duration", duration, "notes will play at", notes.map { $0.startTime })
 
         try? engine.avEngine.render(to: file, duration: duration, prerender: {
             osc.start()
             osc.$amplitude.automate(events: zero + fadeIn + fadeOut)
             osc.$frequency.automate(events: notes)
         })
-        Log("rendered test file to \(url)")
+        // Log("rendered test file to \(url)")
 
         AudioFileTestCase.tempFiles.append(url)
         return url
@@ -83,7 +83,7 @@ class AudioFileTestCase: XCTestCase {
         }
         wait(for: [delayExpectation], timeout: interval + 1)
     }
-    
+
     func createError(message: String, code: Int = 1) -> NSError {
         let userInfo = [NSLocalizedDescriptionKey: message]
         return NSError(domain: "io.audiokit.AudioFileTestCase.error",
