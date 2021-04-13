@@ -1,6 +1,4 @@
-//  FormatConverter+Legacy.swift
-//  Created by Ryan Francesconi on 4/12/21.
-//  Copyright © 2021 Audio Design Desk. All rights reserved.
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 

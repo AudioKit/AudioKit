@@ -1,6 +1,4 @@
-//  FormatConverter+Utilities.swift
-//  Created by Ryan Francesconi on 8/31/20.
-//  Copyright © 2020 Audio Design Desk. All rights reserved.
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
 

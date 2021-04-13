@@ -1,7 +1,8 @@
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 import AVFoundation
 
 /**
-
  FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
  ```swift
  let options = FormatConverter.Options()
