@@ -48,7 +48,7 @@ extension AVAudioFile {
     /// converts to Swift friendly Float array
     public func toFloatChannelData() -> FloatChannelData? {
         guard let pcmBuffer = toAVAudioPCMBuffer(),
-            let data = pcmBuffer.toFloatChannelData() else { return nil }
+              let data = pcmBuffer.toFloatChannelData() else { return nil }
         return data
     }
 
@@ -69,7 +69,7 @@ extension AVAudioFile {
         }
 
         if fadeInTime != 0 || fadeOutTime != 0,
-            let fadedBuffer = editedBuffer.fade(inTime: fadeInTime, outTime: fadeOutTime) {
+           let fadedBuffer = editedBuffer.fade(inTime: fadeInTime, outTime: fadeOutTime) {
             editedBuffer = fadedBuffer
         }
 
@@ -138,6 +138,30 @@ extension AVAudioFile {
             } catch {
                 Log("Unable to remove temp file at", tempFile, type: .error)
             }
+        }
+    }
+}
+
+extension AVURLAsset {
+    public var audioFormat: AVAudioFormat? {
+        // pull the input format out of the audio file...
+        if let source = try? AVAudioFile(forReading: url) {
+            return source.fileFormat
+
+            // if that fails it might be a video, so check the tracks for audio
+        } else {
+            let audioTracks = tracks.filter { $0.mediaType == .audio }
+
+            guard !audioTracks.isEmpty else { return nil }
+
+            let formatDescriptions = audioTracks.compactMap({
+                $0.formatDescriptions as? [CMFormatDescription]
+            }).reduce([], +)
+
+            let audioFormats: [AVAudioFormat] = formatDescriptions.compactMap {
+                AVAudioFormat(cmAudioFormatDescription: $0)
+            }
+            return audioFormats.first
         }
     }
 }
