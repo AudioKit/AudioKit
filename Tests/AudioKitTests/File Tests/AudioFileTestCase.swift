@@ -75,6 +75,22 @@ class AudioFileTestCase: XCTestCase {
         return url
     }
 
+    // for waiting in the background for realtime testing
+    func wait(for interval: TimeInterval) {
+        let delayExpectation = XCTestExpectation(description: "delayExpectation")
+        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+            delayExpectation.fulfill()
+        }
+        wait(for: [delayExpectation], timeout: interval + 1)
+    }
+    
+    func createError(message: String, code: Int = 1) -> NSError {
+        let userInfo = [NSLocalizedDescriptionKey: message]
+        return NSError(domain: "io.audiokit.AudioFileTestCase.error",
+                       code: code,
+                       userInfo: userInfo)
+    }
+
     func cleanup() {
         for url in AudioFileTestCase.tempFiles {
             try? FileManager.default.removeItem(at: url)

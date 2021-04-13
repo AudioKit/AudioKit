@@ -5,7 +5,7 @@ import AVFoundation
 extension FormatConverter {
     class func createError(message: String, code: Int = 1) -> NSError {
         let userInfo = [NSLocalizedDescriptionKey: message]
-        return NSError(domain: "com.audiodesigndesk.ADD.FormatConverter.error",
+        return NSError(domain: "io.audiokit.FormatConverter.error",
                        code: code,
                        userInfo: userInfo)
     }

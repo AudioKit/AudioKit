@@ -4,14 +4,6 @@ import CAudioKit
 import XCTest
 
 class AudioPlayer2Tests: AudioFileTestCase {
-    // for waiting in the background for realtime testing
-    func wait(for interval: TimeInterval) {
-        let delayExpectation = XCTestExpectation(description: "delayExpectation")
-        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
-            delayExpectation.fulfill()
-        }
-        wait(for: [delayExpectation], timeout: interval + 1)
-    }
 
     func createPlayer(duration: TimeInterval,
                       frequencies: [AUValue]? = nil,
@@ -141,41 +133,37 @@ extension AudioPlayer2Tests {
         // sleep(6)
     }
 
+    /*
+     // player isn't connected error in this
     func testPlayerConnectionWithMixer() {
-//        return
-//        let engine = AudioEngine()
-//        let outputMixer = Mixer()
-//        guard let player = createPlayer(duration: 1) else {
-//            XCTFail("Failed to create AudioPlayer")
-//            return
-//        }
-//        outputMixer.addInput(player)
-//        engine.output = outputMixer
-//        let audio = engine.startTest(totalDuration: 2.0)
-//
-//        player.play()
-//
-//        audio.append(engine.render(duration: 1.0))
-//
-//        guard let player2 = createPlayer(duration: 1) else {
-//            XCTFail("Failed to create AudioPlayer")
-//            return
-//        }
-//        let localMixer = Mixer()
-//
-//        localMixer.addInput(player2)
-//        outputMixer.addInput(localMixer)
-//
-//        player2.play()
-//        audio.append(engine.render(duration: 1.0))
+        let engine = AudioEngine()
+        let outputMixer = Mixer()
+        guard let player = createPlayer(duration: 1) else {
+            XCTFail("Failed to create AudioPlayer")
+            return
+        }
+        outputMixer.addInput(player)
+        engine.output = outputMixer
+        let audio = engine.startTest(totalDuration: 2.0)
 
-//        testMD5(audio)
+        player.play()
+
+        audio.append(engine.render(duration: 1.0))
+
+        guard let player2 = createPlayer(duration: 1) else {
+            XCTFail("Failed to create AudioPlayer")
+            return
+        }
+        let localMixer = Mixer()
+
+        localMixer.addInput(player2)
+        outputMixer.addInput(localMixer)
+
+        player2.play()
+        audio.append(engine.render(duration: 1.0))
+
+        testMD5(audio)
         // audio.audition()
     }
+    */
 }
-
-// extension AudioPlayer2Tests {
-//    func testZZZRemoveTempFiles() {
-//        cleanup()
-//    }
-// }
