@@ -49,7 +49,7 @@ class NodeTests: XCTestCase {
         let newAudio = engine.render(duration: 1.0)
         audio.append(newAudio)
 
-        let osc2 = Oscillator(frequency: 880)
+        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
         osc2.start()
         engine.output = osc2
 
@@ -78,7 +78,7 @@ class NodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = Oscillator(frequency: 880)
+        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
         osc2.start()
         mixer.addInput(osc2)
 
@@ -100,7 +100,7 @@ class NodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = Oscillator(frequency: 880)
+        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
         let verb = CostelloReverb(osc2)
         osc2.start()
         mixer.addInput(verb)
@@ -123,7 +123,7 @@ class NodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = Oscillator(frequency: 880)
+        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
         osc2.start()
         mixer.addInput(osc2)
 
