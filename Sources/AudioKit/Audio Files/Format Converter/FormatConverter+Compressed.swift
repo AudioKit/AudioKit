@@ -2,10 +2,19 @@
 
 import AVFoundation
 
+// MARK: - internal helper functions
+
 extension FormatConverter {
     /// Example of the most simplistic AVFoundation conversion.
     /// With this approach you can't really specify any settings other than the limited presets.
-    /// No sample rate conversion in this
+    /// No sample rate conversion in this. This isn't used in the public methods but is here
+    /// for example.
+    ///
+    /// see `AVAssetExportSession`:
+    /// *Prior to initializing an instance of AVAssetExportSession, you can invoke
+    /// +allExportPresets to obtain the complete list of presets available. Use
+    /// +exportPresetsCompatibleWithAsset: to obtain a list of presets that are compatible
+    /// with a specific AVAsset.*
     func convertCompressed(presetName: String, completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
@@ -20,16 +29,13 @@ extension FormatConverter {
         guard let session = AVAssetExportSession(asset: asset,
                                                  presetName: presetName) else { return }
 
-        Log("Converting to AVAssetExportPresetAppleM4A with default settings.", inputURL.lastPathComponent, "->", outputURL.lastPathComponent)
-
         session.determineCompatibleFileTypes { list in
 
             guard let outputFileType: AVFileType = list.first else {
-                completionHandler?(Self.createError(message: "Unable to determine a compatible file type from \(inputURL.path)"))
+                let error = Self.createError(message: "Unable to determine a compatible file type from \(inputURL.path)")
+                completionHandler?(error)
                 return
             }
-
-            Log("determineCompatibleFileTypes", list)
 
             // session.progress could be sent out via a delegate for this session
             session.outputURL = outputURL

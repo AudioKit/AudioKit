@@ -20,9 +20,9 @@ import AVFoundation
 public class FormatConverter: NSObject {
     // MARK: - properties
 
-    var inputURL: URL?
-    var outputURL: URL?
-    var options: Options?
+    public var inputURL: URL?
+    public var outputURL: URL?
+    public var options: Options?
 
     // MARK: - private properties
 
@@ -34,7 +34,7 @@ public class FormatConverter: NSObject {
     // MARK: - initialization
 
     /// init with input, output and options - then start()
-    init(inputURL: URL, outputURL: URL, options: Options? = nil) {
+    public init(inputURL: URL, outputURL: URL, options: Options? = nil) {
         self.inputURL = inputURL
         self.outputURL = outputURL
         self.options = options ?? Options()
@@ -146,26 +146,24 @@ extension FormatConverter {
 
     /// The conversion options, leave any property nil to adopt the value of the input file
     public struct Options {
-        var format: String?
-        var sampleRate: Double?
+        public var format: String?
+        public var sampleRate: Double?
         /// used only with PCM data
-        var bitDepth: UInt32?
+        public var bitDepth: UInt32?
         /// used only when outputting compressed audio
-        var bitRate: UInt32 = 128000 {
+        public var bitRate: UInt32 = 128000 {
             didSet {
                 // TODO: clamp valid range
                 if bitRate < 64000 { bitRate = 64000 }
             }
         }
 
-        var bitDepthRule: BitDepthRule = .lessThanOrEqual
+        public var bitDepthRule: BitDepthRule = .lessThanOrEqual
 
-        var channels: UInt32?
-        var isInterleaved: Bool?
+        public var channels: UInt32?
+        public var isInterleaved: Bool?
         /// overwrite existing files, set false if you want to handle this before you call start()
-        var eraseFile: Bool = true
-
-        // Init
+        public var eraseFile: Bool = true
 
         public init() {}
 

@@ -12,13 +12,13 @@ extension FormatConverter {
 }
 
 extension FormatConverter {
-    class func isPCM(url: URL, ignorePathExtension: Bool = false) -> Bool? {
+    public class func isPCM(url: URL, ignorePathExtension: Bool = false) -> Bool? {
         guard let value = isCompressed(url: url) else { return nil }
         return !value
     }
 
     /// Compressed format or not
-    class func isCompressed(url: URL, ignorePathExtension: Bool = false) -> Bool? {
+    public class func isCompressed(url: URL, ignorePathExtension: Bool = false) -> Bool? {
         guard !ignorePathExtension else {
             return isCompressedExt(url: url)
         }

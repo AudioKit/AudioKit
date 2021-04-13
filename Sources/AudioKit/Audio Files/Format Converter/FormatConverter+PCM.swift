@@ -1,7 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-// MARK: - internal helper functions
 import AVFoundation
+
+// MARK: - internal helper functions
 
 extension FormatConverter {
     func convertToPCM(completionHandler: FormatConverterCallback? = nil) {
