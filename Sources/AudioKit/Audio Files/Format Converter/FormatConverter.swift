@@ -17,7 +17,7 @@ import AVFoundation
  })
  ```
  */
-public class FormatConverter: NSObject {
+public class FormatConverter {
     // MARK: - properties
 
     public var inputURL: URL?
@@ -34,14 +34,15 @@ public class FormatConverter: NSObject {
     // MARK: - initialization
 
     /// init with input, output and options - then start()
-    public init(inputURL: URL, outputURL: URL, options: Options? = nil) {
+    public init(inputURL: URL,
+                outputURL: URL,
+                options: Options? = nil) {
         self.inputURL = inputURL
         self.outputURL = outputURL
         self.options = options ?? Options()
     }
 
     deinit {
-        // AKLog("* { FormatConverter \(inputURL?.lastPathComponent ?? "?") }")
         reader = nil
         writer = nil
         inputURL = nil
