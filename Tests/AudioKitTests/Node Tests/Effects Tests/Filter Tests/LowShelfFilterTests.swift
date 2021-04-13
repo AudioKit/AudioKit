@@ -7,7 +7,7 @@ class LowShelfFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowShelfFilter(input, cutoffFrequency: 100, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class LowShelfFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowShelfFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class LowShelfFilterTests: XCTestCase {
 
     func testGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowShelfFilter(input, gain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

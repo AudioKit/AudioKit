@@ -163,7 +163,13 @@ extension AudioPlayer2Tests {
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
-        // audio.audition()
+        audio.audition()
     }
-    */
+ */
+}
+
+extension AudioPlayer2Tests {
+    func testZZZRemoveTempFiles() {
+        cleanup()
+    }
 }

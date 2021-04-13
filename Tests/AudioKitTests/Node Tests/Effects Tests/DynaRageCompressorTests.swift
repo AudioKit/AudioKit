@@ -7,7 +7,7 @@ class DynaRangeCompressorTests: XCTestCase {
 
     func testAttackTime() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = DynaRageCompressor(input, ratio: 10, attackDuration: 21)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class DynaRangeCompressorTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = DynaRageCompressor(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class DynaRangeCompressorTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = DynaRageCompressor(input,
                                       ratio: 10,
                                       threshold: -1,
@@ -41,7 +41,7 @@ class DynaRangeCompressorTests: XCTestCase {
 
     func testRage() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = DynaRageCompressor(input, ratio: 10, rage: 10)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -51,7 +51,7 @@ class DynaRangeCompressorTests: XCTestCase {
 
     func testRatio() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = DynaRageCompressor(input, ratio: 10)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -61,7 +61,7 @@ class DynaRangeCompressorTests: XCTestCase {
 
     func testReleaseTime() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = DynaRageCompressor(input, ratio: 10, releaseDuration: 22)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -71,7 +71,7 @@ class DynaRangeCompressorTests: XCTestCase {
 
     func testThreshold() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = DynaRageCompressor(input, ratio: 10, threshold: -1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

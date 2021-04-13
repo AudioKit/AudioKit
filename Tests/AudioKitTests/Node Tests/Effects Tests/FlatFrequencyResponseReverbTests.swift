@@ -7,7 +7,7 @@ class FlatFrequencyResponseReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = FlatFrequencyResponseReverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class FlatFrequencyResponseReverbTests: XCTestCase {
 
     func testLoopDuration() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = FlatFrequencyResponseReverb(input, reverbDuration: 0.1, loopDuration: 0.05)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class FlatFrequencyResponseReverbTests: XCTestCase {
 
     func testReverbDuration() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = FlatFrequencyResponseReverb(input, reverbDuration: 0.1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

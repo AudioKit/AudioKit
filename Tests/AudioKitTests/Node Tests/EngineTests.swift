@@ -26,7 +26,7 @@ class EngineTests: XCTestCase {
         }
 
         let engine = AudioEngine()
-        let oscillator = Oscillator()
+        let oscillator = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer(oscillator)
 
         // assign input and engine references
@@ -99,7 +99,7 @@ class EngineTests: XCTestCase {
 
     func testEngineMainMixerCreated() {
         let engine = AudioEngine()
-        let oscillator = Oscillator()
+        let oscillator = Oscillator(waveform: Table(.triangle))
         engine.output = oscillator
 
         guard let mainMixerNode = engine.mainMixerNode else {
@@ -113,10 +113,10 @@ class EngineTests: XCTestCase {
 
     func testEngineSwitchOutputWhileRunning() {
         let engine = AudioEngine()
-        let oscillator = Oscillator()
+        let oscillator = Oscillator(waveform: Table(.triangle))
         oscillator.frequency = 220
         oscillator.amplitude = 0.1
-        let oscillator2 = Oscillator()
+        let oscillator2 = Oscillator(waveform: Table(.triangle))
         oscillator2.frequency = 440
         oscillator2.amplitude = 0.1
         engine.output = oscillator
@@ -153,7 +153,7 @@ class EngineTests: XCTestCase {
 
     func testConnectionTreeDescriptionForSingleNodeAdded() {
         let engine = AudioEngine()
-        let oscillator = Oscillator()
+        let oscillator = Oscillator(waveform: Table(.triangle))
         engine.output = oscillator
         XCTAssertEqual(engine.connectionTreeDescription,
         """

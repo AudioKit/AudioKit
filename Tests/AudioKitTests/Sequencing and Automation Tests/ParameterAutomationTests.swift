@@ -134,7 +134,7 @@ class ParameterAutomationTests: XCTestCase {
 
     func testDelayedAutomation() {
         let engine = AudioEngine()
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         engine.output = osc
         osc.amplitude = 0.2
         osc.start()

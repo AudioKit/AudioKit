@@ -21,7 +21,7 @@ class OperationGeneratorParametersTests: XCTestCase {
 
     func testSetParameters2() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let effect = OperationEffect(input) { player, parameters in
             let time = Operation.sineWave(frequency: parameters[1])
                 .scale(minimum: 0.001, maximum: parameters[0])
@@ -43,7 +43,7 @@ class OperationGeneratorParametersTests: XCTestCase {
 
     func testSetParameters3() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let effect = OperationEffect(input) { player, parameters in
             let time = Operation.sineWave(frequency: parameters[1])
                 .scale(minimum: 0.001, maximum: parameters[0])

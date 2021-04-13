@@ -7,7 +7,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
 
     func testAttack() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let envelope = AmplitudeEnvelope(input, attackDuration: 0.123_4)
         engine.output = envelope
         input.play()
@@ -20,7 +20,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
 
     func testDecay() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let envelope = AmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
@@ -33,7 +33,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let envelope = AmplitudeEnvelope(input)
         engine.output = envelope
         input.play()
@@ -46,7 +46,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let envelope = AmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
@@ -59,7 +59,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
 
     func testSustain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let envelope = AmplitudeEnvelope(input, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
@@ -72,7 +72,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
 
     func testRelease() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let envelope = AmplitudeEnvelope(input, releaseDuration: 0.5)
         engine.output = envelope
         input.play()
@@ -87,7 +87,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
 
     func testDoubleStop() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let envelope = AmplitudeEnvelope(input, releaseDuration: 0.5)
         engine.output = envelope
         input.play()

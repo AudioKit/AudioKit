@@ -7,7 +7,7 @@ class ResonantFilterTests: XCTestCase {
 
     func testBandwidth() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = ResonantFilter(input, bandwidth: 500)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class ResonantFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = ResonantFilter(input)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class ResonantFilterTests: XCTestCase {
 
     func testFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = ResonantFilter(input, frequency: 1_000)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class ResonantFilterTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = ResonantFilter(input, frequency: 1_000, bandwidth: 500)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)

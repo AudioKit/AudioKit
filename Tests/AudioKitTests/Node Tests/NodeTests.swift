@@ -7,7 +7,7 @@ import XCTest
 class NodeTests: XCTestCase {
     func testNodeBasic() {
         let engine = AudioEngine()
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         XCTAssertNotNil(osc.avAudioUnit)
         XCTAssertNil(osc.avAudioNode.engine)
         osc.start()
@@ -20,7 +20,7 @@ class NodeTests: XCTestCase {
 
     func testNodeConnection() {
         let engine = AudioEngine()
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         osc.start()
         let verb = CostelloReverb(osc)
         engine.output = verb
@@ -30,7 +30,7 @@ class NodeTests: XCTestCase {
     }
 
     func testRedundantConnection() {
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer()
         mixer.addInput(osc)
         mixer.addInput(osc)
@@ -40,7 +40,7 @@ class NodeTests: XCTestCase {
     func testDynamicOutput() {
         let engine = AudioEngine()
 
-        let osc1 = Oscillator()
+        let osc1 = Oscillator(waveform: Table(.triangle))
         osc1.start()
         engine.output = osc1
 
@@ -49,7 +49,7 @@ class NodeTests: XCTestCase {
         let newAudio = engine.render(duration: 1.0)
         audio.append(newAudio)
 
-        let osc2 = Oscillator(frequency: 880)
+        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
         osc2.start()
         engine.output = osc2
 
@@ -62,7 +62,7 @@ class NodeTests: XCTestCase {
     func testDynamicConnection() {
         let engine = AudioEngine()
 
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer(osc)
 
         XCTAssertNil(osc.avAudioNode.engine)
@@ -78,7 +78,7 @@ class NodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = Oscillator(frequency: 880)
+        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
         osc2.start()
         mixer.addInput(osc2)
 
@@ -90,7 +90,7 @@ class NodeTests: XCTestCase {
     func testDynamicConnection2() {
         let engine = AudioEngine()
 
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer(osc)
 
         engine.output = mixer
@@ -100,7 +100,7 @@ class NodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = Oscillator(frequency: 880)
+        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
         let verb = CostelloReverb(osc2)
         osc2.start()
         mixer.addInput(verb)
@@ -113,7 +113,7 @@ class NodeTests: XCTestCase {
     func testDynamicConnection3() {
         let engine = AudioEngine()
 
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer(osc)
         engine.output = mixer
 
@@ -123,7 +123,7 @@ class NodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = Oscillator(frequency: 880)
+        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
         osc2.start()
         mixer.addInput(osc2)
 
@@ -139,7 +139,7 @@ class NodeTests: XCTestCase {
     func testDynamicConnection4() {
         let engine = AudioEngine()
         let outputMixer = Mixer()
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         outputMixer.addInput(osc)
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 2.0)
@@ -148,7 +148,7 @@ class NodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = Oscillator()
+        let osc2 = Oscillator(waveform: Table(.triangle))
         osc2.frequency = 880
 
         let localMixer = Mixer()
@@ -167,7 +167,7 @@ class NodeTests: XCTestCase {
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 1.0)
 
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer()
         mixer.addInput(osc)
 
@@ -182,7 +182,7 @@ class NodeTests: XCTestCase {
     func testDisconnect() {
         let engine = AudioEngine()
 
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer(osc)
         engine.output = mixer
 
@@ -202,7 +202,7 @@ class NodeTests: XCTestCase {
     func testNodeDetach() {
         let engine = AudioEngine()
 
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer(osc)
         engine.output = mixer
         osc.start()
@@ -222,7 +222,7 @@ class NodeTests: XCTestCase {
         let engine = AudioEngine()
         let engine2 = AudioEngine()
 
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         engine2.output = osc
         osc.start()
 
@@ -262,7 +262,7 @@ class NodeTests: XCTestCase {
 
     func testFanout() {
         let engine = AudioEngine()
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let verb = CostelloReverb(osc)
         let mixer = Mixer(osc, verb)
         engine.output = mixer
@@ -274,7 +274,7 @@ class NodeTests: XCTestCase {
     func testMixerRedundantUpstreamConnection() {
         let engine = AudioEngine()
 
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mixer1 = Mixer(osc)
         let mixer2 = Mixer(mixer1)
 
@@ -289,7 +289,7 @@ class NodeTests: XCTestCase {
 
     func testTransientNodes() {
         let engine = AudioEngine()
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         func exampleStart() {
             let env = AmplitudeEnvelope(osc)
             osc.amplitude = 1
@@ -313,8 +313,8 @@ class NodeTests: XCTestCase {
 
     func testAutomationAfterDelayedConnection() {
         let engine = AudioEngine()
-        let osc = Oscillator()
-        let osc2 = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
+        let osc2 = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer()
         let events = [AutomationEvent(targetValue: 1320, startTime: 0.0, rampDuration: 0.5)]
         engine.output = mixer
@@ -335,7 +335,7 @@ class NodeTests: XCTestCase {
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
         let engine = AudioEngine()
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let rev = CostelloReverb(osc)
 
         XCTAssertNotNil(osc.avAudioUnit)
@@ -358,7 +358,7 @@ class NodeTests: XCTestCase {
     // Measure the overhead of mixers.
     func testMixerPerformance() {
         let engine = AudioEngine()
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let mix1 = Mixer(osc)
         let rev = CostelloReverb(mix1)
         let mix2 = Mixer(rev)
@@ -381,12 +381,12 @@ class NodeTests: XCTestCase {
     }
 
     func testConnectionTreeDescriptionForStandaloneNode() {
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         XCTAssertEqual(osc.connectionTreeDescription, "\(Node.connectionTreeLinePrefix)↳Oscillator")
     }
 
     func testConnectionTreeDescriptionForConnectedNode() {
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let verb = CostelloReverb(osc)
         let mixer = Mixer(osc, verb)
         let mixerAddress = MemoryAddress(of: mixer).description

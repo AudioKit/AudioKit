@@ -7,7 +7,7 @@ class ReverberateWithCostelloTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = OperationEffect(input) { $0.reverberateWithCostello() }
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

@@ -7,7 +7,7 @@ class PannerTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Panner(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class PannerTests: XCTestCase {
 
     func testBypass() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let pan = Panner(input, pan: -1)
         pan.bypass()
         engine.output = pan
@@ -29,7 +29,7 @@ class PannerTests: XCTestCase {
 
     func testPanLeft() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Panner(input, pan: -1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -39,7 +39,7 @@ class PannerTests: XCTestCase {
 
     func testPanRight() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Panner(input, pan: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
