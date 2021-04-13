@@ -174,7 +174,6 @@ extension FormatConverter {
             isFloat = intDepth == 32
         }
 
-        // Log("inputFormat", inputFormat)
         var sampleRate = options.sampleRate ?? inputFormat.sampleRate
         let channels = options.channels ?? inputFormat.channelCount
 
