@@ -7,7 +7,7 @@ class ThreePoleLowPassFilterOperationTests: XCTestCase {
 
     func testParameterSweep() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = OperationEffect(input) { input in
             let ramp = Operation.lineSegment(
                 trigger: Operation.metronome(),

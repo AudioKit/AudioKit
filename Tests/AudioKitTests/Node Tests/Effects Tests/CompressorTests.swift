@@ -7,7 +7,7 @@ class CompressorTests: XCTestCase {
 
     func testAttackTime() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Compressor(input, attackTime: 0.1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class CompressorTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Compressor(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class CompressorTests: XCTestCase {
 
     func testHeadRoom() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Compressor(input, headRoom: 0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class CompressorTests: XCTestCase {
 
     func testMasterGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Compressor(input, masterGain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class CompressorTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Compressor(input,
                                      threshold: -25,
                                      headRoom: 10,
@@ -64,7 +64,7 @@ class CompressorTests: XCTestCase {
 
     func testThreshold() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Compressor(input, threshold: -25)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

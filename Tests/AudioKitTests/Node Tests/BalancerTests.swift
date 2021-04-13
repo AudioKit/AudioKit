@@ -7,8 +7,8 @@ class BalancerTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
-        let comparator = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
+        let comparator = Oscillator(waveform: Table(.triangle))
         engine.output = Balancer(input, comparator: comparator)
         input.start()
         comparator.start()

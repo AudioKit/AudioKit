@@ -7,7 +7,7 @@ class LowShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testCornerFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowShelfParametricEqualizerFilter(input, cornerFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class LowShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowShelfParametricEqualizerFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class LowShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowShelfParametricEqualizerFilter(input, gain: 2)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class LowShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowShelfParametricEqualizerFilter(input, cornerFrequency: 500, gain: 2, q: 1.414)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class LowShelfParametricEqualizerFilterTests: XCTestCase {
 
     func testQ() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowShelfParametricEqualizerFilter(input, q: 1.415)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

@@ -145,7 +145,7 @@ class DynamicOscillatorTests: XCTestCase {
 
     func testNewAutomationDelayed() {
         let engine = AudioEngine()
-        let oscillator = DynamicOscillator(waveform: Table(.sine), frequency: 400, amplitude: 0.5)
+        let oscillator = DynamicOscillator(waveform: Table(.sawtooth), frequency: 400, amplitude: 0.5)
         engine.output = oscillator
 
         oscillator.start()

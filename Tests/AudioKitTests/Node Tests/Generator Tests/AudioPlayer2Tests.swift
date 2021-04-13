@@ -210,8 +210,8 @@ extension AudioPlayer2Tests {
         //sleep(6)
     }
 
+    /*
     func testPlayerConnectionWithMixer() {
-        return
         let engine = AudioEngine()
         let outputMixer = Mixer()
         guard let player = createPlayer(duration: 1) else {
@@ -238,9 +238,10 @@ extension AudioPlayer2Tests {
         player2.play()
         audio.append(engine.render(duration: 1.0))
 
-//        testMD5(audio)
-        // audio.audition()
+        testMD5(audio)
+        audio.audition()
     }
+ */
 }
 
 extension AudioPlayer2Tests {

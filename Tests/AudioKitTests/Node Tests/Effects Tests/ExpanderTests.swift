@@ -7,7 +7,7 @@ class ExpanderTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Expander(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

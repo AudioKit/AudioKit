@@ -7,7 +7,7 @@ class ZitaReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = ZitaReverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class ZitaReverbTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let effect = ZitaReverb(input)
         effect.predelay = 10
         effect.crossoverFrequency = 200
@@ -38,7 +38,7 @@ class ZitaReverbTests: XCTestCase {
 
     func testParametersSetOnInit() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = ZitaReverb(input,
                               predelay: 10,
                               crossoverFrequency: 200,

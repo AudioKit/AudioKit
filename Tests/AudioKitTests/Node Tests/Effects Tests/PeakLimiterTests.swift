@@ -7,7 +7,7 @@ class PeakLimiterTests: XCTestCase {
 
     func testAttackTime() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PeakLimiter(input, attackTime: 0.02)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class PeakLimiterTests: XCTestCase {
 
     func testDecayTime() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PeakLimiter(input, decayTime: 0.03)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class PeakLimiterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PeakLimiter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class PeakLimiterTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PeakLimiter(input, attackTime: 0.02, decayTime: 0.03, preGain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class PeakLimiterTests: XCTestCase {
 
     func testPreGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PeakLimiter(input, preGain: 1)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

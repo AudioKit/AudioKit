@@ -7,7 +7,7 @@ class CostelloReverbTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = CostelloReverb(input, cutoffFrequency: 1_234)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class CostelloReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = CostelloReverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class CostelloReverbTests: XCTestCase {
 
     func testFeedback() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = CostelloReverb(input, feedback: 0.95)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class CostelloReverbTests: XCTestCase {
 
     func testParametersSetAfterInit() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let effect = CostelloReverb(input)
         effect.cutoffFrequency = 1_234
         effect.feedback = 0.95
@@ -50,7 +50,7 @@ class CostelloReverbTests: XCTestCase {
 
     func testParametersSetOnInit() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = CostelloReverb(input,
                                   feedback: 0.95,
                                   cutoffFrequency: 1_234)

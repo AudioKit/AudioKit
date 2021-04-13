@@ -7,7 +7,7 @@ class FlangerTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Flanger(input,
                           frequency: 1.1,
                           depth: 0.8,
@@ -21,7 +21,7 @@ class FlangerTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Flanger(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -31,7 +31,7 @@ class FlangerTests: XCTestCase {
 
     func testDepth() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Flanger(input, depth: 0.88)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -41,7 +41,7 @@ class FlangerTests: XCTestCase {
 
     func testDryWetMix() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Flanger(input, dryWetMix: 0.55)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -51,7 +51,7 @@ class FlangerTests: XCTestCase {
 
     func testFeedback() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Flanger(input, feedback: 0.77)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -61,7 +61,7 @@ class FlangerTests: XCTestCase {
 
     func testFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Flanger(input, frequency: 1.11)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

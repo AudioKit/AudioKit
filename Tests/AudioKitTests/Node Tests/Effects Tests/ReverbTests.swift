@@ -7,7 +7,7 @@ class ReverbTests: XCTestCase {
 
     func testBypass() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let reverb = Reverb(input)
         reverb.bypass()
         engine.output = reverb
@@ -22,7 +22,7 @@ class ReverbTests: XCTestCase {
 
     func testCathedral() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.cathedral)
@@ -34,7 +34,7 @@ class ReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Reverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -44,7 +44,7 @@ class ReverbTests: XCTestCase {
 
     func testSmallRoom() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.smallRoom)

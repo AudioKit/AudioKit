@@ -5,8 +5,8 @@ import XCTest
 import AVFoundation
 
 class DryWetMixerTests: XCTestCase {
-    let input1 = Oscillator()
-    let input2 = Oscillator(frequency: 1280)
+    let input1 = Oscillator(waveform: Table(.triangle))
+    let input2 = Oscillator(waveform: Table(.triangle), frequency: 1280)
 
     func testDefault() {
         let engine = AudioEngine()
