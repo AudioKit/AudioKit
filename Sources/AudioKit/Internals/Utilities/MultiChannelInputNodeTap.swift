@@ -19,7 +19,7 @@ public final class MultiChannelInputNodeTap {
         }
     }
 
-    @Atomic public var files = [WriteableFile]()
+    @ThreadLockedAccessor public var files = [WriteableFile]()
 
     public private(set) var inputNode: AVAudioInputNode?
 
