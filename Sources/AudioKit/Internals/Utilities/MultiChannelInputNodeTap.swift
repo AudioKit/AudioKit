@@ -41,10 +41,6 @@ public final class MultiChannelInputNodeTap {
         }
     }
 
-    public var currentAmplitudes: [Float] {
-        files.map { $0.amplitude }
-    }
-
     /// the incoming format from the audioUnit after the channel mapping.
     /// Any number of channels of audio data
     public private(set) var recordFormat: AVAudioFormat?
@@ -59,10 +55,10 @@ public final class MultiChannelInputNodeTap {
     /// format of the AVAudioInputNode
     public private(set) var sampleRate: Double = 48000
 
-    /// fileFormat and bufferFormat
+    /// fileFormat and bufferFormat - currently mono from each channel defined
     public private(set) var channels: UInt32 = 1
 
-    /// fileFormat only
+    /// 24 bit recording
     public private(set) var bitsPerChannel: UInt32 = 24
 
     private var _bufferSize: AVAudioFrameCount = 2048
