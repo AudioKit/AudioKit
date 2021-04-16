@@ -40,7 +40,7 @@ extension MIDIMonoPolyListener: MIDIListener {
                                        value: MIDIByte,
                                        channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
+                                       timeStamp: MIDITimeStamp? = nil) {
                 if controller == MIDIControl.monoOperation.rawValue {
             guard monoMode == false else { return }
             monoMode = true
@@ -71,7 +71,7 @@ extension MIDIMonoPolyListener: MIDIListener {
                                    velocity: MIDIVelocity,
                                    channel: MIDIChannel,
                                    portID: MIDIUniqueID?,
-                                   offset: MIDITimeStamp) {
+                                   timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -88,7 +88,7 @@ extension MIDIMonoPolyListener: MIDIListener {
                                     velocity: MIDIVelocity,
                                     channel: MIDIChannel,
                                     portID: MIDIUniqueID?,
-                                    offset: MIDITimeStamp) {
+                                    timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -105,7 +105,7 @@ extension MIDIMonoPolyListener: MIDIListener {
                                        pressure: MIDIByte,
                                        channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
+                                       timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -120,7 +120,7 @@ extension MIDIMonoPolyListener: MIDIListener {
     public func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                        channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
+                                       timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -135,7 +135,7 @@ extension MIDIMonoPolyListener: MIDIListener {
     public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                        channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
+                                       timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -150,7 +150,7 @@ extension MIDIMonoPolyListener: MIDIListener {
     public func receivedMIDIProgramChange(_ program: MIDIByte,
                                           channel: MIDIChannel,
                                           portID: MIDIUniqueID?,
-                                          offset: MIDITimeStamp) {
+                                          timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -162,7 +162,7 @@ extension MIDIMonoPolyListener: MIDIListener {
     ///
     public func receivedMIDISystemCommand(_ data: [MIDIByte],
                                           portID: MIDIUniqueID?,
-                                          offset: MIDITimeStamp) {
+                                          timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 

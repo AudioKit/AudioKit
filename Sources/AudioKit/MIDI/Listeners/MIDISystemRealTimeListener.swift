@@ -67,7 +67,7 @@ extension MIDISystemRealTimeListener: MIDIListener {
     /// - portID:     MIDI Unique Port ID
     /// - offset:     the offset in samples that this event occurs in the buffer
     ///
-    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, offset: MIDITimeStamp) {
+    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID?, timeStamp: MIDITimeStamp? = nil) {
         if data[0] == MIDISystemCommand.stop.rawValue {
             Log("Incoming MMC [Stop]", log: OSLog.midi)
             let newState = state.event(event: .stop)
@@ -104,7 +104,7 @@ extension MIDISystemRealTimeListener: MIDIListener {
                                    velocity: MIDIVelocity,
                                    channel: MIDIChannel,
                                    portID: MIDIUniqueID?,
-                                   offset: MIDITimeStamp) {
+                                   timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -121,7 +121,7 @@ extension MIDISystemRealTimeListener: MIDIListener {
                                     velocity: MIDIVelocity,
                                     channel: MIDIChannel,
                                     portID: MIDIUniqueID?,
-                                    offset: MIDITimeStamp) {
+                                    timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -137,7 +137,7 @@ extension MIDISystemRealTimeListener: MIDIListener {
     public func receivedMIDIController(_ controller: MIDIByte,
                                        value: MIDIByte, channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
+                                       timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -154,7 +154,7 @@ extension MIDISystemRealTimeListener: MIDIListener {
                                        pressure: MIDIByte,
                                        channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
+                                       timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -169,7 +169,7 @@ extension MIDISystemRealTimeListener: MIDIListener {
     public func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                        channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
+                                       timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -184,7 +184,7 @@ extension MIDISystemRealTimeListener: MIDIListener {
     public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                        channel: MIDIChannel,
                                        portID: MIDIUniqueID?,
-                                       offset: MIDITimeStamp) {
+                                       timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 
@@ -199,7 +199,7 @@ extension MIDISystemRealTimeListener: MIDIListener {
     public func receivedMIDIProgramChange(_ program: MIDIByte,
                                           channel: MIDIChannel,
                                           portID: MIDIUniqueID?,
-                                          offset: MIDITimeStamp) {
+                                          timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
 

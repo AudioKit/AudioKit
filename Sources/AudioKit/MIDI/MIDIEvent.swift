@@ -13,8 +13,11 @@ public struct MIDIEvent: MIDIMessage {
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?
 
-    /// Offset within a packet. Used mostly in receiving packets live
-    public var offset: MIDITimeStamp = 0
+    /// Offset within a buffer. Used mostly in receiving events from an au sequencer
+    public var offset: MIDITimeStamp?
+
+    /// TimeStamp from packet. Used mostly in receiving packets live
+    public var timeStamp: MIDITimeStamp?
 
     /// Pretty printout
     public var description: String {
@@ -99,8 +102,7 @@ public struct MIDIEvent: MIDIMessage {
     /// - parameter packet: MIDIPacket that is potentially a known event type
     ///
     public init(packet: MIDIPacket) {
-        offset = packet.timeStamp
-
+        timeStamp = packet.timeStamp
         // MARK: we currently assume this is one midi event could be any number of events
 
         let isSystemCommand = packet.isSystemCommand
@@ -157,8 +159,8 @@ public struct MIDIEvent: MIDIMessage {
     /// - Parameters:
     ///   - data:  [MIDIByte] bluetooth packet
     ///
-    public init(data: [MIDIByte], offset: MIDITimeStamp = 0) {
-        self.offset = offset
+    public init(data: [MIDIByte], timeStamp: MIDITimeStamp? = nil) {
+        self.timeStamp = timeStamp
         if MIDI.sharedInstance.isReceivingSysEx {
             if let sysExEndIndex = data.firstIndex(of: MIDISystemCommand.sysExEnd.rawValue) {
                 self.data = Array(data[0...sysExEndIndex])
@@ -291,7 +293,7 @@ public struct MIDIEvent: MIDIMessage {
         if let midiBytes = MIDIEvent.decode(packet: packet) {
             MIDI.sharedInstance.incomingSysEx += midiBytes
             if midiBytes.contains(MIDISystemCommand.sysExEnd.rawValue) {
-                let sysExEvent = MIDIEvent(data: MIDI.sharedInstance.incomingSysEx, offset: packet.timeStamp)
+                let sysExEvent = MIDIEvent(data: MIDI.sharedInstance.incomingSysEx, timeStamp: packet.timeStamp)
                 MIDI.sharedInstance.stopReceivingSysEx()
                 return sysExEvent
             }
