@@ -89,6 +89,7 @@ open class SequencerTrack {
     /// Stop playback
     public func stop() {
         akSequencerEngineSetPlaying(engine, false)
+        akSequencerEngineStopPlayingNotes(engine)
     }
 
     /// Set the current position to the start ofthe track

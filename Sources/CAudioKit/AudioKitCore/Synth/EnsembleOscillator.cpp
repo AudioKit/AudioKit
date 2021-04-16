@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "EnsembleOscillator.hpp"
+#include "EnsembleOscillator.h"
 #include <math.h>
 #include <stdio.h>
 #include <random>

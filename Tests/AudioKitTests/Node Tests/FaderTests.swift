@@ -7,7 +7,7 @@ class FaderTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Fader(input, gain: 1.0)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class FaderTests: XCTestCase {
 
     func testGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Fader(input, gain: 0.5)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class FaderTests: XCTestCase {
 
     func testBypass() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let fader = Fader(input, gain: 2.0)
         fader.bypass()
         engine.output = fader
@@ -39,7 +39,7 @@ class FaderTests: XCTestCase {
 
     func testMany() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let initialFader = Fader(input, gain: 1.0)
         var nextFader = initialFader
         for _ in 0 ..< 200 {
@@ -55,7 +55,7 @@ class FaderTests: XCTestCase {
 
     func testFlipStereo() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let pan = Panner(input, pan: 1.0)
         let fader = Fader(pan, gain: 1.0)
         fader.flipStereo = true
@@ -68,7 +68,7 @@ class FaderTests: XCTestCase {
 
     func testFlipStereoTwice() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let pan = Panner(input, pan: 1.0)
         let fader = Fader(pan, gain: 1.0)
         fader.flipStereo = true
@@ -83,7 +83,7 @@ class FaderTests: XCTestCase {
 
     func testFlipStereoThrice() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let pan = Panner(input, pan: 1.0)
         let fader = Fader(pan, gain: 1.0)
         fader.flipStereo = true
@@ -100,7 +100,7 @@ class FaderTests: XCTestCase {
 
     func testMixToMono() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let pan = Panner(input, pan: 1.0)
         let fader = Fader(pan, gain: 1.0)
         fader.mixToMono = true
@@ -113,7 +113,7 @@ class FaderTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Fader(input, gain: 2.0)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -123,7 +123,7 @@ class FaderTests: XCTestCase {
 
     func testParameters2() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Fader(input, gain: 0.5)
         input.play()
         let audio = engine.startTest(totalDuration: 1.0)

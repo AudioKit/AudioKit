@@ -7,7 +7,7 @@ class PitchShifterTests: XCTestCase {
 
     func testCrossfade() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PitchShifter(input, shift: 7, crossfade: 1_024)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class PitchShifterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PitchShifter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class PitchShifterTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PitchShifter(input, shift: 7, windowSize: 2_048, crossfade: 1_024)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class PitchShifterTests: XCTestCase {
 
     func testShift() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PitchShifter(input, shift: 7)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class PitchShifterTests: XCTestCase {
 
     func testWindowSize() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = PitchShifter(input, shift: 7, windowSize: 2_048)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

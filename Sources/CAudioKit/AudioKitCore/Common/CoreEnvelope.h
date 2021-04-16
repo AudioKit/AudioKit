@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
-#include "LinearRamper.hpp"
-#include "FunctionTable.hpp"
+#include "LinearRamper.h"
+#include "FunctionTable.h"
 
 namespace AudioKitCore
 {

@@ -80,7 +80,7 @@ open class Node {
 
                 // Mixers will decide which input bus to use.
                 if let mixer = avAudioNode as? AVAudioMixerNode {
-                    mixer.connect(input: connection.avAudioNode, bus: mixer.nextAvailableInputBus)
+                    mixer.connectMixer(input: connection.avAudioNode)
                 } else {
                     avAudioNode.connect(input: connection.avAudioNode, bus: bus)
                 }

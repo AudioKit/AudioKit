@@ -45,7 +45,7 @@ public enum TableType {
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-public class Table: NSObject, MutableCollection {
+public class Table: MutableCollection {
     /// Index by an integer
     public typealias Index = Int
     /// Index distance, or count
@@ -120,8 +120,6 @@ public class Table: NSObject, MutableCollection {
         self.type = type
         self.phase = phase
         self.content = [Element](zeros: count)
-
-        super.init()
 
         switch type {
         case .sine:

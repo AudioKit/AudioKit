@@ -13,47 +13,77 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
-#if !defined(ffft_DynArray_HEADER_INCLUDED)
-#define ffft_DynArray_HEADER_INCLUDED
-
-#if defined(_MSC_VER)
-#pragma once
-#pragma warning(4 : 4250) // "Inherits via dominance."
+#if defined(ffft_DynArray_CURRENT_CODEHEADER)
+#error Recursive inclusion of DynArray code header.
 #endif
+#define ffft_DynArray_CURRENT_CODEHEADER
+
+#if !defined(ffft_DynArray_CODEHEADER_INCLUDED)
+#define ffft_DynArray_CODEHEADER_INCLUDED
 
 
+
+#include <cassert>
 
 namespace ffft {
 
-template <class T> class DynArray {
-
-public:
-  typedef T DataType;
-
-  DynArray();
-  explicit DynArray(long size);
-  ~DynArray();
-
-  inline long size() const;
-  inline void resize(long size);
-
-  inline const DataType &operator[](long pos) const;
-  inline DataType &operator[](long pos);
-
-private:
-  DataType *_data_ptr;
-  long _len;
-  DynArray(const DynArray &other);
-  DynArray &operator=(const DynArray &other);
-  bool operator==(const DynArray &other);
-  bool operator!=(const DynArray &other);
-
-};
+template <class T> DynArray<T>::DynArray() : _data_ptr(0), _len(0) {
 
 }
 
-#include "DynArray.hpp"
+template <class T> DynArray<T>::DynArray(long size) : _data_ptr(0), _len(0) {
+  assert(size >= 0);
+  if (size > 0) {
+    _data_ptr = new DataType[size];
+    _len = size;
+  }
+}
+
+template <class T> DynArray<T>::~DynArray() {
+  delete[] _data_ptr;
+  _data_ptr = 0;
+  _len = 0;
+}
+
+template <class T> long DynArray<T>::size() const { return (_len); }
+
+template <class T> void DynArray<T>::resize(long size) {
+  assert(size >= 0);
+  if (size > 0) {
+    DataType *old_data_ptr = _data_ptr;
+    DataType *tmp_data_ptr = new DataType[size];
+
+    _data_ptr = tmp_data_ptr;
+    _len = size;
+
+    delete[] old_data_ptr;
+  }
+}
+
+template <class T>
+const typename DynArray<T>::DataType &DynArray<T>::operator[](long pos) const {
+  assert(pos >= 0);
+  assert(pos < _len);
+
+  return (_data_ptr[pos]);
+}
+
+template <class T>
+typename DynArray<T>::DataType &DynArray<T>::operator[](long pos) {
+  assert(pos >= 0);
+  assert(pos < _len);
+
+  return (_data_ptr[pos]);
+}
+
+
+
+
+
+}
 
 #endif
+
+#undef ffft_DynArray_CURRENT_CODEHEADER
 
 

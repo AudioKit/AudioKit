@@ -5,7 +5,7 @@ import XCTest
 class AudioPlayerTests: XCTestCase {
     // Because SPM doesn't support resources yet, render out a test file.
     func generateTestFile() -> URL? {
-        let osc = Oscillator()
+        let osc = Oscillator(waveform: Table(.triangle))
         let engine = AudioEngine()
         engine.output = osc
         osc.start()
@@ -30,7 +30,7 @@ class AudioPlayerTests: XCTestCase {
 
     func testBasic() {
         guard let url = generateTestFile(),
-            let file = try? AVAudioFile(forReading: url) else {
+              let file = try? AVAudioFile(forReading: url) else {
             XCTFail("Didn't generate test file")
             return
         }
@@ -51,7 +51,7 @@ class AudioPlayerTests: XCTestCase {
 
     func testLoop() {
         guard let url = generateTestFile(),
-            let buffer = try? AVAudioPCMBuffer(url: url) else {
+              let buffer = try? AVAudioPCMBuffer(url: url) else {
             XCTFail("Couldn't create buffer")
             return
         }
@@ -100,7 +100,7 @@ class AudioPlayerTests: XCTestCase {
 
     func testVolume() {
         guard let url = generateTestFile(),
-            let file = try? AVAudioFile(forReading: url) else {
+              let file = try? AVAudioFile(forReading: url) else {
             XCTFail("Couldn't create file")
             return
         }

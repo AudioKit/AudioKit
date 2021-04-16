@@ -7,7 +7,7 @@ class SmoothDelayTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = OperationEffect(input) { $0.smoothDelay() }
         input.start()
         let audio = engine.startTest(totalDuration: 4.0)
@@ -17,7 +17,7 @@ class SmoothDelayTests: XCTestCase {
 
     func testFeedback() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = OperationEffect(input) { $0.smoothDelay(feedback: 0.66) }
         input.start()
         let audio = engine.startTest(totalDuration: 4.0)
@@ -27,7 +27,7 @@ class SmoothDelayTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = OperationEffect(input) { $0.smoothDelay(time: 0.05, feedback: 0.66, samples: 256) }
         input.start()
         let audio = engine.startTest(totalDuration: 4.0)
@@ -37,7 +37,7 @@ class SmoothDelayTests: XCTestCase {
 
     func testParameterSweep() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = OperationEffect(input) { input in
             let ramp = Operation.lineSegment(
                 trigger: Operation.metronome(frequency: 1.0),
@@ -54,7 +54,7 @@ class SmoothDelayTests: XCTestCase {
 
     func testTime() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = OperationEffect(input) { $0.smoothDelay(time: 0.05) }
         input.start()
         let audio = engine.startTest(totalDuration: 4.0)

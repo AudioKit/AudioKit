@@ -7,7 +7,7 @@ class ToneComplementFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = ToneComplementFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class ToneComplementFilterTests: XCTestCase {
 
     func testHalfPowerPoint() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = ToneComplementFilter(input, halfPowerPoint: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

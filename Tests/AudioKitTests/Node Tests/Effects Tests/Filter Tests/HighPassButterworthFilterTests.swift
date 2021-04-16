@@ -7,7 +7,7 @@ class HighPassButterworthFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = HighPassButterworthFilter(input, cutoffFrequency: 400)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class HighPassButterworthFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = HighPassButterworthFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

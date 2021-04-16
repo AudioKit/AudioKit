@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "FunctionTable.hpp"
+#include "FunctionTable.h"
 #ifndef _USE_MATH_DEFINES
   #define _USE_MATH_DEFINES
 #endif

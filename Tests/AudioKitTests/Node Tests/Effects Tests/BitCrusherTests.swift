@@ -7,7 +7,7 @@ class BitCrusherTests: XCTestCase {
 
     func testBitDepth() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = BitCrusher(input, bitDepth: 12)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class BitCrusherTests: XCTestCase {
 
     func testBypass() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let crush = BitCrusher(input, bitDepth: 12)
         crush.bypass()
         engine.output = crush
@@ -29,7 +29,7 @@ class BitCrusherTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = BitCrusher(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -39,7 +39,7 @@ class BitCrusherTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = BitCrusher(input, bitDepth: 12, sampleRate: 2_400)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -49,7 +49,7 @@ class BitCrusherTests: XCTestCase {
 
     func testSampleRate() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = BitCrusher(input, sampleRate: 2_400)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

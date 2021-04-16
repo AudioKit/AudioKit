@@ -9,7 +9,7 @@ class RenderTests: XCTestCase {
 
     func runWith(feedback: Float, silenceThreshold: Float = 0.05) -> Float {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let automationEvent = AutomationEvent(targetValue: 0.0, startTime: 0.9, rampDuration: 0.05)
         engine.output = CostelloReverb(input, feedback: feedback)
         input.$amplitude.automate(events: [automationEvent])
@@ -48,6 +48,6 @@ class RenderTests: XCTestCase {
     }
 
     func testLongMoreSilence() {
-        XCTAssertEqual(runWith(feedback: 0.9, silenceThreshold: 0.0001), 6.38, accuracy: 0.01)
+        XCTAssertEqual(runWith(feedback: 0.9, silenceThreshold: 0.0001), 6.38, accuracy: 0.02)
     }
 }

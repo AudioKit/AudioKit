@@ -3,11 +3,11 @@
 #pragma once
 #include <math.h>
 
-#include "EnsembleOscillator.hpp"
-#include "DrawbarsOscillator.hpp"
-#include "ADSREnvelope.hpp"
-#include "Envelope.hpp"
-#include "MultiStageFilter.hpp"
+#include "EnsembleOscillator.h"
+#include "DrawbarsOscillator.h"
+#include "ADSREnvelope.h"
+#include "CoreEnvelope.h"
+#include "MultiStageFilter.h"
 
 namespace AudioKitCore
 {

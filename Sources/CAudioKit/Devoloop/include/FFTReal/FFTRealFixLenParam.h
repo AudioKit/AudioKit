@@ -44,7 +44,7 @@ private:
 
 }
 
-//#include	"ffft/FFTRealFixLenParam.hpp"
+//#include	"ffft/FFTRealFixLenParam.h"
 
 #endif
 

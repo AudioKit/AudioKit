@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
-#include "AdjustableDelayLine.hpp"
+#include "AdjustableDelayLine.h"
 
 namespace AudioKitCore
 {

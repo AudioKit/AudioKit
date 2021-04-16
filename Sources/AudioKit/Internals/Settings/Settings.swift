@@ -64,7 +64,6 @@ public class Settings: NSObject {
         set {
             audioFormat = AVAudioFormat(standardFormatWithSampleRate: newValue,
                                         channels: audioFormat.channelCount) ?? AVAudioFormat()
-            __akDefaultSampleRate = Float(sampleRate)
         }
     }
 
@@ -76,7 +75,6 @@ public class Settings: NSObject {
         set {
             audioFormat = AVAudioFormat(standardFormatWithSampleRate: audioFormat.sampleRate,
                                         channels: newValue) ?? AVAudioFormat()
-            __akDefaultChannelCount = Int32(channelCount)
         }
     }
 

@@ -8,7 +8,7 @@
 // 5) Holds value at sustainFraction for releaseHoldSamples
 // 6) Fades to 0 for releaseSamples
 
-#include "EnvelopeGeneratorBase.hpp"
+#include "EnvelopeGeneratorBase.h"
 
 namespace AudioKitCore
 {

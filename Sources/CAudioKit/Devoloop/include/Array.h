@@ -13,43 +13,49 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
-#if !defined(ffft_Array_HEADER_INCLUDED)
-#define ffft_Array_HEADER_INCLUDED
-
-#if defined(_MSC_VER)
-#pragma once
-#pragma warning(4 : 4250) // "Inherits via dominance."
+#if defined(ffft_Array_CURRENT_CODEHEADER)
+#error Recursive inclusion of Array code header.
 #endif
+#define ffft_Array_CURRENT_CODEHEADER
 
+#if !defined(ffft_Array_CODEHEADER_INCLUDED)
+#define ffft_Array_CODEHEADER_INCLUDED
 
+#include <cassert>
 
 namespace ffft {
 
-template <class T, long LEN> class Array {
-
-public:
-  typedef T DataType;
-
-  Array();
-
-  inline const DataType &operator[](long pos) const;
-  inline DataType &operator[](long pos);
-
-  static inline long size();
-private:
-  DataType _data_arr[LEN];
-
-  Array(const Array &other);
-  Array &operator=(const Array &other);
-  bool operator==(const Array &other);
-  bool operator!=(const Array &other);
-
-};
+template <class T, long LEN> Array<T, LEN>::Array() {
 
 }
 
-#include "ffft/Array.hpp"
+template <class T, long LEN>
+const typename Array<T, LEN>::DataType &Array<T, LEN>::
+operator[](long pos) const {
+  assert(pos >= 0);
+  assert(pos < LEN);
+
+  return (_data_arr[pos]);
+}
+
+template <class T, long LEN>
+typename Array<T, LEN>::DataType &Array<T, LEN>::operator[](long pos) {
+  assert(pos >= 0);
+  assert(pos < LEN);
+
+  return (_data_arr[pos]);
+}
+
+template <class T, long LEN> long Array<T, LEN>::size() { return (LEN); }
+
+
+
+
+
+}
 
 #endif
+
+#undef ffft_Array_CURRENT_CODEHEADER
 
 

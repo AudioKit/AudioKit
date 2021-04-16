@@ -13,38 +13,31 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
-#if !defined(ffft_FFTRealSelect_HEADER_INCLUDED)
-#define ffft_FFTRealSelect_HEADER_INCLUDED
-
-#if defined(_MSC_VER)
-#pragma once
+#if defined(ffft_FFTRealSelect_CURRENT_CODEHEADER)
+#error Recursive inclusion of FFTRealSelect code header.
 #endif
+#define ffft_FFTRealSelect_CURRENT_CODEHEADER
 
-
-
-#include "ffft/def.h"
+#if !defined(ffft_FFTRealSelect_CODEHEADER_INCLUDED)
+#define ffft_FFTRealSelect_CODEHEADER_INCLUDED
 
 namespace ffft {
 
-template <int P> class FFTRealSelect {
 
-public:
-  ffft_FORCEINLINE static float *sel_bin(float *e_ptr, float *o_ptr);
 
-private:
-  FFTRealSelect();
-  ~FFTRealSelect();
-  FFTRealSelect(const FFTRealSelect &other);
-  FFTRealSelect &operator=(const FFTRealSelect &other);
-  bool operator==(const FFTRealSelect &other);
-  bool operator!=(const FFTRealSelect &other);
+template <int P> float *FFTRealSelect<P>::sel_bin(float *e_ptr, float *o_ptr) {
+  return (o_ptr);
+}
 
-};
+template <>
+inline float *FFTRealSelect<0>::sel_bin(float *e_ptr, float *o_ptr) {
+  return (e_ptr);
+}
 
 }
 
-#include "ffft/FFTRealSelect.hpp"
-
 #endif
+
+#undef ffft_FFTRealSelect_CURRENT_CODEHEADER
 
 

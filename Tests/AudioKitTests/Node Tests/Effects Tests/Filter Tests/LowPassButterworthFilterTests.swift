@@ -7,7 +7,7 @@ class LowPassButterworthFilterTests: XCTestCase {
 
     func testCutoffFrequency() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowPassButterworthFilter(input, cutoffFrequency: 500)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class LowPassButterworthFilterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = LowPassButterworthFilter(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

@@ -7,7 +7,7 @@ class DistortionTests: XCTestCase {
 
     func testCubicTerm() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, cubicTerm: 65)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class DistortionTests: XCTestCase {
 
     func testDecay() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, decay: 2)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class DistortionTests: XCTestCase {
 
     func testDecimation() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, decimation: 61)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class DistortionTests: XCTestCase {
 
     func testDecimationMix() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, decimationMix: 62)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class DistortionTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -57,7 +57,7 @@ class DistortionTests: XCTestCase {
 
     func testDelay() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, delay: 0.2)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -67,7 +67,7 @@ class DistortionTests: XCTestCase {
 
     func testDelayMix() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, delayMix: 60)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -77,7 +77,7 @@ class DistortionTests: XCTestCase {
 
     func testFinalMix() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, finalMix: 0.69)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -87,7 +87,7 @@ class DistortionTests: XCTestCase {
 
     func testLinearTerm() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, linearTerm: 63)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -97,7 +97,7 @@ class DistortionTests: XCTestCase {
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input,
                               delay: 0.2,
                               decay: 2,
@@ -123,7 +123,7 @@ class DistortionTests: XCTestCase {
 
     func testPolynomialMix() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, polynomialMix: 66)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -133,7 +133,7 @@ class DistortionTests: XCTestCase {
 
     func testRingModBalance() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, ringModBalance: 67, ringModMix: 68)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -143,7 +143,7 @@ class DistortionTests: XCTestCase {
 
     func testRingModFreq1() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, ringModFreq1: 200, ringModMix: 68)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -153,7 +153,7 @@ class DistortionTests: XCTestCase {
 
     func testRingModFreq2() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, ringModFreq2: 300, ringModMix: 68)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -163,7 +163,7 @@ class DistortionTests: XCTestCase {
 
     func testRingModMix() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, ringModMix: 68)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -173,7 +173,7 @@ class DistortionTests: XCTestCase {
 
     func testRounding() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, rounding: 50)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -183,7 +183,7 @@ class DistortionTests: XCTestCase {
 
     func testSquaredTerm() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, squaredTerm: 64)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -193,7 +193,7 @@ class DistortionTests: XCTestCase {
 
     func testSoftClipGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = Distortion(input, softClipGain: 0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

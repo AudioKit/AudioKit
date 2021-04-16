@@ -13,78 +13,225 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 *Tab=3***********************************************************************/
 
-#if !defined(ffft_FFTRealFixLen_HEADER_INCLUDED)
-#define ffft_FFTRealFixLen_HEADER_INCLUDED
-
-#if defined(_MSC_VER)
-#pragma once
-#pragma warning(4 : 4250) // "Inherits via dominance."
+#if defined(ffft_FFTRealFixLen_CURRENT_CODEHEADER)
+#error Recursive inclusion of FFTRealFixLen code header.
 #endif
+#define ffft_FFTRealFixLen_CURRENT_CODEHEADER
+
+#if !defined(ffft_FFTRealFixLen_CODEHEADER_INCLUDED)
+#define ffft_FFTRealFixLen_CODEHEADER_INCLUDED
 
 
 
-#include "ffft/Array.h"
-#include "ffft/DynArray.h"
-#include "ffft/FFTRealFixLenParam.h"
-#include "ffft/OscSinCos.h"
+#include "ffft/FFTRealPassDirect.h"
+#include "ffft/FFTRealPassInverse.h"
+#include "ffft/FFTRealSelect.h"
+#include "ffft/def.h"
+
+#include <cassert>
+#include <cmath>
+
+namespace std {}
 
 namespace ffft {
 
-template <int LL2> class FFTRealFixLen {
-  typedef int CompileTimeCheck1[(LL2 >= 0) ? 1 : -1];
-  typedef int CompileTimeCheck2[(LL2 <= 30) ? 1 : -1];
+template <int LL2>
+FFTRealFixLen<LL2>::FFTRealFixLen()
+    : _buffer(FFT_LEN), _br_data(BR_ARR_SIZE),
+      _trigo_data(TRIGO_TABLE_ARR_SIZE), _trigo_osc() {
+  build_br_lut();
+  build_trigo_lut();
+  build_trigo_osc();
+}
 
-public:
-  typedef FFTRealFixLenParam::DataType DataType;
-  typedef OscSinCos<DataType> OscType;
+template <int LL2> long FFTRealFixLen<LL2>::get_length() const {
+  return (FFT_LEN);
+}
 
-  enum { FFT_LEN_L2 = LL2 };
-  enum { FFT_LEN = 1 << FFT_LEN_L2 };
+// General case
+template <int LL2>
+void FFTRealFixLen<LL2>::do_fft(DataType f[], const DataType x[]) {
+  assert(f != 0);
+  assert(x != 0);
+  assert(x != f);
+  assert(FFT_LEN_L2 >= 3);
 
-  FFTRealFixLen();
+  // Do the transform in several passes
+  const DataType *cos_ptr = &_trigo_data[0];
+  const long *br_ptr = &_br_data[0];
 
-  inline long get_length() const;
-  void do_fft(DataType f[], const DataType x[]);
-  void do_ifft(const DataType f[], DataType x[]);
-  void rescale(DataType x[]) const;
+  FFTRealPassDirect<FFT_LEN_L2 - 1>::process(FFT_LEN, f, &_buffer[0], x,
+                                             cos_ptr, TRIGO_TABLE_ARR_SIZE,
+                                             br_ptr, &_trigo_osc[0]);
+}
 
-private:
-  enum { TRIGO_BD_LIMIT = FFTRealFixLenParam::TRIGO_BD_LIMIT };
+// 4-point FFT
+template <>
+inline void FFTRealFixLen<2>::do_fft(DataType f[], const DataType x[]) {
+  assert(f != 0);
+  assert(x != 0);
+  assert(x != f);
 
-  enum { BR_ARR_SIZE_L2 = ((FFT_LEN_L2 - 3) < 0) ? 0 : (FFT_LEN_L2 - 2) };
-  enum { BR_ARR_SIZE = 1 << BR_ARR_SIZE_L2 };
+  f[1] = x[0] - x[2];
+  f[3] = x[1] - x[3];
 
-  enum {
-    TRIGO_BD = ((FFT_LEN_L2 - TRIGO_BD_LIMIT) < 0) ? (int)FFT_LEN_L2
-                                                   : (int)TRIGO_BD_LIMIT
-  };
-  enum { TRIGO_TABLE_ARR_SIZE_L2 = (LL2 < 4) ? 0 : (TRIGO_BD - 2) };
-  enum { TRIGO_TABLE_ARR_SIZE = 1 << TRIGO_TABLE_ARR_SIZE_L2 };
+  const DataType b_0 = x[0] + x[2];
+  const DataType b_2 = x[1] + x[3];
 
-  enum { NBR_TRIGO_OSC = FFT_LEN_L2 - TRIGO_BD };
-  enum { TRIGO_OSC_ARR_SIZE = (NBR_TRIGO_OSC > 0) ? NBR_TRIGO_OSC : 1 };
+  f[0] = b_0 + b_2;
+  f[2] = b_0 - b_2;
+}
 
-  void build_br_lut();
-  void build_trigo_lut();
-  void build_trigo_osc();
+// 2-point FFT
+template <>
+inline void FFTRealFixLen<1>::do_fft(DataType f[], const DataType x[]) {
+  assert(f != 0);
+  assert(x != 0);
+  assert(x != f);
 
-  DynArray<DataType> _buffer;
-  DynArray<long> _br_data;
-  DynArray<DataType> _trigo_data;
-  Array<OscType, TRIGO_OSC_ARR_SIZE> _trigo_osc;
+  f[0] = x[0] + x[1];
+  f[1] = x[0] - x[1];
+}
+
+// 1-point FFT
+template <>
+inline void FFTRealFixLen<0>::do_fft(DataType f[], const DataType x[]) {
+  assert(f != 0);
+  assert(x != 0);
+
+  f[0] = x[0];
+}
+
+// General case
+template <int LL2>
+void FFTRealFixLen<LL2>::do_ifft(const DataType f[], DataType x[]) {
+  assert(f != 0);
+  assert(x != 0);
+  assert(x != f);
+  assert(FFT_LEN_L2 >= 3);
+
+  // Do the transform in several passes
+  DataType *s_ptr = FFTRealSelect<FFT_LEN_L2 & 1>::sel_bin(&_buffer[0], x);
+  DataType *d_ptr = FFTRealSelect<FFT_LEN_L2 & 1>::sel_bin(x, &_buffer[0]);
+  const DataType *cos_ptr = &_trigo_data[0];
+  const long *br_ptr = &_br_data[0];
+
+  FFTRealPassInverse<FFT_LEN_L2 - 1>::process(FFT_LEN, d_ptr, s_ptr, f, cos_ptr,
+                                              TRIGO_TABLE_ARR_SIZE, br_ptr,
+                                              &_trigo_osc[0]);
+}
+
+// 4-point IFFT
+template <>
+inline void FFTRealFixLen<2>::do_ifft(const DataType f[], DataType x[]) {
+  assert(f != 0);
+  assert(x != 0);
+  assert(x != f);
+
+  const DataType b_0 = f[0] + f[2];
+  const DataType b_2 = f[0] - f[2];
+
+  x[0] = b_0 + f[1] * 2;
+  x[2] = b_0 - f[1] * 2;
+  x[1] = b_2 + f[3] * 2;
+  x[3] = b_2 - f[3] * 2;
+}
+
+// 2-point IFFT
+template <>
+inline void FFTRealFixLen<1>::do_ifft(const DataType f[], DataType x[]) {
+  assert(f != 0);
+  assert(x != 0);
+  assert(x != f);
+
+  x[0] = f[0] + f[1];
+  x[1] = f[0] - f[1];
+}
+
+// 1-point IFFT
+template <>
+inline void FFTRealFixLen<0>::do_ifft(const DataType f[], DataType x[]) {
+  assert(f != 0);
+  assert(x != 0);
+  assert(x != f);
+
+  x[0] = f[0];
+}
+
+template <int LL2> void FFTRealFixLen<LL2>::rescale(DataType x[]) const {
+  assert(x != 0);
+
+  const DataType mul = DataType(1.0 / FFT_LEN);
+
+  if (FFT_LEN < 4) {
+    long i = FFT_LEN - 1;
+    do {
+      x[i] *= mul;
+      --i;
+    } while (i >= 0);
+  }
+
+  else {
+    assert((FFT_LEN & 3) == 0);
+
+    // Could be optimized with SIMD instruction sets (needs alignment check)
+    long i = FFT_LEN - 4;
+    do {
+      x[i + 0] *= mul;
+      x[i + 1] *= mul;
+      x[i + 2] *= mul;
+      x[i + 3] *= mul;
+      i -= 4;
+    } while (i >= 0);
+  }
+}
 
 
-  FFTRealFixLen(const FFTRealFixLen &other);
-  FFTRealFixLen &operator=(const FFTRealFixLen &other);
-  bool operator==(const FFTRealFixLen &other);
-  bool operator!=(const FFTRealFixLen &other);
 
-};
+
+
+template <int LL2> void FFTRealFixLen<LL2>::build_br_lut() {
+  _br_data[0] = 0;
+  for (long cnt = 1; cnt < BR_ARR_SIZE; ++cnt) {
+    long index = cnt << 2;
+    long br_index = 0;
+
+    int bit_cnt = FFT_LEN_L2;
+    do {
+      br_index <<= 1;
+      br_index += (index & 1);
+      index >>= 1;
+
+      --bit_cnt;
+    } while (bit_cnt > 0);
+
+    _br_data[cnt] = br_index;
+  }
+}
+
+template <int LL2> void FFTRealFixLen<LL2>::build_trigo_lut() {
+  const double mul = (0.5 * PI) / TRIGO_TABLE_ARR_SIZE;
+  for (long i = 0; i < TRIGO_TABLE_ARR_SIZE; ++i) {
+    using namespace std;
+
+    _trigo_data[i] = DataType(cos(i * mul));
+  }
+}
+
+template <int LL2> void FFTRealFixLen<LL2>::build_trigo_osc() {
+  for (int i = 0; i < NBR_TRIGO_OSC; ++i) {
+    OscType &osc = _trigo_osc[i];
+
+    const long len = static_cast<long>(TRIGO_TABLE_ARR_SIZE) << (i + 1);
+    const double mul = (0.5 * PI) / len;
+    osc.set_step(mul);
+  }
+}
 
 }
 
-#include "ffft/FFTRealFixLen.hpp"
-
 #endif
+
+#undef ffft_FFTRealFixLen_CURRENT_CODEHEADER
 
 

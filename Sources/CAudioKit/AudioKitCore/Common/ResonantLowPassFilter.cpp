@@ -3,8 +3,8 @@
 // ResonantLowPassFilter implements a simple digital low-pass filter with dynamically
 // adjustable cutoff frequency and resonance.
 
-#include "ResonantLowPassFilter.hpp"
-#include "FunctionTable.hpp"
+#include "ResonantLowPassFilter.h"
+#include "FunctionTable.h"
 
 namespace AudioKitCore
 {

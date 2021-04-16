@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#include "AHDSHREnvelope.hpp"
+#include "AHDSHREnvelope.h"
 
 #include <cmath>
 

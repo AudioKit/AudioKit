@@ -3,13 +3,13 @@
 #pragma once
 #include <math.h>
 
-#include "SampleBuffer.hpp"
-#include "SampleOscillator.hpp"
-#include "ADSREnvelope.hpp"
-#include "AHDSHREnvelope.hpp"
-#include "FunctionTable.hpp"
-#include "ResonantLowPassFilter.hpp"
-#include "LinearRamper.hpp"
+#include "SampleBuffer.h"
+#include "SampleOscillator.h"
+#include "ADSREnvelope.h"
+#include "AHDSHREnvelope.h"
+#include "FunctionTable.h"
+#include "ResonantLowPassFilter.h"
+#include "LinearRamper.h"
 
 // process samples in "chunks" this size
 #define CORESAMPLER_CHUNKSIZE 16 // should probably be set elsewhere - currently only use this for setting up lfo

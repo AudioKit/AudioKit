@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#import "STKInstrumentDSP.hpp"
+#import "STKInstrumentDSP.h"
 #include "Shakers.h"
 
 class ShakerDSP : public STKInstrumentDSP {

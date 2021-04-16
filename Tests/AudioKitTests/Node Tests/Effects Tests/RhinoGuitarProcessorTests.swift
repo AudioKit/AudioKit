@@ -3,11 +3,11 @@
 import AudioKit
 import XCTest
 
-class RhinGuitarProcessorTests: XCTestCase {
+class RhinoGuitarProcessorTests: XCTestCase {
 
     func testDistortion() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = RhinoGuitarProcessor(input, highGain: 0.55)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class RhinGuitarProcessorTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = RhinoGuitarProcessor(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class RhinGuitarProcessorTests: XCTestCase {
 
     func testHighGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = RhinoGuitarProcessor(input, highGain: 0.55)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -37,7 +37,7 @@ class RhinGuitarProcessorTests: XCTestCase {
 
     func testLowGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = RhinoGuitarProcessor(input, lowGain: 0.66)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class RhinGuitarProcessorTests: XCTestCase {
 
     func testMidGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = RhinoGuitarProcessor(input, midGain: 0.44)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -57,7 +57,7 @@ class RhinGuitarProcessorTests: XCTestCase {
 
     func testPostGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = RhinoGuitarProcessor(input, postGain: 2.2)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -67,7 +67,7 @@ class RhinGuitarProcessorTests: XCTestCase {
 
     func testPreGain() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         engine.output = RhinoGuitarProcessor(input, preGain: 2.2)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

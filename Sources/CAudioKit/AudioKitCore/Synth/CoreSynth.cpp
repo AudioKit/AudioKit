@@ -1,10 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "CoreSynth.h"
-#include "FunctionTable.hpp"
-#include "SynthVoice.hpp"
-#include "WaveStack.hpp"
-#include "SustainPedalLogic.hpp"
+#include "FunctionTable.h"
+#include "SynthVoice.h"
+#include "WaveStack.h"
+#include "SustainPedalLogic.h"
 
 #include <math.h>
 #include <list>

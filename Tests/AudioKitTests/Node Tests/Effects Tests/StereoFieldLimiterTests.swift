@@ -7,7 +7,7 @@ class StereoFieldLimiterTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let pannedInput = Panner(input, pan: -1)
         engine.output = StereoFieldLimiter(pannedInput)
         input.start()
@@ -18,7 +18,7 @@ class StereoFieldLimiterTests: XCTestCase {
 
     func testHalf() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let pannedInput = Panner(input, pan: -1)
         engine.output = StereoFieldLimiter(pannedInput, amount: 0.5)
         input.start()
@@ -29,7 +29,7 @@ class StereoFieldLimiterTests: XCTestCase {
 
     func testNone() {
         let engine = AudioEngine()
-        let input = Oscillator()
+        let input = Oscillator(waveform: Table(.triangle))
         let pannedInput = Panner(input, pan: -1)
         engine.output = StereoFieldLimiter(pannedInput, amount: 0)
         input.start()

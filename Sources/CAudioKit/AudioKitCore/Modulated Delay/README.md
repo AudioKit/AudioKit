@@ -2,7 +2,7 @@
 
 * ModulatedDelay_Typedefs.h
 * AdjustableDelayLine.cpp
-* AdjustableDelayLine.hpp
+* AdjustableDelayLine.h
 * ModulatedDelay.cpp
-* ModulatedDelay.hpp
+* ModulatedDelay.h
 * ModulatedDelay_Defines.h
