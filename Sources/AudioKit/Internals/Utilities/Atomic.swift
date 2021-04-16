@@ -1,8 +1,6 @@
 //  Atomic.swift
 //  MIDIKit
-//
 //  Created by Steffan Andrews on 2020-12-20.
-//
 
 import Darwin
 
