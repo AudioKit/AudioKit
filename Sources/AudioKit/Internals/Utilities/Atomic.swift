@@ -1,6 +1,4 @@
-//  Atomic.swift
-//  MIDIKit
-//  Created by Steffan Andrews on 2020-12-20.
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Darwin
 
