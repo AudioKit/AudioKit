@@ -26,7 +26,7 @@ final class TestListener: MIDIListener {
                             velocity: MIDIVelocity,
                             channel: MIDIChannel,
                             portID: MIDIUniqueID?,
-                            offset: MIDITimeStamp) {
+                            timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.noteOn(channel: channel,
                                          number: noteNumber,
@@ -40,7 +40,7 @@ final class TestListener: MIDIListener {
                              velocity: MIDIVelocity,
                              channel: MIDIChannel,
                              portID: MIDIUniqueID?,
-                             offset: MIDITimeStamp) {
+                             timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.noteOff(channel: channel,
                                           number: noteNumber,
@@ -54,7 +54,7 @@ final class TestListener: MIDIListener {
                                 value: MIDIByte,
                                 channel: MIDIChannel,
                                 portID: MIDIUniqueID?,
-                                offset: MIDITimeStamp) {
+                                timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.controlChange(channel: channel,
                                                 number: controller,
@@ -68,7 +68,7 @@ final class TestListener: MIDIListener {
                                 pressure: MIDIByte,
                                 channel: MIDIChannel,
                                 portID: MIDIUniqueID?,
-                                offset: MIDITimeStamp) {
+                                timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.polyPressure(channel: channel,
                                                number: noteNumber,
@@ -81,7 +81,7 @@ final class TestListener: MIDIListener {
     func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                 channel: MIDIChannel,
                                 portID: MIDIUniqueID?,
-                                offset: MIDITimeStamp) {
+                                timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.channelPressure(channel: channel, value: pressure, portID: portID))
             self.received.fulfill()
@@ -91,7 +91,7 @@ final class TestListener: MIDIListener {
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                 channel: MIDIChannel,
                                 portID: MIDIUniqueID?,
-                                offset: MIDITimeStamp) {
+                                timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.pitchBend(channel: channel, value: pitchWheelValue, portID: portID))
             self.received.fulfill()
@@ -101,7 +101,7 @@ final class TestListener: MIDIListener {
     func receivedMIDIProgramChange(_ program: MIDIByte,
                                    channel: MIDIChannel,
                                    portID: MIDIUniqueID?,
-                                   offset: MIDITimeStamp) {
+                                   timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.programChange(channel: channel, number: program, portID: portID))
             self.received.fulfill()
@@ -111,7 +111,7 @@ final class TestListener: MIDIListener {
 
     func receivedMIDISystemCommand(_ data: [MIDIByte],
                                    portID: MIDIUniqueID?,
-                                   offset: MIDITimeStamp) {
+                                   timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.systemCommand(data: data, portID: portID))
             self.received.fulfill()
