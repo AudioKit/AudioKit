@@ -423,7 +423,7 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
 
     /// Stop the sampler playback of a specific note
     /// - Parameter noteNumber: MIDI Note number
-    public override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
