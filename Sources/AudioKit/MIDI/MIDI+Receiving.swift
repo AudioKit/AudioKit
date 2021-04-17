@@ -273,7 +273,7 @@ extension MIDI {
             switch umpMessageType {
             case .Utility32bit, .SystemRealTimeAndCommon32bit, .MIDI1ChannelVoice32bit:
 
-                midiEvents.append(MIDIEvent(data: umpMessageBytes, offset: timeStamp))
+                midiEvents.append(MIDIEvent(data: umpMessageBytes, timeStamp: timeStamp))
                 wordIndex += 1
                 break
             case .Reserved32bit_1, .Reserved32bit_2:
@@ -285,7 +285,7 @@ extension MIDI {
                 let secondWordBytes = byteArray(from: words[wordIndex + 1])
                 umpMessageBytes.append(contentsOf: secondWordBytes)
                 if let completeSysExMessageData = processUMPSysExMessage(with: umpMessageBytes) {
-                    midiEvents.append(MIDIEvent(data: completeSysExMessageData, offset: timeStamp))
+                    midiEvents.append(MIDIEvent(data: completeSysExMessageData, timeStamp: timeStamp))
                 }
                 wordIndex += 2
                 break
@@ -439,7 +439,7 @@ extension MIDI {
 
     internal func handleMIDIMessage(_ event: MIDIEvent, fromInput portID: MIDIUniqueID) {
         for listener in listeners {
-            let offset = event.offset
+            let timeStamp = event.timeStamp
             if let type = event.status?.type {
                 guard let eventChannel = event.channel else {
                     Log("No channel detected in handleMIDIMessage", log: OSLog.midi)
@@ -451,43 +451,43 @@ extension MIDI {
                                                     value: event.data[2],
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
-                                                    offset: offset)
+                                                    timeStamp: timeStamp)
                 case .channelAftertouch:
                     listener.receivedMIDIAftertouch(event.data[1],
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
-                                                    offset: offset)
+                                                    timeStamp: timeStamp)
                 case .noteOn:
                     listener.receivedMIDINoteOn(noteNumber: MIDINoteNumber(event.data[1]),
                                                 velocity: MIDIVelocity(event.data[2]),
                                                 channel: MIDIChannel(eventChannel),
                                                 portID: portID,
-                                                offset: offset)
+                                                timeStamp: timeStamp)
                 case .noteOff:
                     listener.receivedMIDINoteOff(noteNumber: MIDINoteNumber(event.data[1]),
                                                  velocity: MIDIVelocity(event.data[2]),
                                                  channel: MIDIChannel(eventChannel),
                                                  portID: portID,
-                                                 offset: offset)
+                                                 timeStamp: timeStamp)
                 case .pitchWheel:
                     listener.receivedMIDIPitchWheel(event.pitchbendAmount ?? 0,
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
-                                                    offset: offset)
+                                                    timeStamp: timeStamp)
                 case .polyphonicAftertouch:
                     listener.receivedMIDIAftertouch(noteNumber: MIDINoteNumber(event.data[1]),
                                                     pressure: event.data[2],
                                                     channel: MIDIChannel(eventChannel),
                                                     portID: portID,
-                                                    offset: offset)
+                                                    timeStamp: timeStamp)
                 case .programChange:
                     listener.receivedMIDIProgramChange(event.data[1],
                                                        channel: MIDIChannel(eventChannel),
                                                        portID: portID,
-                                                       offset: offset)
+                                                       timeStamp: timeStamp)
                 }
             } else if event.command != nil {
-                listener.receivedMIDISystemCommand(event.data, portID: portID, offset: offset )
+                listener.receivedMIDISystemCommand(event.data, portID: portID, timeStamp: timeStamp )
             } else {
                 Log("No usable status detected in handleMIDIMessage", log: OSLog.midi)
             }

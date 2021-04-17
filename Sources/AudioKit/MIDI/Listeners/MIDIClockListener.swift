@@ -61,12 +61,12 @@ public class MIDIClockListener: NSObject {
         quarterNoteQuantumCounter = MIDIByte(quantumCounter % 24)
     }
 
-    func midiClockBeat(time: MIDITimeStamp) {
+    func midiClockBeat(timeStamp: MIDITimeStamp) {
         self.quantumCounter += 1
 
         // quarter notes can only increment when we are playing
         guard srtListener.state == .playing else {
-            sendQuantumUpdateToObservers(time: time)
+            sendQuantumUpdateToObservers(time: timeStamp)
             return
         }
 
@@ -93,7 +93,7 @@ public class MIDIClockListener: NSObject {
         } else if quarterNoteQuantumCounter == quantumsPerQuarterNote {
             quarterNoteQuantumCounter = 0
         }
-        sendQuantumUpdateToObservers(time: time)
+        sendQuantumUpdateToObservers(time: timeStamp)
 
         if sppMIDIBeatQuantumCounter == 6 { sppMIDIBeatQuantumCounter = 0; sppMIDIBeatCounter += 1 }
         sppMIDIBeatQuantumCounter += 1
