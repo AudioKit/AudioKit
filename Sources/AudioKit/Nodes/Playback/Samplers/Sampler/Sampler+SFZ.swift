@@ -23,7 +23,7 @@ extension Sampler {
     /// Parameters:
     ///   - url: File url to the SFZ file
     ///
-    internal func loadSFZ(url: URL) {
+    public func loadSFZ(url: URL) {
 
         stopAllVoices()
         unloadAllSamples()
@@ -99,7 +99,9 @@ extension Sampler {
                                                               loopEndPoint: loopEndPoint,
                                                               startPoint: 0.0,
                                                               endPoint: 0.0)
-                    let sampleFileURL = samplesBaseURL.appendingPathComponent(sample)
+                    sample = sample.replacingOccurrences(of: "\\", with: "/")
+                    let sampleFileURL = samplesBaseURL
+                        .appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
                         sampleFileURL.path.withCString { path in
                             loadCompressedSampleFile(from: SampleFileDescriptor(sampleDescriptor: sampleDescriptor,

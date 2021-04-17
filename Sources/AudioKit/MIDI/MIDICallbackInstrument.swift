@@ -47,7 +47,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
     open override func start(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel,
-                             offset: MIDITimeStamp = 0) {
+                             timeStamp: MIDITimeStamp? = nil) {
         triggerCallbacks(MIDIStatus(type: .noteOn, channel: channel),
                          data1: noteNumber,
                          data2: velocity)
@@ -62,7 +62,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
     ///
     open override func stop(noteNumber: MIDINoteNumber,
                             channel: MIDIChannel,
-                            offset: MIDITimeStamp = 0) {
+                            timeStamp: MIDITimeStamp? = nil) {
         triggerCallbacks(MIDIStatus(type: .noteOff, channel: channel),
                          data1: noteNumber,
                          data2: 0)
@@ -83,7 +83,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
                                               value: MIDIByte,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
-                                              offset: MIDITimeStamp = 0) {
+                                              timeStamp: MIDITimeStamp? = nil) {
         triggerCallbacks(MIDIStatus(type: .controllerChange, channel: channel),
                          data1: controller,
                          data2: value)
@@ -102,7 +102,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
                                               pressure: MIDIByte,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
-                                              offset: MIDITimeStamp = 0) {
+                                              timeStamp: MIDITimeStamp? = nil) {
         triggerCallbacks(MIDIStatus(type: .polyphonicAftertouch, channel: channel),
                          data1: noteNumber,
                          data2: pressure)
@@ -119,7 +119,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
     open override func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
-                                              offset: MIDITimeStamp = 0) {
+                                              timeStamp: MIDITimeStamp? = nil) {
         triggerCallbacks(MIDIStatus(type: .channelAftertouch, channel: channel),
                          data1: pressure,
                          data2: 0)
@@ -136,7 +136,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
     open override func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                               channel: MIDIChannel,
                                               portID: MIDIUniqueID? = nil,
-                                              offset: MIDITimeStamp = 0) {
+                                              timeStamp: MIDITimeStamp? = nil) {
         triggerCallbacks(MIDIStatus(type: .pitchWheel, channel: channel),
                          data1: pitchWheelValue.msb,
                          data2: pitchWheelValue.lsb)
