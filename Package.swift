@@ -88,8 +88,7 @@ let package = Package(
             ]),
         .testTarget(
             name: "AudioKitTests",
-            dependencies: ["AudioKit"],
-            resources: [.copy("Resources/")]),
+            dependencies: ["AudioKit"]),
         .testTarget(
             name: "CAudioKitTests",
             dependencies: ["CAudioKit"])
