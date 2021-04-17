@@ -205,8 +205,10 @@ public class Synth: PolyphonicNode, AudioUnitContainer {
     }
 
     /// Stop a note
-    /// - Parameter noteNumber: MIDI Note Number
-    public override func stop(noteNumber: MIDINoteNumber) {
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - channel: MIDI Channel
+    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
