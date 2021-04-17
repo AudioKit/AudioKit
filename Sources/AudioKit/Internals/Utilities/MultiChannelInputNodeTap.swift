@@ -2,73 +2,8 @@
 
 import AVFoundation
 
-public class MultiChannelInputNodeTap {
-    public class WriteableFile: CustomStringConvertible {
-        public var description: String {
-            "url: \(url), channel: \(channel), file is open: \(file != nil)"
-        }
-
-        /// the url being written to, persists after close
-        public private(set) var url: URL
-
-        public private(set) var fileFormat: AVAudioFormat
-
-        /// the channel of the audio device this is reading from
-        public private(set) var channel: Int32
-
-        /// only valid when open for writing, then closed
-        public private(set) var file: AVAudioFile?
-
-        /// current amplitude being written represented as RMS
-        public private(set) var amplitude: Float = 0
-
-        public private(set) var duration: TimeInterval = 0
-
-        /// array of amplitude values used to create temporary waveform
-        public private(set) var amplitudeArray = [Float]()
-
-        public private(set) var bufferDuration: TimeInterval = 0.1
-
-        public init?(url: URL, fileFormat: AVAudioFormat, channel: Int32) {
-            self.fileFormat = fileFormat
-            self.channel = channel
-            self.url = url
-        }
-
-        public func createFile() {
-            guard file == nil else { return }
-
-            do {
-                file = try AVAudioFile(forWriting: url,
-                                       settings: fileFormat.settings)
-
-            } catch let error as NSError {
-                Log(error, type: .error)
-            }
-        }
-
-        public func process(buffer: AVAudioPCMBuffer, write: Bool) throws {
-            amplitude = buffer.rms
-
-            // Log(amplitude)
-
-            if write, let file = file {
-                // Log(url.lastPathComponent, amplitude)
-
-                try file.write(from: buffer)
-                amplitudeArray.append(amplitude)
-                duration = Double(file.length) / fileFormat.sampleRate
-                // duration of this buffer to write
-                bufferDuration = Double(buffer.frameLength) / buffer.format.sampleRate
-            }
-        }
-
-        public func close() {
-            file = nil
-            amplitudeArray.removeAll()
-        }
-    }
-
+/// A tap to record multiple channels to files
+public final class MultiChannelInputNodeTap {
     /// a file name and its associated input channel
     public struct FileChannel {
         var name: String
@@ -84,37 +19,24 @@ public class MultiChannelInputNodeTap {
         }
     }
 
-    private let filesAccessQueue = DispatchQueue(label:
-        "io.audiokit.MultiChannelInputNodeTap.filesAccessQueue")
-
-    // The files to record to
-    private var _files = [WriteableFile]()
-
-    public var files: [WriteableFile] {
-        get {
-            filesAccessQueue.sync { self._files }
-        }
-        set {
-            filesAccessQueue.async(flags: .barrier) {
-                self._files = newValue
-            }
-        }
-    }
+    @ThreadLockedAccessor public var files = [WriteableFile]()
 
     public private(set) var inputNode: AVAudioInputNode?
 
     public private(set) var isRecording = false {
         didSet {
             if isRecording {
+                startedAtTime = AVAudioTime(hostTime: mach_absolute_time())
+
+                Log("⏺", files.count, " to record", startedAtTime)
                 _ = files.map {
                     $0.createFile()
                 }
+            } else {
+                stoppedAtTime = AVAudioTime(hostTime: mach_absolute_time())
+                Log("⏹", files.count, "recorded", stoppedAtTime)
             }
         }
-    }
-
-    public var currentAmplitudes: [Float] {
-        files.map { $0.amplitude }
     }
 
     /// the incoming format from the audioUnit after the channel mapping.
@@ -127,19 +49,28 @@ public class MultiChannelInputNodeTap {
     /// the ultimate file format to write to disk
     public private(set) var fileFormat: AVAudioFormat?
 
-    /// sample rate for all formats and files
+    /// sample rate for all formats and files, this will be pulled from the
+    /// format of the AVAudioInputNode
     public private(set) var sampleRate: Double = 48000
 
-    /// fileFormat and bufferFormat
+    /// fileFormat and bufferFormat - currently mono from each channel defined
     public private(set) var channels: UInt32 = 1
 
-    /// fileFormat only
+    /// 24 bit recording
     public private(set) var bitsPerChannel: UInt32 = 24
 
-    public var bufferSize: AVAudioFrameCount = 2048
+    private var _bufferSize: AVAudioFrameCount = 2048
 
-    /// Used for fixing recordings being truncated
-    public private(set) var recordBufferDuration: Double = 0
+    /// The requested size of the incoming buffers. The implementation may choose another size.
+    /// I'm seeing it set to 4800 on macOS in general. Given that I'm unclear why they offer
+    /// us a choice
+    public var bufferSize: AVAudioFrameCount {
+        get { _bufferSize }
+        set {
+            _bufferSize = newValue
+            Log("Attempting to set bufferSize to", newValue, "The implementation may choose another size.")
+        }
+    }
 
     private var _recordEnabled: Bool = false
 
@@ -148,19 +79,12 @@ public class MultiChannelInputNodeTap {
     public var recordEnabled: Bool {
         get { _recordEnabled }
         set {
-            guard recordFormat != nil else {
-                Log("recordFormat is nil")
-                return
-            }
-            guard newValue != _recordEnabled else {
-                Log("_recordEnabled is already set to", newValue)
-                return
-            }
+            guard recordFormat != nil, newValue != _recordEnabled else { return }
 
             _recordEnabled = newValue
 
             if _recordEnabled {
-                Log("🚰 Installing Tap with format", recordFormat)
+                Log("🚰 Installing Tap with format", recordFormat, "bufferSize", bufferSize)
                 inputNode?.installTap(onBus: 0,
                                       bufferSize: bufferSize,
                                       format: recordFormat,
@@ -178,8 +102,27 @@ public class MultiChannelInputNodeTap {
     /// You must set this prior to recording
     public var directory: URL?
 
-    private var recordCounter: Int = 0
+    private var _recordCounter: Int = 1
+    public var recordCounter: Int {
+        get { _recordCounter }
+        set {
+            _recordCounter = max(1, newValue)
+        }
+    }
+
     private var filesReady = false
+
+    public private(set) var startedAtTime: AVAudioTime?
+    public private(set) var stoppedAtTime: AVAudioTime?
+
+    public var durationRecorded: TimeInterval? {
+        guard let startedAtTime = startedAtTime,
+              let stoppedAtTime = stoppedAtTime else {
+            return nil
+        }
+        return AVAudioTime.seconds(forHostTime: stoppedAtTime.hostTime) -
+            AVAudioTime.seconds(forHostTime: startedAtTime.hostTime)
+    }
 
     /**
      This property is used to map input channels from an input (source) to a destination.
@@ -204,14 +147,12 @@ public class MultiChannelInputNodeTap {
             // 1 is the 'input' element, 0 is output
             let inputElement: AudioUnitElement = 1
 
-            let err = AudioUnitSetProperty(audioUnit,
-                                           kAudioOutputUnitProperty_ChannelMap,
-                                           kAudioUnitScope_Output,
-                                           inputElement,
-                                           newValue,
-                                           channelMapSize)
-
-            guard err == noErr else {
+            if noErr != AudioUnitSetProperty(audioUnit,
+                                             kAudioOutputUnitProperty_ChannelMap,
+                                             kAudioUnitScope_Output,
+                                             inputElement,
+                                             newValue,
+                                             channelMapSize) {
                 Log("Failed setting channel map")
                 return
             }
@@ -224,23 +165,14 @@ public class MultiChannelInputNodeTap {
         }
     }
 
-    private func createRecordFormat(channelMap: [Int32]) -> AVAudioFormat? {
-        guard !channelMap.isEmpty else {
-            Log("You must specify a valid channel map")
-            return nil
-        }
+    /// Optional latency offset that you can set by determining the correct latency
+    /// for your hardware. This amount of samples will be skipped by the first write.
+    /// While AVAudioInputNode provides a `presentationLatency` value, I don't see the
+    /// value returned being accurate on macOS. For lack of the CoreAudio latency
+    /// calculations, you could use that value. Default value is zero.
+    public var ioLatency: AVAudioFrameCount = 0
 
-        let layoutTag = kAudioChannelLayoutTag_DiscreteInOrder | UInt32(channelMap.count)
-
-        guard let channelLayout = AVAudioChannelLayout(layoutTag: layoutTag) else {
-            Log("Failed creating AVAudioChannelLayout")
-            return nil
-        }
-
-        let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channelLayout: channelLayout)
-        Log(format)
-        return format
-    }
+    // MARK: - Init
 
     /// Currently assuming to write mono files based on the channelMap
     public init(inputNode: AVAudioInputNode) {
@@ -253,6 +185,8 @@ public class MultiChannelInputNodeTap {
     }
 
     deinit {
+        Log("* { MultiChannelInputNodeTap }")
+        delegate = nil
         files.removeAll()
         inputNode = nil
     }
@@ -275,6 +209,8 @@ public class MultiChannelInputNodeTap {
         createFiles()
         recordEnabled = true
     }
+
+    // MARK: - Formats
 
     private func initFormats() {
         bufferFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channels)
@@ -302,6 +238,24 @@ public class MultiChannelInputNodeTap {
         return AVAudioFormat(streamDescription: &outDesc)
     }
 
+    private func createRecordFormat(channelMap: [Int32]) -> AVAudioFormat? {
+        guard !channelMap.isEmpty else {
+            Log("You must specify a valid channel map")
+            return nil
+        }
+
+        let layoutTag = kAudioChannelLayoutTag_DiscreteInOrder | UInt32(channelMap.count)
+
+        guard let channelLayout = AVAudioChannelLayout(layoutTag: layoutTag) else {
+            Log("Failed creating AVAudioChannelLayout")
+            return nil
+        }
+
+        let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channelLayout: channelLayout)
+        Log("recordFormat", format)
+        return format
+    }
+
     private func createFiles() {
         guard let directory = directory,
               let fileFormat = fileFormat,
@@ -316,53 +270,57 @@ public class MultiChannelInputNodeTap {
             return
         }
 
-        recordCounter += 1
-
         // remove last batch of files
         files.removeAll()
 
-        // TODO: need file name array for named files per channel
         for i in 0 ..< fileChannels.count {
             let channel = fileChannels[i].channel
             let name = fileChannels[i].name
 
-            var url = directory.appendingPathComponent("\(name) #\(recordCounter)" + ".wav")
-            url = getUniqueURL(url)
+            guard let url = getNextURL(directory: directory, name: name, startIndex: recordCounter) else {
+                Log("Failed to create URL in", directory, "with name", name)
+                continue
+            }
 
-            // clobber - temp
+            // clobber - TODO: make it an option
             if FileManager.default.fileExists(atPath: url.path) {
+                Log("Warning, deleting existing record file at", url)
                 try? FileManager.default.removeItem(at: url)
             }
 
-            guard let channelObject = WriteableFile(url: url,
-                                                    fileFormat: fileFormat,
-                                                    channel: channel) else {
-                Log("Failed to create file at", url)
-                continue
-            }
+            Log("Creating destination:", url.path)
+
+            let channelObject = WriteableFile(url: url,
+                                              fileFormat: fileFormat,
+                                              channel: channel,
+                                              ioLatency: ioLatency)
 
             files.append(channelObject)
         }
 
-        Log("Created", files)
+        Log("Created", files, "latency in frames", ioLatency)
 
         filesReady = files.count == fileChannels.count
+
+        // record counter to be saved in the project and restored
+        recordCounter += 1
     }
 
-    private func getUniqueURL(_ url: URL, suffix: String = "") -> URL {
+    private func getNextURL(directory: URL, name: String, startIndex: Int) -> URL? {
+        let url = directory.appendingPathComponent(name).appendingPathExtension("wav")
+
         let fm = FileManager.default
-        if !fm.fileExists(atPath: url.path) { return url }
+        // if !fm.fileExists(atPath: url.path) { return url }
 
         let pathExtension = url.pathExtension
-        let baseFilename = url.deletingPathExtension().lastPathComponent + suffix
-        let directory = url.deletingLastPathComponent()
+        let baseFilename = url.deletingPathExtension().lastPathComponent
 
-        for i in 1 ... 1000 {
-            let filename = "\(baseFilename)_\(i)"
+        for i in startIndex ... 10000 {
+            let filename = "\(baseFilename) #\(i)"
             let test = directory.appendingPathComponent(filename).appendingPathExtension(pathExtension)
             if !fm.fileExists(atPath: test.path) { return test }
         }
-        return url
+        return nil
     }
 
     // AVAudioNodeTapBlock
@@ -398,17 +356,21 @@ public class MultiChannelInputNodeTap {
             }
 
             do {
-                try files[channel].process(buffer: channelBuffer, write: isRecording)
+                try files[channel].process(buffer: channelBuffer,
+                                           time: time,
+                                           write: isRecording)
 
             } catch let error as NSError {
                 Log("Write failed", error)
             }
         }
 
-        // Log(buffer.frameLength, "@", time)
-        delegate?.dataProcessed(sender: self,
-                                frameLength: buffer.frameLength,
-                                time: time)
+        if _recordEnabled {
+            // Log(buffer.frameLength, "@", time)
+            delegate?.dataProcessed(sender: self,
+                                    frameLength: buffer.frameLength,
+                                    time: time)
+        }
     }
 
     /// the tap is running as long as recordEnable is true. This just sets a flag that says
@@ -449,7 +411,9 @@ public protocol MultiChannelInputNodeTapDelegate: class {
     func tapInstalled(sender: MultiChannelInputNodeTap)
     func tapRemoved(sender: MultiChannelInputNodeTap)
 
-    /// Receive updates as data is captured. Useful for updating VU meters or waveforms
+    /// Receive updates as data is captured. Useful for updating VU meters or waveforms.
+    /// In cases where a DAW has a record enabled track that wants to show input levels
+    /// outside of tracking recording, this is how.
     func dataProcessed(sender: MultiChannelInputNodeTap,
                        frameLength: AVAudioFrameCount,
                        time: AVAudioTime)
