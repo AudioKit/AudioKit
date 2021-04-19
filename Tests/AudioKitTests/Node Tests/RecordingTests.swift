@@ -4,8 +4,7 @@ import AVFoundation
 import CAudioKit
 import XCTest
 
-/// Tests for engine.inputNode
-
+/// Tests for engine.inputNode - note can't be tested without an Info.plist
 class RecordingTests: AudioFileTestCase {
     func testMultiChannelRecording() throws {
         guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
@@ -36,7 +35,6 @@ class RecordingTests: AudioFileTestCase {
         }
 
         try FileManager.default.removeItem(at: url)
-
         wait(for: [expectation], timeout: 10)
     }
 
@@ -50,9 +48,7 @@ class RecordingTests: AudioFileTestCase {
 
         let recorder = MultiChannelInputNodeTap(inputNode: engine.avEngine.inputNode)
         recorder.ioLatency = ioLatency
-
         try engine.start()
-
         recorder.directory = url
         recorder.prepare(channelMap: channelMap)
         recorder.record()
