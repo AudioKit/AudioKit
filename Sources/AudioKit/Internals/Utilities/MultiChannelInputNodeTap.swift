@@ -39,6 +39,9 @@ public final class MultiChannelInputNodeTap {
         }
     }
 
+    /// Records wave files, could be expanded in the future
+    public private(set) var recordFileType = "wav"
+
     /// the incoming format from the audioUnit after the channel mapping.
     /// Any number of channels of audio data
     public private(set) var recordFormat: AVAudioFormat?
@@ -53,10 +56,10 @@ public final class MultiChannelInputNodeTap {
     /// format of the AVAudioInputNode
     public private(set) var sampleRate: Double = 48000
 
-    /// fileFormat and bufferFormat - currently mono from each channel defined
+    /// fileFormat and bufferFormat
     public private(set) var channels: UInt32 = 1
 
-    /// 24 bit recording
+    /// fileFormat only
     public private(set) var bitsPerChannel: UInt32 = 24
 
     private var _bufferSize: AVAudioFrameCount = 2048
@@ -84,7 +87,7 @@ public final class MultiChannelInputNodeTap {
             _recordEnabled = newValue
 
             if _recordEnabled {
-                Log("🚰 Installing Tap with format", recordFormat, "bufferSize", bufferSize)
+                Log("🚰 Installing Tap with format", recordFormat, "requested bufferSize", bufferSize)
                 inputNode?.installTap(onBus: 0,
                                       bufferSize: bufferSize,
                                       format: recordFormat,
@@ -307,18 +310,15 @@ public final class MultiChannelInputNodeTap {
     }
 
     private func getNextURL(directory: URL, name: String, startIndex: Int) -> URL? {
-        let url = directory.appendingPathComponent(name).appendingPathExtension("wav")
-
-        let fm = FileManager.default
-        // if !fm.fileExists(atPath: url.path) { return url }
-
+        let url = directory.appendingPathComponent(name).appendingPathExtension(recordFileType)
         let pathExtension = url.pathExtension
         let baseFilename = url.deletingPathExtension().lastPathComponent
 
         for i in startIndex ... 10000 {
             let filename = "\(baseFilename) #\(i)"
-            let test = directory.appendingPathComponent(filename).appendingPathExtension(pathExtension)
-            if !fm.fileExists(atPath: test.path) { return test }
+            let test = directory.appendingPathComponent(filename)
+                .appendingPathExtension(pathExtension)
+            if !FileManager.default.fileExists(atPath: test.path) { return test }
         }
         return nil
     }
@@ -411,7 +411,7 @@ public protocol MultiChannelInputNodeTapDelegate: class {
     func tapInstalled(sender: MultiChannelInputNodeTap)
     func tapRemoved(sender: MultiChannelInputNodeTap)
 
-    /// Receive updates as data is captured. Useful for updating VU meters or waveforms.
+    /// Receive updates as data is captured. Useful event for updating VU meters or waveforms.
     /// In cases where a DAW has a record enabled track that wants to show input levels
     /// outside of tracking recording, this is how.
     func dataProcessed(sender: MultiChannelInputNodeTap,

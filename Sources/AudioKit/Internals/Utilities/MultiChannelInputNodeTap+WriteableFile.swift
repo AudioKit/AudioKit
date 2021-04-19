@@ -54,6 +54,7 @@ extension MultiChannelInputNodeTap {
             }
         }
 
+        /// Should be set the amount of latency samples in the input device
         public private(set) var ioLatency: AVAudioFrameCount = 0
 
         public private(set) var totalFramesRead: AVAudioFrameCount = 0
@@ -74,7 +75,8 @@ extension MultiChannelInputNodeTap {
 
         // The actual buffer length is unpredicatable if using a Tap. This isn't ideal.
         // The system will change the buffer size to whatever it wants to, which seems
-        // strange that they let you set a buffer size in the first place
+        // strange that they let you set a buffer size in the first place. macOS is setting to
+        // 4800
         private func writeFile(buffer: AVAudioPCMBuffer, time: AVAudioTime) throws {
             guard let file = file else { return }
 
@@ -83,32 +85,35 @@ extension MultiChannelInputNodeTap {
 
             if timestamp == nil {
                 timestamp = time
-                // return
             }
 
             if !ioLatencyHandled, ioLatency > 0 {
+                Log("Actual buffer size is", buffer.frameLength,
+                    "totalFramesRead", totalFramesRead,
+                    "Attempting to skip", ioLatency, "frames for latency compensation")
+
                 if totalFramesRead > ioLatency {
-                    Log("Actual buffer size is", buffer.frameLength,
-                        "Attempting to skip", ioLatency, "frames for latency compensation")
+                    let latencyOffset: AVAudioFrameCount = totalFramesRead - ioLatency
+                    let startSample = buffer.frameLength - latencyOffset
 
                     // edit the first buffer to remove io latency samples length
-                    if buffer.frameLength > ioLatency,
-                       let offsetBuffer = buffer.copyFrom(startSample: ioLatency) {
+                    if buffer.frameLength > latencyOffset,
+                       let offsetBuffer = buffer.copyFrom(startSample: startSample) {
                         buffer = offsetBuffer
+
+                        Log("Writing partial buffer", offsetBuffer.frameLength, "frames, ioLatency is", ioLatency, "latencyOffset", latencyOffset)
                     } else {
-                        Log("Failed to edit buffer")
+                        Log("Unexpected buffer size of", buffer.frameLength)
                     }
                     ioLatencyHandled = true
 
                 } else {
-                    // very long IO latency?
-                    Log("Actual buffer size is", buffer.frameLength,
-                        "waiting for", ioLatency, "samples...")
+                    // Latency is longer than bufferSize so wait till next iterations
+//                    Log("Actual buffer size is", buffer.frameLength,
+//                              "waiting for", ioLatency, "samples...")
                     return
                 }
             }
-
-            // Log("Writing", buffer.frameLength, "frames, latency is", latency)
 
             try file.write(from: buffer)
             amplitudeArray.append(amplitude)
