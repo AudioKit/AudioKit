@@ -26,7 +26,11 @@ class RecordingTests: AudioFileTestCase {
         AVCaptureDevice.requestAccess(for: .audio) { allowed in
             Log("requestAccess", allowed)
             do {
-                try self.recordWithLatency(url: url, ioLatency: 12345)
+                // Record channels 3+4 in a multichannel device
+                // let channelMap: [Int32] = [2, 3]
+                // for test assume mono first channel
+                let channelMap: [Int32] = [0]
+                try self.recordWithLatency(url: url, channelMap: channelMap, ioLatency: 12345)
                 expectation.fulfill()
 
             } catch {
@@ -38,7 +42,8 @@ class RecordingTests: AudioFileTestCase {
         wait(for: [expectation], timeout: 10)
     }
 
-    func recordWithLatency(url: URL, ioLatency: AVAudioFrameCount = 0) throws {
+    /// unable to test this in AudioKit due to the lack of the Info.plist, but this should be addressed
+    func recordWithLatency(url: URL, channelMap: [Int32], ioLatency: AVAudioFrameCount = 0) throws {
         // pull from channels 3+4 - needs to work with the device being tested
         // var channelMap: [Int32] = [2, 3] // , 4, 5
 
