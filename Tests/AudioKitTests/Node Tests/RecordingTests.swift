@@ -8,7 +8,7 @@ import XCTest
 class RecordingTests: AudioFileTestCase {
     func testMultiChannelRecording() throws {
         guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
-            Log("To record audio, you must include the NSMicrophoneUsageDescription in your Info.plist",
+            Log("Unsupported test: To record audio, you must include the NSMicrophoneUsageDescription in your Info.plist.",
                 type: .error)
             return
         }
