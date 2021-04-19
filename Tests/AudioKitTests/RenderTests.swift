@@ -50,4 +50,29 @@ class RenderTests: XCTestCase {
     func testLongMoreSilence() {
         XCTAssertEqual(runWith(feedback: 0.9, silenceThreshold: 0.0001), 6.38, accuracy: 0.02)
     }
+    
+    func testSampleRateChange() {
+        let engine = AudioEngine()
+        let oscillator = Oscillator(waveform: Table(.triangle))
+        
+        engine.output = oscillator
+        
+        oscillator.start()
+        oscillator.amplitude = 0.1
+        let audio = engine.startTest(totalDuration: 2.0)
+        audio.append(engine.render(duration: 1.0))
+        engine.stop()
+        audio.audition()
+
+//        Settings.sampleRate = 48000
+                
+        sleep(1)
+        
+        let audio2 = engine.startTest(totalDuration: 2.0)
+        audio2.append(engine.render(duration: 1.0))
+        engine.stop()
+        audio2.audition()
+
+        
+    }
 }
