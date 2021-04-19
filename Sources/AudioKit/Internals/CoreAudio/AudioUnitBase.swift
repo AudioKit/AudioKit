@@ -16,22 +16,23 @@ open class AudioUnitBase: AUAudioUnit {
     override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
 
-        let format = outputBusArray.first!.format
+        let inputFormat = inputBusses[0].format
+        let outputFormat = outputBusses[0].format
 
-        try inputBusArray.forEach { if $0.format != format { try $0.setFormat(format) } }
-        try outputBusArray.forEach { if $0.format != format { try $0.setFormat(format) } }
+        try inputBusArray.forEach { if $0.format != inputFormat { try $0.setFormat(inputFormat) } }
+        try outputBusArray.forEach { if $0.format != outputFormat { try $0.setFormat(outputFormat) } }
 
         // we don't need to allocate a buffer if we can process in place
         if !canProcessInPlace || inputBusArray.count > 1 {
             for i in inputBusArray.indices {
-                if let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: maximumFramesToRender) {
+                if let buffer = AVAudioPCMBuffer(pcmFormat: inputFormat, frameCapacity: maximumFramesToRender) {
                     setBufferDSP(dsp, buffer.mutableAudioBufferList, i)
                     internalBuffers.append(buffer)
                 }
             }
         }
 
-        allocateRenderResourcesDSP(dsp, format.channelCount, format.sampleRate)
+        allocateRenderResourcesDSP(dsp, outputFormat.channelCount, outputFormat.sampleRate)
     }
 
     /// Delllocate Render Resources
