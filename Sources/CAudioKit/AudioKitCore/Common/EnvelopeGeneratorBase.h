@@ -90,7 +90,7 @@ namespace AudioKitCore
         int getCurrentSegmentIndex() { return curSegIndex; }
 
     protected:
-        Descriptor* segments;
+        Descriptor* segments = nullptr;
         int curSegIndex;
 
         void setupCurSeg();
