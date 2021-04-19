@@ -139,6 +139,14 @@ public class AudioEngine {
         mixer.detach()
         mainMixerNode = nil
     }
+    
+    public func rebuild() {
+        
+        // Disconnect everything.
+        let out = output
+        out?.disconnectAV()
+        output = out
+    }
 
     /// Start the engine
     public func start() throws {
