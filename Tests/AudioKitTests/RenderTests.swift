@@ -59,19 +59,21 @@ class RenderTests: XCTestCase {
         
         oscillator.start()
         oscillator.amplitude = 0.1
-        let audio = engine.startTest(totalDuration: 2.0)
+        
+        let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         engine.stop()
-        audio.audition()
-
-//        Settings.sampleRate = 48000
-                
-        sleep(1)
+//        audio.audition()
         
-        let audio2 = engine.startTest(totalDuration: 2.0)
+        Settings.sampleRate = 48000
+        engine.rebuild()
+    
+        let audio2 = engine.startTest(totalDuration: 1.0)
         audio2.append(engine.render(duration: 1.0))
         engine.stop()
-        audio2.audition()
+
+        Settings.sampleRate = 44100
+//        audio2.audition()
 
         
     }
