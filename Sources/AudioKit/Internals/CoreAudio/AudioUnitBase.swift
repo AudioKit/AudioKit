@@ -16,12 +16,7 @@ open class AudioUnitBase: AUAudioUnit {
     override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
 
-        if inputBusses.count > 0 {
-            let inputFormat = inputBusses[0].format
-
-            try inputBusArray.forEach {
-                if $0.format != inputFormat { try $0.setFormat(inputFormat) }
-            }
+        if let inputFormat = inputBusArray.first?.format {
 
             // we don't need to allocate a buffer if we can process in place
             if !canProcessInPlace || inputBusArray.count > 1 {
@@ -34,10 +29,9 @@ open class AudioUnitBase: AUAudioUnit {
             }
         }
 
-        let outputFormat = outputBusses[0].format
-        try outputBusArray.forEach { if $0.format != outputFormat { try $0.setFormat(outputFormat) } }
-
-        allocateRenderResourcesDSP(dsp, outputFormat.channelCount, outputFormat.sampleRate)
+        if let outputFormat = outputBusArray.first?.format {
+            allocateRenderResourcesDSP(dsp, outputFormat.channelCount, outputFormat.sampleRate)
+        }
     }
 
     /// Delllocate Render Resources
