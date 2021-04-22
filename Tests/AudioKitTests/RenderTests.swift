@@ -66,7 +66,7 @@ class RenderTests: XCTestCase {
 //        audio.audition()
         
         Settings.sampleRate = 48000
-        engine.rebuild()
+        engine.rebuildGraph()
     
         let audio2 = engine.startTest(totalDuration: 1.0)
         audio2.append(engine.render(duration: 1.0))
