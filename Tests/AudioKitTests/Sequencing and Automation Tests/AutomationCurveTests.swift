@@ -204,7 +204,7 @@ class AutomationCurveTests: XCTestCase {
             // osc.$frequency.ramp(to: 440.0, duration: 0.0)
             osc.$frequency.ramp(to: 660.0, duration: 1.0)
             audio.append(engine.render(duration: 1.0))
-            audio.audition()
+            // audio.audition()
             // testMD5(audio)
         }
 }
