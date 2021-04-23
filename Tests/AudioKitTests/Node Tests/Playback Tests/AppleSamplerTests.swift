@@ -55,7 +55,7 @@ class AppleSamplerTests: XCTestCase {
         let engine = AudioEngine()
         engine.output = sampler
 
-        func playMultiple(polyphonicNode: PolyphonicNode){
+        func playMultiple(polyphonicNode: PolyphonicNode) {
             polyphonicNode.play(noteNumber: 1, velocity: 127, channel: 1)
             polyphonicNode.play(noteNumber: 2, velocity: 127, channel: 2)
             polyphonicNode.play(noteNumber: 3, velocity: 127, channel: 3)
