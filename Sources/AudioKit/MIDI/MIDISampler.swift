@@ -68,11 +68,11 @@ open class MIDISampler: AppleSampler, NamedNode {
         if let status = MIDIStatus(byte: data1) {
             let channel = status.channel
             if status.type == .noteOn && data3 > 0 {
-                try play(noteNumber: data2,
-                         velocity: data3,
-                         channel: channel)
+                play(noteNumber: data2,
+                     velocity: data3,
+                     channel: channel)
             } else if status.type == .noteOn && data3 == 0 {
-                try stop(noteNumber: data2, channel: channel)
+                stop(noteNumber: data2, channel: channel)
             } else if status.type == .controllerChange {
                 midiCC(data2, value: data3, channel: channel)
             }
