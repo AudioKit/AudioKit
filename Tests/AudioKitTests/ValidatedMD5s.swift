@@ -10,6 +10,8 @@ extension XCTestCase {
 }
 
 let validatedMD5s: [String: String] = [
+    "-[AppleSamplerTests testSamplePlayback]": "2e3998ba717871f980d01749e3ee065f",
+    "-[AppleSamplerTests testStop]": "13466b9d14be14891e475249eb7d5523",
     "-[AmplitudeEnvelopeTests testAttack]": "d854eb2e2033f57db8eaece7352158a1",
     "-[AmplitudeEnvelopeTests testDecay]": "049f077cfac89eb544bba6386ef3cd41",
     "-[AmplitudeEnvelopeTests testDefault]": "2a0becc83d69bbf8635ab21c2e53bbe3",
