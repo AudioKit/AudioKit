@@ -10,8 +10,6 @@ extension XCTestCase {
 }
 
 let validatedMD5s: [String: String] = [
-    "-[AppleSamplerTests testSamplePlayback]": "2e3998ba717871f980d01749e3ee065f",
-    "-[AppleSamplerTests testStop]": "13466b9d14be14891e475249eb7d5523",
     "-[AmplitudeEnvelopeTests testAttack]": "d854eb2e2033f57db8eaece7352158a1",
     "-[AmplitudeEnvelopeTests testDecay]": "049f077cfac89eb544bba6386ef3cd41",
     "-[AmplitudeEnvelopeTests testDefault]": "2a0becc83d69bbf8635ab21c2e53bbe3",
@@ -23,6 +21,8 @@ let validatedMD5s: [String: String] = [
     "-[AmplitudeTapTests testLeftStereoMode]": "b90b7df4d69e57898ee39d89891f8f91",
     "-[AmplitudeTapTests testRightStereoMode]": "b90b7df4d69e57898ee39d89891f8f91",
     "-[AmplitudeTapTests testPeakAnalysisMode]": "b90b7df4d69e57898ee39d89891f8f91",
+    "-[AppleSamplerTests testSamplePlayback]": "2e3998ba717871f980d01749e3ee065f",
+    "-[AppleSamplerTests testStop]": "13466b9d14be14891e475249eb7d5523",
     "-[AudioPlayerTests testBasic]": "814872816a611dfd8d3ac8078c8e2daf",
     "-[AudioPlayerTests testGetCurrentTime]": "2965f1e7d77deddb213a1ad56060e6e3",
     "-[AudioPlayerTests testLoop]": "2965f1e7d77deddb213a1ad56060e6e3",
