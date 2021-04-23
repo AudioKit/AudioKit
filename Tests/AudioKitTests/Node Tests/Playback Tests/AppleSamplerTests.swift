@@ -22,7 +22,7 @@ class AppleSamplerTests: XCTestCase {
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
     }
-    
+
     func testStop() {
         let sampler = AppleSampler()
         let sampleURL = Bundle.module.url(forResource: "Resources/drumloop", withExtension: "wav")!
