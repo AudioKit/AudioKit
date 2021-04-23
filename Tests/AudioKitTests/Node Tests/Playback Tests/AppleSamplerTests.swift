@@ -8,7 +8,10 @@ class AppleSamplerTests: XCTestCase {
     func testSamplePlayback() {
         let sampler = AppleSampler()
         let sampleURL = Bundle.module.url(forResource: "Resources/drumloop", withExtension: "wav")!
-        let audioFile = try? AVAudioFile(forReading: sampleURL)
+        guard let audioFile = try? AVAudioFile(forReading: sampleURL) else {
+            XCTFail("Failed to load drumloop sample")
+            return
+        }
         try? sampler.loadAudioFile(audioFile)
 
         let engine = AudioEngine()
@@ -23,7 +26,10 @@ class AppleSamplerTests: XCTestCase {
     func testStop() {
         let sampler = AppleSampler()
         let sampleURL = Bundle.module.url(forResource: "Resources/drumloop", withExtension: "wav")!
-        let audioFile = try? AVAudioFile(forReading: sampleURL)
+        guard let audioFile = try? AVAudioFile(forReading: sampleURL) else {
+            XCTFail("Failed to load drumloop sample")
+            return
+        }
         try? sampler.loadAudioFile(audioFile)
 
         let engine = AudioEngine()
