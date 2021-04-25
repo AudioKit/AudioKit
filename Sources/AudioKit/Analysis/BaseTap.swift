@@ -80,7 +80,10 @@ open class BaseTap: Toggleable {
                                            block: handleTapBlock(buffer:at:))
     }
 
-    // AVAudioNodeTapBlock - time is unused in this case
+    /// Overide this method to handle Tap in derived class
+    /// - Parameters:
+    ///   - buffer: Buffer to analyze
+    ///   - time: Unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         // Call on the main thread so the client doesn't have to worry
         // about thread safety.
@@ -97,7 +100,7 @@ open class BaseTap: Toggleable {
         }
     }
 
-    // overide this method to handle Tap in derived class
+    /// Overide this method to handle Tap in derived class
     open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {}
 
     /// Remove the tap on the input

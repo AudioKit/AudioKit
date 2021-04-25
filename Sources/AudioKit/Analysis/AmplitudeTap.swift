@@ -33,12 +33,12 @@ public class AmplitudeTap: BaseTap {
 
     /// Initialize the amplitude
     ///
-    /// - parameter input: Node to analyze
-    /// - parameter bufferSize: Size of buffer to analyze
-    /// - parameter stereoMode: left, right, or average returned amplitudes
-    /// - parameter analysisMode: rms or peak returned amplitudes
-    /// - parameter handler: Code to call with new amplitudes
-
+    /// - Parameters:
+    ///   - input: Node to analyze
+    ///   - bufferSize: Size of buffer to analyze
+    ///   - stereoMode: left, right, or average returned amplitudes
+    ///   - analysisMode: rms or peak returned amplitudes
+    ///   - handler: Code to call with new amplitudes
     public init(_ input: Node,
                 bufferSize: UInt32 = 1_024,
                 stereoMode: StereoMode = .center,
@@ -50,7 +50,10 @@ public class AmplitudeTap: BaseTap {
         super.init(input, bufferSize: bufferSize)
     }
 
-    // AVAudioNodeTapBlock - time is unused in this case
+    /// Overide this method to handle Tap in derived class
+    /// - Parameters:
+    ///   - buffer: Buffer to analyze
+    ///   - time: Unused in this case
     override public func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
 
@@ -91,13 +94,20 @@ public class AmplitudeTap: BaseTap {
     }
 }
 
+/// Tyep of analysis
 public enum AnalysisMode {
+    /// Root Mean Squared
     case rms
+    /// Peak
     case peak
 }
 
+/// How to deal with stereo signals
 public enum StereoMode {
+    /// Use left channel
     case left
+    /// Use right channel
     case right
+    /// Use combined left and right channels
     case center
 }

@@ -32,9 +32,10 @@ public class PitchTap: BaseTap {
 
     /// Initialize the pitch tap
     ///
-    /// - parameter input: Node to analyze
-    /// - parameter bufferSize: Size of buffer to analyze
-    /// - parameter handler: Callback to call on each analysis pass
+    /// - Parameters:
+    ///   - input: Node to analyze
+    ///   - bufferSize: Size of buffer to analyze
+    ///   - handler: Callback to call on each analysis pass
     public init(_ input: Node, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.handler = handler
         super.init(input, bufferSize: bufferSize)
@@ -54,7 +55,10 @@ public class PitchTap: BaseTap {
         }
     }
 
-    // AVAudioNodeTapBlock - time is unused in this case
+    /// Overide this method to handle Tap in derived class
+    /// - Parameters:
+    ///   - buffer: Buffer to analyze
+    ///   - time: Unused in this case
     override public func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
         let channelCount = Int(buffer.format.channelCount)

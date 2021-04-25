@@ -179,7 +179,13 @@ open class PolyphonicNode: Node, Polyphonic {
     open func stop(noteNumber: MIDINoteNumber) {
         Log("Stopping note \(noteNumber), override in subclass")
     }
-
+    
+    /// Schedule an event with an offset
+    ///
+    /// - Parameters:
+    ///   - event: MIDI Event to schedule
+    ///   - offset: Time in samples
+    ///
     public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
         if let midiBlock = avAudioUnit?.auAudioUnit.scheduleMIDIEventBlock {
             event.data.withUnsafeBufferPointer { ptr in

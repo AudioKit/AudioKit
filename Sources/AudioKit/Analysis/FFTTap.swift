@@ -19,16 +19,20 @@ open class FFTTap: BaseTap {
 
     /// Initialize the FFT Tap
     ///
-    /// - parameter input: Node to analyze
-    /// - parameter bufferSize: Size of buffer to analyze
-    /// - parameter handler: Callback to call when FFT is calculated
+    /// - Parameters:
+    ///   - input: Node to analyze
+    ///   - bufferSize: Size of buffer to analyze
+    ///   - handler: Callback to call when FFT is calculated
     public init(_ input: Node, bufferSize: UInt32 = 4_096, handler: @escaping Handler) {
         self.handler = handler
         self.fftData = Array(repeating: 0.0, count: Int(bufferSize))
         super.init(input, bufferSize: bufferSize)
     }
 
-    // AVAudioNodeTapBlock - time is unused in this case
+    /// Overide this method to handle Tap in derived class
+    /// - Parameters:
+    ///   - buffer: Buffer to analyze
+    ///   - time: Unused in this case
     override open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 

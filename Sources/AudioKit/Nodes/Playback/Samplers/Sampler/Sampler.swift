@@ -274,6 +274,7 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
 
     // MARK: - Initialization
 
+    /// Initialize without any descriptors
     public init() {
         super.init(avAudioNode: AVAudioNode())
 

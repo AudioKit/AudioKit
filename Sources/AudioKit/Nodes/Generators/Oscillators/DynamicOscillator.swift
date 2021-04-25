@@ -21,6 +21,7 @@ public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
 
     fileprivate var waveform: Table?
 
+    /// Callback whten the wavetable is updated
     public var wavetableUpdateHandler: ([Float]) -> Void = { _ in }
 
     /// Specification details for frequency

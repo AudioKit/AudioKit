@@ -143,6 +143,7 @@ extension AVAudioFile {
 }
 
 extension AVURLAsset {
+    /// Audio format for  the file in the URL asset
     public var audioFormat: AVAudioFormat? {
         // pull the input format out of the audio file...
         if let source = try? AVAudioFile(forReading: url) {

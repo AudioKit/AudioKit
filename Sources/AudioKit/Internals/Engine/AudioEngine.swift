@@ -140,12 +140,17 @@ public class AudioEngine {
         mainMixerNode = nil
     }
     
+    /// Disconnect and reconnect every node
+    /// Use this for instance after you change AK sample rate
     public func rebuildGraph() {
-        // Disconnects and reconnects every node
-        // Use this for instance after you change AK sample rate
-        let out = output    // save the old output
-        out?.disconnectAV() // disconnect everything
-        output = out        // reset the output to the saved one, triggering the re-connect functions
+        // save the old output
+        let out = output
+        
+        // disconnect everything
+        out?.disconnectAV()
+        
+        // reset the output to the saved one, triggering the re-connect functions
+        output = out
     }
 
     /// Start the engine
