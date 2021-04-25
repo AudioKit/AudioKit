@@ -32,7 +32,7 @@ extension MIDIOMNIListener: MIDIListener {
     public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                    velocity: MIDIVelocity,
                                    channel: MIDIChannel,
-                                   portID: MIDIUniqueID?,
+                                   portID: MIDIUniqueID? = nil,
                                    timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -49,7 +49,7 @@ extension MIDIOMNIListener: MIDIListener {
     public func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                     velocity: MIDIVelocity,
                                     channel: MIDIChannel,
-                                    portID: MIDIUniqueID?,
+                                    portID: MIDIUniqueID? = nil,
                                     timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -65,7 +65,7 @@ extension MIDIOMNIListener: MIDIListener {
     ///
     public func receivedMIDIController(_ controller: MIDIByte,
                                        value: MIDIByte, channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
+                                       portID: MIDIUniqueID? = nil,
                                        timeStamp: MIDITimeStamp? = nil) {
         if controller == MIDIControl.omniModeOff.rawValue {
             guard omniMode == true else { return }
@@ -91,7 +91,7 @@ extension MIDIOMNIListener: MIDIListener {
     public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                        pressure: MIDIByte,
                                        channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
+                                       portID: MIDIUniqueID? = nil,
                                        timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -106,7 +106,7 @@ extension MIDIOMNIListener: MIDIListener {
     ///
     public func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                        channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
+                                       portID: MIDIUniqueID? = nil,
                                        timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -121,7 +121,7 @@ extension MIDIOMNIListener: MIDIListener {
     ///
     public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                        channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
+                                       portID: MIDIUniqueID? = nil,
                                        timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -136,7 +136,7 @@ extension MIDIOMNIListener: MIDIListener {
     ///
     public func receivedMIDIProgramChange(_ program: MIDIByte,
                                           channel: MIDIChannel,
-                                          portID: MIDIUniqueID?,
+                                          portID: MIDIUniqueID? = nil,
                                           timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -148,7 +148,7 @@ extension MIDIOMNIListener: MIDIListener {
     /// - offset:     the offset in samples that this event occurs in the buffer
     ///
     public func receivedMIDISystemCommand(_ data: [MIDIByte],
-                                          portID: MIDIUniqueID?,
+                                          portID: MIDIUniqueID? = nil,
                                           timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }

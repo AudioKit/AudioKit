@@ -87,7 +87,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                    velocity: MIDIVelocity,
                                    channel: MIDIChannel,
-                                   portID: MIDIUniqueID?,
+                                   portID: MIDIUniqueID? = nil,
                                    timeStamp: MIDITimeStamp? = nil) {
         if velocity > 0 {
             internalNode.play(noteNumber: noteNumber, velocity: velocity, channel: channel)
@@ -109,7 +109,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     public func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                     velocity: MIDIVelocity,
                                     channel: MIDIChannel,
-                                    portID: MIDIUniqueID?,
+                                    portID: MIDIUniqueID? = nil,
                                     timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -126,7 +126,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     public func receivedMIDIController(_ controller: MIDIByte,
                                        value: MIDIByte,
                                        channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
+                                       portID: MIDIUniqueID? = nil,
                                        timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -143,7 +143,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                        pressure: MIDIByte,
                                        channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
+                                       portID: MIDIUniqueID? = nil,
                                        timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -158,7 +158,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///
     public func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                        channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
+                                       portID: MIDIUniqueID? = nil,
                                        timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -173,7 +173,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///
     public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                        channel: MIDIChannel,
-                                       portID: MIDIUniqueID?,
+                                       portID: MIDIUniqueID? = nil,
                                        timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -188,7 +188,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///
     public func receivedMIDIProgramChange(_ program: MIDIByte,
                                           channel: MIDIChannel,
-                                          portID: MIDIUniqueID?,
+                                          portID: MIDIUniqueID? = nil,
                                           timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -200,7 +200,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     /// - offset:     the offset in samples that this event occurs in the buffer
     ///
     public func receivedMIDISystemCommand(_ data: [MIDIByte],
-                                          portID: MIDIUniqueID?,
+                                          portID: MIDIUniqueID? = nil,
                                           timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }

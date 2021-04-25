@@ -25,7 +25,7 @@ final class TestListener: MIDIListener {
     func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel,
-                            portID: MIDIUniqueID?,
+                            portID: MIDIUniqueID? = nil,
                             timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.noteOn(channel: channel,
@@ -39,7 +39,7 @@ final class TestListener: MIDIListener {
     func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                              velocity: MIDIVelocity,
                              channel: MIDIChannel,
-                             portID: MIDIUniqueID?,
+                             portID: MIDIUniqueID? = nil,
                              timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.noteOff(channel: channel,
@@ -53,7 +53,7 @@ final class TestListener: MIDIListener {
     func receivedMIDIController(_ controller: MIDIByte,
                                 value: MIDIByte,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID?,
+                                portID: MIDIUniqueID? = nil,
                                 timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.controlChange(channel: channel,
@@ -67,7 +67,7 @@ final class TestListener: MIDIListener {
     func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                 pressure: MIDIByte,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID?,
+                                portID: MIDIUniqueID? = nil,
                                 timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.polyPressure(channel: channel,
@@ -80,7 +80,7 @@ final class TestListener: MIDIListener {
 
     func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID?,
+                                portID: MIDIUniqueID? = nil,
                                 timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.channelPressure(channel: channel, value: pressure, portID: portID))
@@ -90,7 +90,7 @@ final class TestListener: MIDIListener {
 
     func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                 channel: MIDIChannel,
-                                portID: MIDIUniqueID?,
+                                portID: MIDIUniqueID? = nil,
                                 timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.pitchBend(channel: channel, value: pitchWheelValue, portID: portID))
@@ -100,7 +100,7 @@ final class TestListener: MIDIListener {
 
     func receivedMIDIProgramChange(_ program: MIDIByte,
                                    channel: MIDIChannel,
-                                   portID: MIDIUniqueID?,
+                                   portID: MIDIUniqueID? = nil,
                                    timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.programChange(channel: channel, number: program, portID: portID))
@@ -110,7 +110,7 @@ final class TestListener: MIDIListener {
     }
 
     func receivedMIDISystemCommand(_ data: [MIDIByte],
-                                   portID: MIDIUniqueID?,
+                                   portID: MIDIUniqueID? = nil,
                                    timeStamp: MIDITimeStamp? = nil) {
         DispatchQueue.main.async {
             self.messages.append(.systemCommand(data: data, portID: portID))

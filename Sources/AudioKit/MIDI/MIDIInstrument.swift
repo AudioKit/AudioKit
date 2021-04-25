@@ -107,7 +107,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     ///
     open func receivedMIDIController(_ controller: MIDIByte,
                                      value: MIDIByte, channel: MIDIChannel,
-                                     portID: MIDIUniqueID?,
+                                     portID: MIDIUniqueID? = nil,
                                      timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -124,7 +124,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     open func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                      pressure: MIDIByte,
                                      channel: MIDIChannel,
-                                     portID: MIDIUniqueID?,
+                                     portID: MIDIUniqueID? = nil,
                                      timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -139,7 +139,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     ///
     open func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                      channel: MIDIChannel,
-                                     portID: MIDIUniqueID?,
+                                     portID: MIDIUniqueID? = nil,
                                      timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -154,7 +154,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     ///
     open func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                      channel: MIDIChannel,
-                                     portID: MIDIUniqueID?,
+                                     portID: MIDIUniqueID? = nil,
                                      timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -169,7 +169,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     ///
     open func receivedMIDIProgramChange(_ program: MIDIByte,
                                         channel: MIDIChannel,
-                                        portID: MIDIUniqueID?,
+                                        portID: MIDIUniqueID? = nil,
                                         timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -181,7 +181,7 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
     /// - offset:     the offset in samples that this event occurs in the buffer
     ///
     open func receivedMIDISystemCommand(_ data: [MIDIByte],
-                                        portID: MIDIUniqueID?,
+                                        portID: MIDIUniqueID? = nil,
                                         timeStamp: MIDITimeStamp? = nil) {
         // Do nothing
     }
@@ -261,28 +261,20 @@ open class MIDIInstrument: PolyphonicNode, MIDIListener, NamedNode {
             case .polyphonicAftertouch:
                 receivedMIDIAftertouch(noteNumber: data2,
                                        pressure: data3,
-                                       channel: channel,
-                                       portID: nil,
-                                       timeStamp: nil)
+                                       channel: channel)
             case .channelAftertouch:
                 receivedMIDIAftertouch(data2,
-                                       channel: channel,
-                                       portID: nil,
-                                       timeStamp: nil)
+                                       channel: channel)
             case .controllerChange:
                 receivedMIDIController(data2,
                                        value: data3,
-                                       channel: channel,
-                                       portID: nil,
-                                       timeStamp: nil)
+                                       channel: channel)
             case .programChange:
                 receivedMIDIProgramChange(data2, channel: channel)
             case .pitchWheel:
                 receivedMIDIPitchWheel(MIDIWord(byte1: data2,
                                                 byte2: data3),
-                                       channel: channel,
-                                       portID: nil,
-                                       timeStamp: nil)
+                                       channel: channel)
             }
         }
     }
