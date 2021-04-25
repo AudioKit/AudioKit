@@ -82,7 +82,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///   - timeStamp:  MIDI Event TimeStamp
     ///
     public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                    velocity: MIDIVelocity,
@@ -104,7 +104,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///   - timeStamp:  MIDI Event TimeStamp
     ///
     public func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
                                     velocity: MIDIVelocity,
@@ -121,7 +121,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - value:      Value of this controller
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///   - timeStamp:  MIDI Event TimeStamp
     ///
     public func receivedMIDIController(_ controller: MIDIByte,
                                        value: MIDIByte,
@@ -138,7 +138,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///   - portID:     MIDI Unique Port ID
-    ///   - offset:     the offset in samples that this event occurs in the buffer
+    ///   - timeStamp:  MIDI Event TimeStamp
     ///
     public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
                                        pressure: MIDIByte,
@@ -154,7 +154,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - pressure: Pressure applied (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///   - portID:   MIDI Unique Port ID
-    ///   - offset:   the offset in samples that this event occurs in the buffer
+    ///   - timeStamp:MIDI Event TimeStamp
     ///
     public func receivedMIDIAftertouch(_ pressure: MIDIByte,
                                        channel: MIDIChannel,
@@ -169,7 +169,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     ///   - channel:         MIDI Channel (1-16)
     ///   - portID:          MIDI Unique Port ID
-    ///   - offset:          the offset in samples that this event occurs in the buffer
+    ///   - timeStamp:       MIDI Event TimeStamp
     ///
     public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
                                        channel: MIDIChannel,
@@ -184,7 +184,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///   - program:  MIDI Program Value (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///   - portID:   MIDI Unique Port ID
-    ///   - offset:   the offset in samples that this event occurs in the buffer
+    ///   - timeStamp:MIDI Event TimeStamp
     ///
     public func receivedMIDIProgramChange(_ program: MIDIByte,
                                           channel: MIDIChannel,
@@ -197,7 +197,7 @@ open class MIDINode: Node, MIDIListener, NamedNode {
     ///
     /// - data:       Array of integers
     /// - portID:     MIDI Unique Port ID
-    /// - offset:     the offset in samples that this event occurs in the buffer
+    /// - offset:     MIDI Event TimeStamp
     ///
     public func receivedMIDISystemCommand(_ data: [MIDIByte],
                                           portID: MIDIUniqueID? = nil,
