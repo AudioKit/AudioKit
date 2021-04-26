@@ -180,6 +180,7 @@ open class PolyphonicNode: Node, Polyphonic {
         Log("Stopping note \(noteNumber), override in subclass")
     }
     
+    #if !os(tvOS)
     /// Schedule an event with an offset
     ///
     /// - Parameters:
@@ -194,6 +195,7 @@ open class PolyphonicNode: Node, Polyphonic {
             }
         }
     }
+    #endif
 }
 
 /// Protocol for dictating that a node can be in a started or stopped state
