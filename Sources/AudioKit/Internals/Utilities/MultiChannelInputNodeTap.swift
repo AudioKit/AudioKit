@@ -2,7 +2,12 @@
 
 import AVFoundation
 
-/// A tap to record multiple channels to files
+/// MultiChannelInputNodeTap is a tap intended to process multiple channels of audio
+/// from AVAudioInputNode, or the AVAudioEngine's inputNode. In the case of the engine
+/// the input node will have a set of channels that correspond to the hardware being
+/// used. This class will read from those channels and write discrete mono files for
+/// each similar to how common DAWs record multiple channels from multiple inputs.
+
 public final class MultiChannelInputNodeTap {
     /// a file name and its associated input channel
     public struct FileChannel {
@@ -21,6 +26,8 @@ public final class MultiChannelInputNodeTap {
 
     @ThreadLockedAccessor public var files = [WriteableFile]()
 
+    /// This node has one element. The format of the input scope reflects the audio
+    /// hardware sample rate and channel count.
     public private(set) var inputNode: AVAudioInputNode?
 
     public private(set) var isRecording = false {
@@ -78,7 +85,9 @@ public final class MultiChannelInputNodeTap {
     private var _recordEnabled: Bool = false
 
     /// Call to start watching the inputNode's incoming audio data.
-    /// Enables prerecording monitoring, but must be enabled before recording as well
+    /// Enables pre-recording monitoring, but must be enabled before recording as well.
+    /// If not enabled when record() is called, it will be enabled then. This is important
+    /// for showing audio input activity before actually printing to file.
     public var recordEnabled: Bool {
         get { _recordEnabled }
         set {
@@ -115,7 +124,10 @@ public final class MultiChannelInputNodeTap {
 
     private var filesReady = false
 
+    // Timestamp when recording is started
     public private(set) var startedAtTime: AVAudioTime?
+
+    // Timestamp when recording is stopped
     public private(set) var stoppedAtTime: AVAudioTime?
 
     public var durationRecorded: TimeInterval? {
@@ -168,7 +180,7 @@ public final class MultiChannelInputNodeTap {
         }
     }
 
-    /// Optional latency offset that you can set by determining the correct latency
+    /// Optional latency offset that you should set after determining the correct latency
     /// for your hardware. This amount of samples will be skipped by the first write.
     /// While AVAudioInputNode provides a `presentationLatency` value, I don't see the
     /// value returned being accurate on macOS. For lack of the CoreAudio latency
