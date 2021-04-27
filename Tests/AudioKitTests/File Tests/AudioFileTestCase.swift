@@ -11,6 +11,30 @@ class AudioFileTestCase: XCTestCase {
 
     static var tempFiles = [URL]()
 
+    var resourceURL: URL? {
+        var url = URL(fileURLWithPath: #file)
+
+        while true {
+            url = url.deletingLastPathComponent()
+
+            if let files = try? FileManager.default.contentsOfDirectory(atPath: url.path) {
+                if files.contains("TestResources") {
+                    return url.appendingPathComponent("TestResources")
+                }
+            }
+            if url.path.count <= 1 { break } // / root directory, we failed
+        }
+        return nil
+    }
+
+    var countingURL: URL? {
+        resourceURL?.appendingPathComponent("12345.wav")
+    }
+    
+    var drumloopURL: URL? {
+        resourceURL?.appendingPathComponent("drumloop.wav")
+    }
+
     override func setUpWithError() throws {}
 
     override func tearDownWithError() throws {
