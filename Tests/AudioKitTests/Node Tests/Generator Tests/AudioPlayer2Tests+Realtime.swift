@@ -102,7 +102,7 @@ extension AudioPlayer2Tests {
         var completionCounter = 0
         player.completionHandler = {
             if buffered {
-                XCTFail("For buffer looping the completion handler isn't called. The loop is indefinite")
+                XCTFail("For buffer looping the completion handler isn't called. The loop is infinite")
                 return
             }
             completionCounter += 1

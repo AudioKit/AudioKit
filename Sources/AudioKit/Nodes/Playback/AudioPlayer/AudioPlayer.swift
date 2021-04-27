@@ -202,10 +202,8 @@ public class AudioPlayer: Node {
     ///   - when: What time to schedule for. A value of nil means now or will
     ///   use a pre-existing scheduled time.
     ///   - completionCallbackType: Constants that specify when the completion handler must be invoked.
-    public func play(
-        at when: AVAudioTime? = nil, 
-        completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack
-    ) {
+    public func play(at when: AVAudioTime? = nil,
+                     completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
         guard !isPlaying || isPaused else { return }
 
         guard let engine = playerNode.engine else {
@@ -221,7 +219,8 @@ public class AudioPlayer: Node {
         if when != nil { scheduleTime = nil }
 
         if !isScheduled {
-            schedule(at: when, completionCallbackType: completionCallbackType)
+            schedule(at: when,
+                     completionCallbackType: completionCallbackType)
         }
 
         playerNode.play()
@@ -240,10 +239,10 @@ public class AudioPlayer: Node {
     /// Gets the accurate playhead time regardless of seeking and pausing
     /// Can't be relied on if playerNode has its playstate modified directly
     public func getCurrentTime() -> TimeInterval {
-        if let nodeTime = self.playerNode.lastRenderTime,
+        if let nodeTime = playerNode.lastRenderTime,
            nodeTime.isSampleTimeValid && nodeTime.isHostTimeValid,
-           let playerTime = self.playerNode.playerTime(forNodeTime: nodeTime) {
-           return Double(Double(playerTime.sampleTime) / playerTime.sampleRate) + segmentStartTime
+           let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
+            return (Double(playerTime.sampleTime) / playerTime.sampleRate) + segmentStartTime
         }
         return pausedTime
     }
@@ -275,11 +274,10 @@ extension AudioPlayer {
     /// - Parameters:
     ///   - when: What time to schedule for
     ///   - completionCallbackType: Constants that specify when the completion handler must be invoked.
-    public func schedule(
-        at when: AVAudioTime? = nil, 
-        completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack
-    ) {
-        if isBuffered, let buffer = buffer {
+    public func schedule(at when: AVAudioTime? = nil,
+                         completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
+        if isBuffered,
+           let buffer = buffer {
             playerNode.scheduleBuffer(buffer,
                                       at: when,
                                       options: bufferOptions,
@@ -302,75 +300,37 @@ extension AudioPlayer {
         }
     }
 
-    /// Schedule a buffer to play at a a specific time, with options
-    /// - Parameters:
-    ///   - buffer: Buffer to play
-    ///   - when: Time to pay
-    ///   - options: Buffer options
-    @available(*, deprecated, renamed: "schedule(at:)")
-    public func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
-                               at when: AVAudioTime?,
-                               options: AVAudioPlayerNodeBufferOptions = []) {
-        self.buffer = buffer
-        isLooping = options == .loops
-        schedule(at: when)
-    }
-
-    /// Schedule a buffer to play from a URL, at a a specific time, with options
-    /// - Parameters:
-    ///   - url: URL Location of buffer
-    ///   - when: Time to pay
-    ///   - options: Buffer options
-    @available(*, deprecated, renamed: "schedule(at:)")
-    public func scheduleBuffer(url: URL,
-                               at when: AVAudioTime?,
-                               options: AVAudioPlayerNodeBufferOptions = []) {
-        guard let buffer = try? AVAudioPCMBuffer(url: url) else {
-            Log("Failed to create buffer", type: .error)
-            return
-        }
-        scheduleBuffer(buffer, at: when, options: options)
-    }
-
-    /// Schedule a file to play at a a specific time
-    /// - Parameters:
-    ///   - file: File to play
-    ///   - when: Time to play
-    ///   - options: Buffer options
-    @available(*, deprecated, renamed: "schedule(at:)")
-    public func scheduleFile(_ file: AVAudioFile,
-                             at when: AVAudioTime?) {
-        self.file = file
-        schedule(at: when)
-    }
-
     /// Sets the player's audio file to a certain time in the track (in seconds)
     /// and respects the players current play state
     /// - Parameters:
     ///   - time seconds into the audio file to set playhead
     public func seek(time: Float) {
-        let wasPlaying = self.isPlaying
-        self.playerNode.stop()
-        if let audioFile = self.file {
-            let sampleLength = audioFile.length
-            let processingFormat = audioFile.processingFormat
+        let wasPlaying = isPlaying
+        playerNode.stop()
+
+        // Note: this needs to take into account buffered players
+        
+        if let file = file {
+            let sampleLength = file.length
+            let processingFormat = file.processingFormat
             let sampleRate = Float(processingFormat.sampleRate)
             let startSample = floor(time * sampleRate)
             let lengthSamples = Float(sampleLength) - startSample
 
-            self.playerNode.scheduleSegment(audioFile,
-                                   startingFrame: AVAudioFramePosition(startSample),
-                                   frameCount: AVAudioFrameCount(lengthSamples),
-                                   at: nil,
-                                   completionHandler: {
-                                    self.playerNode.pause()
-                                   })
-            self.segmentStartTime = TimeInterval(time)
+            playerNode.scheduleSegment(file,
+                                       startingFrame: AVAudioFramePosition(startSample),
+                                       frameCount: AVAudioFrameCount(lengthSamples),
+                                       at: nil,
+                                       completionHandler: {
+                                           self.playerNode.pause()
+                                       })
+            segmentStartTime = TimeInterval(time)
         }
+
         if wasPlaying && !isPaused {
-            self.playerNode.play()
+            playerNode.play()
         } else {
-            self.pausedTime = TimeInterval(time)
+            pausedTime = TimeInterval(time)
         }
     }
 }
