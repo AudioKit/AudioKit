@@ -39,7 +39,7 @@ open class Node {
     /// - Parameter avAudioUnit: AVAudioUnit to initialize with
     public init(avAudioUnit: AVAudioUnit) {
         self.avAudioUnit = avAudioUnit
-        self.avAudioNode = avAudioUnit
+        avAudioNode = avAudioUnit
     }
 
     /// Initialize the node from an AVAudioNode
@@ -89,7 +89,7 @@ open class Node {
             }
         }
     }
-    
+
     func disconnectAV() {
         if let engine = avAudioNode.engine {
             engine.disconnectNodeInput(avAudioNode)
@@ -101,7 +101,6 @@ open class Node {
 
     /// Work-around for an AVAudioEngine bug.
     func initLastRenderTime() {
-
         // We don't have a valid lastRenderTime until we query it.
         _ = avAudioNode.lastRenderTime
 
@@ -179,22 +178,22 @@ open class PolyphonicNode: Node, Polyphonic {
     open func stop(noteNumber: MIDINoteNumber) {
         Log("Stopping note \(noteNumber), override in subclass")
     }
-    
+
     #if !os(tvOS)
-    /// Schedule an event with an offset
-    ///
-    /// - Parameters:
-    ///   - event: MIDI Event to schedule
-    ///   - offset: Time in samples
-    ///
-    public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
-        if let midiBlock = avAudioUnit?.auAudioUnit.scheduleMIDIEventBlock {
-            event.data.withUnsafeBufferPointer { ptr in
-                guard let ptr = ptr.baseAddress else { return }
-                midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)
+        /// Schedule an event with an offset
+        ///
+        /// - Parameters:
+        ///   - event: MIDI Event to schedule
+        ///   - offset: Time in samples
+        ///
+        public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
+            if let midiBlock = avAudioUnit?.auAudioUnit.scheduleMIDIEventBlock {
+                event.data.withUnsafeBufferPointer { ptr in
+                    guard let ptr = ptr.baseAddress else { return }
+                    midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)
+                }
             }
         }
-    }
     #endif
 }
 

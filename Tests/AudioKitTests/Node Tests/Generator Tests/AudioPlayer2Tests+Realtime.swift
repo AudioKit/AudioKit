@@ -9,6 +9,10 @@ import XCTest
 
 // Thse are organized like this so they're easy to comment out for the moment for CI tests
 extension AudioPlayer2Tests {
+//    func testFindResources() {
+//        XCTAssertNotNil(countingURL != nil)
+//    }
+//
 //    func testPause() {
 //        realtimeTestPause()
 //    }
@@ -25,12 +29,91 @@ extension AudioPlayer2Tests {
 //        realtimeLoop(buffered: true, duration: 1)
 //    }
 //
-//    func testInterupts() {
+//    func testInterrupts() {
 //        realtimeInterrupts()
+//    }
+//
+//    func testFileEdits() {
+//        realtimeTestEdited(buffered: false)
+//    }
+//
+//    func testBufferedEdits() {
+//        realtimeTestEdited(buffered: true)
+//    }
+//
+//    func testReversed() {
+//        realtimeTestReversed(from: 1, to: 3)
+//    }
+//
+//    func testSeek() {
+//        realtimeTestSeek(buffered: false)
+//    }
+//
+//    func testSeekBuffered() {
+//        realtimeTestSeek(buffered: true)
 //    }
 }
 
 extension AudioPlayer2Tests {
+    func realtimeTestReversed(from startTime: TimeInterval = 0, to endTime: TimeInterval = 0) {
+        guard let countingURL = countingURL else {
+            XCTFail("Didn't find the 12345.wav")
+            return
+        }
+
+        guard let player = AudioPlayer(url: countingURL) else {
+            XCTFail("Failed to create AudioPlayer")
+            return
+        }
+
+        let engine = AudioEngine()
+        engine.output = player
+        try? engine.start()
+
+        player.completionHandler = { Log("🏁 Completion Handler") }
+
+        player.isReversed = true
+
+        player.play(from: startTime, to: endTime)
+        wait(for: player.duration + 1)
+    }
+
+    func realtimeTestEdited(buffered: Bool = false, reversed: Bool = false) {
+        let duration = TimeInterval(chromaticScale.count)
+
+        guard let player = createPlayer(duration: duration,
+                                        buffered: buffered) else {
+            XCTFail("Failed to create AudioPlayer")
+            return
+        }
+
+        if buffered {
+            guard player.isBuffered else {
+                XCTFail("Should be buffered")
+                return
+            }
+        }
+
+        player.isReversed = reversed
+
+        let engine = AudioEngine()
+        engine.output = player
+        try? engine.start()
+
+        player.completionHandler = { Log("🏁 Completion Handler") }
+
+        for i in 0 ..< chromaticScale.count {
+            let startTime = TimeInterval(i)
+            let endTime = TimeInterval(i + 1)
+
+            Log(startTime, "to", endTime, "duration", duration)
+            player.play(from: startTime, to: endTime, at: nil)
+            wait(for: 2)
+        }
+
+        Log("Done")
+    }
+
     func realtimeTestPause() {
         guard let player = createPlayer(duration: 6) else {
             XCTFail("Failed to create AudioPlayer")
@@ -77,7 +160,7 @@ extension AudioPlayer2Tests {
         // test schedule with play
         player.play(at: AVAudioTime.now().offset(seconds: 3))
 
-        wait(for: player.duration + 3)
+        wait(for: player.duration + 4)
 
         // test schedule separated from play
         player.schedule(at: AVAudioTime.now().offset(seconds: 3))
@@ -102,7 +185,7 @@ extension AudioPlayer2Tests {
         var completionCounter = 0
         player.completionHandler = {
             if buffered {
-                XCTFail("For buffer looping the completion handler isn't called. The loop is indefinite")
+                XCTFail("For buffer looping the completion handler isn't called. The loop is infinite")
                 return
             }
             completionCounter += 1
@@ -187,12 +270,43 @@ extension AudioPlayer2Tests {
             return
         }
 
-        // will set isBuffered to false
+        player.buffer = nil
         player.file = file
 
         XCTAssertFalse(player.isBuffered, "isBuffered isn't correct")
 
         wait(for: 2)
         cleanup()
+    }
+
+    func realtimeTestSeek(buffered: Bool = false) {
+        guard let countingURL = countingURL else {
+            XCTFail("Didn't find the 12345.wav")
+            return
+        }
+
+        guard let player = AudioPlayer(url: countingURL) else {
+            XCTFail("Failed to create AudioPlayer")
+            return
+        }
+
+        let engine = AudioEngine()
+        engine.output = player
+        try? engine.start()
+
+        player.completionHandler = { Log("🏁 Completion Handler") }
+        player.isBuffered = buffered
+
+        player.seek(time: 1)
+        player.play()
+
+        wait(for: 2)
+        player.pause()
+        wait(for: 1)
+
+        player.seek(time: 3)
+        player.play()
+
+        wait(for: 3)
     }
 }

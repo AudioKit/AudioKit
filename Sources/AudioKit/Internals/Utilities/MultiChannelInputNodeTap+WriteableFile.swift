@@ -3,34 +3,39 @@
 import AVFoundation
 
 extension MultiChannelInputNodeTap {
+    /// An inner class to represent one channel of data to record to file
     public class WriteableFile: CustomStringConvertible {
         public var description: String {
             "url: \(url.path), channel: \(channel), file is open: \(file != nil)"
         }
 
-        /// the url being written to, persists after close
+        /// The url being written to, persists after close
         public private(set) var url: URL
 
+        /// The file format being written
         public private(set) var fileFormat: AVAudioFormat
 
-        /// the channel of the audio device this is reading from
+        /// The channel of the audio device this is reading from
         public private(set) var channel: Int32
 
-        /// only valid when open for writing, then nil
+        /// This is the internal file which is only valid when open for writing, then nil'd
+        /// out to allow its release
         public private(set) var file: AVAudioFile?
 
-        /// current amplitude being written represented as RMS
+        /// Current amplitude being written represented as RMS. Suitable for use with a VU meter
         public private(set) var amplitude: Float = 0
 
-        /// total duration of the file, will be updated during writing
+        /// Total current duration of the file, will increment while writing
         public private(set) var duration: TimeInterval = 0
 
-        /// array of amplitude values used to create temporary waveform
+        /// An array of amplitude values used to create a temporary waveform for display
+        /// while recording is progressing
         public private(set) var amplitudeArray = [Float]()
 
-        /// timestamp when the first samples appear in the process block during writing
+        /// Timestamp when the first samples appear in the process block during writing
         public private(set) var timestamp: AVAudioTime?
 
+        /// Create the file, passing in an optional hardware latency
         public init(url: URL,
                     fileFormat: AVAudioFormat,
                     channel: Int32,
@@ -41,7 +46,7 @@ extension MultiChannelInputNodeTap {
             self.ioLatency = ioLatency
         }
 
-        public func createFile() {
+        internal func createFile() {
             guard file == nil else { return }
 
             do {
@@ -57,7 +62,12 @@ extension MultiChannelInputNodeTap {
         /// Should be set the amount of latency samples in the input device
         public private(set) var ioLatency: AVAudioFrameCount = 0
 
+        /// The total samples read from the input stream
         public private(set) var totalFramesRead: AVAudioFrameCount = 0
+
+        /// The actual amount of samples written to file. In the case of using
+        /// calculated hardware latency, this would be less than the samples read
+        /// from the tap
         public private(set) var totalFramesWritten: AVAudioFramePosition = 0 {
             didSet {
                 duration = Double(totalFramesWritten) / fileFormat.sampleRate
@@ -66,6 +76,7 @@ extension MultiChannelInputNodeTap {
 
         private var ioLatencyHandled: Bool = false
 
+        /// Handle incoming data from the tap
         public func process(buffer: AVAudioPCMBuffer, time: AVAudioTime, write: Bool) throws {
             if write {
                 try writeFile(buffer: buffer, time: time)
@@ -76,7 +87,7 @@ extension MultiChannelInputNodeTap {
         // The actual buffer length is unpredicatable if using a Tap. This isn't ideal.
         // The system will change the buffer size to whatever it wants to, which seems
         // strange that they let you set a buffer size in the first place. macOS is setting to
-        // 4800
+        // 4800 when at 48k, or sampleRate / 10. That's a big buffer.
         private func writeFile(buffer: AVAudioPCMBuffer, time: AVAudioTime) throws {
             guard let file = file else { return }
 
@@ -109,8 +120,6 @@ extension MultiChannelInputNodeTap {
 
                 } else {
                     // Latency is longer than bufferSize so wait till next iterations
-//                    Log("Actual buffer size is", buffer.frameLength,
-//                              "waiting for", ioLatency, "samples...")
                     return
                 }
             }
