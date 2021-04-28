@@ -3,58 +3,68 @@ import AVFoundation
 import CAudioKit
 import XCTest
 
-// Real time functions, for local testing only.
+// Real time development tests
 // These simulate a user interacting with the player via an UI
-// Real time functions, for local testing only
 
-// Thse are organized like this so they're easy to comment out for the moment for CI tests
-extension AudioPlayer2Tests {
-//    func testFindResources() {
-//        XCTAssertNotNil(countingURL != nil)
-//    }
-//
-//    func testPause() {
-//        realtimeTestPause()
-//    }
-//
-//    func testScheduled() {
-//        realtimeScheduleFile()
-//    }
-//
-//    func testFileLooping() {
-//        realtimeLoop(buffered: false, duration: 2)
-//    }
-//
-//    func testBufferLooping() {
-//        realtimeLoop(buffered: true, duration: 1)
-//    }
-//
-//    func testInterrupts() {
-//        realtimeInterrupts()
-//    }
-//
-//    func testFileEdits() {
-//        realtimeTestEdited(buffered: false)
-//    }
-//
-//    func testBufferedEdits() {
-//        realtimeTestEdited(buffered: true)
-//    }
-//
-//    func testReversed() {
-//        realtimeTestReversed(from: 1, to: 3)
-//    }
-//
-//    func testSeek() {
-//        realtimeTestSeek(buffered: false)
-//    }
-//
-//    func testSeekBuffered() {
-//        realtimeTestSeek(buffered: true)
-//    }
+// Thse are organized like this so they're easy to bypass for CI tests
+extension AudioPlayerFileTests {
+    func testFindResources() {
+        guard realtimeTestsEnabled else { return }
+        XCTAssertNotNil(countingURL != nil)
+    }
+
+    func testPause() {
+        guard realtimeTestsEnabled else { return }
+        realtimeTestPause()
+    }
+
+    func testScheduled() {
+        guard realtimeTestsEnabled else { return }
+        realtimeScheduleFile()
+    }
+
+    func testFileLooping() {
+        guard realtimeTestsEnabled else { return }
+        realtimeLoop(buffered: false, duration: 2)
+    }
+
+    func testBufferLooping() {
+        guard realtimeTestsEnabled else { return }
+        realtimeLoop(buffered: true, duration: 1)
+    }
+
+    func testInterrupts() {
+        guard realtimeTestsEnabled else { return }
+        realtimeInterrupts()
+    }
+
+    func testFileEdits() {
+        guard realtimeTestsEnabled else { return }
+        realtimeTestEdited(buffered: false)
+    }
+
+    func testBufferedEdits() {
+        guard realtimeTestsEnabled else { return }
+        realtimeTestEdited(buffered: true)
+    }
+
+    func testReversed() {
+        guard realtimeTestsEnabled else { return }
+        realtimeTestReversed(from: 1, to: 3)
+    }
+
+    func testSeek() {
+        guard realtimeTestsEnabled else { return }
+        realtimeTestSeek(buffered: false)
+    }
+
+    func testSeekBuffered() {
+        guard realtimeTestsEnabled else { return }
+        realtimeTestSeek(buffered: true)
+    }
 }
 
-extension AudioPlayer2Tests {
+extension AudioPlayerFileTests {
     func realtimeTestReversed(from startTime: TimeInterval = 0, to endTime: TimeInterval = 0) {
         guard let countingURL = countingURL else {
             XCTFail("Didn't find the 12345.wav")
@@ -78,6 +88,9 @@ extension AudioPlayer2Tests {
         wait(for: player.duration + 1)
     }
 
+    // Walks through the chromatic scale playing each note twice with
+    // two different editing methods. Note this test will take some time
+    // so be prepared to cancel it
     func realtimeTestEdited(buffered: Bool = false, reversed: Bool = false) {
         let duration = TimeInterval(chromaticScale.count)
 
@@ -93,7 +106,6 @@ extension AudioPlayer2Tests {
                 return
             }
         }
-
         player.isReversed = reversed
 
         let engine = AudioEngine()
@@ -102,12 +114,32 @@ extension AudioPlayer2Tests {
 
         player.completionHandler = { Log("🏁 Completion Handler") }
 
+        // test out of bounds edits
+        player.editStartTime = duration + 1
+        XCTAssertTrue(player.editStartTime == player.duration)
+
+        player.editStartTime = -1
+        XCTAssertTrue(player.editStartTime == 0)
+
+        player.editEndTime = -1
+        XCTAssertTrue(player.editEndTime == 0)
+
+        player.editEndTime = duration + 1
+        XCTAssertTrue(player.editEndTime == player.duration)
+
         for i in 0 ..< chromaticScale.count {
             let startTime = TimeInterval(i)
             let endTime = TimeInterval(i + 1)
 
             Log(startTime, "to", endTime, "duration", duration)
             player.play(from: startTime, to: endTime, at: nil)
+
+            wait(for: 2)
+
+            // Alternate syntax which should be the same as above
+            player.editStartTime = startTime
+            player.editEndTime = endTime
+            player.play()
             wait(for: 2)
         }
 

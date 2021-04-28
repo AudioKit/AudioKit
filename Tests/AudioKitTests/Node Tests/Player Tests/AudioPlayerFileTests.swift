@@ -3,7 +3,9 @@ import AVFoundation
 import CAudioKit
 import XCTest
 
-class AudioPlayer2Tests: AudioFileTestCase {
+class AudioPlayerFileTests: AudioFileTestCase {
+    var realtimeTestsEnabled = false
+
     func createPlayer(duration: TimeInterval,
                       frequencies: [AUValue]? = nil,
                       buffered: Bool = false) -> AudioPlayer? {
@@ -25,7 +27,7 @@ class AudioPlayer2Tests: AudioFileTestCase {
 
 // Offline Tests - see +Realtime for the main tests
 
-extension AudioPlayer2Tests {
+extension AudioPlayerFileTests {
     func testLoadOptions() {
         guard let url = generateTestFile(ofDuration: 5,
                                          frequencies: chromaticScale) else {
@@ -165,10 +167,4 @@ extension AudioPlayer2Tests {
             audio.audition()
         }
      */
-}
-
-extension AudioPlayer2Tests {
-    func testZZZRemoveTempFiles() {
-        cleanup()
-    }
 }

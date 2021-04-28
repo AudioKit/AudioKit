@@ -3,6 +3,8 @@ import AVFoundation
 import CAudioKit
 import XCTest
 
+/// Base Test Case for file based testing such as with AudioPlayer
+/// See Node Tests/Player Tests
 class AudioFileTestCase: XCTestCase {
     // C4 - C5
     let chromaticScale: [AUValue] = [261.63, 277.18, 293.66, 311.13, 329.63,
@@ -11,6 +13,7 @@ class AudioFileTestCase: XCTestCase {
 
     static var tempFiles = [URL]()
 
+    // search for the TestResources folder relative to the swift file containing the test
     lazy var resourceURL: URL? = {
         var url = URL(fileURLWithPath: #file)
 
@@ -38,10 +41,12 @@ class AudioFileTestCase: XCTestCase {
     override func setUpWithError() throws {}
 
     override func tearDownWithError() throws {
+        // remove temp files
         cleanup()
     }
 
-    // Because SPM doesn't support resources yet, render out a test file.
+    // Render a test file that contains enough variety (a scale) so you can have
+    // suitable content for real time testing
     func generateTestFile(named name: String = "_io_audiokit_AudioFileTestCase_temp",
                           ofDuration duration: TimeInterval = 2,
                           frequencies: [AUValue]? = nil) -> URL? {

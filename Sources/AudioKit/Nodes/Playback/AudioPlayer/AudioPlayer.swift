@@ -127,11 +127,14 @@ public class AudioPlayer: Node {
     /// Get or set the edit start time of the player.
     public var editStartTime: TimeInterval {
         get { _editStartTime }
-        set { _editStartTime = max(0, newValue) }
+        set {
+            _editStartTime = (0 ... duration).clamp(newValue)
+        }
     }
 
     private var _editEndTime: TimeInterval = 0
-    /// Get or set the edit end time of the player.
+    /// Get or set the edit end time of the player. Setting to 0 will effectively remove
+    /// the edit and set to the duration of the player
     public var editEndTime: TimeInterval {
         get {
             _editEndTime
@@ -142,7 +145,7 @@ public class AudioPlayer: Node {
             if newValue == 0 {
                 newValue = duration
             }
-            _editEndTime = min(newValue, duration)
+            _editEndTime = (0 ... duration).clamp(newValue)
         }
     }
 

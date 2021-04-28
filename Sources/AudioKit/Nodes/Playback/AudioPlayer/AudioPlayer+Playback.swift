@@ -28,8 +28,8 @@ extension AudioPlayer {
 
         if when != nil { scheduleTime = nil }
 
-        editStartTime = startTime ?? 0
-        editEndTime = endTime ?? duration
+        editStartTime = startTime ?? editStartTime
+        editEndTime = endTime ?? editEndTime
 
         if !isScheduled {
             schedule(at: when,

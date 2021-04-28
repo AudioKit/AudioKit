@@ -2,7 +2,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class AudioPlayerTests: XCTestCase {
+class AudioPlayerSimpleTests: XCTestCase {
     // Because SPM doesn't support resources yet, render out a test file.
     func generateTestFile() -> URL? {
         let osc = Oscillator(waveform: Table(.triangle))
