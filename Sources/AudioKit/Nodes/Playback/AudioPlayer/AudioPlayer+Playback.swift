@@ -26,7 +26,10 @@ extension AudioPlayer {
             return
         }
 
-        if when != nil { scheduleTime = nil }
+        if when != nil {
+            scheduleTime = nil
+            playerNode.stop()
+        }
 
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
@@ -66,15 +69,16 @@ extension AudioPlayer {
     ///   - time seconds into the audio file to set playhead
     public func seek(time: TimeInterval) {
         let wasPlaying = isPlaying
+        
+        // cancels any scheduled events
         playerNode.stop()
 
         editStartTime = time
         editEndTime = duration
-        
-        schedule()
 
         if wasPlaying && !isPaused {
-            playerNode.play()
+            play(from: editStartTime, to: editEndTime)
+
         } else {
             pausedTime = TimeInterval(time)
         }

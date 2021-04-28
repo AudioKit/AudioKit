@@ -27,7 +27,7 @@ public class AudioPlayer: Node {
     /// Whether or not the playing is paused
     public internal(set) var isPaused: Bool = false
 
-    /// Will be true if there is an existing scheduled event
+    /// Will be true if there is an existing schedule event
     public var isScheduled: Bool {
         scheduleTime != nil
     }

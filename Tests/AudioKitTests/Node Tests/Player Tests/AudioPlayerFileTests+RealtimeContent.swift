@@ -25,7 +25,7 @@ extension AudioPlayerFileTests {
         player.isReversed = true
 
         player.play(from: startTime, to: endTime)
-        wait(for: player.duration + 1)
+        wait(for: endTime - startTime)
     }
 
     // Walks through the chromatic scale playing each note twice with
@@ -79,6 +79,7 @@ extension AudioPlayerFileTests {
             // Alternate syntax which should be the same as above
             player.editStartTime = startTime
             player.editEndTime = endTime
+            Log(startTime, "to", endTime, "duration", duration)
             player.play()
             wait(for: 2)
         }
@@ -269,16 +270,34 @@ extension AudioPlayerFileTests {
         player.completionHandler = { Log("🏁 Completion Handler") }
         player.isBuffered = buffered
 
+        // 2 3
         player.seek(time: 1)
         player.play()
-
         wait(for: 2)
+
         player.pause()
         wait(for: 1)
 
+        // 4
         player.seek(time: 3)
         player.play()
+        wait(for: 1)
 
-        wait(for: 3)
+        // 4 5
+        // rewind to 4 while playing
+        player.seek(time: 3)
+        XCTAssertTrue(player.isPlaying)
+        wait(for: 2)
+
+        var time = player.duration
+
+        // make him count backwards for fun: 5 4 3 2 1
+        while time > 0 {
+            time -= 1
+            player.seek(time: time)
+            player.play()
+            wait(for: 1)
+        }
+        player.stop()
     }
 }

@@ -2,7 +2,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class AudioPlayerSimpleTests: XCTestCase {
+class AudioPlayerTests: XCTestCase {
     // Because SPM doesn't support resources yet, render out a test file.
     func generateTestFile() -> URL? {
         let osc = Oscillator(waveform: Table(.triangle))
@@ -142,7 +142,6 @@ class AudioPlayerSimpleTests: XCTestCase {
         player.play()
         audio.append(engine.render(duration: 2.0))
         engine.stop()
-
         testMD5(audio)
     }
 
@@ -167,11 +166,12 @@ class AudioPlayerSimpleTests: XCTestCase {
         }
         player.seek(time: 0.5)
         player.play()
+        
         audio.append(engine.render(duration: 2.0))
         engine.stop()
 
         let currentTime = player.getCurrentTime()
-        XCTAssertEqual(currentTime, 0.5)
+        XCTAssertTrue(currentTime == 0.5, "currentTime is \(currentTime), should be 0.5")
 
         testMD5(audio)
     }

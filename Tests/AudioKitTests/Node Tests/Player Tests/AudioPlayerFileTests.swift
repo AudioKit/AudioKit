@@ -4,7 +4,8 @@ import CAudioKit
 import XCTest
 
 class AudioPlayerFileTests: AudioFileTestCase {
-    var realtimeTestsEnabled = false
+    // Bypass tests for automated CI
+    var realtimeEnabled = false
 
     func createPlayer(duration: TimeInterval,
                       frequencies: [AUValue]? = nil,
