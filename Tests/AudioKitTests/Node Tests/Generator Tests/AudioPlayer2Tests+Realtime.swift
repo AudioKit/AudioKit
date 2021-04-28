@@ -9,50 +9,49 @@ import XCTest
 
 // Thse are organized like this so they're easy to comment out for the moment for CI tests
 extension AudioPlayer2Tests {
-    func testFindResources() {
-        XCTAssertNotNil(countingURL != nil)
-    }
-    
-    func testPause() {
-        realtimeTestPause()
-    }
-
-    func testScheduled() {
-        realtimeScheduleFile()
-    }
-
-    func testFileLooping() {
-        realtimeLoop(buffered: false, duration: 2)
-    }
-
-    func testBufferLooping() {
-        realtimeLoop(buffered: true, duration: 1)
-    }
-
-    func testInterrupts() {
-        realtimeInterrupts()
-    }
-
-    func testFileEdits() {
-        realtimeTestEdited(buffered: false)
-    }
-
-    func testBufferedEdits() {
-        realtimeTestEdited(buffered: true)
-    }
-
-    func testReversed() {
-        realtimeTestReversed(from: 1, to: 3)
-    }
-    
-    func testSeek() {
-        realtimeTestSeek(buffered: false)
-    }
-
-    func testSeekBuffered() {
-        realtimeTestSeek(buffered: true)
-    }
-    
+//    func testFindResources() {
+//        XCTAssertNotNil(countingURL != nil)
+//    }
+//
+//    func testPause() {
+//        realtimeTestPause()
+//    }
+//
+//    func testScheduled() {
+//        realtimeScheduleFile()
+//    }
+//
+//    func testFileLooping() {
+//        realtimeLoop(buffered: false, duration: 2)
+//    }
+//
+//    func testBufferLooping() {
+//        realtimeLoop(buffered: true, duration: 1)
+//    }
+//
+//    func testInterrupts() {
+//        realtimeInterrupts()
+//    }
+//
+//    func testFileEdits() {
+//        realtimeTestEdited(buffered: false)
+//    }
+//
+//    func testBufferedEdits() {
+//        realtimeTestEdited(buffered: true)
+//    }
+//
+//    func testReversed() {
+//        realtimeTestReversed(from: 1, to: 3)
+//    }
+//
+//    func testSeek() {
+//        realtimeTestSeek(buffered: false)
+//    }
+//
+//    func testSeekBuffered() {
+//        realtimeTestSeek(buffered: true)
+//    }
 }
 
 extension AudioPlayer2Tests {
@@ -279,7 +278,7 @@ extension AudioPlayer2Tests {
         wait(for: 2)
         cleanup()
     }
-    
+
     func realtimeTestSeek(buffered: Bool = false) {
         guard let countingURL = countingURL else {
             XCTFail("Didn't find the 12345.wav")
@@ -297,17 +296,17 @@ extension AudioPlayer2Tests {
 
         player.completionHandler = { Log("🏁 Completion Handler") }
         player.isBuffered = buffered
-        
+
         player.seek(time: 1)
         player.play()
-        
+
         wait(for: 2)
         player.pause()
         wait(for: 1)
-        
+
         player.seek(time: 3)
         player.play()
-        
+
         wait(for: 3)
     }
 }
