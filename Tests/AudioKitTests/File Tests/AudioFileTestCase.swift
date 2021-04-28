@@ -11,7 +11,7 @@ class AudioFileTestCase: XCTestCase {
 
     static var tempFiles = [URL]()
 
-    var resourceURL: URL? {
+    lazy var resourceURL: URL? = {
         var url = URL(fileURLWithPath: #file)
 
         while true {
@@ -25,15 +25,15 @@ class AudioFileTestCase: XCTestCase {
             if url.path.count <= 1 { break } // / root directory, we failed
         }
         return nil
-    }
+    }()
 
-    var countingURL: URL? {
+    lazy var countingURL: URL? = {
         resourceURL?.appendingPathComponent("12345.wav")
-    }
-    
-    var drumloopURL: URL? {
+    }()
+
+    lazy var drumloopURL: URL? = {
         resourceURL?.appendingPathComponent("drumloop.wav")
-    }
+    }()
 
     override func setUpWithError() throws {}
 
@@ -116,6 +116,7 @@ class AudioFileTestCase: XCTestCase {
     }
 
     func cleanup() {
+        Log("Removing", AudioFileTestCase.tempFiles.count, "file(s)")
         for url in AudioFileTestCase.tempFiles {
             try? FileManager.default.removeItem(at: url)
         }

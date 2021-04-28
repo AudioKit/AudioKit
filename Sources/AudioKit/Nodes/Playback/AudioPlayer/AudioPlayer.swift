@@ -6,7 +6,7 @@ import CAudioKit
 /// Wrapper for AVAudioPlayerNode with a simplified API. The player exists in two interchangeable modes
 /// either playing from memory (isBuffered) or streamed from disk. Longer files are recommended to be
 /// played from disk. If you want seamless looping then buffer it. You can still loop from disk, but the
-/// loop may not be totally seamless.
+/// loop will not be totally seamless.
 
 public class AudioPlayer: Node {
     /// The underlying player node
@@ -22,10 +22,10 @@ public class AudioPlayer: Node {
     }
 
     /// Whether or not the playing is playing
-    public private(set) var isPlaying: Bool = false
+    public internal(set) var isPlaying: Bool = false
 
     /// Whether or not the playing is paused
-    public private(set) var isPaused: Bool = false
+    public internal(set) var isPaused: Bool = false
 
     /// Will be true if there is an existing scheduled event
     public var isScheduled: Bool {
@@ -39,10 +39,8 @@ public class AudioPlayer: Node {
         set {
             guard newValue != _isBuffered else { return }
             _isBuffered = newValue
-            
-            if newValue {
-                updateBuffer()
-            } else {
+
+            if !newValue {
                 buffer = nil
             }
         }
@@ -53,6 +51,7 @@ public class AudioPlayer: Node {
         get { _isReversed }
         set {
             guard newValue != isReversed else { return }
+            _isReversed = newValue
 
             if isPlaying { stop() }
 
@@ -76,11 +75,8 @@ public class AudioPlayer: Node {
         file?.duration ?? bufferDuration
     }
 
-    /// Time in audio file where track was started (allows retrieval of playback time after playerNode is seeked)
-    private var segmentStartTime: TimeInterval = 0.0
-
     /// Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
-    private var pausedTime: TimeInterval = 0.0
+    var pausedTime: TimeInterval = 0.0
 
     /// Completion handler to be called when file or buffer is done playing.
     /// This also will be called when looping from disk,
@@ -221,6 +217,11 @@ public class AudioPlayer: Node {
         load(buffer: buffer)
     }
 
+    deinit {
+        buffer = nil
+        file = nil
+    }
+
     // MARK: - Loading
 
     /// Load file at a URL, optionally buffered
@@ -249,123 +250,5 @@ public class AudioPlayer: Node {
     /// - Parameter buffer: Buffer to play
     public func load(buffer: AVAudioPCMBuffer) {
         self.buffer = buffer
-
-//        startingFrame = 0
-//        if let file = file {
-//            endingFrame = AVAudioFramePosition(duration * file.fileFormat.sampleRate)
-//        }
-    }
-
-    // MARK: - Playback
-
-    /// Play now or at a future time
-    /// - Parameters:
-    ///   - when: What time to schedule for. A value of nil means now or will
-    ///   use a pre-existing scheduled time.
-    ///   - completionCallbackType: Constants that specify when the completion handler must be invoked.
-    public func play(from startTime: TimeInterval? = nil,
-                     to endTime: TimeInterval? = nil,
-                     at when: AVAudioTime? = nil,
-                     completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
-        guard !isPlaying || isPaused else { return }
-
-        guard let engine = playerNode.engine else {
-            Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
-            return
-        }
-
-        guard engine.isRunning else {
-            Log("🛑 Error: AudioPlayer's engine must be running before playback.", type: .error)
-            return
-        }
-
-        if when != nil { scheduleTime = nil }
-
-        editStartTime = startTime ?? 0
-        editEndTime = endTime ?? duration
-
-        if !isScheduled {
-            schedule(at: when,
-                     completionCallbackType: completionCallbackType)
-        }
-
-        playerNode.play()
-        isPlaying = true
-        isPaused = false
-    }
-
-    /// Pauses audio player. Calling play() will resume from the paused time.
-    public func pause() {
-        guard isPlaying, !isPaused else { return }
-        pausedTime = getCurrentTime()
-        playerNode.pause()
-        isPaused = true
-    }
-
-    /// Gets the accurate playhead time regardless of seeking and pausing
-    /// Can't be relied on if playerNode has its playstate modified directly
-    public func getCurrentTime() -> TimeInterval {
-        if let nodeTime = playerNode.lastRenderTime,
-           nodeTime.isSampleTimeValid && nodeTime.isHostTimeValid,
-           let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return (Double(playerTime.sampleTime) / playerTime.sampleRate) + segmentStartTime
-        }
-        return pausedTime
-    }
-}
-
-extension AudioPlayer: Toggleable {
-    /// Synonym for isPlaying
-    public var isStarted: Bool { isPlaying }
-
-    /// Synonym for play()
-    public func start() {
-        play()
-    }
-
-    /// Stop audio player. This won't generate a callback event
-    public func stop() {
-        guard isPlaying else { return }
-        pausedTime = getCurrentTime()
-        isPlaying = false
-        playerNode.stop()
-        scheduleTime = nil
-    }
-}
-
-// Just to provide compability with previous AudioPlayer
-extension AudioPlayer {
-    /// Sets the player's audio file to a certain time in the track (in seconds)
-    /// and respects the players current play state
-    /// - Parameters:
-    ///   - time seconds into the audio file to set playhead
-    public func seek(time: Float) {
-        let wasPlaying = isPlaying
-        playerNode.stop()
-
-        // Note: this needs to take into account buffered players
-
-        if let file = file {
-            let sampleLength = file.length
-
-            let sampleRate = Float(file.fileFormat.sampleRate)
-            let startSample = floor(time * sampleRate)
-            let lengthSamples = Float(sampleLength) - startSample
-
-            playerNode.scheduleSegment(file,
-                                       startingFrame: AVAudioFramePosition(startSample),
-                                       frameCount: AVAudioFrameCount(lengthSamples),
-                                       at: nil,
-                                       completionHandler: {
-                                           self.playerNode.pause()
-                                       })
-            segmentStartTime = TimeInterval(time)
-        }
-
-        if wasPlaying && !isPaused {
-            playerNode.play()
-        } else {
-            pausedTime = TimeInterval(time)
-        }
     }
 }

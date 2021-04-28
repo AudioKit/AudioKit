@@ -9,6 +9,10 @@ import XCTest
 
 // Thse are organized like this so they're easy to comment out for the moment for CI tests
 extension AudioPlayer2Tests {
+    func testFindResources() {
+        XCTAssertNotNil(countingURL != nil)
+    }
+    
     func testPause() {
         realtimeTestPause()
     }
@@ -40,10 +44,15 @@ extension AudioPlayer2Tests {
     func testReversed() {
         realtimeTestReversed(from: 1, to: 3)
     }
-
-    func testFindResources() {
-        Log(countingURL)
+    
+    func testSeek() {
+        realtimeTestSeek(buffered: false)
     }
+
+    func testSeekBuffered() {
+        realtimeTestSeek(buffered: true)
+    }
+    
 }
 
 extension AudioPlayer2Tests {
@@ -152,7 +161,7 @@ extension AudioPlayer2Tests {
         // test schedule with play
         player.play(at: AVAudioTime.now().offset(seconds: 3))
 
-        wait(for: player.duration + 3)
+        wait(for: player.duration + 4)
 
         // test schedule separated from play
         player.schedule(at: AVAudioTime.now().offset(seconds: 3))
@@ -269,5 +278,36 @@ extension AudioPlayer2Tests {
 
         wait(for: 2)
         cleanup()
+    }
+    
+    func realtimeTestSeek(buffered: Bool = false) {
+        guard let countingURL = countingURL else {
+            XCTFail("Didn't find the 12345.wav")
+            return
+        }
+
+        guard let player = AudioPlayer(url: countingURL) else {
+            XCTFail("Failed to create AudioPlayer")
+            return
+        }
+
+        let engine = AudioEngine()
+        engine.output = player
+        try? engine.start()
+
+        player.completionHandler = { Log("🏁 Completion Handler") }
+        player.isBuffered = buffered
+        
+        player.seek(time: 1)
+        player.play()
+        
+        wait(for: 2)
+        player.pause()
+        wait(for: 1)
+        
+        player.seek(time: 3)
+        player.play()
+        
+        wait(for: 3)
     }
 }

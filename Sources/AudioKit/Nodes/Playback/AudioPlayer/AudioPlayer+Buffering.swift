@@ -4,14 +4,12 @@ import AVFoundation
 
 /// Functions specific to buffering audio
 extension AudioPlayer {
-    // Fills the buffer with data read from audioFile
+    // Fills the buffer with data read from the linked audio file
     func updateBuffer(force: Bool = false) {
         guard let file = file else {
             Log("File is nil. Must be valid before creating the buffer")
             return
         }
-
-        Log("Updating buffer...")
 
         let sampleRate: Double = file.fileFormat.sampleRate
         let processingFormat = file.processingFormat
@@ -58,7 +56,6 @@ extension AudioPlayer {
         guard let pcmBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat,
                                                frameCapacity: frameCount) else { return }
 
-        Log("pcmBuffer format is", pcmBuffer.format)
         do {
             file.framePosition = startFrame
             // read the requested frame count from the file
@@ -100,6 +97,7 @@ extension AudioPlayer {
 
         // Now, we'll reverse the data in the buffer if specified
         if isReversed {
+            Log("Reversing...")
             reverseBuffer()
         }
 
