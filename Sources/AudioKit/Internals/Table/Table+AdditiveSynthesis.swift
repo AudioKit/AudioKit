@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
+import Accelerate
 
 extension Table {
     /// This method will start at rootFrequency * octave, walk up by octaveStepSize, and halt before reaching nyquist.
@@ -284,4 +285,41 @@ extension Table {
 
         return msd
     }
+    
+    /// Create an array of a specified number of tables by interpolating between the inputted array of tables
+    /// Parameters:
+    ///   - inputTables: tables to be interpolated between
+    ///   - numberOfDesiredTables: total number of tables in resulting array
+    public class func createInterpolatedTables(inputTables: [Table], numberOfDesiredTables: Int = 256) -> [Table] {
+        var interpolatedTables: [Table] = []
+        let thresholdForExact = 0.01 * Double(inputTables.count)
+        let rangeValue = (Double(numberOfDesiredTables) / Double(inputTables.count - 1)).rounded(.up)
+
+        for i in 1...numberOfDesiredTables {
+            let waveformIndex = Int(Double(i - 1) / rangeValue)
+            let interpolatedIndex = (Double(i - 1) / rangeValue).truncatingRemainder(dividingBy: 1.0)
+
+            /// if we are nearly exactly at one of our input tables - use the input table for this index value
+            if (1.0 - interpolatedIndex) < thresholdForExact {
+                interpolatedTables.append(inputTables[waveformIndex + 1])
+            } else if interpolatedIndex < thresholdForExact {
+                interpolatedTables.append(inputTables[waveformIndex])
+            }
+
+            /// between tables - interpolate
+            else {
+                /// linear interpolate to get array of floats existing between the two tables
+                if #available(iOS 13.0, *) {
+                    let interpolatedFloats = [Float](vDSP.linearInterpolate([Float](inputTables[waveformIndex]),
+                                                                            [Float](inputTables[waveformIndex + 1]),
+                                                                            using: Float(interpolatedIndex)))
+                    interpolatedTables.append(Table(interpolatedFloats))
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+        }
+        return interpolatedTables
+    }
+
 }
