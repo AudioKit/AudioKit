@@ -7,7 +7,10 @@ extension AudioPlayer {
     // Fills the buffer with data read from the linked audio file
     func updateBuffer(force: Bool = false) {
         guard let file = file else {
-            Log("File is nil. Must be valid before creating the buffer")
+            // don't print this error if there is a buffer already set, just return
+            if buffer == nil {
+                Log("It's not possible to create edited buffers without a file reference.", type: .error)
+            }
             return
         }
 
@@ -33,20 +36,23 @@ extension AudioPlayer {
             endFrame != endingFrame
 
         guard updateNeeded else {
-            Log("No buffer update needed")
+            // Log("Data is unchanged, no buffer update is needed")
             return
         }
 
         guard file.length > 0 else {
-            Log("ERROR updateBuffer: Could not set PCM buffer -> " +
-                "\(file.url.lastPathComponent) length = 0.")
+            Log("Could not set PCM buffer in " +
+                "\(file.url.lastPathComponent) length = 0.", type: .error)
             return
         }
 
         let framesToRead: AVAudioFramePosition = endFrame - startFrame
 
         guard framesToRead > 0 else {
-            Log("Error, endFrame must be after startFrame. Unable to fill buffer. startFrame", startFrame, "endFrame", endFrame)
+            Log("Error, endFrame must be after startFrame. Unable to fill buffer.",
+                "startFrame", startFrame,
+                "endFrame", endFrame,
+                type: .error)
             return
         }
 
@@ -62,7 +68,7 @@ extension AudioPlayer {
             try file.read(into: pcmBuffer, frameCount: frameCount)
 
         } catch let err as NSError {
-            Log("ERROR Player: Couldn't read data into buffer. \(err)")
+            Log("Couldn't read data into buffer. \(err)", type: .error)
             return
         }
 
@@ -74,7 +80,7 @@ extension AudioPlayer {
             guard let tmpBuffer = AVAudioPCMBuffer(pcmFormat: playerNode.outputFormat(forBus: 0),
                                                    frameCapacity: frameCount),
                 let monoData = pcmBuffer.floatChannelData else {
-                Log("Failed to setup mono conversion buffer")
+                Log("Failed to setup mono conversion buffer", type: .error)
                 return
             }
 
