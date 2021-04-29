@@ -15,8 +15,10 @@ public final class MultiChannelInputNodeTap {
         var channel: Int32
     }
 
+    /// Receive update events during the lifecyle of this class
     public weak var delegate: MultiChannelInputNodeTapDelegate?
 
+    /// A simple name and channel pair for each channel being recorded
     public private(set) var fileChannels: [FileChannel]? {
         didSet {
             guard let fileChannels = fileChannels else { return }
@@ -24,12 +26,14 @@ public final class MultiChannelInputNodeTap {
         }
     }
 
+    /// Collection of the files being recorded to
     @ThreadLockedAccessor public var files = [WriteableFile]()
 
     /// This node has one element. The format of the input scope reflects the audio
     /// hardware sample rate and channel count.
     public private(set) var inputNode: AVAudioInputNode?
 
+    /// Is this class currently recording?
     public private(set) var isRecording = false {
         didSet {
             if isRecording {
@@ -115,6 +119,8 @@ public final class MultiChannelInputNodeTap {
     public var directory: URL?
 
     private var _recordCounter: Int = 1
+
+    /// How many takes this class has done. Useful for naming output files by index
     public var recordCounter: Int {
         get { _recordCounter }
         set {
@@ -124,12 +130,13 @@ public final class MultiChannelInputNodeTap {
 
     private var filesReady = false
 
-    // Timestamp when recording is started
+    /// Timestamp when recording is started
     public private(set) var startedAtTime: AVAudioTime?
 
-    // Timestamp when recording is stopped
+    /// Timestamp when recording is stopped
     public private(set) var stoppedAtTime: AVAudioTime?
 
+    /// How long the class was recording based on the startedAtTime and stoppedAtTime timestamps
     public var durationRecorded: TimeInterval? {
         guard let startedAtTime = startedAtTime,
               let stoppedAtTime = stoppedAtTime else {
@@ -139,12 +146,10 @@ public final class MultiChannelInputNodeTap {
             AVAudioTime.seconds(forHostTime: startedAtTime.hostTime)
     }
 
-    /**
-     This property is used to map input channels from an input (source) to a destination.
-     The number of channels represented in the channel map is the number of channels of the destination. The channel map entries
-     contain a channel number of the source that should be mapped to that destination channel. If -1 is specified, then that
-     destination channel will not contain any channel from the source (so it will be silent)
-      */
+    /// This property is used to map input channels from an input (source) to a destination.
+    /// The number of channels represented in the channel map is the number of channels of the destination. The channel map entries
+    /// contain a channel number of the source that should be mapped to that destination channel. If -1 is specified, then that
+    /// destination channel will not contain any channel from the source (so it will be silent)
     private var _channelMap: [Int32] = []
     private var channelMap: [Int32] {
         get { _channelMap }
@@ -206,7 +211,7 @@ public final class MultiChannelInputNodeTap {
         inputNode = nil
     }
 
-    // convenience for testing
+    /// Convenience function for testing
     public func prepare(channelMap: [Int32]) {
         let fileChannels = channelMap.map {
             MultiChannelInputNodeTap.FileChannel(
@@ -216,8 +221,9 @@ public final class MultiChannelInputNodeTap {
         prepare(fileChannels: fileChannels)
     }
 
-    /// Called with name and input channel pair.
-    /// This allows you to associate a filename with an incoming channel.
+    /// Called with name and input channel pair. This allows you to associate
+    /// a filename with an incoming channel.
+    /// - Parameter fileChannels: Name + Channel pairs to record to
     public func prepare(fileChannels: [FileChannel]) {
         self.fileChannels = fileChannels
         initFormats()
@@ -385,7 +391,7 @@ public final class MultiChannelInputNodeTap {
         }
     }
 
-    /// the tap is running as long as recordEnable is true. This just sets a flag that says
+    /// The tap is running as long as recordEnable is true. This just sets a flag that says
     /// write to file in the process block
     public func record() {
         guard !isRecording else {
@@ -420,7 +426,10 @@ public final class MultiChannelInputNodeTap {
 }
 
 public protocol MultiChannelInputNodeTapDelegate: class {
+    /// Sent when the tap is installed on the inputNode
     func tapInstalled(sender: MultiChannelInputNodeTap)
+
+    /// Sent when the tap is removed on the inputNode
     func tapRemoved(sender: MultiChannelInputNodeTap)
 
     /// Receive updates as data is captured. Useful event for updating VU meters or waveforms.

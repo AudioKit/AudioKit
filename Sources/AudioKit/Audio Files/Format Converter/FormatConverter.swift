@@ -20,8 +20,15 @@ import AVFoundation
 public class FormatConverter {
     // MARK: - properties
 
+    /// The source audio file
     public var inputURL: URL?
+
+
+    /// The audio file to be created after conversion
     public var outputURL: URL?
+
+
+    /// Options for conversion
     public var options: Options?
 
     // MARK: - private properties
@@ -128,6 +135,8 @@ extension FormatConverter {
         "", // allow files with no extension. convertToPCM can still read the type
     ]
 
+    /// An option to block upsampling to a higher bit depth than the source.
+    /// For example, converting to 24bit from 16 doesn't have much benefit
     public enum BitDepthRule {
         /// For example: don't allow upsampling to 24bit if the src is 16
         case lessThanOrEqual
@@ -150,20 +159,31 @@ extension FormatConverter {
             }
         }
 
+        /// An option to block upsampling to a higher bit depth than the source.
+        /// default value is `.lessThanOrEqual`
         public var bitDepthRule: BitDepthRule = .lessThanOrEqual
 
+        /// How many channels to convert to. Typically 1 or 2
         public var channels: UInt32?
+
+        /// Maps to PCM Convertion format option `AVLinearPCMIsNonInterleaved`
         public var isInterleaved: Bool?
-        /// overwrite existing files, set false if you want to handle this before you call start()
+
+        /// Overwrite existing files, set false if you want to handle this before you call start()
         public var eraseFile: Bool = true
 
         public init() {}
 
+        /// Create options by parsing the contents of the url and using the audio settings
+        /// in the file
+        /// - Parameter url: The audio file to open and parse
         public init?(url: URL) {
             guard let avFile = try? AVAudioFile(forReading: url) else { return nil }
             self.init(audioFile: avFile)
         }
 
+        /// Create options by parsing the audioFile for its settings
+        /// - Parameter audioFile: an AVAudioFile to parse
         public init?(audioFile: AVAudioFile) {
             let streamDescription = audioFile.fileFormat.streamDescription.pointee
 
@@ -174,6 +194,12 @@ extension FormatConverter {
             channels = streamDescription.mChannelsPerFrame
         }
 
+        /// Create PCM Options
+        /// - Parameters:
+        ///   - pcmFormat: wav, aif, or caf
+        ///   - sampleRate: Sample Rate
+        ///   - bitDepth: Bit Depth, or bits per channel
+        ///   - channels: How many channels
         public init?(pcmFormat: String,
                      sampleRate: Double? = nil,
                      bitDepth: UInt32? = nil,

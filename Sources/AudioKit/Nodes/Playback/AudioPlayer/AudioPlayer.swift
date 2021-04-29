@@ -47,6 +47,8 @@ public class AudioPlayer: Node {
     }
 
     private var _isReversed: Bool = false
+
+    /// Will reverse the file and convert to a buffered format if it's not already
     public var isReversed: Bool {
         get { _isReversed }
         set {

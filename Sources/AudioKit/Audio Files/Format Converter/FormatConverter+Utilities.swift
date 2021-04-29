@@ -12,6 +12,11 @@ extension FormatConverter {
 }
 
 extension FormatConverter {
+    /// Is this file a PCM file?
+    /// - Parameters:
+    ///   - url: The URL to parse
+    ///   - ignorePathExtension: Do a deep parse rather than rely on the path extension
+    /// - Returns: Bool or nil if it couldn't be determined
     public class func isPCM(url: URL, ignorePathExtension: Bool = false) -> Bool? {
         guard let value = isCompressed(url: url) else { return nil }
         return !value
