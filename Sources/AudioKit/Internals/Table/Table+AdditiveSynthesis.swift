@@ -285,7 +285,7 @@ extension Table {
 
         return msd
     }
-    
+
     /// Create an array of a specified number of tables by interpolating between the inputted array of tables
     /// Parameters:
     ///   - inputTables: tables to be interpolated between
@@ -296,9 +296,9 @@ extension Table {
         let thresholdForExact = 0.01 * Double(inputTables.count)
         let rangeValue = (Double(numberOfDesiredTables) / Double(inputTables.count - 1)).rounded(.up)
 
-        for i in 1...numberOfDesiredTables {
-            let waveformIndex = Int(Double(i - 1) / rangeValue)
-            let interpolatedIndex = (Double(i - 1) / rangeValue).truncatingRemainder(dividingBy: 1.0)
+        for index in 1...numberOfDesiredTables {
+            let waveformIndex = Int(Double(index - 1) / rangeValue)
+            let interpolatedIndex = (Double(index - 1) / rangeValue).truncatingRemainder(dividingBy: 1.0)
 
             /// if we are nearly exactly at one of our input tables - use the input table for this index value
             if (1.0 - interpolatedIndex) < thresholdForExact {
