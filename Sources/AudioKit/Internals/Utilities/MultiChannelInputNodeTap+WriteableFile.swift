@@ -5,6 +5,8 @@ import AVFoundation
 extension MultiChannelInputNodeTap {
     /// An inner class to represent one channel of data to record to file
     public class WriteableFile: CustomStringConvertible {
+
+        /// Simple description of the file
         public var description: String {
             "url: \(url.path), channel: \(channel), file is open: \(file != nil)"
         }
@@ -129,6 +131,7 @@ extension MultiChannelInputNodeTap {
             totalFramesWritten = file.length
         }
 
+        /// Release the file
         public func close() {
             Log("recorded duration is", duration,
                 "initial timestamp is", timestamp,
