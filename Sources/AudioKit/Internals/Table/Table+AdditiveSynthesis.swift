@@ -290,6 +290,7 @@ extension Table {
     /// Parameters:
     ///   - inputTables: tables to be interpolated between
     ///   - numberOfDesiredTables: total number of tables in resulting array
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
     public class func createInterpolatedTables(inputTables: [Table], numberOfDesiredTables: Int = 256) -> [Table] {
         var interpolatedTables: [Table] = []
         let thresholdForExact = 0.01 * Double(inputTables.count)
@@ -309,14 +310,10 @@ extension Table {
             /// between tables - interpolate
             else {
                 /// linear interpolate to get array of floats existing between the two tables
-                if #available(iOS 13.0, *) {
-                    let interpolatedFloats = [Float](vDSP.linearInterpolate([Float](inputTables[waveformIndex]),
-                                                                            [Float](inputTables[waveformIndex + 1]),
-                                                                            using: Float(interpolatedIndex)))
-                    interpolatedTables.append(Table(interpolatedFloats))
-                } else {
-                    // Fallback on earlier versions
-                }
+                let interpolatedFloats = [Float](vDSP.linearInterpolate([Float](inputTables[waveformIndex]),
+                                                                        [Float](inputTables[waveformIndex + 1]),
+                                                                        using: Float(interpolatedIndex)))
+                interpolatedTables.append(Table(interpolatedFloats))
             }
         }
         return interpolatedTables
