@@ -9,7 +9,7 @@ class AppleSamplerTests: XCTestCase {
     let engine = AudioEngine()
 
     override func setUpWithError() throws {
-        let sampleURL = Bundle.module.url(forResource: "Resources/drumloop", withExtension: "wav")!
+        let sampleURL = Bundle.module.url(forResource: "TestResources/drumloop", withExtension: "wav")!
         let audioFile = try AVAudioFile(forReading: sampleURL)
         try sampler.loadAudioFile(audioFile)
         engine.output = sampler
