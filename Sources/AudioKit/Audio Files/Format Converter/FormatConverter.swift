@@ -147,7 +147,9 @@ extension FormatConverter {
 
     /// The conversion options, leave any property nil to adopt the value of the input file
     public struct Options {
+        /// Audio Format asw a string
         public var format: String?
+        /// Sample Rate in Hertz
         public var sampleRate: Double?
         /// used only with PCM data
         public var bitDepth: UInt32?
@@ -172,6 +174,7 @@ extension FormatConverter {
         /// Overwrite existing files, set false if you want to handle this before you call start()
         public var eraseFile: Bool = true
 
+        /// Empty Initializer
         public init() {}
 
         /// Create options by parsing the contents of the url and using the audio settings
