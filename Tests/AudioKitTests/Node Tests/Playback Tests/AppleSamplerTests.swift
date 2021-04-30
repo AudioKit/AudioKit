@@ -25,7 +25,6 @@ class AppleSamplerTests: XCTestCase {
     func testStop() {
         let audio = engine.startTest(totalDuration: 2.0)
         sampler.play(noteNumber: 50, velocity: 127, channel: 1)
-        // this immediately stops the sample
         sampler.stop(noteNumber: 50, channel: 1)
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
