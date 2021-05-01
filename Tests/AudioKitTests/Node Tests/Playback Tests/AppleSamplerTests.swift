@@ -23,10 +23,13 @@ class AppleSamplerTests: XCTestCase {
     }
 
     func testStop() {
-        let audio = engine.startTest(totalDuration: 2.0)
-        sampler.play(noteNumber: 50, velocity: 127, channel: 1)
-        sampler.stop(noteNumber: 50, channel: 1)
-        audio.append(engine.render(duration: 2.0))
+        let audio = engine.startTest(totalDuration: 3.0)
+        sampler.play()
+        audio.append(engine.render(duration: 1.0))
+        sampler.stop()
+        audio.append(engine.render(duration: 1.0))
+        sampler.play()
+        audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
