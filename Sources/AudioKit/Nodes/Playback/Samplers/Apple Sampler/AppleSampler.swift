@@ -10,7 +10,7 @@ import CAudioKit
 /// 3. connect to the engine: engine.output = sampler
 /// 4. start the engine engine.start()
 ///
-open class AppleSampler: Node {
+open class AppleSampler: PolyphonicNode {
 
     // MARK: - Properties
 
@@ -216,9 +216,9 @@ open class AppleSampler: Node {
     /// NB: when using an audio file, noteNumber 60 will play back the file at normal
     /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
     /// half speed (1 octave lower) and so on
-    public func play(noteNumber: MIDINoteNumber = 60,
-                     velocity: MIDIVelocity = 127,
-                     channel: MIDIChannel = 0) throws {
+    override open func play(noteNumber: MIDINoteNumber = 60,
+                            velocity: MIDIVelocity = 127,
+                            channel: MIDIChannel = 0) {
         self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
     /// Stop a MIDI Note
@@ -227,9 +227,13 @@ open class AppleSampler: Node {
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    public func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) throws {
-        try ExceptionCatcher {
-            self.samplerUnit.stopNote(noteNumber, onChannel: channel)
+    override open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
+        do {
+            try ExceptionCatcher {
+                self.samplerUnit.stopNote(noteNumber, onChannel: channel)
+            }
+        } catch {
+            Log("Could not stop AppleSampler note: \(error.localizedDescription)", type: .error)
         }
     }
 

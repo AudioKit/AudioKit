@@ -37,7 +37,7 @@ public class SynthKick: MIDIInstrument {
     }
 
     /// Unneeded stop function since the sounds all decay quickly
-    public override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         // Unneeded
     }
 }
@@ -88,7 +88,7 @@ public class SynthSnare: MIDIInstrument {
     }
 
     /// Unneeded stop function since the sounds all decay quickly
-    public override func stop(noteNumber: MIDINoteNumber) {
+    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         // Unneeded
     }
 }

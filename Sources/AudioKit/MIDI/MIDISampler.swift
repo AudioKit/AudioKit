@@ -68,11 +68,11 @@ open class MIDISampler: AppleSampler, NamedNode {
         if let status = MIDIStatus(byte: data1) {
             let channel = status.channel
             if status.type == .noteOn && data3 > 0 {
-                try play(noteNumber: data2,
-                         velocity: data3,
-                         channel: channel)
+                play(noteNumber: data2,
+                     velocity: data3,
+                     channel: channel)
             } else if status.type == .noteOn && data3 == 0 {
-                try stop(noteNumber: data2, channel: channel)
+                stop(noteNumber: data2, channel: channel)
             } else if status.type == .controllerChange {
                 midiCC(data2, value: data3, channel: channel)
             }
@@ -90,9 +90,9 @@ open class MIDISampler: AppleSampler, NamedNode {
                                    velocity: MIDIVelocity,
                                    channel: MIDIChannel) throws {
         if velocity > 0 {
-            try play(noteNumber: noteNumber, velocity: velocity, channel: channel)
+            play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
-            try stop(noteNumber: noteNumber, channel: channel)
+            stop(noteNumber: noteNumber, channel: channel)
         }
     }
 
@@ -121,16 +121,24 @@ open class MIDISampler: AppleSampler, NamedNode {
     /// half speed (1 octave lower) and so on
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
-                            channel: MIDIChannel) throws {
-        try ExceptionCatcher {
-            self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+                            channel: MIDIChannel) {
+        do {
+            try ExceptionCatcher {
+                self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+            }
+        } catch {
+            Log("Could not play MIDISampler note: \(error.localizedDescription)", type: .error)
         }
     }
 
     /// Stop a note
-    open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) throws {
-        try ExceptionCatcher {
-            self.samplerUnit.stopNote(noteNumber, onChannel: channel)
+    open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
+        do {
+            try ExceptionCatcher {
+                self.samplerUnit.stopNote(noteNumber, onChannel: channel)
+            }
+        } catch {
+            Log("Could not stop MIDISampler note: \(error.localizedDescription)", type: .error)
         }
     }
 

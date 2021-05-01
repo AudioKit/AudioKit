@@ -118,6 +118,7 @@ public protocol Polyphonic {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
     ///   - frequency:  Play this frequency
+    ///   - channel:    MIDI Channel
     func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: AUValue, channel: MIDIChannel)
 
     /// Play a sound corresponding to a MIDI note
@@ -125,14 +126,17 @@ public protocol Polyphonic {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - velocity:   MIDI Velocity
+    ///   - channel:    MIDI Channel
     ///
     func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel)
 
     /// Stop a sound corresponding to a MIDI note
     ///
-    /// - parameter noteNumber: MIDI Note Number
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - channel:    MIDI Channel
     ///
-    func stop(noteNumber: MIDINoteNumber)
+    func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel)
 }
 
 /// Bare bones implementation of Polyphonic protocol
@@ -175,7 +179,7 @@ open class PolyphonicNode: Node, Polyphonic {
     ///
     /// - parameter noteNumber: MIDI Note Number
     ///
-    open func stop(noteNumber: MIDINoteNumber) {
+    open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         Log("Stopping note \(noteNumber), override in subclass")
     }
 
