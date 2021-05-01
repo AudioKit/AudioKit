@@ -3,6 +3,7 @@
 import AudioToolbox
 import AVFoundation
 import CoreAudio
+import Accelerate
 
 /// Normally set in AVFoundation or AudioToolbox,
 /// we create it here so users don't have to import those frameworks
@@ -370,4 +371,59 @@ extension Int {
     public func mapped(from source: ClosedRange<Int>, to target: ClosedRange<CGFloat> = 0...1.0) -> CGFloat {
         return (CGFloat(self - source.lowerBound) / CGFloat(source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
     }
+}
+
+public extension Array where Element == Float {
+    /// Takes an array of floating point values and down samples it to have a lesser number of samples
+    /// Returns an array of downsampled floating point values
+    ///
+    /// Parameters:
+    ///   - inputTables: array of type Float - which is assumed have a large sample count
+    ///   - numberOfOutputSamples: the number of floating point values to which we will downsample the array to
+    func downSample(numberOfOutputSamples: Int = 128) -> [Element] {
+        let numberOfInputSamples = self.count
+        let inputLength = vDSP_Length(numberOfInputSamples)
+
+        let filterLength: vDSP_Length = 2
+        let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
+
+        let decimationFactor = numberOfInputSamples / numberOfOutputSamples
+        let n = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
+
+        var outputFloats = [Float](repeating: 0, count: Int(n))
+        vDSP_desamp(self,
+                    decimationFactor,
+                    filter,
+                    &outputFloats,
+                    n,
+                    filterLength)
+        return outputFloats
+    }
+}
+
+/// Load the audio information from a url to an audio file
+/// Returns the floating point array of values, sample rate, and frame count
+///
+/// - Parameters:
+///   - audioURL: Url to audio file
+public func loadAudioSignal(audioURL: URL) -> (signal: [Float], rate: Double, frameCount: Int)? {
+    do {
+        let file = try AVAudioFile(forReading: audioURL)
+        let audioFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
+        if let format = audioFormat {
+            let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))
+            do {
+                if let buffer = buf {
+                    try file.read(into: buffer)
+                    let floatArray = Array(UnsafeBufferPointer(start: buffer.floatChannelData![0], count: Int(buffer.frameLength)))
+                    return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
+                }
+            } catch {
+                Log("Error in Load Audio Signal: could not read audio file into buffer", type: .error)
+            }
+        }
+    } catch {
+        Log("Error in Load Audio Signal: could not read url into audio file", type: .error)
+    }
+    return nil
 }

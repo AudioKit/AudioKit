@@ -319,4 +319,66 @@ extension Table {
         return interpolatedTables
     }
 
+    /// Takes an array of tables and resamples each table to have a lesser number of samples.
+    /// Returns an array of downsampled tables
+    ///
+    /// Parameters:
+    ///   - inputTables: array of tables - which we can assume have a large sample count
+    ///   - numberOfOutputSamples: the number of floating point values to which we will downsample each Table array count
+    public class func downSampleTables(inputTables: [Table], numberOfOutputSamples: Int = 64) -> [Table] {
+        let numberOfInputSamples = inputTables[0].content.count
+        let inputLength = vDSP_Length(numberOfInputSamples)
+
+        let filterLength: vDSP_Length = 2
+        let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
+
+        let decimationFactor = numberOfInputSamples / numberOfOutputSamples
+        let n = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
+
+        var outputTables: [Table] = []
+        for inputTable in inputTables {
+            var outputSignal = [Float](repeating: 0, count: Int(n))
+            vDSP_desamp(inputTable.content,
+                        decimationFactor,
+                        filter,
+                        &outputSignal,
+                        n,
+                        filterLength)
+            outputTables.append(Table(outputSignal))
+        }
+        return outputTables
+    }
+
+    /// Takes a large array of floating point values and splits them up into an array of Tables.
+    /// Returns an array of tables (if there are extra samples at the end of the signal that are less than tableLength - they are ommitted)
+    ///
+    /// Parameters:
+    ///   - signal: large array of floating point values
+    ///   - tableLength: number of floating point values to be stored per table
+    public class func chopAudioToTables(signal: [Float], tableLength: Int = 2_048) -> [Table] {
+        let numberOfSamples = signal.count
+        let numberOfOutputTables = numberOfSamples / tableLength
+        var outputTables: [Table] = []
+        for i in 0..<numberOfOutputTables {
+            let startIndex = i * tableLength
+            let endIndex = startIndex + tableLength
+            outputTables.append(Table(Array(signal[startIndex..<endIndex])))
+        }
+        return outputTables
+    }
+
+    /// Creates an array of tables from a url to an audio file
+    ///
+    /// Parameters:
+    ///   - url: URL to audio file
+    ///   - tableLength: number of floating point value samples per table (Default: 2048)
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+    public class func createWavetableArray(_ url: URL, tableLength: Int = 2_048) -> [Table]? {
+        if let audioInformation = loadAudioSignal(audioURL: url) {
+            let signal = audioInformation.signal
+            let tables = Table.chopAudioToTables(signal: signal, tableLength: tableLength)
+            return Table.createInterpolatedTables(inputTables: tables)
+        }
+        return nil
+    }
 }
