@@ -379,7 +379,7 @@ public extension Array where Element == Float {
     ///
     /// Parameters:
     ///   - inputTables: array of type Float - which is assumed have a large sample count
-    ///   - numberOfOutputSamples: the number of floating point values to which we will downsample the array to
+    ///   - numberOfOutputSamples: the number of samples we will downsample the array to
     func downSample(numberOfOutputSamples: Int = 128) -> [Element] {
         let numberOfInputSamples = self.count
         let inputLength = vDSP_Length(numberOfInputSamples)
@@ -388,14 +388,14 @@ public extension Array where Element == Float {
         let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
 
         let decimationFactor = numberOfInputSamples / numberOfOutputSamples
-        let n = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
+        let outputLength = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
 
         var outputFloats = [Float](repeating: 0, count: Int(n))
         vDSP_desamp(self,
                     decimationFactor,
                     filter,
                     &outputFloats,
-                    n,
+                    outputLength,
                     filterLength)
         return outputFloats
     }
@@ -409,13 +409,16 @@ public extension Array where Element == Float {
 public func loadAudioSignal(audioURL: URL) -> (signal: [Float], rate: Double, frameCount: Int)? {
     do {
         let file = try AVAudioFile(forReading: audioURL)
-        let audioFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32, sampleRate: file.fileFormat.sampleRate, channels: file.fileFormat.channelCount, interleaved: false)
+        let audioFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32,
+                                        sampleRate: file.fileFormat.sampleRate,
+                                        channels: file.fileFormat.channelCount, interleaved: false)
         if let format = audioFormat {
             let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: UInt32(file.length))
             do {
                 if let buffer = buf {
                     try file.read(into: buffer)
-                    let floatArray = Array(UnsafeBufferPointer(start: buffer.floatChannelData![0], count: Int(buffer.frameLength)))
+                    let floatArray = Array(UnsafeBufferPointer(start: buffer.floatChannelData![0],
+                                                               count: Int(buffer.frameLength)))
                     return (signal: floatArray, rate: file.fileFormat.sampleRate, frameCount: Int(file.length))
                 }
             } catch {

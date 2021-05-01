@@ -333,7 +333,7 @@ extension Table {
         let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
 
         let decimationFactor = numberOfInputSamples / numberOfOutputSamples
-        let n = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
+        let outputLength = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
 
         var outputTables: [Table] = []
         for inputTable in inputTables {
@@ -342,7 +342,7 @@ extension Table {
                         decimationFactor,
                         filter,
                         &outputSignal,
-                        n,
+                        outputLength,
                         filterLength)
             outputTables.append(Table(outputSignal))
         }
@@ -350,7 +350,8 @@ extension Table {
     }
 
     /// Takes a large array of floating point values and splits them up into an array of Tables.
-    /// Returns an array of tables (if there are extra samples at the end of the signal that are less than tableLength - they are ommitted)
+    /// Returns an array of tables
+    /// If there are extra samples at the end of the signal that are less than tableLength, they are ommitted.
     ///
     /// Parameters:
     ///   - signal: large array of floating point values
@@ -359,8 +360,8 @@ extension Table {
         let numberOfSamples = signal.count
         let numberOfOutputTables = numberOfSamples / tableLength
         var outputTables: [Table] = []
-        for i in 0..<numberOfOutputTables {
-            let startIndex = i * tableLength
+        for index in 0..<numberOfOutputTables {
+            let startIndex = index * tableLength
             let endIndex = startIndex + tableLength
             outputTables.append(Table(Array(signal[startIndex..<endIndex])))
         }
