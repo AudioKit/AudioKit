@@ -378,19 +378,18 @@ public extension Array where Element == Float {
     /// Returns an array of downsampled floating point values
     ///
     /// Parameters:
-    ///   - inputTables: array of type Float - which is assumed have a large sample count
-    ///   - numberOfOutputSamples: the number of samples we will downsample the array to
-    func downSample(numberOfOutputSamples: Int = 128) -> [Element] {
+    ///   - sampleCount: the number of samples we will downsample the array to
+    func downSample(to sampleCount: Int = 128) -> [Element] {
         let numberOfInputSamples = self.count
         let inputLength = vDSP_Length(numberOfInputSamples)
 
         let filterLength: vDSP_Length = 2
         let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
 
-        let decimationFactor = numberOfInputSamples / numberOfOutputSamples
+        let decimationFactor = numberOfInputSamples / sampleCount
         let outputLength = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
 
-        var outputFloats = [Float](repeating: 0, count: Int(n))
+        var outputFloats = [Float](repeating: 0, count: Int(outputLength))
         vDSP_desamp(self,
                     decimationFactor,
                     filter,

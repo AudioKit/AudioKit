@@ -324,20 +324,20 @@ extension Table {
     ///
     /// Parameters:
     ///   - inputTables: array of tables - which we can assume have a large sample count
-    ///   - numberOfOutputSamples: the number of floating point values to which we will downsample each Table array count
-    public class func downSampleTables(inputTables: [Table], numberOfOutputSamples: Int = 64) -> [Table] {
+    ///   - sampleCount: the number of floating point values to which we will downsample each Table array count
+    public class func downSampleTables(inputTables: [Table], to sampleCount: Int = 64) -> [Table] {
         let numberOfInputSamples = inputTables[0].content.count
         let inputLength = vDSP_Length(numberOfInputSamples)
 
         let filterLength: vDSP_Length = 2
         let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
 
-        let decimationFactor = numberOfInputSamples / numberOfOutputSamples
+        let decimationFactor = numberOfInputSamples / sampleCount
         let outputLength = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
 
         var outputTables: [Table] = []
         for inputTable in inputTables {
-            var outputSignal = [Float](repeating: 0, count: Int(n))
+            var outputSignal = [Float](repeating: 0, count: Int(outputLength))
             vDSP_desamp(inputTable.content,
                         decimationFactor,
                         filter,
