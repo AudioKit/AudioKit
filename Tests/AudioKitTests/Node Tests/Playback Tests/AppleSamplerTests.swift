@@ -67,9 +67,5 @@ class AppleSamplerTests: XCTestCase {
         sampler.play(noteNumber: 50, velocity: 127, channel: 1)
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
-    }
-    
-    func testZZZ() {
-        /// Do nothng, the existence of this test seems to stabilize the other tests
-    }
+    }   
 }
