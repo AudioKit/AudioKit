@@ -69,7 +69,7 @@ struct SequencerEngineImpl {
         runningStatus.reset();
     }
 
-    ~SequencerEngine() {
+    ~SequencerEngineImpl() {
         stopAllPlayingNotes();
     }
 
