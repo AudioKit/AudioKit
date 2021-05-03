@@ -38,11 +38,11 @@ AK_API void akSequencerEngineDestroy(SequencerEngineRef engine);
 
 /// Updates the sequence and returns a new render observer.
 AK_API AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
-                                                        const SequenceEvent* events,
-                                                        size_t eventCount,
-                                                        SequenceSettings settings,
-                                                        double sampleRate,
-                                                        AUScheduleMIDIEventBlock block);
+                                                      const SequenceEvent* events,
+                                                      size_t eventCount,
+                                                      SequenceSettings settings,
+                                                      double sampleRate,
+                                                      AUScheduleMIDIEventBlock block);
 
 /// Returns the sequencer playhead position in beats.
 AK_API double akSequencerEngineGetPosition(SequencerEngineRef engine);
@@ -56,3 +56,6 @@ AK_API bool akSequencerEngineIsPlaying(SequencerEngineRef engine);
 
 /// Stop all notes currently playing.
 AK_API void akSequencerEngineStopPlayingNotes(SequencerEngineRef engine);
+
+/// Update sequencer tempo.
+AK_API void akSequencerEngineSetTempo(SequencerEngineRef engine, double tempo);

@@ -21,7 +21,7 @@ open class SequencerTrack {
     /// Speed of the track in beats per minute
     public var tempo: BPM = 120 {
         didSet {
-            updateSequence()
+            akSequencerEngineSetTempo(engine, tempo)
         }
     }
 
@@ -144,11 +144,9 @@ open class SequencerTrack {
 
             guard let auAudioUnit = targetNode?.avAudioUnit?.auAudioUnit else { return }
 
-            if let token = renderObserverToken {
-                auAudioUnit.removeRenderObserver(token)
+            if renderObserverToken == nil {
+                renderObserverToken = auAudioUnit.token(byAddingRenderObserver: observer)
             }
-
-            renderObserverToken = auAudioUnit.token(byAddingRenderObserver: observer)
         }
     }
 }

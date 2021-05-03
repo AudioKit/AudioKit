@@ -22,16 +22,35 @@ typedef std::bitset<128> RunningStatus;
 struct SequencerEvent {
     bool notesOff = false;
     double seekPosition = NAN;
+    double tempo = NAN;
+};
+
+struct SequencerData {
+    double sampleRate = 44100;
+    std::vector<SequenceEvent> events;
+    SequenceSettings settings = {
+        .maximumPlayCount = 0,
+        .length = 4.0,
+        .tempo = 120.0,
+        .loopEnabled = true,
+        .numberOfLoops = 0
+    };
+
+    AUScheduleMIDIEventBlock midiBlock = nullptr;
+
+    /// Is the audio thread done using this data?
+    std::atomic<bool> done{false};
 };
 
 struct SequencerEngine {
     RunningStatus runningStatus;
     long positionInSamples = 0;
     UInt64 framesCounted = 0;
-    SequenceSettings settings = {0, 4.0, 120.0, true, 0};
-    double sampleRate = 44100.0;
     std::atomic<bool> isStarted{false};
-    AUScheduleMIDIEventBlock midiBlock = nullptr;
+
+    SequencerData* data = nullptr;
+    std::atomic<SequencerData*> nextData{nullptr};
+    std::vector< std::unique_ptr<SequencerData> > oldData;
 
     ReaderWriterQueue<SequencerEvent> eventQueue;
 
@@ -42,12 +61,26 @@ struct SequencerEngine {
         runningStatus.reset();
     }
 
+    void collectData() {
+
+        // Start from the end. Once we find a finished
+        // data, delete all programs before and including.
+        for (auto it = oldData.end(); it > oldData.begin();
+             --it) {
+            if ((*(it - 1))->done) {
+                // Remove the data from the vector.
+                oldData.erase(oldData.begin(), it);
+                break;
+            }
+        }
+    }
+
     int beatToSamples(double beat) const {
-        return (int)(beat / settings.tempo * 60 * sampleRate);
+        return (int)(beat / data->settings.tempo * 60 * data->sampleRate);
     }
 
     long lengthInSamples() const {
-        return beatToSamples(settings.length);
+        return beatToSamples(data->settings.length);
     }
 
     long positionModulo() const {
@@ -62,7 +95,7 @@ struct SequencerEngine {
     }
 
     double currentPositionInBeats() const {
-        return (double)positionModulo() / sampleRate * (settings.tempo / 60);
+        return (double)positionModulo() / data->sampleRate * (data->settings.tempo / 60);
     }
 
     bool validTriggerTime(double beat) {
@@ -70,10 +103,10 @@ struct SequencerEngine {
     }
 
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, int offset, double time) {
-        if(midiBlock) {
+        if(data->midiBlock) {
             UInt8 midiBytes[3] = {status, data1, data2};
             updateRunningStatus(status, data1, data2);
-            midiBlock(AUEventSampleTimeImmediate + offset, 0, 3, midiBytes);
+            data->midiBlock(AUEventSampleTimeImmediate + offset, 0, 3, midiBytes);
         }
     }
 
@@ -108,6 +141,21 @@ struct SequencerEngine {
         positionInSamples = beatToSamples(position);
     }
 
+    void updateData() {
+
+        SequencerData* newData = nextData;
+        if(newData != data) {
+
+            // Main thread may clean up old sequencer data now.
+            if(data) {
+                data->done = true;
+            }
+
+            // Update data.
+            data = newData;
+        }
+    }
+
     void processEvents() {
 
         SequencerEvent event;
@@ -119,21 +167,30 @@ struct SequencerEngine {
             if(!isnan(event.seekPosition)) {
                 seekTo(event.seekPosition);
             }
+
+            if(!isnan(event.tempo)) {
+                double lastPosition = currentPositionInBeats(); // 1) save where we are before we manipulate time
+                data->settings.tempo = event.tempo;             // 2) manipulate time
+                seekTo(lastPosition);                           // 3) go back to where we were before time manipulation
+            }
         }
 
     }
 
-    void process(const std::vector<SequenceEvent>& events, AUAudioFrameCount frameCount) {
+    void process(AUAudioFrameCount frameCount) {
 
+        updateData();
         processEvents();
 
         if (isStarted) {
             if (positionInSamples >= lengthInSamples()) {
-                if (!settings.loopEnabled) { //stop if played enough
+                if (!data->settings.loopEnabled) { //stop if played enough
                     stop();
                     return;
                 }
             }
+
+            auto& events = data->events;
 
             long currentStartSample = positionModulo();
             long currentEndSample = currentStartSample + frameCount;
@@ -142,7 +199,7 @@ struct SequencerEngine {
                 // go through every event
                 int triggerTime = beatToSamples(events[i].beat);
 
-                if (currentEndSample > lengthInSamples() && settings.loopEnabled) {
+                if (currentEndSample > lengthInSamples() && data->settings.loopEnabled) {
                 // this buffer extends beyond the length of the loop and looping is on
                 int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
                 int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
@@ -186,18 +243,22 @@ AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
                                                  double sampleRate,
                                                  AUScheduleMIDIEventBlock block) {
 
-    const std::vector<SequenceEvent> events{eventsPtr, eventsPtr+eventCount};
+    auto data = new SequencerData;
+    data->settings = settings;
+    data->sampleRate = sampleRate;
+    data->midiBlock = block;
+    data->events = {eventsPtr, eventsPtr+eventCount};
+    engine->nextData = data;
+    engine->oldData.emplace_back(data);
+    engine->collectData();
+
     return ^void(AudioUnitRenderActionFlags actionFlags,
                  const AudioTimeStamp *timestamp,
                  AUAudioFrameCount frameCount,
                  NSInteger outputBusNumber)
     {
         if (actionFlags != kAudioUnitRenderAction_PreRender) return;
-
-        engine->sampleRate = sampleRate;
-        engine->midiBlock = block;
-        engine->settings = settings;
-        engine->process(events, frameCount);
+        engine->process(frameCount);
     };
 }
 
@@ -222,6 +283,12 @@ bool akSequencerEngineIsPlaying(SequencerEngineRef engine) {
 void akSequencerEngineStopPlayingNotes(SequencerEngineRef engine) {
     SequencerEvent event;
     event.notesOff = true;
+    engine->eventQueue.enqueue(event);
+}
+
+void akSequencerEngineSetTempo(SequencerEngineRef engine, double tempo) {
+    SequencerEvent event;
+    event.tempo = tempo;
     engine->eventQueue.enqueue(event);
 }
 

@@ -370,6 +370,7 @@ let validatedMD5s: [String: String] = [
     "-[SequencerTrackTests testLoop]": "dfab5f544f9d714ed0fb95d4e077699b",
     "-[SequencerTrackTests testOneShot]": "8d547bfc6b1c47e82deb53ed6646c389",
     "-[SequencerTrackTests testTempo]": "65f227785671ce944a8cc5ed2b66a4c1",
+    "-[SequencerTrackTests testChangeTempo]": "dab1ef7ceb90506a4eee6af31a19a886",
     "-[ShakerTests testShaker]": "709fbb05ec97f539079dd77e8c96bc4d",
     "-[ShakerTests testShakerAmplitude]": "57b501c34d5b4114ff8b1464a6842103",
     "-[ShakerTests testShakerType]": "998478fb4c871a653b296033d2318f4e",

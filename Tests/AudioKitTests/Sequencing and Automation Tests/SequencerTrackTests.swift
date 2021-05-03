@@ -74,4 +74,24 @@ class SequencerTrackTests: XCTestCase {
         testMD5(audio)
     }
 
+    func testChangeTempo() {
+
+        let engine = AudioEngine()
+        let flute = Flute()
+
+        let track = SequencerTrack(targetNode: flute)
+        engine.output = flute
+
+        track.sequence = getTestSequence()
+
+        track.playFromStart()
+        XCTAssertTrue(track.isPlaying)
+        let audio = engine.startTest(totalDuration: 5.0)
+        audio.append(engine.render(duration: 2.0))
+        track.tempo = 60
+        audio.append(engine.render(duration: 3.0))
+        testMD5(audio)
+
+    }
+
 }
