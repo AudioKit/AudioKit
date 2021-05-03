@@ -19,7 +19,7 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
-        .target(name: "STK",
+        .target(name: "Stk",
                 exclude: ["rawwaves", "LICENSE"],
                 publicHeadersPath: "include"),
         .target(name: "soundpipe",
@@ -44,7 +44,7 @@ let package = Package(
             publicHeadersPath: "include"),
         .target(
             name: "CAudioKit",
-            dependencies: ["STK", "soundpipe", "sporth"],
+            dependencies: ["Stk", "soundpipe", "sporth"],
             exclude: [
                 "AudioKitCore/Modulated Delay/README.md",
                 "AudioKitCore/Sampler/Wavpack/license.txt",
