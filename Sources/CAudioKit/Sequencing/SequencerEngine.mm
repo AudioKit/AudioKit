@@ -38,9 +38,6 @@ struct SequencerData {
     };
 
     AUScheduleMIDIEventBlock midiBlock = nullptr;
-
-    /// Is the audio thread done using this data?
-    std::atomic<bool> done{false};
 };
 
 struct SequencerEngineImpl;
