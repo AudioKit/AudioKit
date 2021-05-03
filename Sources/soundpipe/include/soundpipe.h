@@ -1851,3 +1851,8 @@ int sp_padsynth_normalize(int N, SPFLOAT *smp);
 #endif
 
 #endif
+
+// Suppress warnings from Xcode
+#include "kiss_fft.h"
+#include "kiss_fftr.h"
+#include "vocwrapper.h"
