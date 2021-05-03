@@ -177,26 +177,26 @@ struct SequencerEngineImpl {
             long currentStartSample = positionModulo();
             long currentEndSample = currentStartSample + frameCount;
 
-            for (int i = 0; i < events.size(); i++) {
+            for (auto& event : events) {
                 // go through every event
-                int triggerTime = beatToSamples(events[i].beat);
+                int triggerTime = beatToSamples(event.beat);
 
                 if (currentEndSample > lengthInSamples() && data->settings.loopEnabled) {
-                // this buffer extends beyond the length of the loop and looping is on
-                int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
-                int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                    // this buffer extends beyond the length of the loop and looping is on
+                    int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
+                    int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
                     if (triggerTime < samplesOfBufferForNewLoop) {
                         // this event would trigger early enough in the next loop that it should happen in this buffer
                         // ie. this buffer contains events from the previous loop, and the next loop
                         int offset = (int)triggerTime + loopRestartInBuffer;
-                        sendMidiData(events[i].status, events[i].data1, events[i].data2,
-                                     offset, events[i].beat);
+                        sendMidiData(event.status, event.data1, event.data2,
+                                     offset, event.beat);
                     }
                 } else if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
                     // this event is supposed to trigger between currentStartSample and currentEndSample
                     int offset = (int)(triggerTime - currentStartSample);
-                    sendMidiData(events[i].status, events[i].data1, events[i].data2,
-                                 offset, events[i].beat);
+                    sendMidiData(event.status, event.data1, event.data2,
+                                 offset, event.beat);
                 }
             }
 
