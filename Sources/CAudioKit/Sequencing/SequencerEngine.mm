@@ -42,7 +42,15 @@ struct SequencerData {
     std::atomic<bool> done{false};
 };
 
+struct SequencerEngineImpl;
+
+/// This uses another level of indirection to ensure that SequencerEngineImpl
+/// is not destroyed while a render observer is still active.
 struct SequencerEngine {
+    std::shared_ptr<SequencerEngineImpl> impl;
+};
+
+struct SequencerEngineImpl {
     RunningStatus runningStatus;
     long positionInSamples = 0;
     UInt64 framesCounted = 0;
@@ -57,7 +65,7 @@ struct SequencerEngine {
     // Current position as reported to the UI.
     std::atomic<double> uiPosition{0};
 
-    SequencerEngine() {
+    SequencerEngineImpl() {
         runningStatus.reset();
     }
 
@@ -228,10 +236,10 @@ struct SequencerEngine {
 
 /// Creates the audio-thread-only state for the sequencer.
 SequencerEngineRef akSequencerEngineCreate(void) {
-    return new SequencerEngine;
+    return new SequencerEngine { .impl = std::make_shared<SequencerEngineImpl>() };
 }
 
-void akSequencerEngineDestroy(SequencerEngineRef engine) {
+void akSequencerEngineRelease(SequencerEngineRef engine) {
     delete engine;
 }
 
@@ -243,14 +251,17 @@ AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
                                                  double sampleRate,
                                                  AUScheduleMIDIEventBlock block) {
 
+    // impl is captured in the render observer block.
+    auto impl = engine->impl;
+
     auto data = new SequencerData;
     data->settings = settings;
     data->sampleRate = sampleRate;
     data->midiBlock = block;
     data->events = {eventsPtr, eventsPtr+eventCount};
-    engine->nextData = data;
-    engine->oldData.emplace_back(data);
-    engine->collectData();
+    impl->nextData = data;
+    impl->oldData.emplace_back(data);
+    impl->collectData();
 
     return ^void(AudioUnitRenderActionFlags actionFlags,
                  const AudioTimeStamp *timestamp,
@@ -258,38 +269,38 @@ AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
                  NSInteger outputBusNumber)
     {
         if (actionFlags != kAudioUnitRenderAction_PreRender) return;
-        engine->process(frameCount);
+        impl->process(frameCount);
     };
 }
 
 double akSequencerEngineGetPosition(SequencerEngineRef engine) {
-    return engine->uiPosition;
+    return engine->impl->uiPosition;
 }
 
 void akSequencerEngineSeekTo(SequencerEngineRef engine, double position) {
     SequencerEvent event;
     event.seekPosition = position;
-    engine->eventQueue.enqueue(event);
+    engine->impl->eventQueue.enqueue(event);
 }
 
 void akSequencerEngineSetPlaying(SequencerEngineRef engine, bool playing) {
-    engine->isStarted = playing;
+    engine->impl->isStarted = playing;
 }
 
 bool akSequencerEngineIsPlaying(SequencerEngineRef engine) {
-    return engine->isStarted;
+    return engine->impl->isStarted;
 }
 
 void akSequencerEngineStopPlayingNotes(SequencerEngineRef engine) {
     SequencerEvent event;
     event.notesOff = true;
-    engine->eventQueue.enqueue(event);
+    engine->impl->eventQueue.enqueue(event);
 }
 
 void akSequencerEngineSetTempo(SequencerEngineRef engine, double tempo) {
     SequencerEvent event;
     event.tempo = tempo;
-    engine->eventQueue.enqueue(event);
+    engine->impl->eventQueue.enqueue(event);
 }
 
 #endif

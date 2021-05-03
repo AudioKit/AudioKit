@@ -66,7 +66,7 @@ open class SequencerTrack {
             }
         }
 
-        akSequencerEngineDestroy(engine)
+        akSequencerEngineRelease(engine)
     }
 
     /// Start the track

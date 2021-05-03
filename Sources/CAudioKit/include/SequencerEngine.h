@@ -33,8 +33,8 @@ typedef struct SequencerEngine* SequencerEngineRef;
 /// Creates the audio-thread-only state for the sequencer.
 AK_API SequencerEngineRef akSequencerEngineCreate(void);
 
-/// Deallocate the sequencer.
-AK_API void akSequencerEngineDestroy(SequencerEngineRef engine);
+/// Release ownership of the sequencer. Sequencer is deallocated when no render observers are live.
+AK_API void akSequencerEngineRelease(SequencerEngineRef engine);
 
 /// Updates the sequence and returns a new render observer.
 AK_API AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,

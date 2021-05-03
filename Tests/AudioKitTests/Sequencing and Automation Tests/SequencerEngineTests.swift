@@ -55,7 +55,7 @@ class SequencerEngineTests: XCTestCase {
                        fmod(2.0 * Double(Int(frameCount) * renderCallCount) / 44100, 4),
                        accuracy: 0.0001)
 
-        akSequencerEngineDestroy(engine)
+        akSequencerEngineRelease(engine)
         return scheduledEvents
     }
 
