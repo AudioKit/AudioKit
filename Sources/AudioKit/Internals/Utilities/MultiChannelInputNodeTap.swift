@@ -426,7 +426,7 @@ public final class MultiChannelInputNodeTap {
 }
 
 /// Delegate for the Mutli-Channel Input Node Tap
-public protocol MultiChannelInputNodeTapDelegate: class {
+public protocol MultiChannelInputNodeTapDelegate: AnyObject {
     /// Sent when the tap is installed on the inputNode
     func tapInstalled(sender: MultiChannelInputNodeTap)
 
