@@ -71,7 +71,6 @@ struct SequencerEngineImpl {
 
     ~SequencerEngine() {
         stopAllPlayingNotes();
-
     }
 
     void collectData() {
