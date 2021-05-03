@@ -67,5 +67,13 @@ class AppleSamplerTests: XCTestCase {
         sampler.play(noteNumber: 50, velocity: 127, channel: 1)
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
-    }   
+    }
+    
+    // Adding in this non-testing function to prevent intermittent failure of testAmplitude
+    func testAmplitudeHack() {
+        sampler.amplitude = 12
+        let audio = engine.startTest(totalDuration: 2.0)
+        sampler.play(noteNumber: 50, velocity: 127, channel: 1)
+        audio.append(engine.render(duration: 2.0))
+    }
 }
