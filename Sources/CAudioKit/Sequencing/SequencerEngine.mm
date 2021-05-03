@@ -69,6 +69,11 @@ struct SequencerEngineImpl {
         runningStatus.reset();
     }
 
+    ~SequencerEngine() {
+        stopAllPlayingNotes();
+
+    }
+
     void collectData() {
 
         // Start from the end. Once we find a finished
@@ -132,7 +137,7 @@ struct SequencerEngineImpl {
     /// If panic is set to true, a note-off message will be sent for all notes
     void stopAllPlayingNotes(bool panic = false) {
         if(runningStatus.any() || (panic == true)) {
-            for(int i = (int)runningStatus.size(); i >= 0; i--) {
+            for(int i = (int)runningStatus.size() - 1; i >= 0; i--) {
                 if(runningStatus[i] == 1 || (panic == true)) {
                     sendMidiData(NOTEOFF, (UInt8)i, 0, 1, 0);
                 }

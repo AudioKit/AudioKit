@@ -188,6 +188,7 @@ class SequencerEngineTests: XCTestCase {
                                                   170, 170, 170, 204, 204, 204])
     }
 
+    // events that start late in the loop are stopped after the engine is destroyed
     func testShortNotesAcrossLoop() {
 
         var seq = NoteEventSequence()
@@ -201,22 +202,25 @@ class SequencerEngineTests: XCTestCase {
 
         /// 6 render calls at 120bpm, 44100 buffersize is 12 beats, default loop is 4 beats
         let events = observerTest(sequence: seq, renderCallCount: 6)
-        XCTAssertEqual(events.count, 27)
+        XCTAssertEqual(events.count, 30)
 
         XCTAssertEqual(events.map { $0.noteNumber! }, [60, 62, 65, 60, 62, 65,
                                                        60, 64, 67, 60, 62, 65, 60, 62, 65,
                                                        60, 64, 67, 60, 62, 65, 60, 62, 65,
-                                                       60, 64, 67])
+                                                       60, 64, 67,
+                                                       67, 64, 60]) // engine destroyed
 
         XCTAssertEqual(events.compactMap { $0.status!.type }, [.noteOn, .noteOn, .noteOn, .noteOff, .noteOff, .noteOff,
                                                                .noteOn, .noteOn, .noteOn, .noteOn, .noteOn, .noteOn,
                                                                .noteOff, .noteOff, .noteOff, .noteOn, .noteOn, .noteOn,
                                                                .noteOn, .noteOn, .noteOn, .noteOff, .noteOff, .noteOff,
-                                                               .noteOn, .noteOn, .noteOn])
+                                                               .noteOn, .noteOn, .noteOn,
+                                                               .noteOff, .noteOff, .noteOff]) // engine destroyed
         XCTAssertEqual(events.map { $0.timeStamp }, [0, 0, 0, 0, 0, 0,
                                                   43658, 43658, 43658, 0, 0, 0,
                                                   0, 0, 0, 43658, 43658, 43658,
                                                   0, 0, 0, 0, 0, 0,
-                                                  43658, 43658, 43658])
+                                                  43658, 43658, 43658,
+                                                  1, 1, 1]) // engine destroyed
     }
 }
