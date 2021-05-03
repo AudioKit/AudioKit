@@ -244,6 +244,7 @@ SequencerEngineRef akSequencerEngineCreate(void) {
 }
 
 void akSequencerEngineRelease(SequencerEngineRef engine) {
+    engine->impl->stopAllPlayingNotes();
     delete engine;
 }
 
