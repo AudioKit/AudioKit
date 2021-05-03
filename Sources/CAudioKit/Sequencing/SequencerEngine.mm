@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <atomic>
 #include "../../Internals/Utilities/readerwriterqueue.h"
+#include "../../Internals/Utilities/AtomicDataPtr.h"
 #define NOTEON 0x90
 #define NOTEOFF 0x80
 
@@ -56,9 +57,7 @@ struct SequencerEngineImpl {
     UInt64 framesCounted = 0;
     std::atomic<bool> isStarted{false};
 
-    SequencerData* data = nullptr;
-    std::atomic<SequencerData*> nextData{nullptr};
-    std::vector< std::unique_ptr<SequencerData> > oldData;
+    AtomicDataPtr<SequencerData> data;
 
     ReaderWriterQueue<SequencerEvent> eventQueue;
 
@@ -71,20 +70,6 @@ struct SequencerEngineImpl {
 
     ~SequencerEngineImpl() {
         stopAllPlayingNotes();
-    }
-
-    void collectData() {
-
-        // Start from the end. Once we find a finished
-        // data, delete all programs before and including.
-        for (auto it = oldData.end(); it > oldData.begin();
-             --it) {
-            if ((*(it - 1))->done) {
-                // Remove the data from the vector.
-                oldData.erase(oldData.begin(), it);
-                break;
-            }
-        }
     }
 
     int beatToSamples(double beat) const {
@@ -153,21 +138,6 @@ struct SequencerEngineImpl {
         positionInSamples = beatToSamples(position);
     }
 
-    void updateData() {
-
-        SequencerData* newData = nextData;
-        if(newData != data) {
-
-            // Main thread may clean up old sequencer data now.
-            if(data) {
-                data->done = true;
-            }
-
-            // Update data.
-            data = newData;
-        }
-    }
-
     void processEvents() {
 
         SequencerEvent event;
@@ -191,7 +161,7 @@ struct SequencerEngineImpl {
 
     void process(AUAudioFrameCount frameCount) {
 
-        updateData();
+        data.update();
         processEvents();
 
         if (isStarted) {
@@ -264,9 +234,7 @@ AURenderObserver akSequencerEngineUpdateSequence(SequencerEngineRef engine,
     data->sampleRate = sampleRate;
     data->midiBlock = block;
     data->events = {eventsPtr, eventsPtr+eventCount};
-    impl->nextData = data;
-    impl->oldData.emplace_back(data);
-    impl->collectData();
+    impl->data.set(data);
 
     return ^void(AudioUnitRenderActionFlags actionFlags,
                  const AudioTimeStamp *timestamp,
