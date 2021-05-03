@@ -244,7 +244,7 @@ void akSequencerEngineRelease(SequencerEngineRef engine) {
 }
 
 /// Updates the sequence and returns a new render observer.
-AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
+AURenderObserver akSequencerEngineUpdateSequence(SequencerEngineRef engine,
                                                  const SequenceEvent* eventsPtr,
                                                  size_t eventCount,
                                                  SequenceSettings settings,

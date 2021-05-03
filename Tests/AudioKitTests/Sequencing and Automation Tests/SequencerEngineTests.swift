@@ -32,7 +32,7 @@ class SequencerEngineTests: XCTestCase {
 
         let orderedEvents = sequence.beatTimeOrderedEvents()
         orderedEvents.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
-            let observer = SequencerEngineUpdateSequence(engine,
+            let observer = akSequencerEngineUpdateSequence(engine,
                                                          eventsPtr.baseAddress,
                                                          orderedEvents.count,
                                                          settings,

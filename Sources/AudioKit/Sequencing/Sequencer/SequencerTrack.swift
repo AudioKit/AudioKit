@@ -135,7 +135,7 @@ open class SequencerTrack {
 
         let orderedEvents = sequence.beatTimeOrderedEvents()
         orderedEvents.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in
-            guard let observer = SequencerEngineUpdateSequence(engine,
+            guard let observer = akSequencerEngineUpdateSequence(engine,
                                                                  eventsPtr.baseAddress,
                                                                  orderedEvents.count,
                                                                  settings,

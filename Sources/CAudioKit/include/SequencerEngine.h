@@ -37,12 +37,12 @@ AK_API SequencerEngineRef akSequencerEngineCreate(void);
 AK_API void akSequencerEngineRelease(SequencerEngineRef engine);
 
 /// Updates the sequence and returns a new render observer.
-AK_API AURenderObserver SequencerEngineUpdateSequence(SequencerEngineRef engine,
-                                                      const SequenceEvent* events,
-                                                      size_t eventCount,
-                                                      SequenceSettings settings,
-                                                      double sampleRate,
-                                                      AUScheduleMIDIEventBlock block);
+AK_API AURenderObserver akSequencerEngineUpdateSequence(SequencerEngineRef engine,
+                                                        const SequenceEvent* events,
+                                                        size_t eventCount,
+                                                        SequenceSettings settings,
+                                                        double sampleRate,
+                                                        AUScheduleMIDIEventBlock block);
 
 /// Returns the sequencer playhead position in beats.
 AK_API double akSequencerEngineGetPosition(SequencerEngineRef engine);
