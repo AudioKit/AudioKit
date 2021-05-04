@@ -36,7 +36,7 @@ extension AudioPlayer {
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
 
-        if !isScheduled {
+        if !isScheduled || isSeeking {
             schedule(at: when,
                      completionCallbackType: completionCallbackType)
         }
@@ -62,7 +62,7 @@ extension AudioPlayer {
            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
         }
-        return pausedTime
+        return editStartTime
     }
 
     /// Sets the player's audio file to a certain time in the track (in seconds)
@@ -80,11 +80,12 @@ extension AudioPlayer {
 
         if wasPlaying {
             play(from: time, to: duration)
-
         } else {
             editStartTime = time
             editEndTime = duration
         }
+        
+        isSeeking = false
     }
 }
 

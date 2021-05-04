@@ -165,14 +165,12 @@ public class AudioPlayer: Node {
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
+        guard !isSeeking else { return }
         guard isPlaying, engine?.isInManualRenderingMode == false else { return }
 
         scheduleTime = nil
-
-        if !isSeeking {
-            completionHandler?()
-            isPlaying = false
-        }
+        completionHandler?()
+        isPlaying = false
 
         if !isBuffered, isLooping, engine?.isRunning == true {
             Log("Playing loop...")
