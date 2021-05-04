@@ -74,8 +74,6 @@ extension AudioPlayer {
 
         let time = (0 ... duration).clamp(time)
 
-        Log(wasPlaying, time)
-
         isSeeking = true
 
         if wasPlaying {
@@ -84,7 +82,7 @@ extension AudioPlayer {
             editStartTime = time
             editEndTime = duration
         }
-        
+
         isSeeking = false
     }
 }

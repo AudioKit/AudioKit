@@ -173,7 +173,6 @@ public class AudioPlayer: Node {
         isPlaying = false
 
         if !isBuffered, isLooping, engine?.isRunning == true {
-            Log("Playing loop...")
             play()
             return
         }
