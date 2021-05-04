@@ -249,7 +249,6 @@ extension AudioPlayerFileTests {
         XCTAssertFalse(player.isBuffered, "isBuffered isn't correct")
 
         wait(for: 2)
-        cleanup()
     }
 
     func realtimeTestSeek(buffered: Bool = false) {
@@ -267,17 +266,24 @@ extension AudioPlayerFileTests {
         engine.output = player
         try? engine.start()
 
-        player.completionHandler = { Log("🏁 Completion Handler") }
+        player.completionHandler = {
+            Log("🏁 Completion Handler", Thread.current)
+        }
         player.isBuffered = buffered
 
         // 2 3 4
         player.seek(time: 1)
         player.play()
+
         XCTAssertTrue(player.isPlaying)
-        wait(for: 2)
+        wait(for: 1)
+        player.stop()
+        wait(for: 1)
 
         // 4
         player.seek(time: 3)
+        player.play()
+
         XCTAssertTrue(player.isPlaying)
         wait(for: 1)
 
@@ -285,7 +291,15 @@ extension AudioPlayerFileTests {
         // rewind to 4 while playing
         player.seek(time: 3)
         XCTAssertTrue(player.isPlaying)
-        wait(for: 2)
+        wait(for: 1)
+
+        player.seek(time: 2)
+        XCTAssertTrue(player.isPlaying)
+        wait(for: 1)
+
+        player.seek(time: 1)
+        XCTAssertTrue(player.isPlaying)
+        wait(for: 1)
 
         var time = player.duration
 

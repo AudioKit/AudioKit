@@ -72,6 +72,8 @@ public class AudioPlayer: Node {
         }
     }
 
+    public var isSeeking: Bool = false
+
     /// Length of the audio file in seconds
     public var duration: TimeInterval {
         file?.duration ?? bufferDuration
@@ -166,8 +168,11 @@ public class AudioPlayer: Node {
         guard isPlaying, engine?.isInManualRenderingMode == false else { return }
 
         scheduleTime = nil
-        completionHandler?()
-        isPlaying = false
+
+        if !isSeeking {
+            completionHandler?()
+            isPlaying = false
+        }
 
         if !isBuffered, isLooping, engine?.isRunning == true {
             Log("Playing loop...")
