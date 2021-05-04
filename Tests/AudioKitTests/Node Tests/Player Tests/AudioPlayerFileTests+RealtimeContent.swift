@@ -270,17 +270,15 @@ extension AudioPlayerFileTests {
         player.completionHandler = { Log("🏁 Completion Handler") }
         player.isBuffered = buffered
 
-        // 2 3
+        // 2 3 4
         player.seek(time: 1)
         player.play()
+        XCTAssertTrue(player.isPlaying)
         wait(for: 2)
-
-        player.pause()
-        wait(for: 1)
 
         // 4
         player.seek(time: 3)
-        player.play()
+        XCTAssertTrue(player.isPlaying)
         wait(for: 1)
 
         // 4 5
@@ -295,7 +293,7 @@ extension AudioPlayerFileTests {
         while time > 0 {
             time -= 1
             player.seek(time: time)
-            player.play()
+            XCTAssertTrue(player.isPlaying)
             wait(for: 1)
         }
         player.stop()
