@@ -14,7 +14,9 @@ extension AudioPlayer {
                      to endTime: TimeInterval? = nil,
                      at when: AVAudioTime? = nil,
                      completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
-        guard !isPlaying || isPaused else { return }
+        if isPlaying || isPaused {
+            playerNode.stop()
+        }
 
         guard let engine = playerNode.engine else {
             Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
@@ -69,18 +71,19 @@ extension AudioPlayer {
     ///   - time seconds into the audio file to set playhead
     public func seek(time: TimeInterval) {
         let wasPlaying = isPlaying
-        
-        // cancels any scheduled events
-        playerNode.stop()
 
-        editStartTime = time
-        editEndTime = duration
+        let time = (0 ... duration).clamp(time)
 
-        if wasPlaying && !isPaused {
-            play(from: editStartTime, to: editEndTime)
+        Log(wasPlaying, time)
+
+        isSeeking = true
+
+        if wasPlaying {
+            play(from: time, to: duration)
 
         } else {
-            pausedTime = TimeInterval(time)
+            editStartTime = time
+            editEndTime = duration
         }
     }
 }
@@ -99,6 +102,7 @@ extension AudioPlayer: Toggleable {
         guard isPlaying else { return }
         pausedTime = getCurrentTime()
         isPlaying = false
+        isSeeking = false
         playerNode.stop()
         scheduleTime = nil
     }
