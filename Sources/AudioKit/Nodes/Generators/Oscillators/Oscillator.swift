@@ -90,7 +90,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit("OscillatorDSP") { avAudioUnit in
+        instantiateAudioUnit("oscl") { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
