@@ -53,5 +53,3 @@ But, there are many other important people in our family:
 | [Core Team](https://github.com/orgs/AudioKit/people)                     | The biggest contributors to AudioKit!                                            |
 | [Slack](https://audiokit.slack.com)                                      | Pro-level developer chat group, contact a core team member for an in invitation. |
 | [Contributors](https://github.com/AudioKit/AudioKit/graphs/contributors) | A list of all people who have submitted code to AudioKit.                        |
-
-<a href="https://github.com/AudioKit/AudioKit/graphs/contributors"><img src="https://opencollective.com/AudioKit/contributors.svg?width=890&button=false" /></a>
