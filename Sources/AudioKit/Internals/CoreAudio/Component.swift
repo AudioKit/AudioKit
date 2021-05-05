@@ -26,6 +26,22 @@ extension AudioUnitContainer {
             guard let au = avAudioUnit else {
                 fatalError("Unable to instantiate AVAudioUnit")
             }
+            guard let myAU = au.auAudioUnit as? Self.AudioUnitType else {
+                fatalError("AudioUnit not of expected type")
+            }
+            if let paramDefs = myAU.getParameterDefs() {
+                myAU.parameterTree = AUParameterTree.createTree(withChildren:
+                    paramDefs.map {
+                        AUParameter(identifier: $0.identifier,
+                                    name: $0.name,
+                                    address: $0.address,
+                                    min: $0.range.lowerBound,
+                                    max: $0.range.upperBound,
+                                    unit: $0.unit,
+                                    flags: $0.flags)
+                    }
+                )
+            }
             callback(au)
         }
     }

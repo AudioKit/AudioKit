@@ -127,22 +127,8 @@ open class AudioUnitBase: AUAudioUnit {
             outputBusArray.append(try AUAudioUnitBus(format: format))
         }
 
-        if let paramDefs = getParameterDefs() {
-            parameterTree = AUParameterTree.createTree(withChildren:
-                paramDefs.map {
-                    AUParameter(identifier: $0.identifier,
-                                name: $0.name,
-                                address: $0.address,
-                                min: $0.range.lowerBound,
-                                max: $0.range.upperBound,
-                                unit: $0.unit,
-                                flags: $0.flags)
-                }
-            )
+        parameterTree = AUParameterTree.createTree(withChildren: [])
 
-        } else {
-            parameterTree = AUParameterTree.createTree(withChildren: [])
-        }
     }
 
     deinit {
