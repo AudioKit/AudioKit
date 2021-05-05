@@ -41,6 +41,25 @@ extension AudioUnitContainer {
                                     flags: $0.flags)
                     }
                 )
+            } else {
+                let mirror = Mirror(reflecting: self)
+                var params: [AUParameter] = []
+
+                for child in mirror.children {
+                    if let param = child.value as? ParameterBase {
+                        if let def = param.projectedValue.def {
+                            params.append(AUParameter(identifier: def.identifier,
+                                                      name: def.name,
+                                                      address: def.address,
+                                                      min: def.range.lowerBound,
+                                                      max: def.range.upperBound,
+                                                      unit: def.unit,
+                                                      flags: def.flags))
+                        }
+                    }
+                }
+
+                myAU.parameterTree = AUParameterTree.createTree(withChildren: params)
             }
             callback(au)
         }
