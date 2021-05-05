@@ -9,11 +9,11 @@ AudioKit
 
 AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS (including Catalyst), and tvOS.
 
-## Installation via Swift Package Manager
+## Installation
 
 To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL. Check the use branch option and enter `v5-main` or `v5-develop`.
 
-Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be reintroduced when AudioKit 5 is officially released.
+Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be reintroduced if necessary.
 
 ## Documentation
 
@@ -35,7 +35,6 @@ The [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) contains many reci
 
 When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to main),
 make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
-
 
 ## About Us
 
