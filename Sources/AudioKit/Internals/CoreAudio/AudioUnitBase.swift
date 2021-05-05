@@ -120,6 +120,10 @@ open class AudioUnitBase: AUAudioUnit {
             try setup(dsp: dsp)
         }
 
+        // All AudioKit nodes have one output bus.
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
+        outputBusArray.append(try AUAudioUnitBus(format: format))
+
         parameterTree = AUParameterTree.createTree(withChildren: [])
 
     }
@@ -133,9 +137,6 @@ open class AudioUnitBase: AUAudioUnit {
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         for _ in 0..<inputBusCountDSP(dsp) {
             inputBusArray.append(try AUAudioUnitBus(format: format))
-        }
-        for _ in 0..<outputBusCountDSP(dsp) {
-            outputBusArray.append(try AUAudioUnitBus(format: format))
         }
         self.dsp = dsp
     }

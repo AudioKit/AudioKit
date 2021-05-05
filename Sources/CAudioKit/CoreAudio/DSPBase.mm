@@ -15,11 +15,6 @@ size_t inputBusCountDSP(DSPRef pDSP)
     return pDSP->inputBufferLists.size();
 }
 
-size_t outputBusCountDSP(DSPRef pDSP)
-{
-    return 1; // We don't currently support multiple output busses.
-}
-
 bool canProcessInPlaceDSP(DSPRef pDSP)
 {
     return pDSP->canProcessInPlace();
