@@ -16,7 +16,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "pdho")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -35,7 +35,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency in cycles per second
-    @Parameter public var frequency: AUValue
+    @Parameter2(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -47,7 +47,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output Amplitude.
-    @Parameter public var amplitude: AUValue
+    @Parameter2(amplitudeDef) public var amplitude: AUValue
 
     /// Specification details for phaseDistortion
     public static let phaseDistortionDef = NodeParameterDef(
@@ -59,7 +59,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amount of distortion, within the range [-1, 1]. 0 is no distortion.
-    @Parameter public var phaseDistortion: AUValue
+    @Parameter2(phaseDistortionDef) public var phaseDistortion: AUValue
 
     /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
@@ -71,7 +71,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency offset in Hz.
-    @Parameter public var detuningOffset: AUValue
+    @Parameter2(detuningOffsetDef) public var detuningOffset: AUValue
 
     /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
@@ -83,28 +83,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency detuning multiplier
-    @Parameter public var detuningMultiplier: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for PhaseDistortionOscillator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [PhaseDistortionOscillator.frequencyDef,
-             PhaseDistortionOscillator.amplitudeDef,
-             PhaseDistortionOscillator.phaseDistortionDef,
-             PhaseDistortionOscillator.detuningOffsetDef,
-             PhaseDistortionOscillator.detuningMultiplierDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PhaseDistortionOscillatorDSP")
-        }
-    }
+    @Parameter2(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 
@@ -128,7 +107,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit("PhaseDistortionOscillatorDSP") { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
