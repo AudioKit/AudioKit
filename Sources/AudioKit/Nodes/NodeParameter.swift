@@ -50,6 +50,9 @@ public class NodeParameter {
     /// AU Parameter that this wraps
     public private(set) var parameter: AUParameter!
 
+    /// Def if available. (XXX: should not be optional)
+    public var def: NodeParameterDef?
+
     // MARK: Parameter properties
 
     /// Value of the parameter
@@ -77,6 +80,10 @@ public class NodeParameter {
     /// Value range
     public var range: ClosedRange<AUValue> {
         (parameter.minValue ... parameter.maxValue)
+    }
+
+    public init(_ def: NodeParameterDef? = nil) {
+        self.def = def
     }
 
     // MARK: Automation
@@ -264,6 +271,28 @@ public struct Parameter<Value: NodeParameterType>: ParameterBase {
 
     /// Empty initializer
     public init() {}
+
+    /// Get the wrapped value
+    public var wrappedValue: Value {
+        get { Value(param.value) }
+        set { param.value = newValue.toAUValue() }
+    }
+
+    /// Get the projected value
+    public var projectedValue: NodeParameter {
+        get { param }
+        set { param = newValue }
+    }
+}
+
+@propertyWrapper
+public struct Parameter2<Value: NodeParameterType>: ParameterBase {
+    var param: NodeParameter
+
+    /// Empty initializer
+    public init(_ def: NodeParameterDef) {
+        param = NodeParameter(def)
+    }
 
     /// Get the wrapped value
     public var wrappedValue: Value {

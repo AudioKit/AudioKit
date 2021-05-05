@@ -32,7 +32,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency in cycles per second
-    @Parameter public var frequency: AUValue
+    @Parameter2(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
