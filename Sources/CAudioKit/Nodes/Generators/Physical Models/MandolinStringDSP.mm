@@ -4,7 +4,6 @@
 #import "StkBundleHelper.h"
 
 #include "Mandolin.h"
-#include "mand_raw.h"
 
 class MandolinStringDSP : public STKInstrumentDSP {
 private:
