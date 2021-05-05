@@ -45,7 +45,7 @@ public struct NodeParameterDef {
 /// NodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
 public class NodeParameter {
-    private var avAudioUnit: AVAudioUnit!
+    private var avAudioNode: AVAudioNode!
 
     /// AU Parameter that this wraps
     public private(set) var parameter: AUParameter!
@@ -90,10 +90,10 @@ public class NodeParameter {
     /// - Parameter events: automation curve
     /// - Parameter startTime: optional time to start automation
     public func automate(events: [AutomationEvent], startTime: AVAudioTime? = nil) {
-        var lastRenderTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
+        var lastRenderTime = avAudioNode.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
 
         if !lastRenderTime.isSampleTimeValid {
-            if let engine = avAudioUnit.engine, engine.isInManualRenderingMode {
+            if let engine = avAudioNode.engine, engine.isInManualRenderingMode {
                 lastRenderTime = AVAudioTime(sampleTime: engine.manualRenderingSampleTime, atRate: Settings.sampleRate)
             } else {
                 lastRenderTime = AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
@@ -118,19 +118,19 @@ public class NodeParameter {
             guard let automationBaseAddress = automationPtr.baseAddress else { return }
 
             guard let observer = ParameterAutomationGetRenderObserver(parameter.address,
-                                                                      avAudioUnit.auAudioUnit.scheduleParameterBlock,
+                                                                      avAudioNode.auAudioUnit.scheduleParameterBlock,
                                                                       Float(Settings.sampleRate),
                                                                       Float(lastTime.sampleTime),
                                                                       automationBaseAddress,
                                                                       events.count) else { return }
 
-            renderObserverToken = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
+            renderObserverToken = avAudioNode.auAudioUnit.token(byAddingRenderObserver: observer)
         }
     }
 
     /// Automate to a new value using a ramp.
     public func ramp(to value: AUValue, duration: Float) {
-        let paramBlock = avAudioUnit.auAudioUnit.scheduleParameterBlock
+        let paramBlock = avAudioNode.auAudioUnit.scheduleParameterBlock
         paramBlock(AUEventSampleTimeImmediate,
                    AUAudioFrameCount(duration * Float(Settings.sampleRate)),
                    parameter.address,
@@ -140,7 +140,7 @@ public class NodeParameter {
     /// Stop automation
     public func stopAutomation() {
         if let token = renderObserverToken {
-            avAudioUnit.auAudioUnit.removeRenderObserver(token)
+            avAudioNode.auAudioUnit.removeRenderObserver(token)
         }
     }
 
@@ -173,9 +173,9 @@ public class NodeParameter {
     // MARK: Lifecycle
 
     /// This function should be called from Node subclasses as soon as a valid AU is obtained
-    public func associate(with avAudioUnit: AVAudioUnit, identifier: String) {
-        self.avAudioUnit = avAudioUnit
-        parameter = avAudioUnit.auAudioUnit.parameterTree?[identifier]
+    public func associate(with avAudioNode: AVAudioNode, identifier: String) {
+        self.avAudioNode = avAudioNode
+        parameter = avAudioNode.auAudioUnit.parameterTree?[identifier]
         assert(parameter != nil)
     }
 
@@ -183,9 +183,9 @@ public class NodeParameter {
     /// - Parameters:
     ///   - avAudioUnit: AVAudioUnit to associate with
     ///   - index: Position of the parameter
-    public func associate(with avAudioUnit: AVAudioUnit, index: Int) {
-        self.avAudioUnit = avAudioUnit
-        parameter = avAudioUnit.auAudioUnit.parameterTree!.allParameters[index]
+    public func associate(with avAudioNode: AVAudioNode, index: Int) {
+        self.avAudioNode = avAudioNode
+        parameter = avAudioNode.auAudioUnit.parameterTree!.allParameters[index]
         assert(parameter != nil)
     }
 
