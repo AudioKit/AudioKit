@@ -14,7 +14,9 @@ extension AudioPlayer {
                      to endTime: TimeInterval? = nil,
                      at when: AVAudioTime? = nil,
                      completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
-        guard !isPlaying || isPaused else { return }
+        if isPlaying || isPaused {
+            playerNode.stop()
+        }
 
         guard let engine = playerNode.engine else {
             Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
@@ -34,7 +36,7 @@ extension AudioPlayer {
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
 
-        if !isScheduled {
+        if !isScheduled || isSeeking {
             schedule(at: when,
                      completionCallbackType: completionCallbackType)
         }
@@ -60,7 +62,7 @@ extension AudioPlayer {
            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
         }
-        return pausedTime
+        return editStartTime
     }
 
     /// Sets the player's audio file to a certain time in the track (in seconds)
@@ -69,19 +71,19 @@ extension AudioPlayer {
     ///   - time seconds into the audio file to set playhead
     public func seek(time: TimeInterval) {
         let wasPlaying = isPlaying
-        
-        // cancels any scheduled events
-        playerNode.stop()
 
-        editStartTime = time
-        editEndTime = duration
+        let time = (0 ... duration).clamp(time)
 
-        if wasPlaying && !isPaused {
-            play(from: editStartTime, to: editEndTime)
+        isSeeking = true
 
+        if wasPlaying {
+            play(from: time, to: duration)
         } else {
-            pausedTime = TimeInterval(time)
+            editStartTime = time
+            editEndTime = duration
         }
+
+        isSeeking = false
     }
 }
 
@@ -99,6 +101,7 @@ extension AudioPlayer: Toggleable {
         guard isPlaying else { return }
         pausedTime = getCurrentTime()
         isPlaying = false
+        isSeeking = false
         playerNode.stop()
         scheduleTime = nil
     }

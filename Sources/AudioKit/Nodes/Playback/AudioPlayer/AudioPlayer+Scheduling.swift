@@ -14,7 +14,8 @@ extension AudioPlayer {
 
         if isBuffered {
             updateBuffer()
-            scheduleBuffer(at: when)
+            scheduleBuffer(at: when,
+                           completionCallbackType: completionCallbackType)
 
         } else if file != nil {
             scheduleSegment(at: when,
@@ -54,7 +55,7 @@ extension AudioPlayer {
                                    startingFrame: startFrame,
                                    frameCount: frameCount,
                                    at: audioTime,
-                                   completionCallbackType: completionCallbackType) { _ in
+                                   completionCallbackType: completionCallbackType) { callbackType in
             self.internalCompletionHandler()
         }
 
@@ -83,7 +84,7 @@ extension AudioPlayer {
         playerNode.scheduleBuffer(buffer,
                                   at: audioTime,
                                   options: bufferOptions,
-                                  completionCallbackType: completionCallbackType) { _ in
+                                  completionCallbackType: completionCallbackType) { callbackType in
             self.internalCompletionHandler()
         }
 
