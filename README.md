@@ -1,4 +1,4 @@
-AudioKit V5.0 Beta / Developer's Release
+AudioKit
 ===
 
 [![Build Status](https://github.com/AudioKit/AudioKit/workflows/CI/badge.svg)](https://github.com/AudioKit/AudioKit/actions?query=workflow%3ACI)
@@ -8,15 +8,6 @@ AudioKit V5.0 Beta / Developer's Release
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitPro.svg?style=social)](http://twitter.com/AudioKitPro)
 
 AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS (including Catalyst), and tvOS.
-
-## Important notes for AudioKit Version 4 Users
-
-If you are using AudioKit in production, you may want to stick to our latest stable release of Version 4 because there are a number of things we are still working out.
-But, since Version 5 is well on its way, we don't think new users should use Version 4 anymore. When AudioKit 5 is ready, we will make a 5.0 release, but even then
-a Version 4 branch will be maintained because of its large user base, and also because there are things in AudioKit 4 that are not yet available in version 5.
-
-Most importantly, you must read the [Migration Guide](docs/MigrationGuide.md).
-You will also want to check the progress of the [AudioKit 5 Release Push Project](https://github.com/AudioKit/AudioKit/projects/5).
 
 ## Installation via Swift Package Manager
 
@@ -42,7 +33,7 @@ The [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) contains many reci
 
 ## Contributing Code
 
-When you want to modify AudioKit, check out the [v5-develop](https://github.com/audiokit/AudioKit/tree/v5-develop) branch (as opposed to v5-main),
+When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to main),
 make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
 
 
