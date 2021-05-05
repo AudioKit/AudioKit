@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: XCFrameworks
-          path: Frameworks/AudioKit.xcframeworks.zip
+          path: .ci/AudioKit.xcframeworks.zip
 
   # Upload release assets for tags
   release:
@@ -77,7 +77,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: false
           draft: true
-          files: Frameworks/AudioKit.xcframeworks.zip
+          files: .ci/AudioKit.xcframeworks.zip
 
   # Generate Wiki docs on release
   docs:
