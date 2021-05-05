@@ -116,15 +116,8 @@ open class AudioUnitBase: AUAudioUnit {
 
         // Create pointer to the underlying C++ DSP code
         dsp = createDSP()
-        if dsp == nil { throw CommonError.InvalidDSPObject }
-
-        // create audio bus connection points
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
-        for _ in 0..<inputBusCountDSP(dsp) {
-            inputBusArray.append(try AUAudioUnitBus(format: format))
-        }
-        for _ in 0..<outputBusCountDSP(dsp) {
-            outputBusArray.append(try AUAudioUnitBus(format: format))
+        if let dsp = dsp {
+            try setup(dsp: dsp)
         }
 
         parameterTree = AUParameterTree.createTree(withChildren: [])
@@ -133,6 +126,18 @@ open class AudioUnitBase: AUAudioUnit {
 
     deinit {
         deleteDSP(dsp)
+    }
+
+    func setup(dsp: DSPRef) throws {
+        // create audio bus connection points
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
+        for _ in 0..<inputBusCountDSP(dsp) {
+            inputBusArray.append(try AUAudioUnitBus(format: format))
+        }
+        for _ in 0..<outputBusCountDSP(dsp) {
+            outputBusArray.append(try AUAudioUnitBus(format: format))
+        }
+        self.dsp = dsp
     }
 
     // MARK: AudioKit

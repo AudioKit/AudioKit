@@ -64,6 +64,43 @@ extension AudioUnitContainer {
             callback(au)
         }
     }
+
+    public func instantiateAudioUnit(_ dspName: String, callback: @escaping (AVAudioUnit) -> Void) {
+        AUAudioUnit.registerSubclass(Self.AudioUnitType.self,
+                                     as: Self.ComponentDescription,
+                                     name: "Local \(Self.self)",
+                                     version: .max)
+        AVAudioUnit.instantiate(with: Self.ComponentDescription) { avAudioUnit, _ in
+            guard let au = avAudioUnit else {
+                fatalError("Unable to instantiate AVAudioUnit")
+            }
+            guard let myAU = au.auAudioUnit as? Self.AudioUnitType else {
+                fatalError("AudioUnit not of expected type")
+            }
+
+            try! myAU.setup(dsp: akCreateDSP(dspName))
+
+            let mirror = Mirror(reflecting: self)
+            var params: [AUParameter] = []
+            
+            for child in mirror.children {
+                if let param = child.value as? ParameterBase {
+                    if let def = param.projectedValue.def {
+                        params.append(AUParameter(identifier: def.identifier,
+                                                  name: def.name,
+                                                  address: def.address,
+                                                  min: def.range.lowerBound,
+                                                  max: def.range.upperBound,
+                                                  unit: def.unit,
+                                                  flags: def.flags))
+                    }
+                }
+            }
+            
+            myAU.parameterTree = AUParameterTree.createTree(withChildren: params)
+            callback(au)
+        }
+    }
 }
 
 extension AUParameterTree {

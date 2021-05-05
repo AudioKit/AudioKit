@@ -13,7 +13,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -70,17 +70,6 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
     /// Frequency detuning multiplier
     @Parameter2(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Oscillator
-    public class InternalAU: AudioUnitBase {
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("OscillatorDSP")
-        }
-    }
-
     // MARK: - Initialization
 
     /// Initialize this oscillator node
@@ -101,7 +90,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit("OscillatorDSP") { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
