@@ -115,7 +115,7 @@ open class AudioUnitBase: AUAudioUnit {
         try super.init(componentDescription: componentDescription, options: options)
 
         // Create pointer to C++ DSP code.
-        dsp = akCreateDSP2(componentDescription.componentSubType)
+        dsp = akCreateDSP(componentDescription.componentSubType)
         assert(dsp != nil)
 
         // create audio bus connection points

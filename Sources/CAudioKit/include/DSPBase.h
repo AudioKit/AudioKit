@@ -7,8 +7,7 @@
 
 #include <stdarg.h>
 
-AK_API DSPRef akCreateDSP(const char* name);
-AK_API DSPRef akCreateDSP2(OSType code);
+AK_API DSPRef akCreateDSP(OSType code);
 AK_API AUParameterAddress akGetParameterAddress(const char* name);
 
 AK_API AUInternalRenderBlock internalRenderBlockDSP(DSPRef pDSP);
