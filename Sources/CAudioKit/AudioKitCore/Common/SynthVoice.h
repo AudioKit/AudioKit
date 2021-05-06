@@ -38,8 +38,9 @@ namespace AudioKitCore
     struct SynthVoice
     {
         SynthVoiceParameters *pParameters;
+        std::mt19937 gen{0};
 
-        EnsembleOscillator osc1, osc2;
+        EnsembleOscillator osc1{&gen}, osc2{&gen};
         DrawbarsOscillator osc3;
         MultiStageFilter leftFilter, rightFilter;            // two filters (left/right)
         ADSREnvelope ampEG, filterEG;
