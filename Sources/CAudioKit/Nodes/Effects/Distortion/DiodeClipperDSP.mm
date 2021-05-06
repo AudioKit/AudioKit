@@ -16,7 +16,7 @@ enum DiodeClipperParameter {
 };
 
 using DiodeClipperDSP = SoulDSP<Diode>;
-AK_REGISTER_DSP(DiodeClipperDSP)
+AK_REGISTER_DSP2(DiodeClipperDSP, "dclp")
 AK_REGISTER_PARAMETER(DiodeClipperParameterCutoff)
 AK_REGISTER_PARAMETER(DiodeClipperParameterGaindB)
 

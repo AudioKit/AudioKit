@@ -112,7 +112,7 @@ public:
 
 };
 
-AK_REGISTER_DSP(RhinoGuitarProcessorDSP)
+AK_REGISTER_DSP2(RhinoGuitarProcessorDSP, "rhgp")
 AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterPreGain)
 AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterPostGain)
 AK_REGISTER_PARAMETER(RhinoGuitarProcessorParameterLowGain)

@@ -126,7 +126,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(DynaRageCompressorDSP)
+AK_REGISTER_DSP2(DynaRageCompressorDSP, "dyrc")
 AK_REGISTER_PARAMETER(DynaRageCompressorParameterRatio)
 AK_REGISTER_PARAMETER(DynaRageCompressorParameterThreshold)
 AK_REGISTER_PARAMETER(DynaRageCompressorParameterAttackDuration)

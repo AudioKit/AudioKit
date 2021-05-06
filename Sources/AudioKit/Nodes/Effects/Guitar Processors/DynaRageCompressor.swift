@@ -12,7 +12,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "dyrc")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -29,7 +29,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Ratio to compress with, a value > 1 will compress
-    @Parameter public var ratio: AUValue
+    @Parameter2(ratioDef) public var ratio: AUValue
 
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
@@ -41,7 +41,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Threshold (in dB) 0 = max
-    @Parameter public var threshold: AUValue
+    @Parameter2(thresholdDef) public var threshold: AUValue
 
     /// Specification details for attack duration
     public static let attackDurationDef = NodeParameterDef(
@@ -53,7 +53,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Attack dration
-    @Parameter public var attackDuration: AUValue
+    @Parameter2(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for release duration
     public static let releaseDurationDef = NodeParameterDef(
@@ -65,7 +65,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Release duration
-    @Parameter public var releaseDuration: AUValue
+    @Parameter2(releaseDurationDef) public var releaseDuration: AUValue
 
     /// Specification details for rage amount
     public static let rageDef = NodeParameterDef(
@@ -77,7 +77,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Rage Amount
-    @Parameter public var rage: AUValue
+    @Parameter2(rageDef) public var rage: AUValue
 
     /// Specification details for range enabling
     public static let rageEnabledDef = NodeParameterDef(
@@ -89,29 +89,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Rage ON/OFF Switch
-    @Parameter public var rageEnabled: Bool
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for DynaRageCompressor
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [DynaRageCompressor.ratioDef,
-             DynaRageCompressor.thresholdDef,
-             DynaRageCompressor.attackDurationDef,
-             DynaRageCompressor.releaseDurationDef,
-             DynaRageCompressor.rageDef,
-             DynaRageCompressor.rageEnabledDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DynaRageCompressorDSP")
-        }
-    }
+    @Parameter2(rageEnabledDef) public var rageEnabled: Bool
 
     // MARK: - Initialization
 

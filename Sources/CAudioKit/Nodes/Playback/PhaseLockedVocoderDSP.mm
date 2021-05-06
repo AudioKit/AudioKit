@@ -78,7 +78,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(PhaseLockedVocoderDSP)
+AK_REGISTER_DSP2(PhaseLockedVocoderDSP, "minc")
 AK_REGISTER_PARAMETER(PhaseLockedVocoderParameterPosition)
 AK_REGISTER_PARAMETER(PhaseLockedVocoderParameterAmplitude)
 AK_REGISTER_PARAMETER(PhaseLockedVocoderParameterPitchRatio)
