@@ -117,6 +117,7 @@ open class AudioUnitBase: AUAudioUnit {
         // Create pointer to the underlying C++ DSP code
         // New preferred method is to use the component type.
         dsp = akCreateDSP2(componentDescription.componentSubType)
+        assert(dsp != nil)
         if let dsp = dsp {
             try setup(dsp: dsp)
         } else {
