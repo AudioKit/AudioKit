@@ -96,7 +96,7 @@ int CoreSynth::init(double sampleRate)
     data->voiceParameters.osc3.drawbars[6] = 0.4f;
     data->voiceParameters.osc3.drawbars[7] = 0.0f;
     data->voiceParameters.osc3.drawbars[8] = 0.0f;
-    data->voiceParameters.osc3.drawbars[8] = 0.0f;
+    data->voiceParameters.osc3.drawbars[9] = 0.0f;
     data->voiceParameters.osc3.drawbars[10] = 0.0f;
     data->voiceParameters.osc3.drawbars[11] = 0.0f;
     data->voiceParameters.osc3.drawbars[12] = 0.0f;

@@ -4,7 +4,6 @@ import AudioKit
 import XCTest
 import CAudioKit
 
-/*
 class SynthTests: XCTestCase {
 
     func testChord() {
@@ -60,4 +59,3 @@ class SynthTests: XCTestCase {
     }
 
 }
-*/
