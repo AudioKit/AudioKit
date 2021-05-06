@@ -50,4 +50,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(TubularBellsDSP);
+AK_REGISTER_DSP2(TubularBellsDSP, "tbel");
