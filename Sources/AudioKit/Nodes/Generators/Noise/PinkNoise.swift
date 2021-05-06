@@ -28,7 +28,7 @@ public class PinkNoise: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amplitude. (Value between 0-1).
-    @Parameter2(amplitudeDef) public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 

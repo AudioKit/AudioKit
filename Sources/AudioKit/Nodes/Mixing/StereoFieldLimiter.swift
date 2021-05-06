@@ -28,7 +28,7 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Limiting Factor
-    @Parameter2(amountDef) public var amount: AUValue
+    @Parameter(amountDef) public var amount: AUValue
 
     // MARK: - Initialization
 

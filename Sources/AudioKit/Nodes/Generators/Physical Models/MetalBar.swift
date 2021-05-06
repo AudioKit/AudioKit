@@ -29,7 +29,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    @Parameter2(leftBoundaryConditionDef) public var leftBoundaryCondition: AUValue
+    @Parameter(leftBoundaryConditionDef) public var leftBoundaryCondition: AUValue
 
     /// Specification details for rightBoundaryCondition
     public static let rightBoundaryConditionDef = NodeParameterDef(
@@ -41,7 +41,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    @Parameter2(rightBoundaryConditionDef) public var rightBoundaryCondition: AUValue
+    @Parameter(rightBoundaryConditionDef) public var rightBoundaryCondition: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
@@ -53,7 +53,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// 30db decay time (in seconds).
-    @Parameter2(decayDurationDef) public var decayDuration: AUValue
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
     /// Specification details for scanSpeed
     public static let scanSpeedDef = NodeParameterDef(
@@ -65,7 +65,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Speed of scanning the output location.
-    @Parameter2(scanSpeedDef) public var scanSpeed: AUValue
+    @Parameter(scanSpeedDef) public var scanSpeed: AUValue
 
     /// Specification details for position
     public static let positionDef = NodeParameterDef(
@@ -77,7 +77,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Position along bar that strike occurs.
-    @Parameter2(positionDef) public var position: AUValue
+    @Parameter(positionDef) public var position: AUValue
 
     /// Specification details for strikeVelocity
     public static let strikeVelocityDef = NodeParameterDef(
@@ -89,7 +89,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Normalized strike velocity
-    @Parameter2(strikeVelocityDef) public var strikeVelocity: AUValue
+    @Parameter(strikeVelocityDef) public var strikeVelocity: AUValue
 
     /// Specification details for strikeWidth
     public static let strikeWidthDef = NodeParameterDef(
@@ -101,7 +101,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Spatial width of strike.
-    @Parameter2(strikeWidthDef) public var strikeWidth: AUValue
+    @Parameter(strikeWidthDef) public var strikeWidth: AUValue
 
     // MARK: - Initialization
 

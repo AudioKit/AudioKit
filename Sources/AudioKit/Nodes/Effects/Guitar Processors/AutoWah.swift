@@ -28,7 +28,7 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Wah Amount
-    @Parameter2(wahDef) public var wah: AUValue
+    @Parameter(wahDef) public var wah: AUValue
 
     /// Specification details for mix
     public static let mixDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Dry/Wet Mix
-    @Parameter2(mixDef) public var mix: AUValue
+    @Parameter(mixDef) public var mix: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Overall level
-    @Parameter2(amplitudeDef) public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 

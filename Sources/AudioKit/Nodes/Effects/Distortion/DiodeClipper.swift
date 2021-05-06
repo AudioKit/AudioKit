@@ -29,7 +29,7 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Filter cutoff frequency.
-    @Parameter2(cutoffFrequencyDef) public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification for the gain
     public static let gainDef = NodeParameterDef(
@@ -41,7 +41,7 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    @Parameter2(gainDef) public var gain: AUValue
+    @Parameter(gainDef) public var gain: AUValue
     
     // MARK: - Initialization
 

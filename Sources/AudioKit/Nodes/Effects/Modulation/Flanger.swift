@@ -28,7 +28,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Modulation Frequency (Hz)
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification for the depth
     public static let depthDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Modulation Depth (fraction)
-    @Parameter2(depthDef) public var depth: AUValue
+    @Parameter(depthDef) public var depth: AUValue
 
     /// Specification for the feedback
     public static let feedbackDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Feedback (fraction)
-    @Parameter2(feedbackDef) public var feedback: AUValue
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     /// Specification for the dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Dry Wet Mix (fraction)
-    @Parameter2(dryWetMixDef) public var dryWetMix: AUValue
+    @Parameter(dryWetMixDef) public var dryWetMix: AUValue
 
     // MARK: - Initialization
 

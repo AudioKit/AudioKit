@@ -28,7 +28,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Cutoff frequency. (in Hertz)
-    @Parameter2(cutoffFrequencyDef) public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @Parameter2(resonanceDef) public var resonance: AUValue
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     /// Specification details for distortion
     public static let distortionDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-    @Parameter2(distortionDef) public var distortion: AUValue
+    @Parameter(distortionDef) public var distortion: AUValue
 
     /// Specification details for resonanceAsymmetry
     public static let resonanceAsymmetryDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Asymmetry of resonance. Value is between 0-1
-    @Parameter2(resonanceAsymmetryDef) public var resonanceAsymmetry: AUValue
+    @Parameter(resonanceAsymmetryDef) public var resonanceAsymmetry: AUValue
 
     // MARK: - Initialization
 

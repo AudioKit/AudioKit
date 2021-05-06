@@ -30,7 +30,7 @@ public class ModalResonanceFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Resonant frequency of the filter.
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for qualityFactor
     public static let qualityFactorDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class ModalResonanceFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    @Parameter2(qualityFactorDef) public var qualityFactor: AUValue
+    @Parameter(qualityFactorDef) public var qualityFactor: AUValue
 
     // MARK: - Initialization
 

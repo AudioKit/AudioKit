@@ -265,7 +265,7 @@ protocol ParameterBase {
 ///
 /// When writing an Node, use:
 /// ```
-/// @Parameter var myParameterName: AUValue
+/// @Parameter(myParameterDef) var myParameterName: AUValue
 /// ```
 /// This syntax gives us additional flexibility for how parameters are implemented internally.
 ///
@@ -273,30 +273,10 @@ protocol ParameterBase {
 /// because we don't yet have an underlying AUParameter.
 @propertyWrapper
 public struct Parameter<Value: NodeParameterType>: ParameterBase {
-    var param = NodeParameter()
-
-    /// Empty initializer
-    public init() {}
-
-    /// Get the wrapped value
-    public var wrappedValue: Value {
-        get { Value(param.value) }
-        set { param.value = newValue.toAUValue() }
-    }
-
-    /// Get the projected value
-    public var projectedValue: NodeParameter {
-        get { param }
-        set { param = newValue }
-    }
-}
-
-@propertyWrapper
-public struct Parameter2<Value: NodeParameterType>: ParameterBase {
     var param: NodeParameter
 
-    /// Empty initializer
-    public init(_ def: NodeParameterDef) {
+    /// Create a parameter given a definition. XXX: def should not be optional.
+    public init(_ def: NodeParameterDef? = nil) {
         param = NodeParameter(def)
     }
 

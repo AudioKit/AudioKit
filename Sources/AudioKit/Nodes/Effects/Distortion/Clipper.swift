@@ -28,7 +28,7 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Threshold / limiting value.
-    @Parameter2(limitDef) public var limit: AUValue
+    @Parameter(limitDef) public var limit: AUValue
 
     // MARK: - Initialization
 

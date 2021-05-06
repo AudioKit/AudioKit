@@ -28,7 +28,7 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Filter cutoff
-    @Parameter2(cutoffFrequencyDef) public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Filter resonance (should be between 0-2)
-    @Parameter2(resonanceDef) public var resonance: AUValue
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     /// Specification details for saturation
     public static let saturationDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Filter saturation.
-    @Parameter2(saturationDef) public var saturation: AUValue
+    @Parameter(saturationDef) public var saturation: AUValue
 
     // MARK: - Initialization
 

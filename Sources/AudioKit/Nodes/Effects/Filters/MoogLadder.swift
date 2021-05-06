@@ -32,7 +32,7 @@ public class MoogLadder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Filter cutoff frequency.
-    @Parameter2(cutoffFrequencyDef) public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
@@ -44,7 +44,7 @@ public class MoogLadder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @Parameter2(resonanceDef) public var resonance: AUValue
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     // MARK: - Initialization
 

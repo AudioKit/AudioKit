@@ -28,7 +28,7 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
-    @Parameter2(panDef) public var pan: AUValue
+    @Parameter(panDef) public var pan: AUValue
 
     // MARK: - Initialization
 

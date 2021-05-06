@@ -30,7 +30,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// In cycles per second, the common denominator for the carrier and modulating frequencies.
-    @Parameter2(baseFrequencyDef) public var baseFrequency: AUValue
+    @Parameter(baseFrequencyDef) public var baseFrequency: AUValue
 
     /// Specification details for carrierMultiplier
     public static let carrierMultiplierDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    @Parameter2(carrierMultiplierDef) public var carrierMultiplier: AUValue
+    @Parameter(carrierMultiplierDef) public var carrierMultiplier: AUValue
 
     /// Specification details for modulatingMultiplier
     public static let modulatingMultiplierDef = NodeParameterDef(
@@ -54,7 +54,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    @Parameter2(modulatingMultiplierDef) public var modulatingMultiplier: AUValue
+    @Parameter(modulatingMultiplierDef) public var modulatingMultiplier: AUValue
 
     /// Specification details for modulationIndex
     public static let modulationIndexDef = NodeParameterDef(
@@ -66,7 +66,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    @Parameter2(modulationIndexDef) public var modulationIndex: AUValue
+    @Parameter(modulationIndexDef) public var modulationIndex: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -78,7 +78,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output Amplitude.
-    @Parameter2(amplitudeDef) public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 

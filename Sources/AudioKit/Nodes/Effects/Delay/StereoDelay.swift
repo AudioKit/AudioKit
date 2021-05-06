@@ -28,7 +28,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    @Parameter2(timeDef) public var time: AUValue
+    @Parameter(timeDef) public var time: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Feedback amount. Should be a value between 0-1.
-    @Parameter2(feedbackDef) public var feedback: AUValue
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
        flags: .default)
 
     /// Dry/wet mix. Should be a value between 0-1.
-    @Parameter2(dryWetMixDef) public var dryWetMix: AUValue
+    @Parameter(dryWetMixDef) public var dryWetMix: AUValue
 
     /// Specification details for ping pong mode
     public static let pingPongDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
        flags: [.flag_IsReadable, .flag_IsWritable])
 
     /// Ping-pong mode: true or false (stereo mode)
-    @Parameter2(pingPongDef) public var pingPong: AUValue
+    @Parameter(pingPongDef) public var pingPong: AUValue
 
     // MARK: - Initialization
 

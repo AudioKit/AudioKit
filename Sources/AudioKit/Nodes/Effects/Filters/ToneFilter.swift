@@ -28,7 +28,7 @@ public class ToneFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-    @Parameter2(halfPowerPointDef) public var halfPowerPoint: AUValue
+    @Parameter(halfPowerPointDef) public var halfPowerPoint: AUValue
 
     // MARK: - Initialization
 

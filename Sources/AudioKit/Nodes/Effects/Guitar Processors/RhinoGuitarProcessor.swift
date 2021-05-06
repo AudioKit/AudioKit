@@ -28,7 +28,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Gain applied before processing.
-    @Parameter2(preGainDef) public var preGain: AUValue
+    @Parameter(preGainDef) public var preGain: AUValue
 
     /// Specification details for post gain
     public static let postGainDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Gain applied after processing.
-    @Parameter2(postGainDef) public var postGain: AUValue
+    @Parameter(postGainDef) public var postGain: AUValue
 
     /// Specification details for low gain
     public static let lowGainDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amount of Low frequencies.
-    @Parameter2(lowGainDef) public var lowGain: AUValue
+    @Parameter(lowGainDef) public var lowGain: AUValue
 
     /// Specification details for mid gain
     public static let midGainDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amount of Middle frequencies.
-    @Parameter2(midGainDef) public var midGain: AUValue
+    @Parameter(midGainDef) public var midGain: AUValue
 
     /// Specification details for high gain
     public static let highGainDef = NodeParameterDef(
@@ -76,7 +76,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amount of High frequencies.
-    @Parameter2(highGainDef) public var highGain: AUValue
+    @Parameter(highGainDef) public var highGain: AUValue
 
     /// Specification details for distortion
     public static let distortionDef = NodeParameterDef(
@@ -88,7 +88,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Distortion Amount
-    @Parameter2(distortionDef) public var distortion: AUValue
+    @Parameter(distortionDef) public var distortion: AUValue
     
     // MARK: - Initialization
 

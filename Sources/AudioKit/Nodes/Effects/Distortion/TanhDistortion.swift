@@ -28,7 +28,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Determines gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    @Parameter2(pregainDef) public var pregain: AUValue
+    @Parameter(pregainDef) public var pregain: AUValue
 
     /// Specification details for postgain
     public static let postgainDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Gain applied after waveshaping
-    @Parameter2(postgainDef) public var postgain: AUValue
+    @Parameter(postgainDef) public var postgain: AUValue
 
     /// Specification details for positiveShapeParameter
     public static let positiveShapeParameterDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    @Parameter2(positiveShapeParameterDef) public var positiveShapeParameter: AUValue
+    @Parameter(positiveShapeParameterDef) public var positiveShapeParameter: AUValue
 
     /// Specification details for negativeShapeParameter
     public static let negativeShapeParameterDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Like the positive shape parameter, only for the negative part.
-    @Parameter2(negativeShapeParameterDef) public var negativeShapeParameter: AUValue
+    @Parameter(negativeShapeParameterDef) public var negativeShapeParameter: AUValue
 
     // MARK: - Initialization
 

@@ -30,7 +30,7 @@ public class LowPassButterworthFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Cutoff frequency. (in Hertz)
-    @Parameter2(cutoffFrequencyDef) public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     // MARK: - Initialization
 

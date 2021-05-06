@@ -28,7 +28,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Pitch shift (in semitones)
-    @Parameter2(shiftDef) public var shift: AUValue
+    @Parameter(shiftDef) public var shift: AUValue
 
     /// Specification details for windowSize
     public static let windowSizeDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Window size (in samples)
-    @Parameter2(windowSizeDef) public var windowSize: AUValue
+    @Parameter(windowSizeDef) public var windowSize: AUValue
 
     /// Specification details for crossfade
     public static let crossfadeDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Crossfade (in samples)
-    @Parameter2(crossfadeDef) public var crossfade: AUValue
+    @Parameter(crossfadeDef) public var crossfade: AUValue
 
     // MARK: - Initialization
 

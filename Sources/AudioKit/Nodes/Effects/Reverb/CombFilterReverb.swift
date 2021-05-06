@@ -33,7 +33,7 @@ public class CombFilterReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    @Parameter2(reverbDurationDef) public var reverbDuration: AUValue
+    @Parameter(reverbDurationDef) public var reverbDuration: AUValue
 
     // MARK: - Initialization
 

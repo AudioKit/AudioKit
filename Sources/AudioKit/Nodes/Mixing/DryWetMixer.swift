@@ -28,7 +28,7 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Balance between input signals
-    @Parameter2(balanceDef) public var balance: AUValue
+    @Parameter(balanceDef) public var balance: AUValue
 
     /// Initialize this dry wet mixer node
     ///

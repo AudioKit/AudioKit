@@ -30,7 +30,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency.
-    @Parameter2(centerFrequencyDef) public var centerFrequency: AUValue
+    @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Impulse response attack time (in seconds).
-    @Parameter2(attackDurationDef) public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
@@ -54,7 +54,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Impulse reponse decay time (in seconds)
-    @Parameter2(decayDurationDef) public var decayDuration: AUValue
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
     // MARK: - Initialization
 

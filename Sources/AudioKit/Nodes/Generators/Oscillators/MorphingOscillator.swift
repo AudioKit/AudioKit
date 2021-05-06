@@ -32,7 +32,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency (in Hz)
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -44,7 +44,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amplitude (typically a value between 0 and 1).
-    @Parameter2(amplitudeDef) public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification details for index
     public static let indexDef = NodeParameterDef(
@@ -56,7 +56,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Index of the wavetable to use (fractional are okay).
-    @Parameter2(indexDef) public var index: AUValue
+    @Parameter(indexDef) public var index: AUValue
 
     /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
@@ -68,7 +68,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency offset in Hz.
-    @Parameter2(detuningOffsetDef) public var detuningOffset: AUValue
+    @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
 
     /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
@@ -80,7 +80,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency detuning multiplier
-    @Parameter2(detuningMultiplierDef) public var detuningMultiplier: AUValue
+    @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 

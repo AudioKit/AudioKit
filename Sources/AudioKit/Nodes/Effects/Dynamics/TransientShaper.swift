@@ -27,7 +27,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Input Amount
-    @Parameter2(inputAmountDef) public var inputAmount: AUValue
+    @Parameter(inputAmountDef) public var inputAmount: AUValue
 
     /// Specification details for attack amount
     public static let attackAmountDef = NodeParameterDef(
@@ -39,7 +39,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Attack Amount
-    @Parameter2(attackAmountDef) public var attackAmount: AUValue
+    @Parameter(attackAmountDef) public var attackAmount: AUValue
 
     /// Specification details for release amount
     public static let releaseAmountDef = NodeParameterDef(
@@ -51,7 +51,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Release Amount
-    @Parameter2(releaseAmountDef) public var releaseAmount: AUValue
+    @Parameter(releaseAmountDef) public var releaseAmount: AUValue
 
     /// Specification details for output amount
     public static let outputAmountDef = NodeParameterDef(
@@ -63,7 +63,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output Amount
-    @Parameter2(outputAmountDef) public var outputAmount: AUValue
+    @Parameter(outputAmountDef) public var outputAmount: AUValue
 
     // MARK: - Initialization
 

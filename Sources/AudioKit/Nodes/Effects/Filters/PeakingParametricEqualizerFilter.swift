@@ -28,7 +28,7 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Togglea
         flags: .default)
 
     /// Center frequency.
-    @Parameter2(centerFrequencyDef) public var centerFrequency: AUValue
+    @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for gain
     public static let gainDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Togglea
         flags: .default)
 
     /// Amount at which the center frequency value shall be changed. A value of 1 is a flat response.
-    @Parameter2(gainDef) public var gain: AUValue
+    @Parameter(gainDef) public var gain: AUValue
 
     /// Specification details for q
     public static let qDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Togglea
         flags: .default)
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    @Parameter2(qDef) public var q: AUValue
+    @Parameter(qDef) public var q: AUValue
 
     // MARK: - Initialization
 

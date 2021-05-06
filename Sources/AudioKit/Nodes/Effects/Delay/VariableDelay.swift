@@ -28,7 +28,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    @Parameter2(timeDef) public var time: AUValue
+    @Parameter(timeDef) public var time: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Feedback amount. Should be a value between 0-1.
-    @Parameter2(feedbackDef) public var feedback: AUValue
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     // MARK: - Initialization
 

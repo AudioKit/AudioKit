@@ -33,7 +33,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// In cycles per second, or Hz.
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -45,7 +45,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output amplitude
-    @Parameter2(amplitudeDef) public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification details for pulseWidth
     public static let pulseWidthDef = NodeParameterDef(
@@ -57,7 +57,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Duty cycle width (range 0-1).
-    @Parameter2(pulseWidthDef) public var pulseWidth: AUValue
+    @Parameter(pulseWidthDef) public var pulseWidth: AUValue
 
     /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
@@ -69,7 +69,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency offset in Hz.
-    @Parameter2(detuningOffsetDef) public var detuningOffset: AUValue
+    @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
 
     /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
@@ -81,7 +81,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency detuning multiplier
-    @Parameter2(detuningMultiplierDef) public var detuningMultiplier: AUValue
+    @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 

@@ -28,7 +28,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         flags: .default)
 
     /// Corner frequency.
-    @Parameter2(cornerFrequencyDef) public var cornerFrequency: AUValue
+    @Parameter(cornerFrequencyDef) public var cornerFrequency: AUValue
 
     /// Specification details for gain
     public static let gainDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         flags: .default)
 
     /// Amount at which the corner frequency value shall be changed. A value of 1 is a flat response.
-    @Parameter2(gainDef) public var gain: AUValue
+    @Parameter(gainDef) public var gain: AUValue
 
     /// Specification details for q
     public static let qDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         flags: .default)
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    @Parameter2(qDef) public var q: AUValue
+    @Parameter(qDef) public var q: AUValue
 
     // MARK: - Initialization
 

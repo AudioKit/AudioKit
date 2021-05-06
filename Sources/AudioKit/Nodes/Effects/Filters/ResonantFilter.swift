@@ -28,7 +28,7 @@ public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency of the filter, or frequency position of the peak response.
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for bandwidth
     public static let bandwidthDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Bandwidth of the filter.
-    @Parameter2(bandwidthDef) public var bandwidth: AUValue
+    @Parameter(bandwidthDef) public var bandwidth: AUValue
 
     // MARK: - Initialization
 

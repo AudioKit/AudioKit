@@ -28,7 +28,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Delay in ms before reverberation begins.
-    @Parameter2(predelayDef) public var predelay: AUValue
+    @Parameter(predelayDef) public var predelay: AUValue
 
     /// Specification details for crossoverFrequency
     public static let crossoverFrequencyDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Crossover frequency separating low and middle frequencies (Hz).
-    @Parameter2(crossoverFrequencyDef) public var crossoverFrequency: AUValue
+    @Parameter(crossoverFrequencyDef) public var crossoverFrequency: AUValue
 
     /// Specification details for lowReleaseTime
     public static let lowReleaseTimeDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Time (in seconds) to decay 60db in low-frequency band.
-    @Parameter2(lowReleaseTimeDef) public var lowReleaseTime: AUValue
+    @Parameter(lowReleaseTimeDef) public var lowReleaseTime: AUValue
 
     /// Specification details for midReleaseTime
     public static let midReleaseTimeDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Time (in seconds) to decay 60db in mid-frequency band.
-    @Parameter2(midReleaseTimeDef) public var midReleaseTime: AUValue
+    @Parameter(midReleaseTimeDef) public var midReleaseTime: AUValue
 
     /// Specification details for dampingFrequency
     public static let dampingFrequencyDef = NodeParameterDef(
@@ -76,7 +76,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.
-    @Parameter2(dampingFrequencyDef) public var dampingFrequency: AUValue
+    @Parameter(dampingFrequencyDef) public var dampingFrequency: AUValue
 
     /// Specification details for equalizerFrequency1
     public static let equalizerFrequency1Def = NodeParameterDef(
@@ -88,7 +88,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 1.
-    @Parameter2(equalizerFrequency1Def) public var equalizerFrequency1: AUValue
+    @Parameter(equalizerFrequency1Def) public var equalizerFrequency1: AUValue
 
     /// Specification details for equalizerLevel1
     public static let equalizerLevel1Def = NodeParameterDef(
@@ -100,7 +100,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1
-    @Parameter2(equalizerLevel1Def) public var equalizerLevel1: AUValue
+    @Parameter(equalizerLevel1Def) public var equalizerLevel1: AUValue
 
     /// Specification details for equalizerFrequency2
     public static let equalizerFrequency2Def = NodeParameterDef(
@@ -112,7 +112,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency of second-order Regalia Mitra peaking equalizer section 2.
-    @Parameter2(equalizerFrequency2Def) public var equalizerFrequency2: AUValue
+    @Parameter(equalizerFrequency2Def) public var equalizerFrequency2: AUValue
 
     /// Specification details for equalizerLevel2
     public static let equalizerLevel2Def = NodeParameterDef(
@@ -124,7 +124,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2
-    @Parameter2(equalizerLevel2Def) public var equalizerLevel2: AUValue
+    @Parameter(equalizerLevel2Def) public var equalizerLevel2: AUValue
 
     /// Specification details for dryWetMix
     public static let dryWetMixDef = NodeParameterDef(
@@ -136,7 +136,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// 0 = all dry, 1 = all wet
-    @Parameter2(dryWetMixDef) public var dryWetMix: AUValue
+    @Parameter(dryWetMixDef) public var dryWetMix: AUValue
 
     // MARK: - Initialization
 

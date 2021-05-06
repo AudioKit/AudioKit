@@ -33,7 +33,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Fundamental frequency of string.
-    @Parameter2(fundamentalFrequencyDef) public var fundamentalFrequency: AUValue
+    @Parameter(fundamentalFrequencyDef) public var fundamentalFrequency: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -45,7 +45,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    @Parameter2(feedbackDef) public var feedback: AUValue
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     // MARK: - Initialization
 

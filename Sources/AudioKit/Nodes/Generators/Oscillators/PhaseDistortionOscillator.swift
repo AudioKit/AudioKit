@@ -35,7 +35,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency in cycles per second
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -47,7 +47,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output Amplitude.
-    @Parameter2(amplitudeDef) public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification details for phaseDistortion
     public static let phaseDistortionDef = NodeParameterDef(
@@ -59,7 +59,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amount of distortion, within the range [-1, 1]. 0 is no distortion.
-    @Parameter2(phaseDistortionDef) public var phaseDistortion: AUValue
+    @Parameter(phaseDistortionDef) public var phaseDistortion: AUValue
 
     /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
@@ -71,7 +71,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency offset in Hz.
-    @Parameter2(detuningOffsetDef) public var detuningOffset: AUValue
+    @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
 
     /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
@@ -83,7 +83,7 @@ public class PhaseDistortionOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency detuning multiplier
-    @Parameter2(detuningMultiplierDef) public var detuningMultiplier: AUValue
+    @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 

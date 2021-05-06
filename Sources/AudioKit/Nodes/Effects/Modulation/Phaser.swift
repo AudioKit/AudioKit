@@ -28,7 +28,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Notch Minimum Frequency
-    @Parameter2(notchMinimumFrequencyDef) public var notchMinimumFrequency: AUValue
+    @Parameter(notchMinimumFrequencyDef) public var notchMinimumFrequency: AUValue
 
     /// Specification details for notchMaximumFrequency
     public static let notchMaximumFrequencyDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Notch Maximum Frequency
-    @Parameter2(notchMaximumFrequencyDef) public var notchMaximumFrequency: AUValue
+    @Parameter(notchMaximumFrequencyDef) public var notchMaximumFrequency: AUValue
 
     /// Specification details for notchWidth
     public static let notchWidthDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 10 and 5000
-    @Parameter2(notchWidthDef) public var notchWidth: AUValue
+    @Parameter(notchWidthDef) public var notchWidth: AUValue
 
     /// Specification details for notchFrequency
     public static let notchFrequencyDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 1.1 and 4
-    @Parameter2(notchFrequencyDef) public var notchFrequency: AUValue
+    @Parameter(notchFrequencyDef) public var notchFrequency: AUValue
 
     /// Specification details for vibratoMode
     public static let vibratoModeDef = NodeParameterDef(
@@ -76,7 +76,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Direct or Vibrato (default)
-    @Parameter2(vibratoModeDef) public var vibratoMode: AUValue
+    @Parameter(vibratoModeDef) public var vibratoMode: AUValue
 
     /// Specification details for depth
     public static let depthDef = NodeParameterDef(
@@ -88,7 +88,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 0 and 1
-    @Parameter2(depthDef) public var depth: AUValue
+    @Parameter(depthDef) public var depth: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -100,7 +100,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 0 and 1
-    @Parameter2(feedbackDef) public var feedback: AUValue
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     /// Specification details for inverted
     public static let invertedDef = NodeParameterDef(
@@ -112,7 +112,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// 1 or 0
-    @Parameter2(invertedDef) public var inverted: AUValue
+    @Parameter(invertedDef) public var inverted: AUValue
 
     /// Specification details for lfoBPM
     public static let lfoBPMDef = NodeParameterDef(
@@ -124,7 +124,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 24 and 360
-    @Parameter2(lfoBPMDef) public var lfoBPM: AUValue
+    @Parameter(lfoBPMDef) public var lfoBPM: AUValue
 
     // MARK: - Initialization
 

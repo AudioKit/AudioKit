@@ -30,7 +30,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency. (in Hertz)
-    @Parameter2(centerFrequencyDef) public var centerFrequency: AUValue
+    @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for bandwidth
     public static let bandwidthDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Bandwidth. (in Hertz)
-    @Parameter2(bandwidthDef) public var bandwidth: AUValue
+    @Parameter(bandwidthDef) public var bandwidth: AUValue
 
     // MARK: - Initialization
 

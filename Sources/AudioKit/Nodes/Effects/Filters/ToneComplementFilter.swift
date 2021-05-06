@@ -28,7 +28,7 @@ public class ToneComplementFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
-    @Parameter2(halfPowerPointDef) public var halfPowerPoint: AUValue
+    @Parameter(halfPowerPointDef) public var halfPowerPoint: AUValue
 
     // MARK: - Initialization
 

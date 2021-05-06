@@ -33,7 +33,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency. (in Hertz)
-    @Parameter2(centerFrequencyDef) public var centerFrequency: AUValue
+    @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for bandwidth
     public static let bandwidthDef = NodeParameterDef(
@@ -45,7 +45,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The peak/notch bandwidth in Hertz
-    @Parameter2(bandwidthDef) public var bandwidth: AUValue
+    @Parameter(bandwidthDef) public var bandwidth: AUValue
 
     /// Specification details for gain
     public static let gainDef = NodeParameterDef(
@@ -57,7 +57,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The peak/notch gain
-    @Parameter2(gainDef) public var gain: AUValue
+    @Parameter(gainDef) public var gain: AUValue
 
     // MARK: - Initialization
 

@@ -28,7 +28,7 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency (Hz)
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for depth
     public static let depthDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Depth
-    @Parameter2(depthDef) public var depth: AUValue
+    @Parameter(depthDef) public var depth: AUValue
 
     // MARK: - Initialization
 

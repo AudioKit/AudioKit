@@ -30,7 +30,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    @Parameter2(positionDef) public var position: AUValue
+    @Parameter(positionDef) public var position: AUValue
 
     /// Specification for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amplitude.
-    @Parameter2(amplitudeDef) public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification for pitch ratio
     public static let pitchRatioDef = NodeParameterDef(
@@ -54,7 +54,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
-    @Parameter2(pitchRatioDef) public var pitchRatio: AUValue
+    @Parameter(pitchRatioDef) public var pitchRatio: AUValue
 
     // MARK: - Initialization
 

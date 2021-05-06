@@ -28,7 +28,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Ratio to compress with, a value > 1 will compress
-    @Parameter2(ratioDef) public var ratio: AUValue
+    @Parameter(ratioDef) public var ratio: AUValue
 
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Threshold (in dB) 0 = max
-    @Parameter2(thresholdDef) public var threshold: AUValue
+    @Parameter(thresholdDef) public var threshold: AUValue
 
     /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Attack duration
-    @Parameter2(attackDurationDef) public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for releaseDuration
     public static let releaseDurationDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Release Duration
-    @Parameter2(releaseDurationDef) public var releaseDuration: AUValue
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
     // MARK: - Initialization
 

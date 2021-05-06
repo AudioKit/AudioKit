@@ -35,7 +35,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Glottal frequency.
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for tonguePosition
     public static let tonguePositionDef = NodeParameterDef(
@@ -47,7 +47,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Tongue position (0-1)
-    @Parameter2(tonguePositionDef) public var tonguePosition: AUValue
+    @Parameter(tonguePositionDef) public var tonguePosition: AUValue
 
     /// Specification details for tongueDiameter
     public static let tongueDiameterDef = NodeParameterDef(
@@ -59,7 +59,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Tongue diameter (0-1)
-    @Parameter2(tongueDiameterDef) public var tongueDiameter: AUValue
+    @Parameter(tongueDiameterDef) public var tongueDiameter: AUValue
 
     /// Specification details for tenseness
     public static let tensenessDef = NodeParameterDef(
@@ -71,7 +71,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
-    @Parameter2(tensenessDef) public var tenseness: AUValue
+    @Parameter(tensenessDef) public var tenseness: AUValue
 
     /// Specification details for nasality
     public static let nasalityDef = NodeParameterDef(
@@ -83,7 +83,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
-    @Parameter2(nasalityDef) public var nasality: AUValue
+    @Parameter(nasalityDef) public var nasality: AUValue
 
     // MARK: - Initialization
 

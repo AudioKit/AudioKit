@@ -29,7 +29,7 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Variable frequency. Values less than the initial frequency are doubled until greater than that.
-    @Parameter2(frequencyDef) public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -41,7 +41,7 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amplitude
-    @Parameter2(amplitudeDef) public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 

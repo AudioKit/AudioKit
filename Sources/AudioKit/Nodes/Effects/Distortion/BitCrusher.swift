@@ -28,7 +28,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    @Parameter2(bitDepthDef) public var bitDepth: AUValue
+    @Parameter(bitDepthDef) public var bitDepth: AUValue
 
     /// Specification details for sampleRate
     public static let sampleRateDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The sample rate of signal output.
-    @Parameter2(sampleRateDef) public var sampleRate: AUValue
+    @Parameter(sampleRateDef) public var sampleRate: AUValue
 
     // MARK: - Initialization
 

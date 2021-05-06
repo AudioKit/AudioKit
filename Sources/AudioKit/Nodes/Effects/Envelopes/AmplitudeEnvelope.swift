@@ -28,7 +28,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Attack time
-    @Parameter2(attackDurationDef) public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Decay time
-    @Parameter2(decayDurationDef) public var decayDuration: AUValue
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
     /// Specification details for sustainLevel
     public static let sustainLevelDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Sustain Level
-    @Parameter2(sustainLevelDef) public var sustainLevel: AUValue
+    @Parameter(sustainLevelDef) public var sustainLevel: AUValue
 
     /// Specification details for releaseDuration
     public static let releaseDurationDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Release time
-    @Parameter2(releaseDurationDef) public var releaseDuration: AUValue
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
     // MARK: - Initialization
 

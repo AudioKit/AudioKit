@@ -37,7 +37,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Left Channel Amplification Factor
-    @Parameter2(leftGainDef) public var leftGain: AUValue
+    @Parameter(leftGainDef) public var leftGain: AUValue
 
     /// Specification details for right gain
     public static let rightGainDef = NodeParameterDef(
@@ -49,7 +49,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Right Channel Amplification Factor
-    @Parameter2(rightGainDef) public var rightGain: AUValue
+    @Parameter(rightGainDef) public var rightGain: AUValue
 
     /// Amplification Factor in db
     public var dB: AUValue {
@@ -67,7 +67,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Flip left and right signal
-    @Parameter2(flipStereoDef) public var flipStereo: Bool
+    @Parameter(flipStereoDef) public var flipStereo: Bool
 
     /// Specification for whether to mix the stereo signal down to mono
     public static let mixToMonoDef = NodeParameterDef(
@@ -79,7 +79,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
-    @Parameter2(mixToMonoDef) public var mixToMono: Bool
+    @Parameter(mixToMonoDef) public var mixToMono: Bool
 
     // MARK: - Initialization
 

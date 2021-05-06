@@ -31,7 +31,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    @Parameter2(reverbDurationDef) public var reverbDuration: AUValue
+    @Parameter(reverbDurationDef) public var reverbDuration: AUValue
 
     // MARK: - Initialization
 
