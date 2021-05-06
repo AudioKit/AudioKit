@@ -89,4 +89,4 @@ AK_API void akConvolutionSetPartitionLength(DSPRef dsp, int length) {
     ((ConvolutionDSP*)dsp)->setPartitionLength(length);
 }
 
-AK_REGISTER_DSP(ConvolutionDSP)
+AK_REGISTER_DSP2(ConvolutionDSP, "conv")
