@@ -182,7 +182,10 @@ public class NodeParameter {
     /// This function should be called from Node subclasses as soon as a valid AU is obtained
     public func associate(with avAudioNode: AVAudioNode, identifier: String) {
         self.avAudioNode = avAudioNode
-        parameter = avAudioNode.auAudioUnit.parameterTree?[identifier]
+        guard let tree = avAudioNode.auAudioUnit.parameterTree else {
+            fatalError("No parameter tree.")
+        }
+        parameter = tree[identifier]
         assert(parameter != nil)
     }
 
@@ -192,7 +195,10 @@ public class NodeParameter {
     ///   - index: Position of the parameter
     public func associate(with avAudioNode: AVAudioNode, index: Int) {
         self.avAudioNode = avAudioNode
-        parameter = avAudioNode.auAudioUnit.parameterTree!.allParameters[index]
+        guard let tree = avAudioNode.auAudioUnit.parameterTree else {
+            fatalError("No parameter tree.")
+        }
+        parameter = tree.allParameters[index]
         assert(parameter != nil)
     }
 
