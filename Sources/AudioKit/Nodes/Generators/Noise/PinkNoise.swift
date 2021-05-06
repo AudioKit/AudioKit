@@ -42,7 +42,7 @@ public class PinkNoise: Node, AudioUnitContainer, Toggleable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit("PinkNoiseDSP") { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

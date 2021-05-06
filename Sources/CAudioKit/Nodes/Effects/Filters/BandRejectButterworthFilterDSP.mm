@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(BandRejectButterworthFilterDSP)
+AK_REGISTER_DSP2(BandRejectButterworthFilterDSP, "btbr")
 AK_REGISTER_PARAMETER(BandRejectButterworthFilterParameterCenterFrequency)
 AK_REGISTER_PARAMETER(BandRejectButterworthFilterParameterBandwidth)

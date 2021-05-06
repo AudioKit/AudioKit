@@ -11,7 +11,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Pitch shift (in semitones)
-    @Parameter public var shift: AUValue
+    @Parameter2(shiftDef) public var shift: AUValue
 
     /// Specification details for windowSize
     public static let windowSizeDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Window size (in samples)
-    @Parameter public var windowSize: AUValue
+    @Parameter2(windowSizeDef) public var windowSize: AUValue
 
     /// Specification details for crossfade
     public static let crossfadeDef = NodeParameterDef(
@@ -52,26 +52,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Crossfade (in samples)
-    @Parameter public var crossfade: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for PitchShifter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [PitchShifter.shiftDef,
-             PitchShifter.windowSizeDef,
-             PitchShifter.crossfadeDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PitchShifterDSP")
-        }
-    }
+    @Parameter2(crossfadeDef) public var crossfade: AUValue
 
     // MARK: - Initialization
 
@@ -91,7 +72,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

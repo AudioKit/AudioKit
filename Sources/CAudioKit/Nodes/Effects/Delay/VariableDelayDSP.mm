@@ -94,6 +94,6 @@ AK_API void akVariableDelaySetMaximumTime(DSPRef dspRef, float maximumTime) {
     dsp->setMaximumTime(maximumTime);
 }
 
-AK_REGISTER_DSP(VariableDelayDSP)
+AK_REGISTER_DSP2(VariableDelayDSP, "vdla")
 AK_REGISTER_PARAMETER(VariableDelayParameterTime)
 AK_REGISTER_PARAMETER(VariableDelayParameterFeedback)

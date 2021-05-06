@@ -102,7 +102,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit("FMOscillatorDSP") { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

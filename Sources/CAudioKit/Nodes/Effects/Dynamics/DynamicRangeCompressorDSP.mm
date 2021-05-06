@@ -93,7 +93,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(DynamicRangeCompressorDSP)
+AK_REGISTER_DSP2(DynamicRangeCompressorDSP, "cpsr")
 AK_REGISTER_PARAMETER(DynamicRangeCompressorParameterRatio)
 AK_REGISTER_PARAMETER(DynamicRangeCompressorParameterThreshold)
 AK_REGISTER_PARAMETER(DynamicRangeCompressorParameterAttackDuration)

@@ -4,7 +4,7 @@
 import AVFoundation
 import CAudioKit
 
-/// StringResonator passes the input through a network composed of comb,
+/// AKStringResonator passes the input through a network composed of comb, 
 /// low-pass and all-pass filters, similar to the one used in some versions of the 
 /// Karplus-Strong algorithm, creating a string resonator effect. The fundamental frequency 
 /// of the “string” is controlled by the fundamentalFrequency.  
@@ -16,7 +16,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "stre")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -33,7 +33,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Fundamental frequency of string.
-    @Parameter public var fundamentalFrequency: AUValue
+    @Parameter2(fundamentalFrequencyDef) public var fundamentalFrequency: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -45,25 +45,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    @Parameter public var feedback: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for StringResonator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [StringResonator.fundamentalFrequencyDef,
-             StringResonator.feedbackDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("StringResonatorDSP")
-        }
-    }
+    @Parameter2(feedbackDef) public var feedback: AUValue
 
     // MARK: - Initialization
 
@@ -81,7 +63,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

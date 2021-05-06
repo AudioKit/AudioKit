@@ -72,5 +72,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(ToneFilterDSP)
+AK_REGISTER_DSP2(ToneFilterDSP, "tone")
 AK_REGISTER_PARAMETER(ToneFilterParameterHalfPowerPoint)

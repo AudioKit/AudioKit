@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
-///
+/// 
 public class MetalBar: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "mbar"
@@ -131,7 +131,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit("MetalBarDSP") { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

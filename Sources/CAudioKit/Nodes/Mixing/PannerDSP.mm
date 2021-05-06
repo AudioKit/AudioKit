@@ -63,5 +63,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(PannerDSP)
+AK_REGISTER_DSP2(PannerDSP, "pan2")
 AK_REGISTER_PARAMETER(PannerParameterPan)

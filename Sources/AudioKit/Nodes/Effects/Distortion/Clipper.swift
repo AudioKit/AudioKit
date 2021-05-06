@@ -11,7 +11,7 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "clip")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,24 +28,7 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Threshold / limiting value.
-    @Parameter public var limit: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Clipper
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Clipper.limitDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("ClipperDSP")
-        }
-    }
+    @Parameter2(limitDef) public var limit: AUValue
 
     // MARK: - Initialization
 
@@ -61,7 +44,7 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

@@ -14,7 +14,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -31,30 +31,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    @Parameter public var reverbDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for FlatFrequencyResponseReverb
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [FlatFrequencyResponseReverb.reverbDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("FlatFrequencyResponseReverbDSP")
-        }
-
-        /// Set loop duration
-        /// - Parameter duration: Duration in seconds
-        public func setLoopDuration(_ duration: AUValue) {
-            akFlatFrequencyResponseSetLoopDuration(dsp, duration)
-        }
-    }
+    @Parameter2(reverbDurationDef) public var reverbDuration: AUValue
 
     // MARK: - Initialization
 
@@ -72,7 +49,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
@@ -81,7 +58,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
             }
             self.internalAU = audioUnit
 
-            audioUnit.setLoopDuration(loopDuration)
+            akFlatFrequencyResponseSetLoopDuration(audioUnit.dsp, loopDuration)
 
             self.reverbDuration = reverbDuration
         }

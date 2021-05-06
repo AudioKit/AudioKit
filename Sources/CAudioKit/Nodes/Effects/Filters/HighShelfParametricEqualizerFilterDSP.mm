@@ -90,7 +90,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(HighShelfParametricEqualizerFilterDSP)
+AK_REGISTER_DSP2(HighShelfParametricEqualizerFilterDSP, "peq2")
 AK_REGISTER_PARAMETER(HighShelfParametricEqualizerFilterParameterCenterFrequency)
 AK_REGISTER_PARAMETER(HighShelfParametricEqualizerFilterParameterGain)
 AK_REGISTER_PARAMETER(HighShelfParametricEqualizerFilterParameterQ)

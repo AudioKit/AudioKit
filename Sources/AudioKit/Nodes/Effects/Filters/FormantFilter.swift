@@ -13,7 +13,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -30,7 +30,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency.
-    @Parameter public var centerFrequency: AUValue
+    @Parameter2(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Impulse response attack time (in seconds).
-    @Parameter public var attackDuration: AUValue
+    @Parameter2(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
@@ -54,26 +54,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Impulse reponse decay time (in seconds)
-    @Parameter public var decayDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for FormantFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [FormantFilter.centerFrequencyDef,
-             FormantFilter.attackDurationDef,
-             FormantFilter.decayDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("FormantFilterDSP")
-        }
-    }
+    @Parameter2(decayDurationDef) public var decayDuration: AUValue
 
     // MARK: - Initialization
 
@@ -93,7 +74,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

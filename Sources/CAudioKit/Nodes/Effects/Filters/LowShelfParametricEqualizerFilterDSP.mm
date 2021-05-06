@@ -90,7 +90,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(LowShelfParametricEqualizerFilterDSP)
+AK_REGISTER_DSP2(LowShelfParametricEqualizerFilterDSP,  "peq1")
 AK_REGISTER_PARAMETER(LowShelfParametricEqualizerFilterParameterCornerFrequency)
 AK_REGISTER_PARAMETER(LowShelfParametricEqualizerFilterParameterGain)
 AK_REGISTER_PARAMETER(LowShelfParametricEqualizerFilterParameterQ)

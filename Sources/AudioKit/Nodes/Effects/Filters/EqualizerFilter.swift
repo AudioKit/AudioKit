@@ -16,7 +16,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -33,7 +33,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency. (in Hertz)
-    @Parameter public var centerFrequency: AUValue
+    @Parameter2(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for bandwidth
     public static let bandwidthDef = NodeParameterDef(
@@ -45,7 +45,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The peak/notch bandwidth in Hertz
-    @Parameter public var bandwidth: AUValue
+    @Parameter2(bandwidthDef) public var bandwidth: AUValue
 
     /// Specification details for gain
     public static let gainDef = NodeParameterDef(
@@ -57,26 +57,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The peak/notch gain
-    @Parameter public var gain: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for EqualizerFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [EqualizerFilter.centerFrequencyDef,
-             EqualizerFilter.bandwidthDef,
-             EqualizerFilter.gainDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("EqualizerFilterDSP")
-        }
-    }
+    @Parameter2(gainDef) public var gain: AUValue
 
     // MARK: - Initialization
 
@@ -96,7 +77,7 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

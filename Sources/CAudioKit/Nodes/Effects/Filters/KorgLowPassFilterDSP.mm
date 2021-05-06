@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(KorgLowPassFilterDSP)
+AK_REGISTER_DSP2(KorgLowPassFilterDSP, "klpf")
 AK_REGISTER_PARAMETER(KorgLowPassFilterParameterCutoffFrequency)
 AK_REGISTER_PARAMETER(KorgLowPassFilterParameterResonance)
 AK_REGISTER_PARAMETER(KorgLowPassFilterParameterSaturation)

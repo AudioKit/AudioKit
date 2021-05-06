@@ -74,6 +74,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(PluckedStringDSP)
+AK_REGISTER_DSP2(PluckedStringDSP, "pluk")
 AK_REGISTER_PARAMETER(PluckedStringParameterFrequency)
 AK_REGISTER_PARAMETER(PluckedStringParameterAmplitude)

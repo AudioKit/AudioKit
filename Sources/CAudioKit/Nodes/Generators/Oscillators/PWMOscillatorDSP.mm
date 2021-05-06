@@ -82,7 +82,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(PWMOscillatorDSP)
+AK_REGISTER_DSP2(PWMOscillatorDSP, "pwmo")
 AK_REGISTER_PARAMETER(PWMOscillatorParameterFrequency)
 AK_REGISTER_PARAMETER(PWMOscillatorParameterAmplitude)
 AK_REGISTER_PARAMETER(PWMOscillatorParameterPulseWidth)

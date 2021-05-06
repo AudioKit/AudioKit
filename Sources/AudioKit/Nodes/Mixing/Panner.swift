@@ -11,7 +11,7 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,24 +28,7 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
-    @Parameter public var pan: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Panner
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Panner.panDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PannerDSP")
-        }
-    }
+    @Parameter2(panDef) public var pan: AUValue
 
     // MARK: - Initialization
 
@@ -61,7 +44,7 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

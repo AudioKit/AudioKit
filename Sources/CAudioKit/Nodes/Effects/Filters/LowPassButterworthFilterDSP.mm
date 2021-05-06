@@ -72,5 +72,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(LowPassButterworthFilterDSP)
+AK_REGISTER_DSP2(LowPassButterworthFilterDSP, "btlp")
 AK_REGISTER_PARAMETER(LowPassButterworthFilterParameterCutoffFrequency)

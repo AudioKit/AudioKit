@@ -11,9 +11,9 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
-    /// Internal audio unit
+    /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
     // MARK: - Parameters
@@ -28,7 +28,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    @Parameter public var bitDepth: AUValue
+    @Parameter2(bitDepthDef) public var bitDepth: AUValue
 
     /// Specification details for sampleRate
     public static let sampleRateDef = NodeParameterDef(
@@ -40,25 +40,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The sample rate of signal output.
-    @Parameter public var sampleRate: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for BitCrusher
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [BitCrusher.bitDepthDef,
-             BitCrusher.sampleRateDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("BitCrusherDSP")
-        }
-    }
+    @Parameter2(sampleRateDef) public var sampleRate: AUValue
 
     // MARK: - Initialization
 
@@ -76,7 +58,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

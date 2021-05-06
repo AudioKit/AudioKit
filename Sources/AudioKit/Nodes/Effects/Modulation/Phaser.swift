@@ -11,7 +11,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Notch Minimum Frequency
-    @Parameter public var notchMinimumFrequency: AUValue
+    @Parameter2(notchMinimumFrequencyDef) public var notchMinimumFrequency: AUValue
 
     /// Specification details for notchMaximumFrequency
     public static let notchMaximumFrequencyDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Notch Maximum Frequency
-    @Parameter public var notchMaximumFrequency: AUValue
+    @Parameter2(notchMaximumFrequencyDef) public var notchMaximumFrequency: AUValue
 
     /// Specification details for notchWidth
     public static let notchWidthDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 10 and 5000
-    @Parameter public var notchWidth: AUValue
+    @Parameter2(notchWidthDef) public var notchWidth: AUValue
 
     /// Specification details for notchFrequency
     public static let notchFrequencyDef = NodeParameterDef(
@@ -64,7 +64,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 1.1 and 4
-    @Parameter public var notchFrequency: AUValue
+    @Parameter2(notchFrequencyDef) public var notchFrequency: AUValue
 
     /// Specification details for vibratoMode
     public static let vibratoModeDef = NodeParameterDef(
@@ -76,7 +76,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Direct or Vibrato (default)
-    @Parameter public var vibratoMode: AUValue
+    @Parameter2(vibratoModeDef) public var vibratoMode: AUValue
 
     /// Specification details for depth
     public static let depthDef = NodeParameterDef(
@@ -88,7 +88,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 0 and 1
-    @Parameter public var depth: AUValue
+    @Parameter2(depthDef) public var depth: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -100,7 +100,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 0 and 1
-    @Parameter public var feedback: AUValue
+    @Parameter2(feedbackDef) public var feedback: AUValue
 
     /// Specification details for inverted
     public static let invertedDef = NodeParameterDef(
@@ -112,7 +112,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// 1 or 0
-    @Parameter public var inverted: AUValue
+    @Parameter2(invertedDef) public var inverted: AUValue
 
     /// Specification details for lfoBPM
     public static let lfoBPMDef = NodeParameterDef(
@@ -124,32 +124,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Between 24 and 360
-    @Parameter public var lfoBPM: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Phaser
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Phaser.notchMinimumFrequencyDef,
-             Phaser.notchMaximumFrequencyDef,
-             Phaser.notchWidthDef,
-             Phaser.notchFrequencyDef,
-             Phaser.vibratoModeDef,
-             Phaser.depthDef,
-             Phaser.feedbackDef,
-             Phaser.invertedDef,
-             Phaser.lfoBPMDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PhaserDSP")
-        }
-    }
+    @Parameter2(lfoBPMDef) public var lfoBPM: AUValue
 
     // MARK: - Initialization
 
@@ -181,7 +156,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
+        instantiateAudioUnit2 { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

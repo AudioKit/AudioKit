@@ -62,4 +62,4 @@ public:
     }
 };
 
-AK_REGISTER_DSP(DCBlockDSP)
+AK_REGISTER_DSP2(DCBlockDSP, "dcbk")

@@ -85,7 +85,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(FMOscillatorDSP)
+AK_REGISTER_DSP2(FMOscillatorDSP, "fosc")
 AK_REGISTER_PARAMETER(FMOscillatorParameterBaseFrequency)
 AK_REGISTER_PARAMETER(FMOscillatorParameterCarrierMultiplier)
 AK_REGISTER_PARAMETER(FMOscillatorParameterModulatingMultiplier)

@@ -105,7 +105,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(PhaseDistortionOscillatorDSP)
+AK_REGISTER_DSP2(PhaseDistortionOscillatorDSP, "pdho")
 AK_REGISTER_PARAMETER(PhaseDistortionOscillatorParameterFrequency)
 AK_REGISTER_PARAMETER(PhaseDistortionOscillatorParameterAmplitude)
 AK_REGISTER_PARAMETER(PhaseDistortionOscillatorParameterPhaseDistortion)
