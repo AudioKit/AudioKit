@@ -107,7 +107,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(FaderDSP)
+AK_REGISTER_DSP2(FaderDSP, "fder")
 AK_REGISTER_PARAMETER(FaderParameterLeftGain)
 AK_REGISTER_PARAMETER(FaderParameterRightGain)
 AK_REGISTER_PARAMETER(FaderParameterFlipStereo)

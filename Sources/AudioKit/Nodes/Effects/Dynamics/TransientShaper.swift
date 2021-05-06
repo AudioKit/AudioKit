@@ -10,7 +10,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "trsh")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -27,7 +27,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Input Amount
-    @Parameter public var inputAmount: AUValue
+    @Parameter2(inputAmountDef) public var inputAmount: AUValue
 
     /// Specification details for attack amount
     public static let attackAmountDef = NodeParameterDef(
@@ -39,7 +39,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Attack Amount
-    @Parameter public var attackAmount: AUValue
+    @Parameter2(attackAmountDef) public var attackAmount: AUValue
 
     /// Specification details for release amount
     public static let releaseAmountDef = NodeParameterDef(
@@ -51,7 +51,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Release Amount
-    @Parameter public var releaseAmount: AUValue
+    @Parameter2(releaseAmountDef) public var releaseAmount: AUValue
 
     /// Specification details for output amount
     public static let outputAmountDef = NodeParameterDef(
@@ -63,27 +63,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output Amount
-    @Parameter public var outputAmount: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for Transient Shaper
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef]? {
-            [TransientShaper.inputAmountDef,
-             TransientShaper.attackAmountDef,
-             TransientShaper.releaseAmountDef,
-             TransientShaper.outputAmountDef]
-        }
-
-        /// Create the DSP Reference for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("TransientShaperDSP")
-        }
-    }
+    @Parameter2(outputAmountDef) public var outputAmount: AUValue
 
     // MARK: - Initialization
 

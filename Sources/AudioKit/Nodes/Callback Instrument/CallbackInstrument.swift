@@ -18,28 +18,10 @@ open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
     public static let ComponentDescription = AudioComponentDescription(instrument: "clbk")
 
     /// Internal audio unit type
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Internal Audio Unit
-
-    /// Internal audio unit for callback instrument
-    public class InternalAU: AudioUnitBase {
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("CallbackInstrumentDSP")
-        }
-
-        /// Set callback for the instrument
-        /// - Parameter callback: MIDI Callback
-        public func setCallback(_ callback: MIDICallback?) {
-            akCallbackInstrumentSetCallback(dsp, callback)
-        }
-    }
 
     // MARK: - Initialization
 
@@ -56,8 +38,8 @@ open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
         }
-        if let callback = midiCallback {
-            self.internalAU?.setCallback(callback)
+        if let callback = midiCallback, let audioUnit = internalAU {
+            akCallbackInstrumentSetCallback(audioUnit.dsp, callback)
         }
     }
 

@@ -671,7 +671,7 @@ public:
         }
     }
 };
-AK_REGISTER_DSP(TransientShaperDSP)
+AK_REGISTER_DSP2(TransientShaperDSP, "trsh")
 AK_REGISTER_PARAMETER(TransientShaperParameterInputAmount)
 AK_REGISTER_PARAMETER(TransientShaperParameterAttackAmount)
 AK_REGISTER_PARAMETER(TransientShaperParameterReleaseAmount)
