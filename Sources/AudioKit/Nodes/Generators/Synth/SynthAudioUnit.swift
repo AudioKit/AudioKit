@@ -34,12 +34,6 @@ public class SynthAudioUnit: AudioUnitBase {
 
     var filterReleaseDuration: AUParameter!
 
-    /// Create the synth DSP
-    /// - Returns: DSP Reference
-    public override func createDSP() -> DSPRef {
-        return akSynthCreateDSP()
-    }
-
     override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)

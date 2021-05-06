@@ -140,11 +140,6 @@ open class AudioUnitBase: AUAudioUnit {
     /// Whether the audio unit is running
     public private(set) var isStarted: Bool = true
 
-    /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
-    open func createDSP() -> DSPRef? {
-        return nil
-    }
-
     /// Start the audio unit
     public func start() {
         shouldBypassEffect = false

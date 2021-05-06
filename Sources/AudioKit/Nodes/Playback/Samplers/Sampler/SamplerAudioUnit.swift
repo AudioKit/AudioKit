@@ -264,12 +264,6 @@ public class SamplerAudioUnit: AudioUnitBase {
         unit: .generic,
         flags: nonRampFlags)
 
-    /// Create Sampler DSP
-    /// - Returns: Reference to Sampler DSP Object
-    public override func createDSP() -> DSPRef {
-        return akSamplerCreateDSP()
-    }
-
     override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
