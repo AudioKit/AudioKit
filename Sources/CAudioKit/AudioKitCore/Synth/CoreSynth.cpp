@@ -48,8 +48,6 @@ CoreSynth::CoreSynth()
     for (int i=0; i < MAX_VOICE_COUNT; i++)
     {
         data->voice[i] = unique_ptr<AudioKitCore::SynthVoice>(new AudioKitCore::SynthVoice(&data->gen));
-        data->voice[i]->event = 0;
-        data->voice[i]->noteNumber = -1;
         data->voice[i]->ampEG.pParameters = &data->ampEGParameters;
         data->voice[i]->filterEG.pParameters = &data->filterEGParameters;
     }
@@ -98,7 +96,7 @@ int CoreSynth::init(double sampleRate)
     data->voiceParameters.osc3.drawbars[6] = 0.4f;
     data->voiceParameters.osc3.drawbars[7] = 0.0f;
     data->voiceParameters.osc3.drawbars[8] = 0.0f;
-    data->voiceParameters.osc3.drawbars[8] = 0.0f;
+    data->voiceParameters.osc3.drawbars[9] = 0.0f;
     data->voiceParameters.osc3.drawbars[10] = 0.0f;
     data->voiceParameters.osc3.drawbars[11] = 0.0f;
     data->voiceParameters.osc3.drawbars[12] = 0.0f;
