@@ -8,14 +8,19 @@
 
 #include <math.h>
 #include <list>
+#include <random>
+
+using std::unique_ptr;
 
 #define MAX_VOICE_COUNT 32      // number of voices
 #define MIDI_NOTENUMBERS 128    // MIDI offers 128 distinct note numbers
 
 struct CoreSynth::InternalData
 {
+    std::mt19937 gen{0};
+
     /// array of voice resources
-    AudioKitCore::SynthVoice voice[MAX_VOICE_COUNT];
+    unique_ptr<AudioKitCore::SynthVoice> voice[MAX_VOICE_COUNT];
     
     AudioKitCore::WaveStack waveform1, waveform2, waveform3;      // WaveStacks are shared by all voice oscillators
     AudioKitCore::FunctionTableOscillator vibratoLFO;             // one vibrato LFO shared by all voices
@@ -42,10 +47,11 @@ CoreSynth::CoreSynth()
 {
     for (int i=0; i < MAX_VOICE_COUNT; i++)
     {
-        data->voice[i].event = 0;
-        data->voice[i].noteNumber = -1;
-        data->voice[i].ampEG.pParameters = &data->ampEGParameters;
-        data->voice[i].filterEG.pParameters = &data->filterEGParameters;
+        data->voice[i] = unique_ptr<AudioKitCore::SynthVoice>(new AudioKitCore::SynthVoice(&data->gen));
+        data->voice[i]->event = 0;
+        data->voice[i]->noteNumber = -1;
+        data->voice[i]->ampEG.pParameters = &data->ampEGParameters;
+        data->voice[i]->filterEG.pParameters = &data->filterEGParameters;
     }
 }
 
@@ -126,7 +132,7 @@ int CoreSynth::init(double sampleRate)
     
     for (int i=0; i < MAX_VOICE_COUNT; i++)
     {
-        data->voice[i].init(sampleRate, &data->waveform1, &data->waveform2, &data->waveform3, &data->voiceParameters, &data->envParameters);
+        data->voice[i]->init(sampleRate, &data->waveform1, &data->waveform2, &data->waveform3, &data->voiceParameters, &data->envParameters);
     }
     
     return 0;   // no error
@@ -166,10 +172,9 @@ void CoreSynth::sustainPedal(bool down)
 
 AudioKitCore::SynthVoice *CoreSynth::voicePlayingNote(unsigned noteNumber)
 {
-    AudioKitCore::SynthVoice *pVoice = data->voice;
-    for (int i=0; i < MAX_VOICE_COUNT; i++, pVoice++)
+    for (int i=0; i < MAX_VOICE_COUNT; i++)
     {
-        if (pVoice->noteNumber == noteNumber) return pVoice;
+        if (data->voice[i]->noteNumber == noteNumber) return data->voice[i].get();
     }
     return 0;
 }
@@ -188,7 +193,7 @@ void CoreSynth::play(unsigned noteNumber, unsigned velocity, float noteFrequency
     // find a free voice (with noteNumber < 0) to play the note
     for (int i=0; i < MAX_VOICE_COUNT; i++)
     {
-        AudioKitCore::SynthVoice *pVoice = &data->voice[i];
+        auto pVoice = data->voice[i].get();
         if (pVoice->noteNumber < 0)
         {
             // found a free voice: assign it to play this note
@@ -204,7 +209,7 @@ void CoreSynth::play(unsigned noteNumber, unsigned velocity, float noteFrequency
     AudioKitCore::SynthVoice *pStalestVoiceInRelease = 0;
     for (int i=0; i < MAX_VOICE_COUNT; i++)
     {
-        AudioKitCore::SynthVoice *pVoice = &data->voice[i];
+        auto pVoice = data->voice[i].get();
         unsigned diff = eventCounter - pVoice->event;
         if (pVoice->ampEG.isReleasing())
         {
@@ -255,10 +260,10 @@ void CoreSynth::render(unsigned channelCount, unsigned sampleCount, float *outBu
     
     float pitchDev = pitchOffset + vibratoDepth * data->vibratoLFO.getSample();
     float phaseDeltaMultiplier = pow(2.0f, pitchDev / 12.0);
-    
-    AudioKitCore::SynthVoice *pVoice = &data->voice[0];
-    for (int i=0; i < MAX_VOICE_COUNT; i++, pVoice++)
+
+    for (int i=0; i < MAX_VOICE_COUNT; i++)
     {
+        auto pVoice = data->voice[i].get();
         int nn = pVoice->noteNumber;
         if (nn >= 0)
         {
@@ -274,7 +279,7 @@ void CoreSynth::render(unsigned channelCount, unsigned sampleCount, float *outBu
 void CoreSynth::setAmpAttackDurationSeconds(float value)
 {
     data->ampEGParameters.setAttackDurationSeconds(value);
-    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateAmpAdsrParameters();
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i]->updateAmpAdsrParameters();
 }
 float CoreSynth::getAmpAttackDurationSeconds(void)
 {
@@ -283,7 +288,7 @@ float CoreSynth::getAmpAttackDurationSeconds(void)
 void  CoreSynth::setAmpDecayDurationSeconds(float value)
 {
     data->ampEGParameters.setDecayDurationSeconds(value);
-    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateAmpAdsrParameters();
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i]->updateAmpAdsrParameters();
 }
 float CoreSynth::getAmpDecayDurationSeconds(void)
 {
@@ -292,7 +297,7 @@ float CoreSynth::getAmpDecayDurationSeconds(void)
 void  CoreSynth::setAmpSustainFraction(float value)
 {
     data->ampEGParameters.sustainFraction = value;
-    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateAmpAdsrParameters();
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i]->updateAmpAdsrParameters();
 }
 float CoreSynth::getAmpSustainFraction(void)
 {
@@ -301,7 +306,7 @@ float CoreSynth::getAmpSustainFraction(void)
 void  CoreSynth::setAmpReleaseDurationSeconds(float value)
 {
     data->ampEGParameters.setReleaseDurationSeconds(value);
-    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateAmpAdsrParameters();
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i]->updateAmpAdsrParameters();
 }
 
 float CoreSynth::getAmpReleaseDurationSeconds(void)
@@ -312,7 +317,7 @@ float CoreSynth::getAmpReleaseDurationSeconds(void)
 void  CoreSynth::setFilterAttackDurationSeconds(float value)
 {
     data->filterEGParameters.setAttackDurationSeconds(value);
-    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateFilterAdsrParameters();
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i]->updateFilterAdsrParameters();
 }
 float CoreSynth::getFilterAttackDurationSeconds(void)
 {
@@ -321,7 +326,7 @@ float CoreSynth::getFilterAttackDurationSeconds(void)
 void  CoreSynth::setFilterDecayDurationSeconds(float value)
 {
     data->filterEGParameters.setDecayDurationSeconds(value);
-    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateFilterAdsrParameters();
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i]->updateFilterAdsrParameters();
 }
 float CoreSynth::getFilterDecayDurationSeconds(void)
 {
@@ -330,7 +335,7 @@ float CoreSynth::getFilterDecayDurationSeconds(void)
 void  CoreSynth::setFilterSustainFraction(float value)
 {
     data->filterEGParameters.sustainFraction = value;
-    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateFilterAdsrParameters();
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i]->updateFilterAdsrParameters();
 }
 float CoreSynth::getFilterSustainFraction(void)
 {
@@ -339,7 +344,7 @@ float CoreSynth::getFilterSustainFraction(void)
 void  CoreSynth::setFilterReleaseDurationSeconds(float value)
 {
     data->filterEGParameters.setReleaseDurationSeconds(value);
-    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i].updateFilterAdsrParameters();
+    for (int i = 0; i < MAX_VOICE_COUNT; i++) data->voice[i]->updateFilterAdsrParameters();
 }
 float CoreSynth::getFilterReleaseDurationSeconds(void)
 {
