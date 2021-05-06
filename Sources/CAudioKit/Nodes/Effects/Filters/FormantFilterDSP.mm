@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(FormantFilterDSP, "fofi")
+AK_REGISTER_DSP(FormantFilterDSP, "fofi")
 AK_REGISTER_PARAMETER(FormantFilterParameterCenterFrequency)
 AK_REGISTER_PARAMETER(FormantFilterParameterAttackDuration)
 AK_REGISTER_PARAMETER(FormantFilterParameterDecayDuration)

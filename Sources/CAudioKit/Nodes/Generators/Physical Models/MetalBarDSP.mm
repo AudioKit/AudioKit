@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(MetalBarDSP, "mbar")
+AK_REGISTER_DSP(MetalBarDSP, "mbar")
 AK_REGISTER_PARAMETER(MetalBarParameterLeftBoundaryCondition)
 AK_REGISTER_PARAMETER(MetalBarParameterRightBoundaryCondition)
 AK_REGISTER_PARAMETER(MetalBarParameterDecayDuration)

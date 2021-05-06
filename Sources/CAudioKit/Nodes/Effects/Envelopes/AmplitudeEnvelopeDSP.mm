@@ -87,7 +87,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(AmplitudeEnvelopeDSP, "adsr")
+AK_REGISTER_DSP(AmplitudeEnvelopeDSP, "adsr")
 AK_REGISTER_PARAMETER(AmplitudeEnvelopeParameterAttackDuration)
 AK_REGISTER_PARAMETER(AmplitudeEnvelopeParameterDecayDuration)
 AK_REGISTER_PARAMETER(AmplitudeEnvelopeParameterSustainLevel)

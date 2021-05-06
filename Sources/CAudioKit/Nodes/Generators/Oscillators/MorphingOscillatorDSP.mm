@@ -89,7 +89,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(MorphingOscillatorDSP, "morf")
+AK_REGISTER_DSP(MorphingOscillatorDSP, "morf")
 AK_REGISTER_PARAMETER(MorphingOscillatorParameterFrequency)
 AK_REGISTER_PARAMETER(MorphingOscillatorParameterAmplitude)
 AK_REGISTER_PARAMETER(MorphingOscillatorParameterIndex)

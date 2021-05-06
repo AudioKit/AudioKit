@@ -31,4 +31,4 @@ public:
 
 };
 
-AK_REGISTER_DSP2(FluteDSP, "flut");
+AK_REGISTER_DSP(FluteDSP, "flut");

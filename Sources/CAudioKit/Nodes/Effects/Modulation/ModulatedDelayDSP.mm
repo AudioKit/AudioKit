@@ -117,5 +117,5 @@ struct FlangerDSP : ModulatedDelayDSP {
     FlangerDSP() : ModulatedDelayDSP(kFlanger) { }
 };
 
-AK_REGISTER_DSP2(ChorusDSP, "chrs");
-AK_REGISTER_DSP2(FlangerDSP, "flgr");
+AK_REGISTER_DSP(ChorusDSP, "chrs");
+AK_REGISTER_DSP(FlangerDSP, "flgr");

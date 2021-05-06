@@ -93,7 +93,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(RolandTB303FilterDSP, "tb3f")
+AK_REGISTER_DSP(RolandTB303FilterDSP, "tb3f")
 AK_REGISTER_PARAMETER(RolandTB303FilterParameterCutoffFrequency)
 AK_REGISTER_PARAMETER(RolandTB303FilterParameterResonance)
 AK_REGISTER_PARAMETER(RolandTB303FilterParameterDistortion)

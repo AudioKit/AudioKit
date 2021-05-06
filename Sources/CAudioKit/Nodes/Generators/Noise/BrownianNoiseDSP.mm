@@ -59,5 +59,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(BrownianNoiseDSP, "bron")
+AK_REGISTER_DSP(BrownianNoiseDSP, "bron")
 AK_REGISTER_PARAMETER(BrownianNoiseParameterAmplitude)

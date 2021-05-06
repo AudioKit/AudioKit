@@ -39,5 +39,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(DryWetMixerDSP, "dwmx")
+AK_REGISTER_DSP(DryWetMixerDSP, "dwmx")
 AK_REGISTER_PARAMETER(DryWetMixerParameterBalance)

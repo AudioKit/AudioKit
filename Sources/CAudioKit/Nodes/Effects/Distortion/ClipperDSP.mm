@@ -72,5 +72,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(ClipperDSP, "clip")
+AK_REGISTER_DSP(ClipperDSP, "clip")
 AK_REGISTER_PARAMETER(ClipperParameterLimit)

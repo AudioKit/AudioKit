@@ -99,7 +99,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(ZitaReverbDSP, "zita")
+AK_REGISTER_DSP(ZitaReverbDSP, "zita")
 AK_REGISTER_PARAMETER(ZitaReverbParameterPredelay)
 AK_REGISTER_PARAMETER(ZitaReverbParameterCrossoverFrequency)
 AK_REGISTER_PARAMETER(ZitaReverbParameterLowReleaseTime)

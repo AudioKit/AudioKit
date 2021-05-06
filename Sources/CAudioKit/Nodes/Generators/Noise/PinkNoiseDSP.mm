@@ -58,5 +58,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(PinkNoiseDSP, "pink")
+AK_REGISTER_DSP(PinkNoiseDSP, "pink")
 AK_REGISTER_PARAMETER(PinkNoiseParameterAmplitude)

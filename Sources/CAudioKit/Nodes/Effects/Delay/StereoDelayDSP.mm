@@ -109,7 +109,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(StereoDelayDSP, "sdly")
+AK_REGISTER_DSP(StereoDelayDSP, "sdly")
 AK_REGISTER_PARAMETER(StereoDelayParameterTime)
 AK_REGISTER_PARAMETER(StereoDelayParameterFeedback)
 AK_REGISTER_PARAMETER(StereoDelayParameterDryWetMix)

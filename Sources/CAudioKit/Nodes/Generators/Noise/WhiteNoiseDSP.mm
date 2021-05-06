@@ -58,5 +58,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(WhiteNoiseDSP, "wnoz")
+AK_REGISTER_DSP(WhiteNoiseDSP, "wnoz")
 AK_REGISTER_PARAMETER(WhiteNoiseParameterAmplitude)

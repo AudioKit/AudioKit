@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(StringResonatorDSP, "stre")
+AK_REGISTER_DSP(StringResonatorDSP, "stre")
 AK_REGISTER_PARAMETER(StringResonatorParameterFundamentalFrequency)
 AK_REGISTER_PARAMETER(StringResonatorParameterFeedback)

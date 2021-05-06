@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(AutoWahDSP, "awah")
+AK_REGISTER_DSP(AutoWahDSP, "awah")
 AK_REGISTER_PARAMETER(AutoWahParameterWah)
 AK_REGISTER_PARAMETER(AutoWahParameterMix)
 AK_REGISTER_PARAMETER(AutoWahParameterAmplitude)

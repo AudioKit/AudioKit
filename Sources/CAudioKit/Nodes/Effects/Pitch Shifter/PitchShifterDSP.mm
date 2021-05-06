@@ -85,7 +85,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(PitchShifterDSP, "pshf")
+AK_REGISTER_DSP(PitchShifterDSP, "pshf")
 AK_REGISTER_PARAMETER(PitchShifterParameterShift)
 AK_REGISTER_PARAMETER(PitchShifterParameterWindowSize)
 AK_REGISTER_PARAMETER(PitchShifterParameterCrossfade)

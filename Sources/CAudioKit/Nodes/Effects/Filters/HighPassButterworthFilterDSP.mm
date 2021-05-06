@@ -72,5 +72,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(HighPassButterworthFilterDSP, "bthp")
+AK_REGISTER_DSP(HighPassButterworthFilterDSP, "bthp")
 AK_REGISTER_PARAMETER(HighPassButterworthFilterParameterCutoffFrequency)

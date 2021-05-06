@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(BitCrusherDSP, "btcr")
+AK_REGISTER_DSP(BitCrusherDSP, "btcr")
 AK_REGISTER_PARAMETER(BitCrusherParameterBitDepth)
 AK_REGISTER_PARAMETER(BitCrusherParameterSampleRate)

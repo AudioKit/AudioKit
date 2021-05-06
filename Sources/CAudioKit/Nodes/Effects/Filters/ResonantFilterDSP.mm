@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(ResonantFilterDSP, "resn")
+AK_REGISTER_DSP(ResonantFilterDSP, "resn")
 AK_REGISTER_PARAMETER(ResonantFilterParameterFrequency)
 AK_REGISTER_PARAMETER(ResonantFilterParameterBandwidth)

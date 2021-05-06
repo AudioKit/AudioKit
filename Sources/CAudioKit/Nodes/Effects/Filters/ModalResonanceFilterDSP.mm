@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(ModalResonanceFilterDSP, "modf")
+AK_REGISTER_DSP(ModalResonanceFilterDSP, "modf")
 AK_REGISTER_PARAMETER(ModalResonanceFilterParameterFrequency)
 AK_REGISTER_PARAMETER(ModalResonanceFilterParameterQualityFactor)

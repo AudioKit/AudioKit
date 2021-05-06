@@ -68,6 +68,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(CostelloReverbDSP, "rvsc")
+AK_REGISTER_DSP(CostelloReverbDSP, "rvsc")
 AK_REGISTER_PARAMETER(CostelloReverbParameterFeedback)
 AK_REGISTER_PARAMETER(CostelloReverbParameterCutoffFrequency)

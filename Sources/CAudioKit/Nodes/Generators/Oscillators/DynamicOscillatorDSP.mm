@@ -164,7 +164,7 @@ public:
     
 };
 
-AK_REGISTER_DSP2(DynamicOscillatorDSP, "csto")
+AK_REGISTER_DSP(DynamicOscillatorDSP, "csto")
 AK_REGISTER_PARAMETER(DynamicOscillatorParameterFrequency)
 AK_REGISTER_PARAMETER(DynamicOscillatorParameterAmplitude)
 AK_REGISTER_PARAMETER(DynamicOscillatorParameterDetuningOffset)

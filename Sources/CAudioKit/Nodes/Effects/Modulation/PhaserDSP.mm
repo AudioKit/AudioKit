@@ -95,7 +95,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(PhaserDSP)
+AK_REGISTER_DSP(PhaserDSP, "phas")
 AK_REGISTER_PARAMETER(PhaserParameterNotchMinimumFrequency)
 AK_REGISTER_PARAMETER(PhaserParameterNotchMaximumFrequency)
 AK_REGISTER_PARAMETER(PhaserParameterNotchWidth)

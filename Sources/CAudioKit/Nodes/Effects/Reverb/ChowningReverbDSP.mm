@@ -62,4 +62,4 @@ public:
     }
 };
 
-AK_REGISTER_DSP2(ChowningReverbDSP, "jcrv")
+AK_REGISTER_DSP(ChowningReverbDSP, "jcrv")

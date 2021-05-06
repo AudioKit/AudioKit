@@ -52,5 +52,5 @@ public:
 DSPRef akStereoFieldLimiterCreateDSP() {
     return new StereoFieldLimiterDSP();
 }
-AK_REGISTER_DSP2(StereoFieldLimiterDSP, "sflm")
+AK_REGISTER_DSP(StereoFieldLimiterDSP, "sflm")
 AK_REGISTER_PARAMETER(StereoFieldLimiterParameterAmount)

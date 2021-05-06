@@ -85,5 +85,5 @@ AK_API void akCombFilterReverbSetLoopDuration(DSPRef dspRef, float duration) {
     
 }
 
-AK_REGISTER_DSP(CombFilterReverbDSP)
+AK_REGISTER_DSP(CombFilterReverbDSP, "comb")
 AK_REGISTER_PARAMETER(CombFilterReverbParameterReverbDuration)
