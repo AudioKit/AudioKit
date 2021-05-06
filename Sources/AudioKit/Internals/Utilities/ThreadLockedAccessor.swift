@@ -8,15 +8,15 @@ import Darwin
 /// Multiple read accesses can potentially read at the same time, just not during a write.
 /// By using `pthread` to do the locking, this safer then using a `DispatchQueue/barrier` as there isn't a chance of priority inversion.
 @propertyWrapper
-internal final class ThreadLockedAccessor<T> {
+public final class ThreadLockedAccessor<T> {
     private var value: T
     private let lock: ThreadLock = RWThreadLock()
 
-    init(wrappedValue value: T) {
+    public init(wrappedValue value: T) {
         self.value = value
     }
 
-    var wrappedValue: T {
+    public var wrappedValue: T {
         get {
             lock.readLock()
             defer { self.lock.unlock() }
@@ -33,7 +33,7 @@ internal final class ThreadLockedAccessor<T> {
     /// This closure will be passed in the current value and it is free to modify it.
     /// Any modifications will be saved back to the original value.
     /// No other reads/writes will be allowed between when the closure is called and it returns.
-    func mutate(_ closure: (inout T) -> Void) {
+    public func mutate(_ closure: (inout T) -> Void) {
         lock.writeLock()
         closure(&value)
         lock.unlock()

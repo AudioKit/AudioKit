@@ -141,11 +141,7 @@ open class AudioUnitBase: AUAudioUnit {
             )
 
         } else {
-            // Create parameter tree by looking for parameters.
-            let mirror = Mirror(reflecting: self)
-            let params = mirror.children.compactMap { $0.value as? AUParameter }
-
-            parameterTree = AUParameterTree.createTree(withChildren: params)
+            parameterTree = AUParameterTree.createTree(withChildren: [])
         }
     }
 

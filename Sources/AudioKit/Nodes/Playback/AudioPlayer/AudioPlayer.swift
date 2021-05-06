@@ -28,9 +28,7 @@ public class AudioPlayer: Node {
     public internal(set) var isPaused: Bool = false
 
     /// Will be true if there is an existing schedule event
-    public var isScheduled: Bool {
-        scheduleTime != nil
-    }
+    public var isScheduled: Bool { scheduleTime != nil }
 
     private var _isBuffered: Bool = false
     /// If the player is currently using a buffer as an audio source
@@ -72,19 +70,17 @@ public class AudioPlayer: Node {
         }
     }
 
-    public var isSeeking: Bool = false
+    /// Indicates the player is in the midst of a seek operation
+    public internal(set) var isSeeking: Bool = false
 
     /// Length of the audio file in seconds
     public var duration: TimeInterval {
         file?.duration ?? bufferDuration
     }
 
-    /// Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
-    var pausedTime: TimeInterval = 0.0
-
     /// Completion handler to be called when file or buffer is done playing.
     /// This also will be called when looping from disk,
-    /// but no completion is called when looping seamlessly with a buffer
+    /// but no completion is called when looping seamlessly when buffered
     public var completionHandler: AVAudioNodeCompletionHandler?
 
     /// The file to use with the player. This can be set while the player is playing.
@@ -115,18 +111,6 @@ public class AudioPlayer: Node {
         }
     }
 
-    // MARK: - Internal properties
-
-    // the last time scheduled. Only used to check if play() should schedule()
-    var scheduleTime: AVAudioTime?
-
-    var bufferOptions: AVAudioPlayerNodeBufferOptions = .interrupts
-
-    var bufferDuration: TimeInterval {
-        guard let buffer = buffer else { return 0 }
-        return TimeInterval(buffer.frameLength) / buffer.format.sampleRate
-    }
-
     private var _editStartTime: TimeInterval = 0
     /// Get or set the edit start time of the player.
     public var editStartTime: TimeInterval {
@@ -153,6 +137,21 @@ public class AudioPlayer: Node {
         }
     }
 
+    // MARK: - Internal properties
+
+    // Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
+    var pausedTime: TimeInterval = 0.0
+
+    // the last time scheduled. Only used to check if play() should schedule()
+    var scheduleTime: AVAudioTime?
+
+    var bufferOptions: AVAudioPlayerNodeBufferOptions = .interrupts
+
+    var bufferDuration: TimeInterval {
+        guard let buffer = buffer else { return 0 }
+        return TimeInterval(buffer.frameLength) / buffer.format.sampleRate
+    }
+
     /// - Returns: The total frame count that is being playing.
     /// Differs from the audioFile.length as this will be updated with the edited amount
     /// of frames based on startTime and endTime
@@ -165,8 +164,9 @@ public class AudioPlayer: Node {
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
-        guard !isSeeking else { return }
-        guard isPlaying, engine?.isInManualRenderingMode == false else { return }
+        guard !isSeeking,
+              isPlaying,
+              engine?.isInManualRenderingMode == false else { return }
 
         scheduleTime = nil
         completionHandler?()
