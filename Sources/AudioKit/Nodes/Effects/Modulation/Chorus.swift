@@ -79,11 +79,6 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
                     Chorus.dryWetMixDef]
         }
 
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            return akChorusCreateDSP()
-        }
     }
 
     // MARK: - Initialization

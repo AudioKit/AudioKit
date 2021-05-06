@@ -81,12 +81,6 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
                     Flanger.dryWetMixDef]
         }
 
-
-        /// Create flanger DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            return akFlangerCreateDSP()
-        }
     }
 
     // MARK: - Initialization

@@ -7,16 +7,6 @@
 
 #include "ModulatedDelayDSP.h"
 
-DSPRef akChorusCreateDSP()
-{
-    return new ModulatedDelayDSP(kChorus);
-}
-
-DSPRef akFlangerCreateDSP()
-{
-    return new ModulatedDelayDSP(kFlanger);
-}
-
 #import "AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
 const float kChorus_DefaultFrequency = kChorusDefaultModFreqHz;
 const float kChorus_DefaultDepth = kChorusDefaultDepth;
@@ -119,3 +109,13 @@ void ModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
     }
 }
 
+struct ChorusDSP : ModulatedDelayDSP {
+    ChorusDSP() : ModulatedDelayDSP(kChorus) { }
+};
+
+struct FlangerDSP : ModulatedDelayDSP {
+    FlangerDSP() : ModulatedDelayDSP(kFlanger) { }
+};
+
+AK_REGISTER_DSP2(ChorusDSP, "chrs");
+AK_REGISTER_DSP2(FlangerDSP, "flgr");
