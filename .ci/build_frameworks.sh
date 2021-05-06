@@ -32,7 +32,7 @@ if [ ! -f build_frameworks.sh ]; then
     exit 0
 fi
 
-(cd ..; swift package generate-xcodeproj --xcconfig-overrides AudioKit.xcconfig)
+(cd ..; swift package generate-xcodeproj --xcconfig-overrides .ci/AudioKit.xcconfig)
 
 VERSION=$(cat ../VERSION)
 FRAMEWORKS=$(cat Frameworks.list)

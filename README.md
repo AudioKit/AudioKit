@@ -5,15 +5,15 @@ AudioKit
 [![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/blob/v5-main/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/wiki)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
-[![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitPro.svg?style=social)](http://twitter.com/AudioKitPro)
+[![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitPro.svg?style=social)](https://twitter.com/AudioKitPro)
 
 AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS (including Catalyst), and tvOS.
 
 ## Installation
 
-To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL. Check the use branch option and enter `v5-main` or `v5-develop`.
+To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL. Check the use branch option and enter `main` (for official releases) or `develop` (for cutting edge).
 
-Installing AudioKit via Cocoapods was supported through AudioKit 4, and will be reintroduced if necessary.
+Installing AudioKit via CocoaPods is still somewhat supported, via pre-compiled XCFrameworks. A pod for [AudioKitUI](https://github.com/AudioKit/AudioKitUI) is no longer provided.
 
 ## Documentation
 
@@ -29,7 +29,7 @@ The [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) contains many reci
 
 2. Once you are sure the problem is not in your implementation, but in AudioKit itself, you can open a [Github Issue](https://github.com/audiokit/AudioKit/issues).
 
-3. If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](http://github.com/sponsors/aure).
+3. If you, your team or your company is using AudioKit, please consider [sponsoring Aure on Github Sponsors](https://github.com/sponsors/aure).
 
 ## Contributing Code
 
@@ -41,7 +41,7 @@ make your changes, and send us a [pull request](https://github.com/audiokit/Audi
 AudioKit was created by
 [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!
 [Matthew Fecher](https://github.com/analogcode),
-[Jeff Cooper](https://github.com/eljeff), and Aure create [AudioKitPro](http://audiokitpro.com/) apps together, and
+[Jeff Cooper](https://github.com/eljeff), and Aure create [AudioKitPro](https://audiokitpro.com/) apps together, and
 [Stephane Peter](https://github.com/megastep) is Aure's co-admin and manages AudioKit's releases.
 [Taylor Holliday](https://github.com/wtholliday) has been instrumental in AudioKit 5 improvements.
 

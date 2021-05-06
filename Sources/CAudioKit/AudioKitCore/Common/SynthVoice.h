@@ -55,7 +55,7 @@ namespace AudioKitCore
         float newNoteVol;   // holds new note volume while damping note before restarting
         float tempGain;     // product of global volume, note volume, and amp EG
 
-        SynthVoice() : noteNumber(-1) {}
+        SynthVoice(std::mt19937* gen) : noteNumber(-1), osc1(gen), osc2(gen) {}
 
         void init(double sampleRate,
                   WaveStack *pOsc1Stack,

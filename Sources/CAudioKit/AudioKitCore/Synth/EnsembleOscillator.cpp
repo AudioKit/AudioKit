@@ -3,15 +3,9 @@
 #include "EnsembleOscillator.h"
 #include <math.h>
 #include <stdio.h>
-#include <random>
 
 namespace AudioKitCore
 {
-
-    static std::random_device rd;
-    static std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> dis(0.0f, 1.0f);
-    
     void EnsembleOscillator::init(double sampleRate, WaveStack *pStack)
     {
         sampleRateHz = sampleRate;
@@ -21,7 +15,7 @@ namespace AudioKitCore
         phaseDeltaMultiplier = 1.0f;
         for (int i=0; i < maxPhases; i++)
         {
-            phase[i] = dis(gen);
+            phase[i] = dis(*gen);
             phaseDelta[i] = 0.0f;
             rightGain[i] = leftGain[i] = 0.5f;
         }
