@@ -58,7 +58,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit2 { avAudioUnit in
+        instantiateAudioUnit { avAudioUnit in
             self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 

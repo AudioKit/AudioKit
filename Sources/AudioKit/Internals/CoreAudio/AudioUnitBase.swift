@@ -145,11 +145,6 @@ open class AudioUnitBase: AUAudioUnit {
         return nil
     }
 
-    /// Override this to provide a list of definitions from which the `AUParameterTree` is built.
-    open func getParameterDefs() -> [NodeParameterDef]? {
-        return nil
-    }
-
     /// Start the audio unit
     public func start() {
         shouldBypassEffect = false
