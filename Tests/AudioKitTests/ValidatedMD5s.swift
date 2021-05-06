@@ -391,6 +391,8 @@ let validatedMD5s: [String: String] = [
     "-[StringResonatorTests testFrequency]": "c5ffa2b84a480194ce3ed68219c9a468",
     "-[StringResonatorTests testParameters]": "73fd3a4a0479bedd616c9096bec33489",
     "-[SynthTests testChord]": "66d2a5a2f6ea8a58aaa8d6cf6b872840",
+    "-[SynthTests testMonophonicPlayback]": "a1c6df00a83d75b358e952eb904c1ec1",
+    "-[SynthTests testParameterInitialization]": "75ef73e3b449092c025e511d3284fd47",
     "-[TableTests testReverseSawtooth]": "01c214265dd49e5ab627e5b4f4d00fe0",
     "-[TableTests testSawtooth]": "7a3dc1fdc7f7c4d113ba9d1119143e67",
     "-[TableTests testSine]": "f4cc261bdf98ae17320f9561941c8664",
