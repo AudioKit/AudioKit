@@ -295,6 +295,15 @@ DSPRef akCreateDSP(const char* name) {
     return DSPBase::create(name);
 }
 
+DSPRef akCreateDSP2(OSType code) {
+    char name[5] = {0};
+    name[0] = (code >> 24) & 0xff;
+    name[1] = (code >> 16)  & 0xff;
+    name[2] = (code >> 8) & 0xff;
+    name[3] = code & 0xff;
+    return DSPBase::create(name);
+}
+
 using DSPParameterMap = std::map< std::string, AUParameterAddress >;
 
 static DSPParameterMap* paramMap = nullptr;

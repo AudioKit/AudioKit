@@ -115,9 +115,16 @@ open class AudioUnitBase: AUAudioUnit {
         try super.init(componentDescription: componentDescription, options: options)
 
         // Create pointer to the underlying C++ DSP code
-        dsp = createDSP()
+        // New preferred method is to use the component type.
+        dsp = akCreateDSP2(componentDescription.componentSubType)
         if let dsp = dsp {
             try setup(dsp: dsp)
+        } else {
+            // Fall through to old method until we can migrate.
+            dsp = createDSP()
+            if let dsp = dsp {
+                try setup(dsp: dsp)
+            }
         }
 
         // All AudioKit nodes have one output bus.
