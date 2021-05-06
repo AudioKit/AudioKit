@@ -273,6 +273,8 @@ void DSPBase::addCreateFunction(const char* name, CreateFunction func) {
         factoryMap = new DSPFactoryMap;
     }
 
+    assert(factoryMap->count(name) == 0 && "redundant DSP kernel registration");
+
     (*factoryMap)[std::string(name)] = func;
 }
 
