@@ -48,8 +48,6 @@ CoreSynth::CoreSynth()
     for (int i=0; i < MAX_VOICE_COUNT; i++)
     {
         data->voice[i] = unique_ptr<AudioKitCore::SynthVoice>(new AudioKitCore::SynthVoice(&data->gen));
-        data->voice[i]->event = 0;
-        data->voice[i]->noteNumber = -1;
         data->voice[i]->ampEG.pParameters = &data->ampEGParameters;
         data->voice[i]->filterEG.pParameters = &data->filterEGParameters;
     }

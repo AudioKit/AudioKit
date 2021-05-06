@@ -45,10 +45,10 @@ namespace AudioKitCore
         ADSREnvelope ampEG, filterEG;
         Envelope pumpEG;
 
-        unsigned event;     // last "event number" associated with this voice
-        int noteNumber;     // MIDI note number, or -1 if not playing any note
-        float noteFrequency;// note frequency in Hz
-        float noteVolume;      // fraction 0.0 - 1.0, based on MIDI velocity
+        unsigned event = 0;      // last "event number" associated with this voice
+        int noteNumber = -1;     // MIDI note number, or -1 if not playing any note
+        float noteFrequency = 0; // note frequency in Hz
+        float noteVolume = 0;    // fraction 0.0 - 1.0, based on MIDI velocity
         
         // temporary holding variables
         int newNoteNumber;  // holds new note number while damping note before restarting
