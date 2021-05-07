@@ -8,14 +8,53 @@ import CAudioKit
 public class Delay: Node, Toggleable {
     let delayAU = AVAudioUnitDelay()
 
-    /// Dry wet mix
-    @Parameter public var dryWetMix: AUValue
-    /// Delay time
-    @Parameter public var time: AUValue
-    /// Feedback
-    @Parameter public var feedback: AUValue
-    /// Low-pass cutoff frequency
-    @Parameter public var lowPassCutoff: AUValue
+    /// Specification details for dry wet mix
+    public static let dryWetMixDef = NodeParameterDef(
+       identifier: "dryWetMix",
+       name: "Dry-Wet Mix",
+       address: akGetParameterAddress("DelayParameterDryWetMix"),
+       range: 0.0 ... 1.0,
+       unit: .generic,
+       flags: .default)
+
+    /// Dry/wet mix. Should be a value between 0-1.
+    @Parameter(dryWetMixDef) public var dryWetMix: AUValue
+    
+    /// Specification details for time
+    public static let timeDef = NodeParameterDef(
+        identifier: "time",
+        name: "Delay time (Seconds)",
+        address: akGetParameterAddress("DelayParameterTime"),
+        range: 0 ... 2.0,
+        unit: .seconds,
+        flags: .default)
+
+    /// Delay time (in seconds) This value must not exceed the maximum delay time.
+    @Parameter(timeDef) public var time: AUValue
+
+    /// Specification details for feedback
+    public static let feedbackDef = NodeParameterDef(
+        identifier: "feedback",
+        name: "Feedback (%)",
+        address: akGetParameterAddress("DelayParameterFeedback"),
+        range: -100 ... 100,
+        unit: .generic,
+        flags: .default)
+
+    /// Feedback amount. Should be a value between 0-1.
+    @Parameter(feedbackDef) public var feedback: AUValue
+
+    /// Specification details for lowPassCutoff
+    public static let lowPassCutoffDef = NodeParameterDef(
+        identifier: "lowPassCutoff",
+        name: "Low Pass Cutoff Frequency",
+        address: akGetParameterAddress("DelayParameterLowPassCutoff"),
+        range: 10 ... 22050,
+        unit: .hertz,
+        flags: .default)
+
+    /// Low-pass cutoff frequency Cutoff Frequency (Hertz) ranges from 10 to 200 (Default: 80)
+    @Parameter(lowPassCutoffDef) public var lowPassCutoff: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
