@@ -41,7 +41,7 @@ bool DebugDSPCheck(int slot, const char* expected) {
     }
 
     if(strcmp(digestStr, expected)) {
-        printf("Debug hash %s does not match expected hash %s\n", digestStr, expected);
+        printf("Slot %d debug hash %s does not match expected hash %s\n", slot, digestStr, expected);
         return false;
     }
     return true;

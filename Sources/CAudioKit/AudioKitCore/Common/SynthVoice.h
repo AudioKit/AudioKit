@@ -45,17 +45,17 @@ namespace AudioKitCore
         ADSREnvelope ampEG, filterEG;
         Envelope pumpEG;
 
-        unsigned event;     // last "event number" associated with this voice
-        int noteNumber;     // MIDI note number, or -1 if not playing any note
-        float noteFrequency;// note frequency in Hz
-        float noteVolume;      // fraction 0.0 - 1.0, based on MIDI velocity
+        unsigned event = 0;      // last "event number" associated with this voice
+        int noteNumber = -1;     // MIDI note number, or -1 if not playing any note
+        float noteFrequency = 0; // note frequency in Hz
+        float noteVolume = 0;    // fraction 0.0 - 1.0, based on MIDI velocity
         
         // temporary holding variables
         int newNoteNumber;  // holds new note number while damping note before restarting
         float newNoteVol;   // holds new note volume while damping note before restarting
         float tempGain;     // product of global volume, note volume, and amp EG
 
-        SynthVoice() : noteNumber(-1) {}
+        SynthVoice(std::mt19937* gen) : noteNumber(-1), osc1(gen), osc2(gen) {}
 
         void init(double sampleRate,
                   WaveStack *pOsc1Stack,
