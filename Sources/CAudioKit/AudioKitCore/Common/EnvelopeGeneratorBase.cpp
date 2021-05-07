@@ -91,19 +91,21 @@ namespace AudioKitCore
     bool MultiSegmentEnvelopeGenerator::skipEmptySegments() //skips over any segment w/ length 0, so as to not influence the state of the envelope
     {
         assert(segments);
-        SegmentDescriptor seg = (*segments)[curSegIndex];
-        int length = seg.lengthSamples;
-        while (length == 0) { //skip any segments that are 0-length
+
+        // skip any segments that are 0-length
+        while(curSegIndex < segments->size()
+              && (*segments)[curSegIndex].lengthSamples == 0) {
             curSegIndex++;
-            seg = (*segments)[curSegIndex];
-            length = seg.lengthSamples;
         }
-        if (curSegIndex >= int(segments->size())) // if at end of the envelope, reset
-        {
+
+        // if at end of the envelope, reset
+        if(curSegIndex == segments->size()) {
             reset(segments);
             return false;
         }
+
         return true;
+
     }
 
 }
