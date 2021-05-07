@@ -20,18 +20,19 @@ enum OperationGeneratorParameter : AUParameterAddress {
     OperationGeneratorParameter12,
     OperationGeneratorParameter13,
     OperationGeneratorParameter14,
+    OperationGeneratorTrigger
 };
 
 class OperationGeneratorDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
     char *sporthCode = nil;
-    ParameterRamper rampers[14];
+    ParameterRamper rampers[OperationGeneratorTrigger];
     int internalTrigger = 0;
 
 public:
     OperationGeneratorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
-        for(int i=0;i<14;++i) {
+        for(int i=0;i<OperationGeneratorTrigger;++i) {
             parameters[i] = &rampers[i];
         }
         isStarted = false;
@@ -86,12 +87,12 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            for(int i=0;i<14;++i) {
+            for(int i=0;i<OperationGeneratorTrigger;++i) {
                 pd.p[i] = rampers[i].getAndStep();
             }
 
             if (internalTrigger == 1) {
-                pd.p[14] = 1.0;
+                pd.p[OperationGeneratorTrigger] = 1.0;
             }
 
             if (isStarted)
@@ -107,7 +108,7 @@ public:
             }
 
             internalTrigger = 0;
-            pd.p[14] = 0.0;
+            pd.p[OperationGeneratorTrigger] = 0.0;
         }
     }
 };
