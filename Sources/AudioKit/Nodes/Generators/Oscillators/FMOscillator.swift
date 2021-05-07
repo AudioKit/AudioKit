@@ -11,7 +11,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -30,7 +30,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// In cycles per second, the common denominator for the carrier and modulating frequencies.
-    @Parameter public var baseFrequency: AUValue
+    @Parameter(baseFrequencyDef) public var baseFrequency: AUValue
 
     /// Specification details for carrierMultiplier
     public static let carrierMultiplierDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    @Parameter public var carrierMultiplier: AUValue
+    @Parameter(carrierMultiplierDef) public var carrierMultiplier: AUValue
 
     /// Specification details for modulatingMultiplier
     public static let modulatingMultiplierDef = NodeParameterDef(
@@ -54,7 +54,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    @Parameter public var modulatingMultiplier: AUValue
+    @Parameter(modulatingMultiplierDef) public var modulatingMultiplier: AUValue
 
     /// Specification details for modulationIndex
     public static let modulationIndexDef = NodeParameterDef(
@@ -66,7 +66,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    @Parameter public var modulationIndex: AUValue
+    @Parameter(modulationIndexDef) public var modulationIndex: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -78,28 +78,7 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output Amplitude.
-    @Parameter public var amplitude: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for FMOscillator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [FMOscillator.baseFrequencyDef,
-             FMOscillator.carrierMultiplierDef,
-             FMOscillator.modulatingMultiplierDef,
-             FMOscillator.modulationIndexDef,
-             FMOscillator.amplitudeDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("FMOscillatorDSP")
-        }
-    }
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 

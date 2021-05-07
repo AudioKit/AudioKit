@@ -337,40 +337,45 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
         var flattened = Array(floatChannelData.joined())
 
         flattened.withUnsafeMutableBufferPointer { data in
-            internalAU?.loadSampleData(from: SampleDataDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                  sampleRate: sampleRate,
-                                                                  isInterleaved: false,
-                                                                  channelCount: channelCount,
-                                                                  sampleCount: sampleCount,
-                                                                  data: data.baseAddress) )
+
+            var descriptor = SampleDataDescriptor(sampleDescriptor: sampleDescriptor,
+                                                  sampleRate: sampleRate,
+                                                  isInterleaved: false,
+                                                  channelCount: channelCount,
+                                                  sampleCount: sampleCount,
+                                                  data: data.baseAddress)
+
+            akSamplerLoadData(internalAU?.dsp, &descriptor)
         }
     }
 
     /// Stop all voices
     public func stopAllVoices() {
-        internalAU?.stopAllVoices()
+        akSamplerStopAllVoices(internalAU?.dsp)
     }
 
     /// Restart voices
     public func restartVoices() {
-        internalAU?.restartVoices()
+        akSamplerRestartVoices(internalAU?.dsp)
     }
 
     /// Load data from sample descriptor
     /// - Parameter sampleDataDescriptor: Sample descriptor information
     public func loadRawSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
-        internalAU?.loadSampleData(from: sampleDataDescriptor)
+        var copy = sampleDataDescriptor
+        akSamplerLoadData(internalAU?.dsp, &copy)
     }
 
     /// Load data from compressed file
     /// - Parameter sampleFileDescriptor: Sample descriptor information
     public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
-        internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
+        var copy = sampleFileDescriptor
+        akSamplerLoadCompressedFile(internalAU?.dsp, &copy)
     }
 
     /// Unload all the samples from memory
     public func unloadAllSamples() {
-        internalAU?.unloadAllSamples()
+        akSamplerUnloadAllSamples(internalAU?.dsp)
     }
 
     /// Assign a note number to a particular frequency

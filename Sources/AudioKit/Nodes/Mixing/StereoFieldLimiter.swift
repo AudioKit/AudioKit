@@ -11,7 +11,7 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -28,24 +28,7 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Limiting Factor
-    @Parameter public var amount: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for stereo field limiter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [StereoFieldLimiter.amountDef]
-        }
-
-        /// Create stereo field limiter DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("StereoFieldLimiterDSP")
-        }
-    }
+    @Parameter(amountDef) public var amount: AUValue
 
     // MARK: - Initialization
 

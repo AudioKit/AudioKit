@@ -72,6 +72,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(TremoloDSP)
+AK_REGISTER_DSP(TremoloDSP, "trem")
 AK_REGISTER_PARAMETER(TremoloParameterFrequency)
 AK_REGISTER_PARAMETER(TremoloParameterDepth)

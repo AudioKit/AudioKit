@@ -11,7 +11,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Attack time
-    @Parameter public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Decay time
-    @Parameter public var decayDuration: AUValue
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
     /// Specification details for sustainLevel
     public static let sustainLevelDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Sustain Level
-    @Parameter public var sustainLevel: AUValue
+    @Parameter(sustainLevelDef) public var sustainLevel: AUValue
 
     /// Specification details for releaseDuration
     public static let releaseDurationDef = NodeParameterDef(
@@ -64,27 +64,7 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Release time
-    @Parameter public var releaseDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for AmplitudeEnvelope
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [AmplitudeEnvelope.attackDurationDef,
-             AmplitudeEnvelope.decayDurationDef,
-             AmplitudeEnvelope.sustainLevelDef,
-             AmplitudeEnvelope.releaseDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("AmplitudeEnvelopeDSP")
-        }
-    }
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
     // MARK: - Initialization
 

@@ -16,21 +16,10 @@ public class Balancer: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for the balancer
-    public class InternalAU: AudioUnitBase {
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("BalancerDSP")
-        }
-    }
 
     // MARK: - Initialization
 

@@ -13,36 +13,10 @@ public class RhodesPianoKey: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(instrument: "rhds")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = STKAudioUnit
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
-
-    /// Internal audio unit for Rhodes piano key
-    public class InternalAU: AudioUnitBase {
-
-        /// Create Rhodes Piano Key DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            return akCreateDSP("RhodesPianoKeyDSP")
-        }
-
-        /// Trigger a rhoes piano key note
-        /// - Parameters:
-        ///   - note: MIDI Note Number
-        ///   - velocity: MIDI Velocity
-        public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
-
-            if let midiBlock = scheduleMIDIEventBlock {
-                let event = MIDIEvent(noteOn: note, velocity: velocity, channel: 0)
-                event.data.withUnsafeBufferPointer { ptr in
-                    guard let ptr = ptr.baseAddress else { return }
-                    midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
-                }
-            }
-
-        }
-    }
 
     // MARK: - Initialization
 

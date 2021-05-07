@@ -15,7 +15,7 @@ public class MoogLadder: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -32,7 +32,7 @@ public class MoogLadder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Filter cutoff frequency.
-    @Parameter public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
@@ -44,25 +44,7 @@ public class MoogLadder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @Parameter public var resonance: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for MoogLadder
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [MoogLadder.cutoffFrequencyDef,
-             MoogLadder.resonanceDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("MoogLadderDSP")
-        }
-    }
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     // MARK: - Initialization
 

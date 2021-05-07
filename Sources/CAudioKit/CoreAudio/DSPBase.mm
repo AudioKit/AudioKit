@@ -15,11 +15,6 @@ size_t inputBusCountDSP(DSPRef pDSP)
     return pDSP->inputBufferLists.size();
 }
 
-size_t outputBusCountDSP(DSPRef pDSP)
-{
-    return 1; // We don't currently support multiple output busses.
-}
-
 bool canProcessInPlaceDSP(DSPRef pDSP)
 {
     return pDSP->canProcessInPlace();
@@ -278,6 +273,8 @@ void DSPBase::addCreateFunction(const char* name, CreateFunction func) {
         factoryMap = new DSPFactoryMap;
     }
 
+    assert(factoryMap->count(name) == 0 && "redundant DSP kernel registration");
+
     (*factoryMap)[std::string(name)] = func;
 }
 
@@ -296,7 +293,12 @@ DSPRef DSPBase::create(const char* name) {
 
 }
 
-DSPRef akCreateDSP(const char* name) {
+DSPRef akCreateDSP(OSType code) {
+    char name[5] = {0};
+    name[0] = (code >> 24) & 0xff;
+    name[1] = (code >> 16)  & 0xff;
+    name[2] = (code >> 8) & 0xff;
+    name[3] = code & 0xff;
     return DSPBase::create(name);
 }
 

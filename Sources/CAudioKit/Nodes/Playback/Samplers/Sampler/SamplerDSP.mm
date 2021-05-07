@@ -402,6 +402,7 @@ void SamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferO
     }
 }
 
+AK_REGISTER_DSP(SamplerDSP, "samp")
 AK_REGISTER_PARAMETER(SamplerParameterMasterVolume)
 AK_REGISTER_PARAMETER(SamplerParameterPitchBend)
 AK_REGISTER_PARAMETER(SamplerParameterVibratoDepth)

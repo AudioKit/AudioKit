@@ -73,5 +73,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(ToneComplementFilterDSP)
+AK_REGISTER_DSP(ToneComplementFilterDSP, "aton")
 AK_REGISTER_PARAMETER(ToneComplementFilterParameterHalfPowerPoint)

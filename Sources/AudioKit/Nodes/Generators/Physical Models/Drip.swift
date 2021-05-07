@@ -13,7 +13,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "drip")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -30,7 +30,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The intensity of the dripping sound.
-    @Parameter public var intensity: AUValue
+    @Parameter(intensityDef) public var intensity: AUValue
 
     /// Specification details for dampingFactor
     public static let dampingFactorDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The damping factor. Maximum value is 2.0.
-    @Parameter public var dampingFactor: AUValue
+    @Parameter(dampingFactorDef) public var dampingFactor: AUValue
 
     /// Specification details for energyReturn
     public static let energyReturnDef = NodeParameterDef(
@@ -54,7 +54,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The amount of energy to add back into the system.
-    @Parameter public var energyReturn: AUValue
+    @Parameter(energyReturnDef) public var energyReturn: AUValue
 
     /// Specification details for mainResonantFrequency
     public static let mainResonantFrequencyDef = NodeParameterDef(
@@ -66,7 +66,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Main resonant frequency.
-    @Parameter public var mainResonantFrequency: AUValue
+    @Parameter(mainResonantFrequencyDef) public var mainResonantFrequency: AUValue
 
     /// Specification details for firstResonantFrequency
     public static let firstResonantFrequencyDef = NodeParameterDef(
@@ -78,7 +78,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The first resonant frequency.
-    @Parameter public var firstResonantFrequency: AUValue
+    @Parameter(firstResonantFrequencyDef) public var firstResonantFrequency: AUValue
 
     /// Specification details for secondResonantFrequency
     public static let secondResonantFrequencyDef = NodeParameterDef(
@@ -90,7 +90,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// The second resonant frequency.
-    @Parameter public var secondResonantFrequency: AUValue
+    @Parameter(secondResonantFrequencyDef) public var secondResonantFrequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -102,30 +102,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amplitude.
-    @Parameter public var amplitude: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Drip
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Drip.intensityDef,
-             Drip.dampingFactorDef,
-             Drip.energyReturnDef,
-             Drip.mainResonantFrequencyDef,
-             Drip.firstResonantFrequencyDef,
-             Drip.secondResonantFrequencyDef,
-             Drip.amplitudeDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DripDSP")
-        }
-    }
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 

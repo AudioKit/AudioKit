@@ -37,4 +37,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(MandolinStringDSP);
+AK_REGISTER_DSP(MandolinStringDSP, "mand");

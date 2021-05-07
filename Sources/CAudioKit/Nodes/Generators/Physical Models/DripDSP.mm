@@ -90,7 +90,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(DripDSP)
+AK_REGISTER_DSP(DripDSP, "drip")
 AK_REGISTER_PARAMETER(DripParameterIntensity)
 AK_REGISTER_PARAMETER(DripParameterDampingFactor)
 AK_REGISTER_PARAMETER(DripParameterEnergyReturn)

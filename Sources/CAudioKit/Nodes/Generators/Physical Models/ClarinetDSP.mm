@@ -31,4 +31,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(ClarinetDSP);
+AK_REGISTER_DSP(ClarinetDSP, "clar");

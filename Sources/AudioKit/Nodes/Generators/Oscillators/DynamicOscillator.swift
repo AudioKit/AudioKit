@@ -12,7 +12,7 @@ public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "csto")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -34,7 +34,7 @@ public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency in cycles per second
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -46,7 +46,7 @@ public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output Amplitude.
-    @Parameter public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
@@ -58,7 +58,7 @@ public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency offset in Hz.
-    @Parameter public var detuningOffset: AUValue
+    @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
 
     /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
@@ -70,27 +70,7 @@ public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency detuning multiplier
-    @Parameter public var detuningMultiplier: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for DynamicOscillator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        override public func getParameterDefs() -> [NodeParameterDef] {
-            [DynamicOscillator.frequencyDef,
-             DynamicOscillator.amplitudeDef,
-             DynamicOscillator.detuningOffsetDef,
-             DynamicOscillator.detuningMultiplierDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference (Pointer to an instance of an DSPBase subclass)
-        override public func createDSP() -> DSPRef {
-            akCreateDSP("DynamicOscillatorDSP")
-        }
-    }
+    @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 

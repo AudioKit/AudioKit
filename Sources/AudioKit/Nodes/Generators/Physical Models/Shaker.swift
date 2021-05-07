@@ -85,7 +85,7 @@ public class Shaker: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = STKAudioUnit
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -95,36 +95,6 @@ public class Shaker: Node, AudioUnitContainer, Toggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     open var isStarted: Bool {
         return internalAU?.isStarted ?? false
-    }
-
-    // MARK: - Internal Audio Unit
-
-    /// Internal audio unti for shaker
-    public class InternalAU: AudioUnitBase {
-
-        /// Create shaker DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            return akCreateDSP("ShakerDSP")
-        }
-
-        /// Trigger the shaker
-        /// - Parameters:
-        ///   - type: Type of shaker to create
-        ///   - amplitude: How hard to shake or velocity
-        public func trigger(type: AUValue, amplitude: AUValue) {
-
-            if let midiBlock = scheduleMIDIEventBlock {
-                let event = MIDIEvent(noteOn: MIDINoteNumber(type),
-                                        velocity: MIDIVelocity(amplitude * 127.0),
-                                        channel: 0)
-                event.data.withUnsafeBufferPointer { ptr in
-                    guard let ptr = ptr.baseAddress else { return }
-                    midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
-                }
-            }
-
-        }
     }
 
     // MARK: - Initialization

@@ -13,7 +13,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "btbr")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -30,7 +30,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Center frequency. (in Hertz)
-    @Parameter public var centerFrequency: AUValue
+    @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for bandwidth
     public static let bandwidthDef = NodeParameterDef(
@@ -42,25 +42,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Bandwidth. (in Hertz)
-    @Parameter public var bandwidth: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for BandRejectButterworthFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [BandRejectButterworthFilter.centerFrequencyDef,
-             BandRejectButterworthFilter.bandwidthDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("BandRejectButterworthFilterDSP")
-        }
-    }
+    @Parameter(bandwidthDef) public var bandwidth: AUValue
 
     // MARK: - Initialization
 

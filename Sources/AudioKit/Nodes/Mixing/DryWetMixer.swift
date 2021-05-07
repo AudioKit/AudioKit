@@ -11,7 +11,7 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
    public static let ComponentDescription = AudioComponentDescription(mixer: "dwmx")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -28,24 +28,7 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Balance between input signals
-    @Parameter public var balance: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for dry wet mixer
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [DryWetMixer.balanceDef]
-        }
-
-        /// Create dry wet mixer DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DryWetMixerDSP")
-        }
-    }
+    @Parameter(balanceDef) public var balance: AUValue
 
     /// Initialize this dry wet mixer node
     ///

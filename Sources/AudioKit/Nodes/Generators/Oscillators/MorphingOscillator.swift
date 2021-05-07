@@ -13,7 +13,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -32,7 +32,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency (in Hz)
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -44,7 +44,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amplitude (typically a value between 0 and 1).
-    @Parameter public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification details for index
     public static let indexDef = NodeParameterDef(
@@ -56,7 +56,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Index of the wavetable to use (fractional are okay).
-    @Parameter public var index: AUValue
+    @Parameter(indexDef) public var index: AUValue
 
     /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
@@ -68,7 +68,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency offset in Hz.
-    @Parameter public var detuningOffset: AUValue
+    @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
 
     /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
@@ -80,28 +80,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency detuning multiplier
-    @Parameter public var detuningMultiplier: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for MorphingOscillator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [MorphingOscillator.frequencyDef,
-             MorphingOscillator.amplitudeDef,
-             MorphingOscillator.indexDef,
-             MorphingOscillator.detuningOffsetDef,
-             MorphingOscillator.detuningMultiplierDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("MorphingOscillatorDSP")
-        }
-    }
+    @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 

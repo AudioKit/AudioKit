@@ -15,8 +15,6 @@ public protocol AudioUnitContainer {
 
 extension AudioUnitContainer {
 
-    /// Register the audio unit subclass
-    /// - Parameter callback: Call back with all set up information
     public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
         AUAudioUnit.registerSubclass(Self.AudioUnitType.self,
                                      as: Self.ComponentDescription,
@@ -26,6 +24,32 @@ extension AudioUnitContainer {
             guard let au = avAudioUnit else {
                 fatalError("Unable to instantiate AVAudioUnit")
             }
+            guard let myAU = au.auAudioUnit as? Self.AudioUnitType else {
+                fatalError("AudioUnit not of expected type")
+            }
+
+            // If there are no parameters created, search for @Parameter
+            if myAU.parameterTree!.children.isEmpty {
+                let mirror = Mirror(reflecting: self)
+                var params: [AUParameter] = []
+
+                for child in mirror.children {
+                    if let param = child.value as? ParameterBase {
+                        if let def = param.projectedValue.def {
+                            params.append(AUParameter(identifier: def.identifier,
+                                                      name: def.name,
+                                                      address: def.address,
+                                                      min: def.range.lowerBound,
+                                                      max: def.range.upperBound,
+                                                      unit: def.unit,
+                                                      flags: def.flags))
+                        }
+                    }
+                }
+
+                myAU.parameterTree = AUParameterTree.createTree(withChildren: params)
+            }
+
             callback(au)
         }
     }

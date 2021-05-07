@@ -180,6 +180,7 @@ void SynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOff
     }
 }
 
+AK_REGISTER_DSP(SynthDSP, "snth")
 AK_REGISTER_PARAMETER(SynthParameterMasterVolume)
 AK_REGISTER_PARAMETER(SynthParameterPitchBend)
 AK_REGISTER_PARAMETER(SynthParameterVibratoDepth)

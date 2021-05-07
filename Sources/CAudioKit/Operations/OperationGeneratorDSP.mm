@@ -159,7 +159,7 @@ AK_API float* akOperationGeneratorTrigger(DSPRef dspRef) {
     dsp->trigger();
 }
 
-AK_REGISTER_DSP(OperationGeneratorDSP)
+AK_REGISTER_DSP(OperationGeneratorDSP, "cstg")
 AK_REGISTER_PARAMETER(OperationGeneratorParameter1)
 AK_REGISTER_PARAMETER(OperationGeneratorParameter2)
 AK_REGISTER_PARAMETER(OperationGeneratorParameter3)

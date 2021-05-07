@@ -37,4 +37,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(RhodesPianoKeyDSP);
+AK_REGISTER_DSP(RhodesPianoKeyDSP, "rhds");

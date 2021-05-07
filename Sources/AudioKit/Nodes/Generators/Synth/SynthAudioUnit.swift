@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-/// Synth Audio Unit - should be converted to an InternalAU
+/// Synth Audio Unit 
 public class SynthAudioUnit: AudioUnitBase {
 
     var masterVolume: AUParameter!
@@ -33,12 +33,6 @@ public class SynthAudioUnit: AudioUnitBase {
     var filterSustainLevel: AUParameter!
 
     var filterReleaseDuration: AUParameter!
-
-    /// Create the synth DSP
-    /// - Returns: DSP Reference
-    public override func createDSP() -> DSPRef {
-        return akSynthCreateDSP()
-    }
 
     override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {

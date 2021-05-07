@@ -9,7 +9,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -37,7 +37,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Left Channel Amplification Factor
-    @Parameter public var leftGain: AUValue
+    @Parameter(leftGainDef) public var leftGain: AUValue
 
     /// Specification details for right gain
     public static let rightGainDef = NodeParameterDef(
@@ -49,7 +49,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Right Channel Amplification Factor
-    @Parameter public var rightGain: AUValue
+    @Parameter(rightGainDef) public var rightGain: AUValue
 
     /// Amplification Factor in db
     public var dB: AUValue {
@@ -67,7 +67,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Flip left and right signal
-    @Parameter public var flipStereo: Bool
+    @Parameter(flipStereoDef) public var flipStereo: Bool
 
     /// Specification for whether to mix the stereo signal down to mono
     public static let mixToMonoDef = NodeParameterDef(
@@ -79,27 +79,8 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
-    @Parameter public var mixToMono: Bool
+    @Parameter(mixToMonoDef) public var mixToMono: Bool
 
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for fader
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Fader.leftGainDef,
-             Fader.rightGainDef,
-             Fader.flipStereoDef,
-             Fader.mixToMonoDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("FaderDSP")
-        }
-    }
     // MARK: - Initialization
 
     /// Initialize this fader node

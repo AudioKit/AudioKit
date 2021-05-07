@@ -11,7 +11,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Ratio to compress with, a value > 1 will compress
-    @Parameter public var ratio: AUValue
+    @Parameter(ratioDef) public var ratio: AUValue
 
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Threshold (in dB) 0 = max
-    @Parameter public var threshold: AUValue
+    @Parameter(thresholdDef) public var threshold: AUValue
 
     /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Attack duration
-    @Parameter public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for releaseDuration
     public static let releaseDurationDef = NodeParameterDef(
@@ -64,27 +64,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Release Duration
-    @Parameter public var releaseDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for DynamicRangeCompressor
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [DynamicRangeCompressor.ratioDef,
-             DynamicRangeCompressor.thresholdDef,
-             DynamicRangeCompressor.attackDurationDef,
-             DynamicRangeCompressor.releaseDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DynamicRangeCompressorDSP")
-        }
-    }
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
     // MARK: - Initialization
 

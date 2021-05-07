@@ -18,7 +18,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -35,7 +35,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Glottal frequency.
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for tonguePosition
     public static let tonguePositionDef = NodeParameterDef(
@@ -47,7 +47,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Tongue position (0-1)
-    @Parameter public var tonguePosition: AUValue
+    @Parameter(tonguePositionDef) public var tonguePosition: AUValue
 
     /// Specification details for tongueDiameter
     public static let tongueDiameterDef = NodeParameterDef(
@@ -59,7 +59,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Tongue diameter (0-1)
-    @Parameter public var tongueDiameter: AUValue
+    @Parameter(tongueDiameterDef) public var tongueDiameter: AUValue
 
     /// Specification details for tenseness
     public static let tensenessDef = NodeParameterDef(
@@ -71,7 +71,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
-    @Parameter public var tenseness: AUValue
+    @Parameter(tensenessDef) public var tenseness: AUValue
 
     /// Specification details for nasality
     public static let nasalityDef = NodeParameterDef(
@@ -83,28 +83,7 @@ public class VocalTract: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
-    @Parameter public var nasality: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for VocalTract
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [VocalTract.frequencyDef,
-             VocalTract.tonguePositionDef,
-             VocalTract.tongueDiameterDef,
-             VocalTract.tensenessDef,
-             VocalTract.nasalityDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("VocalTractDSP")
-        }
-    }
+    @Parameter(nasalityDef) public var nasality: AUValue
 
     // MARK: - Initialization
 

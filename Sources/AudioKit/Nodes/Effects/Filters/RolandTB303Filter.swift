@@ -11,7 +11,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Cutoff frequency. (in Hertz)
-    @Parameter public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @Parameter public var resonance: AUValue
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     /// Specification details for distortion
     public static let distortionDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-    @Parameter public var distortion: AUValue
+    @Parameter(distortionDef) public var distortion: AUValue
 
     /// Specification details for resonanceAsymmetry
     public static let resonanceAsymmetryDef = NodeParameterDef(
@@ -64,27 +64,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Asymmetry of resonance. Value is between 0-1
-    @Parameter public var resonanceAsymmetry: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for RolandTB303Filter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [RolandTB303Filter.cutoffFrequencyDef,
-             RolandTB303Filter.resonanceDef,
-             RolandTB303Filter.distortionDef,
-             RolandTB303Filter.resonanceAsymmetryDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("RolandTB303FilterDSP")
-        }
-    }
+    @Parameter(resonanceAsymmetryDef) public var resonanceAsymmetry: AUValue
 
     // MARK: - Initialization
 

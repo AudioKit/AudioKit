@@ -79,6 +79,6 @@ public:
     }
 };
 
-AK_REGISTER_DSP(MoogLadderDSP)
+AK_REGISTER_DSP(MoogLadderDSP, "mgld")
 AK_REGISTER_PARAMETER(MoogLadderParameterCutoffFrequency)
 AK_REGISTER_PARAMETER(MoogLadderParameterResonance)

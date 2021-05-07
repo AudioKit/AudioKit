@@ -4,13 +4,14 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
+/// TODO: This node needs tests
 public class StereoDelay: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "sdly"
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -27,7 +28,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    @Parameter public var time: AUValue
+    @Parameter(timeDef) public var time: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -39,7 +40,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Feedback amount. Should be a value between 0-1.
-    @Parameter public var feedback: AUValue
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
@@ -51,7 +52,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
        flags: .default)
 
     /// Dry/wet mix. Should be a value between 0-1.
-    @Parameter public var dryWetMix: AUValue
+    @Parameter(dryWetMixDef) public var dryWetMix: AUValue
 
     /// Specification details for ping pong mode
     public static let pingPongDef = NodeParameterDef(
@@ -63,27 +64,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
        flags: [.flag_IsReadable, .flag_IsWritable])
 
     /// Ping-pong mode: true or false (stereo mode)
-    @Parameter public var pingPong: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for Stereo Delay
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [StereoDelay.timeDef,
-             StereoDelay.feedbackDef,
-             StereoDelay.dryWetMixDef,
-             StereoDelay.pingPongDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("StereoDelayDSP")
-        }
-    }
+    @Parameter(pingPongDef) public var pingPong: AUValue
 
     // MARK: - Initialization
 

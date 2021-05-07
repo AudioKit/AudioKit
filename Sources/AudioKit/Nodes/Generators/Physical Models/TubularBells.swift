@@ -13,36 +13,10 @@ public class TubularBells: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(instrument: "tbel")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = STKAudioUnit
 
     /// Internal audio unit type
     public private(set) var internalAU: AudioUnitType?
-
-    /// Internal audio unit type for tubular bells
-    public class InternalAU: AudioUnitBase {
-
-        /// Create the tubular bells DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            return akCreateDSP("TubularBellsDSP")
-        }
-
-        /// Trigger a tubular bells note
-        /// - Parameters:
-        ///   - note: MIDI Note Number
-        ///   - velocity: MIDI Velocity
-        public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
-
-            if let midiBlock = scheduleMIDIEventBlock {
-                let event = MIDIEvent(noteOn: note, velocity: velocity, channel: 0)
-                event.data.withUnsafeBufferPointer { ptr in
-                    guard let ptr = ptr.baseAddress else { return }
-                    midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
-                }
-            }
-
-        }
-    }
 
     // MARK: - Initialization
 

@@ -13,7 +13,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "minc")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -30,7 +30,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    @Parameter public var position: AUValue
+    @Parameter(positionDef) public var position: AUValue
 
     /// Specification for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -42,7 +42,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Amplitude.
-    @Parameter public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification for pitch ratio
     public static let pitchRatioDef = NodeParameterDef(
@@ -54,26 +54,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
-    @Parameter public var pitchRatio: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for phase locked vocoder
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [PhaseLockedVocoder.positionDef,
-             PhaseLockedVocoder.amplitudeDef,
-             PhaseLockedVocoder.pitchRatioDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PhaseLockedVocoderDSP")
-        }
-    }
+    @Parameter(pitchRatioDef) public var pitchRatio: AUValue
 
     // MARK: - Initialization
 

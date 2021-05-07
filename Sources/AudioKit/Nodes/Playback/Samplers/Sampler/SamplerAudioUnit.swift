@@ -264,12 +264,6 @@ public class SamplerAudioUnit: AudioUnitBase {
         unit: .generic,
         flags: nonRampFlags)
 
-    /// Create Sampler DSP
-    /// - Returns: Reference to Sampler DSP Object
-    public override func createDSP() -> DSPRef {
-        return akSamplerCreateDSP()
-    }
-
     override init(componentDescription: AudioComponentDescription,
                   options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
@@ -346,35 +340,6 @@ public class SamplerAudioUnit: AudioUnitBase {
 
     /// This unit can process in place
     public override var canProcessInPlace: Bool { return true }
-
-    /// Stop all voices
-    public func stopAllVoices() {
-        akSamplerStopAllVoices(dsp)
-    }
-
-    /// Restart voices
-    public func restartVoices() {
-        akSamplerRestartVoices(dsp)
-    }
-
-    /// Load sample data from sample descriptor
-    /// - Parameter sampleDataDescriptor: Sample descriptor
-    public func loadSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
-        var copy = sampleDataDescriptor
-        akSamplerLoadData(dsp, &copy)
-    }
-
-    /// Load data from compressed file
-    /// - Parameter sampleFileDescriptor: Sample descriptor information
-    public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
-        var copy = sampleFileDescriptor
-        akSamplerLoadCompressedFile(dsp, &copy)
-    }
-
-    /// Unload all the samples from memory
-    public func unloadAllSamples() {
-        akSamplerUnloadAllSamples(dsp)
-    }
 
     /// Assign a note number to a particular frequency
     /// - Parameters:

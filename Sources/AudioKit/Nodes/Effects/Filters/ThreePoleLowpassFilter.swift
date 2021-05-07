@@ -11,7 +11,7 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-    @Parameter public var distortion: AUValue
+    @Parameter(distortionDef) public var distortion: AUValue
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Filter cutoff frequency in Hertz.
-    @Parameter public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
@@ -52,26 +52,7 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
-    @Parameter public var resonance: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for ThreePoleLowpassFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [ThreePoleLowpassFilter.distortionDef,
-             ThreePoleLowpassFilter.cutoffFrequencyDef,
-             ThreePoleLowpassFilter.resonanceDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("ThreePoleLowpassFilterDSP")
-        }
-    }
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     // MARK: - Initialization
 

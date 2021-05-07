@@ -7,13 +7,12 @@
 
 #include <stdarg.h>
 
-AK_API DSPRef akCreateDSP(const char* name);
+AK_API DSPRef akCreateDSP(OSType code);
 AK_API AUParameterAddress akGetParameterAddress(const char* name);
 
 AK_API AUInternalRenderBlock internalRenderBlockDSP(DSPRef pDSP);
 
 AK_API size_t inputBusCountDSP(DSPRef pDSP);
-AK_API size_t outputBusCountDSP(DSPRef pDSP);
 AK_API bool canProcessInPlaceDSP(DSPRef pDSP);
 
 AK_API void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex);
@@ -187,8 +186,8 @@ struct DSPRegistration {
 
 /// Convenience macro for registering a subclass of DSPBase.
 ///
-/// You'll want to do `AK_REGISTER_DSP(AKMyClass)` in order to be able to call `akCreateDSP("MyClass")`
-#define AK_REGISTER_DSP(ClassName) DSPRegistration<ClassName> __register##ClassName(#ClassName);
+/// You'll want to do `AK_REGISTER_DSP(AKMyClass, componentSubType)`
+#define AK_REGISTER_DSP(ClassName, Code) DSPRegistration<ClassName> __register##ClassName(Code);
 
 struct ParameterRegistration {
     ParameterRegistration(const char* name, AUParameterAddress address) {

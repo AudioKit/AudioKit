@@ -94,4 +94,4 @@ AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback) 
     static_cast<CallbackInstrumentDSP*>(dsp)->setCallback(callback);
 }
 
-AK_REGISTER_DSP(CallbackInstrumentDSP)
+AK_REGISTER_DSP(CallbackInstrumentDSP, "clbk")

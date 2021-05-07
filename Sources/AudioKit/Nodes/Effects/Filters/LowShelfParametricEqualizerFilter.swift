@@ -11,7 +11,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
     public static let ComponentDescription = AudioComponentDescription(effect: "peq1")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         flags: .default)
 
     /// Corner frequency.
-    @Parameter public var cornerFrequency: AUValue
+    @Parameter(cornerFrequencyDef) public var cornerFrequency: AUValue
 
     /// Specification details for gain
     public static let gainDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         flags: .default)
 
     /// Amount at which the corner frequency value shall be changed. A value of 1 is a flat response.
-    @Parameter public var gain: AUValue
+    @Parameter(gainDef) public var gain: AUValue
 
     /// Specification details for q
     public static let qDef = NodeParameterDef(
@@ -52,26 +52,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         flags: .default)
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    @Parameter public var q: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for LowShelfParametricEqualizerFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [LowShelfParametricEqualizerFilter.cornerFrequencyDef,
-             LowShelfParametricEqualizerFilter.gainDef,
-             LowShelfParametricEqualizerFilter.qDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("LowShelfParametricEqualizerFilterDSP")
-        }
-    }
+    @Parameter(qDef) public var q: AUValue
 
     // MARK: - Initialization
 

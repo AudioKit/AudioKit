@@ -12,7 +12,7 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -29,7 +29,7 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Filter cutoff frequency.
-    @Parameter public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification for the gain
     public static let gainDef = NodeParameterDef(
@@ -41,26 +41,8 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    @Parameter public var gain: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for diode clipper
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [DiodeClipper.cutoffFrequencyDef,
-             DiodeClipper.gainDef]
-        }
-
-        /// Create diode clipper DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DiodeClipperDSP")
-        }
-    }
-
+    @Parameter(gainDef) public var gain: AUValue
+    
     // MARK: - Initialization
 
     /// Initialize this clipper node

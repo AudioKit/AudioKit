@@ -143,7 +143,7 @@ AK_API void akOperationEffectSetSporth(DSPRef dspRef, const char *sporth, int le
     dsp->setSporth(sporth, length);
 }
 
-AK_REGISTER_DSP(OperationEffectDSP)
+AK_REGISTER_DSP(OperationEffectDSP, "cstm")
 AK_REGISTER_PARAMETER(OperationEffectParameter1)
 AK_REGISTER_PARAMETER(OperationEffectParameter2)
 AK_REGISTER_PARAMETER(OperationEffectParameter3)

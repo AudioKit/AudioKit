@@ -80,6 +80,6 @@ public:
 
 };
 
-AK_REGISTER_DSP(AutoPannerDSP)
+AK_REGISTER_DSP(AutoPannerDSP, "apan")
 AK_REGISTER_PARAMETER(AutoPannerParameterFrequency)
 AK_REGISTER_PARAMETER(AutoPannerParameterDepth)

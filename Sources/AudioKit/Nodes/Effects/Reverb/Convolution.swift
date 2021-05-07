@@ -5,6 +5,7 @@ import CAudioKit
 
 /// This module will perform partitioned convolution on an input signal using an
 /// ftable as an impulse response.
+/// TOOD: This node needs to be tested
 ///
 public class Convolution: Node, AudioUnitContainer, Toggleable {
 
@@ -12,7 +13,7 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -21,25 +22,6 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
 
     fileprivate var impulseResponseFileURL: CFURL
     fileprivate var partitionLength: Int = 2_048
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for convolution
-    public class InternalAU: AudioUnitBase {
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("ConvolutionDSP")
-        }
-
-        /// Set Partition Length
-        /// - Parameter length: Length of partition
-        public func setPartitionLength(_ length: Int) {
-            akConvolutionSetPartitionLength(dsp, Int32(length))
-        }
-
-    }
 
     // MARK: - Initialization
 
@@ -64,7 +46,9 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
 
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
-            self.internalAU?.setPartitionLength(partitionLength)
+            if let dsp = self.internalAU?.dsp {
+                akConvolutionSetPartitionLength(dsp, Int32(partitionLength))
+            }
             self.readAudioFile()
             self.internalAU?.start()
         }

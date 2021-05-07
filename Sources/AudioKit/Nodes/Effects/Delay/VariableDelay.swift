@@ -11,7 +11,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    @Parameter public var time: AUValue
+    @Parameter(timeDef) public var time: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -40,31 +40,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Feedback amount. Should be a value between 0-1.
-    @Parameter public var feedback: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for VariableDelay
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [VariableDelay.timeDef,
-             VariableDelay.feedbackDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("VariableDelayDSP")
-        }
-
-        /// Set the longest delay time
-        /// - Parameter maximumTime: Delay time in seconds
-        public func setMaximumTime(_ maximumTime: AUValue) {
-            akVariableDelaySetMaximumTime(dsp, maximumTime)
-        }
-    }
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     // MARK: - Initialization
 
@@ -93,7 +69,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
             }
             self.internalAU = audioUnit
 
-            audioUnit.setMaximumTime(maximumTime)
+            akVariableDelaySetMaximumTime(audioUnit.dsp, maximumTime)
 
             self.time = time
             self.feedback = feedback

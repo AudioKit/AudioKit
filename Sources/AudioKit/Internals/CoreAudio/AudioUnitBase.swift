@@ -114,35 +114,21 @@ open class AudioUnitBase: AUAudioUnit {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        // Create pointer to the underlying C++ DSP code
-        dsp = createDSP()
-        if dsp == nil { throw CommonError.InvalidDSPObject }
+        // Create pointer to C++ DSP code.
+        dsp = akCreateDSP(componentDescription.componentSubType)
+        assert(dsp != nil)
 
         // create audio bus connection points
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         for _ in 0..<inputBusCountDSP(dsp) {
             inputBusArray.append(try AUAudioUnitBus(format: format))
         }
-        for _ in 0..<outputBusCountDSP(dsp) {
-            outputBusArray.append(try AUAudioUnitBus(format: format))
-        }
 
-        if let paramDefs = getParameterDefs() {
-            parameterTree = AUParameterTree.createTree(withChildren:
-                paramDefs.map {
-                    AUParameter(identifier: $0.identifier,
-                                name: $0.name,
-                                address: $0.address,
-                                min: $0.range.lowerBound,
-                                max: $0.range.upperBound,
-                                unit: $0.unit,
-                                flags: $0.flags)
-                }
-            )
+        // All AudioKit nodes have one output bus.
+        outputBusArray.append(try AUAudioUnitBus(format: format))
 
-        } else {
-            parameterTree = AUParameterTree.createTree(withChildren: [])
-        }
+        parameterTree = AUParameterTree.createTree(withChildren: [])
+
     }
 
     deinit {
@@ -153,16 +139,6 @@ open class AudioUnitBase: AUAudioUnit {
 
     /// Whether the audio unit is running
     public private(set) var isStarted: Bool = true
-
-    /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
-    open func createDSP() -> DSPRef? {
-        return nil
-    }
-
-    /// Override this to provide a list of definitions from which the `AUParameterTree` is built.
-    open func getParameterDefs() -> [NodeParameterDef]? {
-        return nil
-    }
 
     /// Start the audio unit
     public func start() {

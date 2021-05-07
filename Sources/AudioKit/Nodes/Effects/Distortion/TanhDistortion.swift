@@ -11,7 +11,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Determines gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    @Parameter public var pregain: AUValue
+    @Parameter(pregainDef) public var pregain: AUValue
 
     /// Specification details for postgain
     public static let postgainDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Gain applied after waveshaping
-    @Parameter public var postgain: AUValue
+    @Parameter(postgainDef) public var postgain: AUValue
 
     /// Specification details for positiveShapeParameter
     public static let positiveShapeParameterDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    @Parameter public var positiveShapeParameter: AUValue
+    @Parameter(positiveShapeParameterDef) public var positiveShapeParameter: AUValue
 
     /// Specification details for negativeShapeParameter
     public static let negativeShapeParameterDef = NodeParameterDef(
@@ -64,27 +64,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Like the positive shape parameter, only for the negative part.
-    @Parameter public var negativeShapeParameter: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for TanhDistortion
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [TanhDistortion.pregainDef,
-             TanhDistortion.postgainDef,
-             TanhDistortion.positiveShapeParameterDef,
-             TanhDistortion.negativeShapeParameterDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("TanhDistortionDSP")
-        }
-    }
+    @Parameter(negativeShapeParameterDef) public var negativeShapeParameter: AUValue
 
     // MARK: - Initialization
 

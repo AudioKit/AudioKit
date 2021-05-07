@@ -16,7 +16,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -33,7 +33,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// In cycles per second, or Hz.
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -45,7 +45,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Output amplitude
-    @Parameter public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification details for pulseWidth
     public static let pulseWidthDef = NodeParameterDef(
@@ -53,11 +53,11 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         name: "Pulse Width",
         address: akGetParameterAddress("PWMOscillatorParameterPulseWidth"),
         range: 0.0 ... 1.0,
-        unit: .generic,
+        unit: .percent,
         flags: .default)
 
     /// Duty cycle width (range 0-1).
-    @Parameter public var pulseWidth: AUValue
+    @Parameter(pulseWidthDef) public var pulseWidth: AUValue
 
     /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
@@ -69,7 +69,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency offset in Hz.
-    @Parameter public var detuningOffset: AUValue
+    @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
 
     /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
@@ -81,28 +81,7 @@ public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Frequency detuning multiplier
-    @Parameter public var detuningMultiplier: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for PWMOscillator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [PWMOscillator.frequencyDef,
-             PWMOscillator.amplitudeDef,
-             PWMOscillator.pulseWidthDef,
-             PWMOscillator.detuningOffsetDef,
-             PWMOscillator.detuningMultiplierDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PWMOscillatorDSP")
-        }
-    }
+    @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 

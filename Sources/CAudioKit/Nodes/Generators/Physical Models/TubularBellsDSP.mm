@@ -37,4 +37,4 @@ public:
 
 };
 
-AK_REGISTER_DSP(TubularBellsDSP);
+AK_REGISTER_DSP(TubularBellsDSP, "tbel");

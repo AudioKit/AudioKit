@@ -84,5 +84,5 @@ AK_API void akFlatFrequencyResponseSetLoopDuration(DSPRef dspRef, float duration
     dsp->setLoopDuration(duration);
 }
 
-AK_REGISTER_DSP(FlatFrequencyResponseReverbDSP)
+AK_REGISTER_DSP(FlatFrequencyResponseReverbDSP, "alps")
 AK_REGISTER_PARAMETER(FlatFrequencyResponseReverbParameterReverbDuration)

@@ -11,7 +11,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
@@ -28,7 +28,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Modulation Frequency (Hz)
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for depth
     public static let depthDef = NodeParameterDef(
@@ -40,7 +40,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Modulation Depth (fraction)
-    @Parameter public var depth: AUValue
+    @Parameter(depthDef) public var depth: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
@@ -52,7 +52,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Feedback (fraction)
-    @Parameter public var feedback: AUValue
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
@@ -64,27 +64,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Dry Wet Mix (fraction)
-    @Parameter public var dryWetMix: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for Chorus
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            return [Chorus.frequencyDef,
-                    Chorus.depthDef,
-                    Chorus.feedbackDef,
-                    Chorus.dryWetMixDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            return akChorusCreateDSP()
-        }
-    }
+    @Parameter(dryWetMixDef) public var dryWetMix: AUValue
 
     // MARK: - Initialization
 

@@ -12,7 +12,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
     public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
 
     /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    public typealias AudioUnitType = AudioUnitBase
 
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
@@ -29,7 +29,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    @Parameter public var leftBoundaryCondition: AUValue
+    @Parameter(leftBoundaryConditionDef) public var leftBoundaryCondition: AUValue
 
     /// Specification details for rightBoundaryCondition
     public static let rightBoundaryConditionDef = NodeParameterDef(
@@ -41,7 +41,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    @Parameter public var rightBoundaryCondition: AUValue
+    @Parameter(rightBoundaryConditionDef) public var rightBoundaryCondition: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
@@ -53,7 +53,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// 30db decay time (in seconds).
-    @Parameter public var decayDuration: AUValue
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
     /// Specification details for scanSpeed
     public static let scanSpeedDef = NodeParameterDef(
@@ -65,7 +65,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Speed of scanning the output location.
-    @Parameter public var scanSpeed: AUValue
+    @Parameter(scanSpeedDef) public var scanSpeed: AUValue
 
     /// Specification details for position
     public static let positionDef = NodeParameterDef(
@@ -77,7 +77,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Position along bar that strike occurs.
-    @Parameter public var position: AUValue
+    @Parameter(positionDef) public var position: AUValue
 
     /// Specification details for strikeVelocity
     public static let strikeVelocityDef = NodeParameterDef(
@@ -89,7 +89,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Normalized strike velocity
-    @Parameter public var strikeVelocity: AUValue
+    @Parameter(strikeVelocityDef) public var strikeVelocity: AUValue
 
     /// Specification details for strikeWidth
     public static let strikeWidthDef = NodeParameterDef(
@@ -101,30 +101,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         flags: .default)
 
     /// Spatial width of strike.
-    @Parameter public var strikeWidth: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for MetalBar
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [MetalBar.leftBoundaryConditionDef,
-             MetalBar.rightBoundaryConditionDef,
-             MetalBar.decayDurationDef,
-             MetalBar.scanSpeedDef,
-             MetalBar.positionDef,
-             MetalBar.strikeVelocityDef,
-             MetalBar.strikeWidthDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("MetalBarDSP")
-        }
-    }
+    @Parameter(strikeWidthDef) public var strikeWidth: AUValue
 
     // MARK: - Initialization
 
@@ -182,5 +159,4 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         internalAU?.start()
         internalAU?.trigger()
     }
-
 }

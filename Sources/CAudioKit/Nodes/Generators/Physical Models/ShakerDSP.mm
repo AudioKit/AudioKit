@@ -35,5 +35,5 @@ public:
 
 };
 
-AK_REGISTER_DSP(ShakerDSP)
+AK_REGISTER_DSP(ShakerDSP, "shak")
 
