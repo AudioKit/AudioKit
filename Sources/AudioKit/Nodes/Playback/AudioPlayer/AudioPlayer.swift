@@ -185,7 +185,7 @@ public class AudioPlayer: Node {
             return
         }
         engine.attach(playerNode)
-        engine.connect(playerNode, to: mixerNode, format: nil)
+        engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
     }
 
     // MARK: - Init
