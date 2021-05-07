@@ -7,7 +7,6 @@ import CAudioKit
 class SynthTests: XCTestCase {
 
     func testChord() {
-        DebugDSPSetActive(true)
         let engine = AudioEngine()
         let synth = Synth()
         engine.output = synth
