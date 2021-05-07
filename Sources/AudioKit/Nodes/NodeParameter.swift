@@ -263,7 +263,7 @@ protocol ParameterBase {
 /// Use the $ operator to access the underlying NodeParameter. For example:
 /// `osc.$frequency.maxValue`
 ///
-/// When writing an Node, use:
+/// When writing a Node, use:
 /// ```
 /// @Parameter(myParameterDef) var myParameterName: AUValue
 /// ```
