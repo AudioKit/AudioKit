@@ -35,15 +35,14 @@ extension AudioUnitContainer {
 
                 for child in mirror.children {
                     if let param = child.value as? ParameterBase {
-                        if let def = param.projectedValue.def {
-                            params.append(AUParameter(identifier: def.identifier,
-                                                      name: def.name,
-                                                      address: def.address,
-                                                      min: def.range.lowerBound,
-                                                      max: def.range.upperBound,
-                                                      unit: def.unit,
-                                                      flags: def.flags))
-                        }
+                        let def = param.projectedValue.def
+                        params.append(AUParameter(identifier: def.identifier,
+                                                  name: def.name,
+                                                  address: def.address,
+                                                  min: def.range.lowerBound,
+                                                  max: def.range.upperBound,
+                                                  unit: def.unit,
+                                                  flags: def.flags))
                     }
                 }
 

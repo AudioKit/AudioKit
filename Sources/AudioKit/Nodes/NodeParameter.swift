@@ -50,8 +50,8 @@ public class NodeParameter {
     /// AU Parameter that this wraps
     public private(set) var parameter: AUParameter!
 
-    /// Def if available. (XXX: should not be optional)
-    public var def: NodeParameterDef?
+    /// Definition.
+    public var def: NodeParameterDef
 
     // MARK: Parameter properties
 
@@ -82,7 +82,7 @@ public class NodeParameter {
         (parameter.minValue ... parameter.maxValue)
     }
 
-    public init(_ def: NodeParameterDef? = nil) {
+    public init(_ def: NodeParameterDef) {
         self.def = def
     }
 
@@ -275,8 +275,8 @@ protocol ParameterBase {
 public struct Parameter<Value: NodeParameterType>: ParameterBase {
     var param: NodeParameter
 
-    /// Create a parameter given a definition. XXX: def should not be optional.
-    public init(_ def: NodeParameterDef? = nil) {
+    /// Create a parameter given a definition
+    public init(_ def: NodeParameterDef) {
         param = NodeParameter(def)
     }
 
