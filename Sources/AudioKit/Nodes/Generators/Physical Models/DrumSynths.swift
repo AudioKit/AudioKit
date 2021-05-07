@@ -6,7 +6,7 @@ import CAudioKit
 #if !os(tvOS)
 
 /// Kick Drum Synthesizer Instrument
-public class SynthKick: MIDIInstrument {
+open class SynthKick: MIDIInstrument {
 
     var generator: OperationGenerator
 
@@ -42,7 +42,7 @@ public class SynthKick: MIDIInstrument {
 }
 
 /// Snare Drum Synthesizer Instrument
-public class SynthSnare: MIDIInstrument {
+open class SynthSnare: MIDIInstrument {
 
     var generator: OperationGenerator
     var duration = 0.143
