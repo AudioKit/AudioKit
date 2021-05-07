@@ -25,4 +25,8 @@ class BrownianNoiseTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+
+    func testGeneric() {
+        testMD5(generatorNodeTest(factory: { BrownianNoise() }))
+    }
 }

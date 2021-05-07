@@ -66,6 +66,7 @@ let validatedMD5s: [String: String] = [
     "-[BitcrushTests testSampleRate]": "c936236612ab98307536f6239fffd2b9",
     "-[BrownianNoiseTests testAmplitude]": "f39d02113ca82527e3644b4eb8de03aa",
     "-[BrownianNoiseTests testDefault]": "687ea22a287762cd48048165334431de",
+    "-[BrownianNoiseTests testGeneric]": "999a7c4d39edf55550b2b4ef01ae1860",
     "-[ChorusTests testDefault]": "eb29ccc4a496ff517ca38285e8cee75d",
     "-[ChorusTests testDepth]": "f3c86cc8924bf90d22770cf1da19dbf5",
     "-[ChorusTests testDryWetMix]": "2514063850f32cac013c517d7cb56018",
