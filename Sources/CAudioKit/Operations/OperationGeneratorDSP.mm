@@ -26,38 +26,14 @@ class OperationGeneratorDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
     char *sporthCode = nil;
-    ParameterRamper parameter1Ramp;
-    ParameterRamper parameter2Ramp;
-    ParameterRamper parameter3Ramp;
-    ParameterRamper parameter4Ramp;
-    ParameterRamper parameter5Ramp;
-    ParameterRamper parameter6Ramp;
-    ParameterRamper parameter7Ramp;
-    ParameterRamper parameter8Ramp;
-    ParameterRamper parameter9Ramp;
-    ParameterRamper parameter10Ramp;
-    ParameterRamper parameter11Ramp;
-    ParameterRamper parameter12Ramp;
-    ParameterRamper parameter13Ramp;
-    ParameterRamper parameter14Ramp;
+    ParameterRamper rampers[14];
     int internalTrigger = 0;
 
 public:
     OperationGeneratorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
-        parameters[OperationGeneratorParameter1] = &parameter1Ramp;
-        parameters[OperationGeneratorParameter2] = &parameter2Ramp;
-        parameters[OperationGeneratorParameter3] = &parameter3Ramp;
-        parameters[OperationGeneratorParameter4] = &parameter4Ramp;
-        parameters[OperationGeneratorParameter5] = &parameter5Ramp;
-        parameters[OperationGeneratorParameter6] = &parameter6Ramp;
-        parameters[OperationGeneratorParameter7] = &parameter7Ramp;
-        parameters[OperationGeneratorParameter8] = &parameter8Ramp;
-        parameters[OperationGeneratorParameter9] = &parameter9Ramp;
-        parameters[OperationGeneratorParameter10] = &parameter10Ramp;
-        parameters[OperationGeneratorParameter11] = &parameter11Ramp;
-        parameters[OperationGeneratorParameter12] = &parameter12Ramp;
-        parameters[OperationGeneratorParameter13] = &parameter13Ramp;
-        parameters[OperationGeneratorParameter14] = &parameter14Ramp;
+        for(int i=0;i<14;++i) {
+            parameters[i] = &rampers[i];
+        }
         isStarted = false;
     }
 
@@ -110,20 +86,9 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            pd.p[0] = parameter1Ramp.getAndStep();
-            pd.p[1] = parameter2Ramp.getAndStep();
-            pd.p[2] = parameter3Ramp.getAndStep();
-            pd.p[3] = parameter4Ramp.getAndStep();
-            pd.p[4] = parameter5Ramp.getAndStep();
-            pd.p[5] = parameter6Ramp.getAndStep();
-            pd.p[6] = parameter7Ramp.getAndStep();
-            pd.p[7] = parameter8Ramp.getAndStep();
-            pd.p[8] = parameter9Ramp.getAndStep();
-            pd.p[9] = parameter10Ramp.getAndStep();
-            pd.p[10] = parameter11Ramp.getAndStep();
-            pd.p[11] = parameter12Ramp.getAndStep();
-            pd.p[12] = parameter13Ramp.getAndStep();
-            pd.p[13] = parameter14Ramp.getAndStep();
+            for(int i=0;i<14;++i) {
+                pd.p[i] = rampers[i].getAndStep();
+            }
 
             if (internalTrigger == 1) {
                 pd.p[14] = 1.0;
