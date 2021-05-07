@@ -43,10 +43,6 @@ public:
         internalTrigger = 1;
     }
 
-    void triggerFrequencyAmplitude(float frequency, float amplitude) override {
-        internalTrigger = 1;
-    }
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);

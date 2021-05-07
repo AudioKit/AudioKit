@@ -29,7 +29,6 @@ AK_API void stopDSP(DSPRef pDSP);
 AK_API void initializeConstantDSP(DSPRef pDSP, AUValue value);
 
 AK_API void triggerDSP(DSPRef pDSP);
-AK_API void triggerFrequencyDSP(DSPRef pDSP, AUValue frequency, AUValue amplitude);
 
 AK_API void setWavetableDSP(DSPRef pDSP, const float* table, size_t length, int index);
 
@@ -109,8 +108,6 @@ public:
 
     /// STK Triggers
     virtual void trigger() {}
-
-    virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
     
     /// override this if your DSP kernel allocates memory or requires the session sample rate for initialization
     virtual void init(int channelCount, double sampleRate);

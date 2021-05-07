@@ -91,8 +91,7 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
     open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
-        internalAU?.start()
-        internalAU?.triggerFrequency(frequency, amplitude: amplitude)
+        trigger()
     }
 
 }

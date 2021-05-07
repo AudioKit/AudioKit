@@ -159,14 +159,6 @@ open class AudioUnitBase: AUAudioUnit {
         triggerDSP(dsp)
     }
 
-    /// Common case of triggering something with a frequency and amplitude
-    /// - Parameters:
-    ///   - frequency: Frequency in Hertz
-    ///   - amplitude: Linear amplitude
-    public func triggerFrequency(_ frequency: AUValue, amplitude: AUValue) {
-        triggerFrequencyDSP(dsp, frequency, amplitude)
-    }
-
     /// Create an array of values to use as waveforms or other things inside an audio unit
     /// - Parameters:
     ///   - wavetable: Array of float values

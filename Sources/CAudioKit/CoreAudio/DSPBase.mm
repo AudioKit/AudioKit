@@ -65,11 +65,6 @@ void triggerDSP(DSPRef pDSP)
     pDSP->trigger();
 }
 
-void triggerFrequencyDSP(DSPRef pDSP, AUValue frequency, AUValue amplitude)
-{
-    pDSP->triggerFrequencyAmplitude(frequency, amplitude);
-}
-
 void setWavetableDSP(DSPRef pDSP, const float* table, size_t length, int index)
 {
     pDSP->setWavetable(table, length, index);
