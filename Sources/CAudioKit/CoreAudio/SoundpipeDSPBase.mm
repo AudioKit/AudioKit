@@ -21,6 +21,14 @@ void SoundpipeDSPBase::processSample(int channel, float *in, float *out) {
     *out = *in;
 }
 
+void SoundpipeDSPBase::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
+    uint8_t status = midiEvent.data[0] & 0xF0;
+
+    if(status == 0x90) { // note on
+        internalTrigger = 1.0;
+    }
+}
+
 void SoundpipeDSPBase::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
     for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
         int frameOffset = int(frameIndex + bufferOffset);

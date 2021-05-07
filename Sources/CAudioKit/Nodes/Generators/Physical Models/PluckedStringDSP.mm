@@ -12,7 +12,6 @@ enum PluckedStringParameter : AUParameterAddress {
 class PluckedStringDSP : public SoundpipeDSPBase {
 private:
     sp_pluck *pluck;
-    float internalTrigger = 0;
     ParameterRamper frequencyRamp;
     ParameterRamper amplitudeRamp;
 
@@ -37,10 +36,6 @@ public:
         SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_pluck_init(sp, pluck, 110);
-    }
-
-    void trigger() override {
-        internalTrigger = 1;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

@@ -9,7 +9,7 @@ import CAudioKit
 public class PluckedString: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "pluk"
-    public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "pluk")
 
     /// Internal type of audio unit for this node
     public typealias AudioUnitType = AudioUnitBase

@@ -10,7 +10,7 @@ import CAudioKit
 public class Drip: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "drip"
-    public static let ComponentDescription = AudioComponentDescription(generator: "drip")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "drip")
 
     /// Internal type of audio unit for this node
     public typealias AudioUnitType = AudioUnitBase

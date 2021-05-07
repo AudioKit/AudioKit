@@ -9,7 +9,7 @@ import CAudioKit
 public class MetalBar: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "mbar"
-    public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
+    public static let ComponentDescription = AudioComponentDescription(instrument: "mbar")
 
     /// Internal type of audio unit for this node
     public typealias AudioUnitType = AudioUnitBase

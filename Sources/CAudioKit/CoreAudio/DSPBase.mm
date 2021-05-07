@@ -60,11 +60,6 @@ void stopDSP(DSPRef pDSP)
     pDSP->stop();
 }
 
-void triggerDSP(DSPRef pDSP)
-{
-    pDSP->trigger();
-}
-
 void setWavetableDSP(DSPRef pDSP, const float* table, size_t length, int index)
 {
     pDSP->setWavetable(table, length, index);

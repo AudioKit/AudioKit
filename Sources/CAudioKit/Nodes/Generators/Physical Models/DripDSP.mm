@@ -17,7 +17,6 @@ enum DripParameter : AUParameterAddress {
 class DripDSP : public SoundpipeDSPBase {
 private:
     sp_drip *drip;
-    float internalTrigger = 0;
 
     ParameterRamper intensityRamp;
     ParameterRamper dampingFactorRamp;
@@ -53,10 +52,6 @@ public:
         SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_drip_init(sp, drip, 0.9);
-    }
-
-    void trigger() override {
-        internalTrigger = 1;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {

@@ -166,16 +166,6 @@ public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
 
     /// Trigger the sound with current parameters
     open func trigger() {
-        if let au = internalAU {
-
-            if let midiBlock = au.scheduleMIDIEventBlock {
-                let event = MIDIEvent(noteOn: 64, velocity: 127, channel: 0)
-                event.data.withUnsafeBufferPointer { ptr in
-                    guard let ptr = ptr.baseAddress else { return }
-                    midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
-                }
-            }
-
-        }
+        internalAU?.trigger()
     }
 }

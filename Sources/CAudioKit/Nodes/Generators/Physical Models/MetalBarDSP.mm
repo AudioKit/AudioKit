@@ -17,7 +17,6 @@ enum MetalBarParameter : AUParameterAddress {
 class MetalBarDSP : public SoundpipeDSPBase {
 private:
     sp_bar *bar;
-    float internalTrigger = 0;
     ParameterRamper leftBoundaryConditionRamp;
     ParameterRamper rightBoundaryConditionRamp;
     ParameterRamper decayDurationRamp;
@@ -52,10 +51,6 @@ public:
         SoundpipeDSPBase::reset();
         if (!isInitialized) return;
         sp_bar_init(sp, bar, 3, 0.0001);
-    }
-
-    void trigger() override {
-        internalTrigger = 1;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
