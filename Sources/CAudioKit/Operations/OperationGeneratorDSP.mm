@@ -28,7 +28,6 @@ private:
     plumber_data pd;
     char *sporthCode = nil;
     ParameterRamper rampers[OperationGeneratorTrigger];
-    int internalTrigger = 0;
 
 public:
     OperationGeneratorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
@@ -47,10 +46,6 @@ public:
             sporthCode = (char *)malloc(length);
             memcpy(sporthCode, sporth, length);
         }
-    }
-
-    void trigger() override {
-        internalTrigger = 1;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -82,6 +77,14 @@ public:
         }
     }
 
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
+        uint8_t status = midiEvent.data[0] & 0xF0;
+
+        if(status == 0x90) { // note on
+            pd.p[OperationGeneratorTrigger] = 1.0;
+        }
+    }
+
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
@@ -89,10 +92,6 @@ public:
 
             for(int i=0;i<OperationGeneratorTrigger;++i) {
                 pd.p[i] = rampers[i].getAndStep();
-            }
-
-            if (internalTrigger == 1) {
-                pd.p[OperationGeneratorTrigger] = 1.0;
             }
 
             if (isStarted)
@@ -107,7 +106,6 @@ public:
                 }
             }
 
-            internalTrigger = 0;
             pd.p[OperationGeneratorTrigger] = 0.0;
         }
     }
@@ -117,12 +115,6 @@ AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth, int
     auto dsp = dynamic_cast<OperationGeneratorDSP *>(dspRef);
     assert(dsp);
     dsp->setSporth(sporth, length);
-}
-
-AK_API float* akOperationGeneratorTrigger(DSPRef dspRef) {
-    auto dsp = dynamic_cast<OperationGeneratorDSP *>(dspRef);
-    assert(dsp);
-    dsp->trigger();
 }
 
 AK_REGISTER_DSP(OperationGeneratorDSP, "cstg")

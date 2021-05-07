@@ -58,7 +58,6 @@ AK_API void akConvolutionSetPartitionLength(DSPRef dsp, int length);
 AK_API void akFlatFrequencyResponseSetLoopDuration(DSPRef dsp, float duration);
 AK_API void akOperationEffectSetSporth(DSPRef dspRef, const char *sporth, int length);
 AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth, int length);
-AK_API float* akOperationGeneratorTrigger(DSPRef dspRef);
 AK_API void akVariableDelaySetMaximumTime(DSPRef dsp, float maximumTime);
 
 typedef void (^CMIDICallback)(uint8_t, uint8_t, uint8_t);
