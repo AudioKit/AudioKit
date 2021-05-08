@@ -121,11 +121,6 @@ public:
         isStarted = false;
     }
 
-    virtual bool isSetup()
-    {
-        return isInitialized;
-    }
-
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
 
     /// Pointer to a factory function.
