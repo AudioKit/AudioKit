@@ -70,7 +70,7 @@ class EngineTests: XCTestCase {
             XCTFail("mainMixerNode1 wasn't created")
             return
         }
-        let mainMixerNodeSampleRate1 = mainMixerNode1.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+        let mainMixerNodeSampleRate1 = mainMixerNode1.avAudioNode.outputFormat(forBus: 0).sampleRate
         XCTAssertTrue(mainMixerNodeSampleRate1 == audioFormat441k.sampleRate,
                       "mainMixerNodeSampleRate is \(mainMixerNodeSampleRate1), requested rate was \(audioFormat441k.sampleRate)")
 
@@ -84,7 +84,7 @@ class EngineTests: XCTestCase {
             XCTFail("mainMixerNode2 wasn't created")
             return
         }
-        let mainMixerNodeSampleRate2 = mainMixerNode2.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+        let mainMixerNodeSampleRate2 = mainMixerNode2.avAudioNode.outputFormat(forBus: 0).sampleRate
         XCTAssertTrue(mainMixerNodeSampleRate2 == audioFormat48k.sampleRate,
                       "mainMixerNodeSampleRate2 is \(mainMixerNodeSampleRate2), requested rate was \(audioFormat48k.sampleRate)")
 

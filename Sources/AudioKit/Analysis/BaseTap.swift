@@ -69,12 +69,12 @@ open class BaseTap: Toggleable {
         removeTap()
 
         // just double check this here
-        guard input.avAudioUnitOrNode.engine != nil else {
+        guard input.avAudioNode.engine != nil else {
             Log("The tapped node isn't attached to the engine")
             return
         }
 
-        input.avAudioUnitOrNode.installTap(onBus: bus,
+        input.avAudioNode.installTap(onBus: bus,
                                            bufferSize: bufferSize,
                                            format: nil,
                                            block: handleTapBlock(buffer:at:))
