@@ -32,7 +32,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         identifier: "leftGain",
         name: "Left Gain",
         address: akGetParameterAddress("FaderParameterLeftGain"),
-        initialValue: 1,
+        defaultValue: 1,
         range: Fader.gainRange,
         unit: .linearGain,
         flags: .default)
@@ -45,7 +45,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         identifier: "rightGain",
         name: "Right Gain",
         address: akGetParameterAddress("FaderParameterRightGain"),
-        initialValue: 1,
+        defaultValue: 1,
         range: Fader.gainRange,
         unit: .linearGain,
         flags: .default)
@@ -64,7 +64,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         identifier: "flipStereo",
         name: "Flip Stereo",
         address: akGetParameterAddress("FaderParameterFlipStereo"),
-        initialValue: 0,
+        defaultValue: 0,
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)
@@ -77,7 +77,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         identifier: "mixToMono",
         name: "Mix To Mono",
         address: akGetParameterAddress("FaderParameterMixToMono"),
-        initialValue: 0,
+        defaultValue: 0,
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)

@@ -24,7 +24,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
         address: akGetParameterAddress("DynaRageCompressorParameterRatio"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 1.0 ... 20.0,
         unit: .generic,
         flags: .default)
@@ -37,7 +37,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
         address: akGetParameterAddress("DynaRageCompressorParameterThreshold"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -100.0 ... 0.0,
         unit: .decibels,
         flags: .default)
@@ -50,7 +50,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "attackDuration",
         name: "Attack Duration",
         address: akGetParameterAddress("DynaRageCompressorParameterAttackDuration"),
-        initialValue: 0.1,
+        defaultValue: 0.1,
         range: 0.1 ... 500.0,
         unit: .seconds,
         flags: .default)
@@ -63,7 +63,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "releaseDuration",
         name: "Release Duration",
         address: akGetParameterAddress("DynaRageCompressorParameterReleaseDuration"),
-        initialValue: 0.1,
+        defaultValue: 0.1,
         range: 1.0 ... 20.0,
         unit: .seconds,
         flags: .default)
@@ -76,7 +76,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "rage",
         name: "Rage",
         address: akGetParameterAddress("DynaRageCompressorParameterRage"),
-        initialValue: 0.1,
+        defaultValue: 0.1,
         range: 0.1 ... 20.0,
         unit: .generic,
         flags: .default)
@@ -89,7 +89,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "rageEnabled",
         name: "Rage Enabled",
         address: akGetParameterAddress("DynaRageCompressorParameterRageEnabled"),
-        initialValue: 1.0,
+        defaultValue: 1.0,
         range: 0.0 ... 1.0,
         unit: .boolean,
         flags: .default)
@@ -110,12 +110,12 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        ratio: AUValue = ratioDef.initialValue,
-        threshold: AUValue = thresholdDef.initialValue,
-        attackDuration: AUValue = attackDurationDef.initialValue,
-        releaseDuration: AUValue = releaseDurationDef.initialValue,
-        rage: AUValue = rageDef.initialValue,
-        rageEnabled: Bool = rageEnabledDef.initialValue == 1.0
+        ratio: AUValue = ratioDef.defaultValue,
+        threshold: AUValue = thresholdDef.defaultValue,
+        attackDuration: AUValue = attackDurationDef.defaultValue,
+        releaseDuration: AUValue = releaseDurationDef.defaultValue,
+        rage: AUValue = rageDef.defaultValue,
+        rageEnabled: Bool = rageEnabledDef.defaultValue == 1.0
     ) {
         super.init(avAudioNode: AVAudioNode())
 

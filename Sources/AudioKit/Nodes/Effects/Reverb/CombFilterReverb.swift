@@ -28,7 +28,7 @@ public class CombFilterReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
         address: akGetParameterAddress("CombFilterReverbParameterReverbDuration"),
-        initialValue: 1.0,
+        defaultValue: 1.0,
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -47,7 +47,7 @@ public class CombFilterReverb: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        reverbDuration: AUValue = reverbDurationDef.initialValue,
+        reverbDuration: AUValue = reverbDurationDef.defaultValue,
         loopDuration: AUValue = 0.1
         ) {
         super.init(avAudioNode: AVAudioNode())

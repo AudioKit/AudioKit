@@ -23,7 +23,7 @@ public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Center frequency of the filter, or frequency position of the peak response.",
         address: akGetParameterAddress("ResonantFilterParameterFrequency"),
-        initialValue: 4_000.0,
+        defaultValue: 4_000.0,
         range: 100.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -36,7 +36,7 @@ public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "bandwidth",
         name: "Bandwidth of the filter.",
         address: akGetParameterAddress("ResonantFilterParameterBandwidth"),
-        initialValue: 1_000.0,
+        defaultValue: 1_000.0,
         range: 0.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
@@ -55,8 +55,8 @@ public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        frequency: AUValue = frequencyDef.initialValue,
-        bandwidth: AUValue = bandwidthDef.initialValue
+        frequency: AUValue = frequencyDef.defaultValue,
+        bandwidth: AUValue = bandwidthDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

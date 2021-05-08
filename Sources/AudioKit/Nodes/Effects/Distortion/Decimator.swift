@@ -17,7 +17,7 @@ open class Decimator: Node, Toggleable {
         identifier: "decimation",
         name: "Decimation",
         address: 7,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -30,7 +30,7 @@ open class Decimator: Node, Toggleable {
         identifier: "rounding",
         name: "Rounding",
         address: 8,
-        initialValue: 0,
+        defaultValue: 0,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -43,7 +43,7 @@ open class Decimator: Node, Toggleable {
         identifier: "finalMix",
         name: "Final Mix",
         address: 15,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -63,9 +63,9 @@ open class Decimator: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        decimation: AUValue = decimationDef.initialValue,
-        rounding: AUValue = roundingDef.initialValue,
-        finalMix: AUValue = finalMixDef.initialValue) {
+        decimation: AUValue = decimationDef.defaultValue,
+        rounding: AUValue = roundingDef.defaultValue,
+        finalMix: AUValue = finalMixDef.defaultValue) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 

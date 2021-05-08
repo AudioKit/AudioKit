@@ -22,7 +22,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "inputAmount",
         name: "Input",
         address: akGetParameterAddress("TransientShaperParameterInputAmount"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -60.0 ... 30.0,
         unit: .decibels,
         flags: .default)
@@ -35,7 +35,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "attackAmount",
         name: "Attack",
         address: akGetParameterAddress("TransientShaperParameterAttackAmount"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -40.0 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -48,7 +48,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "releaseAmount",
         name: "Release",
         address: akGetParameterAddress("TransientShaperParameterReleaseAmount"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -40.0 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -61,7 +61,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "outputAmount",
         name: "Output",
         address: akGetParameterAddress("TransientShaperParameterOutputAmount"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -60.0 ... 30.0,
         unit: .decibels,
         flags: .default)
@@ -80,10 +80,10 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
     ///     - output
     public init(
         _ input: Node,
-        inputAmount: AUValue = inputAmountDef.initialValue,
-        attackAmount: AUValue = attackAmountDef.initialValue,
-        releaseAmount: AUValue = releaseAmountDef.initialValue,
-        outputAmount: AUValue = outputAmountDef.initialValue
+        inputAmount: AUValue = inputAmountDef.defaultValue,
+        attackAmount: AUValue = attackAmountDef.defaultValue,
+        releaseAmount: AUValue = releaseAmountDef.defaultValue,
+        outputAmount: AUValue = outputAmountDef.defaultValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 

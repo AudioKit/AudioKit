@@ -17,7 +17,7 @@ open class HighShelfFilter: Node, Toggleable {
         identifier: "cutOffFrequency",
         name: "Cut Off Frequency",
         address: 0,
-        initialValue: 10000,
+        defaultValue: 10000,
         range: 10000 ... 22050,
         unit: .hertz,
         flags: .default)
@@ -30,7 +30,7 @@ open class HighShelfFilter: Node, Toggleable {
         identifier: "gain",
         name: "Gain",
         address: 1,
-        initialValue: 0,
+        defaultValue: 0,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)
@@ -49,8 +49,8 @@ open class HighShelfFilter: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        cutOffFrequency: AUValue = cutOffFrequencyDef.initialValue,
-        gain: AUValue = gainDef.initialValue) {
+        cutOffFrequency: AUValue = cutOffFrequencyDef.defaultValue,
+        gain: AUValue = gainDef.defaultValue) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 

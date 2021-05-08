@@ -17,7 +17,7 @@ open class Distortion: Node, Toggleable {
         identifier: "delay",
         name: "Delay",
         address: 0,
-        initialValue: 0.1,
+        defaultValue: 0.1,
         range: 0.1 ... 500,
         unit: .milliseconds,
         flags: .default)
@@ -30,7 +30,7 @@ open class Distortion: Node, Toggleable {
         identifier: "decay",
         name: "Decay",
         address: 1,
-        initialValue: 1.0,
+        defaultValue: 1.0,
         range: 0.1 ... 50,
         unit: .rate,
         flags: .default)
@@ -43,7 +43,7 @@ open class Distortion: Node, Toggleable {
         identifier: "delayMix",
         name: "Delay Mix",
         address: 2,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -56,7 +56,7 @@ open class Distortion: Node, Toggleable {
         identifier: "ringModFreq1",
         name: "Ring Mod Freq1",
         address: 3,
-        initialValue: 100,
+        defaultValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -69,7 +69,7 @@ open class Distortion: Node, Toggleable {
         identifier: "ringModFreq2",
         name: "Ring Mod Freq2",
         address: 4,
-        initialValue: 100,
+        defaultValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -82,7 +82,7 @@ open class Distortion: Node, Toggleable {
         identifier: "ringModBalance",
         name: "Ring Mod Balance",
         address: 5,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -95,7 +95,7 @@ open class Distortion: Node, Toggleable {
         identifier: "ringModMix",
         name: "Ring Mod Mix",
         address: 6,
-        initialValue: 0,
+        defaultValue: 0,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -108,7 +108,7 @@ open class Distortion: Node, Toggleable {
         identifier: "decimation",
         name: "Decimation",
         address: 7,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -121,7 +121,7 @@ open class Distortion: Node, Toggleable {
         identifier: "rounding",
         name: "Rounding",
         address: 8,
-        initialValue: 0,
+        defaultValue: 0,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -134,7 +134,7 @@ open class Distortion: Node, Toggleable {
         identifier: "decimationMix",
         name: "Decimation Mix",
         address: 9,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -147,7 +147,7 @@ open class Distortion: Node, Toggleable {
         identifier: "linearTerm",
         name: "Linear Term",
         address: 10,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -160,7 +160,7 @@ open class Distortion: Node, Toggleable {
         identifier: "squaredTerm",
         name: "Squared Term",
         address: 11,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -173,7 +173,7 @@ open class Distortion: Node, Toggleable {
         identifier: "cubicTerm",
         name: "Cubic Term",
         address: 12,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -186,7 +186,7 @@ open class Distortion: Node, Toggleable {
         identifier: "polynomialMix",
         name: "Polynomial Mix",
         address: 13,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -199,7 +199,7 @@ open class Distortion: Node, Toggleable {
         identifier: "softClipGain",
         name: "Soft Clip Gain",
         address: 14,
-        initialValue: -6,
+        defaultValue: -6,
         range: -80 ... 20,
         unit: .decibels,
         flags: .default)
@@ -212,7 +212,7 @@ open class Distortion: Node, Toggleable {
         identifier: "finalMix",
         name: "Final Mix",
         address: 15,
-        initialValue: 50,
+        defaultValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -245,22 +245,22 @@ open class Distortion: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        delay: AUValue = delayDef.initialValue,
-        decay: AUValue = decayDef.initialValue,
-        delayMix: AUValue = delayMixDef.initialValue,
-        ringModFreq1: AUValue = ringModFreq1Def.initialValue,
-        ringModFreq2: AUValue = ringModFreq2Def.initialValue,
-        ringModBalance: AUValue = ringModBalanceDef.initialValue,
-        ringModMix: AUValue = ringModMixDef.initialValue,
-        decimation: AUValue = decimationDef.initialValue,
-        rounding: AUValue = roundingDef.initialValue,
-        decimationMix: AUValue = decimationMixDef.initialValue,
-        linearTerm: AUValue = linearTermDef.initialValue,
-        squaredTerm: AUValue = squaredTermDef.initialValue,
-        cubicTerm: AUValue = cubicTermDef.initialValue,
-        polynomialMix: AUValue = polynomialMixDef.initialValue,
-        softClipGain: AUValue = softClipGainDef.initialValue,
-        finalMix: AUValue = finalMixDef.initialValue) {
+        delay: AUValue = delayDef.defaultValue,
+        decay: AUValue = decayDef.defaultValue,
+        delayMix: AUValue = delayMixDef.defaultValue,
+        ringModFreq1: AUValue = ringModFreq1Def.defaultValue,
+        ringModFreq2: AUValue = ringModFreq2Def.defaultValue,
+        ringModBalance: AUValue = ringModBalanceDef.defaultValue,
+        ringModMix: AUValue = ringModMixDef.defaultValue,
+        decimation: AUValue = decimationDef.defaultValue,
+        rounding: AUValue = roundingDef.defaultValue,
+        decimationMix: AUValue = decimationMixDef.defaultValue,
+        linearTerm: AUValue = linearTermDef.defaultValue,
+        squaredTerm: AUValue = squaredTermDef.defaultValue,
+        cubicTerm: AUValue = cubicTermDef.defaultValue,
+        polynomialMix: AUValue = polynomialMixDef.defaultValue,
+        softClipGain: AUValue = softClipGainDef.defaultValue,
+        finalMix: AUValue = finalMixDef.defaultValue) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 

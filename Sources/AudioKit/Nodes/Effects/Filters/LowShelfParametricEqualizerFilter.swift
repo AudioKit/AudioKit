@@ -23,7 +23,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         identifier: "cornerFrequency",
         name: "Corner Frequency (Hz)",
         address: akGetParameterAddress("LowShelfParametricEqualizerFilterParameterCornerFrequency"),
-        initialValue: 1_000,
+        defaultValue: 1_000,
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -36,7 +36,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("LowShelfParametricEqualizerFilterParameterGain"),
-        initialValue: 1.0,
+        defaultValue: 1.0,
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -49,7 +49,7 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
         identifier: "q",
         name: "Q",
         address: akGetParameterAddress("LowShelfParametricEqualizerFilterParameterQ"),
-        initialValue: 0.707,
+        defaultValue: 0.707,
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -69,9 +69,9 @@ public class LowShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggle
     ///
     public init(
         _ input: Node,
-        cornerFrequency: AUValue = cornerFrequencyDef.initialValue,
-        gain: AUValue = gainDef.initialValue,
-        q: AUValue = qDef.initialValue
+        cornerFrequency: AUValue = cornerFrequencyDef.defaultValue,
+        gain: AUValue = gainDef.defaultValue,
+        q: AUValue = qDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

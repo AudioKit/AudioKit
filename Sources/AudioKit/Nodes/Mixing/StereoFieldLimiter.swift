@@ -23,7 +23,7 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
         identifier: "amount",
         name: "Limiting amount",
         address: akGetParameterAddress("StereoFieldLimiterParameterAmount"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
@@ -39,7 +39,7 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
     ///   - input: Node whose output will be amplified
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: Node, amount: AUValue = amountDef.initialValue) {
+    public init(_ input: Node, amount: AUValue = amountDef.defaultValue) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in

@@ -23,7 +23,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         identifier: "time",
         name: "Delay time (Seconds)",
         address: akGetParameterAddress("StereoDelayParameterTime"),
-        initialValue: 0,
+        defaultValue: 0,
         range: 0 ... 2.0,
         unit: .seconds,
         flags: .default)
@@ -36,7 +36,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         identifier: "feedback",
         name: "Feedback (%)",
         address: akGetParameterAddress("StereoDelayParameterFeedback"),
-        initialValue: 0,
+        defaultValue: 0,
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -49,7 +49,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         identifier: "dryWetMix",
         name: "Dry-Wet Mix",
         address: akGetParameterAddress("StereoDelayParameterDryWetMix"),
-        initialValue: 0.5,
+        defaultValue: 0.5,
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -62,7 +62,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         identifier: "pingPong",
         name: "Ping-Pong Mode",
         address: akGetParameterAddress("StereoDelayParameterPingPong"),
-        initialValue: 0,
+        defaultValue: 0,
         range: 0.0...1.0,
         unit: .boolean,
         flags: [.flag_IsReadable, .flag_IsWritable])
@@ -84,10 +84,10 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        time: AUValue = timeDef.initialValue,
-        feedback: AUValue = feedbackDef.initialValue,
-        dryWetMix: AUValue = dryWetMixDef.initialValue,
-        pingPong: Bool = (dryWetMixDef.initialValue == 1.0),
+        time: AUValue = timeDef.defaultValue,
+        feedback: AUValue = feedbackDef.defaultValue,
+        dryWetMix: AUValue = dryWetMixDef.defaultValue,
+        pingPong: Bool = (dryWetMixDef.defaultValue == 1.0),
         maximumDelayTime: AUValue = 2.0
     ) {
         super.init(avAudioNode: AVAudioNode())

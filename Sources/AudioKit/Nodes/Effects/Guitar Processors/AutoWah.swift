@@ -23,7 +23,7 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
         identifier: "wah",
         name: "Wah Amount",
         address: akGetParameterAddress("AutoWahParameterWah"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: 0.0 ... 1.0,
         unit: .percent,
         flags: .default)
@@ -36,7 +36,7 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
         identifier: "mix",
         name: "Dry/Wet Mix",
         address: akGetParameterAddress("AutoWahParameterMix"),
-        initialValue: 1.0,
+        defaultValue: 1.0,
         range: 0.0 ... 1.0,
         unit: .percent,
         flags: .default)
@@ -49,7 +49,7 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
         identifier: "amplitude",
         name: "Overall level",
         address: akGetParameterAddress("AutoWahParameterAmplitude"),
-        initialValue: 0.1,
+        defaultValue: 0.1,
         range: 0.0 ... 1.0,
         unit: .percent,
         flags: .default)
@@ -69,9 +69,9 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        wah: AUValue = wahDef.initialValue,
-        mix: AUValue = mixDef.initialValue,
-        amplitude: AUValue = amplitudeDef.initialValue
+        wah: AUValue = wahDef.defaultValue,
+        mix: AUValue = mixDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

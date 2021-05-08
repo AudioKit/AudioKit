@@ -17,7 +17,7 @@ open class LowShelfFilter: Node, Toggleable {
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
         address: 0,
-        initialValue: 80,
+        defaultValue: 80,
         range: 10 ... 200,
         unit: .hertz,
         flags: .default)
@@ -30,7 +30,7 @@ open class LowShelfFilter: Node, Toggleable {
         identifier: "gain",
         name: "Gain",
         address: 1,
-        initialValue: 0,
+        defaultValue: 0,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)
@@ -49,8 +49,8 @@ open class LowShelfFilter: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        cutoffFrequency: AUValue = cutoffFrequencyDef.initialValue,
-        gain: AUValue = gainDef.initialValue) {
+        cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
+        gain: AUValue = gainDef.defaultValue) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 

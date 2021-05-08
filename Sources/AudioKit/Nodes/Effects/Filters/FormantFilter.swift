@@ -25,7 +25,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("FormantFilterParameterCenterFrequency"),
-        initialValue: 1_000,
+        defaultValue: 1_000,
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -38,7 +38,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "attackDuration",
         name: "Impulse response attack time (Seconds)",
         address: akGetParameterAddress("FormantFilterParameterAttackDuration"),
-        initialValue: 0.007,
+        defaultValue: 0.007,
         range: 0.0 ... 0.1,
         unit: .seconds,
         flags: .default)
@@ -51,7 +51,7 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "decayDuration",
         name: "Impulse reponse decay time (Seconds)",
         address: akGetParameterAddress("FormantFilterParameterDecayDuration"),
-        initialValue: 0.04,
+        defaultValue: 0.04,
         range: 0.0 ... 0.1,
         unit: .seconds,
         flags: .default)
@@ -71,9 +71,9 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        centerFrequency: AUValue = centerFrequencyDef.initialValue,
-        attackDuration: AUValue = attackDurationDef.initialValue,
-        decayDuration: AUValue = decayDurationDef.initialValue
+        centerFrequency: AUValue = centerFrequencyDef.defaultValue,
+        attackDuration: AUValue = attackDurationDef.defaultValue,
+        decayDuration: AUValue = decayDurationDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

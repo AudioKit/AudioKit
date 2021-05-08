@@ -23,7 +23,7 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "cutoffFrequency",
         name: "Filter cutoff",
         address: akGetParameterAddress("KorgLowPassFilterParameterCutoffFrequency"),
-        initialValue: 1_000.0,
+        defaultValue: 1_000.0,
         range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -36,7 +36,7 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "resonance",
         name: "Filter resonance (should be between 0-2)",
         address: akGetParameterAddress("KorgLowPassFilterParameterResonance"),
-        initialValue: 1.0,
+        defaultValue: 1.0,
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -49,7 +49,7 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "saturation",
         name: "Filter saturation.",
         address: akGetParameterAddress("KorgLowPassFilterParameterSaturation"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -69,9 +69,9 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        cutoffFrequency: AUValue = cutoffFrequencyDef.initialValue,
-        resonance: AUValue = resonanceDef.initialValue,
-        saturation: AUValue = saturationDef.initialValue
+        cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
+        resonance: AUValue = resonanceDef.defaultValue,
+        saturation: AUValue = saturationDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

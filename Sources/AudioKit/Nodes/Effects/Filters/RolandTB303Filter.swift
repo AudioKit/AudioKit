@@ -23,7 +23,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("RolandTB303FilterParameterCutoffFrequency"),
-        initialValue: 500,
+        defaultValue: 500,
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -36,7 +36,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         identifier: "resonance",
         name: "Resonance",
         address: akGetParameterAddress("RolandTB303FilterParameterResonance"),
-        initialValue: 0.5,
+        defaultValue: 0.5,
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -49,7 +49,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         identifier: "distortion",
         name: "Distortion",
         address: akGetParameterAddress("RolandTB303FilterParameterDistortion"),
-        initialValue: 2.0,
+        defaultValue: 2.0,
         range: 0.0 ... 4.0,
         unit: .generic,
         flags: .default)
@@ -62,7 +62,7 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         identifier: "resonanceAsymmetry",
         name: "Resonance Asymmetry",
         address: akGetParameterAddress("RolandTB303FilterParameterResonanceAsymmetry"),
-        initialValue: 0.5,
+        defaultValue: 0.5,
         range: 0.0 ... 1.0,
         unit: .percent,
         flags: .default)
@@ -83,10 +83,10 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        cutoffFrequency: AUValue = cutoffFrequencyDef.initialValue,
-        resonance: AUValue = resonanceDef.initialValue,
-        distortion: AUValue = distortionDef.initialValue,
-        resonanceAsymmetry: AUValue = resonanceAsymmetryDef.initialValue
+        cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
+        resonance: AUValue = resonanceDef.defaultValue,
+        distortion: AUValue = distortionDef.defaultValue,
+        resonanceAsymmetry: AUValue = resonanceAsymmetryDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

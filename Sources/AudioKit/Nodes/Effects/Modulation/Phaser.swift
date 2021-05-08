@@ -23,7 +23,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "notchMinimumFrequency",
         name: "Notch Minimum Frequency",
         address: akGetParameterAddress("PhaserParameterNotchMinimumFrequency"),
-        initialValue: 100,
+        defaultValue: 100,
         range: 20 ... 5_000,
         unit: .hertz,
         flags: .default)
@@ -36,7 +36,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "notchMaximumFrequency",
         name: "Notch Maximum Frequency",
         address: akGetParameterAddress("PhaserParameterNotchMaximumFrequency"),
-        initialValue: 800,
+        defaultValue: 800,
         range: 20 ... 10_000,
         unit: .hertz,
         flags: .default)
@@ -49,7 +49,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "notchWidth",
         name: "Between 10 and 5000",
         address: akGetParameterAddress("PhaserParameterNotchWidth"),
-        initialValue: 1_000,
+        defaultValue: 1_000,
         range: 10 ... 5_000,
         unit: .hertz,
         flags: .default)
@@ -62,7 +62,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "notchFrequency",
         name: "Between 1.1 and 4",
         address: akGetParameterAddress("PhaserParameterNotchFrequency"),
-        initialValue: 1.5,
+        defaultValue: 1.5,
         range: 1.1 ... 4.0,
         unit: .hertz,
         flags: .default)
@@ -75,7 +75,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "vibratoMode",
         name: "Direct or Vibrato (default)",
         address: akGetParameterAddress("PhaserParameterVibratoMode"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -88,7 +88,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "depth",
         name: "Between 0 and 1",
         address: akGetParameterAddress("PhaserParameterDepth"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -101,7 +101,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "feedback",
         name: "Between 0 and 1",
         address: akGetParameterAddress("PhaserParameterFeedback"),
-        initialValue: 0,
+        defaultValue: 0,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -114,7 +114,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "inverted",
         name: "1 or 0",
         address: akGetParameterAddress("PhaserParameterInverted"),
-        initialValue: 0,
+        defaultValue: 0,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -127,7 +127,7 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
         identifier: "lfoBPM",
         name: "Between 24 and 360",
         address: akGetParameterAddress("PhaserParameterLfoBPM"),
-        initialValue: 30,
+        defaultValue: 30,
         range: 24 ... 360,
         unit: .generic,
         flags: .default)
@@ -153,15 +153,15 @@ public class Phaser: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        notchMinimumFrequency: AUValue = notchMinimumFrequencyDef.initialValue,
-        notchMaximumFrequency: AUValue = notchMaximumFrequencyDef.initialValue,
-        notchWidth: AUValue = notchWidthDef.initialValue,
-        notchFrequency: AUValue = notchFrequencyDef.initialValue,
-        vibratoMode: AUValue = vibratoModeDef.initialValue,
-        depth: AUValue = depthDef.initialValue,
-        feedback: AUValue = feedbackDef.initialValue,
-        inverted: AUValue = invertedDef.initialValue,
-        lfoBPM: AUValue = lfoBPMDef.initialValue
+        notchMinimumFrequency: AUValue = notchMinimumFrequencyDef.defaultValue,
+        notchMaximumFrequency: AUValue = notchMaximumFrequencyDef.defaultValue,
+        notchWidth: AUValue = notchWidthDef.defaultValue,
+        notchFrequency: AUValue = notchFrequencyDef.defaultValue,
+        vibratoMode: AUValue = vibratoModeDef.defaultValue,
+        depth: AUValue = depthDef.defaultValue,
+        feedback: AUValue = feedbackDef.defaultValue,
+        inverted: AUValue = invertedDef.defaultValue,
+        lfoBPM: AUValue = lfoBPMDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

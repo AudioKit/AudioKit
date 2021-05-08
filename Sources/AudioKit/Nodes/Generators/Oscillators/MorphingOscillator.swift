@@ -27,7 +27,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Frequency (in Hz)",
         address: akGetParameterAddress("MorphingOscillatorParameterFrequency"),
-        initialValue: 440,
+        defaultValue: 440,
         range: 0.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -40,7 +40,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "amplitude",
         name: "Amplitude (typically a value between 0 and 1).",
         address: akGetParameterAddress("MorphingOscillatorParameterAmplitude"),
-        initialValue: 0.5,
+        defaultValue: 0.5,
         range: 0.0 ... 1.0,
         unit: .hertz,
         flags: .default)
@@ -53,7 +53,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "index",
         name: "Index of the wavetable to use (fractional are okay).",
         address: akGetParameterAddress("MorphingOscillatorParameterIndex"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: 0.0 ... 3.0,
         unit: .hertz,
         flags: .default)
@@ -66,7 +66,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: akGetParameterAddress("MorphingOscillatorParameterDetuningOffset"),
-        initialValue: 0,
+        defaultValue: 0,
         range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -79,7 +79,7 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: akGetParameterAddress("MorphingOscillatorParameterDetuningMultiplier"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
@@ -101,11 +101,11 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         waveformArray: [Table] = [Table(.triangle), Table(.square), Table(.sine), Table(.sawtooth)],
-        frequency: AUValue = frequencyDef.initialValue,
-        amplitude: AUValue = amplitudeDef.initialValue,
-        index: AUValue = indexDef.initialValue,
-        detuningOffset: AUValue = detuningOffsetDef.initialValue,
-        detuningMultiplier: AUValue = detuningMultiplierDef.initialValue
+        frequency: AUValue = frequencyDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue,
+        index: AUValue = indexDef.defaultValue,
+        detuningOffset: AUValue = detuningOffsetDef.defaultValue,
+        detuningMultiplier: AUValue = detuningMultiplierDef.defaultValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 

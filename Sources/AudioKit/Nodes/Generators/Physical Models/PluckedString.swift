@@ -24,7 +24,7 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Variable frequency. Values less than the initial frequency are doubled until greater than that.",
         address: akGetParameterAddress("PluckedStringParameterFrequency"),
-        initialValue: 110,
+        defaultValue: 110,
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -37,7 +37,7 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("PluckedStringParameterAmplitude"),
-        initialValue: 0.5,
+        defaultValue: 0.5,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -55,8 +55,8 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
     ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
     ///
     public init(
-        frequency: AUValue = frequencyDef.initialValue,
-        amplitude: AUValue = amplitudeDef.initialValue,
+        frequency: AUValue = frequencyDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue,
         lowestFrequency: AUValue = 110
     ) {
         super.init(avAudioNode: AVAudioNode())

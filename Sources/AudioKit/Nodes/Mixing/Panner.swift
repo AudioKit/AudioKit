@@ -23,7 +23,7 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
         identifier: "pan",
         name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
         address: akGetParameterAddress("PannerParameterPan"),
-        initialValue: 0,
+        defaultValue: 0,
         range: -1 ... 1,
         unit: .generic,
         flags: .default)
@@ -41,7 +41,7 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        pan: AUValue = panDef.initialValue
+        pan: AUValue = panDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

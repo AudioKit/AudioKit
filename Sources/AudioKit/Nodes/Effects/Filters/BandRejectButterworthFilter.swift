@@ -25,7 +25,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("BandRejectButterworthFilterParameterCenterFrequency"),
-        initialValue: 3_000.0,
+        defaultValue: 3_000.0,
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -38,7 +38,7 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: akGetParameterAddress("BandRejectButterworthFilterParameterBandwidth"),
-        initialValue: 2_000.0,
+        defaultValue: 2_000.0,
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -57,8 +57,8 @@ public class BandRejectButterworthFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        centerFrequency: AUValue = centerFrequencyDef.initialValue,
-        bandwidth: AUValue = bandwidthDef.initialValue
+        centerFrequency: AUValue = centerFrequencyDef.defaultValue,
+        bandwidth: AUValue = bandwidthDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

@@ -23,7 +23,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "predelay",
         name: "Delay in ms before reverberation begins.",
         address: akGetParameterAddress("ZitaReverbParameterPredelay"),
-        initialValue: 60.0,
+        defaultValue: 60.0,
         range: 0.0 ... 200.0,
         unit: .generic,
         flags: .default)
@@ -36,7 +36,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "crossoverFrequency",
         name: "Crossover frequency separating low and middle frequencies (Hz).",
         address: akGetParameterAddress("ZitaReverbParameterCrossoverFrequency"),
-        initialValue: 200.0,
+        defaultValue: 200.0,
         range: 10.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -49,7 +49,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "lowReleaseTime",
         name: "Time (in seconds) to decay 60db in low-frequency band.",
         address: akGetParameterAddress("ZitaReverbParameterLowReleaseTime"),
-        initialValue: 3.0,
+        defaultValue: 3.0,
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -62,7 +62,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "midReleaseTime",
         name: "Time (in seconds) to decay 60db in mid-frequency band.",
         address: akGetParameterAddress("ZitaReverbParameterMidReleaseTime"),
-        initialValue: 2.0,
+        defaultValue: 2.0,
         range: 0.0 ... 10.0,
         unit: .seconds,
         flags: .default)
@@ -75,7 +75,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "dampingFrequency",
         name: "Frequency (Hz) at which the high-frequency T60 is half the middle-band's T60.",
         address: akGetParameterAddress("ZitaReverbParameterDampingFrequency"),
-        initialValue: 6_000.0,
+        defaultValue: 6_000.0,
         range: 10.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -88,7 +88,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "equalizerFrequency1",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 1.",
         address: akGetParameterAddress("ZitaReverbParameterEqualizerFrequency1"),
-        initialValue: 315.0,
+        defaultValue: 315.0,
         range: 10.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -101,7 +101,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "equalizerLevel1",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 1",
         address: akGetParameterAddress("ZitaReverbParameterEqualizerLevel1"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -100.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -114,7 +114,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "equalizerFrequency2",
         name: "Center frequency of second-order Regalia Mitra peaking equalizer section 2.",
         address: akGetParameterAddress("ZitaReverbParameterEqualizerFrequency2"),
-        initialValue: 1_500.0,
+        defaultValue: 1_500.0,
         range: 10.0 ... 22_050.0,
         unit: .hertz,
         flags: .default)
@@ -127,7 +127,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "equalizerLevel2",
         name: "Peak level in dB of second-order Regalia-Mitra peaking equalizer section 2",
         address: akGetParameterAddress("ZitaReverbParameterEqualizerLevel2"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -100.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -140,7 +140,7 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "dryWetMix",
         name: "0 = all dry, 1 = all wet",
         address: akGetParameterAddress("ZitaReverbParameterDryWetMix"),
-        initialValue: 1.0,
+        defaultValue: 1.0,
         range: 0.0 ... 1.0,
         unit: .percent,
         flags: .default)
@@ -167,16 +167,16 @@ public class ZitaReverb: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        predelay: AUValue = predelayDef.initialValue,
-        crossoverFrequency: AUValue = crossoverFrequencyDef.initialValue,
-        lowReleaseTime: AUValue = lowReleaseTimeDef.initialValue,
-        midReleaseTime: AUValue = midReleaseTimeDef.initialValue,
-        dampingFrequency: AUValue = dampingFrequencyDef.initialValue,
-        equalizerFrequency1: AUValue = equalizerFrequency1Def.initialValue,
-        equalizerLevel1: AUValue = equalizerLevel1Def.initialValue,
-        equalizerFrequency2: AUValue = equalizerFrequency2Def.initialValue,
-        equalizerLevel2: AUValue = equalizerLevel2Def.initialValue,
-        dryWetMix: AUValue = dryWetMixDef.initialValue
+        predelay: AUValue = predelayDef.defaultValue,
+        crossoverFrequency: AUValue = crossoverFrequencyDef.defaultValue,
+        lowReleaseTime: AUValue = lowReleaseTimeDef.defaultValue,
+        midReleaseTime: AUValue = midReleaseTimeDef.defaultValue,
+        dampingFrequency: AUValue = dampingFrequencyDef.defaultValue,
+        equalizerFrequency1: AUValue = equalizerFrequency1Def.defaultValue,
+        equalizerLevel1: AUValue = equalizerLevel1Def.defaultValue,
+        equalizerFrequency2: AUValue = equalizerFrequency2Def.defaultValue,
+        equalizerLevel2: AUValue = equalizerLevel2Def.defaultValue,
+        dryWetMix: AUValue = dryWetMixDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

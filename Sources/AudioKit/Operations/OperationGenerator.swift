@@ -29,7 +29,7 @@ public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
             identifier: "parameter\(number)",
             name: "Parameter \(number)",
             address: akGetParameterAddress("OperationGeneratorParameter\(number)"),
-            initialValue: 0,
+            defaultValue: 0,
             range: floatRange,
             unit: .generic,
             flags: .default)

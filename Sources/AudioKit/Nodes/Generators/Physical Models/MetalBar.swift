@@ -24,7 +24,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         identifier: "leftBoundaryCondition",
         name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
         address: akGetParameterAddress("MetalBarParameterLeftBoundaryCondition"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 1 ... 3,
         unit: .hertz,
         flags: .default)
@@ -37,7 +37,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         identifier: "rightBoundaryCondition",
         name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
         address: akGetParameterAddress("MetalBarParameterRightBoundaryCondition"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 1 ... 3,
         unit: .hertz,
         flags: .default)
@@ -50,7 +50,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         identifier: "decayDuration",
         name: "30db decay time (in seconds).",
         address: akGetParameterAddress("MetalBarParameterDecayDuration"),
-        initialValue: 3,
+        defaultValue: 3,
         range: 0 ... 10,
         unit: .hertz,
         flags: .default)
@@ -63,7 +63,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         identifier: "scanSpeed",
         name: "Speed of scanning the output location.",
         address: akGetParameterAddress("MetalBarParameterScanSpeed"),
-        initialValue: 0.25,
+        defaultValue: 0.25,
         range: 0 ... 100,
         unit: .hertz,
         flags: .default)
@@ -76,7 +76,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         identifier: "position",
         name: "Position along bar that strike occurs.",
         address: akGetParameterAddress("MetalBarParameterPosition"),
-        initialValue: 0.2,
+        defaultValue: 0.2,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -89,7 +89,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         identifier: "strikeVelocity",
         name: "Normalized strike velocity",
         address: akGetParameterAddress("MetalBarParameterStrikeVelocity"),
-        initialValue: 500,
+        defaultValue: 500,
         range: 0 ... 1_000,
         unit: .generic,
         flags: .default)
@@ -102,7 +102,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
         identifier: "strikeWidth",
         name: "Spatial width of strike.",
         address: akGetParameterAddress("MetalBarParameterStrikeWidth"),
-        initialValue: 0.05,
+        defaultValue: 0.05,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -126,13 +126,13 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
     ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
     ///
     public init(
-        leftBoundaryCondition: AUValue = leftBoundaryConditionDef.initialValue,
-        rightBoundaryCondition: AUValue = rightBoundaryConditionDef.initialValue,
-        decayDuration: AUValue = decayDurationDef.initialValue,
-        scanSpeed: AUValue = scanSpeedDef.initialValue,
-        position: AUValue = positionDef.initialValue,
-        strikeVelocity: AUValue = strikeVelocityDef.initialValue,
-        strikeWidth: AUValue = strikeWidthDef.initialValue,
+        leftBoundaryCondition: AUValue = leftBoundaryConditionDef.defaultValue,
+        rightBoundaryCondition: AUValue = rightBoundaryConditionDef.defaultValue,
+        decayDuration: AUValue = decayDurationDef.defaultValue,
+        scanSpeed: AUValue = scanSpeedDef.defaultValue,
+        position: AUValue = positionDef.defaultValue,
+        strikeVelocity: AUValue = strikeVelocityDef.defaultValue,
+        strikeWidth: AUValue = strikeWidthDef.defaultValue,
         stiffness: AUValue = 3,
         highFrequencyDamping: AUValue = 0.001
     ) {

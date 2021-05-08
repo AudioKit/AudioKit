@@ -23,7 +23,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         identifier: "shift",
         name: "Pitch shift (in semitones)",
         address: akGetParameterAddress("PitchShifterParameterShift"),
-        initialValue: 0,
+        defaultValue: 0,
         range: -24.0 ... 24.0,
         unit: .relativeSemiTones,
         flags: .default)
@@ -36,7 +36,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         identifier: "windowSize",
         name: "Window size (in samples)",
         address: akGetParameterAddress("PitchShifterParameterWindowSize"),
-        initialValue: 1_024,
+        defaultValue: 1_024,
         range: 0.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
@@ -49,7 +49,7 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         identifier: "crossfade",
         name: "Crossfade (in samples)",
         address: akGetParameterAddress("PitchShifterParameterCrossfade"),
-        initialValue: 512,
+        defaultValue: 512,
         range: 0.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
@@ -69,9 +69,9 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        shift: AUValue = shiftDef.initialValue,
-        windowSize: AUValue = windowSizeDef.initialValue,
-        crossfade: AUValue = crossfadeDef.initialValue
+        shift: AUValue = shiftDef.defaultValue,
+        windowSize: AUValue = windowSizeDef.defaultValue,
+        crossfade: AUValue = crossfadeDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

@@ -25,7 +25,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
         address: akGetParameterAddress("PhaseLockedVocoderParameterPosition"),
-        initialValue: 0,
+        defaultValue: 0,
         range: 0 ... 100_000,
         unit: .generic,
         flags: .default)
@@ -38,7 +38,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         identifier: "amplitude",
         name: "Amplitude.",
         address: akGetParameterAddress("PhaseLockedVocoderParameterAmplitude"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -51,7 +51,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         identifier: "pitchRatio",
         name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
         address: akGetParameterAddress("PhaseLockedVocoderParameterPitchRatio"),
-        initialValue: 1,
+        defaultValue: 1,
         range: 0 ... 1_000,
         unit: .hertz,
         flags: .default)
@@ -71,9 +71,9 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         file: AVAudioFile,
-        position: AUValue = positionDef.initialValue,
-        amplitude: AUValue = amplitudeDef.initialValue,
-        pitchRatio: AUValue = pitchRatioDef.initialValue
+        position: AUValue = positionDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue,
+        pitchRatio: AUValue = pitchRatioDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

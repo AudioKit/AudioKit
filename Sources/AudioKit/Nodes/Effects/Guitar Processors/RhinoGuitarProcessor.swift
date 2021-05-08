@@ -23,7 +23,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         identifier: "preGain",
         name: "PreGain",
         address: akGetParameterAddress("RhinoGuitarProcessorParameterPreGain"),
-        initialValue: 5.0,
+        defaultValue: 5.0,
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -36,7 +36,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         identifier: "postGain",
         name: "PostGain",
         address: akGetParameterAddress("RhinoGuitarProcessorParameterPostGain"),
-        initialValue: 0.7,
+        defaultValue: 0.7,
         range: 0.0 ... 1.0,
         unit: .linearGain,
         flags: .default)
@@ -49,7 +49,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         identifier: "lowGain",
         name: "Low Frequency Gain",
         address: akGetParameterAddress("RhinoGuitarProcessorParameterLowGain"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -1.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -62,7 +62,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         identifier: "midGain",
         name: "Mid Frequency Gain",
         address: akGetParameterAddress("RhinoGuitarProcessorParameterMidGain"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -1.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -75,7 +75,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         identifier: "highGain",
         name: "High Frequency Gain",
         address: akGetParameterAddress("RhinoGuitarProcessorParameterHighGain"),
-        initialValue: 0.0,
+        defaultValue: 0.0,
         range: -1.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -88,7 +88,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         identifier: "distortion",
         name: "Distortion",
         address: akGetParameterAddress("RhinoGuitarProcessorParameterDistortion"),
-        initialValue: 1.0,
+        defaultValue: 1.0,
         range: 1.0 ... 20.0,
         unit: .generic,
         flags: .default)
@@ -111,12 +111,12 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        preGain: AUValue = preGainDef.initialValue,
-        postGain: AUValue = postGainDef.initialValue,
-        lowGain: AUValue = lowGainDef.initialValue,
-        midGain: AUValue = midGainDef.initialValue,
-        highGain: AUValue = highGainDef.initialValue,
-        distortion: AUValue = distortionDef.initialValue
+        preGain: AUValue = preGainDef.defaultValue,
+        postGain: AUValue = postGainDef.defaultValue,
+        lowGain: AUValue = lowGainDef.defaultValue,
+        midGain: AUValue = midGainDef.defaultValue,
+        highGain: AUValue = highGainDef.defaultValue,
+        distortion: AUValue = distortionDef.defaultValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 
