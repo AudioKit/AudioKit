@@ -11,6 +11,8 @@ public struct NodeParameterDef {
     public var name: String
     /// Address
     public var address: AUParameterAddress
+    /// Starting value
+    public var initialValue: AUValue = 0.0
     /// Value Range
     public var range: ClosedRange<AUValue>
     /// Physical Units
@@ -36,6 +38,31 @@ public struct NodeParameterDef {
         self.identifier = identifier
         self.name = name
         self.address = address
+        self.range = range
+        self.unit = unit
+        self.flags = flags
+    }
+    
+    /// Initialize node parameter definition with all data
+    /// - Parameters:
+    ///   - identifier: Unique ID
+    ///   - name: Name
+    ///   - address: Address
+    ///   - initialValue: Starting value
+    ///   - range: Value range
+    ///   - unit: Physical units
+    ///   - flags: Audio Unit Parameter options
+    public init(identifier: String,
+                name: String,
+                address: AUParameterAddress,
+                initialValue: AUValue,
+                range: ClosedRange<AUValue>,
+                unit: AudioUnitParameterUnit,
+                flags: AudioUnitParameterOptions) {
+        self.identifier = identifier
+        self.name = name
+        self.address = address
+        self.initialValue = initialValue
         self.range = range
         self.unit = unit
         self.flags = flags

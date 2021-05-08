@@ -10,12 +10,13 @@ public class Delay: Node, Toggleable {
 
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
-       identifier: "dryWetMix",
-       name: "Dry-Wet Mix",
-       address: 0,
-       range: 0.0 ... 1.0,
-       unit: .generic,
-       flags: .default)
+        identifier: "dryWetMix",
+        name: "Dry-Wet Mix",
+        address: 0,
+        initialValue: 50,
+        range: 0.0 ... 1.0,
+        unit: .generic,
+        flags: .default)
 
     /// Dry/wet mix. Should be a value between 0-1.
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
@@ -25,6 +26,7 @@ public class Delay: Node, Toggleable {
         identifier: "time",
         name: "Delay time (Seconds)",
         address: 1,
+        initialValue: 1,
         range: 0 ... 2.0,
         unit: .seconds,
         flags: .default)
@@ -37,6 +39,7 @@ public class Delay: Node, Toggleable {
         identifier: "feedback",
         name: "Feedback (%)",
         address: 2,
+        initialValue: 50,
         range: -100 ... 100,
         unit: .generic,
         flags: .default)
@@ -49,6 +52,7 @@ public class Delay: Node, Toggleable {
         identifier: "lowPassCutoff",
         name: "Low Pass Cutoff Frequency",
         address: 3,
+        initialValue: 15000,
         range: 10 ... 22050,
         unit: .hertz,
         flags: .default)
@@ -70,10 +74,10 @@ public class Delay: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        time: AUValue = 1,
-        feedback: AUValue = 50,
-        lowPassCutoff: AUValue = 15_000,
-        dryWetMix: AUValue = 50) {
+        time: AUValue = timeDef.initialValue,
+        feedback: AUValue = feedbackDef.initialValue,
+        lowPassCutoff: AUValue = lowPassCutoffDef.initialValue,
+        dryWetMix: AUValue = dryWetMixDef.initialValue) {
 
         super.init(avAudioNode: delayAU)
         connections.append(input)
