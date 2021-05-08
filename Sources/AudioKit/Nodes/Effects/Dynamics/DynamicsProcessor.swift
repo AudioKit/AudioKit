@@ -17,6 +17,7 @@ open class DynamicsProcessor: Node, Toggleable {
         identifier: "threshold",
         name: "Threshold",
         address: 0,
+        initialValue: -20,
         range: -40 ... 20,
         unit: .decibels,
         flags: .default)
@@ -29,6 +30,7 @@ open class DynamicsProcessor: Node, Toggleable {
         identifier: "headRoom",
         name: "Head Room",
         address: 1,
+        initialValue: 5,
         range: 0.1 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -41,6 +43,7 @@ open class DynamicsProcessor: Node, Toggleable {
         identifier: "expansionRatio",
         name: "Expansion Ratio",
         address: 2,
+        initialValue: 2,
         range: 1 ... 50.0,
         unit: .rate,
         flags: .default)
@@ -53,6 +56,7 @@ open class DynamicsProcessor: Node, Toggleable {
         identifier: "expansionThreshold",
         name: "Expansion Threshold",
         address: 3,
+        initialValue: 2,
         range: 1 ... 50.0,
         unit: .rate,
         flags: .default)
@@ -65,6 +69,7 @@ open class DynamicsProcessor: Node, Toggleable {
         identifier: "attackTime",
         name: "Attack Time",
         address: 4,
+        initialValue: 0.001,
         range: 0.0001 ... 0.2,
         unit: .seconds,
         flags: .default)
@@ -77,6 +82,7 @@ open class DynamicsProcessor: Node, Toggleable {
         identifier: "releaseTime",
         name: "Release Time",
         address: 5,
+        initialValue: 0.05,
         range: 0.01 ... 3,
         unit: .seconds,
         flags: .default)
@@ -89,6 +95,7 @@ open class DynamicsProcessor: Node, Toggleable {
         identifier: "masterGain",
         name: "Master Gain",
         address: 6,
+        initialValue: 0,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)
@@ -96,66 +103,29 @@ open class DynamicsProcessor: Node, Toggleable {
     /// Master Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(masterGainDef) public var masterGain: AUValue
 
-    /// Specification details for compressionAmount
-    public static let compressionAmountDef = NodeParameterDef(
-        identifier: "compressionAmount",
-        name: "Compression Amount",
-        address: akGetParameterAddress("DynamicsProcessorParameterCompressionAmount"),
-        range: -40 ... 40,
-        unit: .decibels,
-        flags: .default)
-
-    /// Compression Amount (decibels) ranges from -40 to 40 (Default: 0)
-    @Parameter(compressionAmountDef) public var compressionAmount: AUValue
-
-    /// Specification details for inputAmplitude
-    public static let inputAmplitudeDef = NodeParameterDef(
-        identifier: "inputAmplitude",
-        name: "Input Amplitude",
-        address: akGetParameterAddress("DynamicsProcessorParameterInputAmplitude"),
-        range: -40 ... 40,
-        unit: .decibels,
-        flags: .default)
-
-    /// Input Amplitude (decibels) ranges from -40 to 40 (Default: 0)
-    @Parameter(inputAmplitudeDef) public var inputAmplitude: AUValue
-
-    /// Specification details for outputAmplitude
-    public static let outputAmplitudeDef = NodeParameterDef(
-        identifier: "outputAmplitude",
-        name: "Output Amplitude",
-        address: akGetParameterAddress("DynamicsProcessorParameterOutputAmplitude"),
-        range: -40 ... 40,
-        unit: .decibels,
-        flags: .default)
-
-    /// Output Amplitude (decibels) ranges from -40 to 40 (Default: 0)
-    @Parameter(outputAmplitudeDef) public var outputAmplitude: AUValue
-
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
     /// Initialize the dynamics processor node
     ///
     /// - parameter input: Input node to process
-    /// - parameter threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
-    /// - parameter headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
+    /// - parameter threshold: Threshold (decibels) ranges from -40 to 20 (Default: -20)
+    /// - parameter headRoom: Head Room (decibels) ranges from 0.1 to 40.0 (Default: 5)
     /// - parameter expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
     /// - parameter expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
-    /// - parameter attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    /// - parameter releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
-    /// - parameter masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
+    /// - parameter attackTime: Attack Time (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
+    /// - parameter releaseTime: Release Time (seconds) ranges from 0.01 to 3 (Default: 0.05)
+    /// - parameter masterGain: Master Gain (decibels) ranges from -40 to 40 (Default: 0)
     ///
     public init(
         _ input: Node,
-        threshold: AUValue = -20,
-        headRoom: AUValue = 5,
-        expansionRatio: AUValue = 2,
-        expansionThreshold: AUValue = 2,
-        attackTime: AUValue = 0.001,
-        releaseTime: AUValue = 0.05,
-        masterGain: AUValue = 0) {
-
+        threshold: AUValue = thresholdDef.initialValue,
+        headRoom: AUValue = headRoomDef.initialValue,
+        expansionRatio: AUValue = expansionRatioDef.initialValue,
+        expansionThreshold: AUValue = expansionThresholdDef.initialValue,
+        attackTime: AUValue = attackTimeDef.initialValue,
+        releaseTime: AUValue = releaseTimeDef.initialValue,
+        masterGain: AUValue = masterGainDef.initialValue) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 

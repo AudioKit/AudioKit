@@ -17,6 +17,7 @@ open class RingModulator: Node, Toggleable {
         identifier: "ringModFreq1",
         name: "Ring Mod Freq1",
         address: 3,
+        initialValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -29,6 +30,7 @@ open class RingModulator: Node, Toggleable {
         identifier: "ringModFreq2",
         name: "Ring Mod Freq2",
         address: 4,
+        initialValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -41,6 +43,7 @@ open class RingModulator: Node, Toggleable {
         identifier: "ringModBalance",
         name: "Ring Mod Balance",
         address: 5,
+        initialValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -53,6 +56,7 @@ open class RingModulator: Node, Toggleable {
         identifier: "finalMix",
         name: "Final Mix",
         address: 15,
+        initialValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -73,10 +77,10 @@ open class RingModulator: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        ringModFreq1: AUValue = 100,
-        ringModFreq2: AUValue = 100,
-        ringModBalance: AUValue = 50,
-        finalMix: AUValue = 50) {
+        ringModFreq1: AUValue = ringModFreq1Def.initialValue,
+        ringModFreq2: AUValue = ringModFreq2Def.initialValue,
+        ringModBalance: AUValue = ringModBalanceDef.initialValue,
+        finalMix: AUValue = finalMixDef.initialValue) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 

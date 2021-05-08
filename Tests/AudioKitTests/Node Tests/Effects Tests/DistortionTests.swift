@@ -102,6 +102,10 @@ class DistortionTests: XCTestCase {
                               delay: 0.2,
                               decay: 2,
                               delayMix: 60,
+                              ringModFreq1: 200,
+                              ringModFreq2: 300,
+                              ringModBalance: 67,
+                              ringModMix: 68,
                               decimation: 61,
                               rounding: 50,
                               decimationMix: 62,
@@ -109,10 +113,6 @@ class DistortionTests: XCTestCase {
                               squaredTerm: 64,
                               cubicTerm: 65,
                               polynomialMix: 66,
-                              ringModFreq1: 200,
-                              ringModFreq2: 300,
-                              ringModBalance: 67,
-                              ringModMix: 68,
                               softClipGain: 0,
                               finalMix: 69)
         input.start()

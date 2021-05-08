@@ -17,6 +17,7 @@ open class PeakLimiter: Node, Toggleable {
         identifier: "attackTime",
         name: "Attack Time",
         address: 0,
+        initialValue: 0.012,
         range: 0.001 ... 0.03,
         unit: .seconds,
         flags: .default)
@@ -29,6 +30,7 @@ open class PeakLimiter: Node, Toggleable {
         identifier: "decayTime",
         name: "Decay Time",
         address: 1,
+        initialValue: 0.024,
         range: 0.001 ... 0.06,
         unit: .seconds,
         flags: .default)
@@ -41,6 +43,7 @@ open class PeakLimiter: Node, Toggleable {
         identifier: "preGain",
         name: "Pre Gain",
         address: 2,
+        initialValue: 0,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)
@@ -60,9 +63,9 @@ open class PeakLimiter: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        attackTime: AUValue = 0.012,
-        decayTime: AUValue = 0.024,
-        preGain: AUValue = 0) {
+        attackTime: AUValue = attackTimeDef.initialValue,
+        decayTime: AUValue = decayTimeDef.initialValue,
+        preGain: AUValue = preGainDef.initialValue) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 

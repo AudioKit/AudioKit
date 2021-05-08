@@ -17,6 +17,7 @@ open class Distortion: Node, Toggleable {
         identifier: "delay",
         name: "Delay",
         address: 0,
+        initialValue: 0.1,
         range: 0.1 ... 500,
         unit: .milliseconds,
         flags: .default)
@@ -29,6 +30,7 @@ open class Distortion: Node, Toggleable {
         identifier: "decay",
         name: "Decay",
         address: 1,
+        initialValue: 1.0,
         range: 0.1 ... 50,
         unit: .rate,
         flags: .default)
@@ -41,6 +43,7 @@ open class Distortion: Node, Toggleable {
         identifier: "delayMix",
         name: "Delay Mix",
         address: 2,
+        initialValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -48,95 +51,12 @@ open class Distortion: Node, Toggleable {
     /// Delay Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(delayMixDef) public var delayMix: AUValue
 
-    /// Specification details for decimation
-    public static let decimationDef = NodeParameterDef(
-        identifier: "decimation",
-        name: "Decimation",
-        address: 7,
-        range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
-
-    /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter(decimationDef) public var decimation: AUValue
-
-    /// Specification details for rounding
-    public static let roundingDef = NodeParameterDef(
-        identifier: "rounding",
-        name: "Rounding",
-        address: 8,
-        range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
-
-    /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
-    @Parameter(roundingDef) public var rounding: AUValue
-
-    /// Specification details for decimationMix
-    public static let decimationMixDef = NodeParameterDef(
-        identifier: "decimationMix",
-        name: "Decimation Mix",
-        address: 9,
-        range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
-
-    /// Decimation Mix (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter(decimationMixDef) public var decimationMix: AUValue
-
-    /// Specification details for linearTerm
-    public static let linearTermDef = NodeParameterDef(
-        identifier: "linearTerm",
-        name: "Linear Term",
-        address: 10,
-        range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
-
-    /// Linear Term (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter(linearTermDef) public var linearTerm: AUValue
-
-    /// Specification details for squaredTerm
-    public static let squaredTermDef = NodeParameterDef(
-        identifier: "squaredTerm",
-        name: "Squared Term",
-        address: 11,
-        range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
-
-    /// Squared Term (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter(squaredTermDef) public var squaredTerm: AUValue
-
-    /// Specification details for cubicTerm
-    public static let cubicTermDef = NodeParameterDef(
-        identifier: "cubicTerm",
-        name: "Cubic Term",
-        address: 12,
-        range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
-
-    /// Cubic Term (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter(cubicTermDef) public var cubicTerm: AUValue
-
-    /// Specification details for polynomialMix
-    public static let polynomialMixDef = NodeParameterDef(
-        identifier: "polynomialMix",
-        name: "Polynomial Mix",
-        address: 13,
-        range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
-
-    /// Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter(polynomialMixDef) public var polynomialMix: AUValue
-
     /// Specification details for ringModFreq1
     public static let ringModFreq1Def = NodeParameterDef(
         identifier: "ringModFreq1",
         name: "Ring Mod Freq1",
         address: 3,
+        initialValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -149,6 +69,7 @@ open class Distortion: Node, Toggleable {
         identifier: "ringModFreq2",
         name: "Ring Mod Freq2",
         address: 4,
+        initialValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -161,6 +82,7 @@ open class Distortion: Node, Toggleable {
         identifier: "ringModBalance",
         name: "Ring Mod Balance",
         address: 5,
+        initialValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -173,6 +95,7 @@ open class Distortion: Node, Toggleable {
         identifier: "ringModMix",
         name: "Ring Mod Mix",
         address: 6,
+        initialValue: 0,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -180,11 +103,103 @@ open class Distortion: Node, Toggleable {
     /// Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0)
     @Parameter(ringModMixDef) public var ringModMix: AUValue
 
+    /// Specification details for decimation
+    public static let decimationDef = NodeParameterDef(
+        identifier: "decimation",
+        name: "Decimation",
+        address: 7,
+        initialValue: 50,
+        range: 0 ... 100,
+        unit: .percent,
+        flags: .default)
+
+    /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
+    @Parameter(decimationDef) public var decimation: AUValue
+
+    /// Specification details for rounding
+    public static let roundingDef = NodeParameterDef(
+        identifier: "rounding",
+        name: "Rounding",
+        address: 8,
+        initialValue: 0,
+        range: 0 ... 100,
+        unit: .percent,
+        flags: .default)
+
+    /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
+    @Parameter(roundingDef) public var rounding: AUValue
+
+    /// Specification details for decimationMix
+    public static let decimationMixDef = NodeParameterDef(
+        identifier: "decimationMix",
+        name: "Decimation Mix",
+        address: 9,
+        initialValue: 50,
+        range: 0 ... 100,
+        unit: .percent,
+        flags: .default)
+
+    /// Decimation Mix (Percent) ranges from 0 to 100 (Default: 50)
+    @Parameter(decimationMixDef) public var decimationMix: AUValue
+
+    /// Specification details for linearTerm
+    public static let linearTermDef = NodeParameterDef(
+        identifier: "linearTerm",
+        name: "Linear Term",
+        address: 10,
+        initialValue: 50,
+        range: 0 ... 100,
+        unit: .percent,
+        flags: .default)
+
+    /// Linear Term (Percent) ranges from 0 to 100 (Default: 50)
+    @Parameter(linearTermDef) public var linearTerm: AUValue
+
+    /// Specification details for squaredTerm
+    public static let squaredTermDef = NodeParameterDef(
+        identifier: "squaredTerm",
+        name: "Squared Term",
+        address: 11,
+        initialValue: 50,
+        range: 0 ... 100,
+        unit: .percent,
+        flags: .default)
+
+    /// Squared Term (Percent) ranges from 0 to 100 (Default: 50)
+    @Parameter(squaredTermDef) public var squaredTerm: AUValue
+
+    /// Specification details for cubicTerm
+    public static let cubicTermDef = NodeParameterDef(
+        identifier: "cubicTerm",
+        name: "Cubic Term",
+        address: 12,
+        initialValue: 50,
+        range: 0 ... 100,
+        unit: .percent,
+        flags: .default)
+
+    /// Cubic Term (Percent) ranges from 0 to 100 (Default: 50)
+    @Parameter(cubicTermDef) public var cubicTerm: AUValue
+
+    /// Specification details for polynomialMix
+    public static let polynomialMixDef = NodeParameterDef(
+        identifier: "polynomialMix",
+        name: "Polynomial Mix",
+        address: 13,
+        initialValue: 50,
+        range: 0 ... 100,
+        unit: .percent,
+        flags: .default)
+
+    /// Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50)
+    @Parameter(polynomialMixDef) public var polynomialMix: AUValue
+
     /// Specification details for softClipGain
     public static let softClipGainDef = NodeParameterDef(
         identifier: "softClipGain",
         name: "Soft Clip Gain",
         address: 14,
+        initialValue: -6,
         range: -80 ... 20,
         unit: .decibels,
         flags: .default)
@@ -197,6 +212,7 @@ open class Distortion: Node, Toggleable {
         identifier: "finalMix",
         name: "Final Mix",
         address: 15,
+        initialValue: 50,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -213,6 +229,10 @@ open class Distortion: Node, Toggleable {
     /// - parameter delay: Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
     /// - parameter decay: Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
     /// - parameter delayMix: Delay Mix (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter ringModFreq1: Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
+    /// - parameter ringModFreq2: Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
+    /// - parameter ringModBalance: Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter ringModMix: Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0)
     /// - parameter decimation: Decimation (Percent) ranges from 0 to 100 (Default: 50)
     /// - parameter rounding: Rounding (Percent) ranges from 0 to 100 (Default: 0)
     /// - parameter decimationMix: Decimation Mix (Percent) ranges from 0 to 100 (Default: 50)
@@ -220,31 +240,27 @@ open class Distortion: Node, Toggleable {
     /// - parameter squaredTerm: Squared Term (Percent) ranges from 0 to 100 (Default: 50)
     /// - parameter cubicTerm: Cubic Term (Percent) ranges from 0 to 100 (Default: 50)
     /// - parameter polynomialMix: Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50)
-    /// - parameter ringModFreq1: Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    /// - parameter ringModFreq2: Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    /// - parameter ringModBalance: Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
-    /// - parameter ringModMix: Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0)
     /// - parameter softClipGain: Soft Clip Gain (decibels) ranges from -80 to 20 (Default: -6)
     /// - parameter finalMix: Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     ///
     public init(
         _ input: Node,
-        delay: AUValue = 0.1,
-        decay: AUValue = 1.0,
-        delayMix: AUValue = 50,
-        decimation: AUValue = 50,
-        rounding: AUValue = 0,
-        decimationMix: AUValue = 50,
-        linearTerm: AUValue = 50,
-        squaredTerm: AUValue = 50,
-        cubicTerm: AUValue = 50,
-        polynomialMix: AUValue = 50,
-        ringModFreq1: AUValue = 100,
-        ringModFreq2: AUValue = 100,
-        ringModBalance: AUValue = 50,
-        ringModMix: AUValue = 0,
-        softClipGain: AUValue = -6,
-        finalMix: AUValue = 50) {
+        delay: AUValue = delayDef.initialValue,
+        decay: AUValue = decayDef.initialValue,
+        delayMix: AUValue = delayMixDef.initialValue,
+        ringModFreq1: AUValue = ringModFreq1Def.initialValue,
+        ringModFreq2: AUValue = ringModFreq2Def.initialValue,
+        ringModBalance: AUValue = ringModBalanceDef.initialValue,
+        ringModMix: AUValue = ringModMixDef.initialValue,
+        decimation: AUValue = decimationDef.initialValue,
+        rounding: AUValue = roundingDef.initialValue,
+        decimationMix: AUValue = decimationMixDef.initialValue,
+        linearTerm: AUValue = linearTermDef.initialValue,
+        squaredTerm: AUValue = squaredTermDef.initialValue,
+        cubicTerm: AUValue = cubicTermDef.initialValue,
+        polynomialMix: AUValue = polynomialMixDef.initialValue,
+        softClipGain: AUValue = softClipGainDef.initialValue,
+        finalMix: AUValue = finalMixDef.initialValue) {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
@@ -253,6 +269,10 @@ open class Distortion: Node, Toggleable {
         self.delay = delay
         self.decay = decay
         self.delayMix = delayMix
+        self.ringModFreq1 = ringModFreq1
+        self.ringModFreq2 = ringModFreq2
+        self.ringModBalance = ringModBalance
+        self.ringModMix = ringModMix
         self.decimation = decimation
         self.rounding = rounding
         self.decimationMix = decimationMix
@@ -260,10 +280,6 @@ open class Distortion: Node, Toggleable {
         self.squaredTerm = squaredTerm
         self.cubicTerm = cubicTerm
         self.polynomialMix = polynomialMix
-        self.ringModFreq1 = ringModFreq1
-        self.ringModFreq2 = ringModFreq2
-        self.ringModBalance = ringModBalance
-        self.ringModMix = ringModMix
         self.softClipGain = softClipGain
         self.finalMix = finalMix
     }
