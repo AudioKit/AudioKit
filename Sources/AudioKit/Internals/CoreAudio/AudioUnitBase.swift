@@ -155,15 +155,20 @@ open class AudioUnitBase: AUAudioUnit {
     }
 
     /// Trigger something within the audio unit
-    public func trigger() {
+    public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
         guard let midiBlock = scheduleMIDIEventBlock else {
             fatalError("Attempt to trigger audio unit which doesn't respond to MIDI.")
         }
-        let event = MIDIEvent(noteOn: 64, velocity: 127, channel: 0)
+        let event = MIDIEvent(noteOn: note, velocity: velocity, channel: 0)
         event.data.withUnsafeBufferPointer { ptr in
             guard let ptr = ptr.baseAddress else { return }
             midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
         }
+    }
+
+    /// Trigger something within the audio unit
+    public func trigger() {
+        trigger(note: 64, velocity: 127)
     }
 
     /// Create an array of values to use as waveforms or other things inside an audio unit
