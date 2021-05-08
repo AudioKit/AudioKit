@@ -11,11 +11,6 @@ open class Node {
     /// The internal AVAudioEngine AVAudioNode
     open var avAudioNode: AVAudioNode
 
-    /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
-    open var avAudioUnit: AVAudioUnit? {
-        avAudioNode as? AVAudioUnit
-    }
-
     /// Initialize the node from an AVAudioNode
     /// - Parameter avAudioNode: AVAudioNode to initialize with
     public init(avAudioNode: AVAudioNode) {
@@ -25,7 +20,7 @@ open class Node {
     /// Reset the internal state of the unit
     /// Fixes issues such as https://github.com/AudioKit/AudioKit/issues/2046
     public func reset() {
-        if let avAudioUnit = self.avAudioUnit {
+        if let avAudioUnit = avAudioNode as? AVAudioUnit {
             AudioUnitReset(avAudioUnit.audioUnit, kAudioUnitScope_Global, 0)
         }
     }
@@ -176,7 +171,7 @@ open class PolyphonicNode: Node, Polyphonic {
         ///   - offset: Time in samples
         ///
         public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
-            if let midiBlock = avAudioUnit?.auAudioUnit.scheduleMIDIEventBlock {
+            if let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock {
                 event.data.withUnsafeBufferPointer { ptr in
                     guard let ptr = ptr.baseAddress else { return }
                     midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)

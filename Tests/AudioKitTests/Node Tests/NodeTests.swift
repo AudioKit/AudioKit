@@ -8,7 +8,7 @@ class NodeTests: XCTestCase {
     func testNodeBasic() {
         let engine = AudioEngine()
         let osc = Oscillator(waveform: Table(.triangle))
-        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNotNil(osc.avAudioNode as? AVAudioUnit)
         XCTAssertNil(osc.avAudioNode.engine)
         osc.start()
         engine.output = osc
@@ -338,7 +338,7 @@ class NodeTests: XCTestCase {
         let osc = Oscillator(waveform: Table(.triangle))
         let rev = CostelloReverb(osc)
 
-        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNotNil(osc.avAudioNode as? AVAudioUnit)
         XCTAssertNil(osc.avAudioNode.engine)
         osc.start()
         engine.output = rev
@@ -363,7 +363,7 @@ class NodeTests: XCTestCase {
         let rev = CostelloReverb(mix1)
         let mix2 = Mixer(rev)
 
-        XCTAssertNotNil(osc.avAudioUnit)
+        XCTAssertNotNil(osc.avAudioNode as? AVAudioUnit)
         XCTAssertNil(osc.avAudioNode.engine)
         osc.start()
         engine.output = mix2
