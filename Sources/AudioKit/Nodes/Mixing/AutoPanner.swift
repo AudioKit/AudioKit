@@ -23,6 +23,7 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: akGetParameterAddress("AutoPannerParameterFrequency"),
+        initialValue: 10,
         range: 0.0...100.0,
         unit: .hertz,
         flags: .default)
@@ -35,6 +36,7 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
         identifier: "depth",
         name: "Depth",
         address: akGetParameterAddress("AutoPannerParameterDepth"),
+        initialValue: 1.0,
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
@@ -54,8 +56,8 @@ public class AutoPanner: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        frequency: AUValue = 10,
-        depth: AUValue = 1.0,
+        frequency: AUValue = frequencyDef.initialValue,
+        depth: AUValue = depthDef.initialValue,
         waveform: Table = Table(.positiveSine)
     ) {
         super.init(avAudioNode: AVAudioNode())

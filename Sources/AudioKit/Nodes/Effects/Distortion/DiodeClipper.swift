@@ -24,6 +24,7 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("DiodeClipperParameterCutoff"),
+        initialValue: 10_000.0,
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -36,6 +37,7 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("DiodeClipperParameterGaindB"),
+        initialValue: 20.0,
         range: 0.0 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -53,8 +55,8 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
     ///   - gain: Gain in dB
     ///
     public init(_ input: Node,
-                cutoffFrequency: AUValue = 10000.0,
-                gain: AUValue = 20.0
+                cutoffFrequency: AUValue = cutoffFrequencyDef.initialValue,
+                gain: AUValue = gainDef.initialValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 

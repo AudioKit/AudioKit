@@ -22,6 +22,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "inputAmount",
         name: "Input",
         address: akGetParameterAddress("TransientShaperParameterInputAmount"),
+        initialValue: 0.0,
         range: -60.0 ... 30.0,
         unit: .decibels,
         flags: .default)
@@ -34,6 +35,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "attackAmount",
         name: "Attack",
         address: akGetParameterAddress("TransientShaperParameterAttackAmount"),
+        initialValue: 0.0,
         range: -40.0 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -46,6 +48,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "releaseAmount",
         name: "Release",
         address: akGetParameterAddress("TransientShaperParameterReleaseAmount"),
+        initialValue: 0.0,
         range: -40.0 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -58,6 +61,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "outputAmount",
         name: "Output",
         address: akGetParameterAddress("TransientShaperParameterOutputAmount"),
+        initialValue: 0.0,
         range: -60.0 ... 30.0,
         unit: .decibels,
         flags: .default)
@@ -76,10 +80,10 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
     ///     - output
     public init(
         _ input: Node,
-        inputAmount: AUValue = 0.0,
-        attackAmount: AUValue = 0.0,
-        releaseAmount: AUValue = 0.0,
-        outputAmount: AUValue = 0.0
+        inputAmount: AUValue = inputAmountDef.initialValue,
+        attackAmount: AUValue = attackAmountDef.initialValue,
+        releaseAmount: AUValue = releaseAmountDef.initialValue,
+        outputAmount: AUValue = outputAmountDef.initialValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 

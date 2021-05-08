@@ -17,6 +17,7 @@ open class Compressor: Node, Toggleable {
         identifier: "threshold",
         name: "Threshold",
         address: 0,
+        initialValue: -20,
         range: -40 ... 20,
         unit: .decibels,
         flags: .default)
@@ -29,6 +30,7 @@ open class Compressor: Node, Toggleable {
         identifier: "headRoom",
         name: "Head Room",
         address: 1,
+        initialValue: 5,
         range: 0.1 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -41,6 +43,7 @@ open class Compressor: Node, Toggleable {
         identifier: "attackTime",
         name: "Attack Time",
         address: 4,
+        initialValue: 0.001,
         range: 0.0001 ... 0.2,
         unit: .seconds,
         flags: .default)
@@ -53,6 +56,7 @@ open class Compressor: Node, Toggleable {
         identifier: "releaseTime",
         name: "Release Time",
         address: 5,
+        initialValue: 0.05,
         range: 0.01 ... 3,
         unit: .seconds,
         flags: .default)
@@ -65,6 +69,7 @@ open class Compressor: Node, Toggleable {
         identifier: "masterGain",
         name: "Master Gain",
         address: 6,
+        initialValue: 0,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)
@@ -101,11 +106,11 @@ open class Compressor: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        threshold: AUValue = -20,
-        headRoom: AUValue = 5,
-        attackTime: AUValue = 0.001,
-        releaseTime: AUValue = 0.05,
-        masterGain: AUValue = 0) {
+        threshold: AUValue = thresholdDef.initialValue,
+        headRoom: AUValue = headRoomDef.initialValue,
+        attackTime: AUValue = attackTimeDef.initialValue,
+        releaseTime: AUValue = releaseTimeDef.initialValue,
+        masterGain: AUValue = masterGainDef.initialValue) {
 
         super.init(avAudioNode: effectAU)
         connections.append(input)

@@ -17,6 +17,7 @@ open class Expander: Node, Toggleable {
         identifier: "expansionRatio",
         name: "Expansion Ratio",
         address: 2,
+        initialValue: 2,
         range: 1 ... 50.0,
         unit: .rate,
         flags: .default)
@@ -29,6 +30,7 @@ open class Expander: Node, Toggleable {
         identifier: "expansionThreshold",
         name: "Expansion Threshold",
         address: 3,
+        initialValue: 2,
         range: 1 ... 50.0,
         unit: .rate,
         flags: .default)
@@ -41,6 +43,7 @@ open class Expander: Node, Toggleable {
         identifier: "attackTime",
         name: "Attack Time",
         address: 4,
+        initialValue: 0.001,
         range: 0.0001 ... 0.2,
         unit: .seconds,
         flags: .default)
@@ -53,6 +56,7 @@ open class Expander: Node, Toggleable {
         identifier: "releaseTime",
         name: "Release Time",
         address: 5,
+        initialValue: 0.05,
         range: 0.01 ... 3,
         unit: .seconds,
         flags: .default)
@@ -65,6 +69,7 @@ open class Expander: Node, Toggleable {
         identifier: "masterGain",
         name: "Master Gain",
         address: 6,
+        initialValue: 0,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)
@@ -101,11 +106,11 @@ open class Expander: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        expansionRatio: AUValue = 2,
-        expansionThreshold: AUValue = 2,
-        attackTime: AUValue = 0.001,
-        releaseTime: AUValue = 0.05,
-        masterGain: AUValue = 0) {
+        expansionRatio: AUValue = expansionRatioDef.initialValue,
+        expansionThreshold: AUValue = expansionThresholdDef.initialValue,
+        attackTime: AUValue = attackTimeDef.initialValue,
+        releaseTime: AUValue = releaseTimeDef.initialValue,
+        masterGain: AUValue = masterGainDef.initialValue) {
 
         super.init(avAudioNode: effectAU)
         connections.append(input)
