@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+#if !os(tvOS)
 
 import XCTest
 import AudioKit
@@ -224,3 +225,4 @@ class SequencerEngineTests: XCTestCase {
                                                   1, 1, 1]) // engine destroyed
     }
 }
+#endif

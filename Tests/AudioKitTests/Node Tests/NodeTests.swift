@@ -400,6 +400,7 @@ class NodeTests: XCTestCase {
         """)
     }
 
+    #if !os(tvOS)
     func testConnectionTreeDescriptionForNamedNode() {
         let nameString = "Customized Name"
         let sampler = MIDISampler(name: nameString)
@@ -414,5 +415,5 @@ class NodeTests: XCTestCase {
         \(Node.connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
         """)
     }
-
+    #endif
 }

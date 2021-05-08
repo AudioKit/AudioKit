@@ -12,6 +12,7 @@ public class STKAudioUnit: AudioUnitBase {
     /// - Parameters:
     ///   - type: Type of physical model to create
     ///   - amplitude: How hard to shake or velocity
+    #if !os(tvOS)
     public func trigger(type: AUValue, amplitude: AUValue) {
         
         if let midiBlock = scheduleMIDIEventBlock {
@@ -24,5 +25,5 @@ public class STKAudioUnit: AudioUnitBase {
             }
         }
     }
-    
+    #endif
 }

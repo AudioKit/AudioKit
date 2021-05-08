@@ -4,6 +4,7 @@ import AVFoundation
 import CAudioKit
 import XCTest
 
+#if !os(tvOS)
 /// Tests for engine.inputNode - note can't be tested without an Info.plist
 class RecordingTests: AudioFileTestCase {
     func testMultiChannelRecording() throws {
@@ -68,3 +69,4 @@ class RecordingTests: AudioFileTestCase {
         engine.stop()
     }
 }
+#endif
