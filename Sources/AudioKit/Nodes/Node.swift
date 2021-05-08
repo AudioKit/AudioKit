@@ -3,19 +3,12 @@
 import AVFoundation
 import CAudioKit
 
-/// AudioKIt connection point
-open class Node {
-    /// Nodes providing input to this node.
-    public var connections: [Node] { [] }
+protocol NodeProtocol {
+    var connections: [Node] { get }
+    var avAudioNode: AVAudioNode { get }
+}
 
-    /// The internal AVAudioEngine AVAudioNode
-    open var avAudioNode: AVAudioNode
-
-    /// Initialize the node from an AVAudioNode
-    /// - Parameter avAudioNode: AVAudioNode to initialize with
-    public init(avAudioNode: AVAudioNode) {
-        self.avAudioNode = avAudioNode
-    }
+extension NodeProtocol {
 
     /// Reset the internal state of the unit
     /// Fixes issues such as https://github.com/AudioKit/AudioKit/issues/2046
@@ -32,6 +25,41 @@ open class Node {
         for connection in connections {
             connection.detach()
         }
+    }
+
+    func disconnectAV() {
+        if let engine = avAudioNode.engine {
+            engine.disconnectNodeInput(avAudioNode)
+            for (_, connection) in connections.enumerated() {
+                connection.disconnectAV()
+            }
+        }
+    }
+
+    /// Work-around for an AVAudioEngine bug.
+    func initLastRenderTime() {
+        // We don't have a valid lastRenderTime until we query it.
+        _ = avAudioNode.lastRenderTime
+
+        for connection in connections {
+            connection.initLastRenderTime()
+        }
+    }
+
+}
+
+/// AudioKIt connection point
+open class Node : NodeProtocol {
+    /// Nodes providing input to this node.
+    public var connections: [Node] { [] }
+
+    /// The internal AVAudioEngine AVAudioNode
+    open var avAudioNode: AVAudioNode
+
+    /// Initialize the node from an AVAudioNode
+    /// - Parameter avAudioNode: AVAudioNode to initialize with
+    public init(avAudioNode: AVAudioNode) {
+        self.avAudioNode = avAudioNode
     }
 
     func makeAVConnections() {
@@ -56,25 +84,6 @@ open class Node {
 
                 connection.makeAVConnections()
             }
-        }
-    }
-
-    func disconnectAV() {
-        if let engine = avAudioNode.engine {
-            engine.disconnectNodeInput(avAudioNode)
-            for (_, connection) in connections.enumerated() {
-                connection.disconnectAV()
-            }
-        }
-    }
-
-    /// Work-around for an AVAudioEngine bug.
-    func initLastRenderTime() {
-        // We don't have a valid lastRenderTime until we query it.
-        _ = avAudioNode.lastRenderTime
-
-        for connection in connections {
-            connection.initLastRenderTime()
         }
     }
 
