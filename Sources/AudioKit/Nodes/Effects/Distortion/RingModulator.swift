@@ -52,7 +52,7 @@ open class RingModulator: Node, Toggleable {
     public static let finalMixDef = NodeParameterDef(
         identifier: "finalMix",
         name: "Final Mix",
-        address: 6,
+        address: 15,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -80,10 +80,10 @@ open class RingModulator: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$ringModFreq1.associate(with: effectAU, index: 3)
-        self.$ringModFreq2.associate(with: effectAU, index: 4)
-        self.$ringModBalance.associate(with: effectAU, index: 5)
-        self.$finalMix.associate(with: effectAU, index: 15)
+        self.$ringModFreq1.associate(with: effectAU)
+        self.$ringModFreq2.associate(with: effectAU)
+        self.$ringModBalance.associate(with: effectAU)
+        self.$finalMix.associate(with: effectAU)
 
         self.ringModFreq1 = ringModFreq1
         self.ringModFreq2 = ringModFreq2

@@ -178,19 +178,6 @@ public class NodeParameter {
     }
 
     // MARK: Lifecycle
-
-    /// Helper function to attach the parameter to the appropriate tree
-    /// - Parameters:
-    ///   - avAudioUnit: AVAudioUnit to associate with
-    ///   - index: Position of the parameter
-    public func associate(with avAudioNode: AVAudioNode, index: Int) {
-        self.avAudioNode = avAudioNode
-        guard let tree = avAudioNode.auAudioUnit.parameterTree else {
-            fatalError("No parameter tree.")
-        }
-        parameter = tree.allParameters[index]
-        assert(parameter != nil)
-    }
     
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
@@ -201,18 +188,8 @@ public class NodeParameter {
             fatalError("No parameter tree.")
         }
         parameter = tree.allParameters[Int(def.address)]
-        assert(parameter != nil)
-    }
-
-    /// Helper function to attach the parameter to the appropriate tree
-    /// - Parameters:
-    ///   - avAudioUnit: AVAudioUnit to associate with
-    public func associate2(with avAudioNode: AVAudioNode) {
-        self.avAudioNode = avAudioNode
-        guard let tree = avAudioNode.auAudioUnit.parameterTree else {
-            fatalError("No parameter tree.")
-        }
-        parameter = tree.parameter(withAddress: def.address)
+        // For some reason the previous line works whereas the following commented out line doesn't
+        // parameter = tree.parameter(withAddress: def.address)
         assert(parameter != nil)
     }
 

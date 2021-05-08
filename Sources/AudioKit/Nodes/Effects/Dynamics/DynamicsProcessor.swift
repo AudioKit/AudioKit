@@ -159,13 +159,13 @@ open class DynamicsProcessor: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$threshold.associate(with: effectAU, index: 0)
-        self.$headRoom.associate(with: effectAU, index: 1)
-        self.$expansionRatio.associate(with: effectAU, index: 2)
-        self.$expansionThreshold.associate(with: effectAU, index: 3)
-        self.$attackTime.associate(with: effectAU, index: 4)
-        self.$releaseTime.associate(with: effectAU, index: 5)
-        self.$masterGain.associate(with: effectAU, index: 6)
+        self.$threshold.associate(with: effectAU)
+        self.$headRoom.associate(with: effectAU)
+        self.$expansionRatio.associate(with: effectAU)
+        self.$expansionThreshold.associate(with: effectAU)
+        self.$attackTime.associate(with: effectAU)
+        self.$releaseTime.associate(with: effectAU)
+        self.$masterGain.associate(with: effectAU)
 
         self.threshold = threshold
         self.headRoom = headRoom

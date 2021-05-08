@@ -66,9 +66,9 @@ open class PeakLimiter: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$attackTime.associate(with: effectAU, index: 0)
-        self.$decayTime.associate(with: effectAU, index: 1)
-        self.$preGain.associate(with: effectAU, index: 2)
+        self.$attackTime.associate(with: effectAU)
+        self.$decayTime.associate(with: effectAU)
+        self.$preGain.associate(with: effectAU)
 
         self.attackTime = attackTime
         self.decayTime = decayTime

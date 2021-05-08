@@ -66,9 +66,9 @@ open class ParametricEQ: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$centerFreq.associate(with: effectAU, index: 0)
-        self.$q.associate(with: effectAU, index: 1)
-        self.$gain.associate(with: effectAU, index: 2)
+        self.$centerFreq.associate(with: effectAU)
+        self.$q.associate(with: effectAU)
+        self.$gain.associate(with: effectAU)
 
         self.centerFreq = centerFreq
         self.q = q
