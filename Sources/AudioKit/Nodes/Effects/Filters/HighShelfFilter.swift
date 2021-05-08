@@ -16,7 +16,7 @@ open class HighShelfFilter: Node, Toggleable {
     public static let cutOffFrequencyDef = NodeParameterDef(
         identifier: "cutOffFrequency",
         name: "Cut Off Frequency",
-        address: akGetParameterAddress("HighShelfFilterParameterCutOffFrequency"),
+        address: 0,
         range: 10000 ... 22050,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ open class HighShelfFilter: Node, Toggleable {
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: akGetParameterAddress("HighShelfFilterParameterGain"),
+        address: 1,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)

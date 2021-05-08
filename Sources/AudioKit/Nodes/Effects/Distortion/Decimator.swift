@@ -16,7 +16,7 @@ open class Decimator: Node, Toggleable {
     public static let decimationDef = NodeParameterDef(
         identifier: "decimation",
         name: "Decimation",
-        address: akGetParameterAddress("DecimatorParameterDecimation"),
+        address: 7,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -28,7 +28,7 @@ open class Decimator: Node, Toggleable {
     public static let roundingDef = NodeParameterDef(
         identifier: "rounding",
         name: "Rounding",
-        address: akGetParameterAddress("DecimatorParameterRounding"),
+        address: 8,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -40,7 +40,7 @@ open class Decimator: Node, Toggleable {
     public static let finalMixDef = NodeParameterDef(
         identifier: "finalMix",
         name: "Final Mix",
-        address: akGetParameterAddress("DecimatorParameterFinalMix"),
+        address: 15,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)

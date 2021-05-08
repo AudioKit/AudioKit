@@ -16,7 +16,7 @@ open class PeakLimiter: Node, Toggleable {
     public static let attackTimeDef = NodeParameterDef(
         identifier: "attackTime",
         name: "Attack Time",
-        address: akGetParameterAddress("PeakLimiterParameterAttackTime"),
+        address: 0,
         range: 0.001 ... 0.03,
         unit: .seconds,
         flags: .default)
@@ -28,7 +28,7 @@ open class PeakLimiter: Node, Toggleable {
     public static let decayTimeDef = NodeParameterDef(
         identifier: "decayTime",
         name: "Decay Time",
-        address: akGetParameterAddress("PeakLimiterParameterDecayTime"),
+        address: 1,
         range: 0.001 ... 0.06,
         unit: .seconds,
         flags: .default)
@@ -40,7 +40,7 @@ open class PeakLimiter: Node, Toggleable {
     public static let preGainDef = NodeParameterDef(
         identifier: "preGain",
         name: "Pre Gain",
-        address: akGetParameterAddress("PeakLimiterParameterPreGain"),
+        address: 2,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)

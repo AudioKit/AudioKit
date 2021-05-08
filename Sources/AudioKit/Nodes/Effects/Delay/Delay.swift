@@ -12,7 +12,7 @@ public class Delay: Node, Toggleable {
     public static let dryWetMixDef = NodeParameterDef(
        identifier: "dryWetMix",
        name: "Dry-Wet Mix",
-       address: akGetParameterAddress("DelayParameterDryWetMix"),
+       address: 0,
        range: 0.0 ... 1.0,
        unit: .generic,
        flags: .default)
@@ -24,7 +24,7 @@ public class Delay: Node, Toggleable {
     public static let timeDef = NodeParameterDef(
         identifier: "time",
         name: "Delay time (Seconds)",
-        address: akGetParameterAddress("DelayParameterTime"),
+        address: 1,
         range: 0 ... 2.0,
         unit: .seconds,
         flags: .default)
@@ -36,7 +36,7 @@ public class Delay: Node, Toggleable {
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
-        address: akGetParameterAddress("DelayParameterFeedback"),
+        address: 2,
         range: -100 ... 100,
         unit: .generic,
         flags: .default)
@@ -48,7 +48,7 @@ public class Delay: Node, Toggleable {
     public static let lowPassCutoffDef = NodeParameterDef(
         identifier: "lowPassCutoff",
         name: "Low Pass Cutoff Frequency",
-        address: akGetParameterAddress("DelayParameterLowPassCutoff"),
+        address: 3,
         range: 10 ... 22050,
         unit: .hertz,
         flags: .default)

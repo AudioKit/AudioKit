@@ -16,7 +16,7 @@ open class Distortion: Node, Toggleable {
     public static let delayDef = NodeParameterDef(
         identifier: "delay",
         name: "Delay",
-        address: akGetParameterAddress("DistortionParameterDelay"),
+        address: 0,
         range: 0.1 ... 500,
         unit: .milliseconds,
         flags: .default)
@@ -28,7 +28,7 @@ open class Distortion: Node, Toggleable {
     public static let decayDef = NodeParameterDef(
         identifier: "decay",
         name: "Decay",
-        address: akGetParameterAddress("DistortionParameterDecay"),
+        address: 1,
         range: 0.1 ... 50,
         unit: .rate,
         flags: .default)
@@ -40,7 +40,7 @@ open class Distortion: Node, Toggleable {
     public static let delayMixDef = NodeParameterDef(
         identifier: "delayMix",
         name: "Delay Mix",
-        address: akGetParameterAddress("DistortionParameterDelayMix"),
+        address: 2,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -52,7 +52,7 @@ open class Distortion: Node, Toggleable {
     public static let decimationDef = NodeParameterDef(
         identifier: "decimation",
         name: "Decimation",
-        address: akGetParameterAddress("DistortionParameterDecimation"),
+        address: 7,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -64,7 +64,7 @@ open class Distortion: Node, Toggleable {
     public static let roundingDef = NodeParameterDef(
         identifier: "rounding",
         name: "Rounding",
-        address: akGetParameterAddress("DistortionParameterRounding"),
+        address: 8,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -76,7 +76,7 @@ open class Distortion: Node, Toggleable {
     public static let decimationMixDef = NodeParameterDef(
         identifier: "decimationMix",
         name: "Decimation Mix",
-        address: akGetParameterAddress("DistortionParameterDecimationMix"),
+        address: 9,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -88,7 +88,7 @@ open class Distortion: Node, Toggleable {
     public static let linearTermDef = NodeParameterDef(
         identifier: "linearTerm",
         name: "Linear Term",
-        address: akGetParameterAddress("DistortionParameterLinearTerm"),
+        address: 10,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -100,7 +100,7 @@ open class Distortion: Node, Toggleable {
     public static let squaredTermDef = NodeParameterDef(
         identifier: "squaredTerm",
         name: "Squared Term",
-        address: akGetParameterAddress("DistortionParameterSquaredTerm"),
+        address: 11,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -112,7 +112,7 @@ open class Distortion: Node, Toggleable {
     public static let cubicTermDef = NodeParameterDef(
         identifier: "cubicTerm",
         name: "Cubic Term",
-        address: akGetParameterAddress("DistortionParameterCubicTerm"),
+        address: 12,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -124,7 +124,7 @@ open class Distortion: Node, Toggleable {
     public static let polynomialMixDef = NodeParameterDef(
         identifier: "polynomialMix",
         name: "Polynomial Mix",
-        address: akGetParameterAddress("DistortionParameterPolynomialMix"),
+        address: 13,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -136,7 +136,7 @@ open class Distortion: Node, Toggleable {
     public static let ringModFreq1Def = NodeParameterDef(
         identifier: "ringModFreq1",
         name: "Ring Mod Freq1",
-        address: akGetParameterAddress("DistortionParameterRingModFreq1"),
+        address: 3,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -148,7 +148,7 @@ open class Distortion: Node, Toggleable {
     public static let ringModFreq2Def = NodeParameterDef(
         identifier: "ringModFreq2",
         name: "Ring Mod Freq2",
-        address: akGetParameterAddress("DistortionParameterRingModFreq2"),
+        address: 4,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -160,7 +160,7 @@ open class Distortion: Node, Toggleable {
     public static let ringModBalanceDef = NodeParameterDef(
         identifier: "ringModBalance",
         name: "Ring Mod Balance",
-        address: akGetParameterAddress("DistortionParameterRingModBalance"),
+        address: 5,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -172,7 +172,7 @@ open class Distortion: Node, Toggleable {
     public static let ringModMixDef = NodeParameterDef(
         identifier: "ringModMix",
         name: "Ring Mod Mix",
-        address: akGetParameterAddress("DistortionParameterRingModMix"),
+        address: 6,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -184,7 +184,7 @@ open class Distortion: Node, Toggleable {
     public static let softClipGainDef = NodeParameterDef(
         identifier: "softClipGain",
         name: "Soft Clip Gain",
-        address: akGetParameterAddress("DistortionParameterSoftClipGain"),
+        address: 14,
         range: -80 ... 20,
         unit: .decibels,
         flags: .default)
@@ -196,7 +196,7 @@ open class Distortion: Node, Toggleable {
     public static let finalMixDef = NodeParameterDef(
         identifier: "finalMix",
         name: "Final Mix",
-        address: akGetParameterAddress("DistortionParameterFinalMix"),
+        address: 15,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)

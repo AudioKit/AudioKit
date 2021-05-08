@@ -16,7 +16,7 @@ open class Expander: Node, Toggleable {
     public static let expansionRatioDef = NodeParameterDef(
         identifier: "expansionRatio",
         name: "Expansion Ratio",
-        address: akGetParameterAddress("DynamicsProcessorParameterExpansionRatio"),
+        address: 2,
         range: 1 ... 50.0,
         unit: .rate,
         flags: .default)
@@ -28,7 +28,7 @@ open class Expander: Node, Toggleable {
     public static let expansionThresholdDef = NodeParameterDef(
         identifier: "expansionThreshold",
         name: "Expansion Threshold",
-        address: akGetParameterAddress("DynamicsProcessorParameterExpansionThreshold"),
+        address: 3,
         range: 1 ... 50.0,
         unit: .rate,
         flags: .default)
@@ -40,7 +40,7 @@ open class Expander: Node, Toggleable {
     public static let attackTimeDef = NodeParameterDef(
         identifier: "attackTime",
         name: "Attack Time",
-        address: akGetParameterAddress("DynamicsProcessorParameterAttackTime"),
+        address: 4,
         range: 0.0001 ... 0.2,
         unit: .seconds,
         flags: .default)
@@ -52,7 +52,7 @@ open class Expander: Node, Toggleable {
     public static let releaseTimeDef = NodeParameterDef(
         identifier: "releaseTime",
         name: "Release Time",
-        address: akGetParameterAddress("DynamicsProcessorParameterReleaseTime"),
+        address: 5,
         range: 0.01 ... 3,
         unit: .seconds,
         flags: .default)
@@ -64,7 +64,7 @@ open class Expander: Node, Toggleable {
     public static let masterGainDef = NodeParameterDef(
         identifier: "masterGain",
         name: "Master Gain",
-        address: akGetParameterAddress("DynamicsProcessorParameterMasterGain"),
+        address: 6,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)

@@ -16,7 +16,7 @@ open class RingModulator: Node, Toggleable {
     public static let ringModFreq1Def = NodeParameterDef(
         identifier: "ringModFreq1",
         name: "Ring Mod Freq1",
-        address: akGetParameterAddress("RingModulatorParameterRingModFreq1"),
+        address: 3,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ open class RingModulator: Node, Toggleable {
     public static let ringModFreq2Def = NodeParameterDef(
         identifier: "ringModFreq2",
         name: "Ring Mod Freq2",
-        address: akGetParameterAddress("RingModulatorParameterRingModFreq2"),
+        address: 4,
         range: 0.5 ... 8000,
         unit: .hertz,
         flags: .default)
@@ -40,7 +40,7 @@ open class RingModulator: Node, Toggleable {
     public static let ringModBalanceDef = NodeParameterDef(
         identifier: "ringModBalance",
         name: "Ring Mod Balance",
-        address: akGetParameterAddress("RingModulatorParameterRingModBalance"),
+        address: 5,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)
@@ -52,7 +52,7 @@ open class RingModulator: Node, Toggleable {
     public static let finalMixDef = NodeParameterDef(
         identifier: "finalMix",
         name: "Final Mix",
-        address: akGetParameterAddress("RingModulatorParameterFinalMix"),
+        address: 6,
         range: 0 ... 100,
         unit: .percent,
         flags: .default)

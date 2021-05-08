@@ -16,7 +16,7 @@ open class ParametricEQ: Node, Toggleable {
     public static let centerFreqDef = NodeParameterDef(
         identifier: "centerFreq",
         name: "Center Freq",
-        address: akGetParameterAddress("ParametricEQParameterCenterFreq"),
+        address: 0,
         range: 20 ... 22050,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ open class ParametricEQ: Node, Toggleable {
     public static let qDef = NodeParameterDef(
         identifier: "q",
         name: "Q",
-        address: akGetParameterAddress("ParametricEQParameterQ"),
+        address: 1,
         range: 0.1 ... 20,
         unit: .hertz,
         flags: .default)
@@ -40,7 +40,7 @@ open class ParametricEQ: Node, Toggleable {
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: akGetParameterAddress("ParametricEQParameterGain"),
+        address: 2,
         range: -20 ... 20,
         unit: .decibels,
         flags: .default)
