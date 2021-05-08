@@ -16,6 +16,9 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for ratio
@@ -88,13 +91,14 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         attackDuration: AUValue = attackDurationDef.defaultValue,
         releaseDuration: AUValue = releaseDurationDef.defaultValue
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
@@ -103,6 +107,5 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
             self.attackDuration = attackDuration
             self.releaseDuration = releaseDuration
         }
-        connections.append(input)
-    }
+   }
 }

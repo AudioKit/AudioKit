@@ -8,6 +8,9 @@ public class Mixer: Node, Toggleable, NamedNode {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
 
+    var inputs: [Node] = []
+    override public var connections: [Node] { inputs }
+
     /// Name of the node
     open var name = "(unset)"
 
@@ -58,7 +61,7 @@ public class Mixer: Node, Toggleable, NamedNode {
     ///
     public convenience init(_ inputs: [Node], name: String? = nil) {
         self.init(name: name)
-        connections = inputs
+        self.inputs = inputs
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -83,7 +86,7 @@ public class Mixer: Node, Toggleable, NamedNode {
             Log("🛑 Error: Node is already connected to Mixer.")
             return
         }
-        connections.append(node)
+        inputs.append(node)
         makeAVConnections()
     }
 
@@ -96,7 +99,7 @@ public class Mixer: Node, Toggleable, NamedNode {
     /// Remove input from the mixer
     /// - Parameter node: Node to remove
     public func removeInput(_ node: Node) {
-        connections.removeAll(where: { $0 === node })
+        inputs.removeAll(where: { $0 === node })
         avAudioNode.disconnect(input: node.avAudioNode)
     }
 
@@ -108,7 +111,7 @@ public class Mixer: Node, Toggleable, NamedNode {
         for input in nodes {
             avAudioNode.disconnect(input: input)
         }
-        connections.removeAll()
+        inputs.removeAll()
     }
     
     /// Resize underlying AVAudioMixerNode input busses array to accomodate for required count of inputs.

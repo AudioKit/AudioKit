@@ -21,6 +21,10 @@ public class Balancer: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    let comparator: Node
+    override public var connections: [Node] { [input, comparator] }
+
     // MARK: - Initialization
 
     /// Initialize this balance node
@@ -30,14 +34,13 @@ public class Balancer: Node, AudioUnitContainer, Toggleable {
     ///   - comparator: Audio to match power with
     ///
     public init(_ input: Node, comparator: Node) {
+        self.input = input
+        self.comparator = comparator
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
         }
-
-        connections.append(input)
-        connections.append(comparator)
     }
 }

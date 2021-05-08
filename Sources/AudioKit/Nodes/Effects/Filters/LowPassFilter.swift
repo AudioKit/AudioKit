@@ -12,6 +12,9 @@ open class LowPassFilter: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_LowPassFilter))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
@@ -51,8 +54,8 @@ open class LowPassFilter: Node, Toggleable {
         _ input: Node,
         cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
         resonance: AUValue = resonanceDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

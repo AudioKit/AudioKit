@@ -12,6 +12,9 @@ open class Distortion: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for delay
     public static let delayDef = NodeParameterDef(
         identifier: "delay",
@@ -261,8 +264,8 @@ open class Distortion: Node, Toggleable {
         polynomialMix: AUValue = polynomialMixDef.defaultValue,
         softClipGain: AUValue = softClipGainDef.defaultValue,
         finalMix: AUValue = finalMixDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

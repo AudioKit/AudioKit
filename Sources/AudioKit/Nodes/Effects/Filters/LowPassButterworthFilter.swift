@@ -18,6 +18,9 @@ public class LowPassButterworthFilter: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for cutoffFrequency
@@ -45,18 +48,18 @@ public class LowPassButterworthFilter: Node, AudioUnitContainer, Toggleable {
         _ input: Node,
         cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
             self.cutoffFrequency = cutoffFrequency
         }
-        connections.append(input)
-    }
+   }
 }

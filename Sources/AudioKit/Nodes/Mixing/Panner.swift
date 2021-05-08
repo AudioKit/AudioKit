@@ -16,6 +16,9 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for pan
@@ -43,18 +46,18 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
         _ input: Node,
         pan: AUValue = panDef.defaultValue
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
             self.pan = pan
         }
-        connections.append(input)
-    }
+   }
 }

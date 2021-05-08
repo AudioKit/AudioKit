@@ -11,6 +11,9 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
     /// Unique four-letter identifier "dclp"
     public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Internal type of audio unit for this node
     public typealias AudioUnitType = AudioUnitBase
 
@@ -58,6 +61,7 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
                 cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
                 gain: AUValue = gainDef.defaultValue
     ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -68,7 +72,5 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
             self.cutoffFrequency = cutoffFrequency
             self.gain = gain
         }
-
-        connections.append(input)
     }
 }

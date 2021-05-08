@@ -12,6 +12,9 @@ open class Decimator: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for decimation
     public static let decimationDef = NodeParameterDef(
         identifier: "decimation",
@@ -66,8 +69,8 @@ open class Decimator: Node, Toggleable {
         decimation: AUValue = decimationDef.defaultValue,
         rounding: AUValue = roundingDef.defaultValue,
         finalMix: AUValue = finalMixDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

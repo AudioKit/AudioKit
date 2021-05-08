@@ -16,6 +16,9 @@ public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for frequency
@@ -58,19 +61,19 @@ public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
         frequency: AUValue = frequencyDef.defaultValue,
         bandwidth: AUValue = bandwidthDef.defaultValue
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
             self.frequency = frequency
             self.bandwidth = bandwidth
         }
-        connections.append(input)
-    }
+   }
 }

@@ -16,6 +16,9 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for time
@@ -90,6 +93,7 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
         pingPong: Bool = (dryWetMixDef.defaultValue == 1.0),
         maximumDelayTime: AUValue = 2.0
     ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -102,7 +106,5 @@ public class StereoDelay: Node, AudioUnitContainer, Toggleable {
             self.dryWetMix = dryWetMix
             self.pingPong = pingPong ? 1.0 : 0.0
         }
-
-        connections.append(input)
     }
 }

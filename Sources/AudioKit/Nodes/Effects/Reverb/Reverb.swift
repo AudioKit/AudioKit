@@ -8,6 +8,9 @@ import CAudioKit
 public class Reverb: Node, Toggleable {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     fileprivate var lastKnownMix: AUValue = 0.5
 
     /// Dry/Wet Mix (Default 0.5)
@@ -28,12 +31,11 @@ public class Reverb: Node, Toggleable {
     ///   - dryWetMix: Amount of processed signal (Default: 0.5, Range: 0 - 1)
     ///
     public init(_ input: Node, dryWetMix: AUValue = 0.5) {
+        self.input = input
         self.dryWetMix = dryWetMix
         super.init(avAudioNode: AVAudioNode())
 
         avAudioNode = reverbAU
-
-        connections.append(input)
 
         reverbAU.wetDryMix = dryWetMix * 100.0
     }

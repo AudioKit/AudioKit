@@ -16,6 +16,9 @@ public class Tremolo: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for frequency
@@ -52,7 +55,7 @@ public class Tremolo: Node, AudioUnitContainer, Toggleable {
     ///   - input: Input node to process
     ///   - frequency: Frequency (Hz)
     ///   - depth: Depth
-    ///   - waveform: Shape of the tremolo curve
+    ///   - waveform: Shape of the curve
     ///
     public init(
         _ input: Node,
@@ -60,21 +63,21 @@ public class Tremolo: Node, AudioUnitContainer, Toggleable {
         depth: AUValue = depthDef.defaultValue,
         waveform: Table = Table(.positiveSine)
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
-            audioUnit.setWavetable(waveform.content)
+            self.internalAU?.setWavetable(waveform.content)
 
             self.frequency = frequency
             self.depth = depth
         }
-        connections.append(input)
-    }
+   }
 }

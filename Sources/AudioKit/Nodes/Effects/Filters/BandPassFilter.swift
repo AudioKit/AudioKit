@@ -12,6 +12,9 @@ open class BandPassFilter: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for centerFrequency
     public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
@@ -51,8 +54,8 @@ open class BandPassFilter: Node, Toggleable {
         _ input: Node,
         centerFrequency: AUValue = centerFrequencyDef.defaultValue,
         bandwidth: AUValue = bandwidthDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

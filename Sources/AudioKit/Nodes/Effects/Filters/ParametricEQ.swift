@@ -12,6 +12,9 @@ open class ParametricEQ: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for centerFreq
     public static let centerFreqDef = NodeParameterDef(
         identifier: "centerFreq",
@@ -66,8 +69,8 @@ open class ParametricEQ: Node, Toggleable {
         centerFreq: AUValue = centerFreqDef.defaultValue,
         q: AUValue = qDef.defaultValue,
         gain: AUValue = gainDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

@@ -12,6 +12,9 @@ open class Compressor: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
         identifier: "threshold",
@@ -112,8 +115,8 @@ open class Compressor: Node, Toggleable {
         releaseTime: AUValue = releaseTimeDef.defaultValue,
         masterGain: AUValue = masterGainDef.defaultValue) {
 
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

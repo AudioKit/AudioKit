@@ -17,6 +17,9 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for ratio
@@ -117,6 +120,7 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         rage: AUValue = rageDef.defaultValue,
         rageEnabled: Bool = rageEnabledDef.defaultValue == 1.0
     ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -133,6 +137,5 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
 
         }
 
-        connections.append(input)
     }
 }

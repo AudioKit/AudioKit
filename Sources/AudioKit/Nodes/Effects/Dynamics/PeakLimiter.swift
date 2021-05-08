@@ -12,6 +12,9 @@ open class PeakLimiter: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for attackTime
     public static let attackTimeDef = NodeParameterDef(
         identifier: "attackTime",
@@ -66,8 +69,8 @@ open class PeakLimiter: Node, Toggleable {
         attackTime: AUValue = attackTimeDef.defaultValue,
         decayTime: AUValue = decayTimeDef.defaultValue,
         preGain: AUValue = preGainDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

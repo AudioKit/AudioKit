@@ -16,6 +16,9 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for time
@@ -60,13 +63,14 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
         feedback: AUValue = feedbackDef.defaultValue,
         maximumTime: AUValue = 5
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
@@ -75,6 +79,5 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
             self.time = time
             self.feedback = feedback
         }
-        connections.append(input)
-    }
+   }
 }

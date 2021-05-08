@@ -18,6 +18,9 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     fileprivate var impulseResponseFileURL: CFURL
@@ -35,6 +38,7 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
                 impulseResponseFileURL: URL,
                 partitionLength: Int = 2_048
     ) {
+        self.input = input
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
 
@@ -51,8 +55,6 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
             self.readAudioFile()
             self.internalAU?.start()
         }
-
-        connections.append(input)
     }
 
     private func readAudioFile() {

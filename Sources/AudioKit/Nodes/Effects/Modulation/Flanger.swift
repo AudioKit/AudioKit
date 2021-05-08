@@ -16,6 +16,9 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification for the frequency
@@ -88,6 +91,7 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
         feedback: AUValue = feedbackDef.defaultValue,
         dryWetMix: AUValue = dryWetMixDef.defaultValue
     ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -100,7 +104,5 @@ public class Flanger: Node, AudioUnitContainer, Toggleable {
             self.feedback = feedback
             self.dryWetMix = dryWetMix
         }
-
-        connections.append(input)
     }
 }

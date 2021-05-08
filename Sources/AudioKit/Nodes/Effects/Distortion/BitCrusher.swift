@@ -16,6 +16,9 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for bitDepth
@@ -58,19 +61,19 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         bitDepth: AUValue = bitDepthDef.defaultValue,
         sampleRate: AUValue = sampleRateDef.defaultValue
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
             self.bitDepth = bitDepth
             self.sampleRate = sampleRate
         }
-        connections.append(input)
-    }
+   }
 }

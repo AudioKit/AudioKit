@@ -12,6 +12,9 @@ open class RingModulator: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for ringModFreq1
     public static let ringModFreq1Def = NodeParameterDef(
         identifier: "ringModFreq1",
@@ -81,8 +84,8 @@ open class RingModulator: Node, Toggleable {
         ringModFreq2: AUValue = ringModFreq2Def.defaultValue,
         ringModBalance: AUValue = ringModBalanceDef.defaultValue,
         finalMix: AUValue = finalMixDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

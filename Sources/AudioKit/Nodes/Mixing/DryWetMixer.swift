@@ -16,6 +16,10 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input1: Node
+    let input2: Node
+    override public var connections: [Node] { [input1, input2] }
+
     // MARK: - Parameters
 
     /// Specification details for balance
@@ -39,6 +43,8 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
     ///   - balance: Balance Point (0 = all input1, 1 = all input2)
     ///
     public init(_ input1: Node, _ input2: Node, balance: AUValue = balanceDef.defaultValue) {
+        self.input1 = input1
+        self.input2 = input2
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -48,9 +54,6 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
 
             self.balance = balance
         }
-
-        connections.append(input1)
-        connections.append(input2)
     }
 
     /// Initializer with dry wet labels

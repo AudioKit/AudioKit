@@ -8,6 +8,9 @@ import CAudioKit
 public class Delay: Node, Toggleable {
     let delayAU = AVAudioUnitDelay()
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
         identifier: "dryWetMix",
@@ -79,8 +82,8 @@ public class Delay: Node, Toggleable {
         lowPassCutoff: AUValue = lowPassCutoffDef.defaultValue,
         dryWetMix: AUValue = dryWetMixDef.defaultValue) {
 
+        self.input = input
         super.init(avAudioNode: delayAU)
-        connections.append(input)
 
         associateParams(with: delayAU)
 

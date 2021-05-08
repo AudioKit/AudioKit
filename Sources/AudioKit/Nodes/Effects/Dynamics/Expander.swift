@@ -12,6 +12,9 @@ open class Expander: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for expansionRatio
     public static let expansionRatioDef = NodeParameterDef(
         identifier: "expansionRatio",
@@ -111,9 +114,8 @@ open class Expander: Node, Toggleable {
         attackTime: AUValue = attackTimeDef.defaultValue,
         releaseTime: AUValue = releaseTimeDef.defaultValue,
         masterGain: AUValue = masterGainDef.defaultValue) {
-
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

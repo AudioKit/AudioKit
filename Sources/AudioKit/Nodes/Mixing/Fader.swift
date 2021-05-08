@@ -14,6 +14,9 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Amplification Factor, from 0 ... 4
@@ -94,6 +97,7 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(_ input: Node, gain: AUValue = 1) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -106,8 +110,6 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
             self.flipStereo = false
             self.mixToMono = false
         }
-
-        connections.append(input)
     }
 
     deinit {

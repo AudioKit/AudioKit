@@ -21,6 +21,9 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for fundamentalFrequency
@@ -63,19 +66,19 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         fundamentalFrequency: AUValue = fundamentalFrequencyDef.defaultValue,
         feedback: AUValue = feedbackDef.defaultValue
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
             self.fundamentalFrequency = fundamentalFrequency
             self.feedback = feedback
         }
-        connections.append(input)
-    }
+   }
 }

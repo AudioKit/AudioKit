@@ -15,6 +15,9 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for input amount
@@ -85,6 +88,7 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         releaseAmount: AUValue = releaseAmountDef.defaultValue,
         outputAmount: AUValue = outputAmountDef.defaultValue
     ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -97,8 +101,6 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
             self.releaseAmount = releaseAmount
             self.outputAmount = outputAmount
         }
-
-        connections.append(input)
     }
 
 }

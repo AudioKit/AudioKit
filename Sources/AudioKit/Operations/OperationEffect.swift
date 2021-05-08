@@ -24,6 +24,9 @@ public class OperationEffect: Node, AudioUnitContainer, Toggleable {
         return internalAU?.isStarted ?? false
     }
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification for Parameter 1
@@ -151,6 +154,7 @@ public class OperationEffect: Node, AudioUnitContainer, Toggleable {
     ///
     public init(_ input: Node, sporth: String) {
 
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
@@ -162,7 +166,5 @@ public class OperationEffect: Node, AudioUnitContainer, Toggleable {
                 }
             }
         }
-
-        connections.append(input)
     }
 }

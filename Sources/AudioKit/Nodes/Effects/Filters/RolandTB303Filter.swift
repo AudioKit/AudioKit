@@ -16,6 +16,9 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit 
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for cutoffFrequency
@@ -88,13 +91,14 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         distortion: AUValue = distortionDef.defaultValue,
         resonanceAsymmetry: AUValue = resonanceAsymmetryDef.defaultValue
         ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
+               fatalError("Couldn't create audio unit")
             }
             self.internalAU = audioUnit
 
@@ -103,6 +107,5 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
             self.distortion = distortion
             self.resonanceAsymmetry = resonanceAsymmetry
         }
-        connections.append(input)
-    }
+   }
 }

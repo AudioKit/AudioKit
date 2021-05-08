@@ -9,6 +9,9 @@ public class VariSpeed: Node, Toggleable {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
     public var rate: AUValue = 1.0 {
         didSet {
@@ -31,13 +34,12 @@ public class VariSpeed: Node, Toggleable {
     ///   - rate: Rate (rate) ranges from 0.25 to 4.0 (Default: 1.0)
     ///
     public init(_ input: Node, rate: AUValue = 1.0) {
+        self.input = input
         self.rate = rate
         lastKnownRate = rate
 
         super.init(avAudioNode: AVAudioNode())
         avAudioNode = variSpeedAU
-
-        connections.append(input)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

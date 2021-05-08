@@ -9,6 +9,9 @@ public class TimePitch: Node, Toggleable {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
     public var rate: AUValue = 1.0 {
         didSet {
@@ -52,14 +55,13 @@ public class TimePitch: Node, Toggleable {
         pitch: AUValue = 0.0,
         overlap: AUValue = 8.0) {
 
+        self.input = input
         self.rate = rate
         self.pitch = pitch
         self.overlap = overlap
 
         super.init(avAudioNode: AVAudioNode())
         avAudioNode = timePitchAU
-
-        connections.append(input)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

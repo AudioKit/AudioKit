@@ -16,6 +16,9 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Parameters
 
     /// Specification details for pre gain
@@ -118,6 +121,7 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
         highGain: AUValue = highGainDef.defaultValue,
         distortion: AUValue = distortionDef.defaultValue
     ) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -132,7 +136,5 @@ public class RhinoGuitarProcessor: Node, AudioUnitContainer, Toggleable {
             self.distortion = distortion
 
         }
-
-        connections.append(input)
     }
 }

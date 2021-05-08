@@ -16,6 +16,9 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     // MARK: - Properties
 
     /// Specification details for amount
@@ -40,6 +43,7 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
     public init(_ input: Node, amount: AUValue = amountDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
@@ -48,6 +52,5 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
 
             self.amount = amount
         }
-        connections.append(input)
     }
 }

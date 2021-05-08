@@ -12,6 +12,9 @@ open class DynamicsProcessor: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
         identifier: "threshold",
@@ -124,10 +127,9 @@ open class DynamicsProcessor: Node, Toggleable {
         expansionRatio: AUValue = expansionRatioDef.defaultValue,
         expansionThreshold: AUValue = expansionThresholdDef.defaultValue,
         attackTime: AUValue = attackTimeDef.defaultValue,
-        releaseTime: AUValue = releaseTimeDef.defaultValue,
-        masterGain: AUValue = masterGainDef.defaultValue) {
+        releaseTime: AUValue = releaseTimeDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 

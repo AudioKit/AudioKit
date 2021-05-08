@@ -12,6 +12,9 @@ open class HighShelfFilter: Node, Toggleable {
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_HighShelfFilter))
 
+    let input: Node
+    override public var connections: [Node] { [input] }
+
     /// Specification details for cutOffFrequency
     public static let cutOffFrequencyDef = NodeParameterDef(
         identifier: "cutOffFrequency",
@@ -51,8 +54,8 @@ open class HighShelfFilter: Node, Toggleable {
         _ input: Node,
         cutOffFrequency: AUValue = cutOffFrequencyDef.defaultValue,
         gain: AUValue = gainDef.defaultValue) {
+        self.input = input
         super.init(avAudioNode: effectAU)
-        connections.append(input)
 
         associateParams(with: effectAU)
 
