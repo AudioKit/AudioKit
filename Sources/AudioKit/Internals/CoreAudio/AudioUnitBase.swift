@@ -4,7 +4,7 @@ import AudioToolbox
 import AVFoundation
 import CAudioKit
 
-/// Base class for many AudioKit nodes
+/// AudioUnit which instantiates a DSP kernel based on the componentSubType.
 open class AudioUnitBase: AUAudioUnit {
     // MARK: AUAudioUnit Overrides
 
