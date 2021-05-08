@@ -30,9 +30,9 @@ class EngineTests: XCTestCase {
         // assign input and engine references
         engine.output = mixer
 
-        let mixerSampleRate = mixer.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
-        let mainMixerNodeSampleRate = engine.mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
-        let oscSampleRate = oscillator.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate
+        let mixerSampleRate = mixer.avAudioNode.outputFormat(forBus: 0).sampleRate
+        let mainMixerNodeSampleRate = engine.mainMixerNode?.avAudioNode.outputFormat(forBus: 0).sampleRate
+        let oscSampleRate = oscillator.avAudioNode.outputFormat(forBus: 0).sampleRate
 
         XCTAssertTrue(mixerSampleRate == newRate,
                       "mixerSampleRate is \(mixerSampleRate), requested rate was \(newRate)")
