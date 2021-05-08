@@ -46,6 +46,17 @@ extension NodeProtocol {
         }
     }
 
+    /// Scan for all parameters and associate with the node.
+    func associateParams(with node: AVAudioNode) {
+        let mirror = Mirror(reflecting: self)
+
+        for child in mirror.children {
+            if let param = child.value as? ParameterBase {
+                param.projectedValue.associate(with: node)
+            }
+        }
+    }
+
 }
 
 /// AudioKIt connection point
@@ -83,17 +94,6 @@ open class Node : NodeProtocol {
                 }
 
                 connection.makeAVConnections()
-            }
-        }
-    }
-
-    /// Scan for all parameters and associate with the node.
-    func associateParams(with node: AVAudioNode) {
-        let mirror = Mirror(reflecting: self)
-
-        for child in mirror.children {
-            if let param = child.value as? ParameterBase {
-                param.projectedValue.associate(with: node)
             }
         }
     }
