@@ -14,9 +14,6 @@ enum AmplitudeEnvelopeParameter : AUParameterAddress {
 class AmplitudeEnvelopeDSP : public SoundpipeDSPBase {
 private:
     sp_adsr *adsr;
-    float internalGate = 0;
-    float pendingGate = 0;
-    bool gateProcessedOnce = true;
     float amp = 0;
     ParameterRamper attackDurationRamp;
     ParameterRamper decayDurationRamp;
@@ -48,22 +45,10 @@ public:
         sp_adsr_init(sp, adsr);
     }
 
-    void start() override {
-        SoundpipeDSPBase::start();
-        if (gateProcessedOnce) {
-            internalGate = 1;
-        }
-        pendingGate = 1;
-    }
-
-    void stop() override {
-        SoundpipeDSPBase::stop();
-        internalGate = 0;
-        pendingGate = 0;
-        gateProcessedOnce = false;
-    }
-
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
+        float internalGate = isStarted ? 1 : 0;
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -73,10 +58,6 @@ public:
             adsr->rel = releaseDurationRamp.getAndStep();
 
             sp_adsr_compute(sp, adsr, &internalGate, &amp);
-            if (gateProcessedOnce == false) {
-                internalGate = pendingGate;
-                gateProcessedOnce = true;
-            }
 
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
