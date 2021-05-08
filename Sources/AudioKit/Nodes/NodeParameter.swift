@@ -191,11 +191,23 @@ public class NodeParameter {
         parameter = tree.allParameters[index]
         assert(parameter != nil)
     }
-
+    
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
     ///   - avAudioUnit: AVAudioUnit to associate with
     public func associate(with avAudioNode: AVAudioNode) {
+        self.avAudioNode = avAudioNode
+        guard let tree = avAudioNode.auAudioUnit.parameterTree else {
+            fatalError("No parameter tree.")
+        }
+        parameter = tree.allParameters[Int(def.address)]
+        assert(parameter != nil)
+    }
+
+    /// Helper function to attach the parameter to the appropriate tree
+    /// - Parameters:
+    ///   - avAudioUnit: AVAudioUnit to associate with
+    public func associate2(with avAudioNode: AVAudioNode) {
         self.avAudioNode = avAudioNode
         guard let tree = avAudioNode.auAudioUnit.parameterTree else {
             fatalError("No parameter tree.")
