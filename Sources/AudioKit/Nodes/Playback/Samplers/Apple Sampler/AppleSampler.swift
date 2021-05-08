@@ -55,7 +55,6 @@ open class AppleSampler: PolyphonicNode {
     /// Initialize the sampler node
     public init(file: String? = nil) {
         super.init(avAudioNode: AVAudioNode())
-        avAudioUnit = samplerUnit
         avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
 

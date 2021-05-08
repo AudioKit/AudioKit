@@ -73,7 +73,6 @@ public class HighShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggl
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {

@@ -35,7 +35,6 @@ public class VariSpeed: Node, Toggleable {
         lastKnownRate = rate
 
         super.init(avAudioNode: AVAudioNode())
-        avAudioUnit = variSpeedAU
         avAudioNode = variSpeedAU
 
         connections.append(input)

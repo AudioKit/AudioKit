@@ -12,13 +12,8 @@ open class Node {
     open var avAudioNode: AVAudioNode
 
     /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
-    open var avAudioUnit: AVAudioUnit?
-
-    /// Initialize the node from an AVAudioUnit
-    /// - Parameter avAudioUnit: AVAudioUnit to initialize with
-    public init(avAudioUnit: AVAudioUnit) {
-        self.avAudioUnit = avAudioUnit
-        avAudioNode = avAudioUnit
+    open var avAudioUnit: AVAudioUnit? {
+        avAudioNode as? AVAudioUnit
     }
 
     /// Initialize the node from an AVAudioNode

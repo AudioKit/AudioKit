@@ -31,7 +31,6 @@ public class Reverb: Node, Toggleable {
         self.dryWetMix = dryWetMix
         super.init(avAudioNode: AVAudioNode())
 
-        avAudioUnit = reverbAU
         avAudioNode = reverbAU
 
         connections.append(input)

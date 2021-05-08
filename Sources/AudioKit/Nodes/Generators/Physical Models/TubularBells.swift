@@ -29,7 +29,6 @@ public class TubularBells: Node, AudioUnitContainer, Toggleable {
     public init() {
         super.init(avAudioNode: AVAudioNode())
         instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
         }

@@ -57,7 +57,6 @@ public class TimePitch: Node, Toggleable {
         self.overlap = overlap
 
         super.init(avAudioNode: AVAudioNode())
-        avAudioUnit = timePitchAU
         avAudioNode = timePitchAU
 
         connections.append(input)

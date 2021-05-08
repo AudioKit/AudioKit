@@ -75,7 +75,7 @@ public class Delay: Node, Toggleable {
         lowPassCutoff: AUValue = 15_000,
         dryWetMix: AUValue = 50) {
 
-        super.init(avAudioUnit: delayAU)
+        super.init(avAudioNode: delayAU)
         connections.append(input)
 
         associateParams(with: delayAU)

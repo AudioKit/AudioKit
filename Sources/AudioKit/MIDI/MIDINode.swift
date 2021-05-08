@@ -30,7 +30,6 @@ open class MIDINode: Node, MIDIListener, NamedNode {
         super.init(avAudioNode: AVAudioNode())
         name = midiOutputName ?? MemoryAddress(of: self).description
         avAudioNode = internalNode.avAudioNode
-        avAudioUnit = internalNode.avAudioUnit
         enableMIDI(name: name)
     }
 

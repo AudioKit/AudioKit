@@ -32,7 +32,6 @@ open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType

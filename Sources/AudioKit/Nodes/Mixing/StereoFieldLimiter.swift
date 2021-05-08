@@ -42,7 +42,6 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
             self.avAudioNode = avAudioUnit
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 

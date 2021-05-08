@@ -24,7 +24,6 @@ public class SynthKick: MIDIInstrument {
         }
 
         super.init(midiInputName: midiInputName)
-        avAudioUnit = generator.avAudioUnit
         avAudioNode = generator.avAudioNode
         generator.start()
     }
@@ -65,7 +64,6 @@ public class SynthSnare: MIDIInstrument {
         }
 
         super.init()
-        avAudioUnit = generator.avAudioUnit
         avAudioNode = generator.avAudioNode
         generator.start()
     }
