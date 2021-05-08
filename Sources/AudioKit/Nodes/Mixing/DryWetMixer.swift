@@ -23,6 +23,7 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
         identifier: "balance",
         name: "Balance",
         address: akGetParameterAddress("DryWetMixerParameterBalance"),
+        initialValue: 0.5,
         range: 0.0...1.0,
         unit: .generic,
         flags: .default)
@@ -37,7 +38,7 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
     ///   - input2: 2nd source
     ///   - balance: Balance Point (0 = all input1, 1 = all input2)
     ///
-    public init(_ input1: Node, _ input2: Node, balance: AUValue = 0.5) {
+    public init(_ input1: Node, _ input2: Node, balance: AUValue = balanceDef.initialValue) {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in

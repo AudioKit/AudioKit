@@ -23,6 +23,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: ModulatedDelayParameter.frequency.rawValue,
+        initialValue: kChorus_DefaultFrequency,
         range: kChorus_MinFrequency ... kChorus_MaxFrequency,
         unit: .hertz,
         flags: .default)
@@ -35,6 +36,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
         identifier: "depth",
         name: "Depth 0-1",
         address: ModulatedDelayParameter.depth.rawValue,
+        initialValue: kChorus_DefaultDepth,
         range: kChorus_MinDepth ... kChorus_MaxDepth,
         unit: .generic,
         flags: .default)
@@ -47,6 +49,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
         identifier: "feedback",
         name: "Feedback 0-1",
         address: ModulatedDelayParameter.feedback.rawValue,
+        initialValue: kChorus_DefaultFeedback,
         range: kChorus_MinFeedback ... kChorus_MaxFeedback,
         unit: .generic,
         flags: .default)
@@ -59,6 +62,7 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
         address: ModulatedDelayParameter.dryWetMix.rawValue,
+        initialValue: kChorus_DefaultDryWetMix,
         range: kChorus_MinDryWetMix ... kChorus_MaxDryWetMix,
         unit: .generic,
         flags: .default)
@@ -79,10 +83,10 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        frequency: AUValue = kChorus_DefaultFrequency,
-        depth: AUValue = kChorus_DefaultDepth,
-        feedback: AUValue = kChorus_DefaultFeedback,
-        dryWetMix: AUValue = kChorus_DefaultDryWetMix
+        frequency: AUValue = frequencyDef.initialValue,
+        depth: AUValue = depthDef.initialValue,
+        feedback: AUValue = feedbackDef.initialValue,
+        dryWetMix: AUValue = dryWetMixDef.initialValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 

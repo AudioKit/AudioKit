@@ -19,29 +19,6 @@ public struct NodeParameterDef {
     public var unit: AudioUnitParameterUnit
     /// Options
     public var flags: AudioUnitParameterOptions
-
-
-    /// Initialize node parameter definition with all data
-    /// - Parameters:
-    ///   - identifier: Unique ID
-    ///   - name: Name
-    ///   - address: Address
-    ///   - range: Value range
-    ///   - unit: Physical units
-    ///   - flags: Audio Unit Parameter options
-    public init(identifier: String,
-                name: String,
-                address: AUParameterAddress,
-                range: ClosedRange<AUValue>,
-                unit: AudioUnitParameterUnit,
-                flags: AudioUnitParameterOptions) {
-        self.identifier = identifier
-        self.name = name
-        self.address = address
-        self.range = range
-        self.unit = unit
-        self.flags = flags
-    }
     
     /// Initialize node parameter definition with all data
     /// - Parameters:
