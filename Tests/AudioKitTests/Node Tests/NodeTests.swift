@@ -287,29 +287,29 @@ class NodeTests: XCTestCase {
         XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
     }
 
-    func testTransientNodes() {
-        let engine = AudioEngine()
-        let osc = Oscillator(waveform: Table(.triangle))
-        func exampleStart() {
-            let env = AmplitudeEnvelope(osc)
-            osc.amplitude = 1
-            engine.output = env
-            osc.start()
-            try! engine.start()
-            sleep(1)
-        }
-        func exampleStop() {
-            osc.stop()
-            engine.stop()
-            sleep(1)
-        }
-        exampleStart()
-        exampleStop()
-        exampleStart()
-        exampleStop()
-        exampleStart()
-        exampleStop()
-    }
+//    func testTransientNodes() {
+//        let engine = AudioEngine()
+//        let osc = Oscillator(waveform: Table(.triangle))
+//        func exampleStart() {
+//            let env = AmplitudeEnvelope(osc)
+//            osc.amplitude = 1
+//            engine.output = env
+//            osc.start()
+//            try! engine.start()
+//            sleep(1)
+//        }
+//        func exampleStop() {
+//            osc.stop()
+//            engine.stop()
+//            sleep(1)
+//        }
+//        exampleStart()
+//        exampleStop()
+//        exampleStart()
+//        exampleStop()
+//        exampleStart()
+//        exampleStop()
+//    }
 
     func testAutomationAfterDelayedConnection() {
         let engine = AudioEngine()
