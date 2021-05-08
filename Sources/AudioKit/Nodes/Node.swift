@@ -9,21 +9,7 @@ open class Node {
     open var connections: [Node] = []
 
     /// The internal AVAudioEngine AVAudioNode
-    open var avAudioNode: AVAudioNode {
-        didSet {
-            let mirror = Mirror(reflecting: self)
-
-            for child in mirror.children {
-                if let param = child.value as? ParameterBase, let label = child.label {
-                    // Property wrappers create a variable with an underscore
-                    // prepended. Drop the underscore to look up the parameter.
-                    let name = String(label.dropFirst())
-                    param.projectedValue.associate(with: avAudioNode,
-                                                   identifier: name)
-                }
-            }
-        }
-    }
+    open var avAudioNode: AVAudioNode
 
     /// The internal AVAudioUnit, which is a subclass of AVAudioNode with more capabilities
     open var avAudioUnit: AVAudioUnit?
