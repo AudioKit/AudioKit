@@ -16,7 +16,7 @@ open class Compressor: Node, Toggleable {
     public static let thresholdDef = NodeParameterDef(
         identifier: "threshold",
         name: "Threshold",
-        address: akGetParameterAddress("DynamicsProcessorParameterThreshold"),
+        address: 0,
         range: -40 ... 20,
         unit: .decibels,
         flags: .default)
@@ -28,7 +28,7 @@ open class Compressor: Node, Toggleable {
     public static let headRoomDef = NodeParameterDef(
         identifier: "headRoom",
         name: "Head Room",
-        address: akGetParameterAddress("DynamicsProcessorParameterHeadRoom"),
+        address: 1,
         range: 0.1 ... 40.0,
         unit: .decibels,
         flags: .default)
@@ -40,7 +40,7 @@ open class Compressor: Node, Toggleable {
     public static let attackTimeDef = NodeParameterDef(
         identifier: "attackTime",
         name: "Attack Time",
-        address: akGetParameterAddress("DynamicsProcessorParameterAttackTime"),
+        address: 4,
         range: 0.0001 ... 0.2,
         unit: .seconds,
         flags: .default)
@@ -52,7 +52,7 @@ open class Compressor: Node, Toggleable {
     public static let releaseTimeDef = NodeParameterDef(
         identifier: "releaseTime",
         name: "Release Time",
-        address: akGetParameterAddress("DynamicsProcessorParameterReleaseTime"),
+        address: 5,
         range: 0.01 ... 3,
         unit: .seconds,
         flags: .default)
@@ -64,7 +64,7 @@ open class Compressor: Node, Toggleable {
     public static let masterGainDef = NodeParameterDef(
         identifier: "masterGain",
         name: "Master Gain",
-        address: akGetParameterAddress("DynamicsProcessorParameterMasterGain"),
+        address: 6,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)
@@ -110,11 +110,11 @@ open class Compressor: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$threshold.associate(with: effectAU, index: 0)
-        self.$headRoom.associate(with: effectAU, index: 1)
-        self.$attackTime.associate(with: effectAU, index: 4)
-        self.$releaseTime.associate(with: effectAU, index: 5)
-        self.$masterGain.associate(with: effectAU, index: 6)
+        self.$threshold.associate(with: effectAU)
+        self.$headRoom.associate(with: effectAU)
+        self.$attackTime.associate(with: effectAU)
+        self.$releaseTime.associate(with: effectAU)
+        self.$masterGain.associate(with: effectAU)
 
         self.threshold = threshold
         self.headRoom = headRoom
