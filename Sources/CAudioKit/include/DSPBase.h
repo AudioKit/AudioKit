@@ -121,11 +121,6 @@ public:
         isStarted = false;
     }
 
-    virtual bool isPlaying()
-    {
-        return isStarted;
-    }
-
     virtual bool isSetup()
     {
         return isInitialized;
