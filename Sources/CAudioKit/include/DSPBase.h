@@ -68,6 +68,9 @@ protected:
     
     class ParameterRamper* parameters[maxParameters];
 
+    std::vector<AudioBufferList*> inputBufferLists;
+    AudioBufferList* outputBufferList = nullptr;
+
 public:
     
     DSPBase(int inputBusCount=1);
@@ -75,14 +78,12 @@ public:
     /// Virtual destructor allows child classes to be deleted with only DSPBase *pointer
     virtual ~DSPBase();
     
-    std::vector<AudioBufferList*> inputBufferLists;
-    AudioBufferList* outputBufferList = nullptr;
-    
     AUInternalRenderBlock internalRenderBlock();
     
     inline bool canProcessInPlace() const { return bCanProcessInPlace; }
     
     void setBuffer(AudioBufferList* buffer, size_t busIndex);
+    size_t getInputBusCount() const { return inputBufferLists.size(); }
     
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;

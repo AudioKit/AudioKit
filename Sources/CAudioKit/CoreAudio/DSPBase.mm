@@ -12,7 +12,7 @@ AUInternalRenderBlock internalRenderBlockDSP(DSPRef pDSP)
 
 size_t inputBusCountDSP(DSPRef pDSP)
 {
-    return pDSP->inputBufferLists.size();
+    return pDSP->getInputBusCount();
 }
 
 bool canProcessInPlaceDSP(DSPRef pDSP)
