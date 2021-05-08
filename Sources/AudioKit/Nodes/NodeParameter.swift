@@ -200,7 +200,7 @@ public class NodeParameter {
         guard let tree = avAudioNode.auAudioUnit.parameterTree else {
             fatalError("No parameter tree.")
         }
-        parameter = tree.allParameters[Int(def.address)]
+        parameter = tree.parameter(withAddress: def.address)
         assert(parameter != nil)
     }
 
