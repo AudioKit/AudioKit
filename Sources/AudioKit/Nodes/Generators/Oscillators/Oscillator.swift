@@ -27,6 +27,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: akGetParameterAddress("OscillatorParameterFrequency"),
+        initialValue: 440.0,
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -39,6 +40,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("OscillatorParameterAmplitude"),
+        initialValue: 1.0,
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -51,6 +53,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: akGetParameterAddress("OscillatorParameterDetuningOffset"),
+        initialValue: 0.0,
         range: -1_000.0 ... 1_000.0,
         unit: .hertz,
         flags: .default)
@@ -63,6 +66,7 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: akGetParameterAddress("OscillatorParameterDetuningMultiplier"),
+        initialValue: 1.0,
         range: 0.9 ... 1.11,
         unit: .generic,
         flags: .default)
@@ -83,10 +87,10 @@ public class Oscillator: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         waveform: Table = Table(.sine),
-        frequency: AUValue = 440.0,
-        amplitude: AUValue = 1.0,
-        detuningOffset: AUValue = 0.0,
-        detuningMultiplier: AUValue = 1.0
+        frequency: AUValue = frequencyDef.initialValue,
+        amplitude: AUValue = amplitudeDef.initialValue,
+        detuningOffset: AUValue = detuningOffsetDef.initialValue,
+        detuningMultiplier: AUValue = detuningMultiplierDef.initialValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 

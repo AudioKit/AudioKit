@@ -23,6 +23,7 @@ public class BrownianNoise: Node, AudioUnitContainer, Toggleable {
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("BrownianNoiseParameterAmplitude"),
+        initialValue: 1.0,
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -38,7 +39,7 @@ public class BrownianNoise: Node, AudioUnitContainer, Toggleable {
     ///   - amplitude: Amplitude. (Value between 0-1).
     ///
     public init(
-        amplitude: AUValue = 1.0
+        amplitude: AUValue = amplitudeDef.initialValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 

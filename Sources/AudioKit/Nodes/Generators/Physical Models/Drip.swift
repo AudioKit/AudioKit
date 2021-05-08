@@ -25,6 +25,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         identifier: "intensity",
         name: "The intensity of the dripping sounds.",
         address: akGetParameterAddress("DripParameterIntensity"),
+        initialValue: 10,
         range: 0 ... 100,
         unit: .generic,
         flags: .default)
@@ -37,6 +38,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         identifier: "dampingFactor",
         name: "The damping factor. Maximum value is 2.0.",
         address: akGetParameterAddress("DripParameterDampingFactor"),
+        initialValue: 0.2,
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -49,6 +51,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         identifier: "energyReturn",
         name: "The amount of energy to add back into the system.",
         address: akGetParameterAddress("DripParameterEnergyReturn"),
+        initialValue: 0,
         range: 0 ... 100,
         unit: .generic,
         flags: .default)
@@ -61,6 +64,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         identifier: "mainResonantFrequency",
         name: "Main resonant frequency.",
         address: akGetParameterAddress("DripParameterMainResonantFrequency"),
+        initialValue: 450,
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -73,6 +77,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         identifier: "firstResonantFrequency",
         name: "The first resonant frequency.",
         address: akGetParameterAddress("DripParameterFirstResonantFrequency"),
+        initialValue: 600,
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -85,6 +90,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         identifier: "secondResonantFrequency",
         name: "The second resonant frequency.",
         address: akGetParameterAddress("DripParameterSecondResonantFrequency"),
+        initialValue: 750,
         range: 0 ... 22_000,
         unit: .hertz,
         flags: .default)
@@ -97,6 +103,7 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
         identifier: "amplitude",
         name: "Amplitude.",
         address: akGetParameterAddress("DripParameterAmplitude"),
+        initialValue: 0.3,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -118,13 +125,13 @@ public class Drip: Node, AudioUnitContainer, Toggleable {
     ///   - amplitude: Amplitude.
     ///
     public init(
-        intensity: AUValue = 10,
-        dampingFactor: AUValue = 0.2,
-        energyReturn: AUValue = 0,
-        mainResonantFrequency: AUValue = 450,
-        firstResonantFrequency: AUValue = 600,
-        secondResonantFrequency: AUValue = 750,
-        amplitude: AUValue = 0.3
+        intensity: AUValue = intensityDef.initialValue,
+        dampingFactor: AUValue = dampingFactorDef.initialValue,
+        energyReturn: AUValue = energyReturnDef.initialValue,
+        mainResonantFrequency: AUValue = mainResonantFrequencyDef.initialValue,
+        firstResonantFrequency: AUValue = firstResonantFrequencyDef.initialValue,
+        secondResonantFrequency: AUValue = secondResonantFrequencyDef.initialValue,
+        amplitude: AUValue = amplitudeDef.initialValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 

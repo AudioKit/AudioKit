@@ -23,6 +23,7 @@ public class WhiteNoise: Node, AudioUnitContainer, Toggleable {
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("WhiteNoiseParameterAmplitude"),
+        initialValue: 1,
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -38,7 +39,7 @@ public class WhiteNoise: Node, AudioUnitContainer, Toggleable {
     ///   - amplitude: Amplitude. (Value between 0-1).
     ///
     public init(
-        amplitude: AUValue = 1
+        amplitude: AUValue = amplitudeDef.initialValue
     ) {
         super.init(avAudioNode: AVAudioNode())
 
