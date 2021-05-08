@@ -16,7 +16,7 @@ open class BandPassFilter: Node, Toggleable {
     public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency",
-        address: akGetParameterAddress("BandPassFilterParameterCenterFrequency"),
+        address: 0,
         range: 20 ... 22050,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ open class BandPassFilter: Node, Toggleable {
     public static let bandwidthDef = NodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth",
-        address: akGetParameterAddress("BandPassFilterParameterBandwidth"),
+        address: 1,
         range: 100 ... 12000,
         unit: .cents,
         flags: .default)
@@ -52,8 +52,8 @@ open class BandPassFilter: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$centerFrequency.associate(with: effectAU, index: 0)
-        self.$bandwidth.associate(with: effectAU, index: 1)
+        self.$centerFrequency.associate(with: effectAU)
+        self.$bandwidth.associate(with: effectAU)
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth

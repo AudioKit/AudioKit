@@ -16,7 +16,7 @@ open class HighPassFilter: Node, Toggleable {
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
-        address: akGetParameterAddress("HighPassFilterParameterCutoffFrequency"),
+        address: 0,
         range: 10 ... 22050,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ open class HighPassFilter: Node, Toggleable {
     public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance",
-        address: akGetParameterAddress("HighPassFilterParameterResonance"),
+        address: 1,
         range: -20 ... 40,
         unit: .decibels,
         flags: .default)
@@ -52,8 +52,8 @@ open class HighPassFilter: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$cutoffFrequency.associate(with: effectAU, index: 0)
-        self.$resonance.associate(with: effectAU, index: 1)
+        self.$cutoffFrequency.associate(with: effectAU)
+        self.$resonance.associate(with: effectAU)
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

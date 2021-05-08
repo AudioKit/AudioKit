@@ -16,7 +16,7 @@ open class LowShelfFilter: Node, Toggleable {
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
-        address: akGetParameterAddress("LowShelfFilterParameterCutoffFrequency"),
+        address: 0,
         range: 10 ... 200,
         unit: .hertz,
         flags: .default)
@@ -28,7 +28,7 @@ open class LowShelfFilter: Node, Toggleable {
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: akGetParameterAddress("LowShelfFilterParameterGain"),
+        address: 1,
         range: -40 ... 40,
         unit: .decibels,
         flags: .default)
@@ -52,8 +52,8 @@ open class LowShelfFilter: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$cutoffFrequency.associate(with: effectAU, index: 0)
-        self.$gain.associate(with: effectAU, index: 1)
+        self.$cutoffFrequency.associate(with: effectAU)
+        self.$gain.associate(with: effectAU)
 
         self.cutoffFrequency = cutoffFrequency
         self.gain = gain
