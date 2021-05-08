@@ -4,7 +4,7 @@
 import AVFoundation
 import CAudioKit
 
-/// A complement to the ToneFilter.
+/// A complement to the AKLowPassFilter.
 public class ToneComplementFilter: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "aton"
@@ -23,6 +23,7 @@ public class ToneComplementFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
         address: akGetParameterAddress("ToneComplementFilterParameterHalfPowerPoint"),
+        initialValue: 1_000.0,
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -40,7 +41,7 @@ public class ToneComplementFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        halfPowerPoint: AUValue = 1_000.0
+        halfPowerPoint: AUValue = halfPowerPointDef.initialValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

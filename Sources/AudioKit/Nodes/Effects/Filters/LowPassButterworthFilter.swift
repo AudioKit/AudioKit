@@ -25,6 +25,7 @@ public class LowPassButterworthFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("LowPassButterworthFilterParameterCutoffFrequency"),
+        initialValue: 1_000.0,
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -42,7 +43,7 @@ public class LowPassButterworthFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        cutoffFrequency: AUValue = 1_000.0
+        cutoffFrequency: AUValue = cutoffFrequencyDef.initialValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

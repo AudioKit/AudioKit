@@ -23,6 +23,7 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
         identifier: "limit",
         name: "Threshold",
         address: akGetParameterAddress("ClipperParameterLimit"),
+        initialValue: 1.0,
         range: 0.0 ... 1.0,
         unit: .generic,
         flags: .default)
@@ -40,7 +41,7 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        limit: AUValue = 1.0
+        limit: AUValue = limitDef.initialValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

@@ -26,6 +26,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
         address: akGetParameterAddress("FlatFrequencyResponseReverbParameterReverbDuration"),
+        initialValue: 0.5,
         range: 0 ... 10,
         unit: .seconds,
         flags: .default)
@@ -44,7 +45,7 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        reverbDuration: AUValue = 0.5,
+        reverbDuration: AUValue = reverbDurationDef.initialValue,
         loopDuration: AUValue = 0.1
         ) {
         super.init(avAudioNode: AVAudioNode())

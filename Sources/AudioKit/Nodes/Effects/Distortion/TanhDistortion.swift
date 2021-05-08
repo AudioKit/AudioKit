@@ -23,6 +23,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         identifier: "pregain",
         name: "Pregain",
         address: akGetParameterAddress("TanhDistortionParameterPregain"),
+        initialValue: 2.0,
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -35,6 +36,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         identifier: "postgain",
         name: "Postgain",
         address: akGetParameterAddress("TanhDistortionParameterPostgain"),
+        initialValue: 0.5,
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -47,6 +49,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         identifier: "positiveShapeParameter",
         name: "Positive Shape Parameter",
         address: akGetParameterAddress("TanhDistortionParameterPositiveShapeParameter"),
+        initialValue: 0.0,
         range: -10.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -59,6 +62,7 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         identifier: "negativeShapeParameter",
         name: "Negative Shape Parameter",
         address: akGetParameterAddress("TanhDistortionParameterNegativeShapeParameter"),
+        initialValue: 0.0,
         range: -10.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -79,10 +83,10 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        pregain: AUValue = 2.0,
-        postgain: AUValue = 0.5,
-        positiveShapeParameter: AUValue = 0.0,
-        negativeShapeParameter: AUValue = 0.0
+        pregain: AUValue = pregainDef.initialValue,
+        postgain: AUValue = postgainDef.initialValue,
+        positiveShapeParameter: AUValue = positiveShapeParameterDef.initialValue,
+        negativeShapeParameter: AUValue = negativeShapeParameterDef.initialValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

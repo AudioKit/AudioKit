@@ -23,6 +23,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
         address: akGetParameterAddress("DynamicRangeCompressorParameterRatio"),
+        initialValue: 1,
         range: 0.01 ... 100.0,
         unit: .hertz,
         flags: .default)
@@ -35,6 +36,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
         address: akGetParameterAddress("DynamicRangeCompressorParameterThreshold"),
+        initialValue: 0.0,
         range: -100.0 ... 0.0,
         unit: .generic,
         flags: .default)
@@ -47,6 +49,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "attackDuration",
         name: "Attack duration",
         address: akGetParameterAddress("DynamicRangeCompressorParameterAttackDuration"),
+        initialValue: 0.1,
         range: 0.0 ... 1.0,
         unit: .seconds,
         flags: .default)
@@ -59,6 +62,7 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "releaseDuration",
         name: "Release duration",
         address: akGetParameterAddress("DynamicRangeCompressorParameterReleaseDuration"),
+        initialValue: 0.1,
         range: 0.0 ... 1.0,
         unit: .seconds,
         flags: .default)
@@ -79,10 +83,10 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        ratio: AUValue = 1,
-        threshold: AUValue = 0.0,
-        attackDuration: AUValue = 0.1,
-        releaseDuration: AUValue = 0.1
+        ratio: AUValue = ratioDef.initialValue,
+        threshold: AUValue = thresholdDef.initialValue,
+        attackDuration: AUValue = attackDurationDef.initialValue,
+        releaseDuration: AUValue = releaseDurationDef.initialValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

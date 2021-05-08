@@ -23,6 +23,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         identifier: "bitDepth",
         name: "Bit Depth",
         address: akGetParameterAddress("BitCrusherParameterBitDepth"),
+        initialValue: 8,
         range: 1 ... 24,
         unit: .generic,
         flags: .default)
@@ -35,6 +36,7 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         identifier: "sampleRate",
         name: "Sample Rate (Hz)",
         address: akGetParameterAddress("BitCrusherParameterSampleRate"),
+        initialValue: 10_000,
         range: 0.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -53,8 +55,8 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        bitDepth: AUValue = 8,
-        sampleRate: AUValue = 10_000
+        bitDepth: AUValue = bitDepthDef.initialValue,
+        sampleRate: AUValue = sampleRateDef.initialValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

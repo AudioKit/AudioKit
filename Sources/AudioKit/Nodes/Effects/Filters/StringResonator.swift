@@ -28,6 +28,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         identifier: "fundamentalFrequency",
         name: "Fundamental Frequency (Hz)",
         address: akGetParameterAddress("StringResonatorParameterFundamentalFrequency"),
+        initialValue: 100,
         range: 12.0 ... 10_000.0,
         unit: .hertz,
         flags: .default)
@@ -40,6 +41,7 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         identifier: "feedback",
         name: "Feedback (%)",
         address: akGetParameterAddress("StringResonatorParameterFeedback"),
+        initialValue: 0.95,
         range: 0.0 ... 1.0,
         unit: .percent,
         flags: .default)
@@ -58,8 +60,8 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        fundamentalFrequency: AUValue = 100,
-        feedback: AUValue = 0.95
+        fundamentalFrequency: AUValue = fundamentalFrequencyDef.initialValue,
+        feedback: AUValue = feedbackDef.initialValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

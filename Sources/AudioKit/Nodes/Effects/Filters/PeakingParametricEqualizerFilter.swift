@@ -23,6 +23,7 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Togglea
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterCenterFrequency"),
+        initialValue: 1_000,
         range: 12.0 ... 20_000.0,
         unit: .hertz,
         flags: .default)
@@ -35,6 +36,7 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Togglea
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterGain"),
+        initialValue: 1.0,
         range: 0.0 ... 10.0,
         unit: .generic,
         flags: .default)
@@ -47,6 +49,7 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Togglea
         identifier: "q",
         name: "Q",
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterQ"),
+        initialValue: 0.707,
         range: 0.0 ... 2.0,
         unit: .generic,
         flags: .default)
@@ -66,9 +69,9 @@ public class PeakingParametricEqualizerFilter: Node, AudioUnitContainer, Togglea
     ///
     public init(
         _ input: Node,
-        centerFrequency: AUValue = 1_000,
-        gain: AUValue = 1.0,
-        q: AUValue = 0.707
+        centerFrequency: AUValue = centerFrequencyDef.initialValue,
+        gain: AUValue = gainDef.initialValue,
+        q: AUValue = qDef.initialValue
         ) {
         super.init(avAudioNode: AVAudioNode())
 

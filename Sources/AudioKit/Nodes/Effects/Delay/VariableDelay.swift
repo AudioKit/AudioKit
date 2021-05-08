@@ -23,6 +23,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
         identifier: "time",
         name: "Delay time (Seconds)",
         address: akGetParameterAddress("VariableDelayParameterTime"),
+        initialValue: 0,
         range: 0 ... 10,
         unit: .seconds,
         flags: .default)
@@ -35,6 +36,7 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
         identifier: "feedback",
         name: "Feedback (%)",
         address: akGetParameterAddress("VariableDelayParameterFeedback"),
+        initialValue: 0,
         range: 0 ... 1,
         unit: .generic,
         flags: .default)
@@ -54,8 +56,8 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        time: AUValue = 0,
-        feedback: AUValue = 0,
+        time: AUValue = timeDef.initialValue,
+        feedback: AUValue = feedbackDef.initialValue,
         maximumTime: AUValue = 5
         ) {
         super.init(avAudioNode: AVAudioNode())
