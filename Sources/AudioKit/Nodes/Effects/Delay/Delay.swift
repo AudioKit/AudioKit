@@ -78,10 +78,7 @@ public class Delay: Node, Toggleable {
         super.init(avAudioUnit: delayAU)
         connections.append(input)
 
-        self.$dryWetMix.associate(with: delayAU)
-        self.$time.associate(with: delayAU)
-        self.$feedback.associate(with: delayAU)
-        self.$lowPassCutoff.associate(with: delayAU)
+        associateParams(with: delayAU)
 
         self.dryWetMix = dryWetMix
         self.time = time

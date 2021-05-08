@@ -52,8 +52,7 @@ open class HighShelfFilter: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$cutOffFrequency.associate(with: effectAU)
-        self.$gain.associate(with: effectAU)
+        associateParams(with: effectAU)
 
         self.cutOffFrequency = cutOffFrequency
         self.gain = gain

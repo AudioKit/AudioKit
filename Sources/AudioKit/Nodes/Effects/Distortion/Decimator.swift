@@ -66,9 +66,7 @@ open class Decimator: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$decimation.associate(with: effectAU)
-        self.$rounding.associate(with: effectAU)
-        self.$finalMix.associate(with: effectAU)
+        associateParams(with: effectAU)
 
         self.decimation = decimation
         self.rounding = rounding

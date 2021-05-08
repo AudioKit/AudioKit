@@ -52,8 +52,7 @@ open class BandPassFilter: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$centerFrequency.associate(with: effectAU)
-        self.$bandwidth.associate(with: effectAU)
+        associateParams(with: effectAU)
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth

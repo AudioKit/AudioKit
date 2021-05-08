@@ -110,11 +110,7 @@ open class Compressor: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$threshold.associate(with: effectAU)
-        self.$headRoom.associate(with: effectAU)
-        self.$attackTime.associate(with: effectAU)
-        self.$releaseTime.associate(with: effectAU)
-        self.$masterGain.associate(with: effectAU)
+        associateParams(with: effectAU)
 
         self.threshold = threshold
         self.headRoom = headRoom

@@ -248,22 +248,7 @@ open class Distortion: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$delay.associate(with: effectAU)
-        self.$decay.associate(with: effectAU)
-        self.$delayMix.associate(with: effectAU)
-        self.$ringModFreq1.associate(with: effectAU)
-        self.$ringModFreq2.associate(with: effectAU)
-        self.$ringModBalance.associate(with: effectAU)
-        self.$ringModMix.associate(with: effectAU)
-        self.$decimation.associate(with: effectAU)
-        self.$rounding.associate(with: effectAU)
-        self.$decimationMix.associate(with: effectAU)
-        self.$linearTerm.associate(with: effectAU)
-        self.$squaredTerm.associate(with: effectAU)
-        self.$cubicTerm.associate(with: effectAU)
-        self.$polynomialMix.associate(with: effectAU)
-        self.$softClipGain.associate(with: effectAU)
-        self.$finalMix.associate(with: effectAU)
+        associateParams(with: effectAU)
 
         self.delay = delay
         self.decay = decay

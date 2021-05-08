@@ -92,6 +92,17 @@ open class Node {
             connection.initLastRenderTime()
         }
     }
+
+    /// Scan for all parameters and associate with the node.
+    func associateParams(with node: AVAudioNode) {
+        let mirror = Mirror(reflecting: self)
+
+        for child in mirror.children {
+            if let param = child.value as? ParameterBase {
+                param.projectedValue.associate(with: node)
+            }
+        }
+    }
 }
 
 /// Protocol for responding to play and stop of MIDI notes

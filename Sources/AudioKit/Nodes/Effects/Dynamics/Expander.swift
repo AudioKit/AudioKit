@@ -110,11 +110,7 @@ open class Expander: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$expansionRatio.associate(with: effectAU)
-        self.$expansionThreshold.associate(with: effectAU)
-        self.$attackTime.associate(with: effectAU)
-        self.$releaseTime.associate(with: effectAU)
-        self.$masterGain.associate(with: effectAU)
+        associateParams(with: effectAU)
 
         self.expansionRatio = expansionRatio
         self.expansionThreshold = expansionThreshold

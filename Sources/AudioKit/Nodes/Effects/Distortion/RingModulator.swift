@@ -80,10 +80,7 @@ open class RingModulator: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$ringModFreq1.associate(with: effectAU)
-        self.$ringModFreq2.associate(with: effectAU)
-        self.$ringModBalance.associate(with: effectAU)
-        self.$finalMix.associate(with: effectAU)
+        associateParams(with: effectAU)
 
         self.ringModFreq1 = ringModFreq1
         self.ringModFreq2 = ringModFreq2

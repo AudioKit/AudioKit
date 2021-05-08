@@ -52,8 +52,7 @@ open class LowPassFilter: Node, Toggleable {
         super.init(avAudioNode: effectAU)
         connections.append(input)
 
-        self.$cutoffFrequency.associate(with: effectAU)
-        self.$resonance.associate(with: effectAU)
+        associateParams(with: effectAU)
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
