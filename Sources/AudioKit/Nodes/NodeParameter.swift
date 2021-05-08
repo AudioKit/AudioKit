@@ -179,16 +179,6 @@ public class NodeParameter {
 
     // MARK: Lifecycle
 
-    /// This function should be called from Node subclasses as soon as a valid AU is obtained
-    public func associate(with avAudioNode: AVAudioNode, identifier: String) {
-        self.avAudioNode = avAudioNode
-        guard let tree = avAudioNode.auAudioUnit.parameterTree else {
-            fatalError("No parameter tree.")
-        }
-        parameter = tree[identifier]
-        assert(parameter != nil)
-    }
-
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
     ///   - avAudioUnit: AVAudioUnit to associate with
