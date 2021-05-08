@@ -111,12 +111,12 @@ public:
     virtual void deinit();
 
     // Add for compatibility with AKAudioUnit
-    virtual void start()
+    void start()
     {
         isStarted = true;
     }
 
-    virtual void stop()
+    void stop()
     {
         isStarted = false;
     }
