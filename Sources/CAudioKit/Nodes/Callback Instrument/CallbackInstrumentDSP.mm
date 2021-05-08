@@ -26,18 +26,6 @@ public:
     ~CallbackInstrumentDSP() {
         [timer invalidate];
     }
-    
-    void start() override {
-        started = true;
-    }
-
-    void stop() override {
-        started = false;
-    }
-
-    void reset() override {
-        resetted = true;
-    }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         //do nothing
@@ -85,8 +73,6 @@ private:
     bool updateTime = false;
 
 public:
-    bool started = false;
-    bool resetted = false;
     CMIDICallback callback = nullptr;
 };
 
