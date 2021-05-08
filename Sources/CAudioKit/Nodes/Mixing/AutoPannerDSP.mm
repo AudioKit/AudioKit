@@ -24,7 +24,6 @@ public:
     AutoPannerDSP() {
         parameters[AutoPannerParameterFrequency] = &frequencyRamp;
         parameters[AutoPannerParameterDepth] = &depthRamp;
-        bCanProcessInPlace = true;
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

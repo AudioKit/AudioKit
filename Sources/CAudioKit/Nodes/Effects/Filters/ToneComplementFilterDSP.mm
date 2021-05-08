@@ -15,9 +15,8 @@ private:
     ParameterRamper halfPowerPointRamp;
 
 public:
-    ToneComplementFilterDSP() {
+    ToneComplementFilterDSP() : SoundpipeDSPBase(1, false) {
         parameters[ToneComplementFilterParameterHalfPowerPoint] = &halfPowerPointRamp;
-        bCanProcessInPlace = false;
     }
 
     void init(int channelCount, double sampleRate) override {

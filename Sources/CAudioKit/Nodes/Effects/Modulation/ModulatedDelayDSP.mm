@@ -37,14 +37,12 @@ const float kFlanger_MinDryWetMix = kFlangerMinDryWetMix;
 const float kFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
 
 ModulatedDelayDSP::ModulatedDelayDSP(ModulatedDelayType type)
-    : delay(type)
+    : DSPBase(1, true), delay(type)
 {
     parameters[ModulatedDelayParameterFrequency] = &frequencyRamp;
     parameters[ModulatedDelayParameterDepth] = &depthRamp;
     parameters[ModulatedDelayParameterFeedback] = &feedbackRamp;
     parameters[ModulatedDelayParameterDryWetMix] = &dryWetMixRamp;
-    
-    bCanProcessInPlace = true;
 }
 
 void ModulatedDelayDSP::init(int channels, double sampleRate)

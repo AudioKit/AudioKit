@@ -11,9 +11,7 @@ protected:
     struct sp_data *sp = nullptr;
     float internalTrigger=0;
 public:
-    SoundpipeDSPBase(int inputBusCount=1) : DSPBase(inputBusCount) {
-        bCanProcessInPlace = true;
-    }
+    SoundpipeDSPBase(int inputBusCount=1, bool canProcessInPlace=true) : DSPBase(inputBusCount, canProcessInPlace) { }
 
     virtual void init(int channelCount, double sampleRate) override;
     virtual void deinit() override;

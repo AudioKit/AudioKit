@@ -19,11 +19,9 @@ private:
     bool mixToMono = false;
 
 public:
-    FaderDSP() {
+    FaderDSP() : DSPBase(1, true) {
         parameters[FaderParameterLeftGain] = &leftGainRamp;
         parameters[FaderParameterRightGain] = &rightGainRamp;
-
-        bCanProcessInPlace = true;
     }
 
     // Uses the ParameterAddress as a key

@@ -30,11 +30,10 @@ private:
     ParameterRamper rampers[ParameterCount];
 
 public:
-    OperationEffectDSP() {
+    OperationEffectDSP() : SoundpipeDSPBase(1, false) {
         for(int i=0;i<ParameterCount;++i) {
             parameters[i] = &rampers[i];
         }
-        bCanProcessInPlace = false;
     }
 
     void setSporth(const char *sporth, int length) {

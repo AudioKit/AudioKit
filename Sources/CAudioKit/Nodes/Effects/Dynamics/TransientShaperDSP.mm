@@ -280,13 +280,11 @@ private:
     ParameterRamper releaseAmountRamp;
     ParameterRamper outputAmountRamp;
 public:
-    TransientShaperDSP() {
+    TransientShaperDSP() : DSPBase(1, true) {
         parameters[TransientShaperParameterInputAmount] = &inputAmountRamp;
         parameters[TransientShaperParameterAttackAmount] = &attackAmountRamp;
         parameters[TransientShaperParameterReleaseAmount] = &releaseAmountRamp;
         parameters[TransientShaperParameterOutputAmount] = &outputAmountRamp;
-
-        bCanProcessInPlace = true;
     }
 
     void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {

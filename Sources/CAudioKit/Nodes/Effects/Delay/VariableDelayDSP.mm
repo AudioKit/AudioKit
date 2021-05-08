@@ -18,10 +18,9 @@ private:
     ParameterRamper feedbackRamp;
 
 public:
-    VariableDelayDSP() {
+    VariableDelayDSP() : SoundpipeDSPBase(1, false) {
         parameters[VariableDelayParameterTime] = &timeRamp;
         parameters[VariableDelayParameterFeedback] = &feedbackRamp;
-        bCanProcessInPlace = false;
     }
 
     void setMaximumTime(float maxTime) {

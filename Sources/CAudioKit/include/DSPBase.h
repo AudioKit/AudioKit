@@ -54,9 +54,6 @@ protected:
 
     int channelCount;
     double sampleRate;
-    
-    /// Subclasses should process in place and set this to true if possible
-    bool bCanProcessInPlace = false;
 
     bool isInitialized = false;
     std::atomic<bool> isStarted{true};
@@ -73,14 +70,14 @@ protected:
 
 public:
     
-    DSPBase(int inputBusCount=1);
+    DSPBase(int inputBusCount=1, bool canProcessInPlace=false);
     
     /// Virtual destructor allows child classes to be deleted with only DSPBase *pointer
     virtual ~DSPBase();
     
     AUInternalRenderBlock internalRenderBlock();
-    
-    inline bool canProcessInPlace() const { return bCanProcessInPlace; }
+
+    const bool bCanProcessInPlace;
     
     void setBuffer(AudioBufferList* buffer, size_t busIndex);
     size_t getInputBusCount() const { return inputBufferLists.size(); }
