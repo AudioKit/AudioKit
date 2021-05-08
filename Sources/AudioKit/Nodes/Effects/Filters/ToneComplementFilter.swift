@@ -4,7 +4,7 @@
 import AVFoundation
 import CAudioKit
 
-/// A complement to the AKLowPassFilter.
+/// A complement to the ToneFilter.
 public class ToneComplementFilter: Node, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "aton"
