@@ -170,6 +170,21 @@ extension Node {
         return result
     }
 
+    /// All parameters on the Node
+    var parameters: [NodeParameter] {
+
+        let mirror = Mirror(reflecting: self)
+        var params: [NodeParameter] = []
+
+        for child in mirror.children {
+            if let param = child.value as? ParameterBase {
+                params.append(param.projectedValue)
+            }
+        }
+
+        return params
+    }
+
     func setupParameters() {
 
         let mirror = Mirror(reflecting: self)

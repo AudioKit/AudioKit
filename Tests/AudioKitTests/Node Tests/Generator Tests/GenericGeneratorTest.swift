@@ -7,17 +7,14 @@ import AVFoundation
 
 func setParams(node: Node, rng: GKRandomSource) {
 
-    let mirror = Mirror(reflecting: node)
-
-    for child in mirror.children {
-        if let param = child.value as? ParameterBase {
-            let def = param.projectedValue.def
-            let size = def.range.upperBound - def.range.lowerBound
-            let value = rng.nextUniform() * size + def.range.lowerBound
-            print("setting parameter \(def.name) to \(value)")
-            param.projectedValue.value = value
-        }
+    for param in node.parameters {
+        let def = param.def
+        let size = def.range.upperBound - def.range.lowerBound
+        let value = rng.nextUniform() * size + def.range.lowerBound
+        print("setting parameter \(def.name) to \(value)")
+        param.value = value
     }
+
 }
 
 func generatorNodeTest(factory: ()->Node) -> AVAudioPCMBuffer {
