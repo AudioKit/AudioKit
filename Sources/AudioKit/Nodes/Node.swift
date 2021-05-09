@@ -176,6 +176,10 @@ extension Node {
         instantiateAudioUnit(componentDescription: AudioComponentDescription(instrument: code))
     }
 
+    func instantiate(effect code: String) -> AVAudioUnit {
+        instantiateAudioUnit(componentDescription: AudioComponentDescription(effect: code))
+    }
+
 }
 
 /// Convenience for AudioKit nodes.
