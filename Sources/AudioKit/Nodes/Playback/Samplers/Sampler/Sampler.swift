@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Sampler
-public class Sampler: PolyphonicNode, AudioUnitContainer {
+public class Sampler: Node, AudioUnitContainer {
     /// Unique four-letter identifier "samp"
     public static let ComponentDescription = AudioComponentDescription(instrument: "samp")
 
@@ -406,15 +406,15 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity: Velocity of the note
     ///   - channel: MIDI Channel
-    public override func play(noteNumber: MIDINoteNumber,
-                              velocity: MIDIVelocity,
-                              channel: MIDIChannel = 0) {
+    public func play(noteNumber: MIDINoteNumber,
+                     velocity: MIDIVelocity,
+                     channel: MIDIChannel = 0) {
         internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
     }
 
     /// Stop the sampler playback of a specific note
     /// - Parameter noteNumber: MIDI Note number
-    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
+    public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 

@@ -32,9 +32,6 @@ typedef NS_ENUM(AUParameterAddress, SynthParameter)
 };
 
 AK_API DSPRef akSynthCreateDSP(void);
-AK_API void akSynthPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency);
-AK_API void akSynthStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate);
-AK_API void akSynthSustainPedal(DSPRef pDSP, bool pedalDown);
 
 #ifdef __cplusplus
 
@@ -58,7 +55,8 @@ struct SynthDSP : DSPBase, CoreSynth
 
     void setParameter(uint64_t address, float value, bool immediate) override;
     float getParameter(uint64_t address) override;
-    
+
+    void handleMIDIEvent(const AUMIDIEvent &midiEvent);
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
 };
 

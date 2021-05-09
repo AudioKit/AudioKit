@@ -7,22 +7,6 @@ DSPRef akSynthCreateDSP() {
     return new SynthDSP();
 }
 
-void akSynthPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity, float noteFrequency)
-{
-    ((SynthDSP*)pDSP)->playNote(noteNumber, velocity, noteFrequency);
-}
-
-void akSynthStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate)
-{
-    ((SynthDSP*)pDSP)->stopNote(noteNumber, immediate);
-}
-
-void akSynthSustainPedal(DSPRef pDSP, bool pedalDown)
-{
-    ((SynthDSP*)pDSP)->sustainPedal(pedalDown);
-}
-
-
 SynthDSP::SynthDSP() : DSPBase(/*inputBusCount*/0), CoreSynth()
 {
     masterVolumeRamp.setTarget(1.0, true);
@@ -140,6 +124,29 @@ float SynthDSP::getParameter(uint64_t address)
             return getFilterReleaseDurationSeconds();
     }
     return 0;
+}
+
+void SynthDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
+{
+    if (midiEvent.length != 3) return;
+    uint8_t status = midiEvent.data[0] & 0xF0;
+    //uint8_t channel = midiEvent.data[0] & 0x0F; // works in omni mode.
+    switch (status) {
+        case 0x80 : { // note off
+            uint8_t note = midiEvent.data[1];
+            if (note > 127) break;
+            stopNote(note, false);
+            break;
+        }
+        case 0x90 : { // note on
+            uint8_t note = midiEvent.data[1];
+            uint8_t veloc = midiEvent.data[2];
+            if (note > 127 || veloc > 127) break;
+            auto f = pow(2.0, (note - 69.0) / 12.0) * 440.0;
+            playNote(note, veloc, f);
+            break;
+        }
+    }
 }
 
 void SynthDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
