@@ -179,7 +179,7 @@ public class AudioPlayer: Node {
     }
 
     // called in the connection chain to attach the playerNode
-    override func makeAVConnections() {
+    override func makeInternalConnections() {
         guard let engine = mixerNode.engine else {
             Log("Engine is nil", type: .error)
             return
@@ -187,7 +187,7 @@ public class AudioPlayer: Node {
         engine.attach(playerNode)
         engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
     }
-
+    
     // MARK: - Init
 
     /// Create an AudioPlayer with default properties and nothing pre-loaded

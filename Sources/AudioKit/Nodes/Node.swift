@@ -4,8 +4,13 @@ import AVFoundation
 import CAudioKit
 
 protocol NodeProtocol {
+
+    /// Nodes providing audio input to this node.
     var connections: [Node] { get }
     var avAudioNode: AVAudioNode { get }
+
+    /// Override point for any connections internal to the node.
+    func makeInternalConnections()
 }
 
 extension NodeProtocol {
@@ -57,23 +62,8 @@ extension NodeProtocol {
         }
     }
 
-}
-
-/// AudioKIt connection point
-open class Node : NodeProtocol {
-    /// Nodes providing input to this node.
-    public var connections: [Node] { [] }
-
-    /// The internal AVAudioEngine AVAudioNode
-    open var avAudioNode: AVAudioNode
-
-    /// Initialize the node from an AVAudioNode
-    /// - Parameter avAudioNode: AVAudioNode to initialize with
-    public init(avAudioNode: AVAudioNode) {
-        self.avAudioNode = avAudioNode
-    }
-
     func makeAVConnections() {
+        makeInternalConnections()
         // Are we attached?
         if let engine = avAudioNode.engine {
             for (bus, connection) in connections.enumerated() {
@@ -97,6 +87,24 @@ open class Node : NodeProtocol {
             }
         }
     }
+
+}
+
+/// AudioKIt connection point
+open class Node : NodeProtocol {
+    /// Nodes providing input to this node.
+    public var connections: [Node] { [] }
+
+    /// The internal AVAudioEngine AVAudioNode
+    open var avAudioNode: AVAudioNode
+
+    /// Initialize the node from an AVAudioNode
+    /// - Parameter avAudioNode: AVAudioNode to initialize with
+    public init(avAudioNode: AVAudioNode) {
+        self.avAudioNode = avAudioNode
+    }
+
+    func makeInternalConnections() { }
 }
 
 /// Protocol for responding to play and stop of MIDI notes
