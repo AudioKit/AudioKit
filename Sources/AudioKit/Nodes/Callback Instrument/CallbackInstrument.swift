@@ -20,9 +20,6 @@ open class CallbackInstrument: NodeBase, AudioUnitContainer {
     /// Internal audio unit type
     public typealias AudioUnitType = AudioUnitBase
 
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
     // MARK: - Initialization
 
     /// Initialize the callback instrument
@@ -33,10 +30,9 @@ open class CallbackInstrument: NodeBase, AudioUnitContainer {
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
         }
-        if let callback = midiCallback, let audioUnit = internalAU {
+        
+        if let callback = midiCallback, let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase {
             akCallbackInstrumentSetCallback(audioUnit.dsp, callback)
         }
     }
