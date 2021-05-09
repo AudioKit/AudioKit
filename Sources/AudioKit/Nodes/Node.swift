@@ -3,7 +3,7 @@
 import AVFoundation
 import CAudioKit
 
-protocol NodeProtocol {
+public protocol Node: AnyObject {
 
     /// Nodes providing audio input to this node.
     var connections: [Node] { get }
@@ -13,7 +13,7 @@ protocol NodeProtocol {
     func makeInternalConnections()
 }
 
-extension NodeProtocol {
+extension Node {
 
     /// Reset the internal state of the unit
     /// Fixes issues such as https://github.com/AudioKit/AudioKit/issues/2046
@@ -108,7 +108,7 @@ extension NodeProtocol {
 }
 
 /// AudioKIt connection point
-open class Node : NodeProtocol {
+open class NodeBase : Node {
     /// Nodes providing input to this node.
     public var connections: [Node] { [] }
 
@@ -121,7 +121,7 @@ open class Node : NodeProtocol {
         self.avAudioNode = avAudioNode
     }
 
-    func makeInternalConnections() { }
+    public func makeInternalConnections() { }
 }
 
 /// Protocol for dictating that a node can be in a started or stopped state

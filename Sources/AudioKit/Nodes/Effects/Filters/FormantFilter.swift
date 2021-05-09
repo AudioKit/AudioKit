@@ -7,7 +7,7 @@ import CAudioKit
 /// When fed with a pulse train, it will generate a series of overlapping grains. 
 /// Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps.
 /// 
-public class FormantFilter: Node, AudioUnitContainer, Toggleable {
+public class FormantFilter: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "fofi"
     public static let ComponentDescription = AudioComponentDescription(effect: "fofi")

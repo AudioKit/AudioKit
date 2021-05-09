@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Sampler
-public class Sampler: Node, AudioUnitContainer {
+public class Sampler: NodeBase, AudioUnitContainer {
     /// Unique four-letter identifier "samp"
     public static let ComponentDescription = AudioComponentDescription(instrument: "samp")
 

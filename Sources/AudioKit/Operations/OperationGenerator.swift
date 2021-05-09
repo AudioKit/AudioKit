@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
+public class OperationGenerator: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Internal audio unit type
     public typealias AudioUnitType = AudioUnitBase

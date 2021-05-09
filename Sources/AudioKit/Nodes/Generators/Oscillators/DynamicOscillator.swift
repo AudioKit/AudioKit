@@ -7,7 +7,7 @@ import CAudioKit
 /// Reads from the table sequentially and repeatedly at given frequency.
 /// Linear interpolation is applied for table look up from internal phase values.
 ///
-public class DynamicOscillator: Node, AudioUnitContainer, Toggleable {
+public class DynamicOscillator: NodeBase, AudioUnitContainer, Toggleable {
     /// Unique four-letter identifier "csto"
     public static let ComponentDescription = AudioComponentDescription(generator: "csto")
 

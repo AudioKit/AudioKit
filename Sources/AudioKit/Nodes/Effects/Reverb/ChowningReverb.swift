@@ -13,7 +13,7 @@ import CAudioKit
 /// allpass units, followed by four parallel comb filters, and two decorrelation delay lines in
 /// parallel at the output.
 /// 
-public class ChowningReverb: Node, AudioUnitContainer, Toggleable {
+public class ChowningReverb: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "jcrv"
     public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")

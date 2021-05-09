@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///
-public class VariSpeed: Node, Toggleable {
+public class VariSpeed: NodeBase, Toggleable {
 
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 

@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Distortion using a modified hyperbolic tangent function.
-public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
+public class TanhDistortion: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "dist"
     public static let ComponentDescription = AudioComponentDescription(effect: "dist")

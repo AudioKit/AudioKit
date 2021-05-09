@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Synth
 ///
-public class Synth: Node, AudioUnitContainer {
+public class Synth: NodeBase, AudioUnitContainer {
     /// Four letter unique description "snth""
     public static let ComponentDescription = AudioComponentDescription(instrument: "snth")
 

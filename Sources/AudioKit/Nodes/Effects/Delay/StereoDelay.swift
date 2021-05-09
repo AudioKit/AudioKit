@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 /// TODO: This node needs tests
-public class StereoDelay: Node, AudioUnitContainer, Toggleable {
+public class StereoDelay: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "sdly"
     public static let ComponentDescription = AudioComponentDescription(effect: "sdly")

@@ -6,7 +6,7 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class OperationEffect: Node, AudioUnitContainer, Toggleable {
+public class OperationEffect: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Internal audio unit type
     public typealias AudioUnitType = AudioUnitBase

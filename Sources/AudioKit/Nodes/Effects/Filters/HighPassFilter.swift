@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-open class HighPassFilter: Node, Toggleable {
+open class HighPassFilter: NodeBase, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
-open class HighShelfFilter: Node, Toggleable {
+open class HighShelfFilter: NodeBase, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

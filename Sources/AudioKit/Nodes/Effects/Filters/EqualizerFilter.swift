@@ -10,7 +10,7 @@ import CAudioKit
 /// with a width dependent on bandwidth. If gain is less than 1, a notch is
 /// formed around the center frequency.
 /// 
-public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
+public class EqualizerFilter: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "eqfl"
     public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")

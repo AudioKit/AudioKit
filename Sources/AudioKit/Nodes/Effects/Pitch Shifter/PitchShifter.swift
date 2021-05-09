@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Faust-based pitch shfiter
-public class PitchShifter: Node, AudioUnitContainer, Toggleable {
+public class PitchShifter: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "pshf"
     public static let ComponentDescription = AudioComponentDescription(effect: "pshf")

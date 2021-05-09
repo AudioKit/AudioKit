@@ -7,7 +7,7 @@ import CoreAudio
 
 /// A version of Instrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-open class MIDIInstrument: Node, MIDIListener, NamedNode {
+open class MIDIInstrument: NodeBase, MIDIListener, NamedNode {
 
     // MARK: - Properties
 

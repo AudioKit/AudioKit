@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-public class Reverb: Node, Toggleable {
+public class Reverb: NodeBase, Toggleable {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     let input: Node

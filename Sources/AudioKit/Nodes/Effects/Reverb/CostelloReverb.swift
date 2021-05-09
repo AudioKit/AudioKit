@@ -7,7 +7,7 @@ import CAudioKit
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
 /// modeling scattering junction of 8 lossless waveguides of equal characteristic impedance.
 /// 
-public class CostelloReverb: Node, AudioUnitContainer, Toggleable {
+public class CostelloReverb: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "rvsc"
     public static let ComponentDescription = AudioComponentDescription(effect: "rvsc")

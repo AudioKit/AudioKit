@@ -146,7 +146,7 @@ class EngineTests: XCTestCase {
 
     func testConnectionTreeDescriptionForNilMainMixerNode() {
         let engine = AudioEngine()
-        XCTAssertEqual(engine.connectionTreeDescription, "\(Node.connectionTreeLinePrefix)mainMixerNode is nil")
+        XCTAssertEqual(engine.connectionTreeDescription, "\(connectionTreeLinePrefix)mainMixerNode is nil")
     }
 
     func testConnectionTreeDescriptionForSingleNodeAdded() {
@@ -155,8 +155,8 @@ class EngineTests: XCTestCase {
         engine.output = oscillator
         XCTAssertEqual(engine.connectionTreeDescription,
                        """
-                       \(Node.connectionTreeLinePrefix)↳Mixer("AudioKit Engine Mixer")
-                       \(Node.connectionTreeLinePrefix) ↳Oscillator
+                       \(connectionTreeLinePrefix)↳Mixer("AudioKit Engine Mixer")
+                       \(connectionTreeLinePrefix) ↳Oscillator
                        """)
     }
 
@@ -167,8 +167,8 @@ class EngineTests: XCTestCase {
         engine.output = mixerWithName
         XCTAssertEqual(engine.connectionTreeDescription,
                        """
-                       \(Node.connectionTreeLinePrefix)↳Mixer("AudioKit Engine Mixer")
-                       \(Node.connectionTreeLinePrefix) ↳Mixer("\(mixerName)")
+                       \(connectionTreeLinePrefix)↳Mixer("AudioKit Engine Mixer")
+                       \(connectionTreeLinePrefix) ↳Mixer("\(mixerName)")
                        """)
     }
 
@@ -179,8 +179,8 @@ class EngineTests: XCTestCase {
         let addressOfMixerWithoutName = MemoryAddress(of: mixerWithoutName)
         XCTAssertEqual(engine.connectionTreeDescription,
                        """
-                       \(Node.connectionTreeLinePrefix)↳Mixer("AudioKit Engine Mixer")
-                       \(Node.connectionTreeLinePrefix) ↳Mixer("\(addressOfMixerWithoutName)")
+                       \(connectionTreeLinePrefix)↳Mixer("AudioKit Engine Mixer")
+                       \(connectionTreeLinePrefix) ↳Mixer("\(addressOfMixerWithoutName)")
                        """)
     }
 }

@@ -382,7 +382,7 @@ class NodeTests: XCTestCase {
 
     func testConnectionTreeDescriptionForStandaloneNode() {
         let osc = Oscillator(waveform: Table(.triangle))
-        XCTAssertEqual(osc.connectionTreeDescription, "\(Node.connectionTreeLinePrefix)↳Oscillator")
+        XCTAssertEqual(osc.connectionTreeDescription, "\(connectionTreeLinePrefix)↳Oscillator")
     }
 
     func testConnectionTreeDescriptionForConnectedNode() {
@@ -393,10 +393,10 @@ class NodeTests: XCTestCase {
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
-        \(Node.connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
-        \(Node.connectionTreeLinePrefix) ↳Oscillator
-        \(Node.connectionTreeLinePrefix) ↳CostelloReverb
-        \(Node.connectionTreeLinePrefix)  ↳Oscillator
+        \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
+        \(connectionTreeLinePrefix) ↳Oscillator
+        \(connectionTreeLinePrefix) ↳CostelloReverb
+        \(connectionTreeLinePrefix)  ↳Oscillator
         """)
     }
 
@@ -410,9 +410,9 @@ class NodeTests: XCTestCase {
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
-        \(Node.connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
-        \(Node.connectionTreeLinePrefix) ↳Compressor
-        \(Node.connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
+        \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
+        \(connectionTreeLinePrefix) ↳Compressor
+        \(connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
         """)
     }
     #endif

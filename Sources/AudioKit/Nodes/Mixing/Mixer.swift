@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// AudioKit version of Apple's Mixer Node. Mixes a variadic list of Nodes.
-public class Mixer: Node, Toggleable, NamedNode {
+public class Mixer: NodeBase, Toggleable, NamedNode {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
 

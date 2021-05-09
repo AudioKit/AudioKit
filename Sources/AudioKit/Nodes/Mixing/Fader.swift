@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Fader.
-public class Fader: Node, AudioUnitContainer, Toggleable {
+public class Fader: NodeBase, AudioUnitContainer, Toggleable {
     /// Unique four-letter identifier "fder"
     public static let ComponentDescription = AudioComponentDescription(effect: "fder")
 

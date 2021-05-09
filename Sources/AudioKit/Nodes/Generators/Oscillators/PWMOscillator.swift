@@ -10,7 +10,7 @@ import CAudioKit
 /// different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 /// 
-public class PWMOscillator: Node, AudioUnitContainer, Toggleable {
+public class PWMOscillator: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "pwmo"
     public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")

@@ -7,7 +7,7 @@ import CAudioKit
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 /// 
-public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
+public class MorphingOscillator: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "morf"
     public static let ComponentDescription = AudioComponentDescription(generator: "morf")

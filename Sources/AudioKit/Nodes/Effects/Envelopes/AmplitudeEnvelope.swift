@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Triggerable classic ADSR envelope
-public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
+public class AmplitudeEnvelope: NodeBase, AudioUnitContainer, Toggleable {
 
     /// Unique four-letter identifier "adsr"
     public static let ComponentDescription = AudioComponentDescription(effect: "adsr")

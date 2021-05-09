@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Decimator Audio Unit
 ///
-open class Decimator: Node, Toggleable {
+open class Decimator: NodeBase, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

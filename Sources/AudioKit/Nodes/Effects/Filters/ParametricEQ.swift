@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-open class ParametricEQ: Node, Toggleable {
+open class ParametricEQ: NodeBase, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

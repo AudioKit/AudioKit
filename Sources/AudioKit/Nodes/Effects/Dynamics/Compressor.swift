@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit's Compression Parts
 ///
-open class Compressor: Node, Toggleable {
+open class Compressor: NodeBase, Toggleable {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
