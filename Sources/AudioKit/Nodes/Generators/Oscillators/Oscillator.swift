@@ -9,12 +9,6 @@ import CAudioKit
 /// 
 public class Oscillator: NodeBase {
 
-    /// Unique four-letter identifier "oscl"
-    public static let ComponentDescription = AudioComponentDescription(generator: "oscl")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
     // MARK: - Parameters
 
     fileprivate var waveform: Table?
@@ -91,9 +85,9 @@ public class Oscillator: NodeBase {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiateAudioUnit(componentDescription: Oscillator.ComponentDescription)
+        avAudioNode = instantiateAudioUnit(componentDescription: AudioComponentDescription(generator: "oscl"))
 
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitType else {
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
             fatalError("Couldn't create audio unit")
         }
         self.stop()
