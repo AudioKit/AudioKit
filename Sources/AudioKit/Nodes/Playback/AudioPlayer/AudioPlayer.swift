@@ -20,7 +20,7 @@ public class AudioPlayer: Node, HasInternalConnections {
     public private(set) var mixerNode = AVAudioMixerNode()
 
     /// The internal AVAudioEngine AVAudioNode
-    public var avAudioNode: AVAudioNode
+    public var avAudioNode: AVAudioNode { return mixerNode }
 
     /// Just the playerNode's property, values above 1 will have gain applied
     public var volume: AUValue {
@@ -198,14 +198,10 @@ public class AudioPlayer: Node, HasInternalConnections {
     // MARK: - Init
 
     /// Create an AudioPlayer with default properties and nothing pre-loaded
-    public init() {
-        avAudioNode = mixerNode
-    }
+    public init() { }
 
     /// Create an AudioPlayer from file, optionally choosing to buffer it
     public init?(file: AVAudioFile, buffered: Bool = false) {
-        avAudioNode = mixerNode
-
         do {
             try load(file: file, buffered: buffered)
         } catch let error as NSError {
