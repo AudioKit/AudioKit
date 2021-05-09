@@ -8,7 +8,7 @@ import CAudioKit
 public class WhiteNoise: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(generator: "wnoz")
+    public var avAudioNode = instantiate2(instrument: "wnoz")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(

@@ -10,7 +10,7 @@ import CAudioKit
 public class Drip: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(generator: "drip")
+    public var avAudioNode = instantiate2(instrument: "drip")
 
     /// Specification details for intensity
     public static let intensityDef = NodeParameterDef(

@@ -8,7 +8,7 @@ import CAudioKit
 public class PinkNoise: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(generator: "pink")
+    public var avAudioNode = instantiate2(instrument: "pink")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(

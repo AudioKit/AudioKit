@@ -61,7 +61,8 @@ public class PluckedString: Node {
 
     /// Trigger the sound with current parameters
     ///
-    open func trigger() {
+    public func trigger() {
+        start()
         auBase.trigger()
     }
 
@@ -71,7 +72,7 @@ public class PluckedString: Node {
     ///   - frequency: Frequency in Hz
     ///   - amplitude: Volume
     ///
-    open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+    public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
         trigger()
