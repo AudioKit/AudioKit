@@ -17,7 +17,7 @@ func setParams(node: Node, rng: GKRandomSource) {
 
 }
 
-func generatorNodeTest(factory: ()->Node) -> AVAudioPCMBuffer {
+func generatorNodeRandomizedTest(factory: ()->Node) -> AVAudioPCMBuffer {
 
     // We want determinism.
     let rng = GKMersenneTwisterRandomSource(seed: 0)
@@ -49,3 +49,35 @@ func generatorNodeTest(factory: ()->Node) -> AVAudioPCMBuffer {
 
 }
 
+func generatorNodeParameterTest(factory: ()->Node) -> AVAudioPCMBuffer {
+
+    let duration = factory().parameters.count
+
+    let engine = AudioEngine()
+    var bigBuffer: AVAudioPCMBuffer? = nil
+
+    for i in 0 ..< duration {
+
+        let node = factory()
+        engine.output = node
+
+        let param = node.parameters[i]
+
+        node.start()
+
+        param.value = param.def.range.lowerBound
+        param.ramp(to: param.def.range.upperBound, duration: 1)
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+
+        if bigBuffer == nil {
+            bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength*UInt32(duration))
+        }
+
+        bigBuffer?.append(audio)
+
+    }
+
+    return bigBuffer!
+}

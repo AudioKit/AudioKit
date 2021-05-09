@@ -27,6 +27,6 @@ class BrownianNoiseTests: XCTestCase {
     }
 
     func testGeneric() {
-        testMD5(generatorNodeTest(factory: { BrownianNoise() }))
+        testMD5(generatorNodeRandomizedTest(factory: { BrownianNoise() }))
     }
 }
