@@ -20,8 +20,7 @@ public class Oscillator: NodeBase {
         address: akGetParameterAddress("OscillatorParameterFrequency"),
         defaultValue: 440.0,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency in cycles per second
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -33,8 +32,7 @@ public class Oscillator: NodeBase {
         address: akGetParameterAddress("OscillatorParameterAmplitude"),
         defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Output Amplitude.
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -46,8 +44,7 @@ public class Oscillator: NodeBase {
         address: akGetParameterAddress("OscillatorParameterDetuningOffset"),
         defaultValue: 0.0,
         range: -1_000.0 ... 1_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency offset in Hz.
     @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
@@ -59,8 +56,7 @@ public class Oscillator: NodeBase {
         address: akGetParameterAddress("OscillatorParameterDetuningMultiplier"),
         defaultValue: 1.0,
         range: 0.9 ... 1.11,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Frequency detuning multiplier
     @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
