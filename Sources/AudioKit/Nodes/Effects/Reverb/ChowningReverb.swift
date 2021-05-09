@@ -13,16 +13,7 @@ import CAudioKit
 /// allpass units, followed by four parallel comb filters, and two decorrelation delay lines in
 /// parallel at the output.
 /// 
-public class ChowningReverb: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "jcrv"
-    public static let ComponentDescription = AudioComponentDescription(effect: "jcrv")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class ChowningReverb: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -42,14 +33,7 @@ public class ChowningReverb: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "jcrv")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-        }
    }
 }

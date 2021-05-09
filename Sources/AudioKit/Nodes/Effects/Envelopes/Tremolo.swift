@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Table-lookup tremolo with linear interpolation
-public class Tremolo: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "trem"
-    public static let ComponentDescription = AudioComponentDescription(effect: "trem")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class Tremolo: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -53,7 +44,7 @@ public class Tremolo: NodeBase, AudioUnitContainer {
     ///   - input: Input node to process
     ///   - frequency: Frequency (Hz)
     ///   - depth: Depth
-    ///   - waveform: Shape of the curve
+    ///   - waveform: Shape of the tremolo curve
     ///
     public init(
         _ input: Node,
@@ -64,18 +55,14 @@ public class Tremolo: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.internalAU?.setWavetable(waveform.content)
-
-            self.frequency = frequency
-            self.depth = depth
+        avAudioNode = instantiate(effect: "trem")
+        
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        audioUnit.setWavetable(waveform.content)
+
+        self.frequency = frequency
+        self.depth = depth
    }
 }

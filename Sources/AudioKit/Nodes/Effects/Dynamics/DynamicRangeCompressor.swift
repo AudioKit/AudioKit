@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Dynamic range compressor from Faust
-public class DynamicRangeCompressor: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "cpsr"
-    public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class DynamicRangeCompressor: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -90,18 +81,11 @@ public class DynamicRangeCompressor: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "cpsr")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.ratio = ratio
-            self.threshold = threshold
-            self.attackDuration = attackDuration
-            self.releaseDuration = releaseDuration
-        }
+        self.ratio = ratio
+        self.threshold = threshold
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
    }
 }

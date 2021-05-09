@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// This is a stereo phaser, generated from Faust code taken from the Guitarix project.
-public class Phaser: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "phas"
-    public static let ComponentDescription = AudioComponentDescription(effect: "phas")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class Phaser: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -160,23 +151,16 @@ public class Phaser: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "phas")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.notchMinimumFrequency = notchMinimumFrequency
-            self.notchMaximumFrequency = notchMaximumFrequency
-            self.notchWidth = notchWidth
-            self.notchFrequency = notchFrequency
-            self.vibratoMode = vibratoMode
-            self.depth = depth
-            self.feedback = feedback
-            self.inverted = inverted
-            self.lfoBPM = lfoBPM
-        }
+        self.notchMinimumFrequency = notchMinimumFrequency
+        self.notchMaximumFrequency = notchMaximumFrequency
+        self.notchWidth = notchWidth
+        self.notchFrequency = notchFrequency
+        self.vibratoMode = vibratoMode
+        self.depth = depth
+        self.feedback = feedback
+        self.inverted = inverted
+        self.lfoBPM = lfoBPM
    }
 }

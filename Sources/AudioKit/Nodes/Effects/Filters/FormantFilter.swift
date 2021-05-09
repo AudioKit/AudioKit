@@ -7,16 +7,7 @@ import CAudioKit
 /// When fed with a pulse train, it will generate a series of overlapping grains. 
 /// Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps.
 /// 
-public class FormantFilter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "fofi"
-    public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class FormantFilter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -78,17 +69,10 @@ public class FormantFilter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "fofi")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.centerFrequency = centerFrequency
-            self.attackDuration = attackDuration
-            self.decayDuration = decayDuration
-        }
+        self.centerFrequency = centerFrequency
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
    }
 }

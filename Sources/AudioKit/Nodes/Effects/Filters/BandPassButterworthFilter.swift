@@ -54,11 +54,10 @@ public class BandPassButterworthFilter: NodeBase {
         ) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
-        
+
         avAudioNode = instantiate(effect: "btbp")
-        
+
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
-
    }
 }

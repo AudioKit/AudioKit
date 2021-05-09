@@ -7,16 +7,7 @@ import CAudioKit
 /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  
 /// Based on work by Perry Cook.
 /// 
-public class DCBlock: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "dcbk"
-    public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class DCBlock: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -36,14 +27,7 @@ public class DCBlock: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "dcbk")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-        }
    }
 }

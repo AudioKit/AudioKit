@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Analogue model of the Korg 35 Lowpass Filter
-public class KorgLowPassFilter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "klpf"
-    public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class KorgLowPassFilter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -76,17 +67,10 @@ public class KorgLowPassFilter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "klpf")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
-            self.saturation = saturation
-        }
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
+        self.saturation = saturation
    }
 }

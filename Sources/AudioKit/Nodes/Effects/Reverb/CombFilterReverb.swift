@@ -10,16 +10,7 @@ import CAudioKit
 /// or 60dB down from its original amplitude). Output from a comb filter will appear
 /// only after loopDuration seconds.
 /// 
-public class CombFilterReverb: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "comb"
-    public static let ComponentDescription = AudioComponentDescription(effect: "comb")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class CombFilterReverb: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -55,17 +46,13 @@ public class CombFilterReverb: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "comb")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            akCombFilterReverbSetLoopDuration(audioUnit.dsp, loopDuration)
-
-            self.reverbDuration = reverbDuration
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        akCombFilterReverbSetLoopDuration(audioUnit.dsp, loopDuration)
+
+        self.reverbDuration = reverbDuration
    }
 }

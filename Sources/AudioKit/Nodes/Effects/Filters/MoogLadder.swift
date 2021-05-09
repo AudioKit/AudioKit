@@ -9,16 +9,7 @@ import CAudioKit
 /// "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli).
 /// This implementation is probably a more accurate digital representation of the original analogue filter.
 /// 
-public class MoogLadder: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "mgld"
-    public static let ComponentDescription = AudioComponentDescription(effect: "mgld")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class MoogLadder: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -66,16 +57,9 @@ public class MoogLadder: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "mgld")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
-        }
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
    }
 }

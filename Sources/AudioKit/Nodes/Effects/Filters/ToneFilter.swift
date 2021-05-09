@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A first-order recursive low-pass filter with variable frequency response.
-public class ToneFilter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "tone"
-    public static let ComponentDescription = AudioComponentDescription(effect: "tone")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class ToneFilter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -48,15 +39,8 @@ public class ToneFilter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "tone")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.halfPowerPoint = halfPowerPoint
-        }
+        self.halfPowerPoint = halfPowerPoint
    }
 }

@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
-public class ZitaReverb: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "zita"
-    public static let ComponentDescription = AudioComponentDescription(effect: "zita")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class ZitaReverb: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -174,24 +165,17 @@ public class ZitaReverb: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "zita")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.predelay = predelay
-            self.crossoverFrequency = crossoverFrequency
-            self.lowReleaseTime = lowReleaseTime
-            self.midReleaseTime = midReleaseTime
-            self.dampingFrequency = dampingFrequency
-            self.equalizerFrequency1 = equalizerFrequency1
-            self.equalizerLevel1 = equalizerLevel1
-            self.equalizerFrequency2 = equalizerFrequency2
-            self.equalizerLevel2 = equalizerLevel2
-            self.dryWetMix = dryWetMix
-        }
+        self.predelay = predelay
+        self.crossoverFrequency = crossoverFrequency
+        self.lowReleaseTime = lowReleaseTime
+        self.midReleaseTime = midReleaseTime
+        self.dampingFrequency = dampingFrequency
+        self.equalizerFrequency1 = equalizerFrequency1
+        self.equalizerLevel1 = equalizerLevel1
+        self.equalizerFrequency2 = equalizerFrequency2
+        self.equalizerLevel2 = equalizerLevel2
+        self.dryWetMix = dryWetMix
    }
 }

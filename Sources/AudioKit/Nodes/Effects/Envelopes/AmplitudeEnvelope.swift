@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Triggerable classic ADSR envelope
-public class AmplitudeEnvelope: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "adsr"
-    public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class AmplitudeEnvelope: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -90,18 +81,11 @@ public class AmplitudeEnvelope: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "adsr")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.attackDuration = attackDuration
-            self.decayDuration = decayDuration
-            self.sustainLevel = sustainLevel
-            self.releaseDuration = releaseDuration
-        }
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
+        self.sustainLevel = sustainLevel
+        self.releaseDuration = releaseDuration
    }
 }

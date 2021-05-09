@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Emulation of the Roland TB-303 filter
-public class RolandTB303Filter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "tb3f"
-    public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class RolandTB303Filter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -90,18 +81,11 @@ public class RolandTB303Filter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "tb3f")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
-            self.distortion = distortion
-            self.resonanceAsymmetry = resonanceAsymmetry
-        }
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
+        self.distortion = distortion
+        self.resonanceAsymmetry = resonanceAsymmetry
    }
 }

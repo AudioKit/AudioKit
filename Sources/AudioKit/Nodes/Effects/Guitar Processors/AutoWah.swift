@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// An automatic wah effect, ported from Guitarix via Faust.
-public class AutoWah: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "awah"
-    public static let ComponentDescription = AudioComponentDescription(effect: "awah")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class AutoWah: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -76,17 +67,10 @@ public class AutoWah: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "awah")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.wah = wah
-            self.mix = mix
-            self.amplitude = amplitude
-        }
+        self.wah = wah
+        self.mix = mix
+        self.amplitude = amplitude
    }
 }

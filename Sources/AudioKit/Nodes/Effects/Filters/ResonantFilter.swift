@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// The output for reson appears to be very hot, so take caution when using this module.
-public class ResonantFilter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "resn"
-    public static let ComponentDescription = AudioComponentDescription(effect: "resn")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class ResonantFilter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -62,16 +53,9 @@ public class ResonantFilter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "resn")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.frequency = frequency
-            self.bandwidth = bandwidth
-        }
+        self.frequency = frequency
+        self.bandwidth = bandwidth
    }
 }
