@@ -8,7 +8,7 @@ import CAudioKit
 /// played from disk. If you want seamless looping then buffer it. You can still loop from disk, but the
 /// loop will not be totally seamless.
 
-public class AudioPlayer: Node, HasInternalConnections {
+public class AudioPlayer: Node {
 
     /// Nodes providing input to this node.
     public var connections: [Node] { [] }
@@ -184,16 +184,6 @@ public class AudioPlayer: Node, HasInternalConnections {
             return
         }
     }
-
-    // called in the connection chain to attach the playerNode
-    public func makeInternalConnections() {
-        guard let engine = mixerNode.engine else {
-            Log("Engine is nil", type: .error)
-            return
-        }
-        engine.attach(playerNode)
-        engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
-    }
     
     // MARK: - Init
 
@@ -261,4 +251,18 @@ public class AudioPlayer: Node, HasInternalConnections {
     public func load(buffer: AVAudioPCMBuffer) {
         self.buffer = buffer
     }
+}
+
+extension AudioPlayer: HasInternalConnections {
+
+    // called in the connection chain to attach the playerNode
+    public func makeInternalConnections() {
+        guard let engine = mixerNode.engine else {
+            Log("Engine is nil", type: .error)
+            return
+        }
+        engine.attach(playerNode)
+        engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
+    }
+
 }
