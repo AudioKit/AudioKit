@@ -118,7 +118,7 @@ extension Node {
     public func play() { bypassed = false }
     public func bypass() { bypassed = true }
 
-    public func instantiateAudioUnit(componentDescription: AudioComponentDescription) -> AVAudioUnit {
+    func instantiateAudioUnit(componentDescription: AudioComponentDescription) -> AVAudioUnit {
 
         let semaphore = DispatchSemaphore(value: 0)
         var result: AVAudioUnit!
