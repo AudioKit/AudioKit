@@ -28,8 +28,7 @@ public class DynamicRangeCompressor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DynamicRangeCompressorParameterRatio"),
         defaultValue: 1,
         range: 0.01 ... 100.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Ratio to compress with, a value > 1 will compress
     @Parameter(ratioDef) public var ratio: AUValue
@@ -41,8 +40,7 @@ public class DynamicRangeCompressor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DynamicRangeCompressorParameterThreshold"),
         defaultValue: 0.0,
         range: -100.0 ... 0.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Threshold (in dB) 0 = max
     @Parameter(thresholdDef) public var threshold: AUValue
@@ -54,8 +52,7 @@ public class DynamicRangeCompressor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DynamicRangeCompressorParameterAttackDuration"),
         defaultValue: 0.1,
         range: 0.0 ... 1.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Attack duration
     @Parameter(attackDurationDef) public var attackDuration: AUValue
@@ -67,8 +64,7 @@ public class DynamicRangeCompressor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DynamicRangeCompressorParameterReleaseDuration"),
         defaultValue: 0.1,
         range: 0.0 ... 1.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Release Duration
     @Parameter(releaseDurationDef) public var releaseDuration: AUValue

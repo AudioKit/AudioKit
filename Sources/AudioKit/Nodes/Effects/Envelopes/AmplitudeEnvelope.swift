@@ -28,8 +28,7 @@ public class AmplitudeEnvelope: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AmplitudeEnvelopeParameterAttackDuration"),
         defaultValue: 0.1,
         range: 0 ... 99,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Attack time
     @Parameter(attackDurationDef) public var attackDuration: AUValue
@@ -41,8 +40,7 @@ public class AmplitudeEnvelope: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AmplitudeEnvelopeParameterDecayDuration"),
         defaultValue: 0.1,
         range: 0 ... 99,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Decay time
     @Parameter(decayDurationDef) public var decayDuration: AUValue
@@ -54,8 +52,7 @@ public class AmplitudeEnvelope: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AmplitudeEnvelopeParameterSustainLevel"),
         defaultValue: 1.0,
         range: 0 ... 99,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Sustain Level
     @Parameter(sustainLevelDef) public var sustainLevel: AUValue
@@ -67,8 +64,7 @@ public class AmplitudeEnvelope: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AmplitudeEnvelopeParameterReleaseDuration"),
         defaultValue: 0.1,
         range: 0 ... 99,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Release time
     @Parameter(releaseDurationDef) public var releaseDuration: AUValue

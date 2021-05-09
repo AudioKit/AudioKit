@@ -22,8 +22,7 @@ open class Expander: NodeBase {
         address: 2,
         defaultValue: 2,
         range: 1 ... 50.0,
-        unit: .rate,
-        flags: .default)
+        unit: .rate)
 
     /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
     @Parameter(expansionRatioDef) public var expansionRatio: AUValue
@@ -35,8 +34,7 @@ open class Expander: NodeBase {
         address: 3,
         defaultValue: 2,
         range: 1 ... 50.0,
-        unit: .rate,
-        flags: .default)
+        unit: .rate)
 
     /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
     @Parameter(expansionThresholdDef) public var expansionThreshold: AUValue
@@ -48,8 +46,7 @@ open class Expander: NodeBase {
         address: 4,
         defaultValue: 0.001,
         range: 0.0001 ... 0.2,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Attack Time (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
     @Parameter(attackTimeDef) public var attackTime: AUValue
@@ -61,8 +58,7 @@ open class Expander: NodeBase {
         address: 5,
         defaultValue: 0.05,
         range: 0.01 ... 3,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Release Time (seconds) ranges from 0.01 to 3 (Default: 0.05)
     @Parameter(releaseTimeDef) public var releaseTime: AUValue
@@ -74,8 +70,7 @@ open class Expander: NodeBase {
         address: 6,
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Master Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(masterGainDef) public var masterGain: AUValue

@@ -28,8 +28,7 @@ public class Clipper: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ClipperParameterLimit"),
         defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Threshold / limiting value.
     @Parameter(limitDef) public var limit: AUValue

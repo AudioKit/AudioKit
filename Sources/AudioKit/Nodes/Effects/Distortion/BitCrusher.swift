@@ -28,8 +28,7 @@ public class BitCrusher: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("BitCrusherParameterBitDepth"),
         defaultValue: 8,
         range: 1 ... 24,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     @Parameter(bitDepthDef) public var bitDepth: AUValue
@@ -41,8 +40,7 @@ public class BitCrusher: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("BitCrusherParameterSampleRate"),
         defaultValue: 10_000,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// The sample rate of signal output.
     @Parameter(sampleRateDef) public var sampleRate: AUValue

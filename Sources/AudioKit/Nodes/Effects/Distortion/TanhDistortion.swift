@@ -28,8 +28,7 @@ public class TanhDistortion: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("TanhDistortionParameterPregain"),
         defaultValue: 2.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Determines gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @Parameter(pregainDef) public var pregain: AUValue
@@ -41,8 +40,7 @@ public class TanhDistortion: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("TanhDistortionParameterPostgain"),
         defaultValue: 0.5,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Gain applied after waveshaping
     @Parameter(postgainDef) public var postgain: AUValue
@@ -54,8 +52,7 @@ public class TanhDistortion: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("TanhDistortionParameterPositiveShapeParameter"),
         defaultValue: 0.0,
         range: -10.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
     @Parameter(positiveShapeParameterDef) public var positiveShapeParameter: AUValue
@@ -67,8 +64,7 @@ public class TanhDistortion: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("TanhDistortionParameterNegativeShapeParameter"),
         defaultValue: 0.0,
         range: -10.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Like the positive shape parameter, only for the negative part.
     @Parameter(negativeShapeParameterDef) public var negativeShapeParameter: AUValue

@@ -28,8 +28,7 @@ public class VariableDelay: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VariableDelayParameterTime"),
         defaultValue: 0,
         range: 0 ... 10,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter(timeDef) public var time: AUValue
@@ -41,8 +40,7 @@ public class VariableDelay: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VariableDelayParameterFeedback"),
         defaultValue: 0,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Feedback amount. Should be a value between 0-1.
     @Parameter(feedbackDef) public var feedback: AUValue

@@ -25,8 +25,7 @@ public class WhiteNoise: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("WhiteNoiseParameterAmplitude"),
         defaultValue: 1,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amplitude. (Value between 0-1).
     @Parameter(amplitudeDef) public var amplitude: AUValue

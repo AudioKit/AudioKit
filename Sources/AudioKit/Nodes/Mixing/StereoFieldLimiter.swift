@@ -28,8 +28,7 @@ public class StereoFieldLimiter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StereoFieldLimiterParameterAmount"),
         defaultValue: 1,
         range: 0.0...1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Limiting Factor
     @Parameter(amountDef) public var amount: AUValue

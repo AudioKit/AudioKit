@@ -22,8 +22,7 @@ open class ParametricEQ: NodeBase {
         address: 0,
         defaultValue: 2000,
         range: 20 ... 22050,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center Freq (Hertz) ranges from 20 to 22050 (Default: 2000)
     @Parameter(centerFreqDef) public var centerFreq: AUValue
@@ -35,8 +34,7 @@ open class ParametricEQ: NodeBase {
         address: 1,
         defaultValue: 1.0,
         range: 0.1 ... 20,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Q (Hertz) ranges from 0.1 to 20 (Default: 1.0)
     @Parameter(qDef) public var q: AUValue
@@ -48,8 +46,7 @@ open class ParametricEQ: NodeBase {
         address: 2,
         defaultValue: 0,
         range: -20 ... 20,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Gain (decibels) ranges from -20 to 20 (Default: 0)
     @Parameter(gainDef) public var gain: AUValue

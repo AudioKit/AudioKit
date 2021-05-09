@@ -28,8 +28,7 @@ public class StereoDelay: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StereoDelayParameterTime"),
         defaultValue: 0,
         range: 0 ... 2.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter(timeDef) public var time: AUValue
@@ -41,8 +40,7 @@ public class StereoDelay: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StereoDelayParameterFeedback"),
         defaultValue: 0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Feedback amount. Should be a value between 0-1.
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -54,8 +52,7 @@ public class StereoDelay: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StereoDelayParameterDryWetMix"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Dry/wet mix. Should be a value between 0-1.
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue

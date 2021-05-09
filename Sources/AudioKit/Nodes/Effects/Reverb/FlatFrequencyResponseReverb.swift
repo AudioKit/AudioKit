@@ -31,8 +31,7 @@ public class FlatFrequencyResponseReverb: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FlatFrequencyResponseReverbParameterReverbDuration"),
         defaultValue: 0.5,
         range: 0 ... 10,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
     @Parameter(reverbDurationDef) public var reverbDuration: AUValue

@@ -37,8 +37,7 @@ public class Fader: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FaderParameterLeftGain"),
         defaultValue: 1,
         range: Fader.gainRange,
-        unit: .linearGain,
-        flags: .default)
+        unit: .linearGain)
 
     /// Left Channel Amplification Factor
     @Parameter(leftGainDef) public var leftGain: AUValue
@@ -50,8 +49,7 @@ public class Fader: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FaderParameterRightGain"),
         defaultValue: 1,
         range: Fader.gainRange,
-        unit: .linearGain,
-        flags: .default)
+        unit: .linearGain)
 
     /// Right Channel Amplification Factor
     @Parameter(rightGainDef) public var rightGain: AUValue
@@ -69,8 +67,7 @@ public class Fader: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FaderParameterFlipStereo"),
         defaultValue: 0,
         range: 0.0 ... 1.0,
-        unit: .boolean,
-        flags: .default)
+        unit: .boolean)
 
     /// Flip left and right signal
     @Parameter(flipStereoDef) public var flipStereo: Bool
@@ -82,8 +79,7 @@ public class Fader: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FaderParameterMixToMono"),
         defaultValue: 0,
         range: 0.0 ... 1.0,
-        unit: .boolean,
-        flags: .default)
+        unit: .boolean)
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
     @Parameter(mixToMonoDef) public var mixToMono: Bool

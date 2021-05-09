@@ -30,8 +30,7 @@ public class HighPassButterworthFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("HighPassButterworthFilterParameterCutoffFrequency"),
         defaultValue: 500.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Cutoff frequency. (in Hertz)
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue

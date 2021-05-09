@@ -28,8 +28,7 @@ public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterDistortion"),
         defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     @Parameter(distortionDef) public var distortion: AUValue
@@ -41,8 +40,7 @@ public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterCutoffFrequency"),
         defaultValue: 1_500,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Filter cutoff frequency in Hertz.
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -54,8 +52,7 @@ public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterResonance"),
         defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     @Parameter(resonanceDef) public var resonance: AUValue

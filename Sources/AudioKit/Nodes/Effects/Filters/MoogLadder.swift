@@ -32,8 +32,7 @@ public class MoogLadder: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MoogLadderParameterCutoffFrequency"),
         defaultValue: 1_000,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Filter cutoff frequency.
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -45,8 +44,7 @@ public class MoogLadder: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MoogLadderParameterResonance"),
         defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @Parameter(resonanceDef) public var resonance: AUValue

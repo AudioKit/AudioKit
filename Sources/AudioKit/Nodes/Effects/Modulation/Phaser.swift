@@ -28,8 +28,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterNotchMinimumFrequency"),
         defaultValue: 100,
         range: 20 ... 5_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Notch Minimum Frequency
     @Parameter(notchMinimumFrequencyDef) public var notchMinimumFrequency: AUValue
@@ -41,8 +40,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterNotchMaximumFrequency"),
         defaultValue: 800,
         range: 20 ... 10_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Notch Maximum Frequency
     @Parameter(notchMaximumFrequencyDef) public var notchMaximumFrequency: AUValue
@@ -54,8 +52,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterNotchWidth"),
         defaultValue: 1_000,
         range: 10 ... 5_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Between 10 and 5000
     @Parameter(notchWidthDef) public var notchWidth: AUValue
@@ -67,8 +64,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterNotchFrequency"),
         defaultValue: 1.5,
         range: 1.1 ... 4.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Between 1.1 and 4
     @Parameter(notchFrequencyDef) public var notchFrequency: AUValue
@@ -80,8 +76,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterVibratoMode"),
         defaultValue: 1,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Direct or Vibrato (default)
     @Parameter(vibratoModeDef) public var vibratoMode: AUValue
@@ -93,8 +88,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterDepth"),
         defaultValue: 1,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Between 0 and 1
     @Parameter(depthDef) public var depth: AUValue
@@ -106,8 +100,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterFeedback"),
         defaultValue: 0,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Between 0 and 1
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -119,8 +112,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterInverted"),
         defaultValue: 0,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// 1 or 0
     @Parameter(invertedDef) public var inverted: AUValue
@@ -132,8 +124,7 @@ public class Phaser: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaserParameterLfoBPM"),
         defaultValue: 30,
         range: 24 ... 360,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Between 24 and 360
     @Parameter(lfoBPMDef) public var lfoBPM: AUValue

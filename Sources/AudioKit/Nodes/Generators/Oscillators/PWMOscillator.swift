@@ -30,8 +30,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterFrequency"),
         defaultValue: 440,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// In cycles per second, or Hz.
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -43,8 +42,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterAmplitude"),
         defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Output amplitude
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -56,8 +54,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterPulseWidth"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Duty cycle width (range 0-1).
     @Parameter(pulseWidthDef) public var pulseWidth: AUValue
@@ -69,8 +66,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterDetuningOffset"),
         defaultValue: 0,
         range: -1_000.0 ... 1_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency offset in Hz.
     @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
@@ -82,8 +78,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterDetuningMultiplier"),
         defaultValue: 1,
         range: 0.9 ... 1.11,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Frequency detuning multiplier
     @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue

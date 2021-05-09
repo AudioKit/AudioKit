@@ -29,8 +29,7 @@ public class DryWetMixer: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DryWetMixerParameterBalance"),
         defaultValue: 0.5,
         range: 0.0...1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Balance between input signals
     @Parameter(balanceDef) public var balance: AUValue

@@ -33,8 +33,7 @@ public class StringResonator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StringResonatorParameterFundamentalFrequency"),
         defaultValue: 100,
         range: 12.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Fundamental frequency of string.
     @Parameter(fundamentalFrequencyDef) public var fundamentalFrequency: AUValue
@@ -46,8 +45,7 @@ public class StringResonator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StringResonatorParameterFeedback"),
         defaultValue: 0.95,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     @Parameter(feedbackDef) public var feedback: AUValue

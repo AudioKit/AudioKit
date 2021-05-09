@@ -22,8 +22,7 @@ open class Distortion: NodeBase {
         address: 0,
         defaultValue: 0.1,
         range: 0.1 ... 500,
-        unit: .milliseconds,
-        flags: .default)
+        unit: .milliseconds)
 
     /// Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
     @Parameter(delayDef) public var delay: AUValue
@@ -35,8 +34,7 @@ open class Distortion: NodeBase {
         address: 1,
         defaultValue: 1.0,
         range: 0.1 ... 50,
-        unit: .rate,
-        flags: .default)
+        unit: .rate)
 
     /// Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
     @Parameter(decayDef) public var decay: AUValue
@@ -48,8 +46,7 @@ open class Distortion: NodeBase {
         address: 2,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Delay Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(delayMixDef) public var delayMix: AUValue
@@ -61,8 +58,7 @@ open class Distortion: NodeBase {
         address: 3,
         defaultValue: 100,
         range: 0.5 ... 8000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @Parameter(ringModFreq1Def) public var ringModFreq1: AUValue
@@ -74,8 +70,7 @@ open class Distortion: NodeBase {
         address: 4,
         defaultValue: 100,
         range: 0.5 ... 8000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @Parameter(ringModFreq2Def) public var ringModFreq2: AUValue
@@ -87,8 +82,7 @@ open class Distortion: NodeBase {
         address: 5,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(ringModBalanceDef) public var ringModBalance: AUValue
@@ -100,8 +94,7 @@ open class Distortion: NodeBase {
         address: 6,
         defaultValue: 0,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0)
     @Parameter(ringModMixDef) public var ringModMix: AUValue
@@ -113,8 +106,7 @@ open class Distortion: NodeBase {
         address: 7,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(decimationDef) public var decimation: AUValue
@@ -126,8 +118,7 @@ open class Distortion: NodeBase {
         address: 8,
         defaultValue: 0,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
     @Parameter(roundingDef) public var rounding: AUValue
@@ -139,8 +130,7 @@ open class Distortion: NodeBase {
         address: 9,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Decimation Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(decimationMixDef) public var decimationMix: AUValue
@@ -152,8 +142,7 @@ open class Distortion: NodeBase {
         address: 10,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Linear Term (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(linearTermDef) public var linearTerm: AUValue
@@ -165,8 +154,7 @@ open class Distortion: NodeBase {
         address: 11,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Squared Term (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(squaredTermDef) public var squaredTerm: AUValue
@@ -178,8 +166,7 @@ open class Distortion: NodeBase {
         address: 12,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Cubic Term (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(cubicTermDef) public var cubicTerm: AUValue
@@ -191,8 +178,7 @@ open class Distortion: NodeBase {
         address: 13,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(polynomialMixDef) public var polynomialMix: AUValue
@@ -204,8 +190,7 @@ open class Distortion: NodeBase {
         address: 14,
         defaultValue: -6,
         range: -80 ... 20,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Soft Clip Gain (decibels) ranges from -80 to 20 (Default: -6)
     @Parameter(softClipGainDef) public var softClipGain: AUValue
@@ -217,8 +202,7 @@ open class Distortion: NodeBase {
         address: 15,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue

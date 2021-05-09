@@ -27,8 +27,7 @@ public class TransientShaper: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("TransientShaperParameterInputAmount"),
         defaultValue: 0.0,
         range: -60.0 ... 30.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Input Amount
     @Parameter(inputAmountDef) public var inputAmount: AUValue
@@ -40,8 +39,7 @@ public class TransientShaper: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("TransientShaperParameterAttackAmount"),
         defaultValue: 0.0,
         range: -40.0 ... 40.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Attack Amount
     @Parameter(attackAmountDef) public var attackAmount: AUValue
@@ -53,8 +51,7 @@ public class TransientShaper: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("TransientShaperParameterReleaseAmount"),
         defaultValue: 0.0,
         range: -40.0 ... 40.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Release Amount
     @Parameter(releaseAmountDef) public var releaseAmount: AUValue
@@ -66,8 +63,7 @@ public class TransientShaper: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("TransientShaperParameterOutputAmount"),
         defaultValue: 0.0,
         range: -60.0 ... 30.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Output Amount
     @Parameter(outputAmountDef) public var outputAmount: AUValue

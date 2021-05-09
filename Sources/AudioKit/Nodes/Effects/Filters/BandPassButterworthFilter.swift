@@ -30,8 +30,7 @@ public class BandPassButterworthFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("BandPassButterworthFilterParameterCenterFrequency"),
         defaultValue: 2_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency. (in Hertz)
     @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
@@ -43,8 +42,7 @@ public class BandPassButterworthFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("BandPassButterworthFilterParameterBandwidth"),
         defaultValue: 100.0,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Bandwidth. (in Hertz)
     @Parameter(bandwidthDef) public var bandwidth: AUValue

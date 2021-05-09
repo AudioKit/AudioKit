@@ -28,8 +28,7 @@ public class AutoPanner: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AutoPannerParameterFrequency"),
         defaultValue: 10.0,
         range: 0.0 ... 100.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency (Hz)
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -41,8 +40,7 @@ public class AutoPanner: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AutoPannerParameterDepth"),
         defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Depth
     @Parameter(depthDef) public var depth: AUValue

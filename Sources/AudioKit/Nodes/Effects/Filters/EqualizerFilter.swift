@@ -33,8 +33,7 @@ public class EqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("EqualizerFilterParameterCenterFrequency"),
         defaultValue: 1_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency. (in Hertz)
     @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
@@ -46,8 +45,7 @@ public class EqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("EqualizerFilterParameterBandwidth"),
         defaultValue: 100.0,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// The peak/notch bandwidth in Hertz
     @Parameter(bandwidthDef) public var bandwidth: AUValue
@@ -59,8 +57,7 @@ public class EqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("EqualizerFilterParameterGain"),
         defaultValue: 10.0,
         range: -100.0 ... 100.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// The peak/notch gain
     @Parameter(gainDef) public var gain: AUValue

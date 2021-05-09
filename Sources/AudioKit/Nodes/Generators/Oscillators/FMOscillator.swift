@@ -27,8 +27,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterBaseFrequency"),
         defaultValue: 440.0,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// In cycles per second, the common denominator for the carrier and modulating frequencies.
     @Parameter(baseFrequencyDef) public var baseFrequency: AUValue
@@ -40,8 +39,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterCarrierMultiplier"),
         defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
     @Parameter(carrierMultiplierDef) public var carrierMultiplier: AUValue
@@ -53,8 +51,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterModulatingMultiplier"),
         defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
     @Parameter(modulatingMultiplierDef) public var modulatingMultiplier: AUValue
@@ -66,8 +63,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterModulationIndex"),
         defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     @Parameter(modulationIndexDef) public var modulationIndex: AUValue
@@ -79,8 +75,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterAmplitude"),
         defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Output Amplitude.
     @Parameter(amplitudeDef) public var amplitude: AUValue

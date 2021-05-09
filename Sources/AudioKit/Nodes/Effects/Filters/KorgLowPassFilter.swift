@@ -28,8 +28,7 @@ public class KorgLowPassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("KorgLowPassFilterParameterCutoffFrequency"),
         defaultValue: 1_000.0,
         range: 0.0 ... 22_050.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Filter cutoff
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -41,8 +40,7 @@ public class KorgLowPassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("KorgLowPassFilterParameterResonance"),
         defaultValue: 1.0,
         range: 0.0 ... 2.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Filter resonance (should be between 0-2)
     @Parameter(resonanceDef) public var resonance: AUValue
@@ -54,8 +52,7 @@ public class KorgLowPassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("KorgLowPassFilterParameterSaturation"),
         defaultValue: 0.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Filter saturation.
     @Parameter(saturationDef) public var saturation: AUValue

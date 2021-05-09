@@ -28,8 +28,7 @@ public class RolandTB303Filter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RolandTB303FilterParameterCutoffFrequency"),
         defaultValue: 500,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Cutoff frequency. (in Hertz)
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -41,8 +40,7 @@ public class RolandTB303Filter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RolandTB303FilterParameterResonance"),
         defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     @Parameter(resonanceDef) public var resonance: AUValue
@@ -54,8 +52,7 @@ public class RolandTB303Filter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RolandTB303FilterParameterDistortion"),
         defaultValue: 2.0,
         range: 0.0 ... 4.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     @Parameter(distortionDef) public var distortion: AUValue
@@ -67,8 +64,7 @@ public class RolandTB303Filter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RolandTB303FilterParameterResonanceAsymmetry"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Asymmetry of resonance. Value is between 0-1
     @Parameter(resonanceAsymmetryDef) public var resonanceAsymmetry: AUValue

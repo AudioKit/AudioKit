@@ -28,8 +28,7 @@ public class ToneFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ToneFilterParameterHalfPowerPoint"),
         defaultValue: 1_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     @Parameter(halfPowerPointDef) public var halfPowerPoint: AUValue

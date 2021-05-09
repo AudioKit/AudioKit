@@ -28,8 +28,7 @@ public class PeakingParametricEqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterCenterFrequency"),
         defaultValue: 1_000,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency.
     @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
@@ -41,8 +40,7 @@ public class PeakingParametricEqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterGain"),
         defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amount at which the center frequency value shall be changed. A value of 1 is a flat response.
     @Parameter(gainDef) public var gain: AUValue
@@ -54,8 +52,7 @@ public class PeakingParametricEqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PeakingParametricEqualizerFilterParameterQ"),
         defaultValue: 0.707,
         range: 0.0 ... 2.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Q of the filter. sqrt(0.5) is no resonance.
     @Parameter(qDef) public var q: AUValue

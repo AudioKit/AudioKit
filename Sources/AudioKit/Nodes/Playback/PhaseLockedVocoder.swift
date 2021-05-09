@@ -27,8 +27,7 @@ public class PhaseLockedVocoder: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaseLockedVocoderParameterPosition"),
         defaultValue: 0,
         range: 0 ... 100_000,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     @Parameter(positionDef) public var position: AUValue
@@ -40,8 +39,7 @@ public class PhaseLockedVocoder: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaseLockedVocoderParameterAmplitude"),
         defaultValue: 1,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amplitude.
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -53,8 +51,7 @@ public class PhaseLockedVocoder: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PhaseLockedVocoderParameterPitchRatio"),
         defaultValue: 1,
         range: 0 ... 1_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     @Parameter(pitchRatioDef) public var pitchRatio: AUValue

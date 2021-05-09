@@ -26,8 +26,7 @@ public class PluckedString: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PluckedStringParameterFrequency"),
         defaultValue: 110,
         range: 0 ... 22_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Variable frequency. Values less than the initial frequency are doubled until greater than that.
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -39,8 +38,7 @@ public class PluckedString: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PluckedStringParameterAmplitude"),
         defaultValue: 0.5,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amplitude
     @Parameter(amplitudeDef) public var amplitude: AUValue

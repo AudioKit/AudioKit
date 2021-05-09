@@ -28,8 +28,7 @@ public class RhinoGuitarProcessor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RhinoGuitarProcessorParameterPreGain"),
         defaultValue: 5.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Gain applied before processing.
     @Parameter(preGainDef) public var preGain: AUValue
@@ -41,8 +40,7 @@ public class RhinoGuitarProcessor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RhinoGuitarProcessorParameterPostGain"),
         defaultValue: 0.7,
         range: 0.0 ... 1.0,
-        unit: .linearGain,
-        flags: .default)
+        unit: .linearGain)
 
     /// Gain applied after processing.
     @Parameter(postGainDef) public var postGain: AUValue
@@ -54,8 +52,7 @@ public class RhinoGuitarProcessor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RhinoGuitarProcessorParameterLowGain"),
         defaultValue: 0.0,
         range: -1.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amount of Low frequencies.
     @Parameter(lowGainDef) public var lowGain: AUValue
@@ -67,8 +64,7 @@ public class RhinoGuitarProcessor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RhinoGuitarProcessorParameterMidGain"),
         defaultValue: 0.0,
         range: -1.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amount of Middle frequencies.
     @Parameter(midGainDef) public var midGain: AUValue
@@ -80,8 +76,7 @@ public class RhinoGuitarProcessor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RhinoGuitarProcessorParameterHighGain"),
         defaultValue: 0.0,
         range: -1.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amount of High frequencies.
     @Parameter(highGainDef) public var highGain: AUValue
@@ -93,8 +88,7 @@ public class RhinoGuitarProcessor: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("RhinoGuitarProcessorParameterDistortion"),
         defaultValue: 1.0,
         range: 1.0 ... 20.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Distortion Amount
     @Parameter(distortionDef) public var distortion: AUValue

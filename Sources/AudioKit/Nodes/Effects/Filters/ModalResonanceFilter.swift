@@ -30,8 +30,7 @@ public class ModalResonanceFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ModalResonanceFilterParameterFrequency"),
         defaultValue: 500.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Resonant frequency of the filter.
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -43,8 +42,7 @@ public class ModalResonanceFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ModalResonanceFilterParameterQualityFactor"),
         defaultValue: 50.0,
         range: 0.0 ... 100.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Quality factor of the filter. Roughly equal to Q/frequency.
     @Parameter(qualityFactorDef) public var qualityFactor: AUValue

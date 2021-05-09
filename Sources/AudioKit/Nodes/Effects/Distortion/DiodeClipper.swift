@@ -29,8 +29,7 @@ public class DiodeClipper: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DiodeClipperParameterCutoff"),
         defaultValue: 10_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Filter cutoff frequency.
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -42,8 +41,7 @@ public class DiodeClipper: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DiodeClipperParameterGaindB"),
         defaultValue: 20.0,
         range: 0.0 ... 40.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     @Parameter(gainDef) public var gain: AUValue

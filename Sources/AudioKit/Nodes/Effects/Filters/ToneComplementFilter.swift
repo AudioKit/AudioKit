@@ -28,8 +28,7 @@ public class ToneComplementFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ToneComplementFilterParameterHalfPowerPoint"),
         defaultValue: 1_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     @Parameter(halfPowerPointDef) public var halfPowerPoint: AUValue

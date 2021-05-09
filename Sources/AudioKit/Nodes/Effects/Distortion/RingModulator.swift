@@ -22,8 +22,7 @@ open class RingModulator: NodeBase {
         address: 3,
         defaultValue: 100,
         range: 0.5 ... 8000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @Parameter(ringModFreq1Def) public var ringModFreq1: AUValue
@@ -35,8 +34,7 @@ open class RingModulator: NodeBase {
         address: 4,
         defaultValue: 100,
         range: 0.5 ... 8000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @Parameter(ringModFreq2Def) public var ringModFreq2: AUValue
@@ -48,8 +46,7 @@ open class RingModulator: NodeBase {
         address: 5,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(ringModBalanceDef) public var ringModBalance: AUValue
@@ -61,8 +58,7 @@ open class RingModulator: NodeBase {
         address: 15,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue

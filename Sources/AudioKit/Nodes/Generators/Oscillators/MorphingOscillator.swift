@@ -29,8 +29,7 @@ public class MorphingOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MorphingOscillatorParameterFrequency"),
         defaultValue: 440,
         range: 0.0 ... 22_050.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency (in Hz)
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -42,8 +41,7 @@ public class MorphingOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MorphingOscillatorParameterAmplitude"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Amplitude (typically a value between 0 and 1).
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -55,8 +53,7 @@ public class MorphingOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MorphingOscillatorParameterIndex"),
         defaultValue: 0.0,
         range: 0.0 ... 3.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Index of the wavetable to use (fractional are okay).
     @Parameter(indexDef) public var index: AUValue
@@ -68,8 +65,7 @@ public class MorphingOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MorphingOscillatorParameterDetuningOffset"),
         defaultValue: 0,
         range: -1_000.0 ... 1_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency offset in Hz.
     @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
@@ -81,8 +77,7 @@ public class MorphingOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MorphingOscillatorParameterDetuningMultiplier"),
         defaultValue: 1,
         range: 0.9 ... 1.11,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Frequency detuning multiplier
     @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue

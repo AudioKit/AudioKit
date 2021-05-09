@@ -28,8 +28,7 @@ public class ResonantFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ResonantFilterParameterFrequency"),
         defaultValue: 4_000.0,
         range: 100.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency of the filter, or frequency position of the peak response.
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -41,8 +40,7 @@ public class ResonantFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ResonantFilterParameterBandwidth"),
         defaultValue: 1_000.0,
         range: 0.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Bandwidth of the filter.
     @Parameter(bandwidthDef) public var bandwidth: AUValue

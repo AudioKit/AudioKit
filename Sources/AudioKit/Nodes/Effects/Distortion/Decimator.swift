@@ -22,8 +22,7 @@ open class Decimator: NodeBase {
         address: 7,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(decimationDef) public var decimation: AUValue
@@ -35,8 +34,7 @@ open class Decimator: NodeBase {
         address: 8,
         defaultValue: 0,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
     @Parameter(roundingDef) public var rounding: AUValue
@@ -48,8 +46,7 @@ open class Decimator: NodeBase {
         address: 15,
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue

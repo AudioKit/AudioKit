@@ -32,8 +32,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterFrequency"),
         defaultValue: 160.0,
         range: 0.0 ... 22_050.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Glottal frequency.
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -45,8 +44,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterTonguePosition"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Tongue position (0-1)
     @Parameter(tonguePositionDef) public var tonguePosition: AUValue
@@ -58,8 +56,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterTongueDiameter"),
         defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Tongue diameter (0-1)
     @Parameter(tongueDiameterDef) public var tongueDiameter: AUValue
@@ -71,8 +68,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterTenseness"),
         defaultValue: 0.6,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
     @Parameter(tensenessDef) public var tenseness: AUValue
@@ -84,8 +80,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterNasality"),
         defaultValue: 0.0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
     @Parameter(nasalityDef) public var nasality: AUValue

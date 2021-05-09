@@ -28,8 +28,7 @@ public class Chorus: NodeBase, AudioUnitContainer {
         address: ModulatedDelayParameter.frequency.rawValue,
         defaultValue: kChorus_DefaultFrequency,
         range: kChorus_MinFrequency ... kChorus_MaxFrequency,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Modulation Frequency (Hz)
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -41,8 +40,7 @@ public class Chorus: NodeBase, AudioUnitContainer {
         address: ModulatedDelayParameter.depth.rawValue,
         defaultValue: kChorus_DefaultDepth,
         range: kChorus_MinDepth ... kChorus_MaxDepth,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Modulation Depth (fraction)
     @Parameter(depthDef) public var depth: AUValue
@@ -54,8 +52,7 @@ public class Chorus: NodeBase, AudioUnitContainer {
         address: ModulatedDelayParameter.feedback.rawValue,
         defaultValue: kChorus_DefaultFeedback,
         range: kChorus_MinFeedback ... kChorus_MaxFeedback,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Feedback (fraction)
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -67,8 +64,7 @@ public class Chorus: NodeBase, AudioUnitContainer {
         address: ModulatedDelayParameter.dryWetMix.rawValue,
         defaultValue: kChorus_DefaultDryWetMix,
         range: kChorus_MinDryWetMix ... kChorus_MaxDryWetMix,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Dry Wet Mix (fraction)
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue

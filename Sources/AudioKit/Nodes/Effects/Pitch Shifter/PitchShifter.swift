@@ -28,8 +28,7 @@ public class PitchShifter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PitchShifterParameterShift"),
         defaultValue: 0,
         range: -24.0 ... 24.0,
-        unit: .relativeSemiTones,
-        flags: .default)
+        unit: .relativeSemiTones)
 
     /// Pitch shift (in semitones)
     @Parameter(shiftDef) public var shift: AUValue
@@ -41,8 +40,7 @@ public class PitchShifter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PitchShifterParameterWindowSize"),
         defaultValue: 1_024,
         range: 0.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Window size (in samples)
     @Parameter(windowSizeDef) public var windowSize: AUValue
@@ -54,8 +52,7 @@ public class PitchShifter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PitchShifterParameterCrossfade"),
         defaultValue: 512,
         range: 0.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Crossfade (in samples)
     @Parameter(crossfadeDef) public var crossfade: AUValue

@@ -30,8 +30,7 @@ public class CostelloReverb: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("CostelloReverbParameterFeedback"),
         defaultValue: 0.6,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -43,8 +42,7 @@ public class CostelloReverb: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("CostelloReverbParameterCutoffFrequency"),
         defaultValue: 4_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Low-pass cutoff frequency.
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue

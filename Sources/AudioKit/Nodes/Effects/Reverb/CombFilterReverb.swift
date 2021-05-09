@@ -33,8 +33,7 @@ public class CombFilterReverb: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("CombFilterReverbParameterReverbDuration"),
         defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
     @Parameter(reverbDurationDef) public var reverbDuration: AUValue

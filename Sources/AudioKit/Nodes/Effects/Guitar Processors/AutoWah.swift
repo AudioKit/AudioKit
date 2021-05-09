@@ -28,8 +28,7 @@ public class AutoWah: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AutoWahParameterWah"),
         defaultValue: 0.0,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Wah Amount
     @Parameter(wahDef) public var wah: AUValue
@@ -41,8 +40,7 @@ public class AutoWah: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AutoWahParameterMix"),
         defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Dry/Wet Mix
     @Parameter(mixDef) public var mix: AUValue
@@ -54,8 +52,7 @@ public class AutoWah: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AutoWahParameterAmplitude"),
         defaultValue: 0.1,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Overall level
     @Parameter(amplitudeDef) public var amplitude: AUValue
