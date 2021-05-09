@@ -281,7 +281,7 @@ let validatedMD5s: [String: String] = [
     "-[OscillatorTests testDetuningMultiplier]": "b9caf0d0e39aa5bf6073f861ff7cdd23",
     "-[OscillatorTests testDetuningOffset]": "ee8fc07672ed022a4c86146b18a38aca",
     "-[OscillatorTests testFrequency]": "33fc3ddee3e17226ddfc976f080b7e00",
-    "-[OscillatorTests testGeneric]": "0248fa036f56a7af140dcb8fcd240034",
+    "-[OscillatorTests testGeneric]": "b9625eb52a6e6dfd7faaeec6c5048c12",
     "-[OscillatorTests testNewAutomationAmplitude]": "de84a09903129c3c22cc035cfd53ff05",
     "-[OscillatorTests testNewAutomationDelayed]": "170f682ea6ad60e6a94ad48aba159efe",
     "-[OscillatorTests testNewAutomationFrequency]": "5c8c218d2c21e8c436493bb09a80a47a",
