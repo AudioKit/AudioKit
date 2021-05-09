@@ -92,7 +92,6 @@ public class Oscillator: NodeBase, AudioUnitContainer {
         super.init(avAudioNode: AVAudioNode())
 
         instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
 
             guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
                 fatalError("Couldn't create audio unit")
