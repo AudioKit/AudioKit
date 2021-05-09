@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
-open class LowPassFilter: Node {
+public class LowPassFilter: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowPassFilter)
 

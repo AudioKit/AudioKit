@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class PeakLimiter: Node {
+public class PeakLimiter: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter)
 

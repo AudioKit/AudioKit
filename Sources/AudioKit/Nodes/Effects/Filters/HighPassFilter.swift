@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-open class HighPassFilter: Node {
+public class HighPassFilter: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighPassFilter)
 

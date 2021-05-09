@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-open class ParametricEQ: Node {
+public class ParametricEQ: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_ParametricEQ)
 

@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Expander Audio Unit
 ///
-open class Expander: Node {
+public class Expander: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
@@ -29,12 +29,12 @@ open class Expander: Node {
     public static let expansionThresholdDef = NodeParameterDef(
         identifier: "expansionThreshold",
         name: "Expansion Threshold",
-        address: 3,
+        address: 2,
         defaultValue: 2,
         range: 1 ... 50.0,
-        unit: .decibels)
+        unit: .rate)
 
-    /// Expansion Threshold (decibels) ranges from 1 to 50.0 (Default: 2)
+    /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
     @Parameter(expansionThresholdDef) public var expansionThreshold: AUValue
 
     /// Specification details for attackTime
@@ -94,7 +94,7 @@ open class Expander: Node {
     ///
     /// - parameter input: Input node to process
     /// - parameter expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
-    /// - parameter expansionThreshold: Expansion Threshold (decibels) ranges from 1 to 50.0 (Default: 2)
+    /// - parameter expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
     /// - parameter attackTime: Attack Time (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
     /// - parameter releaseTime: Release Time (seconds) ranges from 0.01 to 3 (Default: 0.05)
     /// - parameter masterGain: Master Gain (decibels) ranges from -40 to 40 (Default: 0)

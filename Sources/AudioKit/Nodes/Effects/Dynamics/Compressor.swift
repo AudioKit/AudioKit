@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Compressor Audio Unit
 ///
-open class Compressor: Node {
+public class Compressor: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 

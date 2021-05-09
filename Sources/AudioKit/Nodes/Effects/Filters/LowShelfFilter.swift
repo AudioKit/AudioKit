@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
-open class LowShelfFilter: Node {
+public class LowShelfFilter: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowShelfFilter)
 

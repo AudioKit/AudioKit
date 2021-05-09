@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-open class BandPassFilter: Node {
+public class BandPassFilter: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_BandPassFilter)
 

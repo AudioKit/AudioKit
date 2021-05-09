@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's RingModulator Audio Unit
 ///
-open class RingModulator: Node {
+public class RingModulator: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
