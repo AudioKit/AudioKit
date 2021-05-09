@@ -33,9 +33,6 @@ public class PinkNoise: NodeBase {
 
         avAudioNode = instantiate(generator: "pink")
 
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
         self.stop()
 
         self.amplitude = amplitude

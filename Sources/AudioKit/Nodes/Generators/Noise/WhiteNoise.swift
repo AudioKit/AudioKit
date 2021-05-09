@@ -33,9 +33,6 @@ public class WhiteNoise: NodeBase {
 
         avAudioNode = instantiate(generator: "wnoz")
 
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
         self.stop()
 
         self.amplitude = amplitude

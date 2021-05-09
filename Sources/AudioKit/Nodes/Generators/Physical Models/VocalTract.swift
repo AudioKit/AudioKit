@@ -94,9 +94,6 @@ public class VocalTract: NodeBase {
 
         avAudioNode = instantiate(generator: "vocw")
 
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
         self.stop()
 
         self.frequency = frequency
