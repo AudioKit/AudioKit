@@ -9,8 +9,6 @@ public protocol AudioUnitContainer {
     associatedtype AudioUnitType: AudioUnitBase
     /// Unique four-letter description
     static var ComponentDescription: AudioComponentDescription { get }
-    /// Internal audio unit
-    var internalAU: AudioUnitType? { get }
 }
 
 extension AudioUnitContainer {
