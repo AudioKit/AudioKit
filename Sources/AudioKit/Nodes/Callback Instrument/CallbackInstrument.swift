@@ -33,7 +33,6 @@ open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
-            self.midiInstrument = avAudioUnit as? AVAudioUnitMIDIInstrument
             self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
 
         }

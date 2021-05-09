@@ -123,8 +123,6 @@ public protocol Polyphonic {
 open class PolyphonicNode: Node, Polyphonic {
     /// Global tuning table used by PolyphonicNode (Node classes adopting Polyphonic protocol)
     @objc public static var tuningTable = TuningTable()
-    /// MIDI Instrument
-    open var midiInstrument: AVAudioUnitMIDIInstrument?
 
     /// Play a sound corresponding to a MIDI note with frequency
     ///
