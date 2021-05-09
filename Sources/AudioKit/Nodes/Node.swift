@@ -88,6 +88,23 @@ extension NodeProtocol {
         }
     }
 
+    #if !os(tvOS)
+    /// Schedule an event with an offset
+    ///
+    /// - Parameters:
+    ///   - event: MIDI Event to schedule
+    ///   - offset: Time in samples
+    ///
+    public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
+        if let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock {
+            event.data.withUnsafeBufferPointer { ptr in
+                guard let ptr = ptr.baseAddress else { return }
+                midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)
+            }
+        }
+    }
+    #endif
+
 }
 
 /// AudioKIt connection point
@@ -180,22 +197,6 @@ open class PolyphonicNode: Node, Polyphonic {
         Log("Stopping note \(noteNumber), override in subclass")
     }
 
-    #if !os(tvOS)
-        /// Schedule an event with an offset
-        ///
-        /// - Parameters:
-        ///   - event: MIDI Event to schedule
-        ///   - offset: Time in samples
-        ///
-        public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
-            if let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock {
-                event.data.withUnsafeBufferPointer { ptr in
-                    guard let ptr = ptr.baseAddress else { return }
-                    midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)
-                }
-            }
-        }
-    #endif
 }
 
 /// Protocol for dictating that a node can be in a started or stopped state
