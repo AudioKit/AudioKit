@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// 8 FDN stereo zitareverb algorithm, imported from Faust.
-public class ZitaReverb: NodeBase {
+public class ZitaReverb: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "zita")
 
     // MARK: - Parameters
 
@@ -163,9 +164,8 @@ public class ZitaReverb: NodeBase {
         dryWetMix: AUValue = dryWetMixDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "zita")
+        setupParameters()
 
         self.predelay = predelay
         self.crossoverFrequency = crossoverFrequency

@@ -7,10 +7,11 @@ import CAudioKit
 /// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
 /// modeling scattering junction of 8 lossless waveguides of equal characteristic impedance.
 /// 
-public class CostelloReverb: NodeBase {
+public class CostelloReverb: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "rvsc")
 
     // MARK: - Parameters
 
@@ -53,9 +54,8 @@ public class CostelloReverb: NodeBase {
         cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "rvsc")
+        setupParameters()
 
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency

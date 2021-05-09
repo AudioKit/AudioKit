@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
-public class PeakingParametricEqualizerFilter: NodeBase {
+public class PeakingParametricEqualizerFilter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "peq0")
 
     // MARK: - Parameters
 
@@ -65,9 +66,8 @@ public class PeakingParametricEqualizerFilter: NodeBase {
         q: AUValue = qDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "peq0")
+        setupParameters()
 
         self.centerFrequency = centerFrequency
         self.gain = gain

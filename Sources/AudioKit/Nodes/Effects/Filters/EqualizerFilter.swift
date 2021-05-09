@@ -10,10 +10,11 @@ import CAudioKit
 /// with a width dependent on bandwidth. If gain is less than 1, a notch is
 /// formed around the center frequency.
 /// 
-public class EqualizerFilter: NodeBase {
+public class EqualizerFilter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "eqfl")
 
     // MARK: - Parameters
 
@@ -70,9 +71,8 @@ public class EqualizerFilter: NodeBase {
         gain: AUValue = gainDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "eqfl")
+        setupParameters()
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth

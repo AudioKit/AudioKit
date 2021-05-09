@@ -54,7 +54,7 @@ public class BandPassButterworthFilter: Node {
         bandwidth: AUValue = bandwidthDef.defaultValue
         ) {
         self.input = input
-        
+
         setupParameters()
 
         self.centerFrequency = centerFrequency

@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// A complement to the AKLowPassFilter.
-public class ToneComplementFilter: NodeBase {
+public class ToneComplementFilter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "aton")
 
     // MARK: - Parameters
 
@@ -37,9 +38,8 @@ public class ToneComplementFilter: NodeBase {
         halfPowerPoint: AUValue = halfPowerPointDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "aton")
+        setupParameters()
 
         self.halfPowerPoint = halfPowerPoint
    }

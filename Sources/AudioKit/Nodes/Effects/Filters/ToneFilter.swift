@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// A first-order recursive low-pass filter with variable frequency response.
-public class ToneFilter: NodeBase {
+public class ToneFilter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "tone")
 
     // MARK: - Parameters
 
@@ -37,9 +38,8 @@ public class ToneFilter: NodeBase {
         halfPowerPoint: AUValue = halfPowerPointDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "tone")
+        setupParameters()
 
         self.halfPowerPoint = halfPowerPoint
    }

@@ -13,10 +13,11 @@ import CAudioKit
 /// allpass units, followed by four parallel comb filters, and two decorrelation delay lines in
 /// parallel at the output.
 /// 
-public class ChowningReverb: NodeBase {
+public class ChowningReverb: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "jcrv")
 
     // MARK: - Parameters
 
@@ -31,9 +32,8 @@ public class ChowningReverb: NodeBase {
         _ input: Node
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "jcrv")
+        setupParameters()
 
    }
 }

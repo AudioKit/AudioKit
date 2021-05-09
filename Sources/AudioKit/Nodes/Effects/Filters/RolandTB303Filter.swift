@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Emulation of the Roland TB-303 filter
-public class RolandTB303Filter: NodeBase {
+public class RolandTB303Filter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "tb3f")
 
     // MARK: - Parameters
 
@@ -79,9 +80,8 @@ public class RolandTB303Filter: NodeBase {
         resonanceAsymmetry: AUValue = resonanceAsymmetryDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "tb3f")
+        setupParameters()
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

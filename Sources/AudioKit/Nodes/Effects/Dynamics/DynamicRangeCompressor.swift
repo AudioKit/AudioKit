@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Dynamic range compressor from Faust
-public class DynamicRangeCompressor: NodeBase {
+public class DynamicRangeCompressor: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "cpsr")
 
     // MARK: - Parameters
 
@@ -79,9 +80,8 @@ public class DynamicRangeCompressor: NodeBase {
         releaseDuration: AUValue = releaseDurationDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "cpsr")
+        setupParameters()
 
         self.ratio = ratio
         self.threshold = threshold

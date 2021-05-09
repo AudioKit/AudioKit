@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// This will digitally degrade a signal.
-public class BitCrusher: NodeBase {
+public class BitCrusher: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "btcr")
 
     // MARK: - Parameters
 
@@ -51,9 +52,8 @@ public class BitCrusher: NodeBase {
         sampleRate: AUValue = sampleRateDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "btcr")
+        setupParameters()
 
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate

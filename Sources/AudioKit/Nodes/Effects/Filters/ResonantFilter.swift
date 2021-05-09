@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// The output for reson appears to be very hot, so take caution when using this module.
-public class ResonantFilter: NodeBase {
+public class ResonantFilter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "resn")
 
     // MARK: - Parameters
 
@@ -51,9 +52,8 @@ public class ResonantFilter: NodeBase {
         bandwidth: AUValue = bandwidthDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "resn")
+        setupParameters()
 
         self.frequency = frequency
         self.bandwidth = bandwidth

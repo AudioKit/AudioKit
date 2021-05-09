@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// A delay line with cubic interpolation.
-public class VariableDelay: NodeBase {
+public class VariableDelay: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "vdla")
 
     // MARK: - Parameters
 
@@ -53,14 +54,10 @@ public class VariableDelay: NodeBase {
         maximumTime: AUValue = 5
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "vdla")
+        setupParameters()
 
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
-        akVariableDelaySetMaximumTime(audioUnit.dsp, maximumTime)
+        akVariableDelaySetMaximumTime(auBase.dsp, maximumTime)
 
         self.time = time
         self.feedback = feedback

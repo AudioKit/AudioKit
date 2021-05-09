@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
-public class Clipper: NodeBase {
+public class Clipper: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "clip")
 
     // MARK: - Parameters
 
@@ -37,9 +38,8 @@ public class Clipper: NodeBase {
         limit: AUValue = limitDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "clip")
+        setupParameters()
 
         self.limit = limit
    }

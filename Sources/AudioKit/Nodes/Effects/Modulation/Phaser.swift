@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// This is a stereo phaser, generated from Faust code taken from the Guitarix project.
-public class Phaser: NodeBase {
+public class Phaser: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "phas")
 
     // MARK: - Parameters
 
@@ -149,9 +150,8 @@ public class Phaser: NodeBase {
         lfoBPM: AUValue = lfoBPMDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "phas")
+        setupParameters()
 
         self.notchMinimumFrequency = notchMinimumFrequency
         self.notchMaximumFrequency = notchMaximumFrequency

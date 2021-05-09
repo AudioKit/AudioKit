@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Distortion using a modified hyperbolic tangent function.
-public class TanhDistortion: NodeBase {
+public class TanhDistortion: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "dist")
 
     // MARK: - Parameters
 
@@ -79,9 +80,8 @@ public class TanhDistortion: NodeBase {
         negativeShapeParameter: AUValue = negativeShapeParameterDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "dist")
+        setupParameters()
 
         self.pregain = pregain
         self.postgain = postgain

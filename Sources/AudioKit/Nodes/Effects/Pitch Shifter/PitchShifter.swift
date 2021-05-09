@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Faust-based pitch shfiter
-public class PitchShifter: NodeBase {
+public class PitchShifter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "pshf")
 
     // MARK: - Parameters
 
@@ -65,9 +66,8 @@ public class PitchShifter: NodeBase {
         crossfade: AUValue = crossfadeDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "pshf")
+        setupParameters()
 
         self.shift = shift
         self.windowSize = windowSize

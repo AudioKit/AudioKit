@@ -10,10 +10,11 @@ import CAudioKit
 /// of the “string” is controlled by the fundamentalFrequency.  
 /// This operation can be used to simulate sympathetic resonances to an input signal.
 /// 
-public class StringResonator: NodeBase {
+public class StringResonator: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "stre")
 
     // MARK: - Parameters
 
@@ -56,9 +57,8 @@ public class StringResonator: NodeBase {
         feedback: AUValue = feedbackDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "stre")
+        setupParameters()
 
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback

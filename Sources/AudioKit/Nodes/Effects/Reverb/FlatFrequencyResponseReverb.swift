@@ -8,10 +8,11 @@ import CAudioKit
 /// independent and is determined by the reverberation time (defined as the time in seconds for a signal to
 /// decay to 1/1000, or 60dB down from its original amplitude).  Output will begin to appear immediately.
 /// 
-public class FlatFrequencyResponseReverb: NodeBase {
+public class FlatFrequencyResponseReverb: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "alps")
 
     // MARK: - Parameters
 
@@ -42,14 +43,10 @@ public class FlatFrequencyResponseReverb: NodeBase {
         loopDuration: AUValue = 0.1
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "alps")
+        setupParameters()
 
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
-        akFlatFrequencyResponseSetLoopDuration(audioUnit.dsp, loopDuration)
+        akFlatFrequencyResponseSetLoopDuration(auBase.dsp, loopDuration)
 
         self.reverbDuration = reverbDuration
    }

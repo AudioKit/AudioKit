@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Panner
-public class Panner: NodeBase {
+public class Panner: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "pan2")
 
     // MARK: - Parameters
 
@@ -37,9 +38,8 @@ public class Panner: NodeBase {
         pan: AUValue = panDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "pan2")
+        setupParameters()
 
         self.pan = pan
    }

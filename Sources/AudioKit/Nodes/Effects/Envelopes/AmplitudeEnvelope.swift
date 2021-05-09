@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Triggerable classic ADSR envelope
-public class AmplitudeEnvelope: NodeBase {
+public class AmplitudeEnvelope: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "adsr")
 
     // MARK: - Parameters
 
@@ -79,9 +80,8 @@ public class AmplitudeEnvelope: NodeBase {
         releaseDuration: AUValue = releaseDurationDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "adsr")
+        setupParameters()
 
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration

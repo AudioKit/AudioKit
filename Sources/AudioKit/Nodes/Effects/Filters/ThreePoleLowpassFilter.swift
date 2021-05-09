@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
-public class ThreePoleLowpassFilter: NodeBase {
+public class ThreePoleLowpassFilter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "lp18")
 
     // MARK: - Parameters
 
@@ -65,9 +66,8 @@ public class ThreePoleLowpassFilter: NodeBase {
         resonance: AUValue = resonanceDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "lp18")
+        setupParameters()
 
         self.distortion = distortion
         self.cutoffFrequency = cutoffFrequency

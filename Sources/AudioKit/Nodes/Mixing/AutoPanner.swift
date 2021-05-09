@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Table-lookup panning with linear interpolation
-public class AutoPanner: NodeBase {
+public class AutoPanner: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "apan")
 
     // MARK: - Parameters
 
@@ -44,7 +45,7 @@ public class AutoPanner: NodeBase {
     ///   - input: Input node to process
     ///   - frequency: Frequency (Hz)
     ///   - depth: Depth
-    ///   - waveform: Shape of the curve
+    ///   - waveform: Shape of the tremolo curve
     ///
     public init(
         _ input: Node,
@@ -53,14 +54,10 @@ public class AutoPanner: NodeBase {
         waveform: Table = Table(.positiveSine)
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "apan")
+        setupParameters()
         
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
-        audioUnit.setWavetable(waveform.content)
+        auBase.setWavetable(waveform.content)
 
         self.frequency = frequency
         self.depth = depth

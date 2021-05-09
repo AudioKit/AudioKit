@@ -7,10 +7,11 @@ import CAudioKit
 /// A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created
 /// using  passing an impulse through a combination of modal filters.
 /// 
-public class ModalResonanceFilter: NodeBase {
+public class ModalResonanceFilter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "modf")
 
     // MARK: - Parameters
 
@@ -53,9 +54,8 @@ public class ModalResonanceFilter: NodeBase {
         qualityFactor: AUValue = qualityFactorDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "modf")
+        setupParameters()
 
         self.frequency = frequency
         self.qualityFactor = qualityFactor

@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Analogue model of the Korg 35 Lowpass Filter
-public class KorgLowPassFilter: NodeBase {
+public class KorgLowPassFilter: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "klpf")
 
     // MARK: - Parameters
 
@@ -65,9 +66,8 @@ public class KorgLowPassFilter: NodeBase {
         saturation: AUValue = saturationDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "klpf")
+        setupParameters()
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

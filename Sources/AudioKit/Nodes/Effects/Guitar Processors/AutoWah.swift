@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// An automatic wah effect, ported from Guitarix via Faust.
-public class AutoWah: NodeBase {
+public class AutoWah: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "awah")
 
     // MARK: - Parameters
 
@@ -65,9 +66,8 @@ public class AutoWah: NodeBase {
         amplitude: AUValue = amplitudeDef.defaultValue
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "awah")
+        setupParameters()
 
         self.wah = wah
         self.mix = mix

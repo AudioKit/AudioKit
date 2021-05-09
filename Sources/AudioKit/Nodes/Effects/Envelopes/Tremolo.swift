@@ -5,10 +5,11 @@ import AVFoundation
 import CAudioKit
 
 /// Table-lookup tremolo with linear interpolation
-public class Tremolo: NodeBase {
+public class Tremolo: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode = instantiate2(effect: "trem")
 
     // MARK: - Parameters
 
@@ -53,14 +54,10 @@ public class Tremolo: NodeBase {
         waveform: Table = Table(.positiveSine)
         ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
 
-        avAudioNode = instantiate(effect: "trem")
+        setupParameters()
         
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
-        audioUnit.setWavetable(waveform.content)
+        auBase.setWavetable(waveform.content)
 
         self.frequency = frequency
         self.depth = depth
