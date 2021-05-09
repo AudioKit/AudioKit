@@ -108,6 +108,11 @@ extension Node {
     }
     #endif
 
+    var bypassed: Bool {
+        get { avAudioNode.auAudioUnit.shouldBypassEffect }
+        set { avAudioNode.auAudioUnit.shouldBypassEffect = newValue }
+    }
+
 }
 
 /// Convenience for AudioKit nodes.
