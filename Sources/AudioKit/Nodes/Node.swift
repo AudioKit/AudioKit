@@ -3,10 +3,13 @@
 import AVFoundation
 import CAudioKit
 
+/// Node in an audio graph.
 public protocol Node: AnyObject {
 
     /// Nodes providing audio input to this node.
     var connections: [Node] { get }
+
+    /// Internal AVAudioEngine node.
     var avAudioNode: AVAudioNode { get }
 
     /// Override point for any connections internal to the node.
