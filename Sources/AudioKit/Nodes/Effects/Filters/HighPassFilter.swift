@@ -8,9 +8,7 @@ import CAudioKit
 ///
 open class HighPassFilter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighPassFilter)
 
     let input: Node
     public var connections: [Node] { [input] }
