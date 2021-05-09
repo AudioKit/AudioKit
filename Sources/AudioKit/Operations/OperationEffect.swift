@@ -19,11 +19,6 @@ public class OperationEffect: NodeBase, AudioUnitContainer {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
-
     let input: Node
     override public var connections: [Node] { [input] }
 

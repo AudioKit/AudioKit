@@ -101,15 +101,8 @@ open class AudioUnitBase: AUAudioUnit {
     }
 
     override public var shouldBypassEffect: Bool {
-        get { return isStarted }
-        set {
-            isStarted = newValue
-            if shouldBypassEffect {
-                stopDSP(dsp)
-            } else {
-                startDSP(dsp)
-            }
-        }
+        get { return getBypassDSP(dsp) }
+        set { setBypassDSP(dsp, newValue) }
     }
 
     // MARK: Lifecycle
@@ -149,8 +142,6 @@ open class AudioUnitBase: AUAudioUnit {
 
     // MARK: AudioKit
 
-    /// Whether the audio unit is running
-    public private(set) var isStarted: Bool = true
 
     #if !os(tvOS)
     /// Trigger something within the audio unit

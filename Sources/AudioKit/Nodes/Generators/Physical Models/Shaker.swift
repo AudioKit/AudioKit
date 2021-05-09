@@ -90,13 +90,6 @@ public class Shaker: NodeBase, AudioUnitContainer {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
-    // MARK: - Parameters
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
-
     // MARK: - Initialization
 
     /// Initialize the STK Shaker model

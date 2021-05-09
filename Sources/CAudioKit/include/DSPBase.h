@@ -23,8 +23,8 @@ AK_API void resetDSP(DSPRef pDSP);
 AK_API void setParameterValueDSP(DSPRef pDSP, AUParameterAddress address, AUValue value);
 AK_API AUValue getParameterValueDSP(DSPRef pDSP, AUParameterAddress address);
 
-AK_API void startDSP(DSPRef pDSP);
-AK_API void stopDSP(DSPRef pDSP);
+AK_API void setBypassDSP(DSPRef pDSP, bool bypassed);
+AK_API bool getBypassDSP(DSPRef pDSP);
 
 AK_API void initializeConstantDSP(DSPRef pDSP, AUValue value);
 
@@ -56,7 +56,6 @@ protected:
     double sampleRate;
 
     bool isInitialized = false;
-    std::atomic<bool> isStarted{true};
 
     // current time in samples
     AUEventSampleTime now = 0;
@@ -78,6 +77,8 @@ public:
     AUInternalRenderBlock internalRenderBlock();
 
     const bool bCanProcessInPlace;
+
+    std::atomic<bool> isStarted{true};
     
     void setBuffer(AudioBufferList* buffer, size_t busIndex);
     size_t getInputBusCount() const { return inputBufferLists.size(); }
@@ -107,17 +108,6 @@ public:
 
     /// override this if your DSP kernel allocates memory; free it here
     virtual void deinit();
-
-    // Add for compatibility with AKAudioUnit
-    void start()
-    {
-        isStarted = true;
-    }
-
-    void stop()
-    {
-        isStarted = false;
-    }
 
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
 
