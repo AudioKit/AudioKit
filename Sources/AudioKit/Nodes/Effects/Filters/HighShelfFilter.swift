@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
-open class HighShelfFilter: NodeBase {
+open class HighShelfFilter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_HighShelfFilter))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighShelfFilter)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for cutOffFrequency
     public static let cutOffFrequencyDef = NodeParameterDef(
@@ -53,7 +52,6 @@ open class HighShelfFilter: NodeBase {
         cutOffFrequency: AUValue = cutOffFrequencyDef.defaultValue,
         gain: AUValue = gainDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

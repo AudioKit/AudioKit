@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's Decimator Audio Unit
 ///
-open class Decimator: NodeBase {
+open class Decimator: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for decimation
     public static let decimationDef = NodeParameterDef(
@@ -67,7 +66,6 @@ open class Decimator: NodeBase {
         rounding: AUValue = roundingDef.defaultValue,
         finalMix: AUValue = finalMixDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

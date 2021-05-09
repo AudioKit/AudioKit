@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
-open class DynamicsProcessor: NodeBase {
+open class DynamicsProcessor: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
@@ -123,7 +122,6 @@ open class DynamicsProcessor: NodeBase {
         releaseTime: AUValue = releaseTimeDef.defaultValue,
         masterGain: AUValue = masterGainDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

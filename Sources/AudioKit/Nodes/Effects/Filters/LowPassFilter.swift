@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
-open class LowPassFilter: NodeBase {
+open class LowPassFilter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_LowPassFilter))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowPassFilter)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
@@ -53,7 +52,6 @@ open class LowPassFilter: NodeBase {
         cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
         resonance: AUValue = resonanceDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-open class BandPassFilter: NodeBase {
+open class BandPassFilter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for centerFrequency
     public static let centerFrequencyDef = NodeParameterDef(
@@ -53,7 +52,6 @@ open class BandPassFilter: NodeBase {
         centerFrequency: AUValue = centerFrequencyDef.defaultValue,
         bandwidth: AUValue = bandwidthDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

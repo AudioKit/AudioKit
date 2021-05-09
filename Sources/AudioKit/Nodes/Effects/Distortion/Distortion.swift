@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class Distortion: NodeBase {
+open class Distortion: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for delay
     public static let delayDef = NodeParameterDef(
@@ -249,7 +248,6 @@ open class Distortion: NodeBase {
         softClipGain: AUValue = softClipGainDef.defaultValue,
         finalMix: AUValue = finalMixDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

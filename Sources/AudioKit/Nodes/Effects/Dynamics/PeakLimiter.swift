@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class PeakLimiter: NodeBase {
+open class PeakLimiter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for attackTime
     public static let attackTimeDef = NodeParameterDef(
@@ -67,7 +66,6 @@ open class PeakLimiter: NodeBase {
         decayTime: AUValue = decayTimeDef.defaultValue,
         preGain: AUValue = preGainDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

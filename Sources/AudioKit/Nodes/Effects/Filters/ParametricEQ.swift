@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-open class ParametricEQ: NodeBase {
+open class ParametricEQ: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_ParametricEQ)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for centerFreq
     public static let centerFreqDef = NodeParameterDef(
@@ -67,7 +66,6 @@ open class ParametricEQ: NodeBase {
         q: AUValue = qDef.defaultValue,
         gain: AUValue = gainDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 

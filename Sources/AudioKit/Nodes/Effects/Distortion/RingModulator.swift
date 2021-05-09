@@ -6,14 +6,13 @@ import CAudioKit
 
 /// AudioKit version of Apple's RingModulator Audio Unit
 ///
-open class RingModulator: NodeBase {
+open class RingModulator: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for ringModFreq1
     public static let ringModFreq1Def = NodeParameterDef(
@@ -81,7 +80,6 @@ open class RingModulator: NodeBase {
         ringModBalance: AUValue = ringModBalanceDef.defaultValue,
         finalMix: AUValue = finalMixDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 
