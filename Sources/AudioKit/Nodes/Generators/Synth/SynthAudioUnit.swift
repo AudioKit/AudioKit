@@ -185,15 +185,22 @@ public class SynthAudioUnit: AudioUnitBase {
         filterReleaseDuration.value = 0.0
     }
 
+    public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64 = 0) {
+        if let midiBlock = scheduleMIDIEventBlock {
+            event.data.withUnsafeBufferPointer { ptr in
+                guard let ptr = ptr.baseAddress else { return }
+                midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)
+            }
+        }
+    }
+
     /// Play a note
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - velocity: MIDI Velocity
-    ///   - frequency: Frequency
     public func playNote(noteNumber: MIDINoteNumber,
-                         velocity: MIDIVelocity,
-                         frequency: Float) {
-        akSynthPlayNote(dsp, noteNumber, velocity, frequency)
+                         velocity: MIDIVelocity) {
+        scheduleMIDIEvent(event: MIDIEvent(noteOn: noteNumber, velocity: velocity, channel: 0))
     }
 
     /// Stop a note
@@ -201,12 +208,12 @@ public class SynthAudioUnit: AudioUnitBase {
     ///   - noteNumber: MIDI Note Number
     ///   - immediate: Stop and allow to release or stop immediately
     public func stopNote(noteNumber: MIDINoteNumber, immediate: Bool) {
-        akSynthStopNote(dsp, noteNumber, immediate)
+        scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: 0, channel: 0))
     }
 
     /// Set the sustain pedal position
     /// - Parameter down: True for pedal activation
     public func sustainPedal(down: Bool) {
-        akSynthSustainPedal(dsp, down)
+        // XXX: send midi
     }
 }

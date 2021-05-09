@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// The output for reson appears to be very hot, so take caution when using this module.
-public class ResonantFilter: Node, AudioUnitContainer, Toggleable {
+public class ResonantFilter: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "resn"
     public static let ComponentDescription = AudioComponentDescription(effect: "resn")

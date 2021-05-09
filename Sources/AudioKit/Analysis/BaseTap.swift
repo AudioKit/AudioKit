@@ -4,7 +4,7 @@ import AVFoundation
 import Foundation
 
 /// Base class for AudioKit taps using AVAudioEngine installTap
-open class BaseTap: Toggleable {
+open class BaseTap {
     /// Size of buffer to analyze
     public private(set) var bufferSize: UInt32
 

@@ -29,14 +29,14 @@ public class SynthKick: MIDIInstrument {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
+    public func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
         generator.parameter1 = (AUValue(velocity) / 127.0 * 366.0) + 300.0
         generator.parameter2 = 1.0 - AUValue(velocity) / 127.0
         generator.trigger()
     }
 
     /// Unneeded stop function since the sounds all decay quickly
-    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
+    public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         // Unneeded
     }
 }
@@ -80,13 +80,13 @@ public class SynthSnare: MIDIInstrument {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+    public func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         generator.parameter1 = (AUValue(velocity) / 127.0 * 1_600.0) + 300.0
         generator.trigger()
     }
 
     /// Unneeded stop function since the sounds all decay quickly
-    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
+    public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         // Unneeded
     }
 }

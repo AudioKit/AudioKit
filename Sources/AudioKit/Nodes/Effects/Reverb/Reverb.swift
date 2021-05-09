@@ -5,13 +5,11 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-public class Reverb: Node, Toggleable {
+public class Reverb: NodeBase {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     let input: Node
     override public var connections: [Node] { [input] }
-
-    fileprivate var lastKnownMix: AUValue = 0.5
 
     /// Dry/Wet Mix (Default 0.5)
     public var dryWetMix: AUValue = 0.5 {
@@ -45,20 +43,4 @@ public class Reverb: Node, Toggleable {
         reverbAU.loadFactoryPreset(preset)
     }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        if isStopped {
-            dryWetMix = lastKnownMix
-            isStarted = true
-        }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        if isPlaying {
-            lastKnownMix = dryWetMix
-            dryWetMix = 0
-            isStarted = false
-        }
-    }
 }

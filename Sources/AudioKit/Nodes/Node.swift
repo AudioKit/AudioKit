@@ -3,19 +3,20 @@
 import AVFoundation
 import CAudioKit
 
-/// AudioKIt connection point
-open class Node {
-    /// Nodes providing input to this node.
-    public var connections: [Node] { [] }
+/// Node in an audio graph.
+public protocol Node: AnyObject {
 
-    /// The internal AVAudioEngine AVAudioNode
-    open var avAudioNode: AVAudioNode
+    /// Nodes providing audio input to this node.
+    var connections: [Node] { get }
 
-    /// Initialize the node from an AVAudioNode
-    /// - Parameter avAudioNode: AVAudioNode to initialize with
-    public init(avAudioNode: AVAudioNode) {
-        self.avAudioNode = avAudioNode
-    }
+    /// Internal AVAudioEngine node.
+    var avAudioNode: AVAudioNode { get }
+
+    /// Override point for any connections internal to the node.
+    func makeInternalConnections()
+}
+
+extension Node {
 
     /// Reset the internal state of the unit
     /// Fixes issues such as https://github.com/AudioKit/AudioKit/issues/2046
@@ -31,31 +32,6 @@ open class Node {
         }
         for connection in connections {
             connection.detach()
-        }
-    }
-
-    func makeAVConnections() {
-        // Are we attached?
-        if let engine = avAudioNode.engine {
-            for (bus, connection) in connections.enumerated() {
-                if let sourceEngine = connection.avAudioNode.engine {
-                    if sourceEngine != avAudioNode.engine {
-                        Log("🛑 Error: Attempt to connect nodes from different engines.")
-                        return
-                    }
-                }
-
-                engine.attach(connection.avAudioNode)
-
-                // Mixers will decide which input bus to use.
-                if let mixer = avAudioNode as? AVAudioMixerNode {
-                    mixer.connectMixer(input: connection.avAudioNode)
-                } else {
-                    avAudioNode.connect(input: connection.avAudioNode, bus: bus)
-                }
-
-                connection.makeAVConnections()
-            }
         }
     }
 
@@ -88,150 +64,75 @@ open class Node {
             }
         }
     }
-}
 
-/// Protocol for responding to play and stop of MIDI notes
-public protocol Polyphonic {
-    /// Play a sound corresponding to a MIDI note
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note Number
-    ///   - velocity:   MIDI Velocity
-    ///   - frequency:  Play this frequency
-    ///   - channel:    MIDI Channel
-    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, frequency: AUValue, channel: MIDIChannel)
+    func makeAVConnections() {
+        makeInternalConnections()
+        // Are we attached?
+        if let engine = avAudioNode.engine {
+            for (bus, connection) in connections.enumerated() {
+                if let sourceEngine = connection.avAudioNode.engine {
+                    if sourceEngine != avAudioNode.engine {
+                        Log("🛑 Error: Attempt to connect nodes from different engines.")
+                        return
+                    }
+                }
 
-    /// Play a sound corresponding to a MIDI note
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note Number
-    ///   - velocity:   MIDI Velocity
-    ///   - channel:    MIDI Channel
-    ///
-    func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel)
+                engine.attach(connection.avAudioNode)
 
-    /// Stop a sound corresponding to a MIDI note
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note Number
-    ///   - channel:    MIDI Channel
-    ///
-    func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel)
-}
+                // Mixers will decide which input bus to use.
+                if let mixer = avAudioNode as? AVAudioMixerNode {
+                    mixer.connectMixer(input: connection.avAudioNode)
+                } else {
+                    avAudioNode.connect(input: connection.avAudioNode, bus: bus)
+                }
 
-/// Bare bones implementation of Polyphonic protocol
-open class PolyphonicNode: Node, Polyphonic {
-    /// Global tuning table used by PolyphonicNode (Node classes adopting Polyphonic protocol)
-    @objc public static var tuningTable = TuningTable()
-
-    /// Play a sound corresponding to a MIDI note with frequency
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note Number
-    ///   - velocity:   MIDI Velocity
-    ///   - frequency:  Play this frequency
-    ///
-    open func play(noteNumber: MIDINoteNumber,
-                   velocity: MIDIVelocity,
-                   frequency: AUValue,
-                   channel: MIDIChannel = 0) {
-        Log("Playing note: \(noteNumber), velocity: \(velocity), frequency: \(frequency), channel: \(channel), " +
-            "override in subclass")
-    }
-
-    /// Play a sound corresponding to a MIDI note
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note Number
-    ///   - velocity:   MIDI Velocity
-    ///
-    open func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
-        // Microtonal pitch lookup
-
-        // default implementation is 12 ET
-        let frequency = PolyphonicNode.tuningTable.frequency(forNoteNumber: noteNumber)
-        play(noteNumber: noteNumber, velocity: velocity, frequency: AUValue(frequency), channel: channel)
-    }
-
-    /// Stop a sound corresponding to a MIDI note
-    ///
-    /// - parameter noteNumber: MIDI Note Number
-    ///
-    open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
-        Log("Stopping note \(noteNumber), override in subclass")
+                connection.makeAVConnections()
+            }
+        }
     }
 
     #if !os(tvOS)
-        /// Schedule an event with an offset
-        ///
-        /// - Parameters:
-        ///   - event: MIDI Event to schedule
-        ///   - offset: Time in samples
-        ///
-        public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
-            if let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock {
-                event.data.withUnsafeBufferPointer { ptr in
-                    guard let ptr = ptr.baseAddress else { return }
-                    midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)
-                }
+    /// Schedule an event with an offset
+    ///
+    /// - Parameters:
+    ///   - event: MIDI Event to schedule
+    ///   - offset: Time in samples
+    ///
+    public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
+        if let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock {
+            event.data.withUnsafeBufferPointer { ptr in
+                guard let ptr = ptr.baseAddress else { return }
+                midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)
             }
         }
+    }
     #endif
+
+    var bypassed: Bool {
+        get { avAudioNode.auAudioUnit.shouldBypassEffect }
+        set { avAudioNode.auAudioUnit.shouldBypassEffect = newValue }
+    }
+
+    public func start() { bypassed = false }
+    public func stop() { bypassed = true }
+    public func play() { bypassed = false }
+    public func bypass() { bypassed = true }
+
 }
 
-/// Protocol for dictating that a node can be in a started or stopped state
-public protocol Toggleable {
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    var isStarted: Bool { get }
+/// Convenience for AudioKit nodes.
+open class NodeBase: Node {
+    /// Nodes providing input to this node.
+    public var connections: [Node] { [] }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    func start()
+    /// The internal AVAudioEngine AVAudioNode
+    open var avAudioNode: AVAudioNode
 
-    /// Function to stop or bypass the node, both are equivalent
-    func stop()
-}
-
-/// Default functions for nodes that conform to Toggleable
-public extension Toggleable {
-    /// Synonym for isStarted that may make more sense with musical instruments
-    var isPlaying: Bool {
-        return isStarted
+    /// Initialize the node from an AVAudioNode
+    /// - Parameter avAudioNode: AVAudioNode to initialize with
+    public init(avAudioNode: AVAudioNode) {
+        self.avAudioNode = avAudioNode
     }
 
-    /// Antonym for isStarted
-    var isStopped: Bool {
-        return !isStarted
-    }
-
-    /// Antonym for isStarted that may make more sense with effects
-    var isBypassed: Bool {
-        return !isStarted
-    }
-
-    /// Synonym to start that may more more sense with musical instruments
-    func play() {
-        start()
-    }
-
-    /// Synonym for stop that may make more sense with effects
-    func bypass() {
-        stop()
-    }
-}
-
-public extension Toggleable where Self: AudioUnitContainer {
-    /// Is node started?
-    var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
-
-    /// Start node
-    func start() {
-        internalAU?.start()
-    }
-
-    /// Stop node
-    func stop() {
-        internalAU?.stop()
-    }
+    public func makeInternalConnections() { }
 }

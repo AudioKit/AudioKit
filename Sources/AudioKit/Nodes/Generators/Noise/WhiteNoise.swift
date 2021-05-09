@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// White noise generator
-public class WhiteNoise: Node, AudioUnitContainer, Toggleable {
+public class WhiteNoise: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "wnoz"
     public static let ComponentDescription = AudioComponentDescription(generator: "wnoz")

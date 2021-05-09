@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-open class Distortion: Node, Toggleable {
+open class Distortion: NodeBase {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

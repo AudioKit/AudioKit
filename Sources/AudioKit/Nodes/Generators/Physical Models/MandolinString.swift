@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Mandolin
 ///
-public class MandolinString: Node, AudioUnitContainer, Toggleable {
+public class MandolinString: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "mand"
     public static let ComponentDescription = AudioComponentDescription(instrument: "mand")
@@ -41,7 +41,7 @@ public class MandolinString: Node, AudioUnitContainer, Toggleable {
     ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
     ///
     public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
-        internalAU?.start()
+        start()
         internalAU?.trigger(note: note, velocity: velocity)
     }
 

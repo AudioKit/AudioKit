@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit's Expansion Components
 ///
-open class Expander: Node, Toggleable {
+open class Expander: NodeBase {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

@@ -7,7 +7,7 @@ import CAudioKit
 /// ftable as an impulse response.
 /// TOOD: This node needs to be tested
 ///
-public class Convolution: Node, AudioUnitContainer, Toggleable {
+public class Convolution: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "conv"
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")
@@ -53,7 +53,7 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
                 akConvolutionSetPartitionLength(dsp, Int32(partitionLength))
             }
             self.readAudioFile()
-            self.internalAU?.start()
+            self.start()
         }
     }
 

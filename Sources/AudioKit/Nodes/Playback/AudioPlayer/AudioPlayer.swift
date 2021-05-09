@@ -8,7 +8,7 @@ import CAudioKit
 /// played from disk. If you want seamless looping then buffer it. You can still loop from disk, but the
 /// loop will not be totally seamless.
 
-public class AudioPlayer: Node {
+public class AudioPlayer: NodeBase {
     /// The underlying player node
     public private(set) var playerNode = AVAudioPlayerNode()
 
@@ -179,7 +179,7 @@ public class AudioPlayer: Node {
     }
 
     // called in the connection chain to attach the playerNode
-    override func makeAVConnections() {
+    override public func makeInternalConnections() {
         guard let engine = mixerNode.engine else {
             Log("Engine is nil", type: .error)
             return
@@ -187,7 +187,7 @@ public class AudioPlayer: Node {
         engine.attach(playerNode)
         engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
     }
-
+    
     // MARK: - Init
 
     /// Create an AudioPlayer with default properties and nothing pre-loaded

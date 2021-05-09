@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
-public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
+public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "lp18"
     public static let ComponentDescription = AudioComponentDescription(effect: "lp18")

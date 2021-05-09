@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Karplus-Strong plucked string instrument.
 /// 
-public class PluckedString: Node, AudioUnitContainer, Toggleable {
+public class PluckedString: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "pluk"
     public static let ComponentDescription = AudioComponentDescription(instrument: "pluk")
@@ -79,7 +79,7 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
     /// Trigger the sound with current parameters
     ///
     open func trigger() {
-        internalAU?.start()
+        start()
         internalAU?.trigger()
     }
 

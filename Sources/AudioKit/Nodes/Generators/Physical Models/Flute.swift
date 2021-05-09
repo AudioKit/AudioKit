@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Flute
 ///
-public class Flute: Node, AudioUnitContainer, Toggleable {
+public class Flute: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "flut"
     public static let ComponentDescription = AudioComponentDescription(instrument: "flut")
@@ -41,7 +41,7 @@ public class Flute: Node, AudioUnitContainer, Toggleable {
     ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
     ///
     public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
-        internalAU?.start()
+        start()
         internalAU?.trigger(note: note, velocity: velocity)
     }
 

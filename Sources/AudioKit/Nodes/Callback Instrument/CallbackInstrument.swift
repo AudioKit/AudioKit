@@ -12,7 +12,7 @@ public typealias MIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 /// New sample-accurate version of CallbackInstrument
 /// Old CallbackInstrument renamed to MIDICallbackInstrument
 /// If you have used this before, you should be able to simply switch to MIDICallbackInstrument
-open class CallbackInstrument: PolyphonicNode, AudioUnitContainer {
+open class CallbackInstrument: NodeBase, AudioUnitContainer {
 
     /// Four letter unique description "clbk"
     public static let ComponentDescription = AudioComponentDescription(instrument: "clbk")

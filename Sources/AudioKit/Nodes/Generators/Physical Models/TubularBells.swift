@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK TubularBells
 ///
-public class TubularBells: Node, AudioUnitContainer, Toggleable {
+public class TubularBells: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "tbel"
     public static let ComponentDescription = AudioComponentDescription(instrument: "tbel")
@@ -41,7 +41,7 @@ public class TubularBells: Node, AudioUnitContainer, Toggleable {
     ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
     ///
     public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
-        internalAU?.start()
+        start()
         internalAU?.trigger(note: note, velocity: velocity)
     }
 

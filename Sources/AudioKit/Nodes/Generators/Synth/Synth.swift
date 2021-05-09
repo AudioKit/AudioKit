@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Synth
 ///
-public class Synth: PolyphonicNode, AudioUnitContainer {
+public class Synth: NodeBase, AudioUnitContainer {
     /// Four letter unique description "snth""
     public static let ComponentDescription = AudioComponentDescription(instrument: "snth")
 
@@ -194,20 +194,18 @@ public class Synth: PolyphonicNode, AudioUnitContainer {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - velocity: MIDI Velocity
-    ///   - frequency: Frequency in Hertz
     ///   - channel: MIDI Channel
-    public override func play(noteNumber: MIDINoteNumber,
-                              velocity: MIDIVelocity,
-                              frequency: AUValue,
-                              channel: MIDIChannel = 0) {
-        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity, frequency: frequency)
+    public func play(noteNumber: MIDINoteNumber,
+                     velocity: MIDIVelocity,
+                     channel: MIDIChannel = 0) {
+        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
     }
 
     /// Stop a note
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - channel: MIDI Channel
-    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
+    public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
     }
 

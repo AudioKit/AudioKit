@@ -87,7 +87,7 @@ extension AudioPlayer {
     }
 }
 
-extension AudioPlayer: Toggleable {
+extension AudioPlayer {
     /// Synonym for isPlaying
     public var isStarted: Bool { isPlaying }
 

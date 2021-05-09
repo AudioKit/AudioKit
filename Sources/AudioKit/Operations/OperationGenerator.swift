@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
+public class OperationGenerator: NodeBase, AudioUnitContainer {
 
     /// Internal audio unit type
     public typealias AudioUnitType = AudioUnitBase
@@ -16,11 +16,6 @@ public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
 
     // MARK: - Parameters
 

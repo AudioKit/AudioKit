@@ -80,7 +80,7 @@ public enum ShakerType: MIDIByte {
 
 /// STK Shaker
 ///
-public class Shaker: Node, AudioUnitContainer, Toggleable {
+public class Shaker: NodeBase, AudioUnitContainer {
     /// Four letter unique description "shak"
     public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
 
@@ -89,13 +89,6 @@ public class Shaker: Node, AudioUnitContainer, Toggleable {
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    open var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
 
     // MARK: - Initialization
 
@@ -115,7 +108,7 @@ public class Shaker: Node, AudioUnitContainer, Toggleable {
     ///   - type: various shaker types are supported
     ///   - amplitude: how hard to shake
     public func trigger(type: ShakerType, amplitude: Double = 0.5) {
-        internalAU?.start()
+        start()
         internalAU?.trigger(type: AUValue(type.rawValue), amplitude: AUValue(amplitude))
     }
 }

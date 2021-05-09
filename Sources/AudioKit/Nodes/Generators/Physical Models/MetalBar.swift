@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// 
-public class MetalBar: Node, AudioUnitContainer, Toggleable {
+public class MetalBar: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "mbar"
     public static let ComponentDescription = AudioComponentDescription(instrument: "mbar")
@@ -162,7 +162,7 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
     /// Trigger the sound with current parameters
     ///
     open func trigger() {
-        internalAU?.start()
+        start()
         internalAU?.trigger()
     }
 }

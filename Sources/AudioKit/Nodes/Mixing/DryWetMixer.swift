@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
+public class DryWetMixer: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "dwmx"
    public static let ComponentDescription = AudioComponentDescription(mixer: "dwmx")

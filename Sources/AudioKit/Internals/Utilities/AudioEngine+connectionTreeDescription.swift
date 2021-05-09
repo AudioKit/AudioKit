@@ -9,7 +9,7 @@ extension AudioEngine {
         if let rootNode = mainMixerNode {
             return rootNode.connectionTreeDescription
         } else {
-            return "\(Node.connectionTreeLinePrefix)mainMixerNode is nil"
+            return "\(connectionTreeLinePrefix)mainMixerNode is nil"
         }
     }
 

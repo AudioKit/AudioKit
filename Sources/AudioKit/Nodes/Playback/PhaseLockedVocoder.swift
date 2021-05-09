@@ -7,7 +7,7 @@ import CAudioKit
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
+public class PhaseLockedVocoder: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "minc"
     public static let ComponentDescription = AudioComponentDescription(generator: "minc")
@@ -181,13 +181,4 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         }
     }
 
-    /// Start the node
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
-    }
 }

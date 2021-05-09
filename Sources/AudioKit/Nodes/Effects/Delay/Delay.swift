@@ -5,7 +5,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-public class Delay: Node, Toggleable {
+public class Delay: NodeBase {
     let delayAU = AVAudioUnitDelay()
 
     let input: Node

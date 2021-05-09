@@ -8,7 +8,7 @@ import CAudioKit
 /// independent and is determined by the reverberation time (defined as the time in seconds for a signal to
 /// decay to 1/1000, or 60dB down from its original amplitude).  Output will begin to appear immediately.
 /// 
-public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
+public class FlatFrequencyResponseReverb: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "alps"
     public static let ComponentDescription = AudioComponentDescription(effect: "alps")

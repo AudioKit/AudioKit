@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK RhodesPiano
 ///
-public class RhodesPianoKey: Node, AudioUnitContainer, Toggleable {
+public class RhodesPianoKey: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "rhds"
     public static let ComponentDescription = AudioComponentDescription(instrument: "rhds")
@@ -41,7 +41,7 @@ public class RhodesPianoKey: Node, AudioUnitContainer, Toggleable {
     ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
     ///
     public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
-        internalAU?.start()
+        start()
         internalAU?.trigger(note: note, velocity: velocity)
     }
 

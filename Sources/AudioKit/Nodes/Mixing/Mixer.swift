@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// AudioKit version of Apple's Mixer Node. Mixes a variadic list of Nodes.
-public class Mixer: Node, Toggleable, NamedNode {
+public class Mixer: NodeBase, NamedNode {
     /// The internal mixer node
     fileprivate var mixerAU = AVAudioMixerNode()
 
@@ -30,8 +30,6 @@ public class Mixer: Node, Toggleable, NamedNode {
             mixerAU.pan = pan
         }
     }
-
-    fileprivate var lastKnownVolume: AUValue = 1.0
 
     /// Determine if the mixer is serving any output or if it is stopped.
     public var isStarted: Bool {
@@ -62,21 +60,6 @@ public class Mixer: Node, Toggleable, NamedNode {
     public convenience init(_ inputs: [Node], name: String? = nil) {
         self.init(name: name)
         self.inputs = inputs
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        if isStopped {
-            volume = lastKnownVolume
-        }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        if isPlaying {
-            lastKnownVolume = volume
-            volume = 0
-        }
     }
 
     /// Add input to the mixer

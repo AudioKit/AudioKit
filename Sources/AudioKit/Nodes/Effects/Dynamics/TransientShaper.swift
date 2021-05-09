@@ -4,7 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Transient shaper
-public class TransientShaper: Node, AudioUnitContainer, Toggleable {
+public class TransientShaper: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "trsh"
     public static let ComponentDescription = AudioComponentDescription(effect: "trsh")

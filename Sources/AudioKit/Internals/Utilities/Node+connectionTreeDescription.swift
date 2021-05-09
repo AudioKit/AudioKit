@@ -2,9 +2,9 @@
 
 import Foundation
 
-extension Node {
+let connectionTreeLinePrefix = "AudioKit | "
 
-    static let connectionTreeLinePrefix = "AudioKit | "
+extension Node {
 
     /// Nice printout of all the node connections
     public var connectionTreeDescription: String {
@@ -18,7 +18,7 @@ extension Node {
             nodeDescription += "(\"\(namedSelf.name)\")"
         }
 
-        var connectionTreeDescription = "\(Node.connectionTreeLinePrefix)\(indentation)↳\(nodeDescription)\n"
+        var connectionTreeDescription = "\(connectionTreeLinePrefix)\(indentation)↳\(nodeDescription)\n"
         for connectionNode in self.connections {
             connectionTreeDescription += connectionNode.createConnectionTreeDescription(paddedWith: " "+indentation)
         }

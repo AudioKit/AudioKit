@@ -50,14 +50,14 @@ AUValue getParameterValueDSP(DSPRef pDSP, AUParameterAddress address)
     return pDSP->getParameter(address);
 }
 
-void startDSP(DSPRef pDSP)
+void setBypassDSP(DSPRef pDSP, bool bypass)
 {
-    pDSP->start();
+    pDSP->isStarted = !bypass;
 }
 
-void stopDSP(DSPRef pDSP)
+bool getBypassDSP(DSPRef pDSP)
 {
-    pDSP->stop();
+    return !pDSP->isStarted;
 }
 
 void setWavetableDSP(DSPRef pDSP, const float* table, size_t length, int index)
