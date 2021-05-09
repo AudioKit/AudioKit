@@ -4,11 +4,13 @@ import AVFoundation
 import CAudioKit
 
 /// Protocol for AudioKit nodes that have their own internal audio unit
-public protocol AudioUnitContainer {
+public protocol AudioUnitContainer: AnyObject {
     /// Associated type of audio unit
     associatedtype AudioUnitType: AudioUnitBase
     /// Unique four-letter description
     static var ComponentDescription: AudioComponentDescription { get }
+
+    var avAudioNode: AVAudioNode { get set }
 }
 
 extension AudioUnitContainer {
@@ -48,6 +50,8 @@ extension AudioUnitContainer {
 
                 myAU.parameterTree = AUParameterTree.createTree(withChildren: params)
             }
+
+            self.avAudioNode = au
 
             callback(au)
         }
