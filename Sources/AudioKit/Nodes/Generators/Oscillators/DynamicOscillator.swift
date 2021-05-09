@@ -7,17 +7,7 @@ import CAudioKit
 /// Reads from the table sequentially and repeatedly at given frequency.
 /// Linear interpolation is applied for table look up from internal phase values.
 ///
-public class DynamicOscillator: NodeBase, AudioUnitContainer {
-    /// Unique four-letter identifier "csto"
-    public static let ComponentDescription = AudioComponentDescription(generator: "csto")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class DynamicOscillator: NodeBase {
 
     fileprivate var waveform: Table?
 
@@ -91,25 +81,22 @@ public class DynamicOscillator: NodeBase, AudioUnitContainer {
         detuningMultiplier: AUValue = detuningMultiplierDef.defaultValue)
     {
         super.init(avAudioNode: AVAudioNode())
+        avAudioNode = instantiate(generator: "csto")
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-            audioUnit.setWavetable(waveform.content)
-
-            self.waveform = waveform
-            self.frequency = frequency
-            self.amplitude = amplitude
-            self.detuningOffset = detuningOffset
-            self.detuningMultiplier = detuningMultiplier
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        self.stop()
+        audioUnit.setWavetable(waveform.content)
+        
+        self.waveform = waveform
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
+        
     }
-
+    
     // MARK: - Public Methods
 
     /// Sets the wavetable of the oscillator node
@@ -117,13 +104,13 @@ public class DynamicOscillator: NodeBase, AudioUnitContainer {
     /// - Parameters:
     ///   - waveform: The waveform of oscillation
     public func setWaveTable(waveform: Table) {
-        self.internalAU!.setWavetable(waveform.content)
+        (avAudioNode.auAudioUnit as? AudioUnitBase)?.setWavetable(waveform.content)
         self.waveform = waveform
-        self.wavetableUpdateHandler(waveform.content)
+        wavetableUpdateHandler(waveform.content)
     }
 
     /// Gets the floating point values stored in the oscillator's wavetable
     public func getWavetableValues() -> [Float] {
-        return self.waveform?.content ?? []
+        return waveform?.content ?? []
     }
 }

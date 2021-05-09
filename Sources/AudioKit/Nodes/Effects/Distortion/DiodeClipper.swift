@@ -6,20 +6,11 @@ import CAudioKit
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-public class DiodeClipper: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "dclp"
-    public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
-
+public class DiodeClipper: NodeBase {
+    
     let input: Node
     override public var connections: [Node] { [input] }
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
+    
     // MARK: - Parameters
 
     /// Specification for the cutoff frequency
@@ -61,14 +52,10 @@ public class DiodeClipper: NodeBase, AudioUnitContainer {
     ) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.cutoffFrequency = cutoffFrequency
-            self.gain = gain
-        }
+        
+        avAudioNode = instantiate(effect: "dclp")
+        
+        self.cutoffFrequency = cutoffFrequency
+        self.gain = gain
     }
 }

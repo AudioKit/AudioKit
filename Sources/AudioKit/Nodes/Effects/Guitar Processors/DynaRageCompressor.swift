@@ -6,16 +6,7 @@ import CAudioKit
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls
 ///
-public class DynaRageCompressor: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "dyrc"
-    public static let ComponentDescription = AudioComponentDescription(effect: "dyrc")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class DynaRageCompressor: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -116,20 +107,14 @@ public class DynaRageCompressor: NodeBase, AudioUnitContainer {
     ) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.ratio = ratio
-            self.threshold = threshold
-            self.attackDuration = attackDuration
-            self.releaseDuration = releaseDuration
-            self.rage = rage
-            self.rageEnabled = rageEnabled
-
-        }
-
+        
+        avAudioNode = instantiate(effect: "dyrc")
+        
+        self.ratio = ratio
+        self.threshold = threshold
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
+        self.rage = rage
+        self.rageEnabled = rageEnabled
     }
 }

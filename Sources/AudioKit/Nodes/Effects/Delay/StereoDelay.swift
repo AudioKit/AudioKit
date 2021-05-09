@@ -5,17 +5,7 @@ import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 /// TODO: This node needs tests
-public class StereoDelay: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "sdly"
-    public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
+public class StereoDelay: NodeBase {
     let input: Node
     override public var connections: [Node] { [input] }
 
@@ -93,15 +83,11 @@ public class StereoDelay: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.time = time
-            self.feedback = feedback
-            self.dryWetMix = dryWetMix
-            self.pingPong = pingPong ? 1.0 : 0.0
-        }
+        avAudioNode = instantiate(effect: "sdly")
+        
+        self.time = time
+        self.feedback = feedback
+        self.dryWetMix = dryWetMix
+        self.pingPong = pingPong ? 1.0 : 0.0
     }
 }

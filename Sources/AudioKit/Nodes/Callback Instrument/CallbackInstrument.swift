@@ -12,25 +12,15 @@ public typealias MIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 /// New sample-accurate version of CallbackInstrument
 /// Old CallbackInstrument renamed to MIDICallbackInstrument
 /// If you have used this before, you should be able to simply switch to MIDICallbackInstrument
-open class CallbackInstrument: NodeBase, AudioUnitContainer {
-
-    /// Four letter unique description "clbk"
-    public static let ComponentDescription = AudioComponentDescription(instrument: "clbk")
-
-    /// Internal audio unit type
-    public typealias AudioUnitType = AudioUnitBase
-
-    // MARK: - Initialization
+open class CallbackInstrument: NodeBase {
 
     /// Initialize the callback instrument
     /// - Parameter midiCallback: Optional MIDI Callback
     public init(midiCallback: MIDICallback? = nil) {
 
         super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-        }
+        
+        avAudioNode = instantiate(instrument: "clbk")
         
         if let callback = midiCallback, let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase {
             akCallbackInstrumentSetCallback(audioUnit.dsp, callback)

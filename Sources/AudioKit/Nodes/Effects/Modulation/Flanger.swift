@@ -5,16 +5,7 @@ import CAudioKit
 
 /// Stereo Flanger
 ///
-public class Flanger: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "flgr"
-    public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class Flanger: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -89,16 +80,12 @@ public class Flanger: NodeBase, AudioUnitContainer {
     ) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
+        
+        avAudioNode = instantiate(effect: "flgr")
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.frequency = frequency
-            self.depth = depth
-            self.feedback = feedback
-            self.dryWetMix = dryWetMix
-        }
+        self.frequency = frequency
+        self.depth = depth
+        self.feedback = feedback
+        self.dryWetMix = dryWetMix
     }
 }

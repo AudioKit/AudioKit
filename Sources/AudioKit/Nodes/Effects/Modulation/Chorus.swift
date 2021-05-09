@@ -5,22 +5,13 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class Chorus: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "chrs"
-    public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class Chorus: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
 
     // MARK: - Parameters
-
+    
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
@@ -89,16 +80,12 @@ public class Chorus: NodeBase, AudioUnitContainer {
     ) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
+        
+        avAudioNode = instantiate(effect: "chrs")
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.frequency = frequency
-            self.depth = depth
-            self.feedback = feedback
-            self.dryWetMix = dryWetMix
-        }
+        self.frequency = frequency
+        self.depth = depth
+        self.feedback = feedback
+        self.dryWetMix = dryWetMix
     }
 }

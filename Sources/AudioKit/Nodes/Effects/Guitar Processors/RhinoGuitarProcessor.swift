@@ -5,16 +5,7 @@ import CAudioKit
 
 /// Guitar head and cab simulator.
 ///
-public class RhinoGuitarProcessor: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "rhgp"
-    public static let ComponentDescription = AudioComponentDescription(effect: "rhgp")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class RhinoGuitarProcessor: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -117,18 +108,14 @@ public class RhinoGuitarProcessor: NodeBase, AudioUnitContainer {
     ) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
+        
+        avAudioNode = instantiate(effect: "rhgp")
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.preGain = preGain
-            self.postGain = postGain
-            self.lowGain = lowGain
-            self.midGain = midGain
-            self.highGain = highGain
-            self.distortion = distortion
-
-        }
+        self.preGain = preGain
+        self.postGain = postGain
+        self.lowGain = lowGain
+        self.midGain = midGain
+        self.highGain = highGain
+        self.distortion = distortion
     }
 }

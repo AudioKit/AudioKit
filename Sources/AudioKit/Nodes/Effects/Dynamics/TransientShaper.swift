@@ -4,16 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Transient shaper
-public class TransientShaper: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "trsh"
-    public static let ComponentDescription = AudioComponentDescription(effect: "trsh")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class TransientShaper: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -86,17 +77,13 @@ public class TransientShaper: NodeBase, AudioUnitContainer {
     ) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.inputAmount = inputAmount
-            self.attackAmount = attackAmount
-            self.releaseAmount = releaseAmount
-            self.outputAmount = outputAmount
-        }
+        
+        avAudioNode = instantiate(effect: "trsh")
+        
+        self.inputAmount = inputAmount
+        self.attackAmount = attackAmount
+        self.releaseAmount = releaseAmount
+        self.outputAmount = outputAmount
     }
-
+    
 }

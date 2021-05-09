@@ -7,19 +7,8 @@ import CAudioKit
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-public class PhaseLockedVocoder: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "minc"
-    public static let ComponentDescription = AudioComponentDescription(generator: "minc")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
-
+public class PhaseLockedVocoder: NodeBase {
+    
     /// Specification for position
     public static let positionDef = NodeParameterDef(
         identifier: "position",
@@ -73,21 +62,14 @@ public class PhaseLockedVocoder: NodeBase, AudioUnitContainer {
         pitchRatio: AUValue = pitchRatioDef.defaultValue
         ) {
         super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.loadFile(file)
-
-            self.position = position
-            self.amplitude = amplitude
-            self.pitchRatio = pitchRatio
-
-        }
+        
+        avAudioNode = instantiate(generator: "minc")
+        
+        loadFile(file)
+        
+        self.position = position
+        self.amplitude = amplitude
+        self.pitchRatio = pitchRatio
     }
 
     internal func loadFile(_ avAudioFile: AVAudioFile) {
@@ -167,7 +149,10 @@ public class PhaseLockedVocoder: NodeBase, AudioUnitContainer {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    internalAU?.setWavetable(data: data, size: Int(ioNumberFrames))
+                    guard let au = avAudioNode.auAudioUnit as? AudioUnitBase else {
+                        fatalError("Couldn't get audio unit")
+                    }
+                    au.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure
                     theData?.deallocate()

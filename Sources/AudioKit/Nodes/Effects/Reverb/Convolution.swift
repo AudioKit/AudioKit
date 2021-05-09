@@ -7,16 +7,7 @@ import CAudioKit
 /// ftable as an impulse response.
 /// TOOD: This node needs to be tested
 ///
-public class Convolution: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "conv"
-    public static let ComponentDescription = AudioComponentDescription(effect: "conv")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class Convolution: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -43,18 +34,14 @@ public class Convolution: NodeBase, AudioUnitContainer {
         self.partitionLength = partitionLength
 
         super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            if let dsp = self.internalAU?.dsp {
-                akConvolutionSetPartitionLength(dsp, Int32(partitionLength))
-            }
-            self.readAudioFile()
-            self.start()
+        
+        avAudioNode = instantiate(effect: "conv")
+        
+        if let dsp = (avAudioNode.auAudioUnit as? AudioUnitBase)?.dsp {
+            akConvolutionSetPartitionLength(dsp, Int32(partitionLength))
         }
+        self.readAudioFile()
+        self.start()
     }
 
     private func readAudioFile() {
@@ -136,7 +123,7 @@ public class Convolution: NodeBase, AudioUnitContainer {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    internalAU?.setWavetable(data: data, size: Int(ioNumberFrames))
+                    (avAudioNode.auAudioUnit as? AudioUnitBase)?.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure
                     theData?.deallocate()

@@ -5,16 +5,7 @@ import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class DryWetMixer: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "dwmx"
-   public static let ComponentDescription = AudioComponentDescription(mixer: "dwmx")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class DryWetMixer: NodeBase {
 
     let input1: Node
     let input2: Node
@@ -45,14 +36,10 @@ public class DryWetMixer: NodeBase, AudioUnitContainer {
         self.input1 = input1
         self.input2 = input2
         super.init(avAudioNode: AVAudioNode())
+        
+        avAudioNode = instantiate(mixer: "dwmx")
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.balance = balance
-        }
+        self.balance = balance
     }
 
     /// Initializer with dry wet labels

@@ -4,15 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Fader.
-public class Fader: NodeBase, AudioUnitContainer {
-    /// Unique four-letter identifier "fder"
-    public static let ComponentDescription = AudioComponentDescription(effect: "fder")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class Fader: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -95,17 +87,13 @@ public class Fader: NodeBase, AudioUnitContainer {
     public init(_ input: Node, gain: AUValue = 1) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.leftGain = gain
-            self.rightGain = gain
-            self.flipStereo = false
-            self.mixToMono = false
-        }
+        
+        avAudioNode = instantiate(effect: "fder")
+        
+        self.leftGain = gain
+        self.rightGain = gain
+        self.flipStereo = false
+        self.mixToMono = false
     }
 
     deinit {
