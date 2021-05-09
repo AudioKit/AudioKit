@@ -6,14 +6,15 @@ import CAudioKit
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-open class HighPassFilter: NodeBase {
+open class HighPassFilter: Node {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:
     AudioComponentDescription(appleEffect: kAudioUnitSubType_HighPassFilter))
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
@@ -53,7 +54,6 @@ open class HighPassFilter: NodeBase {
         cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
         resonance: AUValue = resonanceDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: effectAU)
 
         associateParams(with: effectAU)
 
