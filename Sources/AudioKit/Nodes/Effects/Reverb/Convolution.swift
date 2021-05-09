@@ -53,7 +53,7 @@ public class Convolution: NodeBase, AudioUnitContainer {
                 akConvolutionSetPartitionLength(dsp, Int32(partitionLength))
             }
             self.readAudioFile()
-            self.internalAU?.start()
+            self.start()
         }
     }
 

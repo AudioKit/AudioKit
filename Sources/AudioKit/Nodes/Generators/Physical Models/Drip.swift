@@ -158,7 +158,7 @@ public class Drip: NodeBase, AudioUnitContainer {
     /// Trigger the sound with an optional set of parameters
     ///
     public func trigger() {
-        internalAU?.start()
+        start()
         internalAU?.trigger()
     }
 

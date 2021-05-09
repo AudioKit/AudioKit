@@ -115,7 +115,7 @@ public class Shaker: NodeBase, AudioUnitContainer {
     ///   - type: various shaker types are supported
     ///   - amplitude: how hard to shake
     public func trigger(type: ShakerType, amplitude: Double = 0.5) {
-        internalAU?.start()
+        start()
         internalAU?.trigger(type: AUValue(type.rawValue), amplitude: AUValue(amplitude))
     }
 }

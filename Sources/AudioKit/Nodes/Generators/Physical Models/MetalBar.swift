@@ -162,7 +162,7 @@ public class MetalBar: NodeBase, AudioUnitContainer {
     /// Trigger the sound with current parameters
     ///
     open func trigger() {
-        internalAU?.start()
+        start()
         internalAU?.trigger()
     }
 }

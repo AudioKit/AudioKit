@@ -181,13 +181,4 @@ public class PhaseLockedVocoder: NodeBase, AudioUnitContainer {
         }
     }
 
-    /// Start the node
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
-    }
 }
