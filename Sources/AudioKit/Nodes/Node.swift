@@ -264,6 +264,10 @@ func instantiate2(instrument code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(instrument: code))
 }
 
+func instantiate2(effect code: String) -> AVAudioNode {
+    instantiate(componentDescription: AudioComponentDescription(effect: code))
+}
+
 /// Convenience for AudioKit nodes.
 open class NodeBase: Node {
     /// Nodes providing input to this node.
