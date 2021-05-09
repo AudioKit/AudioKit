@@ -100,6 +100,18 @@ open class AudioUnitBase: AUAudioUnit {
         return canProcessInPlaceDSP(dsp)
     }
 
+    override public var shouldBypassEffect: Bool {
+        get { return isStarted }
+        set {
+            isStarted = newValue
+            if shouldBypassEffect {
+                stopDSP(dsp)
+            } else {
+                startDSP(dsp)
+            }
+        }
+    }
+
     // MARK: Lifecycle
 
     /// DSP Reference
@@ -136,18 +148,6 @@ open class AudioUnitBase: AUAudioUnit {
     }
 
     // MARK: AudioKit
-
-    override public var shouldBypassEffect: Bool {
-        get { return isStarted }
-        set {
-            isStarted = newValue
-            if shouldBypassEffect {
-                stopDSP(dsp)
-            } else {
-                startDSP(dsp)
-            }
-        }
-    }
 
     /// Whether the audio unit is running
     public private(set) var isStarted: Bool = true
