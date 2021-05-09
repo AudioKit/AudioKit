@@ -168,6 +168,10 @@ extension Node {
         return result
     }
 
+    func instantiate(generator code: String) -> AVAudioUnit {
+        instantiateAudioUnit(componentDescription: AudioComponentDescription(generator: code))
+    }
+
 }
 
 /// Convenience for AudioKit nodes.
