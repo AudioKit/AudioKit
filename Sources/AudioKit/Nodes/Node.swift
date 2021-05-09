@@ -121,7 +121,7 @@ extension Node {
 }
 
 /// Convenience for AudioKit nodes.
-open class NodeBase : Node {
+open class NodeBase: Node {
     /// Nodes providing input to this node.
     public var connections: [Node] { [] }
 
