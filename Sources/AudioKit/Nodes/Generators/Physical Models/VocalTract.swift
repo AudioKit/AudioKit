@@ -9,21 +9,8 @@ import CAudioKit
 /// classic Kelly-Lochbaum
 /// segmented cylindrical 1d waveguide model, and the glottal pulse wave is a
 /// LF glottal pulse model.
-///
-/// NOTE:  This node is CPU intensitve and will drop packet if your buffer size is
-/// too short. It requires at least 64 samples on an iPhone X, for example.
-public class VocalTract: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "vocw"
-    public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+/// 
+public class VocalTract: NodeBase {
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
@@ -32,8 +19,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterFrequency"),
         defaultValue: 160.0,
         range: 0.0 ... 22_050.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Glottal frequency.
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -45,8 +31,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterTonguePosition"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Tongue position (0-1)
     @Parameter(tonguePositionDef) public var tonguePosition: AUValue
@@ -58,8 +43,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterTongueDiameter"),
         defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Tongue diameter (0-1)
     @Parameter(tongueDiameterDef) public var tongueDiameter: AUValue
@@ -71,8 +55,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterTenseness"),
         defaultValue: 0.6,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Vocal tenseness. 0 = all breath. 1=fully saturated.
     @Parameter(tensenessDef) public var tenseness: AUValue
@@ -84,8 +67,7 @@ public class VocalTract: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("VocalTractParameterNasality"),
         defaultValue: 0.0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Sets the velum size. Larger values of this creates more nasally sounds.
     @Parameter(nasalityDef) public var nasality: AUValue
@@ -110,20 +92,17 @@ public class VocalTract: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "vocw")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            self.frequency = frequency
-            self.tonguePosition = tonguePosition
-            self.tongueDiameter = tongueDiameter
-            self.tenseness = tenseness
-            self.nasality = nasality
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        self.stop()
+
+        self.frequency = frequency
+        self.tonguePosition = tonguePosition
+        self.tongueDiameter = tongueDiameter
+        self.tenseness = tenseness
+        self.nasality = nasality
     }
 }

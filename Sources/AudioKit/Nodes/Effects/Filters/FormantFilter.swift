@@ -7,16 +7,7 @@ import CAudioKit
 /// When fed with a pulse train, it will generate a series of overlapping grains. 
 /// Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps.
 /// 
-public class FormantFilter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "fofi"
-    public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class FormantFilter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -30,8 +21,7 @@ public class FormantFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FormantFilterParameterCenterFrequency"),
         defaultValue: 1_000,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency.
     @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
@@ -43,8 +33,7 @@ public class FormantFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FormantFilterParameterAttackDuration"),
         defaultValue: 0.007,
         range: 0.0 ... 0.1,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Impulse response attack time (in seconds).
     @Parameter(attackDurationDef) public var attackDuration: AUValue
@@ -56,8 +45,7 @@ public class FormantFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FormantFilterParameterDecayDuration"),
         defaultValue: 0.04,
         range: 0.0 ... 0.1,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Impulse reponse decay time (in seconds)
     @Parameter(decayDurationDef) public var decayDuration: AUValue
@@ -81,17 +69,10 @@ public class FormantFilter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "fofi")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.centerFrequency = centerFrequency
-            self.attackDuration = attackDuration
-            self.decayDuration = decayDuration
-        }
+        self.centerFrequency = centerFrequency
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
    }
 }

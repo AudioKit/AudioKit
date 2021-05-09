@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
-public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "lp18"
-    public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class ThreePoleLowpassFilter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -28,8 +19,7 @@ public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterDistortion"),
         defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     @Parameter(distortionDef) public var distortion: AUValue
@@ -41,8 +31,7 @@ public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterCutoffFrequency"),
         defaultValue: 1_500,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Filter cutoff frequency in Hertz.
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -54,8 +43,7 @@ public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterResonance"),
         defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     @Parameter(resonanceDef) public var resonance: AUValue
@@ -79,17 +67,10 @@ public class ThreePoleLowpassFilter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "lp18")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.distortion = distortion
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
-        }
+        self.distortion = distortion
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
    }
 }

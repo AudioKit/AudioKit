@@ -18,8 +18,7 @@ public class Delay: NodeBase {
         address: 0,
         defaultValue: 50,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Dry/wet mix. Should be a value between 0-1.
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
@@ -31,8 +30,7 @@ public class Delay: NodeBase {
         address: 1,
         defaultValue: 1,
         range: 0 ... 2.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter(timeDef) public var time: AUValue
@@ -44,8 +42,7 @@ public class Delay: NodeBase {
         address: 2,
         defaultValue: 50,
         range: -100 ... 100,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Feedback amount. Should be a value between 0-1.
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -57,8 +54,7 @@ public class Delay: NodeBase {
         address: 3,
         defaultValue: 15000,
         range: 10 ... 22050,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Low-pass cutoff frequency Cutoff Frequency (Hertz) ranges from 10 to 200 (Default: 80)
     @Parameter(lowPassCutoffDef) public var lowPassCutoff: AUValue

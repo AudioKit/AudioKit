@@ -22,8 +22,7 @@ open class Compressor: NodeBase {
         address: 0,
         defaultValue: -20,
         range: -40 ... 20,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Threshold (decibels) ranges from -40 to 20 (Default: -20)
     @Parameter(thresholdDef) public var threshold: AUValue
@@ -35,8 +34,7 @@ open class Compressor: NodeBase {
         address: 1,
         defaultValue: 5,
         range: 0.1 ... 40.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Head Room (decibels) ranges from 0.1 to 40.0 (Default: 5)
     @Parameter(headRoomDef) public var headRoom: AUValue
@@ -48,8 +46,7 @@ open class Compressor: NodeBase {
         address: 4,
         defaultValue: 0.001,
         range: 0.0001 ... 0.2,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Attack Time (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
     @Parameter(attackTimeDef) public var attackTime: AUValue
@@ -61,8 +58,7 @@ open class Compressor: NodeBase {
         address: 5,
         defaultValue: 0.05,
         range: 0.01 ... 3,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Release Time (seconds) ranges from 0.01 to 3 (Default: 0.05)
     @Parameter(releaseTimeDef) public var releaseTime: AUValue
@@ -74,8 +70,7 @@ open class Compressor: NodeBase {
         address: 6,
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Master Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(masterGainDef) public var masterGain: AUValue

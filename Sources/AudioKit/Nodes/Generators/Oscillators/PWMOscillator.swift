@@ -10,18 +10,7 @@ import CAudioKit
 /// different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 /// 
-public class PWMOscillator: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "pwmo"
-    public static let ComponentDescription = AudioComponentDescription(generator: "pwmo")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class PWMOscillator: NodeBase {
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
@@ -30,8 +19,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterFrequency"),
         defaultValue: 440,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// In cycles per second, or Hz.
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -43,8 +31,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterAmplitude"),
         defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Output amplitude
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -56,8 +43,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterPulseWidth"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Duty cycle width (range 0-1).
     @Parameter(pulseWidthDef) public var pulseWidth: AUValue
@@ -69,8 +55,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterDetuningOffset"),
         defaultValue: 0,
         range: -1_000.0 ... 1_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency offset in Hz.
     @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
@@ -82,8 +67,7 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PWMOscillatorParameterDetuningMultiplier"),
         defaultValue: 1,
         range: 0.9 ... 1.11,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Frequency detuning multiplier
     @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
@@ -108,20 +92,14 @@ public class PWMOscillator: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "pwmo")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
+        self.stop()
 
-            self.frequency = frequency
-            self.amplitude = amplitude
-            self.pulseWidth = pulseWidth
-            self.detuningOffset = detuningOffset
-            self.detuningMultiplier = detuningMultiplier
-        }
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.pulseWidth = pulseWidth
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
     }
 }

@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Panner
-public class Panner: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "pan2"
-    public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class Panner: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -28,8 +19,7 @@ public class Panner: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PannerParameterPan"),
         defaultValue: 0,
         range: -1 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     @Parameter(panDef) public var pan: AUValue
@@ -49,15 +39,8 @@ public class Panner: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "pan2")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.pan = pan
-        }
+        self.pan = pan
    }
 }

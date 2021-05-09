@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
-public class Clipper: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "clip"
-    public static let ComponentDescription = AudioComponentDescription(effect: "clip")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class Clipper: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -28,8 +19,7 @@ public class Clipper: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ClipperParameterLimit"),
         defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Threshold / limiting value.
     @Parameter(limitDef) public var limit: AUValue
@@ -49,15 +39,8 @@ public class Clipper: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "clip")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.limit = limit
-        }
+        self.limit = limit
    }
 }

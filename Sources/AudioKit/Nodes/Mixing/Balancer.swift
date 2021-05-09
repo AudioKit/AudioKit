@@ -10,19 +10,11 @@ import CAudioKit
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-public class Balancer: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "blnc"
-    public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class Balancer: NodeBase {
 
     let input: Node
     let comparator: Node
+    
     override public var connections: [Node] { [input, comparator] }
 
     // MARK: - Initialization
@@ -37,10 +29,7 @@ public class Balancer: NodeBase, AudioUnitContainer {
         self.input = input
         self.comparator = comparator
         super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-        }
+        
+        avAudioNode = instantiate(effect: "blnc")
     }
 }

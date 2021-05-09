@@ -10,16 +10,7 @@ import CAudioKit
 /// with a width dependent on bandwidth. If gain is less than 1, a notch is
 /// formed around the center frequency.
 /// 
-public class EqualizerFilter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "eqfl"
-    public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class EqualizerFilter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -33,8 +24,7 @@ public class EqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("EqualizerFilterParameterCenterFrequency"),
         defaultValue: 1_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency. (in Hertz)
     @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
@@ -46,8 +36,7 @@ public class EqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("EqualizerFilterParameterBandwidth"),
         defaultValue: 100.0,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// The peak/notch bandwidth in Hertz
     @Parameter(bandwidthDef) public var bandwidth: AUValue
@@ -59,8 +48,7 @@ public class EqualizerFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("EqualizerFilterParameterGain"),
         defaultValue: 10.0,
         range: -100.0 ... 100.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// The peak/notch gain
     @Parameter(gainDef) public var gain: AUValue
@@ -84,17 +72,10 @@ public class EqualizerFilter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "eqfl")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.centerFrequency = centerFrequency
-            self.bandwidth = bandwidth
-            self.gain = gain
-        }
+        self.centerFrequency = centerFrequency
+        self.bandwidth = bandwidth
+        self.gain = gain
    }
 }

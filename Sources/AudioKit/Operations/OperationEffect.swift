@@ -6,18 +6,7 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class OperationEffect: NodeBase, AudioUnitContainer {
-
-    /// Internal audio unit type
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Four letter unique description "cstm"
-    public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
-
-    // MARK: - Properties
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class OperationEffect: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -151,14 +140,12 @@ public class OperationEffect: NodeBase, AudioUnitContainer {
 
         self.input = input
         super.init(avAudioNode: AVAudioNode())
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            if let dsp = self.internalAU?.dsp {
-                sporth.withCString { str -> Void in
-                    akOperationEffectSetSporth(dsp, str, Int32(sporth.utf8CString.count))
-                }
+        
+        avAudioNode = instantiate(effect: "cstm")
+        
+        if let dsp = (avAudioNode.auAudioUnit as? AudioUnitBase)?.dsp {
+            sporth.withCString { str -> Void in
+                akOperationEffectSetSporth(dsp, str, Int32(sporth.utf8CString.count))
             }
         }
     }

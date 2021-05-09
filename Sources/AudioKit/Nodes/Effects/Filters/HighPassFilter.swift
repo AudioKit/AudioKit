@@ -22,8 +22,7 @@ open class HighPassFilter: NodeBase {
         address: 0,
         defaultValue: 6900,
         range: 10 ... 22050,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Cutoff Frequency (Hertz) ranges from 10 to 22050 (Default: 6900)
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -35,8 +34,7 @@ open class HighPassFilter: NodeBase {
         address: 1,
         defaultValue: 0,
         range: -20 ... 40,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Resonance (decibels) ranges from -20 to 40 (Default: 0)
     @Parameter(resonanceDef) public var resonance: AUValue

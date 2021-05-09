@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// An automatic wah effect, ported from Guitarix via Faust.
-public class AutoWah: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "awah"
-    public static let ComponentDescription = AudioComponentDescription(effect: "awah")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class AutoWah: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -28,8 +19,7 @@ public class AutoWah: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AutoWahParameterWah"),
         defaultValue: 0.0,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Wah Amount
     @Parameter(wahDef) public var wah: AUValue
@@ -41,8 +31,7 @@ public class AutoWah: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AutoWahParameterMix"),
         defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Dry/Wet Mix
     @Parameter(mixDef) public var mix: AUValue
@@ -54,8 +43,7 @@ public class AutoWah: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("AutoWahParameterAmplitude"),
         defaultValue: 0.1,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Overall level
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -79,17 +67,10 @@ public class AutoWah: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "awah")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.wah = wah
-            self.mix = mix
-            self.amplitude = amplitude
-        }
+        self.wah = wah
+        self.mix = mix
+        self.amplitude = amplitude
    }
 }

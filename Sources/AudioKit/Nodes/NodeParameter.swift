@@ -35,7 +35,7 @@ public struct NodeParameterDef {
                 defaultValue: AUValue,
                 range: ClosedRange<AUValue>,
                 unit: AudioUnitParameterUnit,
-                flags: AudioUnitParameterOptions) {
+                flags: AudioUnitParameterOptions = .default) {
         self.identifier = identifier
         self.name = name
         self.address = address

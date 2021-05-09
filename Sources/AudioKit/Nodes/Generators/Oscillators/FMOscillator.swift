@@ -5,18 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Classic FM Synthesis audio generation.
-public class FMOscillator: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "fosc"
-    public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class FMOscillator: NodeBase {
 
     fileprivate var waveform: Table?
 
@@ -27,8 +16,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterBaseFrequency"),
         defaultValue: 440.0,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// In cycles per second, the common denominator for the carrier and modulating frequencies.
     @Parameter(baseFrequencyDef) public var baseFrequency: AUValue
@@ -40,8 +28,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterCarrierMultiplier"),
         defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
     @Parameter(carrierMultiplierDef) public var carrierMultiplier: AUValue
@@ -53,8 +40,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterModulatingMultiplier"),
         defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
     @Parameter(modulatingMultiplierDef) public var modulatingMultiplier: AUValue
@@ -66,8 +52,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterModulationIndex"),
         defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     @Parameter(modulationIndexDef) public var modulationIndex: AUValue
@@ -79,8 +64,7 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("FMOscillatorParameterAmplitude"),
         defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Output Amplitude.
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -107,23 +91,20 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "fosc")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            audioUnit.setWavetable(waveform.content)
-
-            self.waveform = waveform
-            self.baseFrequency = baseFrequency
-            self.carrierMultiplier = carrierMultiplier
-            self.modulatingMultiplier = modulatingMultiplier
-            self.modulationIndex = modulationIndex
-            self.amplitude = amplitude
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        self.stop()
+
+        audioUnit.setWavetable(waveform.content)
+
+        self.waveform = waveform
+        self.baseFrequency = baseFrequency
+        self.carrierMultiplier = carrierMultiplier
+        self.modulatingMultiplier = modulatingMultiplier
+        self.modulationIndex = modulationIndex
+        self.amplitude = amplitude
     }
 }

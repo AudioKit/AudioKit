@@ -22,8 +22,7 @@ open class LowShelfFilter: NodeBase {
         address: 0,
         defaultValue: 80,
         range: 10 ... 200,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Cutoff Frequency (Hertz) ranges from 10 to 200 (Default: 80)
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -35,8 +34,7 @@ open class LowShelfFilter: NodeBase {
         address: 1,
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(gainDef) public var gain: AUValue

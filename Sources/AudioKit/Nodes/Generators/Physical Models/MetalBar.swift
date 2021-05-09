@@ -6,18 +6,7 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// 
-public class MetalBar: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "mbar"
-    public static let ComponentDescription = AudioComponentDescription(instrument: "mbar")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class MetalBar: NodeBase {
 
     /// Specification details for leftBoundaryCondition
     public static let leftBoundaryConditionDef = NodeParameterDef(
@@ -26,8 +15,7 @@ public class MetalBar: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MetalBarParameterLeftBoundaryCondition"),
         defaultValue: 1,
         range: 1 ... 3,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @Parameter(leftBoundaryConditionDef) public var leftBoundaryCondition: AUValue
@@ -39,8 +27,7 @@ public class MetalBar: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MetalBarParameterRightBoundaryCondition"),
         defaultValue: 1,
         range: 1 ... 3,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
     @Parameter(rightBoundaryConditionDef) public var rightBoundaryCondition: AUValue
@@ -52,8 +39,7 @@ public class MetalBar: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MetalBarParameterDecayDuration"),
         defaultValue: 3,
         range: 0 ... 10,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// 30db decay time (in seconds).
     @Parameter(decayDurationDef) public var decayDuration: AUValue
@@ -65,8 +51,7 @@ public class MetalBar: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MetalBarParameterScanSpeed"),
         defaultValue: 0.25,
         range: 0 ... 100,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Speed of scanning the output location.
     @Parameter(scanSpeedDef) public var scanSpeed: AUValue
@@ -78,8 +63,7 @@ public class MetalBar: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MetalBarParameterPosition"),
         defaultValue: 0.2,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Position along bar that strike occurs.
     @Parameter(positionDef) public var position: AUValue
@@ -91,8 +75,7 @@ public class MetalBar: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MetalBarParameterStrikeVelocity"),
         defaultValue: 500,
         range: 0 ... 1_000,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Normalized strike velocity
     @Parameter(strikeVelocityDef) public var strikeVelocity: AUValue
@@ -104,8 +87,7 @@ public class MetalBar: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("MetalBarParameterStrikeWidth"),
         defaultValue: 0.05,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Spatial width of strike.
     @Parameter(strikeWidthDef) public var strikeWidth: AUValue
@@ -138,23 +120,15 @@ public class MetalBar: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "mbar")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.leftBoundaryCondition = leftBoundaryCondition
-            self.rightBoundaryCondition = rightBoundaryCondition
-            self.decayDuration = decayDuration
-            self.scanSpeed = scanSpeed
-            self.position = position
-            self.strikeVelocity = strikeVelocity
-            self.strikeWidth = strikeWidth
-        }
-
+        self.leftBoundaryCondition = leftBoundaryCondition
+        self.rightBoundaryCondition = rightBoundaryCondition
+        self.decayDuration = decayDuration
+        self.scanSpeed = scanSpeed
+        self.position = position
+        self.strikeVelocity = strikeVelocity
+        self.strikeWidth = strikeWidth
     }
 
     // MARK: - Control
@@ -163,6 +137,5 @@ public class MetalBar: NodeBase, AudioUnitContainer {
     ///
     open func trigger() {
         start()
-        internalAU?.trigger()
     }
 }

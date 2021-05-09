@@ -5,17 +5,8 @@ import CAudioKit
 
 /// Stereo StereoFieldLimiter
 ///
-public class StereoFieldLimiter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "sflm"
-    public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
+public class StereoFieldLimiter: NodeBase {
+    
     let input: Node
     override public var connections: [Node] { [input] }
 
@@ -28,8 +19,7 @@ public class StereoFieldLimiter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StereoFieldLimiterParameterAmount"),
         defaultValue: 1,
         range: 0.0...1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Limiting Factor
     @Parameter(amountDef) public var amount: AUValue
@@ -45,12 +35,9 @@ public class StereoFieldLimiter: NodeBase, AudioUnitContainer {
     public init(_ input: Node, amount: AUValue = amountDef.defaultValue) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
+        
+        avAudioNode = instantiate(effect: "sflm")
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.amount = amount
-        }
+        self.amount = amount
     }
 }

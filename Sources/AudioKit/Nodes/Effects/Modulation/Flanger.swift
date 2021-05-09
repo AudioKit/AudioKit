@@ -5,16 +5,7 @@ import CAudioKit
 
 /// Stereo Flanger
 ///
-public class Flanger: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "flgr"
-    public static let ComponentDescription = AudioComponentDescription(effect: "flgr")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class Flanger: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -28,8 +19,7 @@ public class Flanger: NodeBase, AudioUnitContainer {
         address: ModulatedDelayParameter.frequency.rawValue,
         defaultValue: kFlanger_DefaultFrequency,
         range: kFlanger_MinFrequency ... kFlanger_MaxFrequency,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Modulation Frequency (Hz)
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -41,8 +31,7 @@ public class Flanger: NodeBase, AudioUnitContainer {
         address: ModulatedDelayParameter.depth.rawValue,
         defaultValue: kFlanger_DefaultDepth,
         range: kFlanger_MinDepth ... kFlanger_MaxDepth,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Modulation Depth (fraction)
     @Parameter(depthDef) public var depth: AUValue
@@ -54,8 +43,7 @@ public class Flanger: NodeBase, AudioUnitContainer {
         address: ModulatedDelayParameter.feedback.rawValue,
         defaultValue: kFlanger_DefaultFeedback,
         range: kFlanger_MinFeedback ... kFlanger_MaxFeedback,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Feedback (fraction)
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -67,8 +55,7 @@ public class Flanger: NodeBase, AudioUnitContainer {
         address: ModulatedDelayParameter.dryWetMix.rawValue,
         defaultValue: kFlanger_DefaultDryWetMix,
         range: kFlanger_MinDryWetMix ... kFlanger_MaxDryWetMix,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Dry Wet Mix (fraction)
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
@@ -93,16 +80,12 @@ public class Flanger: NodeBase, AudioUnitContainer {
     ) {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
+        
+        avAudioNode = instantiate(effect: "flgr")
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.frequency = frequency
-            self.depth = depth
-            self.feedback = feedback
-            self.dryWetMix = dryWetMix
-        }
+        self.frequency = frequency
+        self.depth = depth
+        self.feedback = feedback
+        self.dryWetMix = dryWetMix
     }
 }

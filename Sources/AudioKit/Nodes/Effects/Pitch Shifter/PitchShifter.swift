@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Faust-based pitch shfiter
-public class PitchShifter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "pshf"
-    public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class PitchShifter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -28,8 +19,7 @@ public class PitchShifter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PitchShifterParameterShift"),
         defaultValue: 0,
         range: -24.0 ... 24.0,
-        unit: .relativeSemiTones,
-        flags: .default)
+        unit: .relativeSemiTones)
 
     /// Pitch shift (in semitones)
     @Parameter(shiftDef) public var shift: AUValue
@@ -41,8 +31,7 @@ public class PitchShifter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PitchShifterParameterWindowSize"),
         defaultValue: 1_024,
         range: 0.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Window size (in samples)
     @Parameter(windowSizeDef) public var windowSize: AUValue
@@ -54,8 +43,7 @@ public class PitchShifter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("PitchShifterParameterCrossfade"),
         defaultValue: 512,
         range: 0.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Crossfade (in samples)
     @Parameter(crossfadeDef) public var crossfade: AUValue
@@ -79,17 +67,10 @@ public class PitchShifter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "pshf")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.shift = shift
-            self.windowSize = windowSize
-            self.crossfade = crossfade
-        }
+        self.shift = shift
+        self.windowSize = windowSize
+        self.crossfade = crossfade
    }
 }

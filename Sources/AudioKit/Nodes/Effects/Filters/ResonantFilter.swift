@@ -5,16 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// The output for reson appears to be very hot, so take caution when using this module.
-public class ResonantFilter: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "resn"
-    public static let ComponentDescription = AudioComponentDescription(effect: "resn")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+public class ResonantFilter: NodeBase {
 
     let input: Node
     override public var connections: [Node] { [input] }
@@ -28,8 +19,7 @@ public class ResonantFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ResonantFilterParameterFrequency"),
         defaultValue: 4_000.0,
         range: 100.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency of the filter, or frequency position of the peak response.
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -41,8 +31,7 @@ public class ResonantFilter: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("ResonantFilterParameterBandwidth"),
         defaultValue: 1_000.0,
         range: 0.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Bandwidth of the filter.
     @Parameter(bandwidthDef) public var bandwidth: AUValue
@@ -64,16 +53,9 @@ public class ResonantFilter: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(effect: "resn")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-               fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.frequency = frequency
-            self.bandwidth = bandwidth
-        }
+        self.frequency = frequency
+        self.bandwidth = bandwidth
    }
 }

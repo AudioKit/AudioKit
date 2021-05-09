@@ -4,20 +4,7 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class OperationGenerator: NodeBase, AudioUnitContainer {
-
-    /// Internal audio unit type
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Four letter unique description "cstg"
-    public static let ComponentDescription = AudioComponentDescription(instrument: "cstg")
-
-    // MARK: - Properties
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class OperationGenerator: NodeBase {
 
     internal static func makeParam(_ number: Int) -> NodeParameterDef {
         return NodeParameterDef(
@@ -146,21 +133,17 @@ public class OperationGenerator: NodeBase, AudioUnitContainer {
     public init(sporth: String = "") {
 
         super.init(avAudioNode: AVAudioNode())
-        instantiateAudioUnit { avAudioUnit in
-
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-            
-            if let dsp = self.internalAU?.dsp {
-                sporth.withCString { str -> Void in
-                    akOperationGeneratorSetSporth(dsp, str, Int32(sporth.utf8CString.count))
-                }
+        avAudioNode = instantiate(generator: "cstg")
+        
+        if let dsp = (avAudioNode.auAudioUnit as? AudioUnitBase)?.dsp {
+            sporth.withCString { str -> Void in
+                akOperationGeneratorSetSporth(dsp, str, Int32(sporth.utf8CString.count))
             }
         }
     }
 
     /// Trigger the sound with current parameters
     open func trigger() {
-        internalAU?.trigger()
+        (avAudioNode.auAudioUnit as? AudioUnitBase)?.trigger()
     }
 }

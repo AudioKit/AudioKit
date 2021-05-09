@@ -7,18 +7,7 @@ import CAudioKit
 /// Physical model of the sound of dripping water. 
 /// When triggered, it will produce a droplet of water.
 /// 
-public class Drip: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "drip"
-    public static let ComponentDescription = AudioComponentDescription(instrument: "drip")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class Drip: NodeBase {
 
     /// Specification details for intensity
     public static let intensityDef = NodeParameterDef(
@@ -27,8 +16,7 @@ public class Drip: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DripParameterIntensity"),
         defaultValue: 10,
         range: 0 ... 100,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// The intensity of the dripping sound.
     @Parameter(intensityDef) public var intensity: AUValue
@@ -40,8 +28,7 @@ public class Drip: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DripParameterDampingFactor"),
         defaultValue: 0.2,
         range: 0.0 ... 2.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// The damping factor. Maximum value is 2.0.
     @Parameter(dampingFactorDef) public var dampingFactor: AUValue
@@ -53,8 +40,7 @@ public class Drip: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DripParameterEnergyReturn"),
         defaultValue: 0,
         range: 0 ... 100,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// The amount of energy to add back into the system.
     @Parameter(energyReturnDef) public var energyReturn: AUValue
@@ -66,8 +52,7 @@ public class Drip: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DripParameterMainResonantFrequency"),
         defaultValue: 450,
         range: 0 ... 22_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Main resonant frequency.
     @Parameter(mainResonantFrequencyDef) public var mainResonantFrequency: AUValue
@@ -79,8 +64,7 @@ public class Drip: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DripParameterFirstResonantFrequency"),
         defaultValue: 600,
         range: 0 ... 22_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// The first resonant frequency.
     @Parameter(firstResonantFrequencyDef) public var firstResonantFrequency: AUValue
@@ -92,8 +76,7 @@ public class Drip: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DripParameterSecondResonantFrequency"),
         defaultValue: 750,
         range: 0 ... 22_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// The second resonant frequency.
     @Parameter(secondResonantFrequencyDef) public var secondResonantFrequency: AUValue
@@ -105,8 +88,7 @@ public class Drip: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("DripParameterAmplitude"),
         defaultValue: 0.3,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amplitude.
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -135,22 +117,15 @@ public class Drip: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "drip")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.intensity = intensity
-            self.dampingFactor = dampingFactor
-            self.energyReturn = energyReturn
-            self.mainResonantFrequency = mainResonantFrequency
-            self.firstResonantFrequency = firstResonantFrequency
-            self.secondResonantFrequency = secondResonantFrequency
-            self.amplitude = amplitude
-        }
+        self.intensity = intensity
+        self.dampingFactor = dampingFactor
+        self.energyReturn = energyReturn
+        self.mainResonantFrequency = mainResonantFrequency
+        self.firstResonantFrequency = firstResonantFrequency
+        self.secondResonantFrequency = secondResonantFrequency
+        self.amplitude = amplitude
     }
 
     // MARK: - Control
@@ -159,7 +134,6 @@ public class Drip: NodeBase, AudioUnitContainer {
     ///
     public func trigger() {
         start()
-        internalAU?.trigger()
     }
 
 }

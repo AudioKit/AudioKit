@@ -22,8 +22,7 @@ open class BandPassFilter: NodeBase {
         address: 0,
         defaultValue: 5000,
         range: 20 ... 22050,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center Frequency (Hertz) ranges from 20 to 22050 (Default: 5000)
     @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
@@ -35,8 +34,7 @@ open class BandPassFilter: NodeBase {
         address: 1,
         defaultValue: 600,
         range: 100 ... 12000,
-        unit: .cents,
-        flags: .default)
+        unit: .cents)
 
     /// Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     @Parameter(bandwidthDef) public var bandwidth: AUValue

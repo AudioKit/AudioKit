@@ -22,8 +22,7 @@ open class HighShelfFilter: NodeBase {
         address: 0,
         defaultValue: 10000,
         range: 10000 ... 22050,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Cut Off Frequency (Hertz) ranges from 10000 to 22050 (Default: 10000)
     @Parameter(cutOffFrequencyDef) public var cutOffFrequency: AUValue
@@ -35,8 +34,7 @@ open class HighShelfFilter: NodeBase {
         address: 1,
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(gainDef) public var gain: AUValue

@@ -22,8 +22,7 @@ open class PeakLimiter: NodeBase {
         address: 0,
         defaultValue: 0.012,
         range: 0.001 ... 0.03,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Attack Time (seconds) ranges from 0.001 to 0.03 (Default: 0.012)
     @Parameter(attackTimeDef) public var attackTime: AUValue
@@ -35,8 +34,7 @@ open class PeakLimiter: NodeBase {
         address: 1,
         defaultValue: 0.024,
         range: 0.001 ... 0.06,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Decay Time (seconds) ranges from 0.001 to 0.06 (Default: 0.024)
     @Parameter(decayTimeDef) public var decayTime: AUValue
@@ -48,8 +46,7 @@ open class PeakLimiter: NodeBase {
         address: 2,
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Pre Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(preGainDef) public var preGain: AUValue

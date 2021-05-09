@@ -5,17 +5,7 @@ import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 /// TODO: This node needs tests
-public class StereoDelay: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "sdly"
-    public static let ComponentDescription = AudioComponentDescription(effect: "sdly")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
+public class StereoDelay: NodeBase {
     let input: Node
     override public var connections: [Node] { [input] }
 
@@ -28,8 +18,7 @@ public class StereoDelay: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StereoDelayParameterTime"),
         defaultValue: 0,
         range: 0 ... 2.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter(timeDef) public var time: AUValue
@@ -41,8 +30,7 @@ public class StereoDelay: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StereoDelayParameterFeedback"),
         defaultValue: 0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Feedback amount. Should be a value between 0-1.
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -54,8 +42,7 @@ public class StereoDelay: NodeBase, AudioUnitContainer {
         address: akGetParameterAddress("StereoDelayParameterDryWetMix"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Dry/wet mix. Should be a value between 0-1.
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
@@ -96,15 +83,11 @@ public class StereoDelay: NodeBase, AudioUnitContainer {
         self.input = input
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.time = time
-            self.feedback = feedback
-            self.dryWetMix = dryWetMix
-            self.pingPong = pingPong ? 1.0 : 0.0
-        }
+        avAudioNode = instantiate(effect: "sdly")
+        
+        self.time = time
+        self.feedback = feedback
+        self.dryWetMix = dryWetMix
+        self.pingPong = pingPong ? 1.0 : 0.0
     }
 }
