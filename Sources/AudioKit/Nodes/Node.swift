@@ -208,6 +208,13 @@ extension Node {
         instantiateAudioUnit(componentDescription: AudioComponentDescription(mixer: code))
     }
 
+    var auBase: AudioUnitBase {
+        guard let au = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Wrong audio unit type.")
+        }
+        return au
+    }
+
 }
 
 func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit {

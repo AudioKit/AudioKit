@@ -86,12 +86,9 @@ public class Oscillator: Node {
     ) {
         setupParameters()
 
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
         self.stop()
 
-        audioUnit.setWavetable(waveform.content)
+        auBase.setWavetable(waveform.content)
 
         self.waveform = waveform
         self.frequency = frequency
