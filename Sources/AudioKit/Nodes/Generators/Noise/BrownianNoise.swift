@@ -5,18 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Brownian noise generator
-public class BrownianNoise: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "bron"
-    public static let ComponentDescription = AudioComponentDescription(generator: "bron")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class BrownianNoise: NodeBase {
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -42,16 +31,10 @@ public class BrownianNoise: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "bron")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
+        self.stop()
 
-            self.amplitude = amplitude
-        }
+        self.amplitude = amplitude
     }
 }

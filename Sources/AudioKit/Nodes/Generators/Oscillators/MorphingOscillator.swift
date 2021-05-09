@@ -7,18 +7,7 @@ import CAudioKit
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 /// 
-public class MorphingOscillator: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "morf"
-    public static let ComponentDescription = AudioComponentDescription(generator: "morf")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class MorphingOscillator: NodeBase {
 
     fileprivate var waveformArray = [Table]()
 
@@ -104,24 +93,21 @@ public class MorphingOscillator: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "morf")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            for (i, waveform) in waveformArray.enumerated() {
-                self.internalAU?.setWavetable(waveform.content, index: i)
-            }
-            self.waveformArray = waveformArray 
-            self.frequency = frequency
-            self.amplitude = amplitude
-            self.index = index
-            self.detuningOffset = detuningOffset
-            self.detuningMultiplier = detuningMultiplier
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        self.stop()
+
+        for (i, waveform) in waveformArray.enumerated() {
+           audioUnit.setWavetable(waveform.content, index: i)
+        }
+        self.waveformArray = waveformArray 
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.index = index
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
     }
 }

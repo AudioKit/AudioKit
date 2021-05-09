@@ -9,8 +9,6 @@ import CAudioKit
 /// 
 public class Oscillator: NodeBase {
 
-    // MARK: - Parameters
-
     fileprivate var waveform: Table?
 
     /// Specification details for frequency

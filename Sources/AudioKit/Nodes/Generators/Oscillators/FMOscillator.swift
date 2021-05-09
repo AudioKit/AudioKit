@@ -5,18 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Classic FM Synthesis audio generation.
-public class FMOscillator: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "fosc"
-    public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class FMOscillator: NodeBase {
 
     fileprivate var waveform: Table?
 
@@ -102,23 +91,20 @@ public class FMOscillator: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "fosc")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            audioUnit.setWavetable(waveform.content)
-
-            self.waveform = waveform
-            self.baseFrequency = baseFrequency
-            self.carrierMultiplier = carrierMultiplier
-            self.modulatingMultiplier = modulatingMultiplier
-            self.modulationIndex = modulationIndex
-            self.amplitude = amplitude
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        self.stop()
+
+        audioUnit.setWavetable(waveform.content)
+
+        self.waveform = waveform
+        self.baseFrequency = baseFrequency
+        self.carrierMultiplier = carrierMultiplier
+        self.modulatingMultiplier = modulatingMultiplier
+        self.modulationIndex = modulationIndex
+        self.amplitude = amplitude
     }
 }

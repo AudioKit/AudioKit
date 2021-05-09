@@ -6,18 +6,7 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// 
-public class MetalBar: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "mbar"
-    public static let ComponentDescription = AudioComponentDescription(instrument: "mbar")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class MetalBar: NodeBase {
 
     /// Specification details for leftBoundaryCondition
     public static let leftBoundaryConditionDef = NodeParameterDef(
@@ -131,23 +120,15 @@ public class MetalBar: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "mbar")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.leftBoundaryCondition = leftBoundaryCondition
-            self.rightBoundaryCondition = rightBoundaryCondition
-            self.decayDuration = decayDuration
-            self.scanSpeed = scanSpeed
-            self.position = position
-            self.strikeVelocity = strikeVelocity
-            self.strikeWidth = strikeWidth
-        }
-
+        self.leftBoundaryCondition = leftBoundaryCondition
+        self.rightBoundaryCondition = rightBoundaryCondition
+        self.decayDuration = decayDuration
+        self.scanSpeed = scanSpeed
+        self.position = position
+        self.strikeVelocity = strikeVelocity
+        self.strikeWidth = strikeWidth
     }
 
     // MARK: - Control
@@ -156,6 +137,5 @@ public class MetalBar: NodeBase, AudioUnitContainer {
     ///
     open func trigger() {
         start()
-        internalAU?.trigger()
     }
 }

@@ -37,6 +37,14 @@ public:
         if (!isInitialized) return;
         sp_pluck_init(sp, pluck, 110);
     }
+    
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
+        uint8_t status = midiEvent.data[0] & 0xF0;
+
+        if(status == 0x90) { // note on
+            internalTrigger = 1.0;
+        }
+    }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {

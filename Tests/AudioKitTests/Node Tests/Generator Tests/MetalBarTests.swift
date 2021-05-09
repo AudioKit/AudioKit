@@ -13,7 +13,6 @@ class MetalBarTests: XCTestCase {
         metalBar.trigger()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
-        // TODO if you audition this audio, its quite distorted, probably something wrong with MetalBar internals
     }
 
 }

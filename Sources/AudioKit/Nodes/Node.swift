@@ -171,6 +171,10 @@ extension Node {
     func instantiate(generator code: String) -> AVAudioUnit {
         instantiateAudioUnit(componentDescription: AudioComponentDescription(generator: code))
     }
+    
+    func instantiate(instrument code: String) -> AVAudioUnit {
+        instantiateAudioUnit(componentDescription: AudioComponentDescription(instrument: code))
+    }
 
 }
 

@@ -9,21 +9,8 @@ import CAudioKit
 /// classic Kelly-Lochbaum
 /// segmented cylindrical 1d waveguide model, and the glottal pulse wave is a
 /// LF glottal pulse model.
-///
-/// NOTE:  This node is CPU intensitve and will drop packet if your buffer size is
-/// too short. It requires at least 64 samples on an iPhone X, for example.
-public class VocalTract: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "vocw"
-    public static let ComponentDescription = AudioComponentDescription(generator: "vocw")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+/// 
+public class VocalTract: NodeBase {
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
@@ -105,20 +92,17 @@ public class VocalTract: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "vocw")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            self.frequency = frequency
-            self.tonguePosition = tonguePosition
-            self.tongueDiameter = tongueDiameter
-            self.tenseness = tenseness
-            self.nasality = nasality
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        self.stop()
+
+        self.frequency = frequency
+        self.tonguePosition = tonguePosition
+        self.tongueDiameter = tongueDiameter
+        self.tenseness = tenseness
+        self.nasality = nasality
     }
 }

@@ -5,18 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Faust-based pink noise generator
-public class PinkNoise: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "pink"
-    public static let ComponentDescription = AudioComponentDescription(generator: "pink")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class PinkNoise: NodeBase {
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -42,16 +31,13 @@ public class PinkNoise: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "pink")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            self.amplitude = amplitude
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        self.stop()
+
+        self.amplitude = amplitude
     }
 }

@@ -7,18 +7,7 @@ import CAudioKit
 /// Physical model of the sound of dripping water. 
 /// When triggered, it will produce a droplet of water.
 /// 
-public class Drip: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "drip"
-    public static let ComponentDescription = AudioComponentDescription(instrument: "drip")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class Drip: NodeBase {
 
     /// Specification details for intensity
     public static let intensityDef = NodeParameterDef(
@@ -128,22 +117,15 @@ public class Drip: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "drip")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.intensity = intensity
-            self.dampingFactor = dampingFactor
-            self.energyReturn = energyReturn
-            self.mainResonantFrequency = mainResonantFrequency
-            self.firstResonantFrequency = firstResonantFrequency
-            self.secondResonantFrequency = secondResonantFrequency
-            self.amplitude = amplitude
-        }
+        self.intensity = intensity
+        self.dampingFactor = dampingFactor
+        self.energyReturn = energyReturn
+        self.mainResonantFrequency = mainResonantFrequency
+        self.firstResonantFrequency = firstResonantFrequency
+        self.secondResonantFrequency = secondResonantFrequency
+        self.amplitude = amplitude
     }
 
     // MARK: - Control
@@ -152,7 +134,6 @@ public class Drip: NodeBase, AudioUnitContainer {
     ///
     public func trigger() {
         start()
-        internalAU?.trigger()
     }
 
 }

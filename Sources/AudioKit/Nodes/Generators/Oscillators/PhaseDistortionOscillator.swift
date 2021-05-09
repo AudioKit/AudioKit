@@ -10,18 +10,7 @@ import CAudioKit
 /// at different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 /// 
-public class PhaseDistortionOscillator: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "pdho"
-    public static let ComponentDescription = AudioComponentDescription(generator: "pdho")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class PhaseDistortionOscillator: NodeBase {
 
     fileprivate var waveform: Table?
 
@@ -107,23 +96,20 @@ public class PhaseDistortionOscillator: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(generator: "pdho")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            audioUnit.setWavetable(waveform.content)
-
-            self.waveform = waveform
-            self.frequency = frequency
-            self.amplitude = amplitude
-            self.phaseDistortion = phaseDistortion
-            self.detuningOffset = detuningOffset
-            self.detuningMultiplier = detuningMultiplier
+        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
+            fatalError("Couldn't create audio unit")
         }
+        self.stop()
+
+        audioUnit.setWavetable(waveform.content)
+
+        self.waveform = waveform
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.phaseDistortion = phaseDistortion
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
     }
 }

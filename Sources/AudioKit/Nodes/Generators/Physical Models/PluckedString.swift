@@ -6,18 +6,7 @@ import CAudioKit
 
 /// Karplus-Strong plucked string instrument.
 /// 
-public class PluckedString: NodeBase, AudioUnitContainer {
-
-    /// Unique four-letter identifier "pluk"
-    public static let ComponentDescription = AudioComponentDescription(instrument: "pluk")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = AudioUnitBase
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+public class PluckedString: NodeBase {
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
@@ -59,17 +48,10 @@ public class PluckedString: NodeBase, AudioUnitContainer {
     ) {
         super.init(avAudioNode: AVAudioNode())
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
+        avAudioNode = instantiate(instrument: "pluk")
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.frequency = frequency
-            self.amplitude = amplitude
-        }
+        self.frequency = frequency
+        self.amplitude = amplitude
     }
 
     // MARK: - Control
@@ -77,8 +59,7 @@ public class PluckedString: NodeBase, AudioUnitContainer {
     /// Trigger the sound with current parameters
     ///
     open func trigger() {
-        start()
-        internalAU?.trigger()
+        (avAudioNode.auAudioUnit as? AudioUnitBase)?.trigger()
     }
 
     /// Trigger the sound with a set of parameters
