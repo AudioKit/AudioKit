@@ -127,7 +127,8 @@ open class DynamicsProcessor: Node, Toggleable {
         expansionRatio: AUValue = expansionRatioDef.defaultValue,
         expansionThreshold: AUValue = expansionThresholdDef.defaultValue,
         attackTime: AUValue = attackTimeDef.defaultValue,
-        releaseTime: AUValue = releaseTimeDef.defaultValue) {
+        releaseTime: AUValue = releaseTimeDef.defaultValue,
+        masterGain: AUValue = masterGainDef.defaultValue) {
         self.input = input
         super.init(avAudioNode: effectAU)
 
