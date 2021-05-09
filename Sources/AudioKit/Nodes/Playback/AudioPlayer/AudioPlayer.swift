@@ -8,7 +8,7 @@ import CAudioKit
 /// played from disk. If you want seamless looping then buffer it. You can still loop from disk, but the
 /// loop will not be totally seamless.
 
-public class AudioPlayer: Node {
+public class AudioPlayer: Node, HasInternalConnections {
 
     /// Nodes providing input to this node.
     public var connections: [Node] { [] }

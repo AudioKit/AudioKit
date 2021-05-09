@@ -12,10 +12,6 @@ public class Oscillator: Node {
     public var connections: [Node] { [] }
     public var avAudioNode = instantiate2(generator: "oscl")
 
-    public func makeInternalConnections() {
-        // Do nothing
-    }
-
     fileprivate var waveform: Table?
 
     /// Specification details for frequency

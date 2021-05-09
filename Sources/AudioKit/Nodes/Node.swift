@@ -12,8 +12,6 @@ public protocol Node: AnyObject {
     /// Internal AVAudioEngine node.
     var avAudioNode: AVAudioNode { get }
 
-    /// Override point for any connections internal to the node.
-    func makeInternalConnections()
 }
 
 extension Node {
@@ -66,7 +64,11 @@ extension Node {
     }
 
     func makeAVConnections() {
-        makeInternalConnections()
+
+        if let node = self as? HasInternalConnections {
+            node.makeInternalConnections()
+        }
+
         // Are we attached?
         if let engine = avAudioNode.engine {
             for (bus, connection) in connections.enumerated() {
@@ -256,6 +258,11 @@ open class NodeBase: Node {
     public init(avAudioNode: AVAudioNode) {
         self.avAudioNode = avAudioNode
     }
+}
 
-    public func makeInternalConnections() { }
+protocol HasInternalConnections: AnyObject {
+
+    /// Override point for any connections internal to the node.
+    func makeInternalConnections()
+
 }
