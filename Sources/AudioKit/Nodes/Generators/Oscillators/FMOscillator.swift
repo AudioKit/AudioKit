@@ -8,7 +8,7 @@ import CAudioKit
 public class FMOscillator: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(generator: "fosc")
+    public var avAudioNode = instantiate2(instrument: "fosc")
 
     fileprivate var waveform: Table?
 

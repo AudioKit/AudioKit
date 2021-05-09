@@ -13,7 +13,7 @@ import CAudioKit
 public class PWMOscillator: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(generator: "pwmo")
+    public var avAudioNode = instantiate2(instrument: "pwmo")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(

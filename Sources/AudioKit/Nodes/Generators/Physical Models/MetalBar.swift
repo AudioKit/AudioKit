@@ -9,7 +9,7 @@ import CAudioKit
 public class MetalBar: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(generator: "mbar")
+    public var avAudioNode = instantiate2(instrument: "mbar")
 
     /// Specification details for leftBoundaryCondition
     public static let leftBoundaryConditionDef = NodeParameterDef(
@@ -138,7 +138,8 @@ public class MetalBar: Node {
 
     /// Trigger the sound with current parameters
     ///
-    open func trigger() {
+    public func trigger() {
         start()
     }
+
 }

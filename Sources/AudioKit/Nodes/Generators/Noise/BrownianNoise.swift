@@ -8,7 +8,7 @@ import CAudioKit
 public class BrownianNoise: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(generator: "bron")
+    public var avAudioNode = instantiate2(instrument: "bron")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(

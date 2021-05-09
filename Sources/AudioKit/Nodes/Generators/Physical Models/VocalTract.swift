@@ -13,7 +13,7 @@ import CAudioKit
 public class VocalTract: Node {
 
     public var connections: [Node] { [] }
-    public var avAudioNode = instantiate2(generator: "vocw")
+    public var avAudioNode = instantiate2(instrument: "vocw")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
