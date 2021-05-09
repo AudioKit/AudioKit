@@ -113,6 +113,11 @@ extension Node {
         set { avAudioNode.auAudioUnit.shouldBypassEffect = newValue }
     }
 
+    public func start() { bypassed = false }
+    public func stop() { bypassed = true }
+    public func play() { bypassed = false }
+    public func bypass() { bypassed = true }
+
 }
 
 /// Convenience for AudioKit nodes.
@@ -130,61 +135,4 @@ open class NodeBase : Node {
     }
 
     public func makeInternalConnections() { }
-}
-
-/// Protocol for dictating that a node can be in a started or stopped state
-public protocol Toggleable {
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    var isStarted: Bool { get }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    func start()
-
-    /// Function to stop or bypass the node, both are equivalent
-    func stop()
-}
-
-/// Default functions for nodes that conform to Toggleable
-public extension Toggleable {
-    /// Synonym for isStarted that may make more sense with musical instruments
-    var isPlaying: Bool {
-        return isStarted
-    }
-
-    /// Antonym for isStarted
-    var isStopped: Bool {
-        return !isStarted
-    }
-
-    /// Antonym for isStarted that may make more sense with effects
-    var isBypassed: Bool {
-        return !isStarted
-    }
-
-    /// Synonym to start that may more more sense with musical instruments
-    func play() {
-        start()
-    }
-
-    /// Synonym for stop that may make more sense with effects
-    func bypass() {
-        stop()
-    }
-}
-
-public extension Toggleable where Self: AudioUnitContainer {
-    /// Is node started?
-    var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
-
-    /// Start node
-    func start() {
-        internalAU?.start()
-    }
-
-    /// Stop node
-    func stop() {
-        internalAU?.stop()
-    }
 }

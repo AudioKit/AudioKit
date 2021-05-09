@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Stereo StereoFieldLimiter
 ///
-public class StereoFieldLimiter: NodeBase, AudioUnitContainer, Toggleable {
+public class StereoFieldLimiter: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "sflm"
     public static let ComponentDescription = AudioComponentDescription(effect: "sflm")

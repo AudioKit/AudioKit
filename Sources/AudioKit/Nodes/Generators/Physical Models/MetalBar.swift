@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// 
-public class MetalBar: NodeBase, AudioUnitContainer, Toggleable {
+public class MetalBar: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "mbar"
     public static let ComponentDescription = AudioComponentDescription(instrument: "mbar")

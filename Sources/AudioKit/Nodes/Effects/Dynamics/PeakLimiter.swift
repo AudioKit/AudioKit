@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class PeakLimiter: NodeBase, Toggleable {
+open class PeakLimiter: NodeBase {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

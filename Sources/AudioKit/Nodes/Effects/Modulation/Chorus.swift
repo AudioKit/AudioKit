@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class Chorus: NodeBase, AudioUnitContainer, Toggleable {
+public class Chorus: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "chrs"
     public static let ComponentDescription = AudioComponentDescription(effect: "chrs")

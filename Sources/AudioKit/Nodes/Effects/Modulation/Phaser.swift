@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// This is a stereo phaser, generated from Faust code taken from the Guitarix project.
-public class Phaser: NodeBase, AudioUnitContainer, Toggleable {
+public class Phaser: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "phas"
     public static let ComponentDescription = AudioComponentDescription(effect: "phas")

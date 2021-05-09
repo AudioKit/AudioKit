@@ -7,7 +7,7 @@ import CAudioKit
 /// ftable as an impulse response.
 /// TOOD: This node needs to be tested
 ///
-public class Convolution: NodeBase, AudioUnitContainer, Toggleable {
+public class Convolution: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "conv"
     public static let ComponentDescription = AudioComponentDescription(effect: "conv")

@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-open class BandPassFilter: NodeBase, Toggleable {
+open class BandPassFilter: NodeBase {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

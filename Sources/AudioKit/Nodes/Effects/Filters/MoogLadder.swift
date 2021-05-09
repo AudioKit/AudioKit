@@ -9,7 +9,7 @@ import CAudioKit
 /// "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli).
 /// This implementation is probably a more accurate digital representation of the original analogue filter.
 /// 
-public class MoogLadder: NodeBase, AudioUnitContainer, Toggleable {
+public class MoogLadder: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "mgld"
     public static let ComponentDescription = AudioComponentDescription(effect: "mgld")

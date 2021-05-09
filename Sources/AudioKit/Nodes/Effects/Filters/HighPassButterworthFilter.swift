@@ -7,7 +7,7 @@ import CAudioKit
 /// These filters are Butterworth second-order IIR filters. They offer an almost flat
 /// passband and very good precision and stopband attenuation.
 /// 
-public class HighPassButterworthFilter: NodeBase, AudioUnitContainer, Toggleable {
+public class HighPassButterworthFilter: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "bthp"
     public static let ComponentDescription = AudioComponentDescription(effect: "bthp")

@@ -7,7 +7,7 @@ import CAudioKit
 /// Physical model of the sound of dripping water. 
 /// When triggered, it will produce a droplet of water.
 /// 
-public class Drip: NodeBase, AudioUnitContainer, Toggleable {
+public class Drip: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "drip"
     public static let ComponentDescription = AudioComponentDescription(instrument: "drip")

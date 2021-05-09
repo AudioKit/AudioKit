@@ -34,9 +34,7 @@ func generatorNodeTest(factory: ()->Node) -> AVAudioPCMBuffer {
         let node = factory()
         engine.output = node
 
-        if let node = node as? Toggleable {
-            node.start()
-        }
+        node.start()
 
         let audio = engine.startTest(totalDuration: 1.0)
         setParams(node: node, rng: rng)

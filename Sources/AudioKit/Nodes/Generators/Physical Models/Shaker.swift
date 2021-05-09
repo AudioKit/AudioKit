@@ -80,7 +80,7 @@ public enum ShakerType: MIDIByte {
 
 /// STK Shaker
 ///
-public class Shaker: NodeBase, AudioUnitContainer, Toggleable {
+public class Shaker: NodeBase, AudioUnitContainer {
     /// Four letter unique description "shak"
     public static let ComponentDescription = AudioComponentDescription(instrument: "shak")
 

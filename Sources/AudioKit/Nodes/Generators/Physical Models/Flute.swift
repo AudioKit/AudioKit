@@ -7,7 +7,7 @@ import CAudioKit
 
 /// STK Flute
 ///
-public class Flute: NodeBase, AudioUnitContainer, Toggleable {
+public class Flute: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "flut"
     public static let ComponentDescription = AudioComponentDescription(instrument: "flut")

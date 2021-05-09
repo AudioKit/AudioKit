@@ -6,7 +6,7 @@ import CAudioKit
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
-open class DynamicsProcessor: NodeBase, Toggleable {
+open class DynamicsProcessor: NodeBase {
 
     fileprivate let effectAU = AVAudioUnitEffect(
     audioComponentDescription:

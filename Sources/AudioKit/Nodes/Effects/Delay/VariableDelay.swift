@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// A delay line with cubic interpolation.
-public class VariableDelay: NodeBase, AudioUnitContainer, Toggleable {
+public class VariableDelay: NodeBase, AudioUnitContainer {
 
     /// Unique four-letter identifier "vdla"
     public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
