@@ -245,6 +245,10 @@ func instantiate2(generator code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(generator: code))
 }
 
+func instantiate2(instrument code: String) -> AVAudioNode {
+    instantiate(componentDescription: AudioComponentDescription(instrument: code))
+}
+
 /// Convenience for AudioKit nodes.
 open class NodeBase: Node {
     /// Nodes providing input to this node.

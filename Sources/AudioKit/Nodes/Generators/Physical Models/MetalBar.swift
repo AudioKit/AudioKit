@@ -6,7 +6,10 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// 
-public class MetalBar: NodeBase {
+public class MetalBar: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "mbar")
 
     /// Specification details for leftBoundaryCondition
     public static let leftBoundaryConditionDef = NodeParameterDef(
@@ -118,9 +121,9 @@ public class MetalBar: NodeBase {
         stiffness: AUValue = 3,
         highFrequencyDamping: AUValue = 0.001
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        avAudioNode = instantiate(generator: "mbar")
+        self.stop()
 
         self.leftBoundaryCondition = leftBoundaryCondition
         self.rightBoundaryCondition = rightBoundaryCondition

@@ -5,7 +5,10 @@ import AVFoundation
 import CAudioKit
 
 /// Faust-based pink noise generator
-public class PinkNoise: NodeBase {
+public class PinkNoise: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "pink")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -29,9 +32,7 @@ public class PinkNoise: NodeBase {
     public init(
         amplitude: AUValue = amplitudeDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        avAudioNode = instantiate(generator: "pink")
+        setupParameters()
 
         self.stop()
 

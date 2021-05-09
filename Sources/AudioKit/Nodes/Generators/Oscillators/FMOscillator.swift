@@ -5,7 +5,10 @@ import AVFoundation
 import CAudioKit
 
 /// Classic FM Synthesis audio generation.
-public class FMOscillator: NodeBase {
+public class FMOscillator: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "fosc")
 
     fileprivate var waveform: Table?
 
@@ -89,16 +92,11 @@ public class FMOscillator: NodeBase {
         modulationIndex: AUValue = modulationIndexDef.defaultValue,
         amplitude: AUValue = amplitudeDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        avAudioNode = instantiate(generator: "fosc")
-
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
         self.stop()
 
-        audioUnit.setWavetable(waveform.content)
+        auBase.setWavetable(waveform.content)
 
         self.waveform = waveform
         self.baseFrequency = baseFrequency

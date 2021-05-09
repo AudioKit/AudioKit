@@ -5,7 +5,10 @@ import AVFoundation
 import CAudioKit
 
 /// White noise generator
-public class WhiteNoise: NodeBase {
+public class WhiteNoise: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "wnoz")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -29,9 +32,7 @@ public class WhiteNoise: NodeBase {
     public init(
         amplitude: AUValue = amplitudeDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        avAudioNode = instantiate(generator: "wnoz")
+        setupParameters()
 
         self.stop()
 

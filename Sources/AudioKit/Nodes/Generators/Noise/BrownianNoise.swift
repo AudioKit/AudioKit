@@ -5,7 +5,10 @@ import AVFoundation
 import CAudioKit
 
 /// Brownian noise generator
-public class BrownianNoise: NodeBase {
+public class BrownianNoise: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "bron")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
@@ -29,9 +32,7 @@ public class BrownianNoise: NodeBase {
     public init(
         amplitude: AUValue = amplitudeDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        avAudioNode = instantiate(generator: "bron")
+        setupParameters()
 
         self.stop()
 

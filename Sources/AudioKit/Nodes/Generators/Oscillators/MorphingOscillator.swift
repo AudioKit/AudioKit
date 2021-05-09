@@ -7,7 +7,10 @@ import CAudioKit
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 /// 
-public class MorphingOscillator: NodeBase {
+public class MorphingOscillator: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "morf")
 
     fileprivate var waveformArray = [Table]()
 
@@ -91,17 +94,12 @@ public class MorphingOscillator: NodeBase {
         detuningOffset: AUValue = detuningOffsetDef.defaultValue,
         detuningMultiplier: AUValue = detuningMultiplierDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        avAudioNode = instantiate(generator: "morf")
-
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
         self.stop()
 
         for (i, waveform) in waveformArray.enumerated() {
-           audioUnit.setWavetable(waveform.content, index: i)
+            auBase.setWavetable(waveform.content, index: i)
         }
         self.waveformArray = waveformArray 
         self.frequency = frequency

@@ -10,7 +10,10 @@ import CAudioKit
 /// different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 /// 
-public class PWMOscillator: NodeBase {
+public class PWMOscillator: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "pwmo")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
@@ -90,9 +93,7 @@ public class PWMOscillator: NodeBase {
         detuningOffset: AUValue = detuningOffsetDef.defaultValue,
         detuningMultiplier: AUValue = detuningMultiplierDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        avAudioNode = instantiate(generator: "pwmo")
+        setupParameters()
 
         self.stop()
 

@@ -10,7 +10,10 @@ import CAudioKit
 /// segmented cylindrical 1d waveguide model, and the glottal pulse wave is a
 /// LF glottal pulse model.
 /// 
-public class VocalTract: NodeBase {
+public class VocalTract: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "vocw")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
@@ -90,9 +93,7 @@ public class VocalTract: NodeBase {
         tenseness: AUValue = tensenessDef.defaultValue,
         nasality: AUValue = nasalityDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        avAudioNode = instantiate(generator: "vocw")
+        setupParameters()
 
         self.stop()
 

@@ -10,7 +10,10 @@ import CAudioKit
 /// at different rates in order to warp the waveform. For example, pdhalf can
 /// smoothly transition a sinewave into something approximating a sawtooth wave.
 /// 
-public class PhaseDistortionOscillator: NodeBase {
+public class PhaseDistortionOscillator: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "pdho")
 
     fileprivate var waveform: Table?
 
@@ -94,16 +97,11 @@ public class PhaseDistortionOscillator: NodeBase {
         detuningOffset: AUValue = detuningOffsetDef.defaultValue,
         detuningMultiplier: AUValue = detuningMultiplierDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        avAudioNode = instantiate(generator: "pdho")
-
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
         self.stop()
 
-        audioUnit.setWavetable(waveform.content)
+        auBase.setWavetable(waveform.content)
 
         self.waveform = waveform
         self.frequency = frequency

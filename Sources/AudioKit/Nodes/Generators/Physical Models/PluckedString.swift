@@ -6,7 +6,10 @@ import CAudioKit
 
 /// Karplus-Strong plucked string instrument.
 /// 
-public class PluckedString: NodeBase {
+public class PluckedString: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(instrument: "pluk")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
@@ -46,9 +49,9 @@ public class PluckedString: NodeBase {
         amplitude: AUValue = amplitudeDef.defaultValue,
         lowestFrequency: AUValue = 110
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        avAudioNode = instantiate(instrument: "pluk")
+        self.stop()
 
         self.frequency = frequency
         self.amplitude = amplitude
@@ -59,7 +62,7 @@ public class PluckedString: NodeBase {
     /// Trigger the sound with current parameters
     ///
     open func trigger() {
-        (avAudioNode.auAudioUnit as? AudioUnitBase)?.trigger()
+        auBase.trigger()
     }
 
     /// Trigger the sound with a set of parameters

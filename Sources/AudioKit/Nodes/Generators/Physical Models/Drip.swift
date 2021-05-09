@@ -7,7 +7,10 @@ import CAudioKit
 /// Physical model of the sound of dripping water. 
 /// When triggered, it will produce a droplet of water.
 /// 
-public class Drip: NodeBase {
+public class Drip: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "drip")
 
     /// Specification details for intensity
     public static let intensityDef = NodeParameterDef(
@@ -115,9 +118,9 @@ public class Drip: NodeBase {
         secondResonantFrequency: AUValue = secondResonantFrequencyDef.defaultValue,
         amplitude: AUValue = amplitudeDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        avAudioNode = instantiate(generator: "drip")
+        self.stop()
 
         self.intensity = intensity
         self.dampingFactor = dampingFactor
