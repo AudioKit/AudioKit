@@ -7,7 +7,14 @@ import CAudioKit
 /// Reads from the table sequentially and repeatedly at given frequency.
 /// Linear interpolation is applied for table look up from internal phase values.
 /// 
-public class Oscillator: NodeBase {
+public class Oscillator: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode = instantiate2(generator: "oscl")
+
+    public func makeInternalConnections() {
+        // Do nothing
+    }
 
     fileprivate var waveform: Table?
 
@@ -77,9 +84,7 @@ public class Oscillator: NodeBase {
         detuningOffset: AUValue = detuningOffsetDef.defaultValue,
         detuningMultiplier: AUValue = detuningMultiplierDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        avAudioNode = instantiate(generator: "oscl")
+        setupParameters()
 
         guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
             fatalError("Couldn't create audio unit")

@@ -168,6 +168,30 @@ extension Node {
         return result
     }
 
+    func setupParameters() {
+
+        let mirror = Mirror(reflecting: self)
+        var params: [AUParameter] = []
+
+        for child in mirror.children {
+            if let param = child.value as? ParameterBase {
+                let def = param.projectedValue.def
+                let auParam = AUParameter(identifier: def.identifier,
+                                        name: def.name,
+                                        address: def.address,
+                                        min: def.range.lowerBound,
+                                        max: def.range.upperBound,
+                                        unit: def.unit,
+                                        flags: def.flags)
+                params.append(auParam)
+                param.projectedValue.associate(with: avAudioNode, parameter: auParam)
+            }
+        }
+
+        avAudioNode.auAudioUnit.parameterTree = AUParameterTree.createTree(withChildren: params)
+
+    }
+
     func instantiate(generator code: String) -> AVAudioUnit {
         instantiateAudioUnit(componentDescription: AudioComponentDescription(generator: code))
     }
@@ -184,6 +208,32 @@ extension Node {
         instantiateAudioUnit(componentDescription: AudioComponentDescription(mixer: code))
     }
 
+}
+
+func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit {
+
+    let semaphore = DispatchSemaphore(value: 0)
+    var result: AVAudioUnit!
+
+    AUAudioUnit.registerSubclass(AudioUnitBase.self,
+                                 as: componentDescription,
+                                 name: "Local internal AU",
+                                 version: .max)
+    AVAudioUnit.instantiate(with: componentDescription) { avAudioUnit, _ in
+        guard let au = avAudioUnit else {
+            fatalError("Unable to instantiate AVAudioUnit")
+        }
+        result = au
+        semaphore.signal()
+    }
+
+    _ = semaphore.wait(wallTimeout: .distantFuture)
+
+    return result
+}
+
+func instantiate2(generator code: String) -> AVAudioNode {
+    instantiate(componentDescription: AudioComponentDescription(generator: code))
 }
 
 /// Convenience for AudioKit nodes.
