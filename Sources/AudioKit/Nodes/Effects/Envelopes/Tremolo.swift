@@ -45,7 +45,7 @@ public class Tremolo: Node {
     ///   - input: Input node to process
     ///   - frequency: Frequency (Hz)
     ///   - depth: Depth
-    ///   - waveform: Shape of the tremolo curve
+    ///   - waveform: Shape of the curve
     ///
     public init(
         _ input: Node,
@@ -56,7 +56,7 @@ public class Tremolo: Node {
         self.input = input
 
         setupParameters()
-        
+
         auBase.setWavetable(waveform.content)
 
         self.frequency = frequency
