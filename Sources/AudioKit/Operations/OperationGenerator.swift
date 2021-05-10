@@ -10,7 +10,7 @@ public class OperationGenerator: NodeBase {
         return NodeParameterDef(
             identifier: "parameter\(number)",
             name: "Parameter \(number)",
-            address: akGetParameterAddress("OperationGeneratorParameter\(number)"),
+            address: akGetParameterAddress("OperationParameter\(number)"),
             defaultValue: 0,
             range: floatRange,
             unit: .generic,

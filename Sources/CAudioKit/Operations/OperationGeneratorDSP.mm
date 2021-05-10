@@ -6,33 +6,33 @@
 #include "plumber.h"
 #include <string>
 
-enum OperationGeneratorParameter : AUParameterAddress {
-    OperationGeneratorParameter1,
-    OperationGeneratorParameter2,
-    OperationGeneratorParameter3,
-    OperationGeneratorParameter4,
-    OperationGeneratorParameter5,
-    OperationGeneratorParameter6,
-    OperationGeneratorParameter7,
-    OperationGeneratorParameter8,
-    OperationGeneratorParameter9,
-    OperationGeneratorParameter10,
-    OperationGeneratorParameter11,
-    OperationGeneratorParameter12,
-    OperationGeneratorParameter13,
-    OperationGeneratorParameter14,
-    OperationGeneratorTrigger
+enum OperationParameter : AUParameterAddress {
+    OperationParameter1,
+    OperationParameter2,
+    OperationParameter3,
+    OperationParameter4,
+    OperationParameter5,
+    OperationParameter6,
+    OperationParameter7,
+    OperationParameter8,
+    OperationParameter9,
+    OperationParameter10,
+    OperationParameter11,
+    OperationParameter12,
+    OperationParameter13,
+    OperationParameter14,
+    OperationTrigger
 };
 
 class OperationDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
     std::string sporthCode;
-    ParameterRamper rampers[OperationGeneratorTrigger];
+    ParameterRamper rampers[OperationTrigger];
 
 public:
     OperationDSP(bool hasInput = false) : SoundpipeDSPBase(hasInput, !hasInput) {
-        for(int i=0;i<OperationGeneratorTrigger;++i) {
+        for(int i=0;i<OperationTrigger;++i) {
             parameters[i] = &rampers[i];
         }
         isStarted = false;
@@ -75,7 +75,7 @@ public:
         if(!inputBufferLists.empty()) {
             uint8_t status = midiEvent.data[0] & 0xF0;
             if(status == 0x90) { // note on
-                pd.p[OperationGeneratorTrigger] = 1.0;
+                pd.p[OperationTrigger] = 1.0;
             }
         }
     }
@@ -89,12 +89,12 @@ public:
                 for (int channel = 0; channel < channelCount; ++channel) {
                     float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
                     if (channel < 2) {
-                        pd.p[channel+OperationGeneratorTrigger] = *in;
+                        pd.p[channel+OperationTrigger] = *in;
                     }
                 }
             }
 
-            for(int i=0;i<OperationGeneratorTrigger;++i) {
+            for(int i=0;i<OperationTrigger;++i) {
                 pd.p[i] = rampers[i].getAndStep();
             }
 
@@ -110,7 +110,7 @@ public:
                 }
             }
 
-            pd.p[OperationGeneratorTrigger] = 0.0;
+            pd.p[OperationTrigger] = 0.0;
         }
     }
 };
@@ -126,17 +126,17 @@ struct OperationGeneratorDSP : public OperationDSP {
 };
 
 AK_REGISTER_DSP(OperationGeneratorDSP, "cstg")
-AK_REGISTER_PARAMETER(OperationGeneratorParameter1)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter2)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter3)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter4)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter5)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter6)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter7)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter8)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter9)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter10)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter11)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter12)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter13)
-AK_REGISTER_PARAMETER(OperationGeneratorParameter14)
+AK_REGISTER_PARAMETER(OperationParameter1)
+AK_REGISTER_PARAMETER(OperationParameter2)
+AK_REGISTER_PARAMETER(OperationParameter3)
+AK_REGISTER_PARAMETER(OperationParameter4)
+AK_REGISTER_PARAMETER(OperationParameter5)
+AK_REGISTER_PARAMETER(OperationParameter6)
+AK_REGISTER_PARAMETER(OperationParameter7)
+AK_REGISTER_PARAMETER(OperationParameter8)
+AK_REGISTER_PARAMETER(OperationParameter9)
+AK_REGISTER_PARAMETER(OperationParameter10)
+AK_REGISTER_PARAMETER(OperationParameter11)
+AK_REGISTER_PARAMETER(OperationParameter12)
+AK_REGISTER_PARAMETER(OperationParameter13)
+AK_REGISTER_PARAMETER(OperationParameter14)
