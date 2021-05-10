@@ -4,12 +4,17 @@ import AVFoundation
 import CAudioKit
 
 /// AudioKit version of Apple's Mixer Node. Mixes a variadic list of Nodes.
-public class Mixer: NodeBase, NamedNode {
+public class Mixer: Node, NamedNode {
     /// The internal mixer node
-    fileprivate var mixerAU = AVAudioMixerNode()
+    fileprivate let mixerAU = AVAudioMixerNode()
 
     var inputs: [Node] = []
-    override public var connections: [Node] { inputs }
+    
+    /// Connected nodes
+    public var connections: [Node] { inputs }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode
 
     /// Name of the node
     open var name = "(unset)"
@@ -38,7 +43,7 @@ public class Mixer: NodeBase, NamedNode {
 
     /// Initialize the mixer node with no inputs, to be connected later
     public init(volume: AUValue = 1.0, name: String? = nil) {
-        super.init(avAudioNode: mixerAU)
+        avAudioNode = mixerAU
         self.volume = volume
         self.name = name ?? MemoryAddress(of: self).description
     }

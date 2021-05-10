@@ -5,11 +5,16 @@ import CAudioKit
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-public class Reverb: NodeBase {
+public class Reverb: Node {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode
 
     /// Dry/Wet Mix (Default 0.5)
     public var dryWetMix: AUValue = 0.5 {
@@ -31,7 +36,6 @@ public class Reverb: NodeBase {
     public init(_ input: Node, dryWetMix: AUValue = 0.5) {
         self.input = input
         self.dryWetMix = dryWetMix
-        super.init(avAudioNode: AVAudioNode())
 
         avAudioNode = reverbAU
 
