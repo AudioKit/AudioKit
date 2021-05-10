@@ -204,7 +204,7 @@ public class Synth: Node, AudioUnitContainer {
     public func play(noteNumber: MIDINoteNumber,
                      velocity: MIDIVelocity,
                      channel: MIDIChannel = 0) {
-        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
+        scheduleMIDIEvent(event: MIDIEvent(noteOn: noteNumber, velocity: velocity, channel: channel))
     }
 
     /// Stop a note
@@ -212,20 +212,7 @@ public class Synth: Node, AudioUnitContainer {
     ///   - noteNumber: MIDI Note Number
     ///   - channel: MIDI Channel
     public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
-        internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
-    }
-
-    /// Stop and immediately silence a note (regardless of release duration)
-    /// - Parameter noteNumber: MIDI Note Number
-    public func silence(noteNumber: MIDINoteNumber) {
-        internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
-    }
-
-
-    /// Set the sustain pedal position
-    /// - Parameter pedalDown: Is the pedal down?
-    public func sustainPedal(pedalDown: Bool) {
-        internalAU?.sustainPedal(down: pedalDown)
+        scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: 0, channel: channel))
     }
 
 }

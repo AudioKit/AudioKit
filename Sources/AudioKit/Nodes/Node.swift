@@ -100,7 +100,7 @@ extension Node {
     ///   - event: MIDI Event to schedule
     ///   - offset: Time in samples
     ///
-    public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64) {
+    public func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64 = 0) {
         if let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock {
             event.data.withUnsafeBufferPointer { ptr in
                 guard let ptr = ptr.baseAddress else { return }
