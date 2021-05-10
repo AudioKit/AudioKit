@@ -114,6 +114,11 @@ extension Node {
         get { avAudioNode.auAudioUnit.shouldBypassEffect }
         set { avAudioNode.auAudioUnit.shouldBypassEffect = newValue }
     }
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted: Bool {
+        return !auBase.shouldBypassEffect
+    }
 
     public func start() { bypassed = false }
     public func stop() { bypassed = true }
