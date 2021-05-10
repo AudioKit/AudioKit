@@ -5,9 +5,14 @@ import CAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
 /// TODO: This node needs tests
-public class StereoDelay: NodeBase {
+public class StereoDelay: Node {
     let input: Node
-    override public var connections: [Node] { [input] }
+
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "sdly")
 
     // MARK: - Parameters
 
@@ -81,9 +86,8 @@ public class StereoDelay: NodeBase {
         maximumDelayTime: AUValue = 2.0
     ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
-
-        avAudioNode = instantiate(effect: "sdly")
+        
+        setupParameters()
         
         self.time = time
         self.feedback = feedback

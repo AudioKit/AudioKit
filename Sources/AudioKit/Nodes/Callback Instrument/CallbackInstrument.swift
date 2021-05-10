@@ -24,8 +24,8 @@ open class CallbackInstrument: Node {
     /// - Parameter midiCallback: Optional MIDI Callback
     public init(midiCallback: MIDICallback? = nil) {
         
-        if let callback = midiCallback, let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase {
-            akCallbackInstrumentSetCallback(audioUnit.dsp, callback)
+        if let callback = midiCallback {
+            akCallbackInstrumentSetCallback(auBase.dsp, callback)
         }
     }
 

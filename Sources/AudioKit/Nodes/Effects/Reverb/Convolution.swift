@@ -7,10 +7,15 @@ import CAudioKit
 /// ftable as an impulse response.
 /// TOOD: This node needs to be tested
 ///
-public class Convolution: NodeBase {
+public class Convolution: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "conv")
 
     // MARK: - Parameters
 
@@ -32,14 +37,11 @@ public class Convolution: NodeBase {
         self.input = input
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
-
-        super.init(avAudioNode: AVAudioNode())
         
-        avAudioNode = instantiate(effect: "conv")
+        setupParameters()
         
-        if let dsp = (avAudioNode.auAudioUnit as? AudioUnitBase)?.dsp {
-            akConvolutionSetPartitionLength(dsp, Int32(partitionLength))
-        }
+        akConvolutionSetPartitionLength(auBase.dsp, Int32(partitionLength))
+        
         self.readAudioFile()
         self.start()
     }
@@ -123,7 +125,7 @@ public class Convolution: NodeBase {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    (avAudioNode.auAudioUnit as? AudioUnitBase)?.setWavetable(data: data, size: Int(ioNumberFrames))
+                    auBase.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure
                     theData?.deallocate()

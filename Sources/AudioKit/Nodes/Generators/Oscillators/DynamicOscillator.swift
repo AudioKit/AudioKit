@@ -7,7 +7,13 @@ import CAudioKit
 /// Reads from the table sequentially and repeatedly at given frequency.
 /// Linear interpolation is applied for table look up from internal phase values.
 ///
-public class DynamicOscillator: NodeBase {
+public class DynamicOscillator: Node {
+    
+    /// Connected nodes
+    public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(instrument: "csto")
 
     fileprivate var waveform: Table?
 
@@ -80,14 +86,9 @@ public class DynamicOscillator: NodeBase {
         detuningOffset: AUValue = detuningOffsetDef.defaultValue,
         detuningMultiplier: AUValue = detuningMultiplierDef.defaultValue)
     {
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = instantiate(generator: "csto")
-
-        guard let audioUnit = avAudioNode.auAudioUnit as? AudioUnitBase else {
-            fatalError("Couldn't create audio unit")
-        }
-        self.stop()
-        audioUnit.setWavetable(waveform.content)
+        setupParameters()
+        
+        auBase.setWavetable(waveform.content)
         
         self.waveform = waveform
         self.frequency = frequency
@@ -104,7 +105,7 @@ public class DynamicOscillator: NodeBase {
     /// - Parameters:
     ///   - waveform: The waveform of oscillation
     public func setWaveTable(waveform: Table) {
-        (avAudioNode.auAudioUnit as? AudioUnitBase)?.setWavetable(waveform.content)
+        auBase.setWavetable(waveform.content)
         self.waveform = waveform
         wavetableUpdateHandler(waveform.content)
     }

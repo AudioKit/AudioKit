@@ -4,10 +4,15 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Fader.
-public class Fader: NodeBase {
+public class Fader: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "fder")
 
     // MARK: - Parameters
 
@@ -86,9 +91,8 @@ public class Fader: NodeBase {
     ///
     public init(_ input: Node, gain: AUValue = 1) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
         
-        avAudioNode = instantiate(effect: "fder")
+        setupParameters()
         
         self.leftGain = gain
         self.rightGain = gain

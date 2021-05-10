@@ -5,10 +5,15 @@ import CAudioKit
 
 /// Stereo Flanger
 ///
-public class Flanger: NodeBase {
+public class Flanger: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "flgr")
 
     // MARK: - Parameters
 
@@ -79,9 +84,8 @@ public class Flanger: NodeBase {
         dryWetMix: AUValue = dryWetMixDef.defaultValue
     ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
         
-        avAudioNode = instantiate(effect: "flgr")
+        setupParameters()
 
         self.frequency = frequency
         self.depth = depth

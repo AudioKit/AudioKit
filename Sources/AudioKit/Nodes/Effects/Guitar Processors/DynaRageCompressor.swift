@@ -6,11 +6,16 @@ import CAudioKit
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls
 ///
-public class DynaRageCompressor: NodeBase {
+public class DynaRageCompressor: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "dyrc")
+    
     // MARK: - Parameters
 
     /// Specification details for ratio
@@ -106,9 +111,8 @@ public class DynaRageCompressor: NodeBase {
         rageEnabled: Bool = rageEnabledDef.defaultValue == 1.0
     ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
         
-        avAudioNode = instantiate(effect: "dyrc")
+        setupParameters()
         
         self.ratio = ratio
         self.threshold = threshold

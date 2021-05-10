@@ -4,10 +4,15 @@ import AVFoundation
 import CAudioKit
 
 /// Transient shaper
-public class TransientShaper: NodeBase {
+public class TransientShaper: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "trsh")
 
     // MARK: - Parameters
 
@@ -76,9 +81,8 @@ public class TransientShaper: NodeBase {
         outputAmount: AUValue = outputAmountDef.defaultValue
     ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
-        
-        avAudioNode = instantiate(effect: "trsh")
+       
+        setupParameters()
         
         self.inputAmount = inputAmount
         self.attackAmount = attackAmount

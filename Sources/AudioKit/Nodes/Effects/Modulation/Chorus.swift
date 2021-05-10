@@ -5,10 +5,15 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class Chorus: NodeBase {
+public class Chorus: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "chrs")
 
     // MARK: - Parameters
     
@@ -79,9 +84,8 @@ public class Chorus: NodeBase {
         dryWetMix: AUValue = dryWetMixDef.defaultValue
     ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
         
-        avAudioNode = instantiate(effect: "chrs")
+        setupParameters()
 
         self.frequency = frequency
         self.depth = depth

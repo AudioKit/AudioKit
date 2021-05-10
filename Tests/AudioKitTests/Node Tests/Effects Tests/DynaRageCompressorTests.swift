@@ -29,10 +29,10 @@ class DynaRangeCompressorTests: XCTestCase {
         let engine = AudioEngine()
         let input = Oscillator(waveform: Table(.triangle))
         engine.output = DynaRageCompressor(input,
-                                      ratio: 10,
-                                      threshold: -1,
-                                      attackDuration: 21,
-                                      releaseDuration: 22)
+                                           ratio: 10,
+                                           threshold: -1,
+                                           attackDuration: 21,
+                                           releaseDuration: 22)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

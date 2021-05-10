@@ -5,10 +5,15 @@ import CAudioKit
 
 /// Guitar head and cab simulator.
 ///
-public class RhinoGuitarProcessor: NodeBase {
+public class RhinoGuitarProcessor: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "rhgp")
 
     // MARK: - Parameters
 
@@ -107,9 +112,8 @@ public class RhinoGuitarProcessor: NodeBase {
         distortion: AUValue = distortionDef.defaultValue
     ) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
         
-        avAudioNode = instantiate(effect: "rhgp")
+        setupParameters()
 
         self.preGain = preGain
         self.postGain = postGain

@@ -7,7 +7,13 @@ import CAudioKit
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-public class PhaseLockedVocoder: NodeBase {
+public class PhaseLockedVocoder: Node {
+    
+    /// Connected nodes
+    public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(instrument: "minc")
     
     /// Specification for position
     public static let positionDef = NodeParameterDef(
@@ -60,10 +66,8 @@ public class PhaseLockedVocoder: NodeBase {
         position: AUValue = positionDef.defaultValue,
         amplitude: AUValue = amplitudeDef.defaultValue,
         pitchRatio: AUValue = pitchRatioDef.defaultValue
-        ) {
-        super.init(avAudioNode: AVAudioNode())
-        
-        avAudioNode = instantiate(generator: "minc")
+    ) {
+        setupParameters()
         
         loadFile(file)
         
@@ -149,10 +153,7 @@ public class PhaseLockedVocoder: NodeBase {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    guard let au = avAudioNode.auAudioUnit as? AudioUnitBase else {
-                        fatalError("Couldn't get audio unit")
-                    }
-                    au.setWavetable(data: data, size: Int(ioNumberFrames))
+                    auBase.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure
                     theData?.deallocate()

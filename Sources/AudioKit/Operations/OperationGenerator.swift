@@ -143,6 +143,6 @@ public class OperationGenerator: Node {
 
     /// Trigger the sound with current parameters
     open func trigger() {
-        (avAudioNode.auAudioUnit as? AudioUnitBase)?.trigger()
+        auBase.trigger()
     }
 }
