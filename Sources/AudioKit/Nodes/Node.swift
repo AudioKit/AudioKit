@@ -125,56 +125,6 @@ extension Node {
     public func play() { bypassed = false }
     public func bypass() { bypassed = true }
 
-    func instantiateAudioUnit(componentDescription: AudioComponentDescription) -> AVAudioUnit {
-
-        let semaphore = DispatchSemaphore(value: 0)
-        var result: AVAudioUnit!
-
-        AUAudioUnit.registerSubclass(AudioUnitBase.self,
-                                     as: componentDescription,
-                                     name: "Local \(Self.self)",
-                                     version: .max)
-        AVAudioUnit.instantiate(with: componentDescription) { avAudioUnit, _ in
-            guard let au = avAudioUnit else {
-                fatalError("Unable to instantiate AVAudioUnit")
-            }
-            guard let myAU = au.auAudioUnit as? AudioUnitBase else {
-                fatalError("AudioUnit not of expected type")
-            }
-
-            result = au
-
-            // If there are no parameters created, search for @Parameter
-            if myAU.parameterTree!.children.isEmpty {
-                let mirror = Mirror(reflecting: self)
-                var params: [AUParameter] = []
-
-                for child in mirror.children {
-                    if let param = child.value as? ParameterBase {
-                        let def = param.projectedValue.def
-                        let auParam = AUParameter(identifier: def.identifier,
-                                                name: def.name,
-                                                address: def.address,
-                                                min: def.range.lowerBound,
-                                                max: def.range.upperBound,
-                                                unit: def.unit,
-                                                flags: def.flags)
-                        params.append(auParam)
-                        param.projectedValue.associate(with: au, parameter: auParam)
-                    }
-                }
-
-                myAU.parameterTree = AUParameterTree.createTree(withChildren: params)
-            }
-
-            semaphore.signal()
-        }
-
-        _ = semaphore.wait(wallTimeout: .distantFuture)
-
-        return result
-    }
-
     /// All parameters on the Node
     var parameters: [NodeParameter] {
 
