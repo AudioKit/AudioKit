@@ -4,6 +4,7 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 #include "plumber.h"
+#include <string>
 
 enum OperationGeneratorParameter : AUParameterAddress {
     OperationGeneratorParameter1,
@@ -26,7 +27,7 @@ enum OperationGeneratorParameter : AUParameterAddress {
 class OperationGeneratorDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
-    char *sporthCode = nil;
+    std::string sporthCode;
     ParameterRamper rampers[OperationGeneratorTrigger];
 
 public:
@@ -37,11 +38,8 @@ public:
         isStarted = false;
     }
 
-    ~OperationGeneratorDSP() { free(sporthCode); }
-
     void setSporth(const char *sporth) {
-        free(sporthCode);
-        sporthCode = strdup(sporth);
+        sporthCode = sporth;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -50,8 +48,8 @@ public:
         plumber_init(&pd);
 
         pd.sp = sp;
-        if (sporthCode != nil) {
-            plumber_parse_string(&pd, sporthCode);
+        if (!sporthCode.empty()) {
+            plumber_parse_string(&pd, sporthCode.c_str());
             plumber_compute(&pd, PLUMBER_INIT);
         }
     }
@@ -67,8 +65,8 @@ public:
         plumber_init(&pd);
 
         pd.sp = sp;
-        if (sporthCode != nil) {
-            plumber_parse_string(&pd, sporthCode);
+        if (!sporthCode.empty()) {
+            plumber_parse_string(&pd, sporthCode.c_str());
             plumber_compute(&pd, PLUMBER_INIT);
         }
     }

@@ -4,6 +4,7 @@
 #include "ParameterRamper.h"
 #include "soundpipe.h"
 #include "plumber.h"
+#include <string>
 
 enum OperationEffectParameter : AUParameterAddress {
     OperationEffectParameter1,
@@ -26,7 +27,7 @@ enum OperationEffectParameter : AUParameterAddress {
 class OperationEffectDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
-    char *sporthCode = nil;
+    std::string sporthCode;
     ParameterRamper rampers[ParameterCount];
 
 public:
@@ -36,11 +37,8 @@ public:
         }
     }
 
-    ~OperationEffectDSP() { free(sporthCode); }
-
     void setSporth(const char *sporth) {
-        free(sporthCode);
-        sporthCode = strdup(sporth);
+        sporthCode = sporth;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -49,8 +47,8 @@ public:
         plumber_init(&pd);
 
         pd.sp = sp;
-        if (sporthCode != nil) {
-            plumber_parse_string(&pd, sporthCode);
+        if (!sporthCode.empty()) {
+            plumber_parse_string(&pd, sporthCode.c_str());
             plumber_compute(&pd, PLUMBER_INIT);
         }
     }
@@ -66,8 +64,8 @@ public:
         plumber_init(&pd);
 
         pd.sp = sp;
-        if (sporthCode != nil) {
-            plumber_parse_string(&pd, sporthCode);
+        if (!sporthCode.empty()) {
+            plumber_parse_string(&pd, sporthCode.c_str());
             plumber_compute(&pd, PLUMBER_INIT);
         }
     }
