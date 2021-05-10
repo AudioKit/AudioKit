@@ -9,7 +9,10 @@ import CAudioKit
 /// 
 public class Drip: Node {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(instrument: "drip")
 
     /// Specification details for intensity

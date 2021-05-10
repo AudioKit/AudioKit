@@ -8,7 +8,11 @@ import CAudioKit
 public class PitchShifter: Node {
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(effect: "pshf")
 
     // MARK: - Parameters

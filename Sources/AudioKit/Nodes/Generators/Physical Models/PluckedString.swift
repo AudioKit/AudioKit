@@ -8,7 +8,10 @@ import CAudioKit
 /// 
 public class PluckedString: Node {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(instrument: "pluk")
 
     /// Specification details for frequency

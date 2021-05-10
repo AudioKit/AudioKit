@@ -8,7 +8,10 @@ import CAudioKit
 /// 
 public class MetalBar: Node {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(instrument: "mbar")
 
     /// Specification details for leftBoundaryCondition

@@ -12,7 +12,10 @@ import CAudioKit
 /// 
 public class VocalTract: Node {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(instrument: "vocw")
 
     /// Specification details for frequency

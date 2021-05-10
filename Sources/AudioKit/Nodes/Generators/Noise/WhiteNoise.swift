@@ -7,7 +7,10 @@ import CAudioKit
 /// White noise generator
 public class WhiteNoise: Node {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(instrument: "wnoz")
 
     /// Specification details for amplitude

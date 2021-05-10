@@ -8,7 +8,11 @@ import CAudioKit
 public class ThreePoleLowpassFilter: Node {
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(effect: "lp18")
 
     // MARK: - Parameters

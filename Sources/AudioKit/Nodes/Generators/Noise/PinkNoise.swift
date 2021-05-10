@@ -7,7 +7,10 @@ import CAudioKit
 /// Faust-based pink noise generator
 public class PinkNoise: Node {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(instrument: "pink")
 
     /// Specification details for amplitude

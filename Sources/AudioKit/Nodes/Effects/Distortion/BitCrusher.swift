@@ -8,7 +8,11 @@ import CAudioKit
 public class BitCrusher: Node {
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(effect: "btcr")
 
     // MARK: - Parameters

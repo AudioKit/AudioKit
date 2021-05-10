@@ -10,7 +10,11 @@ import CAudioKit
 public class BandPassButterworthFilter: Node {
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(effect: "btbp")
 
     // MARK: - Parameters

@@ -9,7 +9,10 @@ import CAudioKit
 /// 
 public class MorphingOscillator: Node {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(instrument: "morf")
 
     fileprivate var waveformArray = [Table]()

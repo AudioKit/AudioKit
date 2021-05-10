@@ -8,7 +8,11 @@ import CAudioKit
 public class ToneFilter: Node {
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode = instantiate2(effect: "tone")
 
     // MARK: - Parameters

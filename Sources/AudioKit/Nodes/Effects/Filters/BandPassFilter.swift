@@ -10,7 +10,11 @@ public class BandPassFilter: Node {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for centerFrequency
