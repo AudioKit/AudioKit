@@ -4,12 +4,18 @@ import AVFoundation
 import CAudioKit
 
 /// Sampler
-public class Sampler: NodeBase, AudioUnitContainer {
+public class Sampler: Node, AudioUnitContainer {
     /// Unique four-letter identifier "samp"
     public static let ComponentDescription = AudioComponentDescription(instrument: "samp")
 
     /// Internal type of audio unit for this node
     public typealias AudioUnitType = SamplerAudioUnit
+
+    /// Nodes providing input to this node.
+    public var connections: [Node] { [] }
+
+    /// The internal AVAudioEngine AVAudioNode
+    public var avAudioNode: AVAudioNode
 
     // MARK: - Properties
 
@@ -276,7 +282,7 @@ public class Sampler: NodeBase, AudioUnitContainer {
 
     /// Initialize without any descriptors
     public init() {
-        super.init(avAudioNode: AVAudioNode())
+        avAudioNode = AVAudioNode()
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
