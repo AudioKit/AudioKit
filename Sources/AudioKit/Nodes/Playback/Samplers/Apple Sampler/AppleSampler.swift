@@ -10,7 +10,7 @@ import CAudioKit
 /// 3. connect to the engine: engine.output = sampler
 /// 4. start the engine engine.start()
 ///
-open class AppleSampler: NodeBase {
+open class AppleSampler: Node {
 
     // MARK: - Properties
 
@@ -38,6 +38,9 @@ open class AppleSampler: NodeBase {
     /// Sampler AV Audio Unit
     public var samplerUnit = AVAudioUnitSampler()
 
+    public var connections: [Node] { [] }
+    public var avAudioNode: AVAudioNode { samplerUnit }
+
     /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
     /// Doesn't transpose by playing another note (and the accoring zone and layer)
     /// but bends the sound up and down like tuning.
@@ -54,8 +57,6 @@ open class AppleSampler: NodeBase {
 
     /// Initialize the sampler node
     public init(file: String? = nil) {
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
 
         if let newFile = file {
