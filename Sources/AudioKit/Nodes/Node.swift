@@ -273,21 +273,6 @@ func instantiate2(mixer code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(mixer: code))
 }
 
-/// Convenience for AudioKit nodes.
-open class NodeBase: Node {
-    /// Nodes providing input to this node.
-    public var connections: [Node] { [] }
-
-    /// The internal AVAudioEngine AVAudioNode
-    open var avAudioNode: AVAudioNode
-
-    /// Initialize the node from an AVAudioNode
-    /// - Parameter avAudioNode: AVAudioNode to initialize with
-    public init(avAudioNode: AVAudioNode) {
-        self.avAudioNode = avAudioNode
-    }
-}
-
 protocol HasInternalConnections: AnyObject {
 
     /// Override point for any connections internal to the node.
