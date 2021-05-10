@@ -10,13 +10,17 @@ import CAudioKit
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-public class Balancer: NodeBase {
+public class Balancer: Node {
 
     let input: Node
     let comparator: Node
     
-    override public var connections: [Node] { [input, comparator] }
+    /// Conneced nodes
+    public var connections: [Node] { [input, comparator] }
 
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "blnc")
+    
     // MARK: - Initialization
 
     /// Initialize this balance node
@@ -28,8 +32,5 @@ public class Balancer: NodeBase {
     public init(_ input: Node, comparator: Node) {
         self.input = input
         self.comparator = comparator
-        super.init(avAudioNode: AVAudioNode())
-        
-        avAudioNode = instantiate(effect: "blnc")
     }
 }
