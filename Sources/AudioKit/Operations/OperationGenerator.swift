@@ -4,7 +4,10 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class OperationGenerator: NodeBase {
+public class OperationGenerator: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode: AVAudioNode
 
     internal static func makeParam(_ number: Int) -> NodeParameterDef {
         return NodeParameterDef(
@@ -132,8 +135,8 @@ public class OperationGenerator: NodeBase {
     ///
     public init(sporth: String = "") {
 
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = instantiate(generator: "cstg")
+        avAudioNode = instantiate2(generator: "cstg")
+        setupParameters()
         
         akOperationSetSporth(auBase.dsp, sporth)
     }
