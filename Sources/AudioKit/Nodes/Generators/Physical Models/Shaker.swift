@@ -99,7 +99,7 @@ public class Shaker: Node {
         start()
         let velocity = MIDIVelocity(amplitude * 127.0)
         print(velocity)
-        (avAudioNode.auAudioUnit as? AudioUnitBase)?.trigger(note: type.rawValue, velocity: velocity)
+        auBase.trigger(note: type.rawValue, velocity: velocity)
     }
 }
 

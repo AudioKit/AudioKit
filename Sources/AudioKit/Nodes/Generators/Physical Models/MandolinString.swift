@@ -24,6 +24,6 @@ public class MandolinString: Node {
     ///
     public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
         start()
-        (avAudioNode.auAudioUnit as? AudioUnitBase)?.trigger(note: note, velocity: velocity)
+        auBase.trigger(note: note, velocity: velocity)
     }
 }
