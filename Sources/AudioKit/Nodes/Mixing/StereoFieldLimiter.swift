@@ -5,11 +5,16 @@ import CAudioKit
 
 /// Stereo StereoFieldLimiter
 ///
-public class StereoFieldLimiter: NodeBase {
+public class StereoFieldLimiter: Node {
     
     let input: Node
-    override public var connections: [Node] { [input] }
 
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(effect: "sflm")
+    
     // MARK: - Properties
 
     /// Specification details for amount
@@ -34,10 +39,9 @@ public class StereoFieldLimiter: NodeBase {
     ///
     public init(_ input: Node, amount: AUValue = amountDef.defaultValue) {
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
         
-        avAudioNode = instantiate(effect: "sflm")
-
+        setupParameters()
+        
         self.amount = amount
     }
 }

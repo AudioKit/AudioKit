@@ -221,10 +221,6 @@ extension Node {
         instantiateAudioUnit(componentDescription: AudioComponentDescription(effect: code))
     }
 
-    func instantiate(mixer code: String) -> AVAudioUnit {
-        instantiateAudioUnit(componentDescription: AudioComponentDescription(mixer: code))
-    }
-
     var auBase: AudioUnitBase {
         guard let au = avAudioNode.auAudioUnit as? AudioUnitBase else {
             fatalError("Wrong audio unit type.")
@@ -266,6 +262,10 @@ func instantiate2(instrument code: String) -> AVAudioNode {
 
 func instantiate2(effect code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(effect: code))
+}
+
+func instantiate2(mixer code: String) -> AVAudioNode {
+    instantiate(componentDescription: AudioComponentDescription(mixer: code))
 }
 
 /// Convenience for AudioKit nodes.

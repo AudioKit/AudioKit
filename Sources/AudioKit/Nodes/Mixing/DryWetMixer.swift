@@ -5,11 +5,16 @@ import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class DryWetMixer: NodeBase {
+public class DryWetMixer: Node {
 
     let input1: Node
     let input2: Node
-    override public var connections: [Node] { [input1, input2] }
+    
+    /// Connected nodes
+    public var connections: [Node] { [input1, input2] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(mixer: "dwmx")
 
     // MARK: - Parameters
 
@@ -35,10 +40,9 @@ public class DryWetMixer: NodeBase {
     public init(_ input1: Node, _ input2: Node, balance: AUValue = balanceDef.defaultValue) {
         self.input1 = input1
         self.input2 = input2
-        super.init(avAudioNode: AVAudioNode())
         
-        avAudioNode = instantiate(mixer: "dwmx")
-
+        setupParameters()
+        
         self.balance = balance
     }
 
