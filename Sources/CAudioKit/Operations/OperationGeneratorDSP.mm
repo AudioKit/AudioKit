@@ -24,14 +24,14 @@ enum OperationGeneratorParameter : AUParameterAddress {
     OperationGeneratorTrigger
 };
 
-class OperationGeneratorDSP : public SoundpipeDSPBase {
+class OperationDSP : public SoundpipeDSPBase {
 private:
     plumber_data pd;
     std::string sporthCode;
     ParameterRamper rampers[OperationGeneratorTrigger];
 
 public:
-    OperationGeneratorDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
+    OperationDSP(bool hasInput = false) : SoundpipeDSPBase(hasInput, !hasInput) {
         for(int i=0;i<OperationGeneratorTrigger;++i) {
             parameters[i] = &rampers[i];
         }
@@ -72,10 +72,11 @@ public:
     }
 
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
-        uint8_t status = midiEvent.data[0] & 0xF0;
-
-        if(status == 0x90) { // note on
-            pd.p[OperationGeneratorTrigger] = 1.0;
+        if(!inputBufferLists.empty()) {
+            uint8_t status = midiEvent.data[0] & 0xF0;
+            if(status == 0x90) { // note on
+                pd.p[OperationGeneratorTrigger] = 1.0;
+            }
         }
     }
 
@@ -83,6 +84,15 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
+
+            if(!inputBufferLists.empty()) {
+                for (int channel = 0; channel < channelCount; ++channel) {
+                    float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                    if (channel < 2) {
+                        pd.p[channel+OperationGeneratorTrigger] = *in;
+                    }
+                }
+            }
 
             for(int i=0;i<OperationGeneratorTrigger;++i) {
                 pd.p[i] = rampers[i].getAndStep();
@@ -106,10 +116,14 @@ public:
 };
 
 AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth) {
-    auto dsp = dynamic_cast<OperationGeneratorDSP *>(dspRef);
+    auto dsp = dynamic_cast<OperationDSP *>(dspRef);
     assert(dsp);
     dsp->setSporth(sporth);
 }
+
+struct OperationGeneratorDSP : public OperationDSP {
+    OperationGeneratorDSP() : OperationDSP(false) { }
+};
 
 AK_REGISTER_DSP(OperationGeneratorDSP, "cstg")
 AK_REGISTER_PARAMETER(OperationGeneratorParameter1)
