@@ -36,6 +36,8 @@ public:
         }
     }
 
+    ~OperationEffectDSP() { free(sporthCode); }
+
     void setSporth(const char *sporth) {
         free(sporthCode);
         sporthCode = strdup(sporth);

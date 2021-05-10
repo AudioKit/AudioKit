@@ -37,6 +37,8 @@ public:
         isStarted = false;
     }
 
+    ~OperationGeneratorDSP() { free(sporthCode); }
+
     void setSporth(const char *sporth) {
         free(sporthCode);
         sporthCode = strdup(sporth);
