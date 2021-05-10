@@ -4,13 +4,16 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class OperationGenerator: NodeBase {
+public class OperationGenerator: Node {
+
+    public var connections: [Node] { [] }
+    public var avAudioNode: AVAudioNode
 
     internal static func makeParam(_ number: Int) -> NodeParameterDef {
         return NodeParameterDef(
             identifier: "parameter\(number)",
             name: "Parameter \(number)",
-            address: akGetParameterAddress("OperationGeneratorParameter\(number)"),
+            address: akGetParameterAddress("OperationParameter\(number)"),
             defaultValue: 0,
             range: floatRange,
             unit: .generic,
@@ -132,10 +135,10 @@ public class OperationGenerator: NodeBase {
     ///
     public init(sporth: String = "") {
 
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = instantiate(generator: "cstg")
+        avAudioNode = instantiate2(generator: "cstg")
+        setupParameters()
         
-        akOperationGeneratorSetSporth(auBase.dsp, sporth)
+        akOperationSetSporth(auBase.dsp, sporth)
     }
 
     /// Trigger the sound with current parameters

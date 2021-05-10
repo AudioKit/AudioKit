@@ -6,10 +6,11 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class OperationEffect: NodeBase {
+public class OperationEffect: Node {
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+    public var avAudioNode: AVAudioNode
 
     // MARK: - Parameters
 
@@ -139,10 +140,9 @@ public class OperationEffect: NodeBase {
     public init(_ input: Node, sporth: String) {
 
         self.input = input
-        super.init(avAudioNode: AVAudioNode())
-        
-        avAudioNode = instantiate(effect: "cstm")
+        avAudioNode = instantiate2(effect: "cstm")
+        setupParameters()
 
-        akOperationEffectSetSporth(auBase.dsp, sporth)
+        akOperationSetSporth(auBase.dsp, sporth)
     }
 }
