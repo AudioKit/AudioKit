@@ -4,11 +4,13 @@ import AVFoundation
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-public class Delay: NodeBase {
+public class Delay: Node {
     let delayAU = AVAudioUnitDelay()
 
     let input: Node
-    override public var connections: [Node] { [input] }
+    public var connections: [Node] { [input] }
+
+    public var avAudioNode: AVAudioNode { return delayAU }
 
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
@@ -78,7 +80,6 @@ public class Delay: NodeBase {
         dryWetMix: AUValue = dryWetMixDef.defaultValue) {
 
         self.input = input
-        super.init(avAudioNode: delayAU)
 
         associateParams(with: delayAU)
 
