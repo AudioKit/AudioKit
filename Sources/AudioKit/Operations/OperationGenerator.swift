@@ -145,4 +145,10 @@ public class OperationGenerator: Node {
     open func trigger() {
         auBase.trigger()
     }
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted: Bool {
+        return !auBase.shouldBypassEffect
+    }
+
 }
