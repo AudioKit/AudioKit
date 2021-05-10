@@ -13,7 +13,7 @@ public class StereoFieldLimiter: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "sflm")
+    public var avAudioNode = instantiate(effect: "sflm")
     
     // MARK: - Properties
 

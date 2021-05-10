@@ -13,7 +13,7 @@ public class Tremolo: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "trem")
+    public var avAudioNode = instantiate(effect: "trem")
 
     // MARK: - Parameters
 

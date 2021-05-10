@@ -10,7 +10,7 @@ public class Flute: Node {
     public var connections: [Node] { [] }
     
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "flut")
+    public var avAudioNode = instantiate(instrument: "flut")
 
     /// Initialize the STK Flute model
     public init() {}

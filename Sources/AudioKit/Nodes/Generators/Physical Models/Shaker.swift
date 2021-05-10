@@ -84,7 +84,7 @@ public class Shaker: Node {
     public var connections: [Node] { [] }
     
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "shak")
+    public var avAudioNode = instantiate(instrument: "shak")
 
     /// Initialize the STK Flute model
     public init() {}

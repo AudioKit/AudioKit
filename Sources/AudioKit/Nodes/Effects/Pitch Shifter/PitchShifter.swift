@@ -13,7 +13,7 @@ public class PitchShifter: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "pshf")
+    public var avAudioNode = instantiate(effect: "pshf")
 
     // MARK: - Parameters
 

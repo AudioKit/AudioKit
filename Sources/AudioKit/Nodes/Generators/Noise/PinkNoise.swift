@@ -11,7 +11,7 @@ public class PinkNoise: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "pink")
+    public var avAudioNode = instantiate(instrument: "pink")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(

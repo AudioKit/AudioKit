@@ -10,7 +10,7 @@ public class TubularBells: Node {
     public var connections: [Node] { [] }
     
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "tbel")
+    public var avAudioNode = instantiate(instrument: "tbel")
 
     /// Initialize the STK Tubular Bells model
     public init() { }

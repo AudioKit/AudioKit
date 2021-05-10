@@ -19,7 +19,7 @@ public class Balancer: Node {
     public var connections: [Node] { [input, comparator] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "blnc")
+    public var avAudioNode = instantiate(effect: "blnc")
     
     // MARK: - Initialization
 

@@ -16,7 +16,7 @@ public class VocalTract: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "vocw")
+    public var avAudioNode = instantiate(instrument: "vocw")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(

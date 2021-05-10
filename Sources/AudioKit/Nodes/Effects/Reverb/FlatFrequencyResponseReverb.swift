@@ -16,7 +16,7 @@ public class FlatFrequencyResponseReverb: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "alps")
+    public var avAudioNode = instantiate(effect: "alps")
 
     // MARK: - Parameters
 

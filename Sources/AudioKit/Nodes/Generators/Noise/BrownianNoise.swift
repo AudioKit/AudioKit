@@ -11,7 +11,7 @@ public class BrownianNoise: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "bron")
+    public var avAudioNode = instantiate(instrument: "bron")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(

@@ -13,7 +13,7 @@ public class Phaser: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "phas")
+    public var avAudioNode = instantiate(effect: "phas")
 
     // MARK: - Parameters
 

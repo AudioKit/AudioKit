@@ -10,7 +10,7 @@ public class RhodesPianoKey: Node {
     public var connections: [Node] { [] }
     
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "rhds")
+    public var avAudioNode = instantiate(instrument: "rhds")
     
     /// Initialize the STK Rhodes Piano model
     public init() {}

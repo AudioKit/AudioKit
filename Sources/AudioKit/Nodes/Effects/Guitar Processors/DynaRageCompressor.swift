@@ -14,7 +14,7 @@ public class DynaRageCompressor: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "dyrc")
+    public var avAudioNode = instantiate(effect: "dyrc")
     
     // MARK: - Parameters
 

@@ -16,7 +16,7 @@ public class PWMOscillator: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "pwmo")
+    public var avAudioNode = instantiate(instrument: "pwmo")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(

@@ -18,7 +18,7 @@ open class CallbackInstrument: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "clbk")
+    public var avAudioNode = instantiate(instrument: "clbk")
 
     /// Initialize the callback instrument
     /// - Parameter midiCallback: Optional MIDI Callback

@@ -214,18 +214,6 @@ extension Node {
 
     }
 
-    func instantiate(generator code: String) -> AVAudioUnit {
-        instantiateAudioUnit(componentDescription: AudioComponentDescription(generator: code))
-    }
-    
-    func instantiate(instrument code: String) -> AVAudioUnit {
-        instantiateAudioUnit(componentDescription: AudioComponentDescription(instrument: code))
-    }
-
-    func instantiate(effect code: String) -> AVAudioUnit {
-        instantiateAudioUnit(componentDescription: AudioComponentDescription(effect: code))
-    }
-
     var auBase: AudioUnitBase {
         guard let au = avAudioNode.auAudioUnit as? AudioUnitBase else {
             fatalError("Wrong audio unit type.")
@@ -257,19 +245,19 @@ func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit
     return result
 }
 
-func instantiate2(generator code: String) -> AVAudioNode {
+public func instantiate(generator code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(generator: code))
 }
 
-func instantiate2(instrument code: String) -> AVAudioNode {
+public func instantiate(instrument code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(instrument: code))
 }
 
-func instantiate2(effect code: String) -> AVAudioNode {
+public func instantiate(effect code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(effect: code))
 }
 
-func instantiate2(mixer code: String) -> AVAudioNode {
+public func instantiate(mixer code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(mixer: code))
 }
 

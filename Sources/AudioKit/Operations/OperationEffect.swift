@@ -140,7 +140,7 @@ public class OperationEffect: Node {
     public init(_ input: Node, sporth: String) {
 
         self.input = input
-        avAudioNode = instantiate2(effect: "cstm")
+        avAudioNode = instantiate(effect: "cstm")
         setupParameters()
 
         akOperationSetSporth(auBase.dsp, sporth)

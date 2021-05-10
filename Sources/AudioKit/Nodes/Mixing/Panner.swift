@@ -13,7 +13,7 @@ public class Panner: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "pan2")
+    public var avAudioNode = instantiate(effect: "pan2")
 
     // MARK: - Parameters
 

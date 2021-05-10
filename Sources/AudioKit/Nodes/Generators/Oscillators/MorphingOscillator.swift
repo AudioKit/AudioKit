@@ -13,7 +13,7 @@ public class MorphingOscillator: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "morf")
+    public var avAudioNode = instantiate(instrument: "morf")
 
     fileprivate var waveformArray = [Table]()
 

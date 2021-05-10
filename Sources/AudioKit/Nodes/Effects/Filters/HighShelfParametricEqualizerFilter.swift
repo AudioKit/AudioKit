@@ -13,7 +13,7 @@ public class HighShelfParametricEqualizerFilter: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "peq2")
+    public var avAudioNode = instantiate(effect: "peq2")
 
     // MARK: - Parameters
 

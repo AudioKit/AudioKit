@@ -13,7 +13,7 @@ public class DynamicOscillator: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "csto")
+    public var avAudioNode = instantiate(instrument: "csto")
 
     fileprivate var waveform: Table?
 

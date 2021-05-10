@@ -15,7 +15,7 @@ public class FormantFilter: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "fofi")
+    public var avAudioNode = instantiate(effect: "fofi")
 
     // MARK: - Parameters
 

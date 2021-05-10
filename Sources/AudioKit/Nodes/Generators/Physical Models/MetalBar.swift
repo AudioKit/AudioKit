@@ -12,7 +12,7 @@ public class MetalBar: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "mbar")
+    public var avAudioNode = instantiate(instrument: "mbar")
 
     /// Specification details for leftBoundaryCondition
     public static let leftBoundaryConditionDef = NodeParameterDef(

@@ -12,7 +12,7 @@ public class PluckedString: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "pluk")
+    public var avAudioNode = instantiate(instrument: "pluk")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(

@@ -13,7 +13,7 @@ public class TanhDistortion: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "dist")
+    public var avAudioNode = instantiate(effect: "dist")
 
     // MARK: - Parameters
 

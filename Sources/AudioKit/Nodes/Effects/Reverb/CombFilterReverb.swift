@@ -18,7 +18,7 @@ public class CombFilterReverb: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "comb")
+    public var avAudioNode = instantiate(effect: "comb")
 
     // MARK: - Parameters
 

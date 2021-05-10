@@ -17,7 +17,7 @@ public class MoogLadder: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "mgld")
+    public var avAudioNode = instantiate(effect: "mgld")
 
     // MARK: - Parameters
 

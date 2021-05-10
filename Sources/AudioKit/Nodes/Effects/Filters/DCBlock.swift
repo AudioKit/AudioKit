@@ -15,7 +15,7 @@ public class DCBlock: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "dcbk")
+    public var avAudioNode = instantiate(effect: "dcbk")
 
     // MARK: - Parameters
 

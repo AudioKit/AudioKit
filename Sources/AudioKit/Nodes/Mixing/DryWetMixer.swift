@@ -14,7 +14,7 @@ public class DryWetMixer: Node {
     public var connections: [Node] { [input1, input2] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(mixer: "dwmx")
+    public var avAudioNode = instantiate(mixer: "dwmx")
 
     // MARK: - Parameters
 

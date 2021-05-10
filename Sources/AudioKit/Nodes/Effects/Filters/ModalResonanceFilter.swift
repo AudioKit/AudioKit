@@ -15,7 +15,7 @@ public class ModalResonanceFilter: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "modf")
+    public var avAudioNode = instantiate(effect: "modf")
 
     // MARK: - Parameters
 

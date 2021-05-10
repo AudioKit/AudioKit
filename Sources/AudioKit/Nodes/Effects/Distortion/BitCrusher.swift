@@ -13,7 +13,7 @@ public class BitCrusher: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "btcr")
+    public var avAudioNode = instantiate(effect: "btcr")
 
     // MARK: - Parameters
 

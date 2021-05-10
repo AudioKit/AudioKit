@@ -11,7 +11,7 @@ public class WhiteNoise: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "wnoz")
+    public var avAudioNode = instantiate(instrument: "wnoz")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(

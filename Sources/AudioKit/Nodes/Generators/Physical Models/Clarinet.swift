@@ -10,7 +10,7 @@ public class Clarinet: Node {
     public var connections: [Node] { [] }
     
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "clar")
+    public var avAudioNode = instantiate(instrument: "clar")
     
     /// Initialize the STK Clarinet model
     public init() {}

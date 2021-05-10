@@ -13,7 +13,7 @@ public class VariableDelay: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "vdla")
+    public var avAudioNode = instantiate(effect: "vdla")
 
     // MARK: - Parameters
 

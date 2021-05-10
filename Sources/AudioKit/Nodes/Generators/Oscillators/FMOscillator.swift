@@ -11,7 +11,7 @@ public class FMOscillator: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "fosc")
+    public var avAudioNode = instantiate(instrument: "fosc")
 
     fileprivate var waveform: Table?
 

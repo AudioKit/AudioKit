@@ -13,7 +13,7 @@ public class ThreePoleLowpassFilter: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "lp18")
+    public var avAudioNode = instantiate(effect: "lp18")
 
     // MARK: - Parameters
 

@@ -13,7 +13,7 @@ public class PhaseLockedVocoder: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "minc")
+    public var avAudioNode = instantiate(instrument: "minc")
     
     /// Specification for position
     public static let positionDef = NodeParameterDef(

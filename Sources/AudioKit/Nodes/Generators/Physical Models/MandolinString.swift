@@ -11,7 +11,7 @@ public class MandolinString: Node {
     public var connections: [Node] { [] }
     
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "mand")
+    public var avAudioNode = instantiate(instrument: "mand")
     
     /// Initialize the STK Mandolin model
     public init() {}

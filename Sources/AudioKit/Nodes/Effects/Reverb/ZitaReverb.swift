@@ -13,7 +13,7 @@ public class ZitaReverb: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "zita")
+    public var avAudioNode = instantiate(effect: "zita")
 
     // MARK: - Parameters
 

@@ -15,7 +15,7 @@ public class BandRejectButterworthFilter: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "btbr")
+    public var avAudioNode = instantiate(effect: "btbr")
 
     // MARK: - Parameters
 

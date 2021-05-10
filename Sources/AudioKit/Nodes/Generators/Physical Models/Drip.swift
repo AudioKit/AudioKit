@@ -13,7 +13,7 @@ public class Drip: Node {
     public var connections: [Node] { [] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(instrument: "drip")
+    public var avAudioNode = instantiate(instrument: "drip")
 
     /// Specification details for intensity
     public static let intensityDef = NodeParameterDef(

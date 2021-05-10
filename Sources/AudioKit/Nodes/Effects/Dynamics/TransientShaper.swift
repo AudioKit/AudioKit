@@ -12,7 +12,7 @@ public class TransientShaper: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode = instantiate2(effect: "trsh")
+    public var avAudioNode = instantiate(effect: "trsh")
 
     // MARK: - Parameters
 
