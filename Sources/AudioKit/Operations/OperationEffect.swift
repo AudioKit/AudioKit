@@ -142,11 +142,7 @@ public class OperationEffect: NodeBase {
         super.init(avAudioNode: AVAudioNode())
         
         avAudioNode = instantiate(effect: "cstm")
-        
-        if let dsp = (avAudioNode.auAudioUnit as? AudioUnitBase)?.dsp {
-            sporth.withCString { str -> Void in
-                akOperationEffectSetSporth(dsp, str, Int32(sporth.utf8CString.count))
-            }
-        }
+
+        akOperationEffectSetSporth(auBase.dsp, sporth)
     }
 }
