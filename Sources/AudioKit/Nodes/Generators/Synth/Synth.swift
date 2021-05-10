@@ -5,7 +5,7 @@ import CAudioKit
 
 /// Synth
 ///
-public class Synth: NodeBase, AudioUnitContainer {
+public class Synth: Node, AudioUnitContainer {
     /// Four letter unique description "snth""
     public static let ComponentDescription = AudioComponentDescription(instrument: "snth")
 
@@ -14,6 +14,9 @@ public class Synth: NodeBase, AudioUnitContainer {
 
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
+
+    public var connections: [Node] { [] }
+    public var avAudioNode: AVAudioNode
 
     // MARK: - Parameters
 
@@ -167,7 +170,7 @@ public class Synth: NodeBase, AudioUnitContainer {
         filterSustainLevel: AUValue = 1.0,
         filterReleaseDuration: AUValue = 0.0
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        avAudioNode = AVAudioNode()
 
         instantiateAudioUnit { avAudioUnit in
             self.avAudioNode = avAudioUnit
