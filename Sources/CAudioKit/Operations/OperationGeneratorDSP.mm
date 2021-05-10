@@ -37,15 +37,9 @@ public:
         isStarted = false;
     }
 
-    void setSporth(const char *sporth, int length) {
-        if (sporthCode) {
-            free(sporthCode);
-            sporthCode = NULL;
-        }
-        if (length) {
-            sporthCode = (char *)malloc(length);
-            memcpy(sporthCode, sporth, length);
-        }
+    void setSporth(const char *sporth) {
+        free(sporthCode);
+        sporthCode = strdup(sporth);
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -111,10 +105,10 @@ public:
     }
 };
 
-AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth, int length) {
+AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth) {
     auto dsp = dynamic_cast<OperationGeneratorDSP *>(dspRef);
     assert(dsp);
-    dsp->setSporth(sporth, length);
+    dsp->setSporth(sporth);
 }
 
 AK_REGISTER_DSP(OperationGeneratorDSP, "cstg")

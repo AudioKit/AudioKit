@@ -135,11 +135,7 @@ public class OperationGenerator: NodeBase {
         super.init(avAudioNode: AVAudioNode())
         avAudioNode = instantiate(generator: "cstg")
         
-        if let dsp = (avAudioNode.auAudioUnit as? AudioUnitBase)?.dsp {
-            sporth.withCString { str -> Void in
-                akOperationGeneratorSetSporth(dsp, str, Int32(sporth.utf8CString.count))
-            }
-        }
+        akOperationGeneratorSetSporth(auBase.dsp, sporth)
     }
 
     /// Trigger the sound with current parameters
