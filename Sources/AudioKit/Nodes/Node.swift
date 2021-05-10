@@ -190,7 +190,7 @@ extension Node {
         return params
     }
 
-    func setupParameters() {
+    public func setupParameters() {
 
         let mirror = Mirror(reflecting: self)
         var params: [AUParameter] = []
@@ -214,7 +214,7 @@ extension Node {
 
     }
 
-    var auBase: AudioUnitBase {
+    public var auBase: AudioUnitBase {
         guard let au = avAudioNode.auAudioUnit as? AudioUnitBase else {
             fatalError("Wrong audio unit type.")
         }
