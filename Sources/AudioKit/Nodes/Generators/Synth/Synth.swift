@@ -15,7 +15,10 @@ public class Synth: Node, AudioUnitContainer {
     /// Internal audio unit
     public private(set) var internalAU: AudioUnitType?
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
 
     // MARK: - Parameters
