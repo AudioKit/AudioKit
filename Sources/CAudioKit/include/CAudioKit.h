@@ -56,7 +56,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 AK_API void akCombFilterReverbSetLoopDuration(DSPRef dsp, float duration);
 AK_API void akConvolutionSetPartitionLength(DSPRef dsp, int length);
 AK_API void akFlatFrequencyResponseSetLoopDuration(DSPRef dsp, float duration);
-AK_API void akOperationEffectSetSporth(DSPRef dspRef, const char *sporth);
 AK_API void akOperationSetSporth(DSPRef dspRef, const char *sporth);
 AK_API void akVariableDelaySetMaximumTime(DSPRef dsp, float maximumTime);
 

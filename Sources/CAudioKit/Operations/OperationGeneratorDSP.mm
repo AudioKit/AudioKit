@@ -31,11 +31,11 @@ private:
     ParameterRamper rampers[OperationTrigger];
 
 public:
-    OperationDSP(bool hasInput = false) : SoundpipeDSPBase(hasInput, !hasInput) {
+    OperationDSP(bool hasInput = false) : SoundpipeDSPBase(hasInput, /*canProcessInPlace*/!hasInput) {
         for(int i=0;i<OperationTrigger;++i) {
             parameters[i] = &rampers[i];
         }
-        isStarted = false;
+        isStarted = hasInput;
     }
 
     void setSporth(const char *sporth) {
@@ -122,10 +122,15 @@ AK_API void akOperationSetSporth(DSPRef dspRef, const char *sporth) {
 }
 
 struct OperationGeneratorDSP : public OperationDSP {
-    OperationGeneratorDSP() : OperationDSP(false) { }
+    OperationGeneratorDSP() : OperationDSP(/*hasInput*/false) { }
+};
+
+struct OperationEffectDSP : public OperationDSP {
+    OperationEffectDSP() : OperationDSP(/*hasInput*/true) { }
 };
 
 AK_REGISTER_DSP(OperationGeneratorDSP, "cstg")
+AK_REGISTER_DSP(OperationEffectDSP, "cstm")
 AK_REGISTER_PARAMETER(OperationParameter1)
 AK_REGISTER_PARAMETER(OperationParameter2)
 AK_REGISTER_PARAMETER(OperationParameter3)

@@ -143,6 +143,6 @@ public class OperationEffect: NodeBase {
         
         avAudioNode = instantiate(effect: "cstm")
 
-        akOperationEffectSetSporth(auBase.dsp, sporth)
+        akOperationSetSporth(auBase.dsp, sporth)
     }
 }
