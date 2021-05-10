@@ -8,8 +8,11 @@ public class Delay: Node {
     let delayAU = AVAudioUnitDelay()
 
     let input: Node
+    
+    /// Connected nodes
     public var connections: [Node] { [input] }
-
+    
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { return delayAU }
 
     /// Specification details for dry wet mix
