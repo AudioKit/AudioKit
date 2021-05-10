@@ -228,5 +228,4 @@ public class Synth: Node, AudioUnitContainer {
         internalAU?.sustainPedal(down: pedalDown)
     }
 
-    // TODO This node is untested
 }
