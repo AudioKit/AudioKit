@@ -4,13 +4,16 @@ import AVFoundation
 
 /// STK Flute
 ///
-public class Flute: NodeBase {
+public class Flute: Node {
+    
+    /// Connected nodes
+    public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(instrument: "flut")
 
     /// Initialize the STK Flute model
-    public init() {
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = instantiate(instrument: "flut")
-    }
+    public init() {}
 
     /// Trigger the sound with a set of parameters
     ///

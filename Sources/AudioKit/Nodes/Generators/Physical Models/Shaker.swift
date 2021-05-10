@@ -78,13 +78,16 @@ public enum ShakerType: MIDIByte {
 
 /// STK Shaker
 ///
-public class Shaker: NodeBase {
+public class Shaker: Node {
+    
+    /// Connected nodes
+    public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(instrument: "shak")
 
     /// Initialize the STK Flute model
-    public init() {
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = instantiate(instrument: "shak")
-    }
+    public init() {}
 
     /// Trigger the sound with a set of parameters
     ///

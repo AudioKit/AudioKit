@@ -4,13 +4,16 @@ import AVFoundation
 
 /// STK Clarinet
 ///
-public class Clarinet: NodeBase {
+public class Clarinet: Node {
 
+    /// Connected nodes
+    public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(instrument: "clar")
+    
     /// Initialize the STK Clarinet model
-    public init() {
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = instantiate(instrument: "clar")
-    }
+    public init() {}
 
     /// Trigger the sound with a set of parameters
     ///
@@ -20,6 +23,6 @@ public class Clarinet: NodeBase {
     ///
     public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
         start()
-        (avAudioNode.auAudioUnit as? AudioUnitBase)?.trigger(note: note, velocity: velocity)
+        auBase.trigger(note: note, velocity: velocity)
     }
 }

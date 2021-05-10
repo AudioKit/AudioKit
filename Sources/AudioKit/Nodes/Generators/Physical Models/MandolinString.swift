@@ -4,13 +4,17 @@ import AVFoundation
 
 /// STK Mandole
 ///
-public class MandolinString: NodeBase {
+public class MandolinString: Node {
 
+    
+    /// Connected nodes
+    public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(instrument: "mand")
+    
     /// Initialize the STK Mandolin model
-    public init() {
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = instantiate(instrument: "mand")
-    }
+    public init() {}
 
     /// Trigger the sound with a set of parameters
     ///

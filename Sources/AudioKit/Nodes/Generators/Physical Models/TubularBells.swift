@@ -4,13 +4,16 @@ import AVFoundation
 
 /// STK Tubuluar Bells
 ///
-public class TubularBells: NodeBase {
+public class TubularBells: Node {
+    
+    /// Connected nodes
+    public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate2(instrument: "tbel")
 
     /// Initialize the STK Tubular Bells model
-    public init() {
-        super.init(avAudioNode: AVAudioNode())
-        avAudioNode = instantiate(instrument: "tbel")
-    }
+    public init() { }
 
     /// Trigger the sound with a set of parameters
     ///
