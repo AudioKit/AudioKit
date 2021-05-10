@@ -115,7 +115,7 @@ public:
     }
 };
 
-AK_API void akOperationGeneratorSetSporth(DSPRef dspRef, const char *sporth) {
+AK_API void akOperationSetSporth(DSPRef dspRef, const char *sporth) {
     auto dsp = dynamic_cast<OperationDSP *>(dspRef);
     assert(dsp);
     dsp->setSporth(sporth);

@@ -135,7 +135,7 @@ public class OperationGenerator: NodeBase {
         super.init(avAudioNode: AVAudioNode())
         avAudioNode = instantiate(generator: "cstg")
         
-        akOperationGeneratorSetSporth(auBase.dsp, sporth)
+        akOperationSetSporth(auBase.dsp, sporth)
     }
 
     /// Trigger the sound with current parameters
