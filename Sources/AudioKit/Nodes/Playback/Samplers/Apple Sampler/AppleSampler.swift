@@ -38,7 +38,10 @@ open class AppleSampler: Node {
     /// Sampler AV Audio Unit
     public var samplerUnit = AVAudioUnitSampler()
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { samplerUnit }
 
     /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
