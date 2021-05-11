@@ -96,7 +96,6 @@ public class Shaker: Node {
     ///   - amplitude: how hard to shake
     public func trigger(type: ShakerType, amplitude: Double = 0.5) {
         let velocity = MIDIVelocity(amplitude * 127.0)
-        print(velocity)
         auBase.trigger(note: type.rawValue, velocity: velocity)
     }
 }
