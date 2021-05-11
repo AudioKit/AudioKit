@@ -9,11 +9,12 @@ class MetalBarTests: XCTestCase {
         let engine = AudioEngine()
         let metalBar = MetalBar()
         engine.output = metalBar
-        let audio = engine.startTest(totalDuration: 1.0)
+        let audio = engine.startTest(totalDuration: 2.0)
+        metalBar.trigger()
+        audio.append(engine.render(duration: 1.0))
         metalBar.trigger()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
-        audio.audition()
     }
 
 }
