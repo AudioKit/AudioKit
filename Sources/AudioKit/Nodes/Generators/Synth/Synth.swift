@@ -5,135 +5,185 @@ import CAudioKit
 
 /// Synth
 ///
-public class Synth: Node, AudioUnitContainer {
-    /// Four letter unique description "snth""
-    public static let ComponentDescription = AudioComponentDescription(instrument: "snth")
-
-    /// Type of audio unit for this node
-    public typealias AudioUnitType = SynthAudioUnit
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+public class Synth: Node {
 
     /// Connected nodes
     public var connections: [Node] { [] }
     
     /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode
+    public var avAudioNode: AVAudioNode = instantiate(instrument: "snth")
 
     // MARK: - Parameters
+    
+    /// Specification details for master volume
+    public static let masterVolumeDef = NodeParameterDef(
+        identifier: "masterVolume",
+        name: "Master Volume",
+        address: akGetParameterAddress("SynthParameterMasterVolume"),
+        defaultValue: 1,
+        range: 0.0 ... 1,
+        unit: .generic)
 
-    /// Master volume (fraction)
-    open var masterVolume: AUValue = 1.0 {
-        willSet {
-            guard masterVolume != newValue else { return }
-            internalAU?.masterVolume.value = newValue
-        }
-    }
+    /// Master Volume (fraction)
+    @Parameter(masterVolumeDef) public var masterVolume: AUValue
 
+    /// Specification details for pitchBend
+    public static let pitchBendDef = NodeParameterDef(
+        identifier: "pitchBend",
+        name: "Pitch bend (semitones)",
+        address: akGetParameterAddress("SynthParameterPitchBend"),
+        defaultValue: 0.0,
+        range: -24 ... 24,
+        unit: .relativeSemiTones)
+    
     /// Pitch offset (semitones)
-    open var pitchBend: AUValue = 0.0 {
-        willSet {
-            guard pitchBend != newValue else { return }
-            internalAU?.pitchBend.value = newValue
-        }
-    }
-
+    @Parameter(pitchBendDef) public var pitchBend: AUValue
+    
+    /// Specification details for vibratoDepth
+    public static let vibratoDepthDef = NodeParameterDef(
+        identifier: "vibratoDepth",
+        name: "Vibrato Depth",
+        address: akGetParameterAddress("SynthParameterVibratoDepth"),
+        defaultValue: 0.0,
+        range: 0 ... 12,
+        unit: .relativeSemiTones)
+    
     /// Vibrato amount (semitones)
-    open var vibratoDepth: AUValue = 1.0 {
-        willSet {
-            guard vibratoDepth != newValue else { return }
-            internalAU?.vibratoDepth.value = newValue
-        }
-    }
-
+    @Parameter(vibratoDepthDef) public var vibratoDepth: AUValue
+    
+    /// Specification details for filterCutoff
+    public static let filterCutoffDef = NodeParameterDef(
+        identifier: "filterCutoff",
+        name: "Filter Cutoff",
+        address: akGetParameterAddress("SynthParameterFilterCutoff"),
+        defaultValue: 4.0,
+        range: 0 ... 1,
+        unit: .generic)
+    
     /// Filter cutoff (harmonic ratio)
-    open var filterCutoff: AUValue = 4.0 {
-        willSet {
-            guard filterCutoff != newValue else { return }
-            internalAU?.filterCutoff.value = newValue
-        }
-    }
-
-    /// Filter EG strength (harmonic ratio)
-    open var filterStrength: AUValue = 20.0 {
-        willSet {
-            guard filterStrength != newValue else { return }
-            internalAU?.filterStrength.value = newValue
-        }
-    }
-
+    @Parameter(filterCutoffDef) public var filterCutoff: AUValue
+    
+    /// Specification details for filterStrength
+    public static let filterStrengthDef = NodeParameterDef(
+        identifier: "filterStrength",
+        name: "Filter Strength",
+        address: akGetParameterAddress("SynthParameterFilterStrength"),
+        defaultValue: 20,
+        range: 0 ... 100,
+        unit: .generic)
+    
+    /// filterStrength
+    @Parameter(filterStrengthDef) public var filterStrength: AUValue
+    
+    /// Specification details for filterResonance
+    public static let filterResonanceDef = NodeParameterDef(
+        identifier: "filterResonance",
+        name: "Filter Resonance",
+        address: akGetParameterAddress("SynthParameterFilterResonance"),
+        defaultValue: 0,
+        range: -20 ... 20,
+        unit: .generic)
+    
     /// Filter resonance (dB)
-    open var filterResonance: AUValue = 0.0 {
-        willSet {
-            guard filterResonance != newValue else { return }
-            internalAU?.filterResonance.value = newValue
-        }
-    }
-
+    @Parameter(filterResonanceDef) public var filterResonance: AUValue
+    
+    /// Specification details for attackDuration
+    public static let attackDurationDef = NodeParameterDef(
+        identifier: "attackDuration",
+        name: "Attack Duration (s)",
+        address: akGetParameterAddress("SynthParameterAttackDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds)
+    
     /// Amplitude attack duration (seconds)
-    open var attackDuration: AUValue = 0.0 {
-        willSet {
-            guard attackDuration != newValue else { return }
-            internalAU?.attackDuration.value = newValue
-        }
-    }
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
-    /// Amplitude Decay duration (seconds)
-    open var decayDuration: AUValue = 0.0 {
-        willSet {
-            guard decayDuration != newValue else { return }
-            internalAU?.decayDuration.value = newValue
-        }
-    }
+    
+    /// Specification details for decayDuration
+    public static let decayDurationDef = NodeParameterDef(
+        identifier: "decayDuration",
+        name: "Decay Duration (s)",
+        address: akGetParameterAddress("SynthParameterDecayDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds)
+    
+    /// Amplitude decay duration (seconds)
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
+    /// Specification details for sustainLevel
+    public static let sustainLevelDef = NodeParameterDef(
+        identifier: "sustainLevel",
+        name: "Sustain Level",
+        address: akGetParameterAddress("SynthParameterSustainLevel"),
+        defaultValue: 1,
+        range: 0 ... 1,
+        unit: .generic)
+    
     /// Amplitude sustain level (fraction)
-    open var sustainLevel: AUValue = 1.0 {
-        willSet {
-            guard sustainLevel != newValue else { return }
-            internalAU?.sustainLevel.value = newValue
-        }
-    }
+    @Parameter(sustainLevelDef) public var sustainLevel: AUValue
 
-    /// Amplitude Release duration (seconds)
-    open var releaseDuration: AUValue = 0.0 {
-        willSet {
-            guard releaseDuration != newValue else { return }
-            internalAU?.releaseDuration.value = newValue
-        }
-    }
+    /// Specification details for releaseDuration
+    public static let releaseDurationDef = NodeParameterDef(
+        identifier: "releaseDuration",
+        name: "Release Duration (s)",
+        address: akGetParameterAddress("SynthParameterReleaseDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds)
+    
+    /// Amplitude release duration (seconds)
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
-    /// Filter attack duration (seconds)
-    open var filterAttackDuration: AUValue = 0.0 {
-        willSet {
-            guard filterAttackDuration != newValue else { return }
-            internalAU?.filterAttackDuration.value = newValue
-        }
-    }
+    /// Specification details for filterAttackDuration
+    public static let filterAttackDurationDef = NodeParameterDef(
+        identifier: "filterAttackDuration",
+        name: "Filter Attack Duration (s)",
+        address: akGetParameterAddress("SynthParameterFilterAttackDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds)
+    
+    /// Filter Amplitude attack duration (seconds)
+    @Parameter(filterAttackDurationDef) public var filterAttackDuration: AUValue
 
-    /// Filter Decay duration (seconds)
-    open var filterDecayDuration: AUValue = 0.0 {
-        willSet {
-            guard filterDecayDuration != newValue else { return }
-            internalAU?.filterDecayDuration.value = newValue
-        }
-    }
+    
+    /// Specification details for filterDecayDuration
+    public static let filterDecayDurationDef = NodeParameterDef(
+        identifier: "filterDecayDuration",
+        name: "Filter Decay Duration (s)",
+        address: akGetParameterAddress("SynthParameterFilterDecayDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds)
+    
+    /// Filter Amplitude decay duration (seconds)
+    @Parameter(filterDecayDurationDef) public var filterDecayDuration: AUValue
 
-    /// Filter sustain level (fraction)
-    open var filterSustainLevel: AUValue = 1.0 {
-        willSet {
-            guard filterSustainLevel != newValue else { return }
-            internalAU?.filterSustainLevel.value = newValue
-        }
-    }
+    /// Specification details for filterSustainLevel
+    public static let filterSustainLevelDef = NodeParameterDef(
+        identifier: "filterSustainLevel",
+        name: "Filter Sustain Level",
+        address: akGetParameterAddress("SynthParameterFilterSustainLevel"),
+        defaultValue: 1,
+        range: 0 ... 1,
+        unit: .generic)
+    
+    /// Filter Amplitude sustain level (fraction)
+    @Parameter(filterSustainLevelDef) public var filterSustainLevel: AUValue
 
-    /// Filter Release duration (seconds)
-    open var filterReleaseDuration: AUValue = 0.0 {
-        willSet {
-            guard filterReleaseDuration != newValue else { return }
-            internalAU?.filterReleaseDuration.value = newValue
-        }
-    }
+    /// Specification details for filterReleaseDuration
+    public static let filterReleaseDurationDef = NodeParameterDef(
+        identifier: "filterReleaseDuration",
+        name: "Filter Release Duration (s)",
+        address: akGetParameterAddress("SynthParameterFilterReleaseDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds)
+    
+    /// Filter Amplitude release duration (seconds)
+    @Parameter(filterReleaseDurationDef) public var filterReleaseDuration: AUValue
 
     // MARK: - Initialization
 
@@ -157,43 +207,40 @@ public class Synth: Node, AudioUnitContainer {
     ///   - filterReleaseDuration: seconds, 0.0 - 10.0
     ///
     public init(
-        masterVolume: AUValue = 1.0,
-        pitchBend: AUValue = 0.0,
-        vibratoDepth: AUValue = 0.0,
-        filterCutoff: AUValue = 4.0,
-        filterStrength: AUValue = 20.0,
-        filterResonance: AUValue = 0.0,
-        attackDuration: AUValue = 0.0,
-        decayDuration: AUValue = 0.0,
-        sustainLevel: AUValue = 1.0,
-        releaseDuration: AUValue = 0.0,
+        masterVolume: AUValue = masterVolumeDef.defaultValue,
+        pitchBend: AUValue = pitchBendDef.defaultValue,
+        vibratoDepth: AUValue = vibratoDepthDef.defaultValue,
+        filterCutoff: AUValue = filterCutoffDef.defaultValue,
+        filterStrength: AUValue = filterStrengthDef.defaultValue,
+        filterResonance: AUValue = filterResonanceDef.defaultValue,
+        attackDuration: AUValue = attackDurationDef.defaultValue,
+        decayDuration: AUValue = decayDurationDef.defaultValue,
+        sustainLevel: AUValue = sustainLevelDef.defaultValue,
+        releaseDuration: AUValue = releaseDurationDef.defaultValue,
         filterEnable: Bool = false,
-        filterAttackDuration: AUValue = 0.0,
-        filterDecayDuration: AUValue = 0.0,
-        filterSustainLevel: AUValue = 1.0,
-        filterReleaseDuration: AUValue = 0.0
+        filterAttackDuration: AUValue = filterAttackDurationDef.defaultValue,
+        filterDecayDuration: AUValue = filterDecayDurationDef.defaultValue,
+        filterSustainLevel: AUValue = filterSustainLevelDef.defaultValue,
+        filterReleaseDuration: AUValue = filterReleaseDurationDef.defaultValue
     ) {
-        avAudioNode = AVAudioNode()
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.masterVolume = masterVolume
-            self.pitchBend = pitchBend
-            self.vibratoDepth = vibratoDepth
-            self.filterCutoff = filterCutoff
-            self.filterStrength = filterStrength
-            self.filterResonance = filterResonance
-            self.attackDuration = attackDuration
-            self.decayDuration = decayDuration
-            self.sustainLevel = sustainLevel
-            self.releaseDuration = releaseDuration
-            self.filterAttackDuration = filterAttackDuration
-            self.filterDecayDuration = filterDecayDuration
-            self.filterSustainLevel = filterSustainLevel
-            self.filterReleaseDuration = filterReleaseDuration
-        }
+        
+        setupParameters()
+        
+        self.masterVolume = masterVolume
+        self.pitchBend = pitchBend
+        self.vibratoDepth = vibratoDepth
+        self.filterCutoff = filterCutoff
+        self.filterStrength = filterStrength
+        self.filterResonance = filterResonance
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
+        self.sustainLevel = sustainLevel
+        self.releaseDuration = releaseDuration
+        self.filterAttackDuration = filterAttackDuration
+        self.filterDecayDuration = filterDecayDuration
+        self.filterSustainLevel = filterSustainLevel
+        self.filterReleaseDuration = filterReleaseDuration
+        
     }
 
     /// Play a note on the synth
