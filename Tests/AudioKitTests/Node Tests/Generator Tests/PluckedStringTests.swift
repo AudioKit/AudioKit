@@ -8,7 +8,6 @@ class PluckedStringTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let pluck = PluckedString()
-        pluck.start()
         pluck.trigger()
         engine.output = pluck
         let audio = engine.startTest(totalDuration: 3.0)

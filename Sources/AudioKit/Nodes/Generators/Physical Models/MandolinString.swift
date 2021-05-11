@@ -4,9 +4,8 @@ import AVFoundation
 
 /// STK Mandole
 ///
-public class MandolinString: Node {
+public class MandolinString: Node, MIDITriggerable {
 
-    
     /// Connected nodes
     public var connections: [Node] { [] }
     
@@ -15,15 +14,4 @@ public class MandolinString: Node {
     
     /// Initialize the STK Mandolin model
     public init() {}
-
-    /// Trigger the sound with a set of parameters
-    ///
-    /// - Parameters:
-    ///   - note: MIDI note number
-    ///   - velocity: Amplitude or volume expressed as a MIDI Velocity 0-127
-    ///
-    public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
-        start()
-        auBase.trigger(note: note, velocity: velocity)
-    }
 }
