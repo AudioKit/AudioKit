@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+#if !os(tvOS)
 
 import AVFoundation
 
@@ -15,3 +16,4 @@ public class Clarinet: Node, MIDITriggerable {
     /// Initialize the STK Clarinet model
     public init() {}
 }
+#endif

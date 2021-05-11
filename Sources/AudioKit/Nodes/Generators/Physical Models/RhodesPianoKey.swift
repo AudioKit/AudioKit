@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+#if !os(tvOS)
 
 import AVFoundation
 
@@ -15,3 +16,4 @@ public class RhodesPianoKey: Node, MIDITriggerable {
     /// Initialize the STK Rhodes Piano model
     public init() {}
 }
+#endif

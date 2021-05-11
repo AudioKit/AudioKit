@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import AVFoundation
 
 /// STK Tubuluar Bells
@@ -15,3 +16,4 @@ public class TubularBells: Node, MIDITriggerable {
     /// Initialize the STK Tubular Bells model
     public init() { }
 }
+#endif

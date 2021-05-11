@@ -15,6 +15,7 @@ extension Node where Self: Triggerable {
     }
 }
 
+#if !os(tvOS)
 public protocol MIDITriggerable {
     /// Trigger the sound with a set of parameters
     ///
@@ -37,3 +38,4 @@ extension Node where Self: MIDITriggerable {
         auBase.trigger(note: note, velocity: velocity)
     }
 }
+#endif

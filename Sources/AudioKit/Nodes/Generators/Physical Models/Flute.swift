@@ -1,5 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-
+#if !os(tvOS)
 import AVFoundation
 
 /// STK Flute
@@ -15,3 +15,4 @@ public class Flute: Node, MIDITriggerable {
     /// Initialize the STK Flute model
     public init() {}
 }
+#endif

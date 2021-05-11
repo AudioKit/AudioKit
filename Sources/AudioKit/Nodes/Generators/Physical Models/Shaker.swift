@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+#if !os(tvOS)
 
 import AVFoundation
 import CAudioKit
@@ -100,3 +101,4 @@ public class Shaker: Node {
     }
 }
 
+#endif
