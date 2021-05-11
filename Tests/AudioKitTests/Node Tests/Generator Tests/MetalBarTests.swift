@@ -13,6 +13,7 @@ class MetalBarTests: XCTestCase {
         metalBar.trigger()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
+        audio.audition()
     }
 
 }

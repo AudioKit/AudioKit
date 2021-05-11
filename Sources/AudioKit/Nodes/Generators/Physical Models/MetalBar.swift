@@ -126,8 +126,6 @@ public class MetalBar: Node {
     ) {
         setupParameters()
 
-        self.stop()
-
         self.leftBoundaryCondition = leftBoundaryCondition
         self.rightBoundaryCondition = rightBoundaryCondition
         self.decayDuration = decayDuration
@@ -136,13 +134,4 @@ public class MetalBar: Node {
         self.strikeVelocity = strikeVelocity
         self.strikeWidth = strikeWidth
     }
-
-    // MARK: - Control
-
-    /// Trigger the sound with current parameters
-    ///
-    public func trigger() {
-        start()
-    }
-
 }

@@ -170,6 +170,12 @@ extension Node {
         }
         return au
     }
+    
+    /// Trigger the sound with current parameters
+    ///
+    public func trigger() {
+        auBase.trigger()
+    }
 
 }
 

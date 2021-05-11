@@ -123,8 +123,6 @@ public class Drip: Node {
     ) {
         setupParameters()
 
-        self.stop()
-
         self.intensity = intensity
         self.dampingFactor = dampingFactor
         self.energyReturn = energyReturn
@@ -133,13 +131,4 @@ public class Drip: Node {
         self.secondResonantFrequency = secondResonantFrequency
         self.amplitude = amplitude
     }
-
-    // MARK: - Control
-
-    /// Trigger the sound with an optional set of parameters
-    ///
-    public func trigger() {
-        start()
-    }
-
 }
