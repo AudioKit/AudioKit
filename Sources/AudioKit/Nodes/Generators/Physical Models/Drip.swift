@@ -7,7 +7,7 @@ import CAudioKit
 /// Physical model of the sound of dripping water. 
 /// When triggered, it will produce a droplet of water.
 /// 
-public class Drip: Node {
+public class Drip: Node, Triggerable {
 
     /// Connected nodes
     public var connections: [Node] { [] }

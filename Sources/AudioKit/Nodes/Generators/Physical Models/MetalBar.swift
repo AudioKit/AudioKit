@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// 
-public class MetalBar: Node {
+public class MetalBar: Node, Triggerable {
 
     /// Connected nodes
     public var connections: [Node] { [] }

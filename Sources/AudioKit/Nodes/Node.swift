@@ -170,13 +170,19 @@ extension Node {
         }
         return au
     }
-    
+}
+
+/// To allow physical models to be triggered
+public protocol Triggerable {
+    func trigger()
+}
+
+extension Node where Self: Triggerable {
     /// Trigger the sound with current parameters
     ///
     public func trigger() {
         auBase.trigger()
     }
-
 }
 
 func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit {

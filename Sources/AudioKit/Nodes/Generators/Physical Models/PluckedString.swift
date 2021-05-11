@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Karplus-Strong plucked string instrument.
 /// 
-public class PluckedString: Node {
+public class PluckedString: Node, Triggerable {
 
     /// Connected nodes
     public var connections: [Node] { [] }
