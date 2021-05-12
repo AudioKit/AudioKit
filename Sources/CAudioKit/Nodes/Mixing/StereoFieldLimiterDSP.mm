@@ -37,13 +37,9 @@ public:
 
             float *tmpin[2];
             float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
+            for (int channel = 0; channel < 2; ++channel) {
+                tmpin[channel] = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                tmpout[channel] = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
             }
             *tmpout[0] = *tmpin[0] * (1.0f - amount / 2.0) + *tmpin[1] * amount / 2.0;
             *tmpout[1] = *tmpin[1] * (1.0f - amount / 2.0) + *tmpin[0] * amount / 2.0;
