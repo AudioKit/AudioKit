@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// AudioUnit which instantiates a DSP kernel based on the componentSubType.
-open class AudioUnitBase: AUAudioUnit {
+open class AudioKitAU: AUAudioUnit {
     // MARK: AUAudioUnit Overrides
 
     private var inputBusArray: [AUAudioUnitBus] = []

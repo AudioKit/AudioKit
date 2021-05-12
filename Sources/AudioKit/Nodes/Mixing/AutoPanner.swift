@@ -61,7 +61,7 @@ public class AutoPanner: Node {
 
         setupParameters()
 
-        auBase.setWavetable(waveform.content)
+        au.setWavetable(waveform.content)
 
         self.frequency = frequency
         self.depth = depth

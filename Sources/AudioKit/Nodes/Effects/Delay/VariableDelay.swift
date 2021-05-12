@@ -61,7 +61,7 @@ public class VariableDelay: Node {
 
         setupParameters()
 
-        akVariableDelaySetMaximumTime(auBase.dsp, maximumTime)
+        akVariableDelaySetMaximumTime(au.dsp, maximumTime)
 
         self.time = time
         self.feedback = feedback

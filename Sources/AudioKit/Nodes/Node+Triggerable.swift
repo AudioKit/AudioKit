@@ -11,7 +11,7 @@ public protocol Triggerable {
 extension Node where Self: Triggerable {
     /// Trigger the sound with current parameters
     public func trigger() {
-        auBase.trigger()
+        au.trigger()
     }
 }
 
@@ -35,6 +35,6 @@ extension Node where Self: MIDITriggerable {
     ///
     public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity = 127) {
         start()
-        auBase.trigger(note: note, velocity: velocity)
+        au.trigger(note: note, velocity: velocity)
     }
 }

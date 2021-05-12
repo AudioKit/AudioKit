@@ -50,7 +50,7 @@ public class FlatFrequencyResponseReverb: Node {
 
         setupParameters()
 
-        akFlatFrequencyResponseSetLoopDuration(auBase.dsp, loopDuration)
+        akFlatFrequencyResponseSetLoopDuration(au.dsp, loopDuration)
 
         self.reverbDuration = reverbDuration
    }

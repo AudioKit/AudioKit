@@ -141,12 +141,12 @@ public class OperationGenerator: Node {
         avAudioNode = instantiate(generator: "cstg")
         setupParameters()
         
-        akOperationSetSporth(auBase.dsp, sporth)
+        akOperationSetSporth(au.dsp, sporth)
     }
 
     /// Trigger the sound with current parameters
     open func trigger() {
-        auBase.trigger()
+        au.trigger()
     }
 
 }

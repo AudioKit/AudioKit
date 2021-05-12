@@ -153,7 +153,7 @@ public class PhaseLockedVocoder: Node {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    auBase.setWavetable(data: data, size: Int(ioNumberFrames))
+                    au.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure
                     theData?.deallocate()

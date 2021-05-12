@@ -52,7 +52,7 @@ public class CombFilterReverb: Node {
 
         setupParameters()
 
-        akCombFilterReverbSetLoopDuration(auBase.dsp, loopDuration)
+        akCombFilterReverbSetLoopDuration(au.dsp, loopDuration)
 
         self.reverbDuration = reverbDuration
    }

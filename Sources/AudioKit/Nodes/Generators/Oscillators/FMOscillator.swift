@@ -99,7 +99,7 @@ public class FMOscillator: Node {
 
         self.stop()
 
-        auBase.setWavetable(waveform.content)
+        au.setWavetable(waveform.content)
 
         self.waveform = waveform
         self.baseFrequency = baseFrequency

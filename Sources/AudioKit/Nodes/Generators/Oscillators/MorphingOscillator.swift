@@ -102,7 +102,7 @@ public class MorphingOscillator: Node {
         self.stop()
 
         for (i, waveform) in waveformArray.enumerated() {
-            auBase.setWavetable(waveform.content, index: i)
+            au.setWavetable(waveform.content, index: i)
         }
         self.waveformArray = waveformArray 
         self.frequency = frequency

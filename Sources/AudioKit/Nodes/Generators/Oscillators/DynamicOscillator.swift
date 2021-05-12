@@ -88,7 +88,7 @@ public class DynamicOscillator: Node {
     {
         setupParameters()
         
-        auBase.setWavetable(waveform.content)
+        au.setWavetable(waveform.content)
         
         self.waveform = waveform
         self.frequency = frequency
@@ -105,7 +105,7 @@ public class DynamicOscillator: Node {
     /// - Parameters:
     ///   - waveform: The waveform of oscillation
     public func setWaveTable(waveform: Table) {
-        auBase.setWavetable(waveform.content)
+        au.setWavetable(waveform.content)
         self.waveform = waveform
         wavetableUpdateHandler(waveform.content)
     }

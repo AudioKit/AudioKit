@@ -104,7 +104,7 @@ public class PhaseDistortionOscillator: Node {
 
         self.stop()
 
-        auBase.setWavetable(waveform.content)
+        au.setWavetable(waveform.content)
 
         self.waveform = waveform
         self.frequency = frequency

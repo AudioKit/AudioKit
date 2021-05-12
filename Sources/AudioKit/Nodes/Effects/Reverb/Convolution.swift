@@ -40,7 +40,7 @@ public class Convolution: Node {
         
         setupParameters()
         
-        akConvolutionSetPartitionLength(auBase.dsp, Int32(partitionLength))
+        akConvolutionSetPartitionLength(au.dsp, Int32(partitionLength))
         
         self.readAudioFile()
         self.start()
@@ -125,7 +125,7 @@ public class Convolution: Node {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    auBase.setWavetable(data: data, size: Int(ioNumberFrames))
+                    au.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure
                     theData?.deallocate()

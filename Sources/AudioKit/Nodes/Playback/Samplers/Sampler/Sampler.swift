@@ -475,37 +475,37 @@ public class Sampler: Node {
                                                   sampleCount: sampleCount,
                                                   data: data.baseAddress)
 
-            akSamplerLoadData(auBase.dsp, &descriptor)
+            akSamplerLoadData(au.dsp, &descriptor)
         }
     }
 
     /// Stop all voices
     public func stopAllVoices() {
-        akSamplerStopAllVoices(auBase.dsp)
+        akSamplerStopAllVoices(au.dsp)
     }
 
     /// Restart voices
     public func restartVoices() {
-        akSamplerRestartVoices(auBase.dsp)
+        akSamplerRestartVoices(au.dsp)
     }
 
     /// Load data from sample descriptor
     /// - Parameter sampleDataDescriptor: Sample descriptor information
     public func loadRawSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
         var copy = sampleDataDescriptor
-        akSamplerLoadData(auBase.dsp, &copy)
+        akSamplerLoadData(au.dsp, &copy)
     }
 
     /// Load data from compressed file
     /// - Parameter sampleFileDescriptor: Sample descriptor information
     public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
         var copy = sampleFileDescriptor
-        akSamplerLoadCompressedFile(auBase.dsp, &copy)
+        akSamplerLoadCompressedFile(au.dsp, &copy)
     }
 
     /// Unload all the samples from memory
     public func unloadAllSamples() {
-        akSamplerUnloadAllSamples(auBase.dsp)
+        akSamplerUnloadAllSamples(au.dsp)
     }
 
     /// Assign a note number to a particular frequency
@@ -513,23 +513,23 @@ public class Sampler: Node {
     ///   - noteNumber: MIDI Note number
     ///   - frequency: Frequency in Hertz
     public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
-        akSamplerSetNoteFrequency(auBase.dsp, Int32(noteNumber), frequency)
+        akSamplerSetNoteFrequency(au.dsp, Int32(noteNumber), frequency)
     }
 
     /// Create a simple key map
     public func buildSimpleKeyMap() {
-        akSamplerBuildSimpleKeyMap(auBase.dsp)
+        akSamplerBuildSimpleKeyMap(au.dsp)
     }
 
     /// Build key map
     public func buildKeyMap() {
-        akSamplerBuildKeyMap(auBase.dsp)
+        akSamplerBuildKeyMap(au.dsp)
     }
 
     /// Set Loop
     /// - Parameter thruRelease: Wether or not to loop before or after the release
     public func setLoop(thruRelease: Bool) {
-        akSamplerSetLoopThruRelease(auBase.dsp, thruRelease)
+        akSamplerSetLoopThruRelease(au.dsp, thruRelease)
     }
 
     /// Play the sampler
@@ -540,25 +540,25 @@ public class Sampler: Node {
     public func play(noteNumber: MIDINoteNumber,
                      velocity: MIDIVelocity,
                      channel: MIDIChannel = 0) {
-        akSamplerPlayNote(auBase.dsp, noteNumber, velocity)
+        akSamplerPlayNote(au.dsp, noteNumber, velocity)
     }
 
     /// Stop the sampler playback of a specific note
     /// - Parameter noteNumber: MIDI Note number
     public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
-        akSamplerStopNote(auBase.dsp, noteNumber, false)
+        akSamplerStopNote(au.dsp, noteNumber, false)
     }
 
     /// Stop and immediately silence a note
     /// - Parameter noteNumber: MIDI note number
     public func silence(noteNumber: MIDINoteNumber) {
-        akSamplerStopNote(auBase.dsp, noteNumber, true)
+        akSamplerStopNote(au.dsp, noteNumber, true)
     }
 
     /// Activate the sustain pedal
     /// - Parameter pedalDown: Wether the pedal is down (activated)
     public func sustainPedal(pedalDown: Bool) {
-        akSamplerSustainPedal(auBase.dsp, pedalDown)
+        akSamplerSustainPedal(au.dsp, pedalDown)
     }
 
 }

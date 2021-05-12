@@ -117,7 +117,7 @@ extension Node {
     
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
-        return !auBase.shouldBypassEffect
+        return !au.shouldBypassEffect
     }
 
     /// Start the node
@@ -169,8 +169,8 @@ extension Node {
     }
 
     /// Audio Unit for AudioKit
-    public var auBase: AudioUnitBase {
-        guard let au = avAudioNode.auAudioUnit as? AudioUnitBase else {
+    public var au: AudioKitAU {
+        guard let au = avAudioNode.auAudioUnit as? AudioKitAU else {
             fatalError("Wrong audio unit type.")
         }
         return au
@@ -184,7 +184,7 @@ func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit
     let semaphore = DispatchSemaphore(value: 0)
     var result: AVAudioUnit!
 
-    AUAudioUnit.registerSubclass(AudioUnitBase.self,
+    AUAudioUnit.registerSubclass(AudioKitAU.self,
                                  as: componentDescription,
                                  name: "Local internal AU",
                                  version: .max)

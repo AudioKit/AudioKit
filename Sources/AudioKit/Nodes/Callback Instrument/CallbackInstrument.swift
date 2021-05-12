@@ -25,7 +25,7 @@ open class CallbackInstrument: Node {
     public init(midiCallback: MIDICallback? = nil) {
         
         if let callback = midiCallback {
-            akCallbackInstrumentSetCallback(auBase.dsp, callback)
+            akCallbackInstrumentSetCallback(au.dsp, callback)
         }
     }
 
