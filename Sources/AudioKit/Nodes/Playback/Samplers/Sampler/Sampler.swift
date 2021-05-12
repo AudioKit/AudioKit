@@ -515,23 +515,24 @@ public class Sampler: Node {
     ///   - noteNumber: MIDI Note number
     ///   - frequency: Frequency in Hertz
     public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
-        auBase.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: frequency)
+        akSamplerSetNoteFrequency(auBase.dsp, Int32(noteNumber), frequency)
+
     }
 
     /// Create a simple key map
     public func buildSimpleKeyMap() {
-        auBase.buildSimpleKeyMap()
+        akSamplerBuildSimpleKeyMap(auBase.dsp)
     }
 
     /// Build key map
     public func buildKeyMap() {
-        auBase.buildKeyMap()
+        akSamplerBuildKeyMap(auBase.dsp)
     }
 
     /// Set Loop
     /// - Parameter thruRelease: Wether or not to loop before or after the release
     public func setLoop(thruRelease: Bool) {
-        auBase.setLoop(thruRelease: thruRelease)
+        akSamplerSetLoopThruRelease(auBase.dsp, thruRelease)
     }
 
     /// Play the sampler
@@ -542,25 +543,25 @@ public class Sampler: Node {
     public func play(noteNumber: MIDINoteNumber,
                      velocity: MIDIVelocity,
                      channel: MIDIChannel = 0) {
-        auBase.playNote(noteNumber: noteNumber, velocity: velocity)
+        akSamplerPlayNote(auBase.dsp, noteNumber, velocity)
     }
 
     /// Stop the sampler playback of a specific note
     /// - Parameter noteNumber: MIDI Note number
     public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
-        auBase.stopNote(noteNumber: noteNumber, immediate: false)
+        akSamplerStopNote(auBase.dsp, noteNumber, false)
     }
 
     /// Stop and immediately silence a note
     /// - Parameter noteNumber: MIDI note number
     public func silence(noteNumber: MIDINoteNumber) {
-        auBase.stopNote(noteNumber: noteNumber, immediate: true)
+        akSamplerStopNote(auBase.dsp, noteNumber, true)
     }
 
     /// Activate the sustain pedal
     /// - Parameter pedalDown: Wether the pedal is down (activated)
     public func sustainPedal(pedalDown: Bool) {
-        auBase.sustainPedal(down: pedalDown)
+        akSamplerSustainPedal(auBase.dsp, pedalDown)
     }
 
 }
