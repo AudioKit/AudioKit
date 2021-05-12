@@ -10,7 +10,7 @@ import CAudioKit
 /// 3. connect to the engine: engine.output = sampler
 /// 4. start the engine engine.start()
 ///
-open class AppleSampler: PolyphonicNode {
+open class AppleSampler: Node {
 
     // MARK: - Properties
 
@@ -38,6 +38,12 @@ open class AppleSampler: PolyphonicNode {
     /// Sampler AV Audio Unit
     public var samplerUnit = AVAudioUnitSampler()
 
+    /// Connected nodes
+    public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode { samplerUnit }
+
     /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
     /// Doesn't transpose by playing another note (and the accoring zone and layer)
     /// but bends the sound up and down like tuning.
@@ -54,9 +60,6 @@ open class AppleSampler: PolyphonicNode {
 
     /// Initialize the sampler node
     public init(file: String? = nil) {
-        super.init(avAudioNode: AVAudioNode())
-        avAudioUnit = samplerUnit
-        avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
 
         if let newFile = file {
@@ -216,9 +219,9 @@ open class AppleSampler: PolyphonicNode {
     /// NB: when using an audio file, noteNumber 60 will play back the file at normal
     /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
     /// half speed (1 octave lower) and so on
-    override open func play(noteNumber: MIDINoteNumber = 60,
-                            velocity: MIDIVelocity = 127,
-                            channel: MIDIChannel = 0) {
+    open func play(noteNumber: MIDINoteNumber = 60,
+                   velocity: MIDIVelocity = 127,
+                   channel: MIDIChannel = 0) {
         self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
     /// Stop a MIDI Note
@@ -227,7 +230,7 @@ open class AppleSampler: PolyphonicNode {
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    override open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
+    open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
         do {
             try ExceptionCatcher {
                 self.samplerUnit.stopNote(noteNumber, onChannel: channel)

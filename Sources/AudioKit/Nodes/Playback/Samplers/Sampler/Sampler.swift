@@ -4,285 +4,415 @@ import AVFoundation
 import CAudioKit
 
 /// Sampler
-public class Sampler: PolyphonicNode, AudioUnitContainer {
-    /// Unique four-letter identifier "samp"
-    public static let ComponentDescription = AudioComponentDescription(instrument: "samp")
+public class Sampler: Node {
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = SamplerAudioUnit
+    /// Connected nodes
+    public var connections: [Node] { [] }
 
-    // MARK: - Properties
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode = instantiate(instrument: "samp")
 
-    /// Internal audio unit
-    public var internalAU: AudioUnitType?
+    // MARK: - Parameters
 
-    /// Master volume (fraction)
-    open var masterVolume: AUValue = 1.0 {
-        willSet {
-            guard masterVolume != newValue else { return }
-            internalAU?.masterVolume.value = newValue
-        }
-    }
+    private static var nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
+
+    /// Specification details for master volume
+    public static let masterVolumeDef = NodeParameterDef(
+        identifier: "masterVolume",
+        name: "Master Volume",
+        address: akGetParameterAddress("SamplerParameterMasterVolume"),
+        defaultValue: 1,
+        range: 0.0 ... 1,
+        unit: .generic)
+
+    /// Master Volume (fraction)
+    @Parameter(masterVolumeDef) public var masterVolume: AUValue
+
+    /// Specification details for pitchBend
+    public static let pitchBendDef = NodeParameterDef(
+        identifier: "pitchBend",
+        name: "Pitch bend (semitones)",
+        address: akGetParameterAddress("SamplerParameterPitchBend"),
+        defaultValue: 0.0,
+        range: -24 ... 24,
+        unit: .relativeSemiTones)
 
     /// Pitch offset (semitones)
-    open var pitchBend: AUValue = 0.0 {
-        willSet {
-            guard pitchBend != newValue else { return }
-            internalAU?.pitchBend.value = newValue
-        }
-    }
+    @Parameter(pitchBendDef) public var pitchBend: AUValue
+
+    /// Specification details for vibratoDepth
+    public static let vibratoDepthDef = NodeParameterDef(
+        identifier: "vibratoDepth",
+        name: "Vibrato Depth",
+        address: akGetParameterAddress("SamplerParameterVibratoDepth"),
+        defaultValue: 0.0,
+        range: 0 ... 12,
+        unit: .relativeSemiTones)
 
     /// Vibrato amount (semitones)
-    open var vibratoDepth: AUValue = 0.0 {
-        willSet {
-            guard vibratoDepth != newValue else { return }
-            internalAU?.vibratoDepth.value = newValue
-        }
-    }
+    @Parameter(vibratoDepthDef) public var vibratoDepth: AUValue
+
+    /// Specification details for vibratoFrequency
+    public static let vibratoFrequencyDef = NodeParameterDef(
+        identifier: "vibratoFrequency",
+        name: "Vibrato Speed (hz)",
+        address: akGetParameterAddress("SamplerParameterVibratoFrequency"),
+        defaultValue: 5.0,
+        range: 0 ... 200,
+        unit: .hertz)
 
     /// Vibrato speed (hz)
-    open var vibratoFrequency: AUValue = 5.0 {
-        willSet {
-            guard vibratoFrequency != newValue else { return }
-            internalAU?.vibratoFrequency.value = newValue
-        }
-    }
+    @Parameter(vibratoFrequencyDef) public var vibratoFrequency: AUValue
+
+    /// Specification details for voiceVibratoDepth
+    public static let voiceVibratoDepthDef = NodeParameterDef(
+        identifier: "voiceVibratoDepth",
+        name: "Voice Vibrato (semitones)",
+        address: akGetParameterAddress("SamplerParameterVoiceVibratoDepth"),
+        defaultValue: 0.0,
+        range: 0 ... 24,
+        unit: .relativeSemiTones)
 
     /// Voice Vibrato amount (semitones)
-    open var voiceVibratoDepth: AUValue = 0.0 {
-        willSet {
-            guard voiceVibratoDepth != newValue else { return }
-            internalAU?.voiceVibratoDepth.value = newValue
-        }
-    }
+    @Parameter(voiceVibratoDepthDef) public var voiceVibratoDepth: AUValue
 
-    /// VoiceVibrato speed (hz)
-    open var voiceVibratoFrequency: AUValue = 5.0 {
-        willSet {
-            guard voiceVibratoFrequency != newValue else { return }
-            internalAU?.voiceVibratoFrequency.value = newValue
-        }
-    }
+    /// Specification details for voiceVibratoFrequency
+    public static let voiceVibratoFrequencyDef = NodeParameterDef(
+        identifier: "voiceVibratoFrequency",
+        name: "Voice Vibrato speed (Hz)",
+        address: akGetParameterAddress("SamplerParameterVoiceVibratoFrequency"),
+        defaultValue: 5.0,
+        range: 0 ... 200,
+        unit: .hertz)
+
+    /// Voice Vibrato speed (Hz)
+    @Parameter(voiceVibratoFrequencyDef) public var voiceVibratoFrequency: AUValue
+
+    /// Specification details for filterCutoff
+    public static let filterCutoffDef = NodeParameterDef(
+        identifier: "filterCutoff",
+        name: "Filter Cutoff",
+        address: akGetParameterAddress("SamplerParameterFilterCutoff"),
+        defaultValue: 4.0,
+        range: 1 ... 1000,
+        unit: .rate)
 
     /// Filter cutoff (harmonic ratio)
-    open var filterCutoff: AUValue = 4.0 {
-        willSet {
-            guard filterCutoff != newValue else { return }
-            internalAU?.filterCutoff.value = newValue
-        }
-    }
+    @Parameter(filterCutoffDef) public var filterCutoff: AUValue
 
-    /// Filter EG strength (harmonic ratio)
-    open var filterStrength: AUValue = 20.0 {
-        willSet {
-            guard filterStrength != newValue else { return }
-            internalAU?.filterStrength.value = newValue
-        }
-    }
+    /// Specification details for filterStrength
+    public static let filterStrengthDef = NodeParameterDef(
+        identifier: "filterStrength",
+        name: "Filter Strength",
+        address: akGetParameterAddress("SamplerParameterFilterStrength"),
+        defaultValue: 20,
+        range: 1 ... 1000,
+        unit: .ratio)
+
+    /// filterStrength
+    @Parameter(filterStrengthDef) public var filterStrength: AUValue
+
+    /// Specification details for filterResonance
+    public static let filterResonanceDef = NodeParameterDef(
+        identifier: "filterResonance",
+        name: "Filter Resonance",
+        address: akGetParameterAddress("SamplerParameterFilterResonance"),
+        defaultValue: 0,
+        range: -20 ... 20,
+        unit: .decibels)
 
     /// Filter resonance (dB)
-    open var filterResonance: AUValue = 0.0 {
-        willSet {
-            guard filterResonance != newValue else { return }
-            internalAU?.filterResonance.value = newValue
-        }
-    }
+    @Parameter(filterResonanceDef) public var filterResonance: AUValue
+
+    /// Specification details for glideRate
+    public static let glideRateDef = NodeParameterDef(
+        identifier: "glideRate",
+        name: "Glide rate (sec/octave))",
+        address: akGetParameterAddress("SamplerParameterGlideRate"),
+        defaultValue: 0,
+        range: 0 ... 20,
+        unit: .generic)
 
     /// Glide rate (seconds per octave)
-    open var glideRate: AUValue = 0.0 {
-        willSet {
-            guard glideRate != newValue else { return }
-            internalAU?.glideRate.value = newValue
-        }
-    }
+    @Parameter(glideRateDef) public var glideRate: AUValue
+
+    /// Specification details for attackDuration
+    public static let attackDurationDef = NodeParameterDef(
+        identifier: "attackDuration",
+        name: "Attack Duration (s)",
+        address: akGetParameterAddress("SamplerParameterAttackDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
 
     /// Amplitude attack duration (seconds)
-    open var attackDuration: AUValue = 0.0 {
-        willSet {
-            guard attackDuration != newValue else { return }
-            internalAU?.attackDuration.value = newValue
-        }
-    }
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
+
+    /// Specification details for holdDuration
+    public static let holdDurationDef = NodeParameterDef(
+        identifier: "holdDuration",
+        name: "Hold Duration (s)",
+        address: akGetParameterAddress("SamplerParameterHoldDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
 
     /// Amplitude hold duration (seconds)
-    open var holdDuration: AUValue = 0.0 {
-        willSet {
-            guard holdDuration != newValue else { return }
-            internalAU?.holdDuration.value = newValue
-        }
-    }
+    @Parameter(holdDurationDef) public var holdDuration: AUValue
 
-    /// Amplitude Decay duration (seconds)
-    open var decayDuration: AUValue = 0.0 {
-        willSet {
-            guard decayDuration != newValue else { return }
-            internalAU?.decayDuration.value = newValue
-        }
-    }
+    /// Specification details for decayDuration
+    public static let decayDurationDef = NodeParameterDef(
+        identifier: "decayDuration",
+        name: "Decay Duration (s)",
+        address: akGetParameterAddress("SamplerParameterDecayDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
+
+    /// Amplitude decay duration (seconds)
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
+
+    /// Specification details for sustainLevel
+    public static let sustainLevelDef = NodeParameterDef(
+        identifier: "sustainLevel",
+        name: "Sustain Level",
+        address: akGetParameterAddress("SamplerParameterSustainLevel"),
+        defaultValue: 1,
+        range: 0 ... 1,
+        unit: .generic,
+        flags: nonRampFlags)
 
     /// Amplitude sustain level (fraction)
-    open var sustainLevel: AUValue = 1.0 {
-        willSet {
-            guard sustainLevel != newValue else { return }
-            internalAU?.sustainLevel.value = newValue
-        }
-    }
+    @Parameter(sustainLevelDef) public var sustainLevel: AUValue
 
-    /// Amplitude Release Hold duration (seconds)
-    open var releaseHoldDuration: AUValue = 0.0 {
-        willSet {
-            guard releaseHoldDuration != newValue else { return }
-            internalAU?.releaseHoldDuration.value = newValue
-        }
-    }
+    /// Specification details for releaseDuration
+    public static let releaseDurationDef = NodeParameterDef(
+        identifier: "releaseDuration",
+        name: "Release Duration (s)",
+        address: akGetParameterAddress("SamplerParameterReleaseDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
 
-    /// Amplitude Release duration (seconds)
-    open var releaseDuration: AUValue = 0.0 {
-        willSet {
-            guard releaseDuration != newValue else { return }
-            internalAU?.releaseDuration.value = newValue
-        }
-    }
+    /// Amplitude release duration (seconds)
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
-    /// Filter attack duration (seconds)
-    open var filterAttackDuration: AUValue = 0.0 {
-        willSet {
-            guard filterAttackDuration != newValue else { return }
-            internalAU?.filterAttackDuration.value = newValue
-        }
-    }
+    /// Specification details for filterAttackDuration
+    public static let filterAttackDurationDef = NodeParameterDef(
+        identifier: "filterAttackDuration",
+        name: "Filter Attack Duration (s)",
+        address: akGetParameterAddress("SamplerParameterFilterAttackDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
 
-    /// Filter Decay duration (seconds)
-    open var filterDecayDuration: AUValue = 0.0 {
-        willSet {
-            guard filterDecayDuration != newValue else { return }
-            internalAU?.filterDecayDuration.value = newValue
-        }
-    }
+    /// Filter Amplitude attack duration (seconds)
+    @Parameter(filterAttackDurationDef) public var filterAttackDuration: AUValue
 
-    /// Filter sustain level (fraction)
-    open var filterSustainLevel: AUValue = 1.0 {
-        willSet {
-            guard filterSustainLevel != newValue else { return }
-            internalAU?.filterSustainLevel.value = newValue
-        }
-    }
+    /// Specification details for filterDecayDuration
+    public static let filterDecayDurationDef = NodeParameterDef(
+        identifier: "filterDecayDuration",
+        name: "Filter Decay Duration (s)",
+        address: akGetParameterAddress("SamplerParameterFilterDecayDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
 
-    /// Filter Release duration (seconds)
-    open var filterReleaseDuration: AUValue = 0.0 {
-        willSet {
-            guard filterReleaseDuration != newValue else { return }
-            internalAU?.filterReleaseDuration.value = newValue
-        }
-    }
+    /// Filter Amplitude decay duration (seconds)
+    @Parameter(filterDecayDurationDef) public var filterDecayDuration: AUValue
 
-    /// Pitch attack duration (seconds)
-    open var pitchAttackDuration: AUValue = 0.0 {
-        willSet {
-            guard pitchAttackDuration != newValue else { return }
-            internalAU?.pitchAttackDuration.value = newValue
-        }
-    }
+    /// Specification details for filterSustainLevel
+    public static let filterSustainLevelDef = NodeParameterDef(
+        identifier: "filterSustainLevel",
+        name: "Filter Sustain Level",
+        address: akGetParameterAddress("SamplerParameterFilterSustainLevel"),
+        defaultValue: 1,
+        range: 0 ... 1,
+        unit: .generic,
+        flags: nonRampFlags)
 
-    /// Pitch Decay duration (seconds)
-    open var pitchDecayDuration: AUValue = 0.0 {
-        willSet {
-            guard pitchDecayDuration != newValue else { return }
-            internalAU?.pitchDecayDuration.value = newValue
-        }
-    }
+    /// Filter Amplitude sustain level (fraction)
+    @Parameter(filterSustainLevelDef) public var filterSustainLevel: AUValue
 
-    /// Pitch sustain level (fraction)
-    open var pitchSustainLevel: AUValue = 1.0 {
-        willSet {
-            guard pitchSustainLevel != newValue else { return }
-            internalAU?.pitchSustainLevel.value = newValue
-        }
-    }
+    /// Specification details for filterReleaseDuration
+    public static let filterReleaseDurationDef = NodeParameterDef(
+        identifier: "filterReleaseDuration",
+        name: "Filter Release Duration (s)",
+        address: akGetParameterAddress("SamplerParameterFilterReleaseDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
 
-    /// Pitch Release duration (seconds)
-    open var pitchReleaseDuration: AUValue = 0.0 {
-        willSet {
-            guard pitchReleaseDuration != newValue else { return }
-            internalAU?.pitchReleaseDuration.value = newValue
-        }
-    }
+    /// Filter Amplitude release duration (seconds)
+    @Parameter(filterReleaseDurationDef) public var filterReleaseDuration: AUValue
 
+    /// Specification details for pitchAttackDuration
+    public static let pitchAttackDurationDef = NodeParameterDef(
+        identifier: "pitchAttackDuration",
+        name: "Pitch Attack Duration (s)",
+        address: akGetParameterAddress("SamplerParameterPitchAttackDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
+
+    /// Pitch Amplitude attack duration (seconds)
+    @Parameter(pitchAttackDurationDef) public var pitchAttackDuration: AUValue
+
+    /// Specification details for pitchDecayDuration
+    public static let pitchDecayDurationDef = NodeParameterDef(
+        identifier: "pitchDecayDuration",
+        name: "Pitch Decay Duration (s)",
+        address: akGetParameterAddress("SamplerParameterPitchDecayDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds)
+
+    /// Pitch Amplitude decay duration (seconds)
+    @Parameter(pitchDecayDurationDef) public var pitchDecayDuration: AUValue
+
+    /// Specification details for pitchSustainLevel
+    public static let pitchSustainLevelDef = NodeParameterDef(
+        identifier: "pitchSustainLevel",
+        name: "Pitch Sustain Level",
+        address: akGetParameterAddress("SamplerParameterPitchSustainLevel"),
+        defaultValue: 1,
+        range: 0 ... 1,
+        unit: .generic,
+        flags: nonRampFlags)
+
+    /// Pitch Amplitude sustain level (fraction)
+    @Parameter(pitchSustainLevelDef) public var pitchSustainLevel: AUValue
+
+    /// Specification details for pitchReleaseDuration
+    public static let pitchReleaseDurationDef = NodeParameterDef(
+        identifier: "pitchReleaseDuration",
+        name: "Pitch Release Duration (s)",
+        address: akGetParameterAddress("SamplerParameterPitchReleaseDuration"),
+        defaultValue: 0,
+        range: 0 ... 10,
+        unit: .seconds,
+        flags: nonRampFlags)
+
+    /// Pitch Amplitude release duration (seconds)
+    @Parameter(pitchReleaseDurationDef) public var pitchReleaseDuration: AUValue
+
+    /// Specification details for pitchADSRSemitones
+    public static let pitchADSRSemitonesDef = NodeParameterDef(
+        identifier: "pitchADSRSemitones",
+        name: "Pitch EG Amount duration (semitones)",
+        address: akGetParameterAddress("SamplerParameterPitchADSRSemitones"),
+        defaultValue: 0,
+        range: 0 ... 12,
+        unit: .seconds,
+        flags: nonRampFlags)
+    
     /// Pitch EG Amount duration (semitones)
-    open var pitchADSRSemitones: AUValue = 0.0 {
-        willSet {
-            guard pitchADSRSemitones != newValue else { return }
-            internalAU?.pitchADSRSemitones.value = newValue
-        }
-    }
-
+    @Parameter(pitchADSRSemitonesDef) public var pitchADSRSemitones: AUValue
+    
+    /// Specification details for restartVoiceLFO
+    public static let restartVoiceLFODef = NodeParameterDef(
+        identifier: "restartVoiceLFO",
+        name: "restartVoiceLFO",
+        address: akGetParameterAddress("SamplerParameterRestartVoiceLFO"),
+        defaultValue: 0,
+        range: 0 ... 1,
+        unit: .boolean,
+        flags: nonRampFlags)
+    
     /// Voice LFO restart (boolean, 0.0 for false or 1.0 for true) - resets the phase of each voice lfo on keydown
-    public var restartVoiceLFO: Bool = false {
-        willSet {
-            guard restartVoiceLFO != newValue else { return }
-            internalAU?.restartVoiceLFO.value = newValue ? 1.0 : 0.0
-        }
-    }
+    @Parameter(restartVoiceLFODef) public var restartVoiceLFO: AUValue
 
-    /// Filter Enable (boolean, 0.0 for false or 1.0 for true)
-    open var filterEnable: Bool = false {
-        willSet {
-            guard filterEnable != newValue else { return }
-            internalAU?.filterEnable.value = newValue ? 1.0 : 0.0
-        }
-    }
-
+    /// Specification details for filterEnable
+    public static let filterEnableDef = NodeParameterDef(
+        identifier: "filterEnable",
+        name: "Filter Enable",
+        address: akGetParameterAddress("SamplerParameterFilterEnable"),
+        defaultValue: 0,
+        range: 0 ... 1,
+        unit: .boolean,
+        flags: nonRampFlags)
+    
+    /// Enale Filter Flag
+    @Parameter(filterEnableDef) public var filterEnable: AUValue
+    
+    /// Specification details for loopThruRelease
+    public static let loopThruReleaseDef = NodeParameterDef(
+        identifier: "loopThruRelease",
+        name: "loopThruRelease",
+        address: akGetParameterAddress("SamplerParameterLoopThruRelease"),
+        defaultValue: 0,
+        range: 0 ... 1,
+        unit: .boolean,
+        flags: nonRampFlags)
+    
     /// Loop Thru Release (boolean, 0.0 for false or 1.0 for true)
-    open var loopThruRelease: Bool = false {
-        willSet {
-            guard loopThruRelease != newValue else { return }
-            internalAU?.loopThruRelease.value = newValue ? 1.0 : 0.0
-        }
-    }
+    @Parameter(loopThruReleaseDef) public var loopThruRelease: AUValue
+
+    /// Specification details for isMonophonic
+    public static let isMonophonicDef = NodeParameterDef(
+        identifier: "isMonophonic",
+        name: "isMonophonic",
+        address: akGetParameterAddress("SamplerParameterMonophonic"),
+        defaultValue: 0,
+        range: 0 ... 1,
+        unit: .boolean,
+        flags: nonRampFlags)
 
     /// isMonophonic (boolean, 0.0 for false or 1.0 for true)
-    open var isMonophonic: Bool = false {
-        willSet {
-            guard isMonophonic != newValue else { return }
-            internalAU?.isMonophonic.value = newValue ? 1.0 : 0.0
-        }
-    }
+    @Parameter(isMonophonicDef) public var isMonophonic: AUValue
+
+    /// Specification details for isLegato
+    public static let isLegatoDef = NodeParameterDef(
+        identifier: "isLegato",
+        name: "isLegato",
+        address: akGetParameterAddress("SamplerParameterLegato"),
+        defaultValue: 0,
+        range: 0 ... 1,
+        unit: .generic,
+        flags: nonRampFlags)
 
     /// isLegato (boolean, 0.0 for false or 1.0 for true)
-    open var isLegato: Bool = false {
-        willSet {
-            guard isLegato != newValue else { return }
-            internalAU?.isLegato.value = newValue ? 1.0 : 0.0
-        }
-    }
+    @Parameter(isLegatoDef) public var isLegato: AUValue
+
+    /// Specification details for keyTrackingFraction
+    public static let keyTrackingFractionDef = NodeParameterDef(
+        identifier: "keyTrackingFraction",
+        name: "Key Tracking",
+        address: akGetParameterAddress("SamplerParameterKeyTrackingFraction"),
+        defaultValue: 1,
+        range: -2 ... 2,
+        unit: .generic,
+        flags: nonRampFlags)
 
     /// keyTrackingFraction (-2.0 to +2.0, normal range 0.0 to 1.0)
-    open var keyTrackingFraction: AUValue = 1.0 {
-        willSet {
-            guard keyTrackingFraction != newValue else { return }
-            internalAU?.keyTrackingFraction.value = newValue
-        }
-    }
+    @Parameter(keyTrackingFractionDef) public var keyTrackingFraction: AUValue
+
+    /// Specification details for filterEnvelopeVelocityScaling
+    public static let filterEnvelopeVelocityScalingDef = NodeParameterDef(
+        identifier: "filterEnvelopeVelocityScaling",
+        name: "Filter Envelope Scaling",
+        address: akGetParameterAddress("SamplerParameterFilterEnvelopeVelocityScaling"),
+        defaultValue: 1,
+        range: 0 ... 1,
+        unit: .generic,
+        flags: nonRampFlags)
 
     /// filterEnvelopeVelocityScaling (fraction 0.0 to 1.0)
-    open var filterEnvelopeVelocityScaling: AUValue = 0.0 {
-        willSet {
-            guard filterEnvelopeVelocityScaling != newValue else { return }
-            internalAU?.filterEnvelopeVelocityScaling.value = newValue
-        }
-    }
+    @Parameter(filterEnvelopeVelocityScalingDef) public var filterEnvelopeVelocityScaling: AUValue
 
     // MARK: - Initialization
 
     /// Initialize without any descriptors
     public init() {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-        }
+        setupParameters()
     }
 
     /// Initialize this sampler node for one file. There are many parameters, change them after initialization
@@ -337,40 +467,45 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
         var flattened = Array(floatChannelData.joined())
 
         flattened.withUnsafeMutableBufferPointer { data in
-            internalAU?.loadSampleData(from: SampleDataDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                  sampleRate: sampleRate,
-                                                                  isInterleaved: false,
-                                                                  channelCount: channelCount,
-                                                                  sampleCount: sampleCount,
-                                                                  data: data.baseAddress) )
+
+            var descriptor = SampleDataDescriptor(sampleDescriptor: sampleDescriptor,
+                                                  sampleRate: sampleRate,
+                                                  isInterleaved: false,
+                                                  channelCount: channelCount,
+                                                  sampleCount: sampleCount,
+                                                  data: data.baseAddress)
+
+            akSamplerLoadData(au.dsp, &descriptor)
         }
     }
 
     /// Stop all voices
     public func stopAllVoices() {
-        internalAU?.stopAllVoices()
+        akSamplerStopAllVoices(au.dsp)
     }
 
     /// Restart voices
     public func restartVoices() {
-        internalAU?.restartVoices()
+        akSamplerRestartVoices(au.dsp)
     }
 
     /// Load data from sample descriptor
     /// - Parameter sampleDataDescriptor: Sample descriptor information
     public func loadRawSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
-        internalAU?.loadSampleData(from: sampleDataDescriptor)
+        var copy = sampleDataDescriptor
+        akSamplerLoadData(au.dsp, &copy)
     }
 
     /// Load data from compressed file
     /// - Parameter sampleFileDescriptor: Sample descriptor information
     public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
-        internalAU?.loadCompressedSampleFile(from: sampleFileDescriptor)
+        var copy = sampleFileDescriptor
+        akSamplerLoadCompressedFile(au.dsp, &copy)
     }
 
     /// Unload all the samples from memory
     public func unloadAllSamples() {
-        internalAU?.unloadAllSamples()
+        akSamplerUnloadAllSamples(au.dsp)
     }
 
     /// Assign a note number to a particular frequency
@@ -378,23 +513,23 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
     ///   - noteNumber: MIDI Note number
     ///   - frequency: Frequency in Hertz
     public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
-        internalAU?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: frequency)
+        akSamplerSetNoteFrequency(au.dsp, Int32(noteNumber), frequency)
     }
 
     /// Create a simple key map
     public func buildSimpleKeyMap() {
-        internalAU?.buildSimpleKeyMap()
+        akSamplerBuildSimpleKeyMap(au.dsp)
     }
 
     /// Build key map
     public func buildKeyMap() {
-        internalAU?.buildKeyMap()
+        akSamplerBuildKeyMap(au.dsp)
     }
 
     /// Set Loop
     /// - Parameter thruRelease: Wether or not to loop before or after the release
     public func setLoop(thruRelease: Bool) {
-        internalAU?.setLoop(thruRelease: thruRelease)
+        akSamplerSetLoopThruRelease(au.dsp, thruRelease)
     }
 
     /// Play the sampler
@@ -402,29 +537,28 @@ public class Sampler: PolyphonicNode, AudioUnitContainer {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity: Velocity of the note
     ///   - channel: MIDI Channel
-    public override func play(noteNumber: MIDINoteNumber,
-                              velocity: MIDIVelocity,
-                              channel: MIDIChannel = 0) {
-        internalAU?.playNote(noteNumber: noteNumber, velocity: velocity)
+    public func play(noteNumber: MIDINoteNumber,
+                     velocity: MIDIVelocity,
+                     channel: MIDIChannel = 0) {
+        akSamplerPlayNote(au.dsp, noteNumber, velocity)
     }
 
     /// Stop the sampler playback of a specific note
     /// - Parameter noteNumber: MIDI Note number
-    public override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
-        internalAU?.stopNote(noteNumber: noteNumber, immediate: false)
+    public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
+        akSamplerStopNote(au.dsp, noteNumber, false)
     }
 
     /// Stop and immediately silence a note
     /// - Parameter noteNumber: MIDI note number
     public func silence(noteNumber: MIDINoteNumber) {
-        internalAU?.stopNote(noteNumber: noteNumber, immediate: true)
+        akSamplerStopNote(au.dsp, noteNumber, true)
     }
 
     /// Activate the sustain pedal
     /// - Parameter pedalDown: Wether the pedal is down (activated)
     public func sustainPedal(pedalDown: Bool) {
-        internalAU?.sustainPedal(down: pedalDown)
+        akSamplerSustainPedal(au.dsp, pedalDown)
     }
 
-    // TODO This node is untested
 }

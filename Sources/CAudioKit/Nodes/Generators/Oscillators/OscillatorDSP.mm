@@ -84,7 +84,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(OscillatorDSP)
+AK_REGISTER_DSP(OscillatorDSP, "oscl")
 AK_REGISTER_PARAMETER(OscillatorParameterFrequency)
 AK_REGISTER_PARAMETER(OscillatorParameterAmplitude)
 AK_REGISTER_PARAMETER(OscillatorParameterDetuningOffset)

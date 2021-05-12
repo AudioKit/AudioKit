@@ -1,21 +1,67 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-public class Delay: Node, Toggleable {
+public class Delay: Node {
     let delayAU = AVAudioUnitDelay()
 
-    /// Dry wet mix
-    @Parameter public var dryWetMix: AUValue
-    /// Delay time
-    @Parameter public var time: AUValue
-    /// Feedback
-    @Parameter public var feedback: AUValue
-    /// Low-pass cutoff frequency
-    @Parameter public var lowPassCutoff: AUValue
+    let input: Node
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode { return delayAU }
+
+    /// Specification details for dry wet mix
+    public static let dryWetMixDef = NodeParameterDef(
+        identifier: "dryWetMix",
+        name: "Dry-Wet Mix",
+        address: 0,
+        defaultValue: 50,
+        range: 0.0 ... 1.0,
+        unit: .generic)
+
+    /// Dry/wet mix. Should be a value between 0-1.
+    @Parameter(dryWetMixDef) public var dryWetMix: AUValue
+    
+    /// Specification details for time
+    public static let timeDef = NodeParameterDef(
+        identifier: "time",
+        name: "Delay time (Seconds)",
+        address: 1,
+        defaultValue: 1,
+        range: 0 ... 2.0,
+        unit: .seconds)
+
+    /// Delay time (in seconds) This value must not exceed the maximum delay time.
+    @Parameter(timeDef) public var time: AUValue
+
+    /// Specification details for feedback
+    public static let feedbackDef = NodeParameterDef(
+        identifier: "feedback",
+        name: "Feedback (%)",
+        address: 2,
+        defaultValue: 50,
+        range: -100 ... 100,
+        unit: .generic)
+
+    /// Feedback amount. Should be a value between 0-1.
+    @Parameter(feedbackDef) public var feedback: AUValue
+
+    /// Specification details for lowPassCutoff
+    public static let lowPassCutoffDef = NodeParameterDef(
+        identifier: "lowPassCutoff",
+        name: "Low Pass Cutoff Frequency",
+        address: 3,
+        defaultValue: 15000,
+        range: 10 ... 22050,
+        unit: .hertz)
+
+    /// Low-pass cutoff frequency Cutoff Frequency (Hertz) ranges from 10 to 200 (Default: 80)
+    @Parameter(lowPassCutoffDef) public var lowPassCutoff: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -31,18 +77,14 @@ public class Delay: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        time: AUValue = 1,
-        feedback: AUValue = 50,
-        lowPassCutoff: AUValue = 15_000,
-        dryWetMix: AUValue = 50) {
+        time: AUValue = timeDef.defaultValue,
+        feedback: AUValue = feedbackDef.defaultValue,
+        lowPassCutoff: AUValue = lowPassCutoffDef.defaultValue,
+        dryWetMix: AUValue = dryWetMixDef.defaultValue) {
 
-        super.init(avAudioUnit: delayAU)
-        connections.append(input)
+        self.input = input
 
-        self.$dryWetMix.associate(with: delayAU, index: 0)
-        self.$time.associate(with: delayAU, index: 1)
-        self.$feedback.associate(with: delayAU, index: 2)
-        self.$lowPassCutoff.associate(with: delayAU, index: 3)
+        associateParams(with: delayAU)
 
         self.dryWetMix = dryWetMix
         self.time = time

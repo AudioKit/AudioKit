@@ -7,16 +7,15 @@ import CAudioKit
 /// A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created
 /// using  passing an impulse through a combination of modal filters.
 /// 
-public class ModalResonanceFilter: Node, AudioUnitContainer, Toggleable {
+public class ModalResonanceFilter: Node {
 
-    /// Unique four-letter identifier "modf"
-    public static let ComponentDescription = AudioComponentDescription(effect: "modf")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "modf")
 
     // MARK: - Parameters
 
@@ -25,42 +24,24 @@ public class ModalResonanceFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Resonant Frequency (Hz)",
         address: akGetParameterAddress("ModalResonanceFilterParameterFrequency"),
+        defaultValue: 500.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Resonant frequency of the filter.
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for qualityFactor
     public static let qualityFactorDef = NodeParameterDef(
         identifier: "qualityFactor",
         name: "Quality Factor",
         address: akGetParameterAddress("ModalResonanceFilterParameterQualityFactor"),
+        defaultValue: 50.0,
         range: 0.0 ... 100.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Quality factor of the filter. Roughly equal to Q/frequency.
-    @Parameter public var qualityFactor: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for ModalResonanceFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [ModalResonanceFilter.frequencyDef,
-             ModalResonanceFilter.qualityFactorDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("ModalResonanceFilterDSP")
-        }
-    }
+    @Parameter(qualityFactorDef) public var qualityFactor: AUValue
 
     // MARK: - Initialization
 
@@ -73,23 +54,14 @@ public class ModalResonanceFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        frequency: AUValue = 500.0,
-        qualityFactor: AUValue = 50.0
+        frequency: AUValue = frequencyDef.defaultValue,
+        qualityFactor: AUValue = qualityFactorDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.frequency = frequency
-            self.qualityFactor = qualityFactor
-        }
-        connections.append(input)
-    }
+        self.frequency = frequency
+        self.qualityFactor = qualityFactor
+   }
 }

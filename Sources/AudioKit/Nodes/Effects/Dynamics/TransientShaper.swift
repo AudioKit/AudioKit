@@ -4,16 +4,15 @@ import AVFoundation
 import CAudioKit
 
 /// Transient shaper
-public class TransientShaper: Node, AudioUnitContainer, Toggleable {
+public class TransientShaper: Node {
 
-    /// Unique four-letter identifier "trsh"
-    public static let ComponentDescription = AudioComponentDescription(effect: "trsh")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "trsh")
 
     // MARK: - Parameters
 
@@ -22,68 +21,48 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
         identifier: "inputAmount",
         name: "Input",
         address: akGetParameterAddress("TransientShaperParameterInputAmount"),
+        defaultValue: 0.0,
         range: -60.0 ... 30.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Input Amount
-    @Parameter public var inputAmount: AUValue
+    @Parameter(inputAmountDef) public var inputAmount: AUValue
 
     /// Specification details for attack amount
     public static let attackAmountDef = NodeParameterDef(
         identifier: "attackAmount",
         name: "Attack",
         address: akGetParameterAddress("TransientShaperParameterAttackAmount"),
+        defaultValue: 0.0,
         range: -40.0 ... 40.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Attack Amount
-    @Parameter public var attackAmount: AUValue
+    @Parameter(attackAmountDef) public var attackAmount: AUValue
 
     /// Specification details for release amount
     public static let releaseAmountDef = NodeParameterDef(
         identifier: "releaseAmount",
         name: "Release",
         address: akGetParameterAddress("TransientShaperParameterReleaseAmount"),
+        defaultValue: 0.0,
         range: -40.0 ... 40.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Release Amount
-    @Parameter public var releaseAmount: AUValue
+    @Parameter(releaseAmountDef) public var releaseAmount: AUValue
 
     /// Specification details for output amount
     public static let outputAmountDef = NodeParameterDef(
         identifier: "outputAmount",
         name: "Output",
         address: akGetParameterAddress("TransientShaperParameterOutputAmount"),
+        defaultValue: 0.0,
         range: -60.0 ... 30.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Output Amount
-    @Parameter public var outputAmount: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for Transient Shaper
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef]? {
-            [TransientShaper.inputAmountDef,
-             TransientShaper.attackAmountDef,
-             TransientShaper.releaseAmountDef,
-             TransientShaper.outputAmountDef]
-        }
-
-        /// Create the DSP Reference for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("TransientShaperDSP")
-        }
-    }
+    @Parameter(outputAmountDef) public var outputAmount: AUValue
 
     // MARK: - Initialization
 
@@ -96,26 +75,19 @@ public class TransientShaper: Node, AudioUnitContainer, Toggleable {
     ///     - output
     public init(
         _ input: Node,
-        inputAmount: AUValue = 0.0,
-        attackAmount: AUValue = 0.0,
-        releaseAmount: AUValue = 0.0,
-        outputAmount: AUValue = 0.0
+        inputAmount: AUValue = inputAmountDef.defaultValue,
+        attackAmount: AUValue = attackAmountDef.defaultValue,
+        releaseAmount: AUValue = releaseAmountDef.defaultValue,
+        outputAmount: AUValue = outputAmountDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.inputAmount = inputAmount
-            self.attackAmount = attackAmount
-            self.releaseAmount = releaseAmount
-            self.outputAmount = outputAmount
-        }
-
-        connections.append(input)
+        self.input = input
+       
+        setupParameters()
+        
+        self.inputAmount = inputAmount
+        self.attackAmount = attackAmount
+        self.releaseAmount = releaseAmount
+        self.outputAmount = outputAmount
     }
-
+    
 }

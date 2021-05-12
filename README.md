@@ -2,8 +2,8 @@ AudioKit
 ===
 
 [![Build Status](https://github.com/AudioKit/AudioKit/workflows/CI/badge.svg)](https://github.com/AudioKit/AudioKit/actions?query=workflow%3ACI)
-[![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/blob/v5-main/LICENSE)
-[![Platform](https://img.shields.io/cocoapods/p/AudioKit.svg?style=flat)](https://github.com/AudioKit/AudioKit/wiki)
+[![License](https://img.shields.io/cocoapods/l/AudioKit)](https://github.com/AudioKit/AudioKit/blob/main/LICENSE)
+[![Platform](https://img.shields.io/cocoapods/p/AudioKit)](https://github.com/AudioKit/AudioKit/wiki)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitPro.svg?style=social)](https://twitter.com/AudioKitPro)
 
@@ -11,9 +11,7 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 
 ## Installation
 
-To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL. Check the use branch option and enter `main` (for official releases) or `develop` (for cutting edge).
-
-Installing AudioKit via CocoaPods is still somewhat supported, via pre-compiled XCFrameworks. A pod for [AudioKitUI](https://github.com/AudioKit/AudioKitUI) is no longer provided.
+To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.  You can define which version range you want, or which branch to use, or even which exact commit you would like use. 
 
 ## Documentation
 

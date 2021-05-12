@@ -5,17 +5,41 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
-open class LowPassFilter: Node, Toggleable {
+public class LowPassFilter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_LowPassFilter))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowPassFilter)
 
-    /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-    @Parameter public var cutoffFrequency: AUValue
+    let input: Node
 
-    /// Resonance (dB) ranges from -20 to 40 (Default: 0)
-    @Parameter public var resonance: AUValue
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode { effectAU }
+
+    /// Specification details for cutoffFrequency
+    public static let cutoffFrequencyDef = NodeParameterDef(
+        identifier: "cutoffFrequency",
+        name: "Cutoff Frequency",
+        address: 0,
+        defaultValue: 6900,
+        range: 10 ... 22050,
+        unit: .hertz)
+
+    /// Cutoff Frequency (Hertz) ranges from 10 to 22050 (Default: 6900)
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
+
+    /// Specification details for resonance
+    public static let resonanceDef = NodeParameterDef(
+        identifier: "resonance",
+        name: "Resonance",
+        address: 1,
+        defaultValue: 0,
+        range: -20 ... 40,
+        unit: .decibels)
+
+    /// Resonance (decibels) ranges from -20 to 40 (Default: 0)
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -23,18 +47,16 @@ open class LowPassFilter: Node, Toggleable {
     /// Initialize the low pass filter node
     ///
     /// - parameter input: Input node to process
-    /// - parameter cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
-    /// - parameter resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
+    /// - parameter cutoffFrequency: Cutoff Frequency (Hertz) ranges from 10 to 22050 (Default: 6900)
+    /// - parameter resonance: Resonance (decibels) ranges from -20 to 40 (Default: 0)
     ///
     public init(
         _ input: Node,
-        cutoffFrequency: AUValue = 6900,
-        resonance: AUValue = 0) {
-        super.init(avAudioNode: effectAU)
-        connections.append(input)
+        cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
+        resonance: AUValue = resonanceDef.defaultValue) {
+        self.input = input
 
-        self.$cutoffFrequency.associate(with: effectAU, index: 0)
-        self.$resonance.associate(with: effectAU, index: 1)
+        associateParams(with: effectAU)
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

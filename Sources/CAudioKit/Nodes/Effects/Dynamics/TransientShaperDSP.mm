@@ -280,13 +280,11 @@ private:
     ParameterRamper releaseAmountRamp;
     ParameterRamper outputAmountRamp;
 public:
-    TransientShaperDSP() {
+    TransientShaperDSP() : DSPBase(1, true) {
         parameters[TransientShaperParameterInputAmount] = &inputAmountRamp;
         parameters[TransientShaperParameterAttackAmount] = &attackAmountRamp;
         parameters[TransientShaperParameterReleaseAmount] = &releaseAmountRamp;
         parameters[TransientShaperParameterOutputAmount] = &outputAmountRamp;
-
-        bCanProcessInPlace = true;
     }
 
     void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {
@@ -671,7 +669,7 @@ public:
         }
     }
 };
-AK_REGISTER_DSP(TransientShaperDSP)
+AK_REGISTER_DSP(TransientShaperDSP, "trsh")
 AK_REGISTER_PARAMETER(TransientShaperParameterInputAmount)
 AK_REGISTER_PARAMETER(TransientShaperParameterAttackAmount)
 AK_REGISTER_PARAMETER(TransientShaperParameterReleaseAmount)

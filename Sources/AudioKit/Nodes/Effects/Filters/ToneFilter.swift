@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// A first-order recursive low-pass filter with variable frequency response.
-public class ToneFilter: Node, AudioUnitContainer, Toggleable {
+public class ToneFilter: Node {
 
-    /// Unique four-letter identifier "tone"
-    public static let ComponentDescription = AudioComponentDescription(effect: "tone")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "tone")
 
     // MARK: - Parameters
 
@@ -23,29 +22,12 @@ public class ToneFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "halfPowerPoint",
         name: "Half-Power Point (Hz)",
         address: akGetParameterAddress("ToneFilterParameterHalfPowerPoint"),
+        defaultValue: 1_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-    @Parameter public var halfPowerPoint: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for ToneFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [ToneFilter.halfPowerPointDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("ToneFilterDSP")
-        }
-    }
+    @Parameter(halfPowerPointDef) public var halfPowerPoint: AUValue
 
     // MARK: - Initialization
 
@@ -57,21 +39,12 @@ public class ToneFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        halfPowerPoint: AUValue = 1_000.0
+        halfPowerPoint: AUValue = halfPowerPointDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.halfPowerPoint = halfPowerPoint
-        }
-        connections.append(input)
-    }
+        self.halfPowerPoint = halfPowerPoint
+   }
 }

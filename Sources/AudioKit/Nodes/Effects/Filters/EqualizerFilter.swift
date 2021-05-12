@@ -10,16 +10,15 @@ import CAudioKit
 /// with a width dependent on bandwidth. If gain is less than 1, a notch is
 /// formed around the center frequency.
 /// 
-public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
+public class EqualizerFilter: Node {
 
-    /// Unique four-letter identifier "eqfl"
-    public static let ComponentDescription = AudioComponentDescription(effect: "eqfl")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "eqfl")
 
     // MARK: - Parameters
 
@@ -28,55 +27,36 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("EqualizerFilterParameterCenterFrequency"),
+        defaultValue: 1_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency. (in Hertz)
-    @Parameter public var centerFrequency: AUValue
+    @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for bandwidth
     public static let bandwidthDef = NodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth (Hz)",
         address: akGetParameterAddress("EqualizerFilterParameterBandwidth"),
+        defaultValue: 100.0,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// The peak/notch bandwidth in Hertz
-    @Parameter public var bandwidth: AUValue
+    @Parameter(bandwidthDef) public var bandwidth: AUValue
 
     /// Specification details for gain
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain (%)",
         address: akGetParameterAddress("EqualizerFilterParameterGain"),
+        defaultValue: 10.0,
         range: -100.0 ... 100.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// The peak/notch gain
-    @Parameter public var gain: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for EqualizerFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [EqualizerFilter.centerFrequencyDef,
-             EqualizerFilter.bandwidthDef,
-             EqualizerFilter.gainDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("EqualizerFilterDSP")
-        }
-    }
+    @Parameter(gainDef) public var gain: AUValue
 
     // MARK: - Initialization
 
@@ -90,25 +70,16 @@ public class EqualizerFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        centerFrequency: AUValue = 1_000.0,
-        bandwidth: AUValue = 100.0,
-        gain: AUValue = 10.0
+        centerFrequency: AUValue = centerFrequencyDef.defaultValue,
+        bandwidth: AUValue = bandwidthDef.defaultValue,
+        gain: AUValue = gainDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.centerFrequency = centerFrequency
-            self.bandwidth = bandwidth
-            self.gain = gain
-        }
-        connections.append(input)
-    }
+        self.centerFrequency = centerFrequency
+        self.bandwidth = bandwidth
+        self.gain = gain
+   }
 }

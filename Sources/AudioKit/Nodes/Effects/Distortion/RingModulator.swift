@@ -5,23 +5,65 @@ import AVFoundation
 
 /// AudioKit version of Apple's RingModulator Audio Unit
 ///
-open class RingModulator: Node, Toggleable {
+public class RingModulator: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
+
+    let input: Node
+
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode { effectAU }
+
+    /// Specification details for ringModFreq1
+    public static let ringModFreq1Def = NodeParameterDef(
+        identifier: "ringModFreq1",
+        name: "Ring Mod Freq1",
+        address: 3,
+        defaultValue: 100,
+        range: 0.5 ... 8000,
+        unit: .hertz)
 
     /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    @Parameter public var ringModFreq1: AUValue
+    @Parameter(ringModFreq1Def) public var ringModFreq1: AUValue
+
+    /// Specification details for ringModFreq2
+    public static let ringModFreq2Def = NodeParameterDef(
+        identifier: "ringModFreq2",
+        name: "Ring Mod Freq2",
+        address: 4,
+        defaultValue: 100,
+        range: 0.5 ... 8000,
+        unit: .hertz)
 
     /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
-    @Parameter public var ringModFreq2: AUValue
+    @Parameter(ringModFreq2Def) public var ringModFreq2: AUValue
+
+    /// Specification details for ringModBalance
+    public static let ringModBalanceDef = NodeParameterDef(
+        identifier: "ringModBalance",
+        name: "Ring Mod Balance",
+        address: 5,
+        defaultValue: 50,
+        range: 0 ... 100,
+        unit: .percent)
 
     /// Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter public var ringModBalance: AUValue
+    @Parameter(ringModBalanceDef) public var ringModBalance: AUValue
+
+    /// Specification details for finalMix
+    public static let finalMixDef = NodeParameterDef(
+        identifier: "finalMix",
+        name: "Final Mix",
+        address: 15,
+        defaultValue: 50,
+        range: 0 ... 100,
+        unit: .percent)
 
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter public var finalMix: AUValue
+    @Parameter(finalMixDef) public var finalMix: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -36,17 +78,13 @@ open class RingModulator: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        ringModFreq1: AUValue = 100,
-        ringModFreq2: AUValue = 100,
-        ringModBalance: AUValue = 50,
-        finalMix: AUValue = 50) {
-        super.init(avAudioNode: effectAU)
-        connections.append(input)
+        ringModFreq1: AUValue = ringModFreq1Def.defaultValue,
+        ringModFreq2: AUValue = ringModFreq2Def.defaultValue,
+        ringModBalance: AUValue = ringModBalanceDef.defaultValue,
+        finalMix: AUValue = finalMixDef.defaultValue) {
+        self.input = input
 
-        self.$ringModFreq1.associate(with: effectAU, index: 3)
-        self.$ringModFreq2.associate(with: effectAU, index: 4)
-        self.$ringModBalance.associate(with: effectAU, index: 5)
-        self.$finalMix.associate(with: effectAU, index: 15)
+        associateParams(with: effectAU)
 
         self.ringModFreq1 = ringModFreq1
         self.ringModFreq2 = ringModFreq2

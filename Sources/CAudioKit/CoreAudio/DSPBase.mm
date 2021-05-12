@@ -12,17 +12,12 @@ AUInternalRenderBlock internalRenderBlockDSP(DSPRef pDSP)
 
 size_t inputBusCountDSP(DSPRef pDSP)
 {
-    return pDSP->inputBufferLists.size();
-}
-
-size_t outputBusCountDSP(DSPRef pDSP)
-{
-    return 1; // We don't currently support multiple output busses.
+    return pDSP->getInputBusCount();
 }
 
 bool canProcessInPlaceDSP(DSPRef pDSP)
 {
-    return pDSP->canProcessInPlace();
+    return pDSP->bCanProcessInPlace;
 }
 
 void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex)
@@ -55,24 +50,14 @@ AUValue getParameterValueDSP(DSPRef pDSP, AUParameterAddress address)
     return pDSP->getParameter(address);
 }
 
-void startDSP(DSPRef pDSP)
+void setBypassDSP(DSPRef pDSP, bool bypass)
 {
-    pDSP->start();
+    pDSP->isStarted = !bypass;
 }
 
-void stopDSP(DSPRef pDSP)
+bool getBypassDSP(DSPRef pDSP)
 {
-    pDSP->stop();
-}
-
-void triggerDSP(DSPRef pDSP)
-{
-    pDSP->trigger();
-}
-
-void triggerFrequencyDSP(DSPRef pDSP, AUValue frequency, AUValue amplitude)
-{
-    pDSP->triggerFrequencyAmplitude(frequency, amplitude);
+    return !pDSP->isStarted;
 }
 
 void setWavetableDSP(DSPRef pDSP, const float* table, size_t length, int index)
@@ -85,10 +70,11 @@ void deleteDSP(DSPRef pDSP)
     delete pDSP;
 }
 
-DSPBase::DSPBase(int inputBusCount)
+DSPBase::DSPBase(int inputBusCount, bool canProcessInPlace)
 : channelCount(2)   // best guess
 , sampleRate(44100) // best guess
 , inputBufferLists(inputBusCount)
+, bCanProcessInPlace(canProcessInPlace)
 {
     std::fill(parameters, parameters+maxParameters, nullptr);
 }
@@ -127,11 +113,8 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
                     inputBufferLists[i] = internalBufferLists[i];
                     
                     UInt32 byteSize = frameCount * sizeof(float);
-                    inputBufferLists[i]->mNumberBuffers = internalBufferLists[i]->mNumberBuffers;
                     for (UInt32 ch = 0; ch < inputBufferLists[i]->mNumberBuffers; ch++) {
                         inputBufferLists[i]->mBuffers[ch].mDataByteSize = byteSize;
-                        inputBufferLists[i]->mBuffers[ch].mNumberChannels = internalBufferLists[i]->mBuffers[ch].mNumberChannels;
-                        inputBufferLists[i]->mBuffers[ch].mData = internalBufferLists[i]->mBuffers[ch].mData;
                     }
                     
                     AudioUnitRenderActionFlags inputFlags = 0;
@@ -278,6 +261,8 @@ void DSPBase::addCreateFunction(const char* name, CreateFunction func) {
         factoryMap = new DSPFactoryMap;
     }
 
+    assert(factoryMap->count(name) == 0 && "redundant DSP kernel registration");
+
     (*factoryMap)[std::string(name)] = func;
 }
 
@@ -296,7 +281,12 @@ DSPRef DSPBase::create(const char* name) {
 
 }
 
-DSPRef akCreateDSP(const char* name) {
+DSPRef akCreateDSP(OSType code) {
+    char name[5] = {0};
+    name[0] = (code >> 24) & 0xff;
+    name[1] = (code >> 16)  & 0xff;
+    name[2] = (code >> 8) & 0xff;
+    name[3] = code & 0xff;
     return DSPBase::create(name);
 }
 

@@ -34,7 +34,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
     fileprivate func triggerCallbacks(_ status: MIDIStatus,
                                       data1: MIDIByte,
                                       data2: MIDIByte) {
-        _ = callback.map { $0(status.byte, data1, data2) }
+        callback?(status.byte, data1, data2)
     }
 
     /// Will trigger in response to any noteOn Message

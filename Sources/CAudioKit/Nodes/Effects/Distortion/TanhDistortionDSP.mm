@@ -93,7 +93,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(TanhDistortionDSP)
+AK_REGISTER_DSP(TanhDistortionDSP, "dist")
 AK_REGISTER_PARAMETER(TanhDistortionParameterPregain)
 AK_REGISTER_PARAMETER(TanhDistortionParameterPostgain)
 AK_REGISTER_PARAMETER(TanhDistortionParameterPositiveShapeParameter)

@@ -5,86 +5,65 @@ import CAudioKit
 
 /// Shane's Chorus
 ///
-public class Chorus: Node, AudioUnitContainer, Toggleable {
+public class Chorus: Node {
 
-    /// Unique four-letter identifier "chrs"
-    public static let ComponentDescription = AudioComponentDescription(effect: "chrs")
+    let input: Node
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "chrs")
 
     // MARK: - Parameters
-
+    
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: ModulatedDelayParameter.frequency.rawValue,
+        defaultValue: kChorus_DefaultFrequency,
         range: kChorus_MinFrequency ... kChorus_MaxFrequency,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Modulation Frequency (Hz)
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for depth
     public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth 0-1",
         address: ModulatedDelayParameter.depth.rawValue,
+        defaultValue: kChorus_DefaultDepth,
         range: kChorus_MinDepth ... kChorus_MaxDepth,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Modulation Depth (fraction)
-    @Parameter public var depth: AUValue
+    @Parameter(depthDef) public var depth: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback 0-1",
         address: ModulatedDelayParameter.feedback.rawValue,
+        defaultValue: kChorus_DefaultFeedback,
         range: kChorus_MinFeedback ... kChorus_MaxFeedback,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Feedback (fraction)
-    @Parameter public var feedback: AUValue
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
         identifier: "dryWetMix",
         name: "Dry Wet Mix 0-1",
         address: ModulatedDelayParameter.dryWetMix.rawValue,
+        defaultValue: kChorus_DefaultDryWetMix,
         range: kChorus_MinDryWetMix ... kChorus_MaxDryWetMix,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Dry Wet Mix (fraction)
-    @Parameter public var dryWetMix: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for Chorus
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            return [Chorus.frequencyDef,
-                    Chorus.depthDef,
-                    Chorus.feedbackDef,
-                    Chorus.dryWetMixDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            return akChorusCreateDSP()
-        }
-    }
+    @Parameter(dryWetMixDef) public var dryWetMix: AUValue
 
     // MARK: - Initialization
 
@@ -99,25 +78,18 @@ public class Chorus: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        frequency: AUValue = kChorus_DefaultFrequency,
-        depth: AUValue = kChorus_DefaultDepth,
-        feedback: AUValue = kChorus_DefaultFeedback,
-        dryWetMix: AUValue = kChorus_DefaultDryWetMix
+        frequency: AUValue = frequencyDef.defaultValue,
+        depth: AUValue = depthDef.defaultValue,
+        feedback: AUValue = feedbackDef.defaultValue,
+        dryWetMix: AUValue = dryWetMixDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
+        
+        setupParameters()
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.frequency = frequency
-            self.depth = depth
-            self.feedback = feedback
-            self.dryWetMix = dryWetMix
-        }
-
-        connections.append(input)
+        self.frequency = frequency
+        self.depth = depth
+        self.feedback = feedback
+        self.dryWetMix = dryWetMix
     }
 }

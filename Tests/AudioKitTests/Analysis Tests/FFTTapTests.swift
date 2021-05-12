@@ -4,6 +4,16 @@ import AudioKit
 import XCTest
 
 class FFTTapTests: XCTestCase {
+
+    func check(values: [Int], known: [Int]) {
+        XCTAssertGreaterThanOrEqual(values.count, known.count)
+        if values.count > known.count {
+            for i in 0..<known.count {
+                XCTAssertEqual(values[i], known[i])
+            }
+        }
+    }
+
     func testBasic() {
         let engine = AudioEngine()
 
@@ -38,9 +48,7 @@ class FFTTapTests: XCTestCase {
 
         wait(for: [expect], timeout: 5.0)
 
-        for i in 0..<knownValues.count {
-            XCTAssertEqual(fftData[i], knownValues[i])
-        }
+        check(values: fftData, known: knownValues)
     }
 
     func testWithoutNormalization() {
@@ -117,8 +125,6 @@ class FFTTapTests: XCTestCase {
 
         wait(for: [expect], timeout: 5.0)
 
-        for i in 0..<knownValues.count {
-            XCTAssertEqual(fftData[i], knownValues[i])
-        }
+        check(values: fftData, known: knownValues)
     }
 }

@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
-public class HighShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggleable {
+public class HighShelfParametricEqualizerFilter: Node {
 
-    /// Unique four-letter identifier "peq2"
-    public static let ComponentDescription = AudioComponentDescription(effect: "peq2")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "peq2")
 
     // MARK: - Parameters
 
@@ -23,55 +22,36 @@ public class HighShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggl
         identifier: "centerFrequency",
         name: "Corner Frequency (Hz)",
         address: akGetParameterAddress("HighShelfParametricEqualizerFilterParameterCenterFrequency"),
+        defaultValue: 1_000,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Corner frequency.
-    @Parameter public var centerFrequency: AUValue
+    @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for gain
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("HighShelfParametricEqualizerFilterParameterGain"),
+        defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amount at which the corner frequency value shall be changed. A value of 1 is a flat response.
-    @Parameter public var gain: AUValue
+    @Parameter(gainDef) public var gain: AUValue
 
     /// Specification details for q
     public static let qDef = NodeParameterDef(
         identifier: "q",
         name: "Q",
         address: akGetParameterAddress("HighShelfParametricEqualizerFilterParameterQ"),
+        defaultValue: 0.707,
         range: 0.0 ... 2.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Q of the filter. sqrt(0.5) is no resonance.
-    @Parameter public var q: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for HighShelfParametricEqualizerFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [HighShelfParametricEqualizerFilter.centerFrequencyDef,
-             HighShelfParametricEqualizerFilter.gainDef,
-             HighShelfParametricEqualizerFilter.qDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("HighShelfParametricEqualizerFilterDSP")
-        }
-    }
+    @Parameter(qDef) public var q: AUValue
 
     // MARK: - Initialization
 
@@ -85,25 +65,16 @@ public class HighShelfParametricEqualizerFilter: Node, AudioUnitContainer, Toggl
     ///
     public init(
         _ input: Node,
-        centerFrequency: AUValue = 1_000,
-        gain: AUValue = 1.0,
-        q: AUValue = 0.707
+        centerFrequency: AUValue = centerFrequencyDef.defaultValue,
+        gain: AUValue = gainDef.defaultValue,
+        q: AUValue = qDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.centerFrequency = centerFrequency
-            self.gain = gain
-            self.q = q
-        }
-        connections.append(input)
-    }
+        self.centerFrequency = centerFrequency
+        self.gain = gain
+        self.q = q
+   }
 }

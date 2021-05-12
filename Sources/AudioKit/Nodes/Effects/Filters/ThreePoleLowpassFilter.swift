@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
-public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
+public class ThreePoleLowpassFilter: Node {
 
-    /// Unique four-letter identifier "lp18"
-    public static let ComponentDescription = AudioComponentDescription(effect: "lp18")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "lp18")
 
     // MARK: - Parameters
 
@@ -23,55 +22,36 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "distortion",
         name: "Distortion (%)",
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterDistortion"),
+        defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
-    @Parameter public var distortion: AUValue
+    @Parameter(distortionDef) public var distortion: AUValue
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterCutoffFrequency"),
+        defaultValue: 1_500,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Filter cutoff frequency in Hertz.
-    @Parameter public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance (%)",
         address: akGetParameterAddress("ThreePoleLowpassFilterParameterResonance"),
+        defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
-    @Parameter public var resonance: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for ThreePoleLowpassFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [ThreePoleLowpassFilter.distortionDef,
-             ThreePoleLowpassFilter.cutoffFrequencyDef,
-             ThreePoleLowpassFilter.resonanceDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("ThreePoleLowpassFilterDSP")
-        }
-    }
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     // MARK: - Initialization
 
@@ -85,25 +65,16 @@ public class ThreePoleLowpassFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        distortion: AUValue = 0.5,
-        cutoffFrequency: AUValue = 1_500,
-        resonance: AUValue = 0.5
+        distortion: AUValue = distortionDef.defaultValue,
+        cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
+        resonance: AUValue = resonanceDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.distortion = distortion
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
-        }
-        connections.append(input)
-    }
+        self.distortion = distortion
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
+   }
 }

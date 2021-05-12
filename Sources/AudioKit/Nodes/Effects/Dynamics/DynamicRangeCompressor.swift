@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Dynamic range compressor from Faust
-public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
+public class DynamicRangeCompressor: Node {
 
-    /// Unique four-letter identifier "cpsr"
-    public static let ComponentDescription = AudioComponentDescription(effect: "cpsr")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "cpsr")
 
     // MARK: - Parameters
 
@@ -23,68 +22,48 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
         address: akGetParameterAddress("DynamicRangeCompressorParameterRatio"),
+        defaultValue: 1,
         range: 0.01 ... 100.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Ratio to compress with, a value > 1 will compress
-    @Parameter public var ratio: AUValue
+    @Parameter(ratioDef) public var ratio: AUValue
 
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
         address: akGetParameterAddress("DynamicRangeCompressorParameterThreshold"),
+        defaultValue: 0.0,
         range: -100.0 ... 0.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Threshold (in dB) 0 = max
-    @Parameter public var threshold: AUValue
+    @Parameter(thresholdDef) public var threshold: AUValue
 
     /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
         name: "Attack duration",
         address: akGetParameterAddress("DynamicRangeCompressorParameterAttackDuration"),
+        defaultValue: 0.1,
         range: 0.0 ... 1.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Attack duration
-    @Parameter public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for releaseDuration
     public static let releaseDurationDef = NodeParameterDef(
         identifier: "releaseDuration",
         name: "Release duration",
         address: akGetParameterAddress("DynamicRangeCompressorParameterReleaseDuration"),
+        defaultValue: 0.1,
         range: 0.0 ... 1.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Release Duration
-    @Parameter public var releaseDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for DynamicRangeCompressor
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [DynamicRangeCompressor.ratioDef,
-             DynamicRangeCompressor.thresholdDef,
-             DynamicRangeCompressor.attackDurationDef,
-             DynamicRangeCompressor.releaseDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DynamicRangeCompressorDSP")
-        }
-    }
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
     // MARK: - Initialization
 
@@ -99,27 +78,18 @@ public class DynamicRangeCompressor: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        ratio: AUValue = 1,
-        threshold: AUValue = 0.0,
-        attackDuration: AUValue = 0.1,
-        releaseDuration: AUValue = 0.1
+        ratio: AUValue = ratioDef.defaultValue,
+        threshold: AUValue = thresholdDef.defaultValue,
+        attackDuration: AUValue = attackDurationDef.defaultValue,
+        releaseDuration: AUValue = releaseDurationDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.ratio = ratio
-            self.threshold = threshold
-            self.attackDuration = attackDuration
-            self.releaseDuration = releaseDuration
-        }
-        connections.append(input)
-    }
+        self.ratio = ratio
+        self.threshold = threshold
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
+   }
 }

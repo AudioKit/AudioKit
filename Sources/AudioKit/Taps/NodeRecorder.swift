@@ -139,10 +139,10 @@ open class NodeRecorder: NSObject {
         // "If non-nil, attempts to apply this as the format of the specified output bus. This should
         // only be done when attaching to an output bus which is not connected to another node"
         // In most cases AudioKit nodes will be attached to something else.
-        node.avAudioUnitOrNode.installTap(onBus: bus,
-                                          bufferSize: bufferLength,
-                                          format: recordFormat,
-                                          block: process(buffer:time:))
+        node.avAudioNode.installTap(onBus: bus,
+                                    bufferSize: bufferLength,
+                                    format: recordFormat,
+                                    block: process(buffer:time:))
     }
 
     private func process(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
@@ -176,7 +176,7 @@ open class NodeRecorder: NSObject {
             let delay = UInt32(recordBufferDuration * 1_000_000)
             usleep(delay)
         }
-        node.avAudioUnitOrNode.removeTap(onBus: bus)
+        node.avAudioNode.removeTap(onBus: bus)
     }
 
     /// Reset the AVAudioFile to clear previous recordings

@@ -5,20 +5,53 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-open class ParametricEQ: Node, Toggleable {
+public class ParametricEQ: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_ParametricEQ)
 
-    /// Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
-    @Parameter public var centerFreq: AUValue
+    let input: Node
 
-    /// Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
-    @Parameter public var q: AUValue
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Gain (dB) ranges from -20 to 20 (Default: 0)
-    @Parameter public var gain: AUValue
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode { effectAU }
+
+    /// Specification details for centerFreq
+    public static let centerFreqDef = NodeParameterDef(
+        identifier: "centerFreq",
+        name: "Center Freq",
+        address: 0,
+        defaultValue: 2000,
+        range: 20 ... 22050,
+        unit: .hertz)
+
+    /// Center Freq (Hertz) ranges from 20 to 22050 (Default: 2000)
+    @Parameter(centerFreqDef) public var centerFreq: AUValue
+
+    /// Specification details for q
+    public static let qDef = NodeParameterDef(
+        identifier: "q",
+        name: "Q",
+        address: 1,
+        defaultValue: 1.0,
+        range: 0.1 ... 20,
+        unit: .hertz)
+
+    /// Q (Hertz) ranges from 0.1 to 20 (Default: 1.0)
+    @Parameter(qDef) public var q: AUValue
+
+    /// Specification details for gain
+    public static let gainDef = NodeParameterDef(
+        identifier: "gain",
+        name: "Gain",
+        address: 2,
+        defaultValue: 0,
+        range: -20 ... 20,
+        unit: .decibels)
+
+    /// Gain (decibels) ranges from -20 to 20 (Default: 0)
+    @Parameter(gainDef) public var gain: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -26,21 +59,18 @@ open class ParametricEQ: Node, Toggleable {
     /// Initialize the parametric eq node
     ///
     /// - parameter input: Input node to process
-    /// - parameter centerFreq: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
-    /// - parameter q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
-    /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
+    /// - parameter centerFreq: Center Freq (Hertz) ranges from 20 to 22050 (Default: 2000)
+    /// - parameter q: Q (Hertz) ranges from 0.1 to 20 (Default: 1.0)
+    /// - parameter gain: Gain (decibels) ranges from -20 to 20 (Default: 0)
     ///
     public init(
         _ input: Node,
-        centerFreq: AUValue = 2000,
-        q: AUValue = 1.0,
-        gain: AUValue = 0) {
-        super.init(avAudioNode: effectAU)
-        connections.append(input)
+        centerFreq: AUValue = centerFreqDef.defaultValue,
+        q: AUValue = qDef.defaultValue,
+        gain: AUValue = gainDef.defaultValue) {
+        self.input = input
 
-        self.$centerFreq.associate(with: effectAU, index: 0)
-        self.$q.associate(with: effectAU, index: 1)
-        self.$gain.associate(with: effectAU, index: 2)
+        associateParams(with: effectAU)
 
         self.centerFreq = centerFreq
         self.q = q

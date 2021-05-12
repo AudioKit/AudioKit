@@ -105,7 +105,7 @@ public class AudioEngine {
                 avEngine.attach(node.avAudioNode)
 
                 // has the sample rate changed?
-                if let currentSampleRate = mainMixerNode?.avAudioUnitOrNode.outputFormat(forBus: 0).sampleRate,
+                if let currentSampleRate = mainMixerNode?.avAudioNode.outputFormat(forBus: 0).sampleRate,
                     currentSampleRate != Settings.sampleRate {
                     Log("Sample Rate has changed, creating new mainMixerNode at", Settings.sampleRate)
                     removeEngineMixer()

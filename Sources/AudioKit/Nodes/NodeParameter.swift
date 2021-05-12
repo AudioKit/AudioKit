@@ -11,31 +11,35 @@ public struct NodeParameterDef {
     public var name: String
     /// Address
     public var address: AUParameterAddress
+    /// Starting value if not set in initializer
+    public var defaultValue: AUValue = 0.0
     /// Value Range
     public var range: ClosedRange<AUValue>
     /// Physical Units
     public var unit: AudioUnitParameterUnit
     /// Options
     public var flags: AudioUnitParameterOptions
-
-
+    
     /// Initialize node parameter definition with all data
     /// - Parameters:
     ///   - identifier: Unique ID
     ///   - name: Name
     ///   - address: Address
+    ///   - defaultValue: Starting value
     ///   - range: Value range
     ///   - unit: Physical units
     ///   - flags: Audio Unit Parameter options
     public init(identifier: String,
                 name: String,
                 address: AUParameterAddress,
+                defaultValue: AUValue,
                 range: ClosedRange<AUValue>,
                 unit: AudioUnitParameterUnit,
-                flags: AudioUnitParameterOptions) {
+                flags: AudioUnitParameterOptions = .default) {
         self.identifier = identifier
         self.name = name
         self.address = address
+        self.defaultValue = defaultValue
         self.range = range
         self.unit = unit
         self.flags = flags
@@ -45,10 +49,13 @@ public struct NodeParameterDef {
 /// NodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
 public class NodeParameter {
-    private var avAudioUnit: AVAudioUnit!
+    private var avAudioNode: AVAudioNode!
 
     /// AU Parameter that this wraps
     public private(set) var parameter: AUParameter!
+
+    /// Definition.
+    public var def: NodeParameterDef
 
     // MARK: Parameter properties
 
@@ -78,6 +85,12 @@ public class NodeParameter {
     public var range: ClosedRange<AUValue> {
         (parameter.minValue ... parameter.maxValue)
     }
+    
+    /// Initial with definition
+    /// - Parameter def: Node parameter definition
+    public init(_ def: NodeParameterDef) {
+        self.def = def
+    }
 
     // MARK: Automation
 
@@ -90,10 +103,10 @@ public class NodeParameter {
     /// - Parameter events: automation curve
     /// - Parameter startTime: optional time to start automation
     public func automate(events: [AutomationEvent], startTime: AVAudioTime? = nil) {
-        var lastRenderTime = avAudioUnit.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
+        var lastRenderTime = avAudioNode.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
 
         if !lastRenderTime.isSampleTimeValid {
-            if let engine = avAudioUnit.engine, engine.isInManualRenderingMode {
+            if let engine = avAudioNode.engine, engine.isInManualRenderingMode {
                 lastRenderTime = AVAudioTime(sampleTime: engine.manualRenderingSampleTime, atRate: Settings.sampleRate)
             } else {
                 lastRenderTime = AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
@@ -118,19 +131,19 @@ public class NodeParameter {
             guard let automationBaseAddress = automationPtr.baseAddress else { return }
 
             guard let observer = ParameterAutomationGetRenderObserver(parameter.address,
-                                                                      avAudioUnit.auAudioUnit.scheduleParameterBlock,
+                                                                      avAudioNode.auAudioUnit.scheduleParameterBlock,
                                                                       Float(Settings.sampleRate),
                                                                       Float(lastTime.sampleTime),
                                                                       automationBaseAddress,
                                                                       events.count) else { return }
 
-            renderObserverToken = avAudioUnit.auAudioUnit.token(byAddingRenderObserver: observer)
+            renderObserverToken = avAudioNode.auAudioUnit.token(byAddingRenderObserver: observer)
         }
     }
 
     /// Automate to a new value using a ramp.
     public func ramp(to value: AUValue, duration: Float) {
-        let paramBlock = avAudioUnit.auAudioUnit.scheduleParameterBlock
+        let paramBlock = avAudioNode.auAudioUnit.scheduleParameterBlock
         paramBlock(AUEventSampleTimeImmediate,
                    AUAudioFrameCount(duration * Float(Settings.sampleRate)),
                    parameter.address,
@@ -140,7 +153,7 @@ public class NodeParameter {
     /// Stop automation
     public func stopAutomation() {
         if let token = renderObserverToken {
-            avAudioUnit.auAudioUnit.removeRenderObserver(token)
+            avAudioNode.auAudioUnit.removeRenderObserver(token)
         }
     }
 
@@ -171,22 +184,28 @@ public class NodeParameter {
     }
 
     // MARK: Lifecycle
-
-    /// This function should be called from Node subclasses as soon as a valid AU is obtained
-    public func associate(with avAudioUnit: AVAudioUnit, identifier: String) {
-        self.avAudioUnit = avAudioUnit
-        parameter = avAudioUnit.auAudioUnit.parameterTree?[identifier]
-        assert(parameter != nil)
-    }
-
+    
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
-    ///   - avAudioUnit: AVAudioUnit to associate with
-    ///   - index: Position of the parameter
-    public func associate(with avAudioUnit: AVAudioUnit, index: Int) {
-        self.avAudioUnit = avAudioUnit
-        parameter = avAudioUnit.auAudioUnit.parameterTree!.allParameters[index]
+    ///   - avAudioNode: AVAudioUnit to associate with
+    public func associate(with avAudioNode: AVAudioNode) {
+        self.avAudioNode = avAudioNode
+        guard let tree = avAudioNode.auAudioUnit.parameterTree else {
+            fatalError("No parameter tree.")
+        }
+        parameter = tree.allParameters[Int(def.address)]
+        // For some reason the previous line works whereas the following commented out line doesn't
+        // parameter = tree.parameter(withAddress: def.address)
         assert(parameter != nil)
+    }
+    
+    /// Helper function to attach the parameter to the appropriate tree
+    /// - Parameters:
+    ///   - avAudioNode: AVAudioUnit to associate with
+    ///   - parameter: Parameter to associate
+    public func associate(with avAudioNode: AVAudioNode, parameter: AUParameter) {
+        self.avAudioNode = avAudioNode
+        self.parameter = parameter
     }
 
     /// Sends a .touch event to the parameter automation observer, beginning automation recording if
@@ -250,9 +269,9 @@ protocol ParameterBase {
 /// Use the $ operator to access the underlying NodeParameter. For example:
 /// `osc.$frequency.maxValue`
 ///
-/// When writing an Node, use:
+/// When writing a Node, use:
 /// ```
-/// @Parameter var myParameterName: AUValue
+/// @Parameter(myParameterDef) var myParameterName: AUValue
 /// ```
 /// This syntax gives us additional flexibility for how parameters are implemented internally.
 ///
@@ -260,10 +279,12 @@ protocol ParameterBase {
 /// because we don't yet have an underlying AUParameter.
 @propertyWrapper
 public struct Parameter<Value: NodeParameterType>: ParameterBase {
-    var param = NodeParameter()
+    var param: NodeParameter
 
-    /// Empty initializer
-    public init() {}
+    /// Create a parameter given a definition
+    public init(_ def: NodeParameterDef) {
+        param = NodeParameter(def)
+    }
 
     /// Get the wrapped value
     public var wrappedValue: Value {

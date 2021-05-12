@@ -9,11 +9,18 @@ import CAudioKit
 /// loop will not be totally seamless.
 
 public class AudioPlayer: Node {
+
+    /// Nodes providing input to this node.
+    public var connections: [Node] { [] }
+
     /// The underlying player node
     public private(set) var playerNode = AVAudioPlayerNode()
 
     /// The output of the AudioPlayer and provides sample rate conversion if needed
     public private(set) var mixerNode = AVAudioMixerNode()
+
+    /// The internal AVAudioEngine AVAudioNode
+    public var avAudioNode: AVAudioNode { return mixerNode }
 
     /// Just the playerNode's property, values above 1 will have gain applied
     public var volume: AUValue {
@@ -177,28 +184,14 @@ public class AudioPlayer: Node {
             return
         }
     }
-
-    // called in the connection chain to attach the playerNode
-    override func makeAVConnections() {
-        guard let engine = mixerNode.engine else {
-            Log("Engine is nil", type: .error)
-            return
-        }
-        engine.attach(playerNode)
-        engine.connect(playerNode, to: mixerNode, format: nil)
-    }
-
+    
     // MARK: - Init
 
     /// Create an AudioPlayer with default properties and nothing pre-loaded
-    public init() {
-        super.init(avAudioNode: mixerNode)
-    }
+    public init() { }
 
     /// Create an AudioPlayer from file, optionally choosing to buffer it
     public init?(file: AVAudioFile, buffered: Bool = false) {
-        super.init(avAudioNode: mixerNode)
-
         do {
             try load(file: file, buffered: buffered)
         } catch let error as NSError {
@@ -258,4 +251,18 @@ public class AudioPlayer: Node {
     public func load(buffer: AVAudioPCMBuffer) {
         self.buffer = buffer
     }
+}
+
+extension AudioPlayer: HasInternalConnections {
+
+    /// called in the connection chain to attach the playerNode
+    public func makeInternalConnections() {
+        guard let engine = mixerNode.engine else {
+            Log("Engine is nil", type: .error)
+            return
+        }
+        engine.attach(playerNode)
+        engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
+    }
+
 }

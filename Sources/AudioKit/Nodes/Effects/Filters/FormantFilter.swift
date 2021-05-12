@@ -7,16 +7,15 @@ import CAudioKit
 /// When fed with a pulse train, it will generate a series of overlapping grains. 
 /// Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps.
 /// 
-public class FormantFilter: Node, AudioUnitContainer, Toggleable {
+public class FormantFilter: Node {
 
-    /// Unique four-letter identifier "fofi"
-    public static let ComponentDescription = AudioComponentDescription(effect: "fofi")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "fofi")
 
     // MARK: - Parameters
 
@@ -25,55 +24,36 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "centerFrequency",
         name: "Center Frequency (Hz)",
         address: akGetParameterAddress("FormantFilterParameterCenterFrequency"),
+        defaultValue: 1_000,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Center frequency.
-    @Parameter public var centerFrequency: AUValue
+    @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
 
     /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
         name: "Impulse response attack time (Seconds)",
         address: akGetParameterAddress("FormantFilterParameterAttackDuration"),
+        defaultValue: 0.007,
         range: 0.0 ... 0.1,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Impulse response attack time (in seconds).
-    @Parameter public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
         identifier: "decayDuration",
         name: "Impulse reponse decay time (Seconds)",
         address: akGetParameterAddress("FormantFilterParameterDecayDuration"),
+        defaultValue: 0.04,
         range: 0.0 ... 0.1,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Impulse reponse decay time (in seconds)
-    @Parameter public var decayDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for FormantFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [FormantFilter.centerFrequencyDef,
-             FormantFilter.attackDurationDef,
-             FormantFilter.decayDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("FormantFilterDSP")
-        }
-    }
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
     // MARK: - Initialization
 
@@ -87,25 +67,16 @@ public class FormantFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        centerFrequency: AUValue = 1_000,
-        attackDuration: AUValue = 0.007,
-        decayDuration: AUValue = 0.04
+        centerFrequency: AUValue = centerFrequencyDef.defaultValue,
+        attackDuration: AUValue = attackDurationDef.defaultValue,
+        decayDuration: AUValue = decayDurationDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.centerFrequency = centerFrequency
-            self.attackDuration = attackDuration
-            self.decayDuration = decayDuration
-        }
-        connections.append(input)
-    }
+        self.centerFrequency = centerFrequency
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
+   }
 }

@@ -7,18 +7,13 @@ import CAudioKit
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 /// 
-public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
+public class MorphingOscillator: Node {
 
-    /// Unique four-letter identifier "morf"
-    public static let ComponentDescription = AudioComponentDescription(generator: "morf")
+    /// Connected nodes
+    public var connections: [Node] { [] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(instrument: "morf")
 
     fileprivate var waveformArray = [Table]()
 
@@ -27,81 +22,60 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Frequency (in Hz)",
         address: akGetParameterAddress("MorphingOscillatorParameterFrequency"),
+        defaultValue: 440,
         range: 0.0 ... 22_050.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency (in Hz)
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude (typically a value between 0 and 1).",
         address: akGetParameterAddress("MorphingOscillatorParameterAmplitude"),
+        defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Amplitude (typically a value between 0 and 1).
-    @Parameter public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification details for index
     public static let indexDef = NodeParameterDef(
         identifier: "index",
         name: "Index of the wavetable to use (fractional are okay).",
         address: akGetParameterAddress("MorphingOscillatorParameterIndex"),
+        defaultValue: 0.0,
         range: 0.0 ... 3.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Index of the wavetable to use (fractional are okay).
-    @Parameter public var index: AUValue
+    @Parameter(indexDef) public var index: AUValue
 
     /// Specification details for detuningOffset
     public static let detuningOffsetDef = NodeParameterDef(
         identifier: "detuningOffset",
         name: "Frequency offset (Hz)",
         address: akGetParameterAddress("MorphingOscillatorParameterDetuningOffset"),
+        defaultValue: 0,
         range: -1_000.0 ... 1_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency offset in Hz.
-    @Parameter public var detuningOffset: AUValue
+    @Parameter(detuningOffsetDef) public var detuningOffset: AUValue
 
     /// Specification details for detuningMultiplier
     public static let detuningMultiplierDef = NodeParameterDef(
         identifier: "detuningMultiplier",
         name: "Frequency detuning multiplier",
         address: akGetParameterAddress("MorphingOscillatorParameterDetuningMultiplier"),
+        defaultValue: 1,
         range: 0.9 ... 1.11,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Frequency detuning multiplier
-    @Parameter public var detuningMultiplier: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for MorphingOscillator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [MorphingOscillator.frequencyDef,
-             MorphingOscillator.amplitudeDef,
-             MorphingOscillator.indexDef,
-             MorphingOscillator.detuningOffsetDef,
-             MorphingOscillator.detuningMultiplierDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("MorphingOscillatorDSP")
-        }
-    }
+    @Parameter(detuningMultiplierDef) public var detuningMultiplier: AUValue
 
     // MARK: - Initialization
 
@@ -117,33 +91,24 @@ public class MorphingOscillator: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         waveformArray: [Table] = [Table(.triangle), Table(.square), Table(.sine), Table(.sawtooth)],
-        frequency: AUValue = 440,
-        amplitude: AUValue = 0.5,
-        index: AUValue = 0.0,
-        detuningOffset: AUValue = 0,
-        detuningMultiplier: AUValue = 1
+        frequency: AUValue = frequencyDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue,
+        index: AUValue = indexDef.defaultValue,
+        detuningOffset: AUValue = detuningOffsetDef.defaultValue,
+        detuningMultiplier: AUValue = detuningMultiplierDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        self.stop()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            for (i, waveform) in waveformArray.enumerated() {
-                self.internalAU?.setWavetable(waveform.content, index: i)
-            }
-            self.waveformArray = waveformArray 
-            self.frequency = frequency
-            self.amplitude = amplitude
-            self.index = index
-            self.detuningOffset = detuningOffset
-            self.detuningMultiplier = detuningMultiplier
+        for (i, waveform) in waveformArray.enumerated() {
+            au.setWavetable(waveform.content, index: i)
         }
+        self.waveformArray = waveformArray 
+        self.frequency = frequency
+        self.amplitude = amplitude
+        self.index = index
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
     }
 }

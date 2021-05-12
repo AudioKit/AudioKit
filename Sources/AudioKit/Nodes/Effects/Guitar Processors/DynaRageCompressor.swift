@@ -6,17 +6,16 @@ import CAudioKit
 /// DynaRage Tube Compressor | Based on DynaRage Tube Compressor RE for Reason
 /// by Devoloop Srls
 ///
-public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
+public class DynaRageCompressor: Node {
 
-    /// Unique four-letter identifier "dyrc"
-    public static let ComponentDescription = AudioComponentDescription(effect: "dyrc")
+    let input: Node
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "dyrc")
+    
     // MARK: - Parameters
 
     /// Specification details for ratio
@@ -24,94 +23,72 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
         identifier: "ratio",
         name: "Ratio to compress with, a value > 1 will compress",
         address: akGetParameterAddress("DynaRageCompressorParameterRatio"),
+        defaultValue: 1,
         range: 1.0 ... 20.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Ratio to compress with, a value > 1 will compress
-    @Parameter public var ratio: AUValue
+    @Parameter(ratioDef) public var ratio: AUValue
 
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
         identifier: "threshold",
         name: "Threshold (in dB) 0 = max",
         address: akGetParameterAddress("DynaRageCompressorParameterThreshold"),
+        defaultValue: 0.0,
         range: -100.0 ... 0.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Threshold (in dB) 0 = max
-    @Parameter public var threshold: AUValue
+    @Parameter(thresholdDef) public var threshold: AUValue
 
     /// Specification details for attack duration
     public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
         name: "Attack Duration",
         address: akGetParameterAddress("DynaRageCompressorParameterAttackDuration"),
+        defaultValue: 0.1,
         range: 0.1 ... 500.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Attack dration
-    @Parameter public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for release duration
     public static let releaseDurationDef = NodeParameterDef(
         identifier: "releaseDuration",
         name: "Release Duration",
         address: akGetParameterAddress("DynaRageCompressorParameterReleaseDuration"),
+        defaultValue: 0.1,
         range: 1.0 ... 20.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Release duration
-    @Parameter public var releaseDuration: AUValue
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
     /// Specification details for rage amount
     public static let rageDef = NodeParameterDef(
         identifier: "rage",
         name: "Rage",
         address: akGetParameterAddress("DynaRageCompressorParameterRage"),
+        defaultValue: 0.1,
         range: 0.1 ... 20.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Rage Amount
-    @Parameter public var rage: AUValue
+    @Parameter(rageDef) public var rage: AUValue
 
     /// Specification details for range enabling
     public static let rageEnabledDef = NodeParameterDef(
         identifier: "rageEnabled",
         name: "Rage Enabled",
         address: akGetParameterAddress("DynaRageCompressorParameterRageEnabled"),
+        defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .boolean,
-        flags: .default)
+        unit: .boolean)
 
     /// Rage ON/OFF Switch
-    @Parameter public var rageEnabled: Bool
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for DynaRageCompressor
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [DynaRageCompressor.ratioDef,
-             DynaRageCompressor.thresholdDef,
-             DynaRageCompressor.attackDurationDef,
-             DynaRageCompressor.releaseDurationDef,
-             DynaRageCompressor.rageDef,
-             DynaRageCompressor.rageEnabledDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DynaRageCompressorDSP")
-        }
-    }
+    @Parameter(rageEnabledDef) public var rageEnabled: Bool
 
     // MARK: - Initialization
 
@@ -126,30 +103,22 @@ public class DynaRageCompressor: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        ratio: AUValue = 1,
-        threshold: AUValue = 0.0,
-        attackDuration: AUValue = 0.1,
-        releaseDuration: AUValue = 0.1,
-        rage: AUValue = 0.1,
-        rageEnabled: Bool = true
+        ratio: AUValue = ratioDef.defaultValue,
+        threshold: AUValue = thresholdDef.defaultValue,
+        attackDuration: AUValue = attackDurationDef.defaultValue,
+        releaseDuration: AUValue = releaseDurationDef.defaultValue,
+        rage: AUValue = rageDef.defaultValue,
+        rageEnabled: Bool = rageEnabledDef.defaultValue == 1.0
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.ratio = ratio
-            self.threshold = threshold
-            self.attackDuration = attackDuration
-            self.releaseDuration = releaseDuration
-            self.rage = rage
-            self.rageEnabled = rageEnabled
-
-        }
-
-        connections.append(input)
+        self.input = input
+        
+        setupParameters()
+        
+        self.ratio = ratio
+        self.threshold = threshold
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
+        self.rage = rage
+        self.rageEnabled = rageEnabled
     }
 }

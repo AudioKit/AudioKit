@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Analogue model of the Korg 35 Lowpass Filter
-public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
+public class KorgLowPassFilter: Node {
 
-    /// Unique four-letter identifier "klpf"
-    public static let ComponentDescription = AudioComponentDescription(effect: "klpf")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "klpf")
 
     // MARK: - Parameters
 
@@ -23,55 +22,36 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
         identifier: "cutoffFrequency",
         name: "Filter cutoff",
         address: akGetParameterAddress("KorgLowPassFilterParameterCutoffFrequency"),
+        defaultValue: 1_000.0,
         range: 0.0 ... 22_050.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Filter cutoff
-    @Parameter public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Filter resonance (should be between 0-2)",
         address: akGetParameterAddress("KorgLowPassFilterParameterResonance"),
+        defaultValue: 1.0,
         range: 0.0 ... 2.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Filter resonance (should be between 0-2)
-    @Parameter public var resonance: AUValue
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     /// Specification details for saturation
     public static let saturationDef = NodeParameterDef(
         identifier: "saturation",
         name: "Filter saturation.",
         address: akGetParameterAddress("KorgLowPassFilterParameterSaturation"),
+        defaultValue: 0.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Filter saturation.
-    @Parameter public var saturation: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for KorgLowPassFilter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [KorgLowPassFilter.cutoffFrequencyDef,
-             KorgLowPassFilter.resonanceDef,
-             KorgLowPassFilter.saturationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("KorgLowPassFilterDSP")
-        }
-    }
+    @Parameter(saturationDef) public var saturation: AUValue
 
     // MARK: - Initialization
 
@@ -85,25 +65,16 @@ public class KorgLowPassFilter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        cutoffFrequency: AUValue = 1_000.0,
-        resonance: AUValue = 1.0,
-        saturation: AUValue = 0.0
+        cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
+        resonance: AUValue = resonanceDef.defaultValue,
+        saturation: AUValue = saturationDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
-            self.saturation = saturation
-        }
-        connections.append(input)
-    }
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
+        self.saturation = saturation
+   }
 }

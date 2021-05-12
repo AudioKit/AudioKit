@@ -5,47 +5,25 @@ import AVFoundation
 import CAudioKit
 
 /// White noise generator
-public class WhiteNoise: Node, AudioUnitContainer, Toggleable {
+public class WhiteNoise: Node {
 
-    /// Unique four-letter identifier "wnoz"
-    public static let ComponentDescription = AudioComponentDescription(generator: "wnoz")
+    /// Connected nodes
+    public var connections: [Node] { [] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(instrument: "wnoz")
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("WhiteNoiseParameterAmplitude"),
+        defaultValue: 1,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amplitude. (Value between 0-1).
-    @Parameter public var amplitude: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for WhiteNoise
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [WhiteNoise.amplitudeDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("WhiteNoiseDSP")
-        }
-    }
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 
@@ -55,21 +33,12 @@ public class WhiteNoise: Node, AudioUnitContainer, Toggleable {
     ///   - amplitude: Amplitude. (Value between 0-1).
     ///
     public init(
-        amplitude: AUValue = 1
+        amplitude: AUValue = amplitudeDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        self.stop()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
-
-            self.amplitude = amplitude
-        }
+        self.amplitude = amplitude
     }
 }

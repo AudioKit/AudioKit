@@ -15,7 +15,6 @@ public:
     DryWetMixerDSP() {
         inputBufferLists.resize(2);
         parameters[DryWetMixerParameterBalance] = &balanceRamp;
-        bCanProcessInPlace = true;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
@@ -39,5 +38,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(DryWetMixerDSP)
+AK_REGISTER_DSP(DryWetMixerDSP, "dwmx")
 AK_REGISTER_PARAMETER(DryWetMixerParameterBalance)

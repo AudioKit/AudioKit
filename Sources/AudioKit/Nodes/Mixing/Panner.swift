@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Panner
-public class Panner: Node, AudioUnitContainer, Toggleable {
+public class Panner: Node {
 
-    /// Unique four-letter identifier "pan2"
-    public static let ComponentDescription = AudioComponentDescription(effect: "pan2")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "pan2")
 
     // MARK: - Parameters
 
@@ -23,29 +22,12 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
         identifier: "pan",
         name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
         address: akGetParameterAddress("PannerParameterPan"),
+        defaultValue: 0,
         range: -1 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
-    @Parameter public var pan: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Panner
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Panner.panDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PannerDSP")
-        }
-    }
+    @Parameter(panDef) public var pan: AUValue
 
     // MARK: - Initialization
 
@@ -57,21 +39,12 @@ public class Panner: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        pan: AUValue = 0
+        pan: AUValue = panDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.pan = pan
-        }
-        connections.append(input)
-    }
+        self.pan = pan
+   }
 }

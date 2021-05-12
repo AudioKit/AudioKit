@@ -5,18 +5,13 @@ import AVFoundation
 import CAudioKit
 
 /// Classic FM Synthesis audio generation.
-public class FMOscillator: Node, AudioUnitContainer, Toggleable {
+public class FMOscillator: Node {
 
-    /// Unique four-letter identifier "fosc"
-    public static let ComponentDescription = AudioComponentDescription(generator: "fosc")
+    /// Connected nodes
+    public var connections: [Node] { [] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(instrument: "fosc")
 
     fileprivate var waveform: Table?
 
@@ -25,81 +20,60 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
         identifier: "baseFrequency",
         name: "Base Frequency (Hz)",
         address: akGetParameterAddress("FMOscillatorParameterBaseFrequency"),
+        defaultValue: 440.0,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// In cycles per second, the common denominator for the carrier and modulating frequencies.
-    @Parameter public var baseFrequency: AUValue
+    @Parameter(baseFrequencyDef) public var baseFrequency: AUValue
 
     /// Specification details for carrierMultiplier
     public static let carrierMultiplierDef = NodeParameterDef(
         identifier: "carrierMultiplier",
         name: "Carrier Multiplier",
         address: akGetParameterAddress("FMOscillatorParameterCarrierMultiplier"),
+        defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
-    @Parameter public var carrierMultiplier: AUValue
+    @Parameter(carrierMultiplierDef) public var carrierMultiplier: AUValue
 
     /// Specification details for modulatingMultiplier
     public static let modulatingMultiplierDef = NodeParameterDef(
         identifier: "modulatingMultiplier",
         name: "Modulating Multiplier",
         address: akGetParameterAddress("FMOscillatorParameterModulatingMultiplier"),
+        defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
-    @Parameter public var modulatingMultiplier: AUValue
+    @Parameter(modulatingMultiplierDef) public var modulatingMultiplier: AUValue
 
     /// Specification details for modulationIndex
     public static let modulationIndexDef = NodeParameterDef(
         identifier: "modulationIndex",
         name: "Modulation Index",
         address: akGetParameterAddress("FMOscillatorParameterModulationIndex"),
+        defaultValue: 1.0,
         range: 0.0 ... 1_000.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
-    @Parameter public var modulationIndex: AUValue
+    @Parameter(modulationIndexDef) public var modulationIndex: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("FMOscillatorParameterAmplitude"),
+        defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Output Amplitude.
-    @Parameter public var amplitude: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for FMOscillator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [FMOscillator.baseFrequencyDef,
-             FMOscillator.carrierMultiplierDef,
-             FMOscillator.modulatingMultiplierDef,
-             FMOscillator.modulationIndexDef,
-             FMOscillator.amplitudeDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("FMOscillatorDSP")
-        }
-    }
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 
@@ -115,32 +89,23 @@ public class FMOscillator: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         waveform: Table = Table(.sine),
-        baseFrequency: AUValue = 440.0,
-        carrierMultiplier: AUValue = 1.0,
-        modulatingMultiplier: AUValue = 1.0,
-        modulationIndex: AUValue = 1.0,
-        amplitude: AUValue = 1.0
+        baseFrequency: AUValue = baseFrequencyDef.defaultValue,
+        carrierMultiplier: AUValue = carrierMultiplierDef.defaultValue,
+        modulatingMultiplier: AUValue = modulatingMultiplierDef.defaultValue,
+        modulationIndex: AUValue = modulationIndexDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        self.stop()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.stop()
+        au.setWavetable(waveform.content)
 
-            audioUnit.setWavetable(waveform.content)
-
-            self.waveform = waveform
-            self.baseFrequency = baseFrequency
-            self.carrierMultiplier = carrierMultiplier
-            self.modulatingMultiplier = modulatingMultiplier
-            self.modulationIndex = modulationIndex
-            self.amplitude = amplitude
-        }
+        self.waveform = waveform
+        self.baseFrequency = baseFrequency
+        self.carrierMultiplier = carrierMultiplier
+        self.modulatingMultiplier = modulatingMultiplier
+        self.modulationIndex = modulationIndex
+        self.amplitude = amplitude
     }
 }

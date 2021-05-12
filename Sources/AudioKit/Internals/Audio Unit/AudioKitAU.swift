@@ -4,8 +4,8 @@ import AudioToolbox
 import AVFoundation
 import CAudioKit
 
-/// Base class for many AudioKit nodes
-open class AudioUnitBase: AUAudioUnit {
+/// AudioUnit which instantiates a DSP kernel based on the componentSubType.
+open class AudioKitAU: AUAudioUnit {
     // MARK: AUAudioUnit Overrides
 
     private var inputBusArray: [AUAudioUnitBus] = []
@@ -100,6 +100,12 @@ open class AudioUnitBase: AUAudioUnit {
         return canProcessInPlaceDSP(dsp)
     }
 
+    /// Set in order to bypass processing
+    override public var shouldBypassEffect: Bool {
+        get { return getBypassDSP(dsp) }
+        set { setBypassDSP(dsp, newValue) }
+    }
+
     // MARK: Lifecycle
 
     /// DSP Reference
@@ -114,35 +120,21 @@ open class AudioUnitBase: AUAudioUnit {
                          options: AudioComponentInstantiationOptions = []) throws {
         try super.init(componentDescription: componentDescription, options: options)
 
-        // Create pointer to the underlying C++ DSP code
-        dsp = createDSP()
-        if dsp == nil { throw CommonError.InvalidDSPObject }
+        // Create pointer to C++ DSP code.
+        dsp = akCreateDSP(componentDescription.componentSubType)
+        assert(dsp != nil)
 
         // create audio bus connection points
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         for _ in 0..<inputBusCountDSP(dsp) {
             inputBusArray.append(try AUAudioUnitBus(format: format))
         }
-        for _ in 0..<outputBusCountDSP(dsp) {
-            outputBusArray.append(try AUAudioUnitBus(format: format))
-        }
 
-        if let paramDefs = getParameterDefs() {
-            parameterTree = AUParameterTree.createTree(withChildren:
-                paramDefs.map {
-                    AUParameter(identifier: $0.identifier,
-                                name: $0.name,
-                                address: $0.address,
-                                min: $0.range.lowerBound,
-                                max: $0.range.upperBound,
-                                unit: $0.unit,
-                                flags: $0.flags)
-                }
-            )
+        // All AudioKit nodes have one output bus.
+        outputBusArray.append(try AUAudioUnitBus(format: format))
 
-        } else {
-            parameterTree = AUParameterTree.createTree(withChildren: [])
-        }
+        parameterTree = AUParameterTree.createTree(withChildren: [])
+
     }
 
     deinit {
@@ -151,44 +143,25 @@ open class AudioUnitBase: AUAudioUnit {
 
     // MARK: AudioKit
 
-    /// Whether the audio unit is running
-    public private(set) var isStarted: Bool = true
-
-    /// This should be overridden. All the base class does is make sure that the pointer to the DSP is invalid.
-    open func createDSP() -> DSPRef? {
-        return nil
-    }
-
-    /// Override this to provide a list of definitions from which the `AUParameterTree` is built.
-    open func getParameterDefs() -> [NodeParameterDef]? {
-        return nil
-    }
-
-    /// Start the audio unit
-    public func start() {
-        shouldBypassEffect = false
-        isStarted = true
-        startDSP(dsp)
-    }
-
-    /// Stop the audio unit
-    public func stop() {
-        shouldBypassEffect = true
-        isStarted = false
-        stopDSP(dsp)
+    /// Trigger something within the audio unit
+    public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
+        #if !os(tvOS)
+        guard let midiBlock = scheduleMIDIEventBlock else {
+            fatalError("Attempt to trigger audio unit which doesn't respond to MIDI.")
+        }
+        let event = MIDIEvent(noteOn: note, velocity: velocity, channel: 0)
+        event.data.withUnsafeBufferPointer { ptr in
+            guard let ptr = ptr.baseAddress else { return }
+            midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
+        }
+        #endif
     }
 
     /// Trigger something within the audio unit
     public func trigger() {
-        triggerDSP(dsp)
-    }
-
-    /// Common case of triggering something with a frequency and amplitude
-    /// - Parameters:
-    ///   - frequency: Frequency in Hertz
-    ///   - amplitude: Linear amplitude
-    public func triggerFrequency(_ frequency: AUValue, amplitude: AUValue) {
-        triggerFrequencyDSP(dsp, frequency, amplitude)
+        #if !os(tvOS)
+        trigger(note: 64, velocity: 127)
+        #endif
     }
 
     /// Create an array of values to use as waveforms or other things inside an audio unit

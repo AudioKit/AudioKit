@@ -22,26 +22,24 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
+        if (!isStarted) {
+            amountRamp.stepBy(frameCount);
+            outputBufferList->mBuffers[0] = inputBufferLists[0]->mBuffers[0];
+            outputBufferList->mBuffers[1] = inputBufferLists[0]->mBuffers[1];
+            return;
+        }
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             
             float amount = amountRamp.getAndStep();
 
-            if (!isStarted) {
-                outputBufferList->mBuffers[0] = inputBufferLists[0]->mBuffers[0];
-                outputBufferList->mBuffers[1] = inputBufferLists[0]->mBuffers[1];
-                return;
-            }
-
             float *tmpin[2];
             float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
+            for (int channel = 0; channel < 2; ++channel) {
+                tmpin[channel] = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
+                tmpout[channel] = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
             }
             *tmpout[0] = *tmpin[0] * (1.0f - amount / 2.0) + *tmpin[1] * amount / 2.0;
             *tmpout[1] = *tmpin[1] * (1.0f - amount / 2.0) + *tmpin[0] * amount / 2.0;
@@ -52,5 +50,5 @@ public:
 DSPRef akStereoFieldLimiterCreateDSP() {
     return new StereoFieldLimiterDSP();
 }
-AK_REGISTER_DSP(StereoFieldLimiterDSP)
+AK_REGISTER_DSP(StereoFieldLimiterDSP, "sflm")
 AK_REGISTER_PARAMETER(StereoFieldLimiterParameterAmount)

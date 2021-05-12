@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Triggerable classic ADSR envelope
-public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
+public class AmplitudeEnvelope: Node {
 
-    /// Unique four-letter identifier "adsr"
-    public static let ComponentDescription = AudioComponentDescription(effect: "adsr")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "adsr")
 
     // MARK: - Parameters
 
@@ -23,68 +22,48 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
         identifier: "attackDuration",
         name: "Attack time",
         address: akGetParameterAddress("AmplitudeEnvelopeParameterAttackDuration"),
+        defaultValue: 0.1,
         range: 0 ... 99,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Attack time
-    @Parameter public var attackDuration: AUValue
+    @Parameter(attackDurationDef) public var attackDuration: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
         identifier: "decayDuration",
         name: "Decay time",
         address: akGetParameterAddress("AmplitudeEnvelopeParameterDecayDuration"),
+        defaultValue: 0.1,
         range: 0 ... 99,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Decay time
-    @Parameter public var decayDuration: AUValue
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
     /// Specification details for sustainLevel
     public static let sustainLevelDef = NodeParameterDef(
         identifier: "sustainLevel",
         name: "Sustain Level",
         address: akGetParameterAddress("AmplitudeEnvelopeParameterSustainLevel"),
+        defaultValue: 1.0,
         range: 0 ... 99,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Sustain Level
-    @Parameter public var sustainLevel: AUValue
+    @Parameter(sustainLevelDef) public var sustainLevel: AUValue
 
     /// Specification details for releaseDuration
     public static let releaseDurationDef = NodeParameterDef(
         identifier: "releaseDuration",
         name: "Release time",
         address: akGetParameterAddress("AmplitudeEnvelopeParameterReleaseDuration"),
+        defaultValue: 0.1,
         range: 0 ... 99,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Release time
-    @Parameter public var releaseDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for AmplitudeEnvelope
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [AmplitudeEnvelope.attackDurationDef,
-             AmplitudeEnvelope.decayDurationDef,
-             AmplitudeEnvelope.sustainLevelDef,
-             AmplitudeEnvelope.releaseDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("AmplitudeEnvelopeDSP")
-        }
-    }
+    @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
     // MARK: - Initialization
 
@@ -99,27 +78,18 @@ public class AmplitudeEnvelope: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        attackDuration: AUValue = 0.1,
-        decayDuration: AUValue = 0.1,
-        sustainLevel: AUValue = 1.0,
-        releaseDuration: AUValue = 0.1
+        attackDuration: AUValue = attackDurationDef.defaultValue,
+        decayDuration: AUValue = decayDurationDef.defaultValue,
+        sustainLevel: AUValue = sustainLevelDef.defaultValue,
+        releaseDuration: AUValue = releaseDurationDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.attackDuration = attackDuration
-            self.decayDuration = decayDuration
-            self.sustainLevel = sustainLevel
-            self.releaseDuration = releaseDuration
-        }
-        connections.append(input)
-    }
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
+        self.sustainLevel = sustainLevel
+        self.releaseDuration = releaseDuration
+   }
 }

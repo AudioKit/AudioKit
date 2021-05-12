@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(EqualizerFilterDSP)
+AK_REGISTER_DSP(EqualizerFilterDSP,  "eqfl")
 AK_REGISTER_PARAMETER(EqualizerFilterParameterCenterFrequency)
 AK_REGISTER_PARAMETER(EqualizerFilterParameterBandwidth)
 AK_REGISTER_PARAMETER(EqualizerFilterParameterGain)

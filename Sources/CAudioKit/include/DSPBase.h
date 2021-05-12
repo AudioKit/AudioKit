@@ -7,13 +7,12 @@
 
 #include <stdarg.h>
 
-AK_API DSPRef akCreateDSP(const char* name);
+AK_API DSPRef akCreateDSP(OSType code);
 AK_API AUParameterAddress akGetParameterAddress(const char* name);
 
 AK_API AUInternalRenderBlock internalRenderBlockDSP(DSPRef pDSP);
 
 AK_API size_t inputBusCountDSP(DSPRef pDSP);
-AK_API size_t outputBusCountDSP(DSPRef pDSP);
 AK_API bool canProcessInPlaceDSP(DSPRef pDSP);
 
 AK_API void setBufferDSP(DSPRef pDSP, AudioBufferList* buffer, size_t busIndex);
@@ -24,13 +23,10 @@ AK_API void resetDSP(DSPRef pDSP);
 AK_API void setParameterValueDSP(DSPRef pDSP, AUParameterAddress address, AUValue value);
 AK_API AUValue getParameterValueDSP(DSPRef pDSP, AUParameterAddress address);
 
-AK_API void startDSP(DSPRef pDSP);
-AK_API void stopDSP(DSPRef pDSP);
+AK_API void setBypassDSP(DSPRef pDSP, bool bypassed);
+AK_API bool getBypassDSP(DSPRef pDSP);
 
 AK_API void initializeConstantDSP(DSPRef pDSP, AUValue value);
-
-AK_API void triggerDSP(DSPRef pDSP);
-AK_API void triggerFrequencyDSP(DSPRef pDSP, AUValue frequency, AUValue amplitude);
 
 AK_API void setWavetableDSP(DSPRef pDSP, const float* table, size_t length, int index);
 
@@ -58,12 +54,8 @@ protected:
 
     int channelCount;
     double sampleRate;
-    
-    /// Subclasses should process in place and set this to true if possible
-    bool bCanProcessInPlace = false;
 
     bool isInitialized = false;
-    std::atomic<bool> isStarted{true};
 
     // current time in samples
     AUEventSampleTime now = 0;
@@ -72,21 +64,24 @@ protected:
     
     class ParameterRamper* parameters[maxParameters];
 
+    std::vector<AudioBufferList*> inputBufferLists;
+    AudioBufferList* outputBufferList = nullptr;
+
 public:
     
-    DSPBase(int inputBusCount=1);
+    DSPBase(int inputBusCount=1, bool canProcessInPlace=false);
     
     /// Virtual destructor allows child classes to be deleted with only DSPBase *pointer
     virtual ~DSPBase();
     
-    std::vector<AudioBufferList*> inputBufferLists;
-    AudioBufferList* outputBufferList = nullptr;
-    
     AUInternalRenderBlock internalRenderBlock();
-    
-    inline bool canProcessInPlace() const { return bCanProcessInPlace; }
+
+    const bool bCanProcessInPlace;
+
+    std::atomic<bool> isStarted{true};
     
     void setBuffer(AudioBufferList* buffer, size_t busIndex);
+    size_t getInputBusCount() const { return inputBufferLists.size(); }
     
     /// The Render function.
     virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
@@ -107,38 +102,12 @@ public:
     virtual void setupIndividualWaveform(uint32_t waveform, uint32_t size) {}
 
     virtual void setIndividualWaveformValue(uint32_t waveform, uint32_t index, float value) {}
-
-    /// STK Triggers
-    virtual void trigger() {}
-
-    virtual void triggerFrequencyAmplitude(AUValue frequency, AUValue amplitude) {}
     
     /// override this if your DSP kernel allocates memory or requires the session sample rate for initialization
     virtual void init(int channelCount, double sampleRate);
 
     /// override this if your DSP kernel allocates memory; free it here
     virtual void deinit();
-
-    // Add for compatibility with AKAudioUnit
-    virtual void start()
-    {
-        isStarted = true;
-    }
-
-    virtual void stop()
-    {
-        isStarted = false;
-    }
-
-    virtual bool isPlaying()
-    {
-        return isStarted;
-    }
-
-    virtual bool isSetup()
-    {
-        return isInitialized;
-    }
 
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) {}
 
@@ -187,8 +156,8 @@ struct DSPRegistration {
 
 /// Convenience macro for registering a subclass of DSPBase.
 ///
-/// You'll want to do `AK_REGISTER_DSP(AKMyClass)` in order to be able to call `akCreateDSP("MyClass")`
-#define AK_REGISTER_DSP(ClassName) DSPRegistration<ClassName> __register##ClassName(#ClassName);
+/// You'll want to do `AK_REGISTER_DSP(AKMyClass, componentSubType)`
+#define AK_REGISTER_DSP(ClassName, Code) DSPRegistration<ClassName> __register##ClassName(Code);
 
 struct ParameterRegistration {
     ParameterRegistration(const char* name, AUParameterAddress address) {

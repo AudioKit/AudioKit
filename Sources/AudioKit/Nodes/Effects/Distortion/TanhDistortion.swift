@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Distortion using a modified hyperbolic tangent function.
-public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
+public class TanhDistortion: Node {
 
-    /// Unique four-letter identifier "dist"
-    public static let ComponentDescription = AudioComponentDescription(effect: "dist")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "dist")
 
     // MARK: - Parameters
 
@@ -23,68 +22,48 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
         identifier: "pregain",
         name: "Pregain",
         address: akGetParameterAddress("TanhDistortionParameterPregain"),
+        defaultValue: 2.0,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Determines gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    @Parameter public var pregain: AUValue
+    @Parameter(pregainDef) public var pregain: AUValue
 
     /// Specification details for postgain
     public static let postgainDef = NodeParameterDef(
         identifier: "postgain",
         name: "Postgain",
         address: akGetParameterAddress("TanhDistortionParameterPostgain"),
+        defaultValue: 0.5,
         range: 0.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Gain applied after waveshaping
-    @Parameter public var postgain: AUValue
+    @Parameter(postgainDef) public var postgain: AUValue
 
     /// Specification details for positiveShapeParameter
     public static let positiveShapeParameterDef = NodeParameterDef(
         identifier: "positiveShapeParameter",
         name: "Positive Shape Parameter",
         address: akGetParameterAddress("TanhDistortionParameterPositiveShapeParameter"),
+        defaultValue: 0.0,
         range: -10.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
-    @Parameter public var positiveShapeParameter: AUValue
+    @Parameter(positiveShapeParameterDef) public var positiveShapeParameter: AUValue
 
     /// Specification details for negativeShapeParameter
     public static let negativeShapeParameterDef = NodeParameterDef(
         identifier: "negativeShapeParameter",
         name: "Negative Shape Parameter",
         address: akGetParameterAddress("TanhDistortionParameterNegativeShapeParameter"),
+        defaultValue: 0.0,
         range: -10.0 ... 10.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Like the positive shape parameter, only for the negative part.
-    @Parameter public var negativeShapeParameter: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for TanhDistortion
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [TanhDistortion.pregainDef,
-             TanhDistortion.postgainDef,
-             TanhDistortion.positiveShapeParameterDef,
-             TanhDistortion.negativeShapeParameterDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("TanhDistortionDSP")
-        }
-    }
+    @Parameter(negativeShapeParameterDef) public var negativeShapeParameter: AUValue
 
     // MARK: - Initialization
 
@@ -99,27 +78,18 @@ public class TanhDistortion: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        pregain: AUValue = 2.0,
-        postgain: AUValue = 0.5,
-        positiveShapeParameter: AUValue = 0.0,
-        negativeShapeParameter: AUValue = 0.0
+        pregain: AUValue = pregainDef.defaultValue,
+        postgain: AUValue = postgainDef.defaultValue,
+        positiveShapeParameter: AUValue = positiveShapeParameterDef.defaultValue,
+        negativeShapeParameter: AUValue = negativeShapeParameterDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.pregain = pregain
-            self.postgain = postgain
-            self.positiveShapeParameter = positiveShapeParameter
-            self.negativeShapeParameter = negativeShapeParameter
-        }
-        connections.append(input)
-    }
+        self.pregain = pregain
+        self.postgain = postgain
+        self.positiveShapeParameter = positiveShapeParameter
+        self.negativeShapeParameter = negativeShapeParameter
+   }
 }

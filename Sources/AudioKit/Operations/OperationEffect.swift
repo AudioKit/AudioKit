@@ -6,23 +6,15 @@ import CAudioKit
 let floatRange = -Float.greatestFiniteMagnitude ... Float.greatestFiniteMagnitude
 
 /// Operation-based effect
-public class OperationEffect: Node, AudioUnitContainer, Toggleable {
+public class OperationEffect: Node {
 
-    /// Internal audio unit type
-    public typealias AudioUnitType = InternalAU
-
-    /// Four letter unique description "cstm"
-    public static let ComponentDescription = AudioComponentDescription(effect: "cstm")
-
-    // MARK: - Properties
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
+    let input: Node
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode
 
     // MARK: - Parameters
 
@@ -56,72 +48,33 @@ public class OperationEffect: Node, AudioUnitContainer, Toggleable {
     public static let parameter14Def = OperationGenerator.makeParam(14)
 
     /// Operation parameter 1
-    @Parameter public var parameter1: AUValue
+    @Parameter(parameter1Def) public var parameter1: AUValue
     /// Operation parameter 2
-    @Parameter public var parameter2: AUValue
+    @Parameter(parameter2Def) public var parameter2: AUValue
     /// Operation parameter 3
-    @Parameter public var parameter3: AUValue
+    @Parameter(parameter3Def) public var parameter3: AUValue
     /// Operation parameter 4
-    @Parameter public var parameter4: AUValue
+    @Parameter(parameter4Def) public var parameter4: AUValue
     /// Operation parameter 5
-    @Parameter public var parameter5: AUValue
+    @Parameter(parameter5Def) public var parameter5: AUValue
     /// Operation parameter 6
-    @Parameter public var parameter6: AUValue
+    @Parameter(parameter6Def) public var parameter6: AUValue
     /// Operation parameter 7
-    @Parameter public var parameter7: AUValue
+    @Parameter(parameter7Def) public var parameter7: AUValue
     /// Operation parameter 8
-    @Parameter public var parameter8: AUValue
+    @Parameter(parameter8Def) public var parameter8: AUValue
     /// Operation parameter 9
-    @Parameter public var parameter9: AUValue
+    @Parameter(parameter9Def) public var parameter9: AUValue
     /// Operation parameter 10
-    @Parameter public var parameter10: AUValue
+    @Parameter(parameter10Def) public var parameter10: AUValue
     /// Operation parameter 11
-    @Parameter public var parameter11: AUValue
+    @Parameter(parameter11Def) public var parameter11: AUValue
     /// Operation parameter 12
-    @Parameter public var parameter12: AUValue
+    @Parameter(parameter12Def) public var parameter12: AUValue
     /// Operation parameter 13
-    @Parameter public var parameter13: AUValue
+    @Parameter(parameter13Def) public var parameter13: AUValue
     /// Operation parameter 14
-    @Parameter public var parameter14: AUValue
-
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Operation Effect
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [OperationEffect.parameter1Def,
-             OperationEffect.parameter2Def,
-             OperationEffect.parameter3Def,
-             OperationEffect.parameter4Def,
-             OperationEffect.parameter5Def,
-             OperationEffect.parameter6Def,
-             OperationEffect.parameter7Def,
-             OperationEffect.parameter8Def,
-             OperationEffect.parameter9Def,
-             OperationEffect.parameter10Def,
-             OperationEffect.parameter11Def,
-             OperationEffect.parameter12Def,
-             OperationEffect.parameter13Def,
-             OperationEffect.parameter14Def]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("OperationEffectDSP")
-        }
-
-        /// Set sporth string
-        /// - Parameter sporth: Sporth string
-        public func setSporth(_ sporth: String) {
-            sporth.withCString { str -> Void in
-                akOperationEffectSetSporth(dsp, str, Int32(sporth.utf8CString.count))
-            }
-        }
-    }
+    @Parameter(parameter14Def) public var parameter14: AUValue
 
     // MARK: - Initializers
 
@@ -190,15 +143,10 @@ public class OperationEffect: Node, AudioUnitContainer, Toggleable {
     ///
     public init(_ input: Node, sporth: String) {
 
-        super.init(avAudioNode: AVAudioNode())
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
+        self.input = input
+        avAudioNode = instantiate(effect: "cstm")
+        setupParameters()
 
-            self.internalAU?.setSporth(sporth)
-        }
-
-        connections.append(input)
+        akOperationSetSporth(au.dsp, sporth)
     }
 }

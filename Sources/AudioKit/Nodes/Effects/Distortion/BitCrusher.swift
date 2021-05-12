@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// This will digitally degrade a signal.
-public class BitCrusher: Node, AudioUnitContainer, Toggleable {
+public class BitCrusher: Node {
 
-    /// Unique four-letter identifier "btcr"
-    public static let ComponentDescription = AudioComponentDescription(effect: "btcr")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "btcr")
 
     // MARK: - Parameters
 
@@ -23,42 +22,24 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
         identifier: "bitDepth",
         name: "Bit Depth",
         address: akGetParameterAddress("BitCrusherParameterBitDepth"),
+        defaultValue: 8,
         range: 1 ... 24,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
-    @Parameter public var bitDepth: AUValue
+    @Parameter(bitDepthDef) public var bitDepth: AUValue
 
     /// Specification details for sampleRate
     public static let sampleRateDef = NodeParameterDef(
         identifier: "sampleRate",
         name: "Sample Rate (Hz)",
         address: akGetParameterAddress("BitCrusherParameterSampleRate"),
+        defaultValue: 10_000,
         range: 0.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// The sample rate of signal output.
-    @Parameter public var sampleRate: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for BitCrusher
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [BitCrusher.bitDepthDef,
-             BitCrusher.sampleRateDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("BitCrusherDSP")
-        }
-    }
+    @Parameter(sampleRateDef) public var sampleRate: AUValue
 
     // MARK: - Initialization
 
@@ -71,23 +52,14 @@ public class BitCrusher: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        bitDepth: AUValue = 8,
-        sampleRate: AUValue = 10_000
+        bitDepth: AUValue = bitDepthDef.defaultValue,
+        sampleRate: AUValue = sampleRateDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.bitDepth = bitDepth
-            self.sampleRate = sampleRate
-        }
-        connections.append(input)
-    }
+        self.bitDepth = bitDepth
+        self.sampleRate = sampleRate
+   }
 }

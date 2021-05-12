@@ -7,30 +7,17 @@ import CAudioKit
 /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  
 /// Based on work by Perry Cook.
 /// 
-public class DCBlock: Node, AudioUnitContainer, Toggleable {
+public class DCBlock: Node {
 
-    /// Unique four-letter identifier "dcbk"
-    public static let ComponentDescription = AudioComponentDescription(effect: "dcbk")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "dcbk")
 
     // MARK: - Parameters
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for DCBlock
-    public class InternalAU: AudioUnitBase {
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DCBlockDSP")
-        }
-    }
 
     // MARK: - Initialization
 
@@ -42,18 +29,9 @@ public class DCBlock: Node, AudioUnitContainer, Toggleable {
     public init(
         _ input: Node
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-        }
-        connections.append(input)
-    }
+   }
 }

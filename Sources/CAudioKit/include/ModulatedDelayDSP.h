@@ -43,9 +43,6 @@ extern const float kFlanger_MaxDepth;
 extern const float kFlanger_MinDryWetMix;
 extern const float kFlanger_MaxDryWetMix;
 
-AK_API DSPRef akChorusCreateDSP(void);
-AK_API DSPRef akFlangerCreateDSP(void);
-
 #ifdef __cplusplus
 
 #import "DSPBase.h"

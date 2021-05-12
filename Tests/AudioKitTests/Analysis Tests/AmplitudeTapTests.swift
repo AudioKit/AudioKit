@@ -5,6 +5,15 @@ import XCTest
 
 class AmplitudeTapTests: XCTestCase {
 
+    func check(values: [Float], known: [Float]) {
+        XCTAssertGreaterThan(values.count, known.count)
+        if values.count > known.count {
+            for i in 0..<known.count {
+                XCTAssertEqual(values[i], known[i], accuracy: 0.001)
+            }
+        }
+    }
+
     func testDefault() {
 
         let engine = AudioEngine()
@@ -37,12 +46,7 @@ class AmplitudeTapTests: XCTestCase {
 
         let knownValues: [Float] = [0.01478241, 0.03954828, 0.06425185, 0.09090047, 0.11480384,
                                     0.14164367, 0.16560285, 0.19081590, 0.21635467, 0.23850754]
-        XCTAssertGreaterThan(amplitudes.count, knownValues.count)
-        if amplitudes.count == knownValues.count {
-            for i in 0..<knownValues.count {
-                XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
-            }
-        }
+        check(values: amplitudes, known: knownValues)
     }
 
     func testLeftStereoMode() {
@@ -78,9 +82,7 @@ class AmplitudeTapTests: XCTestCase {
 
         let knownValues: [Float] = [0.01478241, 0.03954828, 0.06425185, 0.09090047, 0.11480384,
                                     0.14164367, 0.16560285, 0.19081590, 0.21635467, 0.23850754]
-        for i in 0..<knownValues.count {
-            XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
-        }
+        check(values: amplitudes, known: knownValues)
     }
 
     func testRightStereoMode() {
@@ -116,9 +118,7 @@ class AmplitudeTapTests: XCTestCase {
 
         let knownValues: [Float] = [0.01478241, 0.03954828, 0.06425185, 0.09090047, 0.11480384,
                                     0.14164367, 0.16560285, 0.19081590, 0.21635467, 0.23850754]
-        for i in 0..<knownValues.count {
-            XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
-        }
+        check(values: amplitudes, known: knownValues)
     }
 
     func testPeakAnalysisMode() {
@@ -154,9 +154,7 @@ class AmplitudeTapTests: XCTestCase {
 
         let knownValues: [Float] = [0.03505735, 0.07213809, 0.10766032, 0.1430245, 0.17815503,
                                     0.2166785, 0.251323, 0.2855623, 0.3196378, 0.3532541]
-        for i in 0..<knownValues.count {
-            XCTAssertEqual(amplitudes[i], knownValues[i], accuracy: 0.001)
-        }
+        check(values: amplitudes, known: knownValues)
     }
 
 }

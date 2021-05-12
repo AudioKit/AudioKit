@@ -7,73 +7,49 @@ import CAudioKit
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
+public class PhaseLockedVocoder: Node {
+    
+    /// Connected nodes
+    public var connections: [Node] { [] }
 
-    /// Unique four-letter identifier "minc"
-    public static let ComponentDescription = AudioComponentDescription(generator: "minc")
-
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
-
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(instrument: "minc")
+    
     /// Specification for position
     public static let positionDef = NodeParameterDef(
         identifier: "position",
         name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
         address: akGetParameterAddress("PhaseLockedVocoderParameterPosition"),
+        defaultValue: 0,
         range: 0 ... 100_000,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    @Parameter public var position: AUValue
+    @Parameter(positionDef) public var position: AUValue
 
     /// Specification for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude.",
         address: akGetParameterAddress("PhaseLockedVocoderParameterAmplitude"),
+        defaultValue: 1,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amplitude.
-    @Parameter public var amplitude: AUValue
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     /// Specification for pitch ratio
     public static let pitchRatioDef = NodeParameterDef(
         identifier: "pitchRatio",
         name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
         address: akGetParameterAddress("PhaseLockedVocoderParameterPitchRatio"),
+        defaultValue: 1,
         range: 0 ... 1_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
-    @Parameter public var pitchRatio: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for phase locked vocoder
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [PhaseLockedVocoder.positionDef,
-             PhaseLockedVocoder.amplitudeDef,
-             PhaseLockedVocoder.pitchRatioDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PhaseLockedVocoderDSP")
-        }
-    }
+    @Parameter(pitchRatioDef) public var pitchRatio: AUValue
 
     // MARK: - Initialization
 
@@ -87,27 +63,17 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         file: AVAudioFile,
-        position: AUValue = 0,
-        amplitude: AUValue = 1,
-        pitchRatio: AUValue = 1
-        ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-            self.loadFile(file)
-
-            self.position = position
-            self.amplitude = amplitude
-            self.pitchRatio = pitchRatio
-
-        }
+        position: AUValue = positionDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue,
+        pitchRatio: AUValue = pitchRatioDef.defaultValue
+    ) {
+        setupParameters()
+        
+        loadFile(file)
+        
+        self.position = position
+        self.amplitude = amplitude
+        self.pitchRatio = pitchRatio
     }
 
     internal func loadFile(_ avAudioFile: AVAudioFile) {
@@ -187,7 +153,7 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    internalAU?.setWavetable(data: data, size: Int(ioNumberFrames))
+                    au.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure
                     theData?.deallocate()
@@ -198,13 +164,4 @@ public class PhaseLockedVocoder: Node, AudioUnitContainer, Toggleable {
         }
     }
 
-    /// Start the node
-    @objc open func start() {
-        internalAU?.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    @objc open func stop() {
-        internalAU?.stop()
-    }
 }

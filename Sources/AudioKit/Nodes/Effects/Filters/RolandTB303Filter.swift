@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Emulation of the Roland TB-303 filter
-public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
+public class RolandTB303Filter: Node {
 
-    /// Unique four-letter identifier "tb3f"
-    public static let ComponentDescription = AudioComponentDescription(effect: "tb3f")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "tb3f")
 
     // MARK: - Parameters
 
@@ -23,68 +22,48 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("RolandTB303FilterParameterCutoffFrequency"),
+        defaultValue: 500,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Cutoff frequency. (in Hertz)
-    @Parameter public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification details for resonance
     public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance",
         address: akGetParameterAddress("RolandTB303FilterParameterResonance"),
+        defaultValue: 0.5,
         range: 0.0 ... 2.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    @Parameter public var resonance: AUValue
+    @Parameter(resonanceDef) public var resonance: AUValue
 
     /// Specification details for distortion
     public static let distortionDef = NodeParameterDef(
         identifier: "distortion",
         name: "Distortion",
         address: akGetParameterAddress("RolandTB303FilterParameterDistortion"),
+        defaultValue: 2.0,
         range: 0.0 ... 4.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-    @Parameter public var distortion: AUValue
+    @Parameter(distortionDef) public var distortion: AUValue
 
     /// Specification details for resonanceAsymmetry
     public static let resonanceAsymmetryDef = NodeParameterDef(
         identifier: "resonanceAsymmetry",
         name: "Resonance Asymmetry",
         address: akGetParameterAddress("RolandTB303FilterParameterResonanceAsymmetry"),
+        defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Asymmetry of resonance. Value is between 0-1
-    @Parameter public var resonanceAsymmetry: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for RolandTB303Filter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [RolandTB303Filter.cutoffFrequencyDef,
-             RolandTB303Filter.resonanceDef,
-             RolandTB303Filter.distortionDef,
-             RolandTB303Filter.resonanceAsymmetryDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("RolandTB303FilterDSP")
-        }
-    }
+    @Parameter(resonanceAsymmetryDef) public var resonanceAsymmetry: AUValue
 
     // MARK: - Initialization
 
@@ -99,27 +78,18 @@ public class RolandTB303Filter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        cutoffFrequency: AUValue = 500,
-        resonance: AUValue = 0.5,
-        distortion: AUValue = 2.0,
-        resonanceAsymmetry: AUValue = 0.5
+        cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
+        resonance: AUValue = resonanceDef.defaultValue,
+        distortion: AUValue = distortionDef.defaultValue,
+        resonanceAsymmetry: AUValue = resonanceAsymmetryDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.cutoffFrequency = cutoffFrequency
-            self.resonance = resonance
-            self.distortion = distortion
-            self.resonanceAsymmetry = resonanceAsymmetry
-        }
-        connections.append(input)
-    }
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
+        self.distortion = distortion
+        self.resonanceAsymmetry = resonanceAsymmetry
+   }
 }

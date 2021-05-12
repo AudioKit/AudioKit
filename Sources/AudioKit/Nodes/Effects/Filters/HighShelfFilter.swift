@@ -5,17 +5,41 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
-open class HighShelfFilter: Node, Toggleable {
+public class HighShelfFilter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_HighShelfFilter))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighShelfFilter)
 
-    /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    @Parameter public var cutOffFrequency: AUValue
+    let input: Node
 
-    /// Gain (dB) ranges from -40 to 40 (Default: 0)
-    @Parameter public var gain: AUValue
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode { effectAU }
+
+    /// Specification details for cutOffFrequency
+    public static let cutOffFrequencyDef = NodeParameterDef(
+        identifier: "cutOffFrequency",
+        name: "Cut Off Frequency",
+        address: 0,
+        defaultValue: 10000,
+        range: 10000 ... 22050,
+        unit: .hertz)
+
+    /// Cut Off Frequency (Hertz) ranges from 10000 to 22050 (Default: 10000)
+    @Parameter(cutOffFrequencyDef) public var cutOffFrequency: AUValue
+
+    /// Specification details for gain
+    public static let gainDef = NodeParameterDef(
+        identifier: "gain",
+        name: "Gain",
+        address: 1,
+        defaultValue: 0,
+        range: -40 ... 40,
+        unit: .decibels)
+
+    /// Gain (decibels) ranges from -40 to 40 (Default: 0)
+    @Parameter(gainDef) public var gain: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -23,18 +47,16 @@ open class HighShelfFilter: Node, Toggleable {
     /// Initialize the high shelf filter node
     ///
     /// - parameter input: Input node to process
-    /// - parameter cutOffFrequency: Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    /// - parameter gain: Gain (dB) ranges from -40 to 40 (Default: 0)
+    /// - parameter cutOffFrequency: Cut Off Frequency (Hertz) ranges from 10000 to 22050 (Default: 10000)
+    /// - parameter gain: Gain (decibels) ranges from -40 to 40 (Default: 0)
     ///
     public init(
         _ input: Node,
-        cutOffFrequency: AUValue = 10000,
-        gain: AUValue = 0) {
-        super.init(avAudioNode: effectAU)
-        connections.append(input)
+        cutOffFrequency: AUValue = cutOffFrequencyDef.defaultValue,
+        gain: AUValue = gainDef.defaultValue) {
+        self.input = input
 
-        self.$cutOffFrequency.associate(with: effectAU, index: 0)
-        self.$gain.associate(with: effectAU, index: 1)
+        associateParams(with: effectAU)
 
         self.cutOffFrequency = cutOffFrequency
         self.gain = gain

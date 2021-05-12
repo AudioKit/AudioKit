@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// An automatic wah effect, ported from Guitarix via Faust.
-public class AutoWah: Node, AudioUnitContainer, Toggleable {
+public class AutoWah: Node {
 
-    /// Unique four-letter identifier "awah"
-    public static let ComponentDescription = AudioComponentDescription(effect: "awah")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "awah")
 
     // MARK: - Parameters
 
@@ -23,55 +22,36 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
         identifier: "wah",
         name: "Wah Amount",
         address: akGetParameterAddress("AutoWahParameterWah"),
+        defaultValue: 0.0,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Wah Amount
-    @Parameter public var wah: AUValue
+    @Parameter(wahDef) public var wah: AUValue
 
     /// Specification details for mix
     public static let mixDef = NodeParameterDef(
         identifier: "mix",
         name: "Dry/Wet Mix",
         address: akGetParameterAddress("AutoWahParameterMix"),
+        defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Dry/Wet Mix
-    @Parameter public var mix: AUValue
+    @Parameter(mixDef) public var mix: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Overall level",
         address: akGetParameterAddress("AutoWahParameterAmplitude"),
+        defaultValue: 0.1,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Overall level
-    @Parameter public var amplitude: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for AutoWah
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [AutoWah.wahDef,
-             AutoWah.mixDef,
-             AutoWah.amplitudeDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("AutoWahDSP")
-        }
-    }
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 
@@ -85,25 +65,16 @@ public class AutoWah: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        wah: AUValue = 0.0,
-        mix: AUValue = 1.0,
-        amplitude: AUValue = 0.1
+        wah: AUValue = wahDef.defaultValue,
+        mix: AUValue = mixDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.wah = wah
-            self.mix = mix
-            self.amplitude = amplitude
-        }
-        connections.append(input)
-    }
+        self.wah = wah
+        self.mix = mix
+        self.amplitude = amplitude
+   }
 }

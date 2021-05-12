@@ -7,16 +7,6 @@
 
 #include "ModulatedDelayDSP.h"
 
-DSPRef akChorusCreateDSP()
-{
-    return new ModulatedDelayDSP(kChorus);
-}
-
-DSPRef akFlangerCreateDSP()
-{
-    return new ModulatedDelayDSP(kFlanger);
-}
-
 #import "AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
 const float kChorus_DefaultFrequency = kChorusDefaultModFreqHz;
 const float kChorus_DefaultDepth = kChorusDefaultDepth;
@@ -47,14 +37,12 @@ const float kFlanger_MinDryWetMix = kFlangerMinDryWetMix;
 const float kFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
 
 ModulatedDelayDSP::ModulatedDelayDSP(ModulatedDelayType type)
-    : delay(type)
+    : DSPBase(1, true), delay(type)
 {
     parameters[ModulatedDelayParameterFrequency] = &frequencyRamp;
     parameters[ModulatedDelayParameterDepth] = &depthRamp;
     parameters[ModulatedDelayParameterFeedback] = &feedbackRamp;
     parameters[ModulatedDelayParameterDryWetMix] = &dryWetMixRamp;
-    
-    bCanProcessInPlace = true;
 }
 
 void ModulatedDelayDSP::init(int channels, double sampleRate)
@@ -119,3 +107,13 @@ void ModulatedDelayDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount 
     }
 }
 
+struct ChorusDSP : ModulatedDelayDSP {
+    ChorusDSP() : ModulatedDelayDSP(kChorus) { }
+};
+
+struct FlangerDSP : ModulatedDelayDSP {
+    FlangerDSP() : ModulatedDelayDSP(kFlanger) { }
+};
+
+AK_REGISTER_DSP(ChorusDSP, "chrs");
+AK_REGISTER_DSP(FlangerDSP, "flgr");

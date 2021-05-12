@@ -5,9 +5,17 @@ import CAudioKit
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-public class TimePitch: Node, Toggleable {
+public class TimePitch: Node {
 
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
+
+    let input: Node
+
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode
 
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
     public var rate: AUValue = 1.0 {
@@ -52,15 +60,12 @@ public class TimePitch: Node, Toggleable {
         pitch: AUValue = 0.0,
         overlap: AUValue = 8.0) {
 
+        self.input = input
         self.rate = rate
         self.pitch = pitch
         self.overlap = overlap
 
-        super.init(avAudioNode: AVAudioNode())
-        avAudioUnit = timePitchAU
         avAudioNode = timePitchAU
-
-        connections.append(input)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

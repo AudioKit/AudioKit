@@ -6,17 +6,16 @@ import CAudioKit
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
+public class DiodeClipper: Node {
+    
+    let input: Node
 
-    /// Unique four-letter identifier "dclp"
-    public static let ComponentDescription = AudioComponentDescription(effect: "dclp")
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "dclp")
+    
     // MARK: - Parameters
 
     /// Specification for the cutoff frequency
@@ -24,43 +23,25 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency (Hz)",
         address: akGetParameterAddress("DiodeClipperParameterCutoff"),
+        defaultValue: 10_000.0,
         range: 12.0 ... 20_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Filter cutoff frequency.
-    @Parameter public var cutoffFrequency: AUValue
+    @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
 
     /// Specification for the gain
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
         address: akGetParameterAddress("DiodeClipperParameterGaindB"),
+        defaultValue: 20.0,
         range: 0.0 ... 40.0,
-        unit: .decibels,
-        flags: .default)
+        unit: .decibels)
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
-    @Parameter public var gain: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for diode clipper
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [DiodeClipper.cutoffFrequencyDef,
-             DiodeClipper.gainDef]
-        }
-
-        /// Create diode clipper DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DiodeClipperDSP")
-        }
-    }
-
+    @Parameter(gainDef) public var gain: AUValue
+    
     // MARK: - Initialization
 
     /// Initialize this clipper node
@@ -71,21 +52,14 @@ public class DiodeClipper: Node, AudioUnitContainer, Toggleable {
     ///   - gain: Gain in dB
     ///
     public init(_ input: Node,
-                cutoffFrequency: AUValue = 10000.0,
-                gain: AUValue = 20.0
+                cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
+                gain: AUValue = gainDef.defaultValue
     ) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.cutoffFrequency = cutoffFrequency
-            self.gain = gain
-        }
-
-        connections.append(input)
+        self.input = input
+        
+        setupParameters()
+        
+        self.cutoffFrequency = cutoffFrequency
+        self.gain = gain
     }
 }

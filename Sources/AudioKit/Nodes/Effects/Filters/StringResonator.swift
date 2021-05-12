@@ -4,22 +4,21 @@
 import AVFoundation
 import CAudioKit
 
-/// StringResonator passes the input through a network composed of comb,
+/// AKStringResonator passes the input through a network composed of comb, 
 /// low-pass and all-pass filters, similar to the one used in some versions of the 
 /// Karplus-Strong algorithm, creating a string resonator effect. The fundamental frequency 
 /// of the “string” is controlled by the fundamentalFrequency.  
 /// This operation can be used to simulate sympathetic resonances to an input signal.
 /// 
-public class StringResonator: Node, AudioUnitContainer, Toggleable {
+public class StringResonator: Node {
 
-    /// Unique four-letter identifier "stre"
-    public static let ComponentDescription = AudioComponentDescription(effect: "stre")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "stre")
 
     // MARK: - Parameters
 
@@ -28,42 +27,24 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
         identifier: "fundamentalFrequency",
         name: "Fundamental Frequency (Hz)",
         address: akGetParameterAddress("StringResonatorParameterFundamentalFrequency"),
+        defaultValue: 100,
         range: 12.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Fundamental frequency of string.
-    @Parameter public var fundamentalFrequency: AUValue
+    @Parameter(fundamentalFrequencyDef) public var fundamentalFrequency: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
         address: akGetParameterAddress("StringResonatorParameterFeedback"),
+        defaultValue: 0.95,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
-    @Parameter public var feedback: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for StringResonator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [StringResonator.fundamentalFrequencyDef,
-             StringResonator.feedbackDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("StringResonatorDSP")
-        }
-    }
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     // MARK: - Initialization
 
@@ -76,23 +57,14 @@ public class StringResonator: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        fundamentalFrequency: AUValue = 100,
-        feedback: AUValue = 0.95
+        fundamentalFrequency: AUValue = fundamentalFrequencyDef.defaultValue,
+        feedback: AUValue = feedbackDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.fundamentalFrequency = fundamentalFrequency
-            self.feedback = feedback
-        }
-        connections.append(input)
-    }
+        self.fundamentalFrequency = fundamentalFrequency
+        self.feedback = feedback
+   }
 }

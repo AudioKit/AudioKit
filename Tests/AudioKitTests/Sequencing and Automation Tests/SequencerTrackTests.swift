@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import XCTest
 import AudioKit
 import AVFoundation
@@ -95,3 +96,4 @@ class SequencerTrackTests: XCTestCase {
     }
 
 }
+#endif

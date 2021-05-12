@@ -86,7 +86,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(ThreePoleLowpassFilterDSP)
+AK_REGISTER_DSP(ThreePoleLowpassFilterDSP, "lp18")
 AK_REGISTER_PARAMETER(ThreePoleLowpassFilterParameterDistortion)
 AK_REGISTER_PARAMETER(ThreePoleLowpassFilterParameterCutoffFrequency)
 AK_REGISTER_PARAMETER(ThreePoleLowpassFilterParameterResonance)

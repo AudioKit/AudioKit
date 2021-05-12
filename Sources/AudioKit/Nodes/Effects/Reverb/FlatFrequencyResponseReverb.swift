@@ -8,16 +8,15 @@ import CAudioKit
 /// independent and is determined by the reverberation time (defined as the time in seconds for a signal to
 /// decay to 1/1000, or 60dB down from its original amplitude).  Output will begin to appear immediately.
 /// 
-public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
+public class FlatFrequencyResponseReverb: Node {
 
-    /// Unique four-letter identifier "alps"
-    public static let ComponentDescription = AudioComponentDescription(effect: "alps")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "alps")
 
     // MARK: - Parameters
 
@@ -26,35 +25,12 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
         address: akGetParameterAddress("FlatFrequencyResponseReverbParameterReverbDuration"),
+        defaultValue: 0.5,
         range: 0 ... 10,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    @Parameter public var reverbDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for FlatFrequencyResponseReverb
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [FlatFrequencyResponseReverb.reverbDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("FlatFrequencyResponseReverbDSP")
-        }
-
-        /// Set loop duration
-        /// - Parameter duration: Duration in seconds
-        public func setLoopDuration(_ duration: AUValue) {
-            akFlatFrequencyResponseSetLoopDuration(dsp, duration)
-        }
-    }
+    @Parameter(reverbDurationDef) public var reverbDuration: AUValue
 
     // MARK: - Initialization
 
@@ -67,24 +43,15 @@ public class FlatFrequencyResponseReverb: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        reverbDuration: AUValue = 0.5,
+        reverbDuration: AUValue = reverbDurationDef.defaultValue,
         loopDuration: AUValue = 0.1
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
+        akFlatFrequencyResponseSetLoopDuration(au.dsp, loopDuration)
 
-            audioUnit.setLoopDuration(loopDuration)
-
-            self.reverbDuration = reverbDuration
-        }
-        connections.append(input)
-    }
+        self.reverbDuration = reverbDuration
+   }
 }

@@ -19,11 +19,9 @@ private:
     bool mixToMono = false;
 
 public:
-    FaderDSP() {
+    FaderDSP() : DSPBase(1, true) {
         parameters[FaderParameterLeftGain] = &leftGainRamp;
         parameters[FaderParameterRightGain] = &rightGainRamp;
-
-        bCanProcessInPlace = true;
     }
 
     // Uses the ParameterAddress as a key
@@ -107,7 +105,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(FaderDSP)
+AK_REGISTER_DSP(FaderDSP, "fder")
 AK_REGISTER_PARAMETER(FaderParameterLeftGain)
 AK_REGISTER_PARAMETER(FaderParameterRightGain)
 AK_REGISTER_PARAMETER(FaderParameterFlipStereo)

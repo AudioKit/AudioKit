@@ -5,16 +5,16 @@ import CAudioKit
 
 /// Balanceable Mix between two signals, usually used for a dry signal and wet signal
 ///
-public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
+public class DryWetMixer: Node {
 
-    /// Unique four-letter identifier "dwmx"
-   public static let ComponentDescription = AudioComponentDescription(mixer: "dwmx")
+    let input1: Node
+    let input2: Node
+    
+    /// Connected nodes
+    public var connections: [Node] { [input1, input2] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(mixer: "dwmx")
 
     // MARK: - Parameters
 
@@ -23,29 +23,12 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
         identifier: "balance",
         name: "Balance",
         address: akGetParameterAddress("DryWetMixerParameterBalance"),
+        defaultValue: 0.5,
         range: 0.0...1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Balance between input signals
-    @Parameter public var balance: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for dry wet mixer
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [DryWetMixer.balanceDef]
-        }
-
-        /// Create dry wet mixer DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("DryWetMixerDSP")
-        }
-    }
+    @Parameter(balanceDef) public var balance: AUValue
 
     /// Initialize this dry wet mixer node
     ///
@@ -54,20 +37,13 @@ public class DryWetMixer: Node, AudioUnitContainer, Toggleable {
     ///   - input2: 2nd source
     ///   - balance: Balance Point (0 = all input1, 1 = all input2)
     ///
-    public init(_ input1: Node, _ input2: Node, balance: AUValue = 0.5) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.balance = balance
-        }
-
-        connections.append(input1)
-        connections.append(input2)
+    public init(_ input1: Node, _ input2: Node, balance: AUValue = balanceDef.defaultValue) {
+        self.input1 = input1
+        self.input2 = input2
+        
+        setupParameters()
+        
+        self.balance = balance
     }
 
     /// Initializer with dry wet labels

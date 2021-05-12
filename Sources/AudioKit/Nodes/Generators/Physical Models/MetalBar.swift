@@ -6,125 +6,97 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// 
-public class MetalBar: Node, AudioUnitContainer, Toggleable {
+public class MetalBar: Node, Triggerable {
 
-    /// Unique four-letter identifier "mbar"
-    public static let ComponentDescription = AudioComponentDescription(generator: "mbar")
+    /// Connected nodes
+    public var connections: [Node] { [] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(instrument: "mbar")
 
     /// Specification details for leftBoundaryCondition
     public static let leftBoundaryConditionDef = NodeParameterDef(
         identifier: "leftBoundaryCondition",
         name: "Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free",
         address: akGetParameterAddress("MetalBarParameterLeftBoundaryCondition"),
+        defaultValue: 1,
         range: 1 ... 3,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    @Parameter public var leftBoundaryCondition: AUValue
+    @Parameter(leftBoundaryConditionDef) public var leftBoundaryCondition: AUValue
 
     /// Specification details for rightBoundaryCondition
     public static let rightBoundaryConditionDef = NodeParameterDef(
         identifier: "rightBoundaryCondition",
         name: "Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free",
         address: akGetParameterAddress("MetalBarParameterRightBoundaryCondition"),
+        defaultValue: 1,
         range: 1 ... 3,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    @Parameter public var rightBoundaryCondition: AUValue
+    @Parameter(rightBoundaryConditionDef) public var rightBoundaryCondition: AUValue
 
     /// Specification details for decayDuration
     public static let decayDurationDef = NodeParameterDef(
         identifier: "decayDuration",
         name: "30db decay time (in seconds).",
         address: akGetParameterAddress("MetalBarParameterDecayDuration"),
+        defaultValue: 3,
         range: 0 ... 10,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// 30db decay time (in seconds).
-    @Parameter public var decayDuration: AUValue
+    @Parameter(decayDurationDef) public var decayDuration: AUValue
 
     /// Specification details for scanSpeed
     public static let scanSpeedDef = NodeParameterDef(
         identifier: "scanSpeed",
         name: "Speed of scanning the output location.",
         address: akGetParameterAddress("MetalBarParameterScanSpeed"),
+        defaultValue: 0.25,
         range: 0 ... 100,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Speed of scanning the output location.
-    @Parameter public var scanSpeed: AUValue
+    @Parameter(scanSpeedDef) public var scanSpeed: AUValue
 
     /// Specification details for position
     public static let positionDef = NodeParameterDef(
         identifier: "position",
         name: "Position along bar that strike occurs.",
         address: akGetParameterAddress("MetalBarParameterPosition"),
+        defaultValue: 0.2,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Position along bar that strike occurs.
-    @Parameter public var position: AUValue
+    @Parameter(positionDef) public var position: AUValue
 
     /// Specification details for strikeVelocity
     public static let strikeVelocityDef = NodeParameterDef(
         identifier: "strikeVelocity",
         name: "Normalized strike velocity",
         address: akGetParameterAddress("MetalBarParameterStrikeVelocity"),
+        defaultValue: 500,
         range: 0 ... 1_000,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Normalized strike velocity
-    @Parameter public var strikeVelocity: AUValue
+    @Parameter(strikeVelocityDef) public var strikeVelocity: AUValue
 
     /// Specification details for strikeWidth
     public static let strikeWidthDef = NodeParameterDef(
         identifier: "strikeWidth",
         name: "Spatial width of strike.",
         address: akGetParameterAddress("MetalBarParameterStrikeWidth"),
+        defaultValue: 0.05,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Spatial width of strike.
-    @Parameter public var strikeWidth: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for MetalBar
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [MetalBar.leftBoundaryConditionDef,
-             MetalBar.rightBoundaryConditionDef,
-             MetalBar.decayDurationDef,
-             MetalBar.scanSpeedDef,
-             MetalBar.positionDef,
-             MetalBar.strikeVelocityDef,
-             MetalBar.strikeWidthDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("MetalBarDSP")
-        }
-    }
+    @Parameter(strikeWidthDef) public var strikeWidth: AUValue
 
     // MARK: - Initialization
 
@@ -142,45 +114,24 @@ public class MetalBar: Node, AudioUnitContainer, Toggleable {
     ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
     ///
     public init(
-        leftBoundaryCondition: AUValue = 1,
-        rightBoundaryCondition: AUValue = 1,
-        decayDuration: AUValue = 3,
-        scanSpeed: AUValue = 0.25,
-        position: AUValue = 0.2,
-        strikeVelocity: AUValue = 500,
-        strikeWidth: AUValue = 0.05,
+        leftBoundaryCondition: AUValue = leftBoundaryConditionDef.defaultValue,
+        rightBoundaryCondition: AUValue = rightBoundaryConditionDef.defaultValue,
+        decayDuration: AUValue = decayDurationDef.defaultValue,
+        scanSpeed: AUValue = scanSpeedDef.defaultValue,
+        position: AUValue = positionDef.defaultValue,
+        strikeVelocity: AUValue = strikeVelocityDef.defaultValue,
+        strikeWidth: AUValue = strikeWidthDef.defaultValue,
         stiffness: AUValue = 3,
         highFrequencyDamping: AUValue = 0.001
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.leftBoundaryCondition = leftBoundaryCondition
-            self.rightBoundaryCondition = rightBoundaryCondition
-            self.decayDuration = decayDuration
-            self.scanSpeed = scanSpeed
-            self.position = position
-            self.strikeVelocity = strikeVelocity
-            self.strikeWidth = strikeWidth
-        }
-
+        self.leftBoundaryCondition = leftBoundaryCondition
+        self.rightBoundaryCondition = rightBoundaryCondition
+        self.decayDuration = decayDuration
+        self.scanSpeed = scanSpeed
+        self.position = position
+        self.strikeVelocity = strikeVelocity
+        self.strikeWidth = strikeWidth
     }
-
-    // MARK: - Control
-
-    /// Trigger the sound with current parameters
-    ///
-    open func trigger() {
-        internalAU?.start()
-        internalAU?.trigger()
-    }
-
 }

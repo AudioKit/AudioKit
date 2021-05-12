@@ -9,12 +9,12 @@
 #include <bitset>
 #include <stdio.h>
 #include <atomic>
-#include "../../Internals/Utilities/readerwriterqueue.h"
+#include "../../Internals/Utilities/RingBuffer.h"
 #include "../../Internals/Utilities/AtomicDataPtr.h"
 #define NOTEON 0x90
 #define NOTEOFF 0x80
 
-using moodycamel::ReaderWriterQueue;
+using AudioKit::RingBuffer;
 
 /// NOTE: To support more than a single channel, RunningStatus can be made larger
 /// e.g. typedef std::bitset<128 * 16> RunningStatus; would track 16 channels of notes
@@ -56,7 +56,7 @@ struct SequencerEngineImpl {
 
     AtomicDataPtr<SequencerData> data;
 
-    ReaderWriterQueue<SequencerEvent> eventQueue;
+    RingBuffer<SequencerEvent> eventQueue;
 
     // Current position as reported to the UI.
     std::atomic<double> uiPosition{0};
@@ -137,8 +137,7 @@ struct SequencerEngineImpl {
 
     void processEvents() {
 
-        SequencerEvent event;
-        while(eventQueue.try_dequeue(event)) {
+        eventQueue.popAll([this](const SequencerEvent& event) {
             if(event.notesOff) {
                 stopAllPlayingNotes();
             }
@@ -152,7 +151,7 @@ struct SequencerEngineImpl {
                 data->settings.tempo = event.tempo;             // 2) manipulate time
                 seekTo(lastPosition);                           // 3) go back to where we were before time manipulation
             }
-        }
+        });
 
     }
 
@@ -250,7 +249,7 @@ double akSequencerEngineGetPosition(SequencerEngineRef engine) {
 void akSequencerEngineSeekTo(SequencerEngineRef engine, double position) {
     SequencerEvent event;
     event.seekPosition = position;
-    engine->impl->eventQueue.enqueue(event);
+    engine->impl->eventQueue.push(event);
 }
 
 void akSequencerEngineSetPlaying(SequencerEngineRef engine, bool playing) {
@@ -264,13 +263,13 @@ bool akSequencerEngineIsPlaying(SequencerEngineRef engine) {
 void akSequencerEngineStopPlayingNotes(SequencerEngineRef engine) {
     SequencerEvent event;
     event.notesOff = true;
-    engine->impl->eventQueue.enqueue(event);
+    engine->impl->eventQueue.push(event);
 }
 
 void akSequencerEngineSetTempo(SequencerEngineRef engine, double tempo) {
     SequencerEvent event;
     event.tempo = tempo;
-    engine->impl->eventQueue.enqueue(event);
+    engine->impl->eventQueue.push(event);
 }
 
 #endif

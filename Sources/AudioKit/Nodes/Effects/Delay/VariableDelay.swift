@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// A delay line with cubic interpolation.
-public class VariableDelay: Node, AudioUnitContainer, Toggleable {
+public class VariableDelay: Node {
 
-    /// Unique four-letter identifier "vdla"
-    public static let ComponentDescription = AudioComponentDescription(effect: "vdla")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "vdla")
 
     // MARK: - Parameters
 
@@ -23,48 +22,24 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
         identifier: "time",
         name: "Delay time (Seconds)",
         address: akGetParameterAddress("VariableDelayParameterTime"),
+        defaultValue: 0,
         range: 0 ... 10,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
-    @Parameter public var time: AUValue
+    @Parameter(timeDef) public var time: AUValue
 
     /// Specification details for feedback
     public static let feedbackDef = NodeParameterDef(
         identifier: "feedback",
         name: "Feedback (%)",
         address: akGetParameterAddress("VariableDelayParameterFeedback"),
+        defaultValue: 0,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Feedback amount. Should be a value between 0-1.
-    @Parameter public var feedback: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for VariableDelay
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [VariableDelay.timeDef,
-             VariableDelay.feedbackDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("VariableDelayDSP")
-        }
-
-        /// Set the longest delay time
-        /// - Parameter maximumTime: Delay time in seconds
-        public func setMaximumTime(_ maximumTime: AUValue) {
-            akVariableDelaySetMaximumTime(dsp, maximumTime)
-        }
-    }
+    @Parameter(feedbackDef) public var feedback: AUValue
 
     // MARK: - Initialization
 
@@ -78,26 +53,17 @@ public class VariableDelay: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        time: AUValue = 0,
-        feedback: AUValue = 0,
+        time: AUValue = timeDef.defaultValue,
+        feedback: AUValue = feedbackDef.defaultValue,
         maximumTime: AUValue = 5
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
+        akVariableDelaySetMaximumTime(au.dsp, maximumTime)
 
-            audioUnit.setMaximumTime(maximumTime)
-
-            self.time = time
-            self.feedback = feedback
-        }
-        connections.append(input)
-    }
+        self.time = time
+        self.feedback = feedback
+   }
 }

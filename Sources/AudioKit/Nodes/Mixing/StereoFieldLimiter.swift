@@ -5,17 +5,16 @@ import CAudioKit
 
 /// Stereo StereoFieldLimiter
 ///
-public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
+public class StereoFieldLimiter: Node {
+    
+    let input: Node
 
-    /// Unique four-letter identifier "sflm"
-    public static let ComponentDescription = AudioComponentDescription(effect: "sflm")
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "sflm")
+    
     // MARK: - Properties
 
     /// Specification details for amount
@@ -23,29 +22,12 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
         identifier: "amount",
         name: "Limiting amount",
         address: akGetParameterAddress("StereoFieldLimiterParameterAmount"),
+        defaultValue: 1,
         range: 0.0...1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Limiting Factor
-    @Parameter public var amount: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for stereo field limiter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [StereoFieldLimiter.amountDef]
-        }
-
-        /// Create stereo field limiter DSP
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("StereoFieldLimiterDSP")
-        }
-    }
+    @Parameter(amountDef) public var amount: AUValue
 
     // MARK: - Initialization
 
@@ -55,16 +37,11 @@ public class StereoFieldLimiter: Node, AudioUnitContainer, Toggleable {
     ///   - input: Node whose output will be amplified
     ///   - amount: limit factor (Default: 1, Minimum: 0)
     ///
-    public init(_ input: Node, amount: AUValue = 1) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.amount = amount
-        }
-        connections.append(input)
+    public init(_ input: Node, amount: AUValue = amountDef.defaultValue) {
+        self.input = input
+        
+        setupParameters()
+        
+        self.amount = amount
     }
 }

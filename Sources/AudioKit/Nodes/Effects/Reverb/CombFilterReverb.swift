@@ -10,16 +10,15 @@ import CAudioKit
 /// or 60dB down from its original amplitude). Output from a comb filter will appear
 /// only after loopDuration seconds.
 /// 
-public class CombFilterReverb: Node, AudioUnitContainer, Toggleable {
+public class CombFilterReverb: Node {
 
-    /// Unique four-letter identifier "comb"
-    public static let ComponentDescription = AudioComponentDescription(effect: "comb")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "comb")
 
     // MARK: - Parameters
 
@@ -28,35 +27,12 @@ public class CombFilterReverb: Node, AudioUnitContainer, Toggleable {
         identifier: "reverbDuration",
         name: "Reverb Duration (Seconds)",
         address: akGetParameterAddress("CombFilterReverbParameterReverbDuration"),
+        defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .seconds,
-        flags: .default)
+        unit: .seconds)
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
-    @Parameter public var reverbDuration: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for CombFilterReverb
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [CombFilterReverb.reverbDurationDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("CombFilterReverbDSP")
-        }
-
-        /// Set loop duration
-        /// - Parameter duration: Duration in seconds
-        public func setLoopDuration(_ duration: AUValue) {
-            akCombFilterReverbSetLoopDuration(dsp, duration)
-        }
-    }
+    @Parameter(reverbDurationDef) public var reverbDuration: AUValue
 
     // MARK: - Initialization
 
@@ -69,24 +45,15 @@ public class CombFilterReverb: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        reverbDuration: AUValue = 1.0,
+        reverbDuration: AUValue = reverbDurationDef.defaultValue,
         loopDuration: AUValue = 0.1
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
+        akCombFilterReverbSetLoopDuration(au.dsp, loopDuration)
 
-            audioUnit.setLoopDuration(loopDuration)
-
-            self.reverbDuration = reverbDuration
-        }
-        connections.append(input)
-    }
+        self.reverbDuration = reverbDuration
+   }
 }

@@ -38,36 +38,11 @@ VERSION=$(cat ../VERSION)
 FRAMEWORKS=$(cat Frameworks.list)
 PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
-if [[ "$TRAVIS" = true ]];
-then
-	echo "Travis detected, build #$TRAVIS_BUILD_NUMBER"
-	if [[ "$TRAVIS_BRANCH" = "$STAGING_BRANCH" ]]; then # Staging build
-		ACTIVE_ARCH=NO
-		XCSUFFIX=""
-		VERSION="${VERSION}.b1"
-	elif [[ "$TRAVIS_TAG" != "" ]]; then  # Release build
-		ACTIVE_ARCH=NO
-		XCSUFFIX=""
-	else # Test build
-		ACTIVE_ARCH=YES
-		XCSUFFIX="-travis"
-		SIMULATOR_ONLY=true
-		PLATFORMS="iOS macOS" # Skipping tvOS?
-	fi
-elif [[ "$GITHUB_ACTION" != "" ]]; then
+if [[ "$GITHUB_ACTION" != "" ]]; then
 	echo "GitHub Actions Workflow detected, run #$GITHUB_RUN_ID"
-	if [[ "$GITHUB_REF" != "refs/heads/staging" ]] && [[ "$GITHUB_REF" != refs/tag/* ]]; then
-		ACTIVE_ARCH=YES
-		XCSUFFIX="-travis"
-		SIMULATOR_ONLY=true
-	else
-		ACTIVE_ARCH=NO
-		XCSUFFIX=""
-	fi
-else # Regular command-line assumed
-	ACTIVE_ARCH=NO
-	XCSUFFIX=""
 fi
+ACTIVE_ARCH=NO
+XCSUFFIX=""
 
 if which xcpretty > /dev/null 2>&1;
 then

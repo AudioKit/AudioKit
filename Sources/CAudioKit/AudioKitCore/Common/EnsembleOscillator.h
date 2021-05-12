@@ -4,6 +4,7 @@
 
 #include "FunctionTable.h"
 #include "WaveStack.h"
+#include <random>
 
 namespace AudioKitCore
 {
@@ -15,6 +16,9 @@ namespace AudioKitCore
     /// is a conventional, single-phase oscillator.
     struct EnsembleOscillator
     {
+        std::mt19937* gen;
+        std::uniform_real_distribution<float> dis{0.0f, 1.0f};
+
         /// current output sample rate
         double sampleRateHz;
 
@@ -47,7 +51,7 @@ namespace AudioKitCore
         /// phaseDelta multiplier for pitchbend, vibrato
         float phaseDeltaMultiplier;
 
-        EnsembleOscillator() : phaseCount(1), frequencySpread(0.0f) {}
+        EnsembleOscillator(std::mt19937* gen) : phaseCount(1), frequencySpread(0.0f), gen(gen) {}
         void init(double sampleRate, WaveStack *pStack);
         void setPhases(int nPhases);
         void setFreqSpread(float fSpread) { frequencySpread = fSpread; }

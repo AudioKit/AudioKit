@@ -90,7 +90,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(PeakingParametricEqualizerFilterDSP)
+AK_REGISTER_DSP(PeakingParametricEqualizerFilterDSP,  "peq0")
 AK_REGISTER_PARAMETER(PeakingParametricEqualizerFilterParameterCenterFrequency)
 AK_REGISTER_PARAMETER(PeakingParametricEqualizerFilterParameterGain)
 AK_REGISTER_PARAMETER(PeakingParametricEqualizerFilterParameterQ)

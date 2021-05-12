@@ -5,20 +5,53 @@ import AVFoundation
 
 /// AudioKit version of Apple's Decimator Audio Unit
 ///
-open class Decimator: Node, Toggleable {
+public class Decimator: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
+
+    let input: Node
+
+    /// Connected nodes
+    public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode { effectAU }
+
+    /// Specification details for decimation
+    public static let decimationDef = NodeParameterDef(
+        identifier: "decimation",
+        name: "Decimation",
+        address: 7,
+        defaultValue: 50,
+        range: 0 ... 100,
+        unit: .percent)
 
     /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter public var decimation: AUValue
+    @Parameter(decimationDef) public var decimation: AUValue
+
+    /// Specification details for rounding
+    public static let roundingDef = NodeParameterDef(
+        identifier: "rounding",
+        name: "Rounding",
+        address: 8,
+        defaultValue: 0,
+        range: 0 ... 100,
+        unit: .percent)
 
     /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
-    @Parameter public var rounding: AUValue
+    @Parameter(roundingDef) public var rounding: AUValue
+
+    /// Specification details for finalMix
+    public static let finalMixDef = NodeParameterDef(
+        identifier: "finalMix",
+        name: "Final Mix",
+        address: 15,
+        defaultValue: 50,
+        range: 0 ... 100,
+        unit: .percent)
 
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
-    @Parameter public var finalMix: AUValue
+    @Parameter(finalMixDef) public var finalMix: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -32,15 +65,12 @@ open class Decimator: Node, Toggleable {
     ///
     public init(
         _ input: Node,
-        decimation: AUValue = 50,
-        rounding: AUValue = 0,
-        finalMix: AUValue = 50) {
-        super.init(avAudioNode: effectAU)
-        connections.append(input)
+        decimation: AUValue = decimationDef.defaultValue,
+        rounding: AUValue = roundingDef.defaultValue,
+        finalMix: AUValue = finalMixDef.defaultValue) {
+        self.input = input
 
-        self.$decimation.associate(with: effectAU, index: 7)
-        self.$rounding.associate(with: effectAU, index: 8)
-        self.$finalMix.associate(with: effectAU, index: 15)
+        associateParams(with: effectAU)
 
         self.decimation = decimation
         self.rounding = rounding

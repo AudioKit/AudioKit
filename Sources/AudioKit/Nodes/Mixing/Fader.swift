@@ -4,15 +4,15 @@ import AVFoundation
 import CAudioKit
 
 /// Stereo Fader.
-public class Fader: Node, AudioUnitContainer, Toggleable {
-    /// Unique four-letter identifier "fder"
-    public static let ComponentDescription = AudioComponentDescription(effect: "fder")
+public class Fader: Node {
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    let input: Node
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "fder")
 
     // MARK: - Parameters
 
@@ -32,24 +32,24 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         identifier: "leftGain",
         name: "Left Gain",
         address: akGetParameterAddress("FaderParameterLeftGain"),
+        defaultValue: 1,
         range: Fader.gainRange,
-        unit: .linearGain,
-        flags: .default)
+        unit: .linearGain)
 
     /// Left Channel Amplification Factor
-    @Parameter public var leftGain: AUValue
+    @Parameter(leftGainDef) public var leftGain: AUValue
 
     /// Specification details for right gain
     public static let rightGainDef = NodeParameterDef(
         identifier: "rightGain",
         name: "Right Gain",
         address: akGetParameterAddress("FaderParameterRightGain"),
+        defaultValue: 1,
         range: Fader.gainRange,
-        unit: .linearGain,
-        flags: .default)
+        unit: .linearGain)
 
     /// Right Channel Amplification Factor
-    @Parameter public var rightGain: AUValue
+    @Parameter(rightGainDef) public var rightGain: AUValue
 
     /// Amplification Factor in db
     public var dB: AUValue {
@@ -62,44 +62,25 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
         identifier: "flipStereo",
         name: "Flip Stereo",
         address: akGetParameterAddress("FaderParameterFlipStereo"),
+        defaultValue: 0,
         range: 0.0 ... 1.0,
-        unit: .boolean,
-        flags: .default)
+        unit: .boolean)
 
     /// Flip left and right signal
-    @Parameter public var flipStereo: Bool
+    @Parameter(flipStereoDef) public var flipStereo: Bool
 
     /// Specification for whether to mix the stereo signal down to mono
     public static let mixToMonoDef = NodeParameterDef(
         identifier: "mixToMono",
         name: "Mix To Mono",
         address: akGetParameterAddress("FaderParameterMixToMono"),
+        defaultValue: 0,
         range: 0.0 ... 1.0,
-        unit: .boolean,
-        flags: .default)
+        unit: .boolean)
 
     /// Make the output on left and right both be the same combination of incoming left and mixed equally
-    @Parameter public var mixToMono: Bool
+    @Parameter(mixToMonoDef) public var mixToMono: Bool
 
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for fader
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Fader.leftGainDef,
-             Fader.rightGainDef,
-             Fader.flipStereoDef,
-             Fader.mixToMonoDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("FaderDSP")
-        }
-    }
     // MARK: - Initialization
 
     /// Initialize this fader node
@@ -109,21 +90,14 @@ public class Fader: Node, AudioUnitContainer, Toggleable {
     ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(_ input: Node, gain: AUValue = 1) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.leftGain = gain
-            self.rightGain = gain
-            self.flipStereo = false
-            self.mixToMono = false
-        }
-
-        connections.append(input)
+        self.input = input
+        
+        setupParameters()
+        
+        self.leftGain = gain
+        self.rightGain = gain
+        self.flipStereo = false
+        self.mixToMono = false
     }
 
     deinit {

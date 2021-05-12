@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
-public class Clipper: Node, AudioUnitContainer, Toggleable {
+public class Clipper: Node {
 
-    /// Unique four-letter identifier "clip"
-    public static let ComponentDescription = AudioComponentDescription(effect: "clip")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "clip")
 
     // MARK: - Parameters
 
@@ -23,29 +22,12 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
         identifier: "limit",
         name: "Threshold",
         address: akGetParameterAddress("ClipperParameterLimit"),
+        defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Threshold / limiting value.
-    @Parameter public var limit: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Clipper
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Clipper.limitDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("ClipperDSP")
-        }
-    }
+    @Parameter(limitDef) public var limit: AUValue
 
     // MARK: - Initialization
 
@@ -57,21 +39,12 @@ public class Clipper: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        limit: AUValue = 1.0
+        limit: AUValue = limitDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.limit = limit
-        }
-        connections.append(input)
-    }
+        self.limit = limit
+   }
 }

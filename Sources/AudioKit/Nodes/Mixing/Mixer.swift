@@ -4,9 +4,17 @@ import AVFoundation
 import CAudioKit
 
 /// AudioKit version of Apple's Mixer Node. Mixes a variadic list of Nodes.
-public class Mixer: Node, Toggleable, NamedNode {
+public class Mixer: Node, NamedNode {
     /// The internal mixer node
-    fileprivate var mixerAU = AVAudioMixerNode()
+    fileprivate let mixerAU = AVAudioMixerNode()
+
+    var inputs: [Node] = []
+    
+    /// Connected nodes
+    public var connections: [Node] { inputs }
+
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode
 
     /// Name of the node
     open var name = "(unset)"
@@ -28,8 +36,6 @@ public class Mixer: Node, Toggleable, NamedNode {
         }
     }
 
-    fileprivate var lastKnownVolume: AUValue = 1.0
-
     /// Determine if the mixer is serving any output or if it is stopped.
     public var isStarted: Bool {
         return volume != 0.0
@@ -37,7 +43,7 @@ public class Mixer: Node, Toggleable, NamedNode {
 
     /// Initialize the mixer node with no inputs, to be connected later
     public init(volume: AUValue = 1.0, name: String? = nil) {
-        super.init(avAudioNode: mixerAU)
+        avAudioNode = mixerAU
         self.volume = volume
         self.name = name ?? MemoryAddress(of: self).description
     }
@@ -58,22 +64,7 @@ public class Mixer: Node, Toggleable, NamedNode {
     ///
     public convenience init(_ inputs: [Node], name: String? = nil) {
         self.init(name: name)
-        connections = inputs
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        if isStopped {
-            volume = lastKnownVolume
-        }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        if isPlaying {
-            lastKnownVolume = volume
-            volume = 0
-        }
+        self.inputs = inputs
     }
 
     /// Add input to the mixer
@@ -83,7 +74,7 @@ public class Mixer: Node, Toggleable, NamedNode {
             Log("🛑 Error: Node is already connected to Mixer.")
             return
         }
-        connections.append(node)
+        inputs.append(node)
         makeAVConnections()
     }
 
@@ -96,7 +87,7 @@ public class Mixer: Node, Toggleable, NamedNode {
     /// Remove input from the mixer
     /// - Parameter node: Node to remove
     public func removeInput(_ node: Node) {
-        connections.removeAll(where: { $0 === node })
+        inputs.removeAll(where: { $0 === node })
         avAudioNode.disconnect(input: node.avAudioNode)
     }
 
@@ -108,7 +99,7 @@ public class Mixer: Node, Toggleable, NamedNode {
         for input in nodes {
             avAudioNode.disconnect(input: input)
         }
-        connections.removeAll()
+        inputs.removeAll()
     }
     
     /// Resize underlying AVAudioMixerNode input busses array to accomodate for required count of inputs.

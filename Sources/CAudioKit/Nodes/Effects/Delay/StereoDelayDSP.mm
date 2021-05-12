@@ -20,12 +20,10 @@ private:
     ParameterRamper dryWetMixRamp;
 
 public:
-    StereoDelayDSP() {
+    StereoDelayDSP() : DSPBase(1, true) {
         parameters[StereoDelayParameterTime] = &timeRamp;
         parameters[StereoDelayParameterFeedback] = &feedbackRamp;
         parameters[StereoDelayParameterDryWetMix] = &dryWetMixRamp;
-
-        bCanProcessInPlace = true;
     }
 
     void setParameter(AUParameterAddress address, AUValue value, bool immediate) override {
@@ -109,7 +107,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(StereoDelayDSP)
+AK_REGISTER_DSP(StereoDelayDSP, "sdly")
 AK_REGISTER_PARAMETER(StereoDelayParameterTime)
 AK_REGISTER_PARAMETER(StereoDelayParameterFeedback)
 AK_REGISTER_PARAMETER(StereoDelayParameterDryWetMix)

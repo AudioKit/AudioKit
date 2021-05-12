@@ -49,4 +49,4 @@ public:
     }
 };
 
-AK_REGISTER_DSP(BalancerDSP)
+AK_REGISTER_DSP(BalancerDSP, "blnc")

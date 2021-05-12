@@ -10,28 +10,17 @@ import CAudioKit
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-public class Balancer: Node, AudioUnitContainer, Toggleable {
+public class Balancer: Node {
 
-    /// Unique four-letter identifier "blnc"
-    public static let ComponentDescription = AudioComponentDescription(mixer: "blnc")
+    let input: Node
+    let comparator: Node
+    
+    /// Conneced nodes
+    public var connections: [Node] { [input, comparator] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for the balancer
-    public class InternalAU: AudioUnitBase {
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("BalancerDSP")
-        }
-    }
-
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "blnc")
+    
     // MARK: - Initialization
 
     /// Initialize this balance node
@@ -41,15 +30,7 @@ public class Balancer: Node, AudioUnitContainer, Toggleable {
     ///   - comparator: Audio to match power with
     ///
     public init(_ input: Node, comparator: Node) {
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-        }
-
-        connections.append(input)
-        connections.append(comparator)
+        self.input = input
+        self.comparator = comparator
     }
 }

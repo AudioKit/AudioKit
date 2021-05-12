@@ -6,60 +6,37 @@ import CAudioKit
 
 /// Karplus-Strong plucked string instrument.
 /// 
-public class PluckedString: Node, AudioUnitContainer, Toggleable {
+public class PluckedString: Node, Triggerable {
 
-    /// Unique four-letter identifier "pluk"
-    public static let ComponentDescription = AudioComponentDescription(generator: "pluk")
+    /// Connected nodes
+    public var connections: [Node] { [] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
-
-    // MARK: - Parameters
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(instrument: "pluk")
 
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
         name: "Variable frequency. Values less than the initial frequency are doubled until greater than that.",
         address: akGetParameterAddress("PluckedStringParameterFrequency"),
+        defaultValue: 110,
         range: 0 ... 22_000,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Variable frequency. Values less than the initial frequency are doubled until greater than that.
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for amplitude
     public static let amplitudeDef = NodeParameterDef(
         identifier: "amplitude",
         name: "Amplitude",
         address: akGetParameterAddress("PluckedStringParameterAmplitude"),
+        defaultValue: 0.5,
         range: 0 ... 1,
-        unit: .generic,
-        flags: .default)
+        unit: .generic)
 
     /// Amplitude
-    @Parameter public var amplitude: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for PluckedString
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [PluckedString.frequencyDef,
-             PluckedString.amplitudeDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PluckedStringDSP")
-        }
-    }
+    @Parameter(amplitudeDef) public var amplitude: AUValue
 
     // MARK: - Initialization
 
@@ -71,34 +48,17 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
     ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
     ///
     public init(
-        frequency: AUValue = 110,
-        amplitude: AUValue = 0.5,
+        frequency: AUValue = frequencyDef.defaultValue,
+        amplitude: AUValue = amplitudeDef.defaultValue,
         lowestFrequency: AUValue = 110
     ) {
-        super.init(avAudioNode: AVAudioNode())
+        setupParameters()
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.frequency = frequency
-            self.amplitude = amplitude
-        }
+        self.frequency = frequency
+        self.amplitude = amplitude
     }
 
     // MARK: - Control
-
-    /// Trigger the sound with current parameters
-    ///
-    open func trigger() {
-        internalAU?.start()
-        internalAU?.trigger()
-    }
 
     /// Trigger the sound with a set of parameters
     ///
@@ -106,11 +66,10 @@ public class PluckedString: Node, AudioUnitContainer, Toggleable {
     ///   - frequency: Frequency in Hz
     ///   - amplitude: Volume
     ///
-    open func trigger(frequency: AUValue, amplitude: AUValue = 1) {
+    public func trigger(frequency: AUValue, amplitude: AUValue = 1) {
         self.frequency = frequency
         self.amplitude = amplitude
-        internalAU?.start()
-        internalAU?.triggerFrequency(frequency, amplitude: amplitude)
+        trigger()
     }
 
 }

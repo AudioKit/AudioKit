@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#if !os(tvOS)
 import CoreMIDI
 
 @available(iOS 14.0, OSX 11.0, *)
@@ -43,3 +44,4 @@ class TestSender {
         return uniqueID
     }
 }
+#endif

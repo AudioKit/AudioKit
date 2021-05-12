@@ -83,7 +83,7 @@ public:
     }
 };
 
-AK_REGISTER_DSP(VocalTractDSP)
+AK_REGISTER_DSP(VocalTractDSP, "vocw")
 AK_REGISTER_PARAMETER(VocalTractParameterFrequency)
 AK_REGISTER_PARAMETER(VocalTractParameterTonguePosition)
 AK_REGISTER_PARAMETER(VocalTractParameterTongueDiameter)

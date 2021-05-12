@@ -4,31 +4,20 @@ import AVFoundation
 import CAudioKit
 
 /// Operation-based generator
-public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
+public class OperationGenerator: Node {
 
-    /// Internal audio unit type
-    public typealias AudioUnitType = InternalAU
-
-    /// Four letter unique description "cstg"
-    public static let ComponentDescription = AudioComponentDescription(generator: "cstg")
-
-    // MARK: - Properties
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
-        return internalAU?.isStarted ?? false
-    }
-
-    // MARK: - Parameters
+    /// Connected nodes
+    public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode
 
     internal static func makeParam(_ number: Int) -> NodeParameterDef {
         return NodeParameterDef(
             identifier: "parameter\(number)",
             name: "Parameter \(number)",
-            address: akGetParameterAddress("OperationGeneratorParameter\(number)"),
+            address: akGetParameterAddress("OperationParameter\(number)"),
+            defaultValue: 0,
             range: floatRange,
             unit: .generic,
             flags: .default)
@@ -63,76 +52,33 @@ public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
     public static let parameter14Def = OperationGenerator.makeParam(14)
 
     /// Operation parameter 1
-    @Parameter public var parameter1: AUValue
+    @Parameter(parameter1Def) public var parameter1: AUValue
     /// Operation parameter 2
-    @Parameter public var parameter2: AUValue
+    @Parameter(parameter2Def) public var parameter2: AUValue
     /// Operation parameter 3
-    @Parameter public var parameter3: AUValue
+    @Parameter(parameter3Def) public var parameter3: AUValue
     /// Operation parameter 4
-    @Parameter public var parameter4: AUValue
+    @Parameter(parameter4Def) public var parameter4: AUValue
     /// Operation parameter 5
-    @Parameter public var parameter5: AUValue
+    @Parameter(parameter5Def) public var parameter5: AUValue
     /// Operation parameter 6
-    @Parameter public var parameter6: AUValue
+    @Parameter(parameter6Def) public var parameter6: AUValue
     /// Operation parameter 7
-    @Parameter public var parameter7: AUValue
+    @Parameter(parameter7Def) public var parameter7: AUValue
     /// Operation parameter 8
-    @Parameter public var parameter8: AUValue
+    @Parameter(parameter8Def) public var parameter8: AUValue
     /// Operation parameter 9
-    @Parameter public var parameter9: AUValue
+    @Parameter(parameter9Def) public var parameter9: AUValue
     /// Operation parameter 10
-    @Parameter public var parameter10: AUValue
+    @Parameter(parameter10Def) public var parameter10: AUValue
     /// Operation parameter 11
-    @Parameter public var parameter11: AUValue
+    @Parameter(parameter11Def) public var parameter11: AUValue
     /// Operation parameter 12
-    @Parameter public var parameter12: AUValue
+    @Parameter(parameter12Def) public var parameter12: AUValue
     /// Operation parameter 13
-    @Parameter public var parameter13: AUValue
+    @Parameter(parameter13Def) public var parameter13: AUValue
     /// Operation parameter 14
-    @Parameter public var parameter14: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for Operation Generator
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [OperationGenerator.parameter1Def,
-             OperationGenerator.parameter2Def,
-             OperationGenerator.parameter3Def,
-             OperationGenerator.parameter4Def,
-             OperationGenerator.parameter5Def,
-             OperationGenerator.parameter6Def,
-             OperationGenerator.parameter7Def,
-             OperationGenerator.parameter8Def,
-             OperationGenerator.parameter9Def,
-             OperationGenerator.parameter10Def,
-             OperationGenerator.parameter11Def,
-             OperationGenerator.parameter12Def,
-             OperationGenerator.parameter13Def,
-             OperationGenerator.parameter14Def]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("OperationGeneratorDSP")
-        }
-
-        /// Trigger the operation generator
-        public override func trigger() {
-            akOperationGeneratorTrigger(dsp)
-        }
-
-        /// Set sporth string
-        /// - Parameter sporth: Sporth string
-        public func setSporth(_ sporth: String) {
-            sporth.withCString { str -> Void in
-                akOperationGeneratorSetSporth(dsp, str, Int32(sporth.utf8CString.count))
-            }
-        }
-    }
+    @Parameter(parameter14Def) public var parameter14: AUValue
 
     // MARK: - Initializers
 
@@ -192,18 +138,15 @@ public class OperationGenerator: Node, AudioUnitContainer, Toggleable {
     ///
     public init(sporth: String = "") {
 
-        super.init(avAudioNode: AVAudioNode())
-        instantiateAudioUnit { avAudioUnit in
-
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-            self.internalAU?.setSporth(sporth)
-        }
+        avAudioNode = instantiate(generator: "cstg")
+        setupParameters()
+        
+        akOperationSetSporth(au.dsp, sporth)
     }
 
     /// Trigger the sound with current parameters
     open func trigger() {
-        internalAU?.trigger()
+        au.trigger()
     }
+
 }

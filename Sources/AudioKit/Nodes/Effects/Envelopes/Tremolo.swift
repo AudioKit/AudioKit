@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Table-lookup tremolo with linear interpolation
-public class Tremolo: Node, AudioUnitContainer, Toggleable {
+public class Tremolo: Node {
 
-    /// Unique four-letter identifier "trem"
-    public static let ComponentDescription = AudioComponentDescription(effect: "trem")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "trem")
 
     // MARK: - Parameters
 
@@ -23,42 +22,24 @@ public class Tremolo: Node, AudioUnitContainer, Toggleable {
         identifier: "frequency",
         name: "Frequency (Hz)",
         address: akGetParameterAddress("TremoloParameterFrequency"),
+        defaultValue: 10.0,
         range: 0.0 ... 100.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Frequency (Hz)
-    @Parameter public var frequency: AUValue
+    @Parameter(frequencyDef) public var frequency: AUValue
 
     /// Specification details for depth
     public static let depthDef = NodeParameterDef(
         identifier: "depth",
         name: "Depth",
         address: akGetParameterAddress("TremoloParameterDepth"),
+        defaultValue: 1.0,
         range: 0.0 ... 1.0,
-        unit: .percent,
-        flags: .default)
+        unit: .percent)
 
     /// Depth
-    @Parameter public var depth: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for Tremolo
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [Tremolo.frequencyDef,
-             Tremolo.depthDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("TremoloDSP")
-        }
-    }
+    @Parameter(depthDef) public var depth: AUValue
 
     // MARK: - Initialization
 
@@ -68,30 +49,21 @@ public class Tremolo: Node, AudioUnitContainer, Toggleable {
     ///   - input: Input node to process
     ///   - frequency: Frequency (Hz)
     ///   - depth: Depth
-    ///   - waveform: Shape of the tremolo curve
+    ///   - waveform: Shape of the curve
     ///
     public init(
         _ input: Node,
-        frequency: AUValue = 10.0,
-        depth: AUValue = 1.0,
+        frequency: AUValue = frequencyDef.defaultValue,
+        depth: AUValue = depthDef.defaultValue,
         waveform: Table = Table(.positiveSine)
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
+        au.setWavetable(waveform.content)
 
-            audioUnit.setWavetable(waveform.content)
-
-            self.frequency = frequency
-            self.depth = depth
-        }
-        connections.append(input)
-    }
+        self.frequency = frequency
+        self.depth = depth
+   }
 }

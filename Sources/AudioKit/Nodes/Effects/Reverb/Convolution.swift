@@ -5,41 +5,22 @@ import CAudioKit
 
 /// This module will perform partitioned convolution on an input signal using an
 /// ftable as an impulse response.
+/// TOOD: This node needs to be tested
 ///
-public class Convolution: Node, AudioUnitContainer, Toggleable {
+public class Convolution: Node {
 
-    /// Unique four-letter identifier "conv"
-    public static let ComponentDescription = AudioComponentDescription(effect: "conv")
+    let input: Node
+    
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
-
-    /// Internal audio unit
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "conv")
 
     // MARK: - Parameters
 
     fileprivate var impulseResponseFileURL: CFURL
     fileprivate var partitionLength: Int = 2_048
-
-    // MARK: - Audio Unit
-
-    /// Internal audio unit for convolution
-    public class InternalAU: AudioUnitBase {
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("ConvolutionDSP")
-        }
-
-        /// Set Partition Length
-        /// - Parameter length: Length of partition
-        public func setPartitionLength(_ length: Int) {
-            akConvolutionSetPartitionLength(dsp, Int32(length))
-        }
-
-    }
 
     // MARK: - Initialization
 
@@ -53,23 +34,16 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
                 impulseResponseFileURL: URL,
                 partitionLength: Int = 2_048
     ) {
+        self.input = input
         self.impulseResponseFileURL = impulseResponseFileURL as CFURL
         self.partitionLength = partitionLength
-
-        super.init(avAudioNode: AVAudioNode())
-
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
-
-            self.internalAU = avAudioUnit.auAudioUnit as? AudioUnitType
-
-            self.internalAU?.setPartitionLength(partitionLength)
-            self.readAudioFile()
-            self.internalAU?.start()
-        }
-
-        connections.append(input)
+        
+        setupParameters()
+        
+        akConvolutionSetPartitionLength(au.dsp, Int32(partitionLength))
+        
+        self.readAudioFile()
+        self.start()
     }
 
     private func readAudioFile() {
@@ -151,7 +125,7 @@ public class Convolution: Node, AudioUnitContainer, Toggleable {
                     let data = UnsafeMutablePointer<Float>(
                         bufferList.mBuffers.mData?.assumingMemoryBound(to: Float.self)
                     )
-                    internalAU?.setWavetable(data: data, size: Int(ioNumberFrames))
+                    au.setWavetable(data: data, size: Int(ioNumberFrames))
                 } else {
                     // failure
                     theData?.deallocate()

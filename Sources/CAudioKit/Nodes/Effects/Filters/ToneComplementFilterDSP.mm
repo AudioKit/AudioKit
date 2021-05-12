@@ -15,9 +15,8 @@ private:
     ParameterRamper halfPowerPointRamp;
 
 public:
-    ToneComplementFilterDSP() {
+    ToneComplementFilterDSP() : SoundpipeDSPBase(1, false) {
         parameters[ToneComplementFilterParameterHalfPowerPoint] = &halfPowerPointRamp;
-        bCanProcessInPlace = false;
     }
 
     void init(int channelCount, double sampleRate) override {
@@ -73,5 +72,5 @@ public:
     }
 };
 
-AK_REGISTER_DSP(ToneComplementFilterDSP)
+AK_REGISTER_DSP(ToneComplementFilterDSP, "aton")
 AK_REGISTER_PARAMETER(ToneComplementFilterParameterHalfPowerPoint)

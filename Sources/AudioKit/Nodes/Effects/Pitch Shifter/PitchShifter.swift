@@ -5,16 +5,15 @@ import AVFoundation
 import CAudioKit
 
 /// Faust-based pitch shfiter
-public class PitchShifter: Node, AudioUnitContainer, Toggleable {
+public class PitchShifter: Node {
 
-    /// Unique four-letter identifier "pshf"
-    public static let ComponentDescription = AudioComponentDescription(effect: "pshf")
+    let input: Node
 
-    /// Internal type of audio unit for this node
-    public typealias AudioUnitType = InternalAU
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Internal audio unit 
-    public private(set) var internalAU: AudioUnitType?
+    /// Underlying AVAudioNode
+    public var avAudioNode = instantiate(effect: "pshf")
 
     // MARK: - Parameters
 
@@ -23,55 +22,36 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
         identifier: "shift",
         name: "Pitch shift (in semitones)",
         address: akGetParameterAddress("PitchShifterParameterShift"),
+        defaultValue: 0,
         range: -24.0 ... 24.0,
-        unit: .relativeSemiTones,
-        flags: .default)
+        unit: .relativeSemiTones)
 
     /// Pitch shift (in semitones)
-    @Parameter public var shift: AUValue
+    @Parameter(shiftDef) public var shift: AUValue
 
     /// Specification details for windowSize
     public static let windowSizeDef = NodeParameterDef(
         identifier: "windowSize",
         name: "Window size (in samples)",
         address: akGetParameterAddress("PitchShifterParameterWindowSize"),
+        defaultValue: 1_024,
         range: 0.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Window size (in samples)
-    @Parameter public var windowSize: AUValue
+    @Parameter(windowSizeDef) public var windowSize: AUValue
 
     /// Specification details for crossfade
     public static let crossfadeDef = NodeParameterDef(
         identifier: "crossfade",
         name: "Crossfade (in samples)",
         address: akGetParameterAddress("PitchShifterParameterCrossfade"),
+        defaultValue: 512,
         range: 0.0 ... 10_000.0,
-        unit: .hertz,
-        flags: .default)
+        unit: .hertz)
 
     /// Crossfade (in samples)
-    @Parameter public var crossfade: AUValue
-
-    // MARK: - Audio Unit
-
-    /// Internal Audio Unit for PitchShifter
-    public class InternalAU: AudioUnitBase {
-        /// Get an array of the parameter definitions
-        /// - Returns: Array of parameter definitions
-        public override func getParameterDefs() -> [NodeParameterDef] {
-            [PitchShifter.shiftDef,
-             PitchShifter.windowSizeDef,
-             PitchShifter.crossfadeDef]
-        }
-
-        /// Create the DSP Refence for this node
-        /// - Returns: DSP Reference
-        public override func createDSP() -> DSPRef {
-            akCreateDSP("PitchShifterDSP")
-        }
-    }
+    @Parameter(crossfadeDef) public var crossfade: AUValue
 
     // MARK: - Initialization
 
@@ -85,25 +65,16 @@ public class PitchShifter: Node, AudioUnitContainer, Toggleable {
     ///
     public init(
         _ input: Node,
-        shift: AUValue = 0,
-        windowSize: AUValue = 1_024,
-        crossfade: AUValue = 512
+        shift: AUValue = shiftDef.defaultValue,
+        windowSize: AUValue = windowSizeDef.defaultValue,
+        crossfade: AUValue = crossfadeDef.defaultValue
         ) {
-        super.init(avAudioNode: AVAudioNode())
+        self.input = input
 
-        instantiateAudioUnit { avAudioUnit in
-            self.avAudioUnit = avAudioUnit
-            self.avAudioNode = avAudioUnit
+        setupParameters()
 
-            guard let audioUnit = avAudioUnit.auAudioUnit as? AudioUnitType else {
-                fatalError("Couldn't create audio unit")
-            }
-            self.internalAU = audioUnit
-
-            self.shift = shift
-            self.windowSize = windowSize
-            self.crossfade = crossfade
-        }
-        connections.append(input)
-    }
+        self.shift = shift
+        self.windowSize = windowSize
+        self.crossfade = crossfade
+   }
 }

@@ -18,10 +18,9 @@ private:
     ParameterRamper feedbackRamp;
 
 public:
-    VariableDelayDSP() {
+    VariableDelayDSP() : SoundpipeDSPBase(1, false) {
         parameters[VariableDelayParameterTime] = &timeRamp;
         parameters[VariableDelayParameterFeedback] = &feedbackRamp;
-        bCanProcessInPlace = false;
     }
 
     void setMaximumTime(float maxTime) {
@@ -94,6 +93,6 @@ AK_API void akVariableDelaySetMaximumTime(DSPRef dspRef, float maximumTime) {
     dsp->setMaximumTime(maximumTime);
 }
 
-AK_REGISTER_DSP(VariableDelayDSP)
+AK_REGISTER_DSP(VariableDelayDSP, "vdla")
 AK_REGISTER_PARAMETER(VariableDelayParameterTime)
 AK_REGISTER_PARAMETER(VariableDelayParameterFeedback)

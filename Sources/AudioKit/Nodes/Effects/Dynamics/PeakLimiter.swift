@@ -5,20 +5,53 @@ import AVFoundation
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-open class PeakLimiter: Node, Toggleable {
+public class PeakLimiter: Node {
 
-        fileprivate let effectAU = AVAudioUnitEffect(
-    audioComponentDescription:
-    AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter))
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter)
 
-    /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    @Parameter public var attackTime: AUValue
+    let input: Node
 
-    /// Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-    @Parameter public var decayTime: AUValue
+    /// Connected nodes
+    public var connections: [Node] { [input] }
 
-    /// Pre Gain (dB) ranges from -40 to 40 (Default: 0)
-    @Parameter public var preGain: AUValue
+    /// Underlying AVAudioNode
+    public var avAudioNode: AVAudioNode { effectAU }
+
+    /// Specification details for attackTime
+    public static let attackTimeDef = NodeParameterDef(
+        identifier: "attackTime",
+        name: "Attack Time",
+        address: 0,
+        defaultValue: 0.012,
+        range: 0.001 ... 0.03,
+        unit: .seconds)
+
+    /// Attack Time (seconds) ranges from 0.001 to 0.03 (Default: 0.012)
+    @Parameter(attackTimeDef) public var attackTime: AUValue
+
+    /// Specification details for decayTime
+    public static let decayTimeDef = NodeParameterDef(
+        identifier: "decayTime",
+        name: "Decay Time",
+        address: 1,
+        defaultValue: 0.024,
+        range: 0.001 ... 0.06,
+        unit: .seconds)
+
+    /// Decay Time (seconds) ranges from 0.001 to 0.06 (Default: 0.024)
+    @Parameter(decayTimeDef) public var decayTime: AUValue
+
+    /// Specification details for preGain
+    public static let preGainDef = NodeParameterDef(
+        identifier: "preGain",
+        name: "Pre Gain",
+        address: 2,
+        defaultValue: 0,
+        range: -40 ... 40,
+        unit: .decibels)
+
+    /// Pre Gain (decibels) ranges from -40 to 40 (Default: 0)
+    @Parameter(preGainDef) public var preGain: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -26,21 +59,18 @@ open class PeakLimiter: Node, Toggleable {
     /// Initialize the peak limiter node
     ///
     /// - parameter input: Input node to process
-    /// - parameter attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    /// - parameter decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-    /// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
+    /// - parameter attackTime: Attack Time (seconds) ranges from 0.001 to 0.03 (Default: 0.012)
+    /// - parameter decayTime: Decay Time (seconds) ranges from 0.001 to 0.06 (Default: 0.024)
+    /// - parameter preGain: Pre Gain (decibels) ranges from -40 to 40 (Default: 0)
     ///
     public init(
         _ input: Node,
-        attackTime: AUValue = 0.012,
-        decayTime: AUValue = 0.024,
-        preGain: AUValue = 0) {
-        super.init(avAudioNode: effectAU)
-        connections.append(input)
+        attackTime: AUValue = attackTimeDef.defaultValue,
+        decayTime: AUValue = decayTimeDef.defaultValue,
+        preGain: AUValue = preGainDef.defaultValue) {
+        self.input = input
 
-        self.$attackTime.associate(with: effectAU, index: 0)
-        self.$decayTime.associate(with: effectAU, index: 1)
-        self.$preGain.associate(with: effectAU, index: 2)
+        associateParams(with: effectAU)
 
         self.attackTime = attackTime
         self.decayTime = decayTime
