@@ -5,15 +5,15 @@ import CAudioKit
 
 /// Sampler
 public class Sampler: Node {
-    
+
     /// Connected nodes
     public var connections: [Node] { [] }
-    
+
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode = instantiate(instrument: "samp")
 
     // MARK: - Parameters
-    
+
     private static var nonRampFlags: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable]
 
     /// Specification details for master volume
@@ -36,10 +36,10 @@ public class Sampler: Node {
         defaultValue: 0.0,
         range: -24 ... 24,
         unit: .relativeSemiTones)
-    
+
     /// Pitch offset (semitones)
     @Parameter(pitchBendDef) public var pitchBend: AUValue
-    
+
     /// Specification details for vibratoDepth
     public static let vibratoDepthDef = NodeParameterDef(
         identifier: "vibratoDepth",
@@ -48,10 +48,10 @@ public class Sampler: Node {
         defaultValue: 0.0,
         range: 0 ... 12,
         unit: .relativeSemiTones)
-    
+
     /// Vibrato amount (semitones)
     @Parameter(vibratoDepthDef) public var vibratoDepth: AUValue
-    
+
     /// Specification details for vibratoFrequency
     public static let vibratoFrequencyDef = NodeParameterDef(
         identifier: "vibratoFrequency",
