@@ -5,7 +5,7 @@ import CAudioKit
 import AVFoundation
 
 /// Sampler's Audio Unit - not yet converted to an internal AU
-public class SamplerAudioUnit: AudioUnitBase {
+extension AudioUnitBase {
 
     /// Assign a note number to a particular frequency
     /// - Parameters:

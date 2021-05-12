@@ -516,23 +516,23 @@ public class Sampler: Node {
     ///   - noteNumber: MIDI Note number
     ///   - frequency: Frequency in Hertz
     public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
-        (auBase as? SamplerAudioUnit)?.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: frequency)
+        auBase.setNoteFrequency(noteNumber: Int32(noteNumber), noteFrequency: frequency)
     }
 
     /// Create a simple key map
     public func buildSimpleKeyMap() {
-        (auBase as? SamplerAudioUnit)?.buildSimpleKeyMap()
+        auBase.buildSimpleKeyMap()
     }
 
     /// Build key map
     public func buildKeyMap() {
-        (auBase as? SamplerAudioUnit)?.buildKeyMap()
+        auBase.buildKeyMap()
     }
 
     /// Set Loop
     /// - Parameter thruRelease: Wether or not to loop before or after the release
     public func setLoop(thruRelease: Bool) {
-        (auBase as? SamplerAudioUnit)?.setLoop(thruRelease: thruRelease)
+        auBase.setLoop(thruRelease: thruRelease)
     }
 
     /// Play the sampler
@@ -543,25 +543,25 @@ public class Sampler: Node {
     public func play(noteNumber: MIDINoteNumber,
                      velocity: MIDIVelocity,
                      channel: MIDIChannel = 0) {
-        (auBase as? SamplerAudioUnit)?.playNote(noteNumber: noteNumber, velocity: velocity)
+        auBase.playNote(noteNumber: noteNumber, velocity: velocity)
     }
 
     /// Stop the sampler playback of a specific note
     /// - Parameter noteNumber: MIDI Note number
     public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
-        (auBase as? SamplerAudioUnit)?.stopNote(noteNumber: noteNumber, immediate: false)
+        auBase.stopNote(noteNumber: noteNumber, immediate: false)
     }
 
     /// Stop and immediately silence a note
     /// - Parameter noteNumber: MIDI note number
     public func silence(noteNumber: MIDINoteNumber) {
-        (auBase as? SamplerAudioUnit)?.stopNote(noteNumber: noteNumber, immediate: true)
+        auBase.stopNote(noteNumber: noteNumber, immediate: true)
     }
 
     /// Activate the sustain pedal
     /// - Parameter pedalDown: Wether the pedal is down (activated)
     public func sustainPedal(pedalDown: Bool) {
-        (auBase as? SamplerAudioUnit)?.sustainPedal(down: pedalDown)
+        auBase.sustainPedal(down: pedalDown)
     }
 
 }
