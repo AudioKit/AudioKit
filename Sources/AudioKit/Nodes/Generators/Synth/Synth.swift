@@ -1,4 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+#if !os(tvOS)
 
 import AVFoundation
 import CAudioKit
@@ -243,7 +244,6 @@ public class Synth: Node {
         
     }
 
-    #if !os(tvOS)
     /// Play a note on the synth
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
@@ -262,5 +262,5 @@ public class Synth: Node {
     public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
         scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: 0, channel: channel))
     }
-    #endif
 }
+#endif
