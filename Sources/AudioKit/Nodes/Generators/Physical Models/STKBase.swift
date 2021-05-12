@@ -2,7 +2,8 @@
 
 import AVFoundation
 
-public class STKPhysicalModel: Node, MIDITriggerable  {
+/// Superclass for STK physical models, do not use directly
+public class STKBase: Node, MIDITriggerable  {
     /// Connected nodes
     public var connections: [Node] { [] }
     
@@ -16,37 +17,37 @@ public class STKPhysicalModel: Node, MIDITriggerable  {
 }
 
 /// STK Clarinet
-public class Clarinet: STKPhysicalModel {
+public class Clarinet: STKBase {
     /// Initialize the physical model
     public init() { super.init("clar")}
 }
 
 /// STK Flute
-public class Flute: STKPhysicalModel {
+public class Flute: STKBase {
     /// Initialize the physical model
     public init() { super.init("flut")}
 }
 
 /// STK Mandole
-public class MandolinString: STKPhysicalModel {
+public class MandolinString: STKBase {
     /// Initialize the physical model
     public init() { super.init("mand")}
 }
 
 /// STK Rhodes Piano
-public class RhodesPianoKey: STKPhysicalModel {
+public class RhodesPianoKey: STKBase {
     /// Initialize the physical model
     public init() { super.init("rhds")}
 }
 
 /// STK Shaker
-public class Shaker: STKPhysicalModel {
+public class Shaker: STKBase {
     /// Initialize the physical model
     public init() { super.init("shak")}
 }
 
 /// STK Tubuluar Bells
-public class TubularBells: STKPhysicalModel {
+public class TubularBells: STKBase {
     /// Initialize the physical model
     public init() { super.init("tbel")}
 }

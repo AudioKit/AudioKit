@@ -255,7 +255,7 @@ public class AudioPlayer: Node {
 
 extension AudioPlayer: HasInternalConnections {
 
-    // called in the connection chain to attach the playerNode
+    /// called in the connection chain to attach the playerNode
     public func makeInternalConnections() {
         guard let engine = mixerNode.engine else {
             Log("Engine is nil", type: .error)

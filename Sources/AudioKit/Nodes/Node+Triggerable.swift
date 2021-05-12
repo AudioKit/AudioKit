@@ -2,19 +2,20 @@
 
 import AVFoundation
 
-/// To allow physical models to be triggered
+/// To allow nodes to be triggered
 public protocol Triggerable {
+    /// Trigger the sound with current parameters
     func trigger()
 }
 
 extension Node where Self: Triggerable {
     /// Trigger the sound with current parameters
-    ///
     public func trigger() {
         auBase.trigger()
     }
 }
 
+/// To allow nodes to be triggered via MIDI info
 public protocol MIDITriggerable {
     /// Trigger the sound with a set of parameters
     ///

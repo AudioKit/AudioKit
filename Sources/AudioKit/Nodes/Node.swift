@@ -53,6 +53,7 @@ extension Node {
     }
 
     /// Scan for all parameters and associate with the node.
+    /// - Parameter node: AVAudioNode to associate
     func associateParams(with node: AVAudioNode) {
         let mirror = Mirror(reflecting: self)
 
@@ -64,7 +65,6 @@ extension Node {
     }
 
     func makeAVConnections() {
-
         if let node = self as? HasInternalConnections {
             node.makeInternalConnections()
         }
@@ -120,9 +120,13 @@ extension Node {
         return !auBase.shouldBypassEffect
     }
 
+    /// Start the node
     public func start() { bypassed = false }
+    /// Stop the node
     public func stop() { bypassed = true }
+    /// Play the node
     public func play() { bypassed = false }
+    /// Bypass the node
     public func bypass() { bypassed = true }
 
     /// All parameters on the Node
@@ -139,7 +143,8 @@ extension Node {
 
         return params
     }
-
+    
+    /// Set up node parameters using reflection
     public func setupParameters() {
 
         let mirror = Mirror(reflecting: self)
@@ -161,9 +166,9 @@ extension Node {
         }
 
         avAudioNode.auAudioUnit.parameterTree = AUParameterTree.createTree(withChildren: params)
-
     }
 
+    /// Audio Unit for AudioKit
     public var auBase: AudioUnitBase {
         guard let au = avAudioNode.auAudioUnit as? AudioUnitBase else {
             fatalError("Wrong audio unit type.")
@@ -172,6 +177,8 @@ extension Node {
     }
 }
 
+/// Create an AVAudioUnit for the given description
+/// - Parameter componentDescription: Audio Component Description
 func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit {
 
     let semaphore = DispatchSemaphore(value: 0)
@@ -194,18 +201,26 @@ func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit
     return result
 }
 
+/// Create a generator for the given unique identifier
+/// - Parameter code: Unique four letter identifier
 public func instantiate(generator code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(generator: code))
 }
 
+/// Create an instrument for the given unique identifier
+/// - Parameter code: Unique four letter identifier
 public func instantiate(instrument code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(instrument: code))
 }
 
+/// Create an effect for the given unique identifier
+/// - Parameter code: Unique four letter identifier
 public func instantiate(effect code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(effect: code))
 }
 
+/// Create a mixer for the given unique identifier
+/// - Parameter code: Unique four letter identifier
 public func instantiate(mixer code: String) -> AVAudioNode {
     instantiate(componentDescription: AudioComponentDescription(mixer: code))
 }

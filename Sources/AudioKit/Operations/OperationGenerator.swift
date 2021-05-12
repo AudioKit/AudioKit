@@ -6,7 +6,10 @@ import CAudioKit
 /// Operation-based generator
 public class OperationGenerator: Node {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
+    
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
 
     internal static func makeParam(_ number: Int) -> NodeParameterDef {

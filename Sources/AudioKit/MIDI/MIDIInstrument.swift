@@ -9,6 +9,7 @@ import CoreAudio
 /// should be triggerable via MIDI or sequenced with the sequencer.
 open class MIDIInstrument: Node, MIDIListener, NamedNode {
 
+    /// Connected nodes
     public var connections: [Node] { [] }
 
     /// The internal AVAudioEngine AVAudioNode

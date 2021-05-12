@@ -100,6 +100,7 @@ open class AudioUnitBase: AUAudioUnit {
         return canProcessInPlaceDSP(dsp)
     }
 
+    /// Set in order to bypass processing
     override public var shouldBypassEffect: Bool {
         get { return getBypassDSP(dsp) }
         set { setBypassDSP(dsp, newValue) }

@@ -12,10 +12,12 @@ public final class ThreadLockedAccessor<T> {
     private var value: T
     private let lock: ThreadLock = RWThreadLock()
 
+    /// Initialize
     public init(wrappedValue value: T) {
         self.value = value
     }
 
+    /// Wrapped value
     public var wrappedValue: T {
         get {
             lock.readLock()

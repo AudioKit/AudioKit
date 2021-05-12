@@ -514,7 +514,6 @@ public class Sampler: Node {
     ///   - frequency: Frequency in Hertz
     public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
         akSamplerSetNoteFrequency(auBase.dsp, Int32(noteNumber), frequency)
-
     }
 
     /// Create a simple key map

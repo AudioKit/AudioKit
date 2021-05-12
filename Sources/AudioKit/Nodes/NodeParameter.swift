@@ -85,7 +85,9 @@ public class NodeParameter {
     public var range: ClosedRange<AUValue> {
         (parameter.minValue ... parameter.maxValue)
     }
-
+    
+    /// Initial with definition
+    /// - Parameter def: Node parameter definition
     public init(_ def: NodeParameterDef) {
         self.def = def
     }
@@ -185,7 +187,7 @@ public class NodeParameter {
     
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
-    ///   - avAudioUnit: AVAudioUnit to associate with
+    ///   - avAudioNode: AVAudioUnit to associate with
     public func associate(with avAudioNode: AVAudioNode) {
         self.avAudioNode = avAudioNode
         guard let tree = avAudioNode.auAudioUnit.parameterTree else {
@@ -196,7 +198,11 @@ public class NodeParameter {
         // parameter = tree.parameter(withAddress: def.address)
         assert(parameter != nil)
     }
-
+    
+    /// Helper function to attach the parameter to the appropriate tree
+    /// - Parameters:
+    ///   - avAudioNode: AVAudioUnit to associate with
+    ///   - parameter: Parameter to associate
     public func associate(with avAudioNode: AVAudioNode, parameter: AUParameter) {
         self.avAudioNode = avAudioNode
         self.parameter = parameter
