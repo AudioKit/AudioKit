@@ -3,33 +3,6 @@
 import AVFoundation
 import CAudioKit
 
-/// Protocol for AudioKit nodes that have their own internal audio unit
-public protocol AudioUnitContainer: AnyObject {
-    /// Associated type of audio unit
-    associatedtype AudioUnitType: AudioUnitBase
-    /// Unique four-letter description
-    static var ComponentDescription: AudioComponentDescription { get }
-
-    var avAudioNode: AVAudioNode { get set }
-}
-
-extension AudioUnitContainer {
-
-    public func instantiateAudioUnit(callback: @escaping (AVAudioUnit) -> Void) {
-        AUAudioUnit.registerSubclass(Self.AudioUnitType.self,
-                                     as: Self.ComponentDescription,
-                                     name: "Local \(Self.self)",
-                                     version: .max)
-        AVAudioUnit.instantiate(with: Self.ComponentDescription) { avAudioUnit, _ in
-            guard let au = avAudioUnit else {
-                fatalError("Unable to instantiate AVAudioUnit")
-            }
-            self.avAudioNode = au
-            callback(au)
-        }
-    }
-}
-
 extension AUParameterTree {
     /// Look up paramters by key
     public subscript(key: String) -> AUParameter? {
