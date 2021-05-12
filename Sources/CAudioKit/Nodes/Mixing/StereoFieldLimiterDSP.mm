@@ -22,16 +22,18 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
+        if (!isStarted) {
+            amountRamp.stepBy(frameCount);
+            outputBufferList->mBuffers[0] = inputBufferLists[0]->mBuffers[0];
+            outputBufferList->mBuffers[1] = inputBufferLists[0]->mBuffers[1];
+            return;
+        }
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             
             float amount = amountRamp.getAndStep();
-
-            if (!isStarted) {
-                outputBufferList->mBuffers[0] = inputBufferLists[0]->mBuffers[0];
-                outputBufferList->mBuffers[1] = inputBufferLists[0]->mBuffers[1];
-                return;
-            }
 
             float *tmpin[2];
             float *tmpout[2];
