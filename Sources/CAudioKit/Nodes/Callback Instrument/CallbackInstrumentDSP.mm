@@ -46,7 +46,6 @@ public:
     }
 
     void consumer() {
-        int32_t availableBytes;
         midiBuffer.popAll([this] (const AUMIDIEvent& event) {
             if(event.length > 0) {
                 int32_t messageCount = sizeof(event.data) / 3;
