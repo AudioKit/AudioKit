@@ -142,10 +142,9 @@ open class AudioUnitBase: AUAudioUnit {
 
     // MARK: AudioKit
 
-
-    #if !os(tvOS)
     /// Trigger something within the audio unit
     public func trigger(note: MIDINoteNumber, velocity: MIDIVelocity) {
+        #if !os(tvOS)
         guard let midiBlock = scheduleMIDIEventBlock else {
             fatalError("Attempt to trigger audio unit which doesn't respond to MIDI.")
         }
@@ -154,8 +153,8 @@ open class AudioUnitBase: AUAudioUnit {
             guard let ptr = ptr.baseAddress else { return }
             midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
         }
+        #endif
     }
-    #endif
 
     /// Trigger something within the audio unit
     public func trigger() {

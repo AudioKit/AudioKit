@@ -7,7 +7,7 @@ import CAudioKit
 /// Physical model of the sound of dripping water. 
 /// When triggered, it will produce a droplet of water.
 /// 
-public class Drip: Node {
+public class Drip: Node, Triggerable {
 
     /// Connected nodes
     public var connections: [Node] { [] }
@@ -123,8 +123,6 @@ public class Drip: Node {
     ) {
         setupParameters()
 
-        self.stop()
-
         self.intensity = intensity
         self.dampingFactor = dampingFactor
         self.energyReturn = energyReturn
@@ -133,13 +131,4 @@ public class Drip: Node {
         self.secondResonantFrequency = secondResonantFrequency
         self.amplitude = amplitude
     }
-
-    // MARK: - Control
-
-    /// Trigger the sound with an optional set of parameters
-    ///
-    public func trigger() {
-        start()
-    }
-
 }

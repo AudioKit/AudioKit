@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Karplus-Strong plucked string instrument.
 /// 
-public class PluckedString: Node {
+public class PluckedString: Node, Triggerable {
 
     /// Connected nodes
     public var connections: [Node] { [] }
@@ -54,20 +54,11 @@ public class PluckedString: Node {
     ) {
         setupParameters()
 
-        self.stop()
-
         self.frequency = frequency
         self.amplitude = amplitude
     }
 
     // MARK: - Control
-
-    /// Trigger the sound with current parameters
-    ///
-    public func trigger() {
-        start()
-        auBase.trigger()
-    }
 
     /// Trigger the sound with a set of parameters
     ///

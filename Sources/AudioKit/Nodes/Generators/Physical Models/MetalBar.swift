@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Physical model approximating the sound of a struck metal bar
 /// 
-public class MetalBar: Node {
+public class MetalBar: Node, Triggerable {
 
     /// Connected nodes
     public var connections: [Node] { [] }
@@ -126,8 +126,6 @@ public class MetalBar: Node {
     ) {
         setupParameters()
 
-        self.stop()
-
         self.leftBoundaryCondition = leftBoundaryCondition
         self.rightBoundaryCondition = rightBoundaryCondition
         self.decayDuration = decayDuration
@@ -136,13 +134,4 @@ public class MetalBar: Node {
         self.strikeVelocity = strikeVelocity
         self.strikeWidth = strikeWidth
     }
-
-    // MARK: - Control
-
-    /// Trigger the sound with current parameters
-    ///
-    public func trigger() {
-        start()
-    }
-
 }
