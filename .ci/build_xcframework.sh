@@ -20,12 +20,7 @@ create_xcframework()
 	DEVICE_OPTS="-framework ${BUILD_DIR}/${CONFIGURATION}-iphoneos/$1.framework \
 		-framework ${BUILD_DIR}/${CONFIGURATION}-appletvos/$1.framework"
 
-	# Only include device frameworks for staging or release builds - or manual calls
-	if [[ "$GITHUB_REF" == "refs/heads/staging" ]] || [[ "$GITHUB_REF" == refs/tag/* ]] || [[ "$GITHUB_REF" == "" ]]; then
-		xcodebuild -create-xcframework -output ${DESTINATION}/$1.xcframework $BASIC_OPTS $DEVICE_OPTS
-	else
-		xcodebuild -create-xcframework -output ${DESTINATION}/$1.xcframework $BASIC_OPTS
-	fi
+	xcodebuild -create-xcframework -output ${DESTINATION}/$1.xcframework $BASIC_OPTS $DEVICE_OPTS
 }
 
 for f in AudioKit $(cat Frameworks.list); do
