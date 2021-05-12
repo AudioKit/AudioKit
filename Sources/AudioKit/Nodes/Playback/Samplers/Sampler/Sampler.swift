@@ -60,7 +60,7 @@ public class Sampler: Node {
         defaultValue: 5.0,
         range: 0 ... 200,
         unit: .hertz)
-    
+
     /// Vibrato speed (hz)
     @Parameter(vibratoFrequencyDef) public var vibratoFrequency: AUValue
 
@@ -72,11 +72,10 @@ public class Sampler: Node {
         defaultValue: 0.0,
         range: 0 ... 24,
         unit: .relativeSemiTones)
-    
+
     /// Voice Vibrato amount (semitones)
     @Parameter(voiceVibratoDepthDef) public var voiceVibratoDepth: AUValue
 
-    
     /// Specification details for voiceVibratoFrequency
     public static let voiceVibratoFrequencyDef = NodeParameterDef(
         identifier: "voiceVibratoFrequency",
@@ -85,7 +84,7 @@ public class Sampler: Node {
         defaultValue: 5.0,
         range: 0 ... 200,
         unit: .hertz)
-    
+
     /// Voice Vibrato speed (Hz)
     @Parameter(voiceVibratoFrequencyDef) public var voiceVibratoFrequency: AUValue
 
@@ -97,10 +96,10 @@ public class Sampler: Node {
         defaultValue: 4.0,
         range: 1 ... 1000,
         unit: .rate)
-    
+
     /// Filter cutoff (harmonic ratio)
     @Parameter(filterCutoffDef) public var filterCutoff: AUValue
-    
+
     /// Specification details for filterStrength
     public static let filterStrengthDef = NodeParameterDef(
         identifier: "filterStrength",
@@ -109,10 +108,10 @@ public class Sampler: Node {
         defaultValue: 20,
         range: 1 ... 1000,
         unit: .ratio)
-    
+
     /// filterStrength
     @Parameter(filterStrengthDef) public var filterStrength: AUValue
-    
+
     /// Specification details for filterResonance
     public static let filterResonanceDef = NodeParameterDef(
         identifier: "filterResonance",
@@ -121,10 +120,10 @@ public class Sampler: Node {
         defaultValue: 0,
         range: -20 ... 20,
         unit: .decibels)
-    
+
     /// Filter resonance (dB)
     @Parameter(filterResonanceDef) public var filterResonance: AUValue
-    
+
     /// Specification details for glideRate
     public static let glideRateDef = NodeParameterDef(
         identifier: "glideRate",
@@ -133,10 +132,10 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 20,
         unit: .generic)
-    
+
     /// Glide rate (seconds per octave)
     @Parameter(glideRateDef) public var glideRate: AUValue
-    
+
     /// Specification details for attackDuration
     public static let attackDurationDef = NodeParameterDef(
         identifier: "attackDuration",
@@ -146,7 +145,7 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Amplitude attack duration (seconds)
     @Parameter(attackDurationDef) public var attackDuration: AUValue
 
@@ -159,7 +158,7 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Amplitude hold duration (seconds)
     @Parameter(holdDurationDef) public var holdDuration: AUValue
 
@@ -172,7 +171,7 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Amplitude decay duration (seconds)
     @Parameter(decayDurationDef) public var decayDuration: AUValue
 
@@ -185,7 +184,7 @@ public class Sampler: Node {
         range: 0 ... 1,
         unit: .generic,
         flags: nonRampFlags)
-    
+
     /// Amplitude sustain level (fraction)
     @Parameter(sustainLevelDef) public var sustainLevel: AUValue
 
@@ -198,7 +197,7 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Amplitude release duration (seconds)
     @Parameter(releaseDurationDef) public var releaseDuration: AUValue
 
@@ -211,11 +210,10 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Filter Amplitude attack duration (seconds)
     @Parameter(filterAttackDurationDef) public var filterAttackDuration: AUValue
 
-    
     /// Specification details for filterDecayDuration
     public static let filterDecayDurationDef = NodeParameterDef(
         identifier: "filterDecayDuration",
@@ -225,7 +223,7 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Filter Amplitude decay duration (seconds)
     @Parameter(filterDecayDurationDef) public var filterDecayDuration: AUValue
 
@@ -238,7 +236,7 @@ public class Sampler: Node {
         range: 0 ... 1,
         unit: .generic,
         flags: nonRampFlags)
-    
+
     /// Filter Amplitude sustain level (fraction)
     @Parameter(filterSustainLevelDef) public var filterSustainLevel: AUValue
 
@@ -251,7 +249,7 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Filter Amplitude release duration (seconds)
     @Parameter(filterReleaseDurationDef) public var filterReleaseDuration: AUValue
 
