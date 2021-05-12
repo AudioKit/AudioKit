@@ -264,11 +264,10 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Pitch Amplitude attack duration (seconds)
     @Parameter(pitchAttackDurationDef) public var pitchAttackDuration: AUValue
 
-    
     /// Specification details for pitchDecayDuration
     public static let pitchDecayDurationDef = NodeParameterDef(
         identifier: "pitchDecayDuration",
@@ -277,7 +276,7 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds)
-    
+
     /// Pitch Amplitude decay duration (seconds)
     @Parameter(pitchDecayDurationDef) public var pitchDecayDuration: AUValue
 
@@ -290,7 +289,7 @@ public class Sampler: Node {
         range: 0 ... 1,
         unit: .generic,
         flags: nonRampFlags)
-    
+
     /// Pitch Amplitude sustain level (fraction)
     @Parameter(pitchSustainLevelDef) public var pitchSustainLevel: AUValue
 
@@ -303,7 +302,7 @@ public class Sampler: Node {
         range: 0 ... 10,
         unit: .seconds,
         flags: nonRampFlags)
-    
+
     /// Pitch Amplitude release duration (seconds)
     @Parameter(pitchReleaseDurationDef) public var pitchReleaseDuration: AUValue
 
@@ -368,10 +367,10 @@ public class Sampler: Node {
         range: 0 ... 1,
         unit: .boolean,
         flags: nonRampFlags)
-    
+
     /// isMonophonic (boolean, 0.0 for false or 1.0 for true)
     @Parameter(isMonophonicDef) public var isMonophonic: AUValue
-    
+
     /// Specification details for isLegato
     public static let isLegatoDef = NodeParameterDef(
         identifier: "isLegato",
@@ -381,7 +380,7 @@ public class Sampler: Node {
         range: 0 ... 1,
         unit: .generic,
         flags: nonRampFlags)
-    
+
     /// isLegato (boolean, 0.0 for false or 1.0 for true)
     @Parameter(isLegatoDef) public var isLegato: AUValue
 
@@ -394,7 +393,7 @@ public class Sampler: Node {
         range: -2 ... 2,
         unit: .generic,
         flags: nonRampFlags)
-    
+
     /// keyTrackingFraction (-2.0 to +2.0, normal range 0.0 to 1.0)
     @Parameter(keyTrackingFractionDef) public var keyTrackingFraction: AUValue
 
@@ -407,7 +406,7 @@ public class Sampler: Node {
         range: 0 ... 1,
         unit: .generic,
         flags: nonRampFlags)
-    
+
     /// filterEnvelopeVelocityScaling (fraction 0.0 to 1.0)
     @Parameter(filterEnvelopeVelocityScalingDef) public var filterEnvelopeVelocityScaling: AUValue
 
