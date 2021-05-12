@@ -367,7 +367,7 @@ let validatedMD5s: [String: String] = [
     "-[RolandTB303FilterTests testParameters]": "83144a76e6a155816b275a7f20435a3d",
     "-[RolandTB303FilterTests testResonance]": "bafc04f77b0447daff50d662f6cd03ef",
     "-[RolandTB303FilterTests testResonanceAsymmetry]": "d2dd04debdbab595b6bb4ce038fbb8c7",
-    "-[SamplerTests testSampler]": "7818bbaee9cbe19615645f714e6a9a43",
+    "-[SamplerTests testSampler]": "c37cb5398f1c3e74a9d77d24bbb50d51",
     "-[SawtoothTests testDefault]": "379388bf41f4ece5cf274bf53f270c46",
     "-[SawtoothWaveTests testDefault]": "2a5f4c75768a09c068f2c27377142aa7",
     "-[SequencerTrackTests testLoop]": "dfab5f544f9d714ed0fb95d4e077699b",
