@@ -187,7 +187,7 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
         // If there are no more events, we can process the entire remaining segment and exit.
         if (event == nullptr) {
             AUAudioFrameCount const bufferOffset = frameCount - framesRemaining;
-            process(framesRemaining, bufferOffset);
+            processOrBypass(framesRemaining, bufferOffset);
             break;
         }
 
@@ -199,7 +199,7 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
         // Compute everything before the next event.
         if (framesThisSegment > 0) {
             AUAudioFrameCount const bufferOffset = frameCount - framesRemaining;
-            process(framesThisSegment, bufferOffset);
+            processOrBypass(framesThisSegment, bufferOffset);
 
             // Advance frames.
             framesRemaining -= framesThisSegment;
@@ -208,6 +208,32 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
         }
         performAllSimultaneousEvents(now, event);
     }
+}
+
+void DSPBase::processOrBypass(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+
+    if(isStarted) {
+        process(frameCount, bufferOffset);
+    } else {
+
+        // Advance all ramps.
+        stepRampsBy(frameCount);
+
+        // Copy input to output.
+        if(inputBufferLists.size() and !bCanProcessInPlace) {
+            for(int channel=0; channel< channelCount; ++channel) {
+                auto input = (const float *)inputBufferLists[0]->mBuffers[channel].mData + bufferOffset;
+                auto output = (float *)outputBufferList->mBuffers[channel].mData + bufferOffset;
+                std::copy(input, input+frameCount, output);
+            }
+        }
+
+        // Generators should be silent.
+        if(inputBufferLists.empty()) {
+            zeroOutput(frameCount, bufferOffset);
+        }
+    }
+
 }
 
 /** From Apple Example code */

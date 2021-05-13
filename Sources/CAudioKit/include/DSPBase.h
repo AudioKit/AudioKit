@@ -144,6 +144,8 @@ private:
     void processWithEvents(AudioTimeStamp const *timestamp,
                            AUAudioFrameCount frameCount,
                            AURenderEvent const *events);
+
+    void processOrBypass(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset);
     
     void handleOneEvent(AURenderEvent const *event);
     
