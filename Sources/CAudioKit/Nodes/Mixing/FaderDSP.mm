@@ -73,19 +73,19 @@ public:
             float& leftOut = outputSample(0, i);
             float& rightOut = outputSample(1, i);
 
-            float lgain = leftGainRamp.getAndStep();
-            float rgain = rightGainRamp.getAndStep();
+            float leftGain = leftGainRamp.getAndStep();
+            float rightGain = rightGainRamp.getAndStep();
 
             if(mixToMono) {
-                leftOut = rightOut = 0.5 * (leftIn * lgain + rightIn * rgain);
+                leftOut = rightOut = 0.5 * (leftIn * leftGain + rightIn * rightGain);
             } else {
 
                 if(flipStereo) {
                     std::swap(leftIn, rightIn);
                 }
 
-                leftOut = leftIn * lgain;
-                rightOut = rightIn * rgain;
+                leftOut = leftIn * leftGain;
+                rightOut = rightIn * rightGain;
 
             }
         }
