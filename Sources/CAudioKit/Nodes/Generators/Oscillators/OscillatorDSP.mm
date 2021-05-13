@@ -59,8 +59,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         if(isStarted) {
-            for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-                int frameOffset = int(frameIndex + bufferOffset);
+            for (auto frameIndex = bufferOffset; frameIndex < bufferOffset+frameCount; ++frameIndex) {
 
                 float frequency = frequencyRamp.getAndStep();
                 float detuneMultiplier = detuningMultiplierRamp.getAndStep();
@@ -68,12 +67,9 @@ public:
                 osc->freq = frequency * detuneMultiplier + detuneOffset;
                 osc->amp = amplitudeRamp.getAndStep();
 
-                float temp = 0;
-                sp_osc_compute(sp, osc, nil, &temp);
-                for (int channel = 0; channel < channelCount; ++channel) {
-                    outputSample(channel, frameOffset) = temp;
-                }
+                sp_osc_compute(sp, osc, nil, &outputSample(0, frameIndex));
             }
+            cloneFirstChannel(frameCount, bufferOffset);
         } else {
             stepRampsBy(frameCount);
             zeroOutput(frameCount, bufferOffset);

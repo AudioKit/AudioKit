@@ -267,6 +267,16 @@ void DSPBase::zeroOutput(AUAudioFrameCount frames, AUAudioFrameCount bufferOffse
 
 }
 
+void DSPBase::cloneFirstChannel(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+
+    float* firstChannel = ((float *)outputBufferList->mBuffers[0].mData) + bufferOffset;
+
+    for (int channel = 1; channel < channelCount; ++channel) {
+        float* output = ((float *)outputBufferList->mBuffers[channel].mData) + bufferOffset;
+        std::copy(firstChannel, firstChannel+frameCount, output);
+    }
+}
+
 // A registry of creation functions.
 //
 // Note that this is a pointer because we can't guarantee the

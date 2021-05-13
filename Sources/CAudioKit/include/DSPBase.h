@@ -75,6 +75,8 @@ protected:
 
     void zeroOutput(AUAudioFrameCount frames, AUAudioFrameCount bufferOffset);
 
+    void cloneFirstChannel(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset);
+
 public:
     
     DSPBase(int inputBusCount=1, bool canProcessInPlace=false);
