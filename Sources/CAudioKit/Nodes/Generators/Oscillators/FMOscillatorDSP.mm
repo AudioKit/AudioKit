@@ -70,15 +70,13 @@ public:
             fosc->amp = amplitudeRamp.getAndStep();
             float temp = 0;
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
                 if (isStarted) {
                     if (channel == 0) {
                         sp_fosc_compute(sp, fosc, nil, &temp);
                     }
-                    *out = temp;
+                    outputSample(channel, frameOffset) = temp;
                 } else {
-                    *out = 0.0;
+                    outputSample(channel, frameOffset) = 0.0;
                 }
             }
         }
