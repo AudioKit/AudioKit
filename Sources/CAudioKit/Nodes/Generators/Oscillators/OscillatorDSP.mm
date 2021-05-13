@@ -57,27 +57,28 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
 
-            float frequency = frequencyRamp.getAndStep();
-            float detuneMultiplier = detuningMultiplierRamp.getAndStep();
-            float detuneOffset = detuningOffsetRamp.getAndStep();
-            osc->freq = frequency * detuneMultiplier + detuneOffset;
-            osc->amp = amplitudeRamp.getAndStep();
+        if(isStarted) {
+            for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+                int frameOffset = int(frameIndex + bufferOffset);
 
-            float temp = 0;
-            for (int channel = 0; channel < channelCount; ++channel) {
-                if (isStarted) {
-                    if (channel == 0) {
-                        sp_osc_compute(sp, osc, nil, &temp);
-                    }
+                float frequency = frequencyRamp.getAndStep();
+                float detuneMultiplier = detuningMultiplierRamp.getAndStep();
+                float detuneOffset = detuningOffsetRamp.getAndStep();
+                osc->freq = frequency * detuneMultiplier + detuneOffset;
+                osc->amp = amplitudeRamp.getAndStep();
+
+                float temp = 0;
+                sp_osc_compute(sp, osc, nil, &temp);
+                for (int channel = 0; channel < channelCount; ++channel) {
                     outputSample(channel, frameOffset) = temp;
-                } else {
-                    outputSample(channel, frameOffset) = 0.0;
                 }
             }
+        } else {
+            stepRampsBy(frameCount);
+            zeroOutput(frameCount, bufferOffset);
         }
+
     }
 };
 

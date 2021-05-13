@@ -249,6 +249,24 @@ void DSPBase::startRamp(const AUParameterEvent& event)
 
 using DSPFactoryMap = std::map<std::string, DSPBase::CreateFunction>;
 
+void DSPBase::stepRampsBy(AUAudioFrameCount frames) {
+
+    for(int index=0;index<maxParameters;++index) {
+        if(parameters[index]) {
+            parameters[index]->stepBy(frames);
+        }
+    }
+}
+
+void DSPBase::zeroOutput(AUAudioFrameCount frames, AUAudioFrameCount bufferOffset) {
+
+    for (int channel = 0; channel < channelCount; ++channel) {
+        float* start = ((float *)outputBufferList->mBuffers[channel].mData) + bufferOffset;
+        std::fill(start, start+frames, 0.0);
+    }
+
+}
+
 // A registry of creation functions.
 //
 // Note that this is a pointer because we can't guarantee the

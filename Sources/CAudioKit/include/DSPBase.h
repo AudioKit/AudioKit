@@ -71,6 +71,10 @@ protected:
         return ((float *)outputBufferList->mBuffers[channel].mData)[frame];
     }
 
+    void stepRampsBy(AUAudioFrameCount frames);
+
+    void zeroOutput(AUAudioFrameCount frames, AUAudioFrameCount bufferOffset);
+
 public:
     
     DSPBase(int inputBusCount=1, bool canProcessInPlace=false);
