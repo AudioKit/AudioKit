@@ -177,4 +177,34 @@ struct ParameterRegistration {
 
 #define AK_REGISTER_PARAMETER(ParamAddress) ParameterRegistration __register_param_##ParamAddress(#ParamAddress, ParamAddress);
 
+struct FrameRange {
+    AUAudioFrameCount start;
+    AUAudioFrameCount count;
+
+    struct iterator {
+        AUAudioFrameCount index;
+
+        AUAudioFrameCount operator*() const {
+            return index;
+        }
+
+        bool operator!=(const iterator& rhs) const {
+            return index != rhs.index;
+        }
+
+        iterator& operator++() {
+            ++index;
+            return *this;
+        }
+    };
+
+    iterator begin() {
+        return {start};
+    }
+
+    iterator end() {
+        return {start+count};
+    }
+};
+
 #endif
