@@ -159,9 +159,7 @@ open class AudioKitAU: AUAudioUnit {
 
     /// Trigger something within the audio unit
     public func trigger() {
-        #if !os(tvOS)
         trigger(note: 64, velocity: 127)
-        #endif
     }
 
     /// Create an array of values to use as waveforms or other things inside an audio unit
