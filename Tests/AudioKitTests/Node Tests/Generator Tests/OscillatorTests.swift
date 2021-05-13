@@ -29,6 +29,16 @@ class OscillatorTests: XCTestCase {
     }
  */
 
+    func testBypassed() {
+
+        let engine = AudioEngine()
+        let oscillator = Oscillator(waveform: Table(.triangle))
+        engine.output = oscillator
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        XCTAssertTrue(audio.silence)
+    }
+
     func testDetuningMultiplier() {
         let engine = AudioEngine()
         let oscillator = Oscillator(waveform: Table(.square), detuningMultiplier: 0.9)

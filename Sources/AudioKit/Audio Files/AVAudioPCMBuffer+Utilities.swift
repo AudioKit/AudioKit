@@ -39,6 +39,19 @@ extension AVAudioPCMBuffer {
         return digestHex
     }
 
+    public var silence: Bool {
+        if let floatChannelData = self.floatChannelData {
+            for channel in 0 ..< self.format.channelCount {
+                for frame in 0 ..< self.frameLength {
+                    if floatChannelData[Int(channel)][Int(frame)] != 0.0 {
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+
     /// Add to an existing buffer
     ///
     /// - Parameter buffer: Buffer to append
