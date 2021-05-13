@@ -15,6 +15,27 @@ extension Node where Self: Triggerable {
     }
 }
 
+/// To allow nodes to be gated
+public protocol Gated {
+    /// Start the gate
+    func openGate()
+    /// Stop the gate
+    func closeGate()
+}
+
+extension Node where Self: Gated {
+    /// Start the gate
+    public func openGate() {
+        au.trigger()
+    }
+    
+    /// Stop the gate
+    public func closeGate() {
+        au.detrigger()
+    }
+
+}
+
 /// To allow nodes to be triggered via MIDI info
 public protocol MIDITriggerable {
     /// Trigger the sound with a set of parameters

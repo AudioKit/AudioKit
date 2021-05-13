@@ -161,6 +161,12 @@ open class AudioKitAU: AUAudioUnit {
     public func trigger() {
         trigger(note: 64, velocity: 127)
     }
+    
+    /// Turn off the the trigger for a gate
+    public func detrigger() {
+        trigger(note: 64, velocity: 0)
+    }
+
 
     /// Create an array of values to use as waveforms or other things inside an audio unit
     /// - Parameters:

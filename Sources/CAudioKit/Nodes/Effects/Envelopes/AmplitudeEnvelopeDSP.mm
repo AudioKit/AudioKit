@@ -1,4 +1,4 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+    // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "SoundpipeDSPBase.h"
 #include "ParameterRamper.h"
@@ -44,10 +44,16 @@ public:
         if (!isInitialized) return;
         sp_adsr_init(sp, adsr);
     }
+    
+    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
+        uint8_t status = midiEvent.data[0] & 0xF0;
+
+        if(status == 0x90) { // note on
+            internalTrigger = midiEvent.data[2] / 127.0;
+        }
+    }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        float internalGate = isStarted ? 1 : 0;
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
@@ -57,7 +63,7 @@ public:
             adsr->sus = sustainLevelRamp.getAndStep();
             adsr->rel = releaseDurationRamp.getAndStep();
 
-            sp_adsr_compute(sp, adsr, &internalGate, &amp);
+            sp_adsr_compute(sp, adsr, &internalTrigger, &amp);
 
             for (int channel = 0; channel < channelCount; ++channel) {
                 float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;

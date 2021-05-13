@@ -11,7 +11,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
         let envelope = AmplitudeEnvelope(input, attackDuration: 0.123_4)
         engine.output = envelope
         input.play()
-        envelope.start()
+        envelope.openGate()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -24,7 +24,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
         let envelope = AmplitudeEnvelope(input, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
-        envelope.start()
+        envelope.openGate()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -37,7 +37,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
         let envelope = AmplitudeEnvelope(input)
         engine.output = envelope
         input.play()
-        envelope.start()
+        envelope.openGate()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -50,7 +50,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
         let envelope = AmplitudeEnvelope(input, attackDuration: 0.123_4, decayDuration: 0.234, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
-        envelope.start()
+        envelope.openGate()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -63,7 +63,7 @@ class AmplitudeEnvelopeTests: XCTestCase {
         let envelope = AmplitudeEnvelope(input, sustainLevel: 0.345)
         engine.output = envelope
         input.play()
-        envelope.start()
+        envelope.openGate()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -76,11 +76,11 @@ class AmplitudeEnvelopeTests: XCTestCase {
         let envelope = AmplitudeEnvelope(input, releaseDuration: 0.5)
         engine.output = envelope
         input.play()
-        envelope.start()
+        envelope.openGate()
 
         let audio = engine.startTest(totalDuration: 2.0)
         audio.append(engine.render(duration: 1.0))
-        envelope.stop()
+        envelope.closeGate()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -91,13 +91,13 @@ class AmplitudeEnvelopeTests: XCTestCase {
         let envelope = AmplitudeEnvelope(input, releaseDuration: 0.5)
         engine.output = envelope
         input.play()
-        envelope.start()
+        envelope.openGate()
 
         let audio = engine.startTest(totalDuration: 2.0)
         audio.append(engine.render(duration: 1.0))
-        envelope.stop()
+        envelope.closeGate()
         audio.append(engine.render(duration: 0.5))
-        envelope.stop()
+        envelope.closeGate()
         audio.append(engine.render(duration: 0.5))
         testMD5(audio)
     }

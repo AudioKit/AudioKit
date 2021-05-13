@@ -5,7 +5,7 @@ import AVFoundation
 import CAudioKit
 
 /// Triggerable classic ADSR envelope
-public class AmplitudeEnvelope: Node {
+public class AmplitudeEnvelope: Node, Gated {
 
     let input: Node
 
