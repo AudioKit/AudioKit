@@ -68,16 +68,13 @@ public:
 
             float temp = 0;
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
                 if (isStarted) {
                     if (channel == 0) {
                         sp_osc_compute(sp, osc, nil, &temp);
-                        // DebugDSP(OscillatorDebugPhase, osc->lphs);
                     }
-                    *out = temp;
+                    outputSample(channel, frameOffset) = temp;
                 } else {
-                    *out = 0.0;
+                    outputSample(channel, frameOffset) = 0.0;
                 }
             }
         }
