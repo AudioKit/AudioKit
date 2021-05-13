@@ -38,6 +38,7 @@ class ResonantFilterOperationTests: XCTestCase {
     func testParameters3() {
         let engine = AudioEngine()
         let input = Oscillator(waveform: Table(.triangle))
+        input.start()
         engine.output = OperationEffect(input) { $0.resonantFilter(frequency: 220, bandwidth: 40) }
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))

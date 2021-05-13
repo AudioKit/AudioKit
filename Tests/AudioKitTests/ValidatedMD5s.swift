@@ -338,7 +338,7 @@ let validatedMD5s: [String: String] = [
     "-[ResonantFilterOperationTests testDefault]": "b4433ed6c0c08b8c21141afeaf984464",
     "-[ResonantFilterOperationTests testParameters1]": "084201aaf20c67dfc4867e0bae54e551",
     "-[ResonantFilterOperationTests testParameters2]": "50e835fabdf04c28c427bed060a0b674",
-    "-[ResonantFilterOperationTests testParameters3]": "9df204fbc98bb8965081cb30a89715fc",
+    "-[ResonantFilterOperationTests testParameters3]": "ec695c4db1e1e2714a4a908f9d95059a",
     "-[ResonantFilterTests testBandwidth]": "6c50c738100665603026ee992143028e",
     "-[ResonantFilterTests testDefault]": "ed5bb736816745b6fdf94a02b6b8c061",
     "-[ResonantFilterTests testFrequency]": "cb2829ed2106a86bddf19e718df76147",
