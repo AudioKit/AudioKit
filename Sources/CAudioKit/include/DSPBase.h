@@ -39,6 +39,36 @@ AK_API void akSetSeed(unsigned int);
 
 #import <vector>
 
+struct FrameRange {
+    AUAudioFrameCount start;
+    AUAudioFrameCount count;
+
+    struct iterator {
+        AUAudioFrameCount index;
+
+        AUAudioFrameCount operator*() const {
+            return index;
+        }
+
+        bool operator!=(const iterator& rhs) const {
+            return index != rhs.index;
+        }
+
+        iterator& operator++() {
+            ++index;
+            return *this;
+        }
+    };
+
+    iterator begin() {
+        return {start};
+    }
+
+    iterator end() {
+        return {start+count};
+    }
+};
+
 /**
  Base class for DSPKernels. Many of the methods are virtual, because the base AudioUnit class
  does not know the type of the subclass at compile time.
@@ -75,7 +105,7 @@ protected:
 
     void zeroOutput(AUAudioFrameCount frames, AUAudioFrameCount bufferOffset);
 
-    void cloneFirstChannel(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset);
+    void cloneFirstChannel(FrameRange range);
 
 public:
     
@@ -94,7 +124,10 @@ public:
     size_t getInputBusCount() const { return inputBufferLists.size(); }
     
     /// The Render function.
-    virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
+    virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) { };
+
+    /// New Render function.
+    virtual void process2(FrameRange range) { process(range.count, range.start); }
     
     /// Uses the ParameterAddress as a key
     virtual void setParameter(AUParameterAddress address, float value, bool immediate = false);
@@ -178,35 +211,5 @@ struct ParameterRegistration {
 };
 
 #define AK_REGISTER_PARAMETER(ParamAddress) ParameterRegistration __register_param_##ParamAddress(#ParamAddress, ParamAddress);
-
-struct FrameRange {
-    AUAudioFrameCount start;
-    AUAudioFrameCount count;
-
-    struct iterator {
-        AUAudioFrameCount index;
-
-        AUAudioFrameCount operator*() const {
-            return index;
-        }
-
-        bool operator!=(const iterator& rhs) const {
-            return index != rhs.index;
-        }
-
-        iterator& operator++() {
-            ++index;
-            return *this;
-        }
-    };
-
-    iterator begin() {
-        return {start};
-    }
-
-    iterator end() {
-        return {start+count};
-    }
-};
 
 #endif

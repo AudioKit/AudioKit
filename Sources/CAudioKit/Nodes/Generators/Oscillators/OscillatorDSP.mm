@@ -56,9 +56,9 @@ public:
         sp_osc_init(sp, osc, ftbl, 0);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process2(FrameRange range) override {
 
-        for (auto i : FrameRange{bufferOffset, frameCount}) {
+        for (auto i : range) {
 
             float frequency = frequencyRamp.getAndStep();
             float detuneMultiplier = detuningMultiplierRamp.getAndStep();
@@ -68,7 +68,7 @@ public:
 
             sp_osc_compute(sp, osc, nil, &outputSample(0, i));
         }
-        cloneFirstChannel(frameCount, bufferOffset);
+        cloneFirstChannel(range);
 
     }
 };

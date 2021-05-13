@@ -213,7 +213,7 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
 void DSPBase::processOrBypass(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
     if(isStarted) {
-        process(frameCount, bufferOffset);
+        process2(FrameRange{bufferOffset, frameCount});
     } else {
 
         // Advance all ramps.
@@ -293,13 +293,13 @@ void DSPBase::zeroOutput(AUAudioFrameCount frames, AUAudioFrameCount bufferOffse
 
 }
 
-void DSPBase::cloneFirstChannel(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
+void DSPBase::cloneFirstChannel(FrameRange range) {
 
-    float* firstChannel = ((float *)outputBufferList->mBuffers[0].mData) + bufferOffset;
+    float* firstChannel = ((float *)outputBufferList->mBuffers[0].mData) + range.start;
 
     for (int channel = 1; channel < channelCount; ++channel) {
-        float* output = ((float *)outputBufferList->mBuffers[channel].mData) + bufferOffset;
-        std::copy(firstChannel, firstChannel+frameCount, output);
+        float* output = ((float *)outputBufferList->mBuffers[channel].mData) + range.start;
+        std::copy(firstChannel, firstChannel+range.count, output);
     }
 }
 
