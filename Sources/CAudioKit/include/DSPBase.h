@@ -97,6 +97,10 @@ protected:
     std::vector<AudioBufferList*> inputBufferLists;
     AudioBufferList* outputBufferList = nullptr;
 
+    inline float& inputSample(int channel, AUAudioFrameCount frame) {
+        return ((float *)inputBufferLists[0]->mBuffers[channel].mData)[frame];
+    }
+
     inline float& outputSample(int channel, AUAudioFrameCount frame) {
         return ((float *)outputBufferList->mBuffers[channel].mData)[frame];
     }

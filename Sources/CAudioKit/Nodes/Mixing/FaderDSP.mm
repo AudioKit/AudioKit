@@ -64,42 +64,29 @@ public:
         }
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for(auto i : range) {
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
+            float leftIn = inputSample(0, i);
+            float rightIn = inputSample(1, i);
 
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                }
-            }
+            float& leftOut = outputSample(0, i);
+            float& rightOut = outputSample(1, i);
 
             float lgain = leftGainRamp.getAndStep();
             float rgain = rightGainRamp.getAndStep();
 
-            if (isStarted) {
-                if (channelCount == 2 && mixToMono) {
-                    *tmpout[0] = 0.5 * (*tmpin[0] * lgain + *tmpin[1] * rgain);
-                    *tmpout[1] = *tmpout[0];
-                } else {
-                    if (channelCount == 2 && flipStereo) {
-                        float leftSaved = *tmpin[0];
-                        *tmpout[0] = *tmpin[1] * lgain;
-                        *tmpout[1] = leftSaved * rgain;
-                    } else {
-                        *tmpout[0] = *tmpin[0] * lgain;
-                        *tmpout[1] = *tmpin[1] * rgain;
-                    }
+            if(mixToMono) {
+                leftOut = rightOut = 0.5 * (leftIn * lgain + rightIn * rgain);
+            } else {
+
+                if(flipStereo) {
+                    std::swap(leftIn, rightIn);
                 }
+
+                leftOut = leftIn * lgain;
+                rightOut = rightIn * rgain;
+
             }
         }
     }
