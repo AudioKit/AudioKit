@@ -56,31 +56,15 @@ public:
         sp_conv_init(sp, conv1, ftbl, (float)partitionLength);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
+            
+            sp_conv_compute(sp, conv0, &inputSample(0, i), &outputSample(0, i));
+            sp_conv_compute(sp, conv1, &inputSample(1, i), &outputSample(1, i));
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
-
-                if (channel == 0) {
-                    sp_conv_compute(sp, conv0, in, out);
-                } else {
-                    sp_conv_compute(sp, conv1, in, out);
-                }
-                *out = *out * 0.05; // Hack
-            }
+            // Hack
+            outputSample(0, i) *= 0.05;
+            outputSample(1, i) *= 0.05;
         }
     }
 };
