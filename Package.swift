@@ -57,7 +57,7 @@ let package = Package(
             ],
             publicHeadersPath: "include",
             cxxSettings: [
-                .headerSearchPath("CoreAudio"),
+                .headerSearchPath("Internals"),
                 .headerSearchPath("AudioKitCore/Common"),
                 .headerSearchPath("Devoloop/include"),
                 .headerSearchPath("include"),
