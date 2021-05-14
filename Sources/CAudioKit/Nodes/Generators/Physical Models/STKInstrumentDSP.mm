@@ -38,27 +38,14 @@ void STKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
                 break;
             }
         }
-
     }
-
 }
 
-void STKInstrumentDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-
+void STKInstrumentDSP::process2(FrameRange range) {
     auto instr = getInstrument();
 
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
-
-        float outputSample = 0.0;
-        if(isStarted && instr) {
-            outputSample = instr->tick();
-        }
-
-        for (int channel = 0; channel < channelCount; ++channel) {
-            float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-            *out = outputSample;
-        }
+    for (int i : range) {
+        if (instr) outputSample(0, i) = instr->tick();
     }
-
+    cloneFirstChannel(range);
 }

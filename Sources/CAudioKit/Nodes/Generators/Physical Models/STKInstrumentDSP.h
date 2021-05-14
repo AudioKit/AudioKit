@@ -18,6 +18,6 @@ public:
 
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+    void process2(FrameRange range) override;
 
 };
