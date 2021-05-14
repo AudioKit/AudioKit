@@ -90,10 +90,8 @@ public:
         }
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             float ratio = ratioRamp.getAndStep();
             float threshold = thresholdRamp.getAndStep();
@@ -103,25 +101,11 @@ public:
 
             left_compressor->setParameters(threshold, ratio, attackDuration, releaseDuration);
             right_compressor->setParameters(threshold, ratio, attackDuration, releaseDuration);
-
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
-                if (isStarted) {
-                    if (channel == 0) {
-                        float rageSignal = left_rageprocessor->doRage(*in, rage, rage);
-                        float compSignal = left_compressor->Process((bool)rageIsOn ? rageSignal : *in, false, 1);
-                        *out = compSignal;
-                    } else {
-                        float rageSignal = right_rageprocessor->doRage(*in, rage, rage);
-                        float compSignal = right_compressor->Process((bool)rageIsOn ? rageSignal : *in, false, 1);
-                        *out = compSignal;
-                    }
-                } else {
-                    *out = *in;
-                }
-            }
+            
+            float leftRageSignal = left_rageprocessor->doRage(inputSample(0, i), rage, rage);
+            outputSample(0, i) = left_compressor->Process((bool)rageIsOn ? leftRageSignal : inputSample(0, i), false, 1);
+            float rightRageSignal = right_rageprocessor->doRage(inputSample(1, i), rage, rage);
+            outputSample(1, i) = right_compressor->Process((bool)rageIsOn ? rightRageSignal : inputSample(1, i), false, 1);
         }
     }
 };
