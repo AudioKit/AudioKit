@@ -34,7 +34,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "SynthDSP.h"
 
 // Playback
-#import "PresetManager.h"
 #import "Sampler_Typedefs.h"
 #import "SamplerDSP.h"
 
