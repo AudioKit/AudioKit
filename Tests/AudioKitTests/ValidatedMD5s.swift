@@ -87,6 +87,7 @@ let validatedMD5s: [String: String] = [
     "-[CompressorTests testMasterGain]": "482dab4495469eb41face0fc63651239",
     "-[CompressorTests testParameters]": "a69701ee2b399d88f611f47716e71802",
     "-[CompressorTests testThreshold]": "f5b9440c5a2b3d9eeb5843f9705f3688",
+    "-[ConvolutionTests testConvolution]": "d585f94eba7aedafd7987c68af78ff75",
     "-[CostelloReverbTests testCutoffFrequency]": "e643ea11b0550b360fa3e0abe23087a2",
     "-[CostelloReverbTests testDefault]": "a123e2df39ef0d5a6161ccb2191b4646",
     "-[CostelloReverbTests testFeedback]": "598d99242343334fee311606d15159fd",

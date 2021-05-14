@@ -44,7 +44,6 @@ class AudioPlayerTests: XCTestCase {
 
         player.play()
         audio.append(engine.render(duration: 2.0))
-        engine.stop()
 
         testMD5(audio)
     }
@@ -66,7 +65,6 @@ class AudioPlayerTests: XCTestCase {
         player.play()
 
         audio.append(engine.render(duration: 2.0))
-        engine.stop()
 
         testMD5(audio)
     }
@@ -114,8 +112,6 @@ class AudioPlayerTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 2.0)
         player.play()
         audio.append(engine.render(duration: 2.0))
-        engine.stop()
-
         testMD5(audio)
     }
 
@@ -141,7 +137,6 @@ class AudioPlayerTests: XCTestCase {
         player.seek(time: 0.5)
         player.play()
         audio.append(engine.render(duration: 2.0))
-        engine.stop()
         testMD5(audio)
     }
 
@@ -168,7 +163,6 @@ class AudioPlayerTests: XCTestCase {
         player.play()
         
         audio.append(engine.render(duration: 2.0))
-        engine.stop()
 
         let currentTime = player.getCurrentTime()
         XCTAssertTrue(currentTime == 0.5, "currentTime is \(currentTime), should be 0.5")
