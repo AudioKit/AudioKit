@@ -63,11 +63,11 @@ int CoreSynth::init(double sampleRate)
     int length = 1 << AudioKitCore::WaveStack::maxBits;
     waveform.init(length);
     waveform.sawtooth(0.2f);
-    data->waveform1.initStack(waveform.waveTable.data());
+    data->waveform1.initStack(waveform.waveTable);
     waveform.square(0.4f, 0.01f);
-    data->waveform2.initStack(waveform.waveTable.data());
+    data->waveform2.initStack(waveform.waveTable);
     waveform.triangle(0.5f);
-    data->waveform3.initStack(waveform.waveTable.data());
+    data->waveform3.initStack(waveform.waveTable);
     
     data->ampEGParameters.updateSampleRate((float)(sampleRate/SYNTH_CHUNKSIZE));
     data->filterEGParameters.updateSampleRate((float)(sampleRate/SYNTH_CHUNKSIZE));

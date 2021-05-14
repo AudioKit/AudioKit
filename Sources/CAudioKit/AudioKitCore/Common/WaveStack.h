@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <vector>
+
 namespace AudioKitCore
 {
 
@@ -23,7 +25,7 @@ namespace AudioKitCore
         ~WaveStack();
 
         // Fill pWaveData with 1024 samples, then call this
-        void initStack(float *pWaveData, int maxHarmonic=512);
+        void initStack(const std::vector<float>& waveData, int maxHarmonic=512);
         
         void init();
         void deinit();

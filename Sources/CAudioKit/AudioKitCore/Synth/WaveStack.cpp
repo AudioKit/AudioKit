@@ -2,7 +2,6 @@
 
 #include "WaveStack.h"
 #include "kiss_fftr.h"
-#include <vector>
 
 namespace AudioKitCore
 {
@@ -23,7 +22,7 @@ namespace AudioKitCore
         delete[] pData[0];
     }
 
-    void WaveStack::initStack(float *pWaveData, int maxHarmonic)
+    void WaveStack::initStack(const std::vector<float>& waveData, int maxHarmonic)
     {
         // setup
         const int fftLength = 1 << maxBits;
@@ -31,8 +30,10 @@ namespace AudioKitCore
         kiss_fftr_cfg fwd = kiss_fftr_alloc(fftLength, 0, 0, 0);
         kiss_fftr_cfg inv = kiss_fftr_alloc(fftLength, 1, 0, 0);
 
+        assert(waveData.size() >= fftLength);
+
         // copy supplied wave data for octave 0
-        for (int i=0; i < fftLength; i++) pData[0][i] = pWaveData[i];
+        for (int i=0; i < fftLength; i++) pData[0][i] = waveData[i];
 
         // perform initial forward FFT to get spectrum
         kiss_fft_cpx spectrum[fftLength / 2 + 1];
