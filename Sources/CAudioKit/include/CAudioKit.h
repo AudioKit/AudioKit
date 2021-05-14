@@ -58,9 +58,5 @@ AK_API void akVariableDelaySetMaximumTime(DSPRef dsp, float maximumTime);
 typedef void (^CMIDICallback)(uint8_t, uint8_t, uint8_t);
 AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback);
 
-// Custom debug
-#define PhaseDistortionOscillatorDebugPhase 0
-#define OscillatorDebugPhase 0
-
 // Misc
 #import "BufferedAudioBus.h"
