@@ -28,7 +28,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Modulation
 #import "ModulatedDelay_Typedefs.h"
-#import "ModulatedDelay.h"
 #import "ModulatedDelayDSP.h"
 
 // Synth example
