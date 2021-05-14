@@ -4,7 +4,7 @@
 #include <math.h>
 
 #import "DSPBase.h"
-#include "CoreSynth.h"
+#include "AudioKitCore/Synth/CoreSynth.h"
 #include "LinearParameterRamp.h"
 
 struct SynthDSP : DSPBase, CoreSynth
