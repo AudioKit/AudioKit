@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <vector>
+
 namespace AudioKitCore
 {
     #define DEFAULT_WAVETABLE_SIZE 256
@@ -19,8 +21,7 @@ namespace AudioKitCore
     /// some bounded domain. See class WaveShaper.
     struct FunctionTable
     {
-        float *pWaveTable = nullptr;
-        int nTableSize = 0;
+        std::vector<float> waveTable;
         
         FunctionTable() {}
         ~FunctionTable() { deinit(); }
@@ -39,14 +40,16 @@ namespace AudioKitCore
         {
             while (phase < 0) phase += 1.0;
             while (phase >= 1.0) phase -= 1.0f;
+
+            auto nTableSize = waveTable.size();
             
             float readIndex = phase * nTableSize;
             int ri = int(readIndex);
             float f = readIndex - ri;
             int rj = ri + 1; if (rj >= nTableSize) rj -= nTableSize;
             
-            float si = pWaveTable[ri];
-            float sj = pWaveTable[rj];
+            float si = waveTable[ri];
+            float sj = waveTable[rj];
             return (float)((1.0 - f) * si + f * sj);
         }
         
@@ -57,16 +60,18 @@ namespace AudioKitCore
         
         inline float interp_bounded(float phase)
         {
-            if (phase < 0) return pWaveTable[0];
-            if (phase >= 1.0) return pWaveTable[nTableSize-1];
+            if (phase < 0) return waveTable.front();
+            if (phase >= 1.0) return waveTable.back();
+
+            auto nTableSize = waveTable.size();
             
             float readIndex = phase * (nTableSize - 1);
             int ri = int(readIndex);
             float f = readIndex - ri;
             int rj = ri + 1; if (rj >= nTableSize) rj = nTableSize - 1;
             
-            float si = pWaveTable[ri];
-            float sj = pWaveTable[rj];
+            float si = waveTable[ri];
+            float sj = waveTable[rj];
             return (float)((1.0 - f) * si + f * sj);
         }
     };

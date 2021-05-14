@@ -22,7 +22,7 @@ namespace AudioKitCore
     {
         init(44100.0);  // sensible guess, will be overridden by init() call anyway
 
-        if (sineTable.pWaveTable == 0)  // build sine table only once
+        if (sineTable.waveTable.empty())  // build sine table only once
         {
             sineTable.init(2048);
             sineTable.sinusoid();

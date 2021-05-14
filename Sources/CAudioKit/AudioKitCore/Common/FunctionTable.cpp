@@ -11,52 +11,50 @@ namespace AudioKitCore
 
     void FunctionTable::init(int tableLength)
     {
-        if (nTableSize == tableLength) return;
-        nTableSize = tableLength;
-        if (pWaveTable) delete[] pWaveTable;
-        pWaveTable = new float[tableLength];
+        waveTable.resize(tableLength);
     }
     
     void FunctionTable::deinit()
     {
-        if (pWaveTable) delete[] pWaveTable;
-        nTableSize = 0;
-        pWaveTable = 0;
+        waveTable.clear();
     }
     
     void FunctionTable::triangle(float amplitude)
     {
         // in case user forgot, init table to size 2
-        if (pWaveTable == 0) init(2);
+        if (waveTable.empty()) init(2);
         
-        if (nTableSize == 2)   // default 2 elements suffice for a triangle wave
+        if (waveTable.size() == 2)   // default 2 elements suffice for a triangle wave
         {
-            pWaveTable[0] = -amplitude;
-            pWaveTable[1] = amplitude;
+            waveTable[0] = -amplitude;
+            waveTable[1] = amplitude;
         }
         else    // you would normally only do this if you plan to low-pass filter the result
         {
+            auto nTableSize = waveTable.size();
             for (int i=0; i < nTableSize; i++)
-                pWaveTable[i] = 2.0f * amplitude * (0.25f - fabsf((float(i)/nTableSize) - 0.5f));
+                waveTable[i] = 2.0f * amplitude * (0.25f - fabsf((float(i)/nTableSize) - 0.5f));
         }
     }
     
     void FunctionTable::sawtooth(float amplitude)
     {
         // in case user forgot, init table to default size
-        if (pWaveTable == 0) init();
-        
+        if (waveTable.empty()) init();
+
+        auto nTableSize = waveTable.size();
         for (int i=0; i < nTableSize; i++)
-            pWaveTable[i] = (float)(2.0 * amplitude * double(i)/nTableSize - amplitude);
+            waveTable[i] = (float)(2.0 * amplitude * double(i)/nTableSize - amplitude);
     }
     
     void FunctionTable::sinusoid(float amplitude)
     {
         // in case user forgot, init table to default size
-        if (pWaveTable == 0) init();
-        
+        if (waveTable.empty()) init();
+
+        auto nTableSize = waveTable.size();
         for (int i=0; i < nTableSize; i++)
-            pWaveTable[i] = (float)(amplitude * sin(double(i)/nTableSize * 2.0 * M_PI));
+            waveTable[i] = (float)(amplitude * sin(double(i)/nTableSize * 2.0 * M_PI));
     }
 
     // A variation of sinusoid() which adds a tiny bit of 2nd harmonic, producing a tone closer to
@@ -64,10 +62,11 @@ namespace AudioKitCore
     void AudioKitCore::FunctionTable::hammond(float amplitude)
     {
         // in case user forgot, init table to default size
-        if (pWaveTable == 0) init();
+        if (waveTable.empty()) init();
 
+        auto nTableSize = waveTable.size();
         for (int i = 0; i < nTableSize; i++)
-            pWaveTable[i] = (float)(amplitude *
+            waveTable[i] = (float)(amplitude *
                 (sin(double(i) / nTableSize * 2.0 * M_PI) + 0.015f * sin(double(i) / nTableSize * 4.0 * M_PI))
                 );
     }
@@ -75,23 +74,26 @@ namespace AudioKitCore
     void FunctionTable::square(float amplitude, float dutyCycle)
     {
         // in case user forgot, init table to default size
-        if (pWaveTable == 0) init();
+        if (waveTable.empty()) init();
 
+        auto nTableSize = waveTable.size();
         float dcOffset = amplitude * (2.0f * dutyCycle - 1.0f);
         for (int i=0; i < nTableSize; i++)
         {
             float phase = (float)i / nTableSize;
-            pWaveTable[i] = (phase < dutyCycle ? amplitude : -amplitude) - dcOffset;
+            waveTable[i] = (phase < dutyCycle ? amplitude : -amplitude) - dcOffset;
         }
     }
 
     void FunctionTable::linearCurve(float gain)
     {
         // in case user forgot, init table to default size
-        if (pWaveTable == 0) init();
+        if (waveTable.empty()) init();
+
+        auto nTableSize = waveTable.size();
 
         for (int i = 0; i < nTableSize; i++)
-            pWaveTable[i] = gain * i / float(nTableSize);
+            waveTable[i] = gain * i / float(nTableSize);
     }
     
     // Initialize a FunctionTable to an exponential shape, scaled to fit in the unit square.
@@ -101,16 +103,18 @@ namespace AudioKitCore
     void FunctionTable::exponentialCurve(float left, float right)
     {
         // in case user forgot, init table to default size
-        if (pWaveTable == 0) init();
+        if (waveTable.empty()) init();
         
         float bottom = -expf(-left);
         float top = -expf(-right);
         float vscale = 1.0f / (top - bottom);
+
+        auto nTableSize = waveTable.size();
         
         float x = left;
         float dx = (right - left) / (nTableSize - 1);
         for (int i=0; i < nTableSize; i++, x += dx)
-            pWaveTable[i] = vscale * (-expf(-x) - bottom);
+            waveTable[i] = vscale * (-expf(-x) - bottom);
     }
 
     // Initialize a FunctionTable to a power-curve shape, defined in the unit square.
@@ -119,12 +123,14 @@ namespace AudioKitCore
     void FunctionTable::powerCurve(float exponent)
     {
         // in case user forgot, init table to default size
-        if (pWaveTable == 0) init();
+        if (waveTable.empty()) init();
+
+        auto nTableSize = waveTable.size();
 
         float x = 0.0f;
         float dx = 1.0f / (nTableSize - 1);
         for (int i=0; i < nTableSize; i++, x += dx)
-            pWaveTable[i] = powf(x, exponent);
+            waveTable[i] = powf(x, exponent);
     }
 
     void FunctionTableOscillator::init(double sampleRate, float frequency, int tableLength)
@@ -150,7 +156,7 @@ namespace AudioKitCore
     {
         waveTable.init(tableLength);
         for (int i = 0; i < tableLength; i++)
-            waveTable.pWaveTable[i] = i / float(tableLength);
+            waveTable.waveTable[i] = i / float(tableLength);
     }
 }
 
