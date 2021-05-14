@@ -5,42 +5,35 @@
 
 namespace AudioKitCore
 {
-    AdjustableDelayLine::AdjustableDelayLine() : pBuffer(0)
-    {
-    }
-    
     void AdjustableDelayLine::init(double sampleRate, double maxDelayMilliseconds)
     {
         sampleRateHz = sampleRate;
         maxDelayMs = maxDelayMilliseconds;
 
-        capacity = int(maxDelayMs * sampleRateHz / 1000.0);
-        if (pBuffer) delete[] pBuffer;
-        pBuffer = new float[capacity];
+        buffer.resize(int(maxDelayMs * sampleRateHz / 1000.0));
         clear();
         writeIndex = 0;
-        readIndex = (float)(capacity - 1);
+        readIndex = (float)(buffer.size() - 1);
         fbFraction = 0.0f;
         output = 0.0f;
     }
     
     void AdjustableDelayLine::deinit()
     {
-        if (pBuffer) delete[] pBuffer;
-        pBuffer = 0;
+        buffer.clear();
     }
     
     void AdjustableDelayLine::clear()
     {
-        if(pBuffer) {
-            std::fill(pBuffer, pBuffer + capacity, 0.0f);
-        }
+        std::fill(buffer.begin(), buffer.end(), 0.0f);
     }
     
     void AdjustableDelayLine::setDelayMs(double delayMs)
     {
         if (delayMs > maxDelayMs) delayMs = maxDelayMs;
         if (delayMs < 0.0f) delayMs = 0.0f;
+
+        size_t capacity = buffer.size();
 
         float fReadWriteGap = float(delayMs * sampleRateHz / 1000.0);
         if (fReadWriteGap < 0.0f) fReadWriteGap = 0.0f;
@@ -52,7 +45,9 @@ namespace AudioKitCore
     
     float AdjustableDelayLine::push(float sample)
     {
-        if (!pBuffer) return sample;
+        if (buffer.empty()) return sample;
+
+        size_t capacity = buffer.size();
         
         int ri = int(readIndex);
         float f = readIndex - ri;
@@ -60,11 +55,11 @@ namespace AudioKitCore
         readIndex += 1.0f;
         if (readIndex >= capacity) readIndex -= capacity;
         
-        float si = pBuffer[ri];
-        float sj = pBuffer[rj];
+        float si = buffer[ri];
+        float sj = buffer[rj];
         float outSample = (1.0f - f) * si + f * sj;
         
-        pBuffer[writeIndex++] = sample + fbFraction * outSample;
+        buffer[writeIndex++] = sample + fbFraction * outSample;
         if (writeIndex >= capacity) writeIndex = 0;
         
         return (output = outSample);

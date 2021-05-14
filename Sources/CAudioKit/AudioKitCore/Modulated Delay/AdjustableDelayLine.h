@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #pragma once
+#include <vector>
 
 namespace AudioKitCore
 {
@@ -8,14 +9,12 @@ namespace AudioKitCore
         double sampleRateHz;
         double maxDelayMs;
         float fbFraction;
-        float *pBuffer;
-        int capacity;
+        std::vector<float> buffer;
         int writeIndex;
         float readIndex;
         float output;
         
     public:
-        AdjustableDelayLine();
         ~AdjustableDelayLine() { deinit(); }
         
         void init(double sampleRate, double maxDelayMilliseconds);
