@@ -2,6 +2,7 @@
 
 #include "WaveStack.h"
 #include "kiss_fftr.h"
+#include <vector>
 
 namespace AudioKitCore
 {
@@ -26,7 +27,7 @@ namespace AudioKitCore
     {
         // setup
         const int fftLength = 1 << maxBits;
-        float *buf = new float[fftLength];
+        std::vector<float> buf(fftLength);
         kiss_fftr_cfg fwd = kiss_fftr_alloc(fftLength, 0, 0, 0);
         kiss_fftr_cfg inv = kiss_fftr_alloc(fftLength, 1, 0, 0);
 
@@ -51,7 +52,7 @@ namespace AudioKitCore
             }
 
             // perform inverse FFT to get filtered waveform
-            kiss_fftri(inv, spectrum, buf);
+            kiss_fftri(inv, spectrum, buf.data());
 
             // resample filtered waveform
             int skip = 1 << octave;
@@ -62,7 +63,6 @@ namespace AudioKitCore
         // teardown
         kiss_fftr_free(inv);
         kiss_fftr_free(fwd);
-        delete[] buf;
     }
 
     void WaveStack::init()
