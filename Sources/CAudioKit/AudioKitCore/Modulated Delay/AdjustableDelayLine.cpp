@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "AdjustableDelayLine.h"
+#include <algorithm>
 
 namespace AudioKitCore
 {
@@ -31,8 +32,8 @@ namespace AudioKitCore
     
     void AdjustableDelayLine::clear()
     {
-        for (int i=0; i < capacity; i++) {
-            if (pBuffer) pBuffer[i] = 0.0f;
+        if(pBuffer) {
+            std::fill(pBuffer, pBuffer + capacity, 0.0f);
         }
     }
     
