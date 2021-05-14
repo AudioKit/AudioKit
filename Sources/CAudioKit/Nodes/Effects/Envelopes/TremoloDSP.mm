@@ -49,25 +49,16 @@ public:
         sp_osc_init(sp, trem, ftbl, 0);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
 
+        for (int i : range) {
             trem->freq = frequencyRamp.getAndStep() * 0.5;
             trem->amp = depthRamp.getAndStep();
-
+            
             float temp = 0;
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
-                if (isStarted) {
-                    sp_osc_compute(sp, trem, NULL, &temp);
-                    *out = *in * (1.0 - temp);
-                } else {
-                    *out = *in;
-                }
-            }
+            sp_osc_compute(sp, trem, NULL, &temp);
+            outputSample(0, i) = inputSample(0, i) * (1.0 - temp);
+            outputSample(1, i) = inputSample(1, i) * (1.0 - temp);
         }
     }
 };
