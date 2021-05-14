@@ -36,7 +36,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Playback
 #import "PresetManager.h"
 #import "Sampler_Typedefs.h"
-#import "CoreSampler.h"
 #import "SamplerDSP.h"
 
 // Sequencing / MIDI
