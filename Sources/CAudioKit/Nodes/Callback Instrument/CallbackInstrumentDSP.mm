@@ -30,7 +30,6 @@ public:
     void process2(FrameRange range) override {
         count += range.count;
         if (updateTime) {
-            int diff = count - lastFrameCount;
             lastFrameCount = count;
             updateTime = false;
         }
