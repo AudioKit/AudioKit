@@ -31,7 +31,9 @@ namespace AudioKitCore
     
     void AdjustableDelayLine::clear()
     {
-        for (int i=0; i < capacity; i++) pBuffer[i] = 0.0f;
+        for (int i=0; i < capacity; i++) {
+            if (pBuffer) pBuffer[i] = 0.0f;
+        }
     }
     
     void AdjustableDelayLine::setDelayMs(double delayMs)
