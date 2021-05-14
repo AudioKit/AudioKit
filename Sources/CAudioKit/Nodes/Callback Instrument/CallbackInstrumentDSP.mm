@@ -43,16 +43,14 @@ public:
 
     void consumer() {
         midiBuffer.popAll([this] (const AUMIDIEvent& event) {
-            if(event.length > 0) {
+            if(event.length > 0 && callback) {
                 int32_t messageCount = sizeof(event.data) / 3;
 
-                if(callback) {
-                    for(int messageIndex=0; messageIndex < messageCount; ++messageIndex) {
-                        uint8_t status = event.data[3*messageIndex];
-                        uint8_t data1 = event.data[3*messageIndex+1];
-                        uint8_t data2 = event.data[3*messageIndex+2];
-                        callback(status, data1, data2);
-                    }
+                for(int messageIndex=0; messageIndex < messageCount; ++messageIndex) {
+                    uint8_t status = event.data[3*messageIndex];
+                    uint8_t data1 = event.data[3*messageIndex+1];
+                    uint8_t data2 = event.data[3*messageIndex+2];
+                    callback(status, data1, data2);
                 }
             }
         });
