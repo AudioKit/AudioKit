@@ -29,18 +29,10 @@ void SoundpipeDSPBase::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
     }
 }
 
-void SoundpipeDSPBase::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
-    for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-        int frameOffset = int(frameIndex + bufferOffset);
-        for (int channel = 0; channel <  channelCount; ++channel) {
-            float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-            float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
-            if (isStarted) {
-                processSample(channel, in, out);
-            } else {
-                *out = *in;
-            }
+void SoundpipeDSPBase::process2(FrameRange range) {
+    for (int i : range) {
+        for (int channel = 0; channel < channelCount; ++channel) {
+            processSample(channel, &inputSample(channel, i), &outputSample(channel, i));
         }
     }
 }

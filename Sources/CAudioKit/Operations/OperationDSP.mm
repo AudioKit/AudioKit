@@ -80,16 +80,13 @@ public:
         }
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             if(!inputBufferLists.empty()) {
                 for (int channel = 0; channel < channelCount; ++channel) {
-                    float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
                     if (channel < 2) {
-                        pd.p[channel+OperationTrigger] = *in;
+                        pd.p[channel+OperationTrigger] = inputSample(channel, i);
                     }
                 }
             }
@@ -98,16 +95,10 @@ public:
                 pd.p[i] = rampers[i].getAndStep();
             }
 
-            if (isStarted)
-                plumber_compute(&pd, PLUMBER_COMPUTE);
+            plumber_compute(&pd, PLUMBER_COMPUTE);
 
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (isStarted) {
-                    *out = sporth_stack_pop_float(&pd.sporth.stack);
-                } else {
-                    *out = 0;
-                }
+                outputSample(channel, i) = sporth_stack_pop_float(&pd.sporth.stack);
             }
 
             pd.p[OperationTrigger] = 0.0;

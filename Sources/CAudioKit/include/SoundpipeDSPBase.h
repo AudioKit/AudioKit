@@ -17,7 +17,7 @@ public:
     virtual void deinit() override;
     virtual void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
     virtual void processSample(int channel, float *in, float *out);
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+    void process2(FrameRange range) override;
 };
 
 #endif

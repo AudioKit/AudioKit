@@ -122,44 +122,36 @@ public:
         }
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process2(FrameRange range) override {
 
         updateTables();
 
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+        for (int i : range) {
+            
             float frequency = frequencyRamp.getAndStep();
             float detuneMultiplier = detuningMultiplierRamp.getAndStep();
             float detuneOffset = detuningOffsetRamp.getAndStep();
             osc->freq = frequency * detuneMultiplier + detuneOffset;
             osc->amp = amplitudeRamp.getAndStep();
 
-            if(isStarted) {
-                crossfade += 0.005;
-                if(crossfade > 1) { crossfade = 1; }
 
-                float temp1 = 0;
-                float temp2 = 0;
-
-                if(oldTable) {
-                    sp_dynamicosc_compute(sp, osc, oldTable->table, nil, &temp1, false); // does not move phase
-                }
-
-                if(newTable) {
-                    sp_dynamicosc_compute(sp, osc, newTable->table, nil, &temp2, true); // does move phase
-                }
-
-                for (int channel = 0; channel < channelCount; ++channel) {
-                    float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                    *out = temp1 * (1-crossfade) + temp2 * crossfade;
-                }
-            } else {
-                for (int channel = 0; channel < channelCount; ++channel) {
-                    float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                    *out = 0.0;
-                }
+            crossfade += 0.005;
+            if(crossfade > 1) { crossfade = 1; }
+            
+            float temp1 = 0;
+            float temp2 = 0;
+            
+            if(oldTable) {
+                sp_dynamicosc_compute(sp, osc, oldTable->table, nil, &temp1, false); // does not move phase
             }
+            
+            if(newTable) {
+                sp_dynamicosc_compute(sp, osc, newTable->table, nil, &temp2, true); // does move phase
+            }
+            
+            outputSample(0, i) = temp1 * (1 - crossfade) + temp2 * crossfade;
         }
+        cloneFirstChannel(range);
     }
     
 };
