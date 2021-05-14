@@ -63,9 +63,9 @@ public:
         }
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+
+        for (int i : range) {
 
             bar->bcL = leftBoundaryConditionRamp.getAndStep();
             bar->bcR = rightBoundaryConditionRamp.getAndStep();
@@ -74,20 +74,10 @@ public:
             bar->pos = positionRamp.getAndStep();
             bar->vel = strikeVelocityRamp.getAndStep();
             bar->wid = strikeWidthRamp.getAndStep();
-            float temp = 0;
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
-                if (isStarted) {
-                    if (channel == 0) {
-                        sp_bar_compute(sp, bar, &internalTrigger, &temp);
-                    }
-                    *out = temp;
-                } else {
-                    *out = 0.0;
-                }
-            }
+            
+            sp_bar_compute(sp, bar, &internalTrigger, &outputSample(0, i));
         }
+        cloneFirstChannel(range);
     }
 };
 

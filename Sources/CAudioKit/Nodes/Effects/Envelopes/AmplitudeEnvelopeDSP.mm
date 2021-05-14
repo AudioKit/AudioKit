@@ -53,10 +53,9 @@ public:
         }
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process2(FrameRange range) override {
 
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+        for (int i : range) {
 
             adsr->atk = attackDurationRamp.getAndStep();
             adsr->dec = decayDurationRamp.getAndStep();
@@ -64,12 +63,8 @@ public:
             adsr->rel = releaseDurationRamp.getAndStep();
 
             sp_adsr_compute(sp, adsr, &internalTrigger, &amp);
-
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                *out = *in * amp;
-            }
+            outputSample(0, i) = inputSample(0, i) * amp;
+            outputSample(1, i) = inputSample(1, i) * amp;
         }
     }
 };

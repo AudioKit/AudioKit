@@ -59,28 +59,19 @@ public:
         sp_fosc_init(sp, fosc, ftbl);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process2(FrameRange range) override {
 
-        if(isStarted) {
-            for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-                int frameOffset = int(frameIndex + bufferOffset);
+        for (int i : range) {
 
                 fosc->freq = baseFrequencyRamp.getAndStep();
                 fosc->car = carrierMultiplierRamp.getAndStep();
                 fosc->mod = modulatingMultiplierRamp.getAndStep();
                 fosc->indx = modulationIndexRamp.getAndStep();
                 fosc->amp = amplitudeRamp.getAndStep();
-
-                float temp = 0;
-                sp_fosc_compute(sp, fosc, nil, &temp);
-                for (int channel = 0; channel < channelCount; ++channel) {
-                    outputSample(channel, frameOffset) = temp;
-                }
-            }
-        } else {
-            stepRampsBy(frameCount);
-            zeroOutput(frameCount, bufferOffset);
+            
+            sp_fosc_compute(sp, fosc, nil, &outputSample(0, i));
         }
+        cloneFirstChannel(range);
     }
 };
 

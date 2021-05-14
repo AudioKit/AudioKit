@@ -57,24 +57,17 @@ public:
         sp_mincer_init(sp, mincer, ftbl, 2048);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+
+        for (int i : range) {
 
             mincer->time = positionRamp.getAndStep();
             mincer->amp = amplitudeRamp.getAndStep();
             mincer->pitch = pitchRatioRamp.getAndStep();
 
-            float *outL = (float *)outputBufferList->mBuffers[0].mData  + frameOffset;
-            float *outR = (float *)outputBufferList->mBuffers[1].mData + frameOffset;
-            if (isStarted) {
-                sp_mincer_compute(sp, mincer, NULL, outL);
-                *outR = *outL;
-            } else {
-                *outL = 0;
-                *outR = 0;
-            }
+            sp_mincer_compute(sp, mincer, NULL, &outputSample(0, i));
         }
+        cloneFirstChannel(range);
     }
 };
 

@@ -54,9 +54,9 @@ public:
         sp_drip_init(sp, drip, 0.9);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+
+        for (int i : range) {
 
             drip->num_tubes = intensityRamp.getAndStep();
             drip->damp = dampingFactorRamp.getAndStep();
@@ -65,20 +65,11 @@ public:
             drip->freq1 = firstResonantFrequencyRamp.getAndStep();
             drip->freq2 = secondResonantFrequencyRamp.getAndStep();
             drip->amp = amplitudeRamp.getAndStep();
-            float temp = 0;
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
 
-                if (isStarted) {
-                    if (channel == 0) {
-                        sp_drip_compute(sp, drip, &internalTrigger, &temp);
-                    }
-                    *out = temp;
-                } else {
-                    *out = 0.0;
-                }
-            }
+            sp_drip_compute(sp, drip, &internalTrigger, &outputSample(0, i));
         }
+        cloneFirstChannel(range);
+
         if (internalTrigger == 1) {
             internalTrigger = 0;
         }

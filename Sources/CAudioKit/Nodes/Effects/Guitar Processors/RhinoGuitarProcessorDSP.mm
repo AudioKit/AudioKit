@@ -103,8 +103,7 @@ public:
 
                 *in = *in * preGain;
                 const float r_Sig = leftRageProcessor->doRage(*in, distortion * 2, distortion * 2);
-                const float e_Sig = leftEqLo.filter(leftEqMi.filter(leftEqHi.filter(r_Sig))) *
-                (1 / (distortion*0.8));
+                const float e_Sig = leftEqLo.filter(leftEqMi.filter(leftEqHi.filter(r_Sig))) * (1 / (distortion*0.8));
                 *out = e_Sig * postGain;
             }
         }

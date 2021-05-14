@@ -27,9 +27,9 @@ public:
         [timer invalidate];
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        //do nothing
-        for (int i = 0; i < frameCount; i++) {
+    void process2(FrameRange range) override {
+
+        for (int i : range) {
             count += 1;
             if (updateTime) {
                 int diff = count - lastFrameCount;

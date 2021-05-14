@@ -68,9 +68,9 @@ public:
         sp_pdhalf_init(sp, pdhalf);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+
+        for (int i : range) {
             
             float frequency = frequencyRamp.getAndStep();
             float amplitude = amplitudeRamp.getAndStep();
@@ -84,24 +84,14 @@ public:
             float pd = 0;
             float ph = 0;
             
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
-                if (isStarted) {
-                    if (channel == 0) {
-                        sp_phasor_compute(sp, phasor, NULL, &ph);
-//                        DebugDSP(PhaseDistortionOscillatorDebugPhase, ph);
-                        sp_pdhalf_compute(sp, pdhalf, &ph, &pd);
-                        tabread->index = pd;
-                        sp_tabread_compute(sp, tabread, NULL, &temp);
-                        
-                    }
-                    *out = temp * amplitude;
-                } else {
-                    *out = 0.0;
-                }
-            }
+            sp_phasor_compute(sp, phasor, NULL, &ph);
+            sp_pdhalf_compute(sp, pdhalf, &ph, &pd);
+            tabread->index = pd;
+            sp_tabread_compute(sp, tabread, NULL, &outputSample(0, i));
+            
+            outputSample(0, i) *= amplitude;
         }
+        cloneFirstChannel(range);
     }
 };
 
