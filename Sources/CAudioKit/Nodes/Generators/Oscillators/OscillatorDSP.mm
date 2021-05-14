@@ -58,7 +58,7 @@ public:
 
     void process2(FrameRange range) override {
 
-        for (auto i : range) {
+        for (int i : range) {
 
             float frequency = frequencyRamp.getAndStep();
             float detuneMultiplier = detuningMultiplierRamp.getAndStep();
