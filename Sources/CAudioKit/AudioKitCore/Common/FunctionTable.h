@@ -19,10 +19,10 @@ namespace AudioKitCore
     /// some bounded domain. See class WaveShaper.
     struct FunctionTable
     {
-        float *pWaveTable;
-        int nTableSize;
+        float *pWaveTable = nullptr;
+        int nTableSize = 0;
         
-        FunctionTable() : pWaveTable(0), nTableSize(0) {}
+        FunctionTable() {}
         ~FunctionTable() { deinit(); }
         
         void init(int tableLength=DEFAULT_WAVETABLE_SIZE);
