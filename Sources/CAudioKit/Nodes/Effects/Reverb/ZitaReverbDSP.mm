@@ -62,9 +62,8 @@ public:
         sp_zitarev_init(sp, zitarev);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             *zitarev->in_delay = predelayRamp.getAndStep();
             *zitarev->lf_x = crossoverFrequencyRamp.getAndStep();
@@ -77,24 +76,13 @@ public:
             *zitarev->eq2_level = equalizerLevel2Ramp.getAndStep();
             *zitarev->mix = dryWetMixRamp.getAndStep();
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
+            float leftIn = inputSample(0, i);
+            float rightIn = inputSample(1, i);
+
+            float &leftOut = outputSample(0, i);
+            float &rightOut = outputSample(1, i);
             
-            }
-            if (isStarted) {
-                sp_zitarev_compute(sp, zitarev, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
-            }
+            sp_zitarev_compute(sp, zitarev, &leftIn, &rightIn, &leftOut, &rightOut);
         }
     }
 };

@@ -40,34 +40,21 @@ public:
         sp_atone_init(sp, atone1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             float halfPowerPoint = halfPowerPointRamp.getAndStep();
             atone0->hp = halfPowerPoint;
             atone1->hp = halfPowerPoint;
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
+            float leftIn = inputSample(0, i);
+            float rightIn = inputSample(1, i);
 
-                if (channel == 0) {
-                    sp_atone_compute(sp, atone0, in, out);
-                } else {
-                    sp_atone_compute(sp, atone1, in, out);
-                }
-            }
+            float &leftOut = outputSample(0, i);
+            float &rightOut = outputSample(1, i);
+
+            sp_atone_compute(sp, atone0, &leftIn, &leftOut);
+            sp_atone_compute(sp, atone1, &rightIn, &rightOut);
         }
     }
 };

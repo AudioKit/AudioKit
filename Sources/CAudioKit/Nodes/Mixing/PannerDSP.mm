@@ -36,20 +36,19 @@ public:
     }
 
     void process2(FrameRange range) override {
-        for(auto i : range) {
+        for (int i : range) {
+
             panst->pan = panRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);
 
-            float& leftOut = outputSample(0, i);
-            float& rightOut = outputSample(1, i);
-
+            float &leftOut = outputSample(0, i);
+            float &rightOut = outputSample(1, i);
+            
             sp_panst_compute(sp, panst, &leftIn, &rightIn, &leftOut, &rightOut);
-
         }
     }
-
 };
 
 AK_REGISTER_DSP(PannerDSP, "pan2")

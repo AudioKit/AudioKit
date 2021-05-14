@@ -46,34 +46,21 @@ public:
         sp_comb_init(sp, comb1, loopDuration);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             float reverbDuration = reverbDurationRamp.getAndStep();
             comb0->revtime = reverbDuration;
             comb1->revtime = reverbDuration;
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
+            float leftIn = inputSample(0, i);
+            float rightIn = inputSample(1, i);
 
-                if (channel == 0) {
-                    sp_comb_compute(sp, comb0, in, out);
-                } else {
-                    sp_comb_compute(sp, comb1, in, out);
-                }
-            }
+            float &leftOut = outputSample(0, i);
+            float &rightOut = outputSample(1, i);
+
+            sp_comb_compute(sp, comb0, &leftIn, &leftOut);
+            sp_comb_compute(sp, comb1, &rightIn, &rightOut);
         }
     }
 };
@@ -82,7 +69,6 @@ AK_API void akCombFilterReverbSetLoopDuration(DSPRef dspRef, float duration) {
     auto dsp = dynamic_cast<CombFilterReverbDSP *>(dspRef);
     assert(dsp);
     dsp->setLoopDuration(duration);
-    
 }
 
 AK_REGISTER_DSP(CombFilterReverbDSP, "comb")

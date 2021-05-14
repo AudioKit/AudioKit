@@ -59,9 +59,8 @@ public:
         sp_phaser_init(sp, phaser);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             *phaser->MinNotch1Freq = notchMinimumFrequencyRamp.getAndStep();
             *phaser->MaxNotch1Freq = notchMaximumFrequencyRamp.getAndStep();
@@ -73,24 +72,13 @@ public:
             *phaser->invert = invertedRamp.getAndStep();
             *phaser->lfobpm = lfoBPMRamp.getAndStep();
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
+            float leftIn = inputSample(0, i);
+            float rightIn = inputSample(1, i);
+
+            float &leftOut = outputSample(0, i);
+            float &rightOut = outputSample(1, i);
             
-            }
-            if (isStarted) {
-                sp_phaser_compute(sp, phaser, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
-            }
+            sp_phaser_compute(sp, phaser, &leftIn, &rightIn, &leftOut, &rightOut);
         }
     }
 };

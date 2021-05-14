@@ -49,9 +49,8 @@ public:
         sp_dist_init(sp, dist1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             float pregain = pregainRamp.getAndStep();
             dist0->pregain = pregain;
@@ -69,26 +68,14 @@ public:
             dist0->shape2 = negativeShapeParameter;
             dist1->shape2 = negativeShapeParameter;
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
+            float leftIn = inputSample(0, i);
+            float rightIn = inputSample(1, i);
 
-                if (channel == 0) {
-                    sp_dist_compute(sp, dist0, in, out);
-                } else {
-                    sp_dist_compute(sp, dist1, in, out);
-                }
-            }
+            float &leftOut = outputSample(0, i);
+            float &rightOut = outputSample(1, i);
+
+            sp_dist_compute(sp, dist0, &leftIn, &leftOut);
+            sp_dist_compute(sp, dist1, &rightIn, &rightOut);
         }
     }
 };

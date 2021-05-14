@@ -46,9 +46,8 @@ public:
         sp_wpkorg35_init(sp, wpkorg351);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             float cutoffFrequency = cutoffFrequencyRamp.getAndStep() - 0.0001f;
             wpkorg350->cutoff = cutoffFrequency;
@@ -62,26 +61,14 @@ public:
             wpkorg350->saturation = saturation;
             wpkorg351->saturation = saturation;
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
+            float leftIn = inputSample(0, i);
+            float rightIn = inputSample(1, i);
 
-                if (channel == 0) {
-                    sp_wpkorg35_compute(sp, wpkorg350, in, out);
-                } else {
-                    sp_wpkorg35_compute(sp, wpkorg351, in, out);
-                }
-            }
+            float &leftOut = outputSample(0, i);
+            float &rightOut = outputSample(1, i);
+
+            sp_wpkorg35_compute(sp, wpkorg350, &leftIn, &leftOut);
+            sp_wpkorg35_compute(sp, wpkorg351, &rightIn, &rightOut);
         }
     }
 };

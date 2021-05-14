@@ -46,9 +46,8 @@ public:
         sp_eqfil_init(sp, eqfil1);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             float centerFrequency = centerFrequencyRamp.getAndStep();
             eqfil0->freq = centerFrequency;
@@ -62,31 +61,19 @@ public:
             eqfil0->gain = gain;
             eqfil1->gain = gain;
 
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
+            float leftIn = inputSample(0, i);
+            float rightIn = inputSample(1, i);
 
-                if (channel == 0) {
-                    sp_eqfil_compute(sp, eqfil0, in, out);
-                } else {
-                    sp_eqfil_compute(sp, eqfil1, in, out);
-                }
-            }
+            float &leftOut = outputSample(0, i);
+            float &rightOut = outputSample(1, i);
+
+            sp_eqfil_compute(sp, eqfil0, &leftIn, &leftOut);
+            sp_eqfil_compute(sp, eqfil1, &rightIn, &rightOut);
         }
     }
 };
 
-AK_REGISTER_DSP(EqualizerFilterDSP,  "eqfl")
+AK_REGISTER_DSP(EqualizerFilterDSP, "eqfl")
 AK_REGISTER_PARAMETER(EqualizerFilterParameterCenterFrequency)
 AK_REGISTER_PARAMETER(EqualizerFilterParameterBandwidth)
 AK_REGISTER_PARAMETER(EqualizerFilterParameterGain)
