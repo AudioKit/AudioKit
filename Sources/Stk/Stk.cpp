@@ -262,6 +262,7 @@ StkFrames::StkFrames(const StkFrames &f) : data_(0), size_(0), bufferSize_(0) {
 }
 
 StkFrames &StkFrames::operator=(const StkFrames &f) {
+  if(&f == this) { return *this; }
   if (data_)
     free(data_);
   data_ = 0;
