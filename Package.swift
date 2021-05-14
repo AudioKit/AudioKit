@@ -79,7 +79,7 @@ let package = Package(
                 "Internals/README.md",
                 "Nodes/Effects/Modulation/ModDelay.svg",
                 "MIDI/README.md",
-                "Analysis/README.md",
+                "Taps/README.md",
                 "Nodes/Effects/Modulation/ModulatedDelayEffects.md",
                 "Nodes/Effects/Modulation/README.md",
                 "Nodes/Playback/Samplers/Apple Sampler/Skeleton.aupreset",
