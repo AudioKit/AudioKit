@@ -17,23 +17,17 @@ public:
         parameters[DryWetMixerParameterBalance] = &balanceRamp;
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             float balance = balanceRamp.getAndStep();
 
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *dry = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *wet = (float *)inputBufferLists[1]->mBuffers[channel].mData + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
-                if (isStarted) {
-                    *out = (1.0f - balance) * *dry + balance * *wet;
-                } else {
-                    *out = *dry;
-                }
+                float dry = inputSample(channel, i);
+                float wet = input2Sample(channel, i);
+                outputSample(channel, i) =  (1.0f - balance) * dry + balance * wet;
             }
+
         }
     }
 };

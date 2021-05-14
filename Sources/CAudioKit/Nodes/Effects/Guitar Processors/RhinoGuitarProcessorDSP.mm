@@ -66,10 +66,8 @@ public:
         rightRageProcessor = nullptr;
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             float preGain = preGainRamper.getAndStep();
             float postGain = postGainRamper.getAndStep();
@@ -87,24 +85,11 @@ public:
             leftEqHi.calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -highGain, false);
             rightEqHi.calc_filter_coeffs(8, 6100, sampleRate, 1.6, -15 * -highGain, false);
 
-            float *tmpin[2];
-            float *tmpout[2];
             for (int channel = 0; channel < 2; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                    continue;
-                }
-
-                *in = *in * preGain;
-                const float r_Sig = leftRageProcessor->doRage(*in, distortion * 2, distortion * 2);
+                inputSample(channel, i) *= preGain;
+                const float r_Sig = leftRageProcessor->doRage(inputSample(channel, i), distortion * 2, distortion * 2);
                 const float e_Sig = leftEqLo.filter(leftEqMi.filter(leftEqHi.filter(r_Sig))) * (1 / (distortion*0.8));
-                *out = e_Sig * postGain;
+                outputSample(channel, i) = e_Sig * postGain;
             }
         }
     }

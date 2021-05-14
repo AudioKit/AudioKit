@@ -30,20 +30,13 @@ public:
         if (isInitialized) sp_bal_init(sp, bal);
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for (int i : range) {
 
             for (int channel = 0; channel < channelCount; ++channel) {
-                float *in   = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *comp = (float *)inputBufferLists[1]->mBuffers[channel].mData + frameOffset;
-                float *out  = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
-
-                if (isStarted) {
-                    sp_bal_compute(sp, bal, in, comp, out);
-                } else {
-                    *out = *in;
-                }
+                float in = inputSample(channel, i);
+                float comp = input2Sample(channel, i);
+                sp_bal_compute(sp, bal, &in, &comp, &outputSample(channel, i));
             }
         }
     }

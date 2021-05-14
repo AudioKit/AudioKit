@@ -101,6 +101,10 @@ protected:
         return ((float *)inputBufferLists[0]->mBuffers[channel].mData)[frame];
     }
 
+    inline float& input2Sample(int channel, AUAudioFrameCount frame) {
+        return ((float *)inputBufferLists[1]->mBuffers[channel].mData)[frame];
+    }
+
     inline float& outputSample(int channel, AUAudioFrameCount frame) {
         return ((float *)outputBufferList->mBuffers[channel].mData)[frame];
     }
