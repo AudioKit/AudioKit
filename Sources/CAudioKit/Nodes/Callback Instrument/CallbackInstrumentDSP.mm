@@ -28,15 +28,11 @@ public:
     }
 
     void process2(FrameRange range) override {
-
-        for (int i : range) {
-            count += 1;
-            if (updateTime) {
-                int diff = count - lastFrameCount;
-                printf("debug: time is %i diff is %i\n", count, diff);
-                lastFrameCount = count;
-                updateTime = false;
-            }
+        count += range.count;
+        if (updateTime) {
+            int diff = count - lastFrameCount;
+            lastFrameCount = count;
+            updateTime = false;
         }
     }
 
