@@ -60,7 +60,6 @@ let package = Package(
                 .headerSearchPath("Internals"),
                 .headerSearchPath("AudioKitCore/Common"),
                 .headerSearchPath("Devoloop/include"),
-                .headerSearchPath("include"),
                 .headerSearchPath(".")
             ]
         ),
