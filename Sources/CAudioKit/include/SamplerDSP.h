@@ -63,36 +63,3 @@ AK_API void akSamplerStopAllVoices(DSPRef pDSP);
 AK_API void akSamplerRestartVoices(DSPRef pDSP);
 AK_API void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown);
 
-#ifdef __cplusplus
-
-#import "DSPBase.h"
-#include "CoreSampler.h"
-#include "LinearParameterRamp.h"
-
-struct SamplerDSP : DSPBase, CoreSampler
-{
-    // ramped parameters
-    LinearParameterRamp masterVolumeRamp;
-    LinearParameterRamp pitchBendRamp;
-    LinearParameterRamp vibratoDepthRamp;
-    LinearParameterRamp vibratoFrequencyRamp;
-    LinearParameterRamp voiceVibratoDepthRamp;
-    LinearParameterRamp voiceVibratoFrequencyRamp;
-    LinearParameterRamp filterCutoffRamp;
-    LinearParameterRamp filterStrengthRamp;
-    LinearParameterRamp filterResonanceRamp;
-    LinearParameterRamp pitchADSRSemitonesRamp;
-    LinearParameterRamp glideRateRamp;
-    
-    SamplerDSP();
-    void init(int channelCount, double sampleRate) override;
-    void deinit() override;
-
-    void setParameter(uint64_t address, float value, bool immediate) override;
-    float getParameter(uint64_t address) override;
-
-    void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
-#endif
