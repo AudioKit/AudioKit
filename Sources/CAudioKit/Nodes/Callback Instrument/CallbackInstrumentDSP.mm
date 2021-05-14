@@ -67,7 +67,6 @@ private:
     int lastFrameCount = 0;
     bool updateTime = false;
 
-public:
     CMIDICallback callback = nullptr;
 };
 
