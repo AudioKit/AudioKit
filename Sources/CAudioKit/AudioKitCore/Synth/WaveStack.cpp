@@ -66,14 +66,6 @@ namespace AudioKitCore
         kiss_fftr_free(fwd);
     }
 
-    void WaveStack::init()
-    {
-    }
-    
-    void WaveStack::deinit()
-    {
-    }
-
     float WaveStack::interp(int octave, float phase)
     {
         while (phase < 0) phase += 1.0;

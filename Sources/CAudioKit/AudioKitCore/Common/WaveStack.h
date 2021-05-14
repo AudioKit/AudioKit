@@ -26,9 +26,6 @@ namespace AudioKitCore
 
         // Fill pWaveData with 1024 samples, then call this
         void initStack(const std::vector<float>& waveData, int maxHarmonic=512);
-        
-        void init();
-        void deinit();
 
         float interp(int octave, float phase);
     };
