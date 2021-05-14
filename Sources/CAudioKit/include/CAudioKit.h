@@ -44,7 +44,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Automation
 #import "ParameterRamper.h"
 #import "ParameterAutomation.h"
-#import "LinearParameterRamp.h"
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "Interop.h"
