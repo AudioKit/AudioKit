@@ -47,33 +47,20 @@ public:
         sp_ftbl_destroy(&tbl);
     }
 
-    void process(uint32_t frameCount, uint32_t bufferOffset) override {
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            int frameOffset = int(frameIndex + bufferOffset);
+    void process2(FrameRange range) override {
+        for(auto i : range) {
 
             trem->freq = frequencyRamp.getAndStep();
             trem->amp = 1;
 
             float temp = 0;
-            float *tmpin[2];
-            float *tmpout[2];
-            for (int channel = 0; channel < channelCount; ++channel) {
-                float *in  = (float *)inputBufferLists[0]->mBuffers[channel].mData  + frameOffset;
-                float *out = (float *)outputBufferList->mBuffers[channel].mData + frameOffset;
+            sp_osc_compute(sp, trem, NULL, &temp);
+            panst->pan = (2.0 * temp - 1.0) * depthRamp.getAndStep();
+            sp_panst_compute(sp,
+                             panst,
+                             &inputSample(0, i), &inputSample(1, i),
+                             &outputSample(0, i), &outputSample(1, i));
 
-                if (channel < 2) {
-                    tmpin[channel] = in;
-                    tmpout[channel] = out;
-                }
-                if (!isStarted) {
-                    *out = *in;
-                }
-            }
-            if (isStarted) {
-                sp_osc_compute(sp, trem, NULL, &temp);
-                panst->pan = (2.0 * temp - 1.0) * depthRamp.getAndStep();
-                sp_panst_compute(sp, panst, tmpin[0], tmpin[1], tmpout[0], tmpout[1]);
-            }
         }
     }
 
