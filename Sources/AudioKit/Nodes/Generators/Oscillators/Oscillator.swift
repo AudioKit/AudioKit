@@ -9,10 +9,7 @@ import CAudioKit
 /// 
 public class Oscillator: Node {
 
-    /// Connected nodes
     public var connections: [Node] { [] }
-
-    /// Underlying AVAudioNode
     public var avAudioNode = instantiate(instrument: "oscl")
 
     fileprivate var waveform: Table?

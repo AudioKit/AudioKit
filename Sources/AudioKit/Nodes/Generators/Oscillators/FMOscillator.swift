@@ -7,10 +7,7 @@ import CAudioKit
 /// Classic FM Synthesis audio generation.
 public class FMOscillator: Node {
 
-    /// Connected nodes
     public var connections: [Node] { [] }
-
-    /// Underlying AVAudioNode
     public var avAudioNode = instantiate(instrument: "fosc")
 
     fileprivate var waveform: Table?

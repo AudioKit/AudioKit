@@ -10,11 +10,7 @@ public class HighPassFilter: Node {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighPassFilter)
 
     let input: Node
-
-    /// Connected nodes
     public var connections: [Node] { [input] }
-
-    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for cutoffFrequency

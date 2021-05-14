@@ -12,10 +12,7 @@ import CAudioKit
 /// 
 public class PhaseDistortionOscillator: Node {
 
-    /// Connected nodes
     public var connections: [Node] { [] }
-
-    /// Underlying AVAudioNode
     public var avAudioNode = instantiate(instrument: "pdho")
 
     fileprivate var waveform: Table?
