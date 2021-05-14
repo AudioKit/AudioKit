@@ -64,7 +64,7 @@ static int iterations = 60 * 44100;
     [self measureBlock:^{
         for(int i=0;i<iterations;++i) {
             plumber_compute(pdp, PLUMBER_COMPUTE);
-            float y = sporth_stack_pop_float(&pdp->sporth.stack);
+            sporth_stack_pop_float(&pdp->sporth.stack);
         }
     }];
     
