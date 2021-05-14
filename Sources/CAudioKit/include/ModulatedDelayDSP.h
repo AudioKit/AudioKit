@@ -42,31 +42,3 @@ extern const float kFlanger_MinDepth;
 extern const float kFlanger_MaxDepth;
 extern const float kFlanger_MinDryWetMix;
 extern const float kFlanger_MaxDryWetMix;
-
-#ifdef __cplusplus
-
-#import "DSPBase.h"
-#import "ModulatedDelay.h"
-#import "ParameterRamper.h"
-
-struct ModulatedDelayDSP : DSPBase
-{
-private:
-    // ramped parameters
-    ParameterRamper frequencyRamp;
-    ParameterRamper depthRamp;
-    ParameterRamper feedbackRamp;
-    ParameterRamper dryWetMixRamp;
-    ModulatedDelay delay;
-
-public:
-    ModulatedDelayDSP(ModulatedDelayType type);
-
-    void init(int channelCount, double sampleRate) override;
-
-    void deinit() override;
-
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
-};
-
-#endif

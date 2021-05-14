@@ -6,6 +6,9 @@
 #include <math.h>
 
 #include "ModulatedDelayDSP.h"
+#import "DSPBase.h"
+#import "ModulatedDelay.h"
+#import "ParameterRamper.h"
 
 #import "AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
 const float kChorus_DefaultFrequency = kChorusDefaultModFreqHz;
@@ -35,6 +38,26 @@ const float kFlanger_MinDepth     = kFlangerMinDepth;
 const float kFlanger_MaxDepth     = kFlangerMaxDepth;
 const float kFlanger_MinDryWetMix = kFlangerMinDryWetMix;
 const float kFlanger_MaxDryWetMix = kFlangerMaxDryWetMix;
+
+struct ModulatedDelayDSP : DSPBase
+{
+private:
+    // ramped parameters
+    ParameterRamper frequencyRamp;
+    ParameterRamper depthRamp;
+    ParameterRamper feedbackRamp;
+    ParameterRamper dryWetMixRamp;
+    ModulatedDelay delay;
+
+public:
+    ModulatedDelayDSP(ModulatedDelayType type);
+
+    void init(int channelCount, double sampleRate) override;
+
+    void deinit() override;
+
+    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+};
 
 ModulatedDelayDSP::ModulatedDelayDSP(ModulatedDelayType type)
     : DSPBase(1, true), delay(type)
