@@ -34,6 +34,10 @@ class AudioFileTestCase: XCTestCase {
         resourceURL?.appendingPathComponent("12345.wav")
     }()
 
+    lazy var countingURL48k: URL? = {
+        resourceURL?.appendingPathComponent("12345_48k.wav")
+    }()
+    
     lazy var drumloopURL: URL? = {
         resourceURL?.appendingPathComponent("drumloop.wav")
     }()
