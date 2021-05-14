@@ -291,7 +291,6 @@ extension AudioPlayerFileTests {
         // thread and subsequently makes the below isPlaying checks fail. This only seems
         // to happen in the buffered test, but bypassing those checks for now
 
-        // 4 5
         // rewind to 4 while playing
         player.seek(time: 3)
         // XCTAssertTrue(player.isPlaying)
@@ -308,6 +307,7 @@ extension AudioPlayerFileTests {
         var time = player.duration
 
         // make him count backwards for fun: 5 4 3 2 1
+        // Currently only works correctly in the non buffered version:
         while time > 0 {
             time -= 1
             player.seek(time: time)
