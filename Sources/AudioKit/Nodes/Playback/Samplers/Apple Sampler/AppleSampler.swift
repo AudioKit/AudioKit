@@ -10,7 +10,7 @@ import CAudioKit
 /// 3. connect to the engine: engine.output = sampler
 /// 4. start the engine engine.start()
 ///
-open class AppleSampler: Node {
+open class AppleSampler: MIDIInstrument {
 
     // MARK: - Properties
 
@@ -37,13 +37,7 @@ open class AppleSampler: Node {
 
     /// Sampler AV Audio Unit
     public var samplerUnit = AVAudioUnitSampler()
-
-    /// Connected nodes
-    public var connections: [Node] { [] }
     
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { samplerUnit }
-
     /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
     /// Doesn't transpose by playing another note (and the accoring zone and layer)
     /// but bends the sound up and down like tuning.
@@ -57,9 +51,24 @@ open class AppleSampler: Node {
     }
 
     // MARK: - Initializers
+    
+    /// Initialize the AppleSampler
+    ///
+    /// - Parameter midiInputName: Name of the instrument's MIDI input
+    ///
+    public override init(midiInputName: String? = nil) {
+        super.init()
+        avAudioNode = samplerUnit
+        internalAU = samplerUnit.auAudioUnit
+    }
 
-    /// Initialize the sampler node
+    /// Initialize the MIDI Instrument
+    ///
+    /// - Parameter file: The wav file to load
+    ///
     public init(file: String? = nil) {
+        super.init()
+        avAudioNode = samplerUnit
         internalAU = samplerUnit.auAudioUnit
 
         if let newFile = file {
@@ -207,7 +216,7 @@ open class AppleSampler: Node {
         }
     }
 
-    // MARK: - Playback
+    // MARK: - Playback (MIDIPlayable)
 
     /// Play a MIDI Note or trigger a sample
     ///
@@ -218,19 +227,23 @@ open class AppleSampler: Node {
     ///
     /// NB: when using an audio file, noteNumber 60 will play back the file at normal
     /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
-    /// half speed (1 octave lower) and so on
-    open func play(noteNumber: MIDINoteNumber = 60,
-                   velocity: MIDIVelocity = 127,
-                   channel: MIDIChannel = 0) {
+    /// half speed (1 octave lower) and so on.
+    open override func start(noteNumber: MIDINoteNumber,
+                             velocity: MIDIVelocity,
+                             channel: MIDIChannel,
+                             timeStamp: MIDITimeStamp? = nil) {
         self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
+    
     /// Stop a MIDI Note
     ///
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
+    open override func stop(noteNumber: MIDINoteNumber,
+                            channel: MIDIChannel,
+                            timeStamp: MIDITimeStamp? = nil) {
         do {
             try ExceptionCatcher {
                 self.samplerUnit.stopNote(noteNumber, onChannel: channel)
@@ -239,6 +252,7 @@ open class AppleSampler: Node {
             Log("Could not stop AppleSampler note: \(error.localizedDescription)", type: .error)
         }
     }
+    
 
     // MARK: - SoundFont Support
 
