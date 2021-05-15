@@ -40,20 +40,25 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable, MIDIP
     open var midiIn = MIDIEndpointRef()
 
     /// Enable MIDI input from a given MIDI client
+    /// This is not in the init function because it must be called AFTER you start AudioKit
     ///
     /// - Parameters:
-    ///   - midiClient: A reference to the midi client
+    ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
-    open func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
-                         name: String? = nil) {
+    public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
+                           name: String? = nil) {
         let cfName = (name ?? self.name) as CFString
+        guard let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock else {
+            fatalError("Expected AU to respond to MIDI.")
+        }
         CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
-            // While packetList is still valid, read events out.
-            let events = packetList.pointee.map( { MIDIEvent(packet: $0 )})
-            DispatchQueue.main.async {
-                for event in events {
-                    self.handleMIDI(event: event)
+            for e in packetList.pointee {
+                e.forEach { event in
+                    event.data.withUnsafeBufferPointer { ptr in
+                        guard let ptr = ptr.baseAddress else { return }
+                        midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
+                    }
                 }
             }
         })
