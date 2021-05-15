@@ -322,15 +322,39 @@ extension AudioPlayerFileTests {
     /// Files should play back at normal pitch for both buffered and streamed
     func realtimeTestMixedSampleRates(buffered: Bool = false) {
         // this file is 44.1k
-        guard let countingURL = countingURL,
-              let countingURL48k = countingURL48k else {
+        guard let countingURL = countingURL else {
             XCTFail("Didn't find the 12345.wav")
             return
         }
         guard let audioFormat = AVAudioFormat(standardFormatWithSampleRate: 48000, channels: 2) else {
-            XCTFail()
+            XCTFail("Failed to create 48k format")
             return
         }
+        let countingURL48k = countingURL.deletingLastPathComponent().appendingPathComponent("_realtimeTestMixedSampleRates.wav")
+        Self.tempFiles.append(countingURL48k)
+
+        let wav48k = FormatConverter.Options(pcmFormat: "wav",
+                                             sampleRate: 48000,
+                                             bitDepth: 16,
+                                             channels: 1)
+        let converter = FormatConverter(inputURL: countingURL,
+                                        outputURL: countingURL48k,
+                                        options: wav48k)
+
+        converter.start { error in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+                return
+            }
+            self.processMixedSampleRates(urls: [countingURL, countingURL48k],
+                                         audioFormat: audioFormat,
+                                         buffered: buffered)
+        }
+    }
+
+    private func processMixedSampleRates(urls: [URL],
+                                         audioFormat: AVAudioFormat,
+                                         buffered: Bool = false) {
         Settings.audioFormat = audioFormat
 
         let engine = AudioEngine()
@@ -344,35 +368,21 @@ extension AudioPlayerFileTests {
         engine.output = player
         try? engine.start()
 
-        // Load 44.1k file
-        do {
-            try player.load(url: countingURL)
-        } catch {
-            Log(error)
-            XCTFail(error.localizedDescription)
+        for url in urls {
+            do {
+                try player.load(url: url)
+            } catch {
+                Log(error)
+                XCTFail(error.localizedDescription)
+            }
+            Log("ENGINE", engine.avEngine.description,
+                "PLAYER fileFormat", player.file?.fileFormat,
+                "PLAYER buffer format", player.buffer?.format)
+
+            player.play()
+
+            wait(for: player.duration + 1)
+            player.stop()
         }
-        Log("ENGINE", engine.avEngine.description,
-            "PLAYER fileFormat", player.file?.fileFormat,
-            "PLAYER buffer format", player.buffer?.format)
-
-        player.play()
-
-        wait(for: player.duration + 1)
-        player.stop()
-
-        // Load 48k file
-        do {
-            try player.load(url: countingURL48k)
-        } catch {
-            Log(error)
-            XCTFail(error.localizedDescription)
-        }
-        Log("PLAYER fileFormat", player.file?.fileFormat,
-            "PLAYER buffer format", player.buffer?.format)
-
-        player.play()
-
-        wait(for: player.duration + 1)
-        player.stop()
     }
 }

@@ -34,10 +34,6 @@ class AudioFileTestCase: XCTestCase {
         resourceURL?.appendingPathComponent("12345.wav")
     }()
 
-    lazy var countingURL48k: URL? = {
-        resourceURL?.appendingPathComponent("12345_48k.wav")
-    }()
-    
     lazy var drumloopURL: URL? = {
         resourceURL?.appendingPathComponent("drumloop.wav")
     }()
@@ -125,8 +121,8 @@ class AudioFileTestCase: XCTestCase {
     }
 
     func cleanup() {
-        Log("Removing", AudioFileTestCase.tempFiles.count, "file(s)")
-        for url in AudioFileTestCase.tempFiles {
+        for url in Self.tempFiles {
+            Log("🗑 Removing", url.path)
             try? FileManager.default.removeItem(at: url)
         }
     }
