@@ -151,4 +151,65 @@ func == (lhs: MIDIListener, rhs: MIDIListener) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 
+/// Convience method for handling different types of MIDI events
+public extension MIDIListener {
+    func handleMIDI(event: MIDIEvent) {
+        if let status = event.status, let statusType = status.type {
+            let channel = status.channel
+            let data2 = event.data[1]
+            let data3 = event.data[2]
+
+            switch statusType {
+            case .noteOn:
+                if data3 > 0 {
+                    receivedMIDINoteOn(noteNumber: data2,
+                                       velocity: data3,
+                                       channel: channel,
+                                       portID: 0,
+                                       timeStamp: 0)
+                } else {
+                    receivedMIDINoteOff(noteNumber: data2,
+                                        velocity: data3,
+                                        channel: channel,
+                                        portID: 0,
+                                        timeStamp: 0)
+                }
+            case .noteOff:
+                receivedMIDINoteOff(noteNumber: data2,
+                                    velocity: data3,
+                                    channel: channel,
+                                    portID: 0,
+                                    timeStamp: 0)
+            case .polyphonicAftertouch:
+                receivedMIDIAftertouch(noteNumber: data2,
+                                       pressure: data3,
+                                       channel: channel,
+                                       portID: 0,
+                                       timeStamp: 0)
+            case .channelAftertouch:
+                receivedMIDIAftertouch(data2,
+                                       channel: channel,
+                                       portID: 0,
+                                       timeStamp: 0)
+            case .controllerChange:
+                receivedMIDIController(data2,
+                                       value: data3,
+                                       channel: channel,
+                                       portID: 0,
+                                       timeStamp: 0)
+            case .programChange:
+                receivedMIDIProgramChange(data2,
+                                          channel: channel,
+                                          portID: 0,
+                                          timeStamp: 0)
+            case .pitchWheel:
+                receivedMIDIPitchWheel(MIDIWord(byte1: data2,
+                                                byte2: data3),
+                                                channel: channel,
+                                                portID: 0,
+                                                timeStamp: 0)
+            }
+        }
+    }
+}
 #endif

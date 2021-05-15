@@ -53,7 +53,7 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable, MIDIP
             let events = packetList.pointee.map( { MIDIEvent(packet: $0 )})
             DispatchQueue.main.async {
                 for event in events {
-                    self.handle(event: event)
+                    self.handleMIDI(event: event)
                 }
             }
         })
@@ -75,15 +75,6 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable, MIDIP
         MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }
 
-    private func handle(event: MIDIEvent) {
-        guard event.data.count > 2 else {
-            return
-        }
-        self.handleMIDI(data1: event.data[0],
-                        data2: event.data[1],
-                        data3: event.data[2])
-    }
-    
     // MARK: - Handling MIDI Data (MIDIListener)
     
     /// Handle MIDI commands that come in externally
@@ -265,43 +256,16 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable, MIDIP
         // MIDIInstrument class is useless without overriding in most cases
         fatalError("Override in subclass")
     }
+}
 
-    // MARK: - Private functions
+// MARK: - Deprecations
 
+extension MIDIInstrument {
     // Send MIDI data to the audio unit
+    @available(*, deprecated, message: "handleMIDI(data1:, data2:, data3) is depreated. Use handleMIDI(event:) instead.")
     func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) {
-        if let status = MIDIStatus(byte: data1), let statusType = status.type {
-
-            let channel = status.channel
-
-            switch statusType {
-            case .noteOn:
-                if data3 > 0 {
-                    start(noteNumber: data2, velocity: data3, channel: channel)
-                } else {
-                    stop(noteNumber: data2, channel: channel)
-                }
-            case .noteOff:
-                stop(noteNumber: data2, channel: channel)
-            case .polyphonicAftertouch:
-                receivedMIDIAftertouch(noteNumber: data2,
-                                       pressure: data3,
-                                       channel: channel)
-            case .channelAftertouch:
-                receivedMIDIAftertouch(data2,
-                                       channel: channel)
-            case .controllerChange:
-                receivedMIDIController(data2,
-                                       value: data3,
-                                       channel: channel)
-            case .programChange:
-                receivedMIDIProgramChange(data2, channel: channel)
-            case .pitchWheel:
-                receivedMIDIPitchWheel(MIDIWord(byte1: data2,
-                                                byte2: data3),
-                                       channel: channel)
-            }
-        }
+        let event = MIDIEvent(data: [data1, data2, data3])
+        self.handleMIDI(event: event)
     }
 }
 
