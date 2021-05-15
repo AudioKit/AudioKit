@@ -49,17 +49,9 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float wah = wahRamp.getAndStep();
-            *autowah0->wah = wah;
-            *autowah1->wah = wah;
-
-            float mix = mixRamp.getAndStep() * 100.f;
-            *autowah0->mix = mix;
-            *autowah1->mix = mix;
-
-            float amplitude = amplitudeRamp.getAndStep();
-            *autowah0->level = amplitude;
-            *autowah1->level = amplitude;
+            *autowah0->wah =  *autowah1->wah = wahRamp.getAndStep();
+            *autowah0->mix = *autowah1->mix = mixRamp.getAndStep() * 100.f;
+            *autowah0->level = *autowah1->level = amplitudeRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

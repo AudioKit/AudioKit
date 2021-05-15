@@ -49,13 +49,9 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float shift = shiftRamp.getAndStep();
-            float windowSize = windowSizeRamp.getAndStep();
-            float crossfade = crossfadeRamp.getAndStep();
-
-            *pshift0->shift = *pshift1->shift = shift;
-            *pshift0->window = *pshift1->window = windowSize;
-            *pshift0->xfade = *pshift1->xfade = crossfade;
+            *pshift0->shift = *pshift1->shift = shiftRamp.getAndStep();
+            *pshift0->window = *pshift1->window = windowSizeRamp.getAndStep();
+            *pshift0->xfade = *pshift1->xfade = crossfadeRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);
