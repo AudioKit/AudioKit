@@ -262,18 +262,6 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable, MIDIP
         fatalError("Override in subclass")
     }
 
-    /// Receive program change
-    ///
-    /// - Parameters:
-    ///   - program:  MIDI Program Value (0-127)
-    ///   - channel:  MIDI Channel (1-16)
-    ///
-    open func receivedMIDIProgramChange(_ program: MIDIByte,
-                                        channel: MIDIChannel,
-                                        timeStamp: MIDITimeStamp? = nil) {
-        // Override in subclass
-    }
-
     // MARK: - Private functions
 
     // Send MIDI data to the audio unit
