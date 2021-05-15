@@ -84,7 +84,7 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable {
                         data3: event.data[2])
     }
     
-    // MARK: - Handling MIDI Data
+    // MARK: - Handling MIDI Data (MIDIListener)
     
     /// Handle MIDI commands that come in externally
     /// - Parameters:
