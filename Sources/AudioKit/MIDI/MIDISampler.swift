@@ -40,7 +40,7 @@ open class MIDISampler: AppleSampler {
     ///
     @available(*, deprecated, message: "midiCC(controller:, value:, channel:) is depreated. Use receivedMIDIController(controller, value: channel:) instead.")
     public func midiCC(_ controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
-        samplerUnit.sendController(controller, withValue: value, onChannel: channel)
+        receivedMIDIController(controller, value: value, channel: channel)
     }
 }
 

@@ -344,4 +344,14 @@ open class AppleSampler: MIDIInstrument {
     public func resetSampler() {
         samplerUnit.reset()
     }
+    
+    // MARK: - MIDIListener
+    
+    open override func receivedMIDIController(_ controller: MIDIByte,
+                                              value: MIDIByte,
+                                              channel: MIDIChannel,
+                                              portID: MIDIUniqueID? = nil,
+                                              timeStamp: MIDITimeStamp? = nil) {
+        samplerUnit.sendController(controller, withValue: value, onChannel: channel)
+    }
 }
