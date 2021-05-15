@@ -52,7 +52,7 @@ public:
     void process2(FrameRange range) override {
 
         for (int i : range) {
-            trem->freq = frequencyRamp.getAndStep() * 0.5;
+            trem->freq = frequencyRamp.getAndStep();
             trem->amp = depthRamp.getAndStep();
             
             float temp = 0;

@@ -43,8 +43,7 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float halfPowerPoint = halfPowerPointRamp.getAndStep();
-            atone0->hp = atone1->hp = halfPowerPoint;
+            atone0->hp = atone1->hp = halfPowerPointRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

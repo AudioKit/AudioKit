@@ -57,8 +57,7 @@ public:
             if (time > maximumTime) time = maximumTime;
             vdelay0->del = vdelay1->del = time;
 
-            float feedback = feedbackRamp.getAndStep();
-            vdelay0->feedback = vdelay1->feedback = feedback;
+            vdelay0->feedback = vdelay1->feedback = feedbackRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

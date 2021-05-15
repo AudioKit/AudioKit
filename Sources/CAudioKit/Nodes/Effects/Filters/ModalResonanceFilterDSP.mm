@@ -46,11 +46,8 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float frequency = frequencyRamp.getAndStep();
-            mode0->freq = mode1->freq = frequency;
-
-            float qualityFactor = qualityFactorRamp.getAndStep();
-            mode0->q = mode1->q = qualityFactor;
+            mode0->freq = mode1->freq = frequencyRamp.getAndStep();
+            mode0->q = mode1->q = qualityFactorRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

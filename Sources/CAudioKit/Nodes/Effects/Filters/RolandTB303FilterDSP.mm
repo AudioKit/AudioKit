@@ -52,17 +52,10 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float cutoffFrequency = cutoffFrequencyRamp.getAndStep();
-            tbvcf0->fco = tbvcf1->fco = cutoffFrequency;
-
-            float resonance = resonanceRamp.getAndStep();
-            tbvcf0->res = tbvcf1->res = resonance;
-
-            float distortion = distortionRamp.getAndStep();
-            tbvcf0->dist = tbvcf1->dist = distortion;
-
-            float resonanceAsymmetry = resonanceAsymmetryRamp.getAndStep();
-            tbvcf0->asym = tbvcf1->asym = resonanceAsymmetry;
+            tbvcf0->fco = tbvcf1->fco = cutoffFrequencyRamp.getAndStep();
+            tbvcf0->res = tbvcf1->res = resonanceRamp.getAndStep();
+            tbvcf0->dist = tbvcf1->dist = distortionRamp.getAndStep();
+            tbvcf0->asym = tbvcf1->asym = resonanceAsymmetryRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

@@ -43,8 +43,7 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float limit = limitRamp.getAndStep();
-            clip0->lim = clip1->lim = limit;
+            clip0->lim = clip1->lim = limitRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

@@ -49,14 +49,9 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float centerFrequency = centerFrequencyRamp.getAndStep();
-            fofilt0->freq = fofilt1->freq = centerFrequency;
-
-            float attackDuration = attackDurationRamp.getAndStep();
-            fofilt0->atk = fofilt1->atk = attackDuration;
-
-            float decayDuration = decayDurationRamp.getAndStep();
-            fofilt0->dec = fofilt1->dec = decayDuration;
+            fofilt0->freq = fofilt1->freq = centerFrequencyRamp.getAndStep();
+            fofilt0->atk = fofilt1->atk = attackDurationRamp.getAndStep();
+            fofilt0->dec = fofilt1->dec = decayDurationRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

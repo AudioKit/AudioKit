@@ -43,8 +43,7 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float cutoffFrequency = cutoffFrequencyRamp.getAndStep();
-            butlp0->freq = butlp1->freq = cutoffFrequency;
+            butlp0->freq = butlp1->freq = cutoffFrequencyRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

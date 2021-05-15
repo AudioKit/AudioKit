@@ -49,14 +49,9 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float cutoffFrequency = cutoffFrequencyRamp.getAndStep() - 0.0001f;
-            wpkorg350->cutoff = wpkorg351->cutoff = cutoffFrequency;
-
-            float resonance = resonanceRamp.getAndStep();
-            wpkorg350->res = wpkorg351->res = resonance;
-
-            float saturation = saturationRamp.getAndStep();
-            wpkorg350->saturation = wpkorg351->saturation = saturation;
+            wpkorg350->cutoff = wpkorg351->cutoff = cutoffFrequencyRamp.getAndStep() - 0.0001f;
+            wpkorg350->res = wpkorg351->res = resonanceRamp.getAndStep();
+            wpkorg350->saturation = wpkorg351->saturation = saturationRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

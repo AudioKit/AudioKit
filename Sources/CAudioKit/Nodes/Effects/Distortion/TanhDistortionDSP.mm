@@ -52,17 +52,10 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float pregain = pregainRamp.getAndStep();
-            dist0->pregain = dist1->pregain = pregain;
-
-            float postgain = postgainRamp.getAndStep();
-            dist0->postgain = dist1->postgain = postgain;
-
-            float positiveShapeParameter = positiveShapeParameterRamp.getAndStep();
-            dist0->shape1 = dist1->shape1 = positiveShapeParameter;
-
-            float negativeShapeParameter = negativeShapeParameterRamp.getAndStep();
-            dist0->shape2 = dist1->shape2 = negativeShapeParameter;
+            dist0->pregain = dist1->pregain = pregainRamp.getAndStep();
+            dist0->postgain = dist1->postgain = postgainRamp.getAndStep();
+            dist0->shape1 = dist1->shape1 = positiveShapeParameterRamp.getAndStep();
+            dist0->shape2 = dist1->shape2 = negativeShapeParameterRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

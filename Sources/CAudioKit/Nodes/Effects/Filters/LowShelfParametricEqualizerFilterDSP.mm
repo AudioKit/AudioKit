@@ -51,14 +51,9 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float cornerFrequency = cornerFrequencyRamp.getAndStep();
-            pareq0->fc = pareq1->fc = cornerFrequency;
-
-            float gain = gainRamp.getAndStep();
-            pareq0->v = pareq1->v = gain;
-
-            float q = qRamp.getAndStep();
-            pareq0->q = pareq1->q = q;
+            pareq0->fc = pareq1->fc = cornerFrequencyRamp.getAndStep();
+            pareq0->v = pareq1->v = gainRamp.getAndStep();
+            pareq0->q = pareq1->q = qRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

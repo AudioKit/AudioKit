@@ -49,8 +49,7 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float reverbDuration = reverbDurationRamp.getAndStep();
-            comb0->revtime = comb1->revtime = reverbDuration;
+            comb0->revtime = comb1->revtime = reverbDurationRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

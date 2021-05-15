@@ -51,18 +51,10 @@ public:
 
     void process2(FrameRange range) override {
         for (int i : range) {
-
-            float ratio = ratioRamp.getAndStep();
-            *compressor0->ratio = *compressor1->ratio = ratio;
-
-            float threshold = thresholdRamp.getAndStep();
-            *compressor0->thresh = *compressor1->thresh = threshold;
-
-            float attackDuration = attackDurationRamp.getAndStep();
-            *compressor0->atk = *compressor1->atk = attackDuration;
-
-            float releaseDuration = releaseDurationRamp.getAndStep();
-            *compressor0->rel = *compressor1->rel = releaseDuration;
+            *compressor0->ratio = *compressor1->ratio = ratioRamp.getAndStep();
+            *compressor0->thresh = *compressor1->thresh = thresholdRamp.getAndStep();
+            *compressor0->atk = *compressor1->atk = attackDurationRamp.getAndStep();
+            *compressor0->rel = *compressor1->rel = releaseDurationRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);
