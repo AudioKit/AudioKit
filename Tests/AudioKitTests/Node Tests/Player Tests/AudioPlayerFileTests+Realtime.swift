@@ -46,12 +46,12 @@ extension AudioPlayerFileTests {
         guard realtimeEnabled else { return }
         realtimeTestEdited(buffered: true)
     }
-    
+
     func testMixedSampleRates() {
         guard realtimeEnabled else { return }
         realtimeTestMixedSampleRates(buffered: true)
     }
-    
+
     func testBufferedMixedSampleRates() {
         guard realtimeEnabled else { return }
         realtimeTestMixedSampleRates(buffered: true)

@@ -330,7 +330,7 @@ extension AudioPlayerFileTests {
             XCTFail("Failed to create 48k format")
             return
         }
-        
+
         let countingURL48k = countingURL.deletingLastPathComponent().appendingPathComponent("_realtimeTestMixedSampleRates.wav")
         Self.tempFiles.append(countingURL48k)
 
