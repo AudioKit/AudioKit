@@ -6,7 +6,7 @@ import CAudioKit
 
 /// Synth
 ///
-public class Synth: Node {
+public class Synth: Node, MIDIPlayable {
 
     /// Connected nodes
     public var connections: [Node] { [] }
@@ -243,15 +243,18 @@ public class Synth: Node {
         self.filterReleaseDuration = filterReleaseDuration
         
     }
-
+    
+    // MARK: - MIDIPlayable
+    
     /// Play a note on the synth
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channel
-    public func play(noteNumber: MIDINoteNumber,
-                     velocity: MIDIVelocity,
-                     channel: MIDIChannel = 0) {
+    public func start(noteNumber: MIDINoteNumber,
+               velocity: MIDIVelocity,
+               channel: MIDIChannel,
+               timeStamp: MIDITimeStamp? = nil) {
         scheduleMIDIEvent(event: MIDIEvent(noteOn: noteNumber, velocity: velocity, channel: channel))
     }
 
@@ -259,7 +262,9 @@ public class Synth: Node {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - channel: MIDI Channel
-    public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
+    public func stop(noteNumber: MIDINoteNumber,
+              channel: MIDIChannel,
+              timeStamp: MIDITimeStamp? = nil) {
         scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: 0, channel: channel))
     }
 }
