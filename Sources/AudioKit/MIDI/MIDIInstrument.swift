@@ -7,7 +7,7 @@ import CoreAudio
 
 /// A version of Instrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-open class MIDIInstrument: Node, MIDIListener, NamedNode {
+open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable {
 
     /// Connected nodes
     public var connections: [Node] { [] }
@@ -16,9 +16,6 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
     public var avAudioNode: AVAudioNode
 
     // MARK: - Properties
-
-    /// MIDI Input
-    open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
     open var name = "(unset)"
@@ -36,6 +33,11 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
         enableMIDI(name: name)
         hideVirtualMIDIPort()
     }
+    
+    // MARK: - MIDIConnectable
+
+    /// MIDI Input
+    open var midiIn = MIDIEndpointRef()
 
     /// Enable MIDI input from a given MIDI client
     ///
@@ -55,6 +57,22 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
                 }
             }
         })
+    }
+    
+    /// Discard all virtual ports
+    public func destroyEndpoint() {
+        if midiIn != 0 {
+            MIDIEndpointDispose(midiIn)
+            midiIn = 0
+        }
+    }
+    
+    func showVirtualMIDIPort() {
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
+    }
+    
+    func hideVirtualMIDIPort() {
+        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }
 
     private func handle(event: MIDIEvent) {
@@ -285,14 +303,6 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
                                        channel: channel)
             }
         }
-    }
-
-    func showVirtualMIDIPort() {
-        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 0)
-    }
-
-    func hideVirtualMIDIPort() {
-        MIDIObjectSetIntegerProperty(midiIn, kMIDIPropertyPrivate, 1)
     }
 }
 
