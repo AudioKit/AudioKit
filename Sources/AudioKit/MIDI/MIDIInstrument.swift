@@ -7,7 +7,7 @@ import CoreAudio
 
 /// A version of Instrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable {
+open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable, MIDIPlayable {
 
     /// Connected nodes
     public var connections: [Node] { [] }
@@ -100,9 +100,14 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable {
                                  timeStamp: MIDITimeStamp? = nil) {
         mpeActiveNotes.append((noteNumber, channel))
         if velocity > 0 {
-            start(noteNumber: noteNumber, velocity: velocity, channel: channel)
+            start(noteNumber: noteNumber,
+                  velocity: velocity,
+                  channel: channel,
+                  timeStamp: timeStamp)
         } else {
-            stop(noteNumber: noteNumber, channel: channel)
+            stop(noteNumber: noteNumber,
+                 channel: channel,
+                 timeStamp: timeStamp)
         }
     }
     
@@ -118,7 +123,7 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable {
                                   channel: MIDIChannel,
                                   portID: MIDIUniqueID? = nil,
                                   timeStamp: MIDITimeStamp? = nil) {
-        stop(noteNumber: noteNumber, channel: channel)
+        stop(noteNumber: noteNumber, channel: channel, timeStamp: timeStamp)
         mpeActiveNotes.removeAll(where: { $0 == (noteNumber, channel) })
     }
     
@@ -227,7 +232,7 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable {
         // Do nothing
     }
 
-    // MARK: - MIDI Note Start/Stop
+    // MARK: - MIDI Note Start/Stop (MIDIPlayable)
 
     /// Start a note
     ///
@@ -240,9 +245,10 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable {
                     velocity: MIDIVelocity,
                     channel: MIDIChannel,
                     timeStamp: MIDITimeStamp? = nil) {
-        // Override in subclass
+        // MIDIInstrument is useless without overriding in most cases
+        fatalError("Override in subclass")
     }
-
+    
     /// Stop a note
     ///
     /// - Parameters:
@@ -252,7 +258,8 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable {
     open func stop(noteNumber: MIDINoteNumber,
                    channel: MIDIChannel,
                    timeStamp: MIDITimeStamp? = nil) {
-        // Override in subclass
+        // MIDIInstrument class is useless without overriding in most cases
+        fatalError("Override in subclass")
     }
 
     /// Receive program change
