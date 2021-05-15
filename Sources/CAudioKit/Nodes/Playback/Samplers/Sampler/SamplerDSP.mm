@@ -359,20 +359,20 @@ void SamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
     uint8_t status = midiEvent.data[0] & 0xF0;
     //uint8_t channel = midiEvent.data[0] & 0x0F; // works in omni mode.
     switch (status) {
-        case 0x80 : { // note off
+        case MIDI_NOTE_OFF : {
             uint8_t note = midiEvent.data[1];
             if (note > 127) break;
             stopNote(note, false);
             break;
         }
-        case 0x90 : { // note on
+        case MIDI_NOTE_ON : {
             uint8_t note = midiEvent.data[1];
             uint8_t veloc = midiEvent.data[2];
             if (note > 127 || veloc > 127) break;
             playNote(note, veloc);
             break;
         }
-        case 0xB0 : { // control
+        case MIDI_CONTINUOUS_CONTROLLER : {
             uint8_t num = midiEvent.data[1];
             if (num == 123) { // all notes off
                 stopAllVoices();

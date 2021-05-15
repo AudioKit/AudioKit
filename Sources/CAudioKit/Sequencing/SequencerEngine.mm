@@ -11,8 +11,6 @@
 #include <atomic>
 #include "../../Internals/Utilities/RingBuffer.h"
 #include "../../Internals/Utilities/AtomicDataPtr.h"
-#define NOTEON 0x90
-#define NOTEOFF 0x80
 
 using AudioKit::RingBuffer;
 
@@ -106,10 +104,10 @@ struct SequencerEngineImpl {
 
     /// Update note playing status
     void updateRunningStatus(UInt8 status, UInt8 data1, UInt8 data2) {
-        if(status == NOTEOFF) {
+        if(status == MIDI_NOTE_OFF) {
             runningStatus.set(data1, 0);
         }
-        if(status == NOTEON) {
+        if(status == MIDI_NOTE_ON) {
             runningStatus.set(data1, 1);
         }
     }
@@ -120,7 +118,7 @@ struct SequencerEngineImpl {
         if(runningStatus.any() || (panic == true)) {
             for(int i = (int)runningStatus.size() - 1; i >= 0; i--) {
                 if(runningStatus[i] == 1 || (panic == true)) {
-                    sendMidiData(NOTEOFF, (UInt8)i, 0, 1, 0);
+                    sendMidiData(MIDI_NOTE_OFF, (UInt8)i, 0, 1, 0);
                 }
             }
         }

@@ -24,13 +24,13 @@ void STKInstrumentDSP::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
     if(auto instr = getInstrument()) {
 
         switch(status) {
-            case 0x80 : { // note off
+            case MIDI_NOTE_OFF : {
                 uint8_t note = midiEvent.data[1];
                 if (note > 127) break;
                 instr->noteOff(amplitude);
                 break;
             }
-            case 0x90 : { // note on
+            case MIDI_NOTE_ON : {
                 uint8_t note = midiEvent.data[1];
                 uint8_t veloc = midiEvent.data[2];
                 if (note > 127 || veloc > 127) break;
