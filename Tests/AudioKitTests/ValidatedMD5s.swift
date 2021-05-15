@@ -30,6 +30,7 @@ let validatedMD5s: [String: String] = [
     "-[AudioPlayerTests testBasic]": "feb1367cee8917a890088b8967b8d422",
     "-[AudioPlayerTests testGetCurrentTime]": "af7c73c8c8c6f43a811401246c10cba4",
     "-[AudioPlayerTests testLoop]": "4288a0ae8722e446750e1e0b3b96068a",
+    "-[AudioPlayerTests testPlayAfterPause]": "ff480a484c1995e69022d470d09e6747",
     "-[AudioPlayerTests testScheduleFile]": "ba487f42fa93379f0b24c7930d51fdd3",
     "-[AudioPlayerTests testSeek]": "3bba42419e6583797e166b7a6d4bb45d",
     "-[AudioPlayerTests testVolume]": "ba487f42fa93379f0b24c7930d51fdd3",

@@ -66,7 +66,7 @@ class AudioPlayerTests: XCTestCase {
         player.play()
         audio.append(engine.render(duration: 2.0))
 
-        //testMD5(audio)
+        testMD5(audio)
     }
 
     func testScheduleFile() {
@@ -165,7 +165,7 @@ class AudioPlayerTests: XCTestCase {
         audio.append(engine.render(duration: 2.0))
 
         let currentTime = player.getCurrentTime()
-        XCTAssertTrue(currentTime == 0.5, "currentTime is \(currentTime), should be 0.5")
+        XCTAssertEqual(currentTime, 2.5)
 
         testMD5(audio)
     }
