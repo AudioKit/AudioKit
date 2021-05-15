@@ -13,24 +13,6 @@ import os.log
 /// Be sure to enableMIDI if you want to receive messages
 ///
 open class MIDISampler: AppleSampler {
-    // MARK: - Handling MIDI Data
-    
-    // Send MIDI data to the audio unit
-    func handleMIDI(data1: MIDIByte, data2: MIDIByte, data3: MIDIByte) throws {
-        if let status = MIDIStatus(byte: data1) {
-            let channel = status.channel
-            if status.type == .noteOn && data3 > 0 {
-                play(noteNumber: data2,
-                     velocity: data3,
-                     channel: channel)
-            } else if status.type == .noteOn && data3 == 0 {
-                stop(noteNumber: data2, channel: channel)
-            } else if status.type == .controllerChange {
-                midiCC(data2, value: data3, channel: channel)
-            }
-        }
-    }
-    
     /// Handle MIDI CC that come in externally
     ///
     /// - Parameters:
