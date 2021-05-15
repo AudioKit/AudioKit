@@ -331,7 +331,8 @@ extension AudioPlayerFileTests {
             return
         }
 
-        let countingURL48k = countingURL.deletingLastPathComponent().appendingPathComponent("_realtimeTestMixedSampleRates.wav")
+        let countingURL48k = countingURL.deletingLastPathComponent()
+            .appendingPathComponent("_realtimeTestMixedSampleRates.wav")
         Self.tempFiles.append(countingURL48k)
 
         let wav48k = FormatConverter.Options(pcmFormat: "wav",
