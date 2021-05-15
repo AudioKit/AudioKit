@@ -431,7 +431,7 @@ let validatedMD5s: [String: String] = [
     "-[TransientShaperTests testReleaseAmount]": "9f863d2aac9d2d87d5ed817a882b8a40",
     "-[TremoloTests testDepth]": "93117ec2719beb5d3176ea9042e4bb1f",
     "-[TremoloTests testFrequency]": "453a391d442a7b9b61e7d998d27654fd",
-    "-[TremoloTests testParameters]": "93117ec2719beb5d3176ea9042e4bb1f",
+    "-[TremoloTests testParameters]": "36b82a2eb739b7cd87621bbdaaf87c79",
     "-[TriangleTests testParameterSweep]": "65fc18963547c200e7154c987b2c73b7",
     "-[TriangleWaveTests testParameterSweep]": "e7d8cc44420bbf3474ff7fae34e6895b",
     "-[TubularBellsTests testAmplitude]": "3c14777a9e2c94336b7dc349b5ccefc3",
