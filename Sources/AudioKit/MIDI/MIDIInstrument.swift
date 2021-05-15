@@ -98,6 +98,8 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable, MIDIP
                                  channel: MIDIChannel,
                                  portID: MIDIUniqueID? = nil,
                                  timeStamp: MIDITimeStamp? = nil) {
+        // TODO: I doubt if this works as expected.
+        // should move to start() and stop() instead
         mpeActiveNotes.append((noteNumber, channel))
         if velocity > 0 {
             start(noteNumber: noteNumber,
@@ -124,6 +126,8 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode, MIDIConnectable, MIDIP
                                   portID: MIDIUniqueID? = nil,
                                   timeStamp: MIDITimeStamp? = nil) {
         stop(noteNumber: noteNumber, channel: channel, timeStamp: timeStamp)
+        // TODO: I doubt if this works as expected.
+        // should move to start() and stop() instead
         mpeActiveNotes.removeAll(where: { $0 == (noteNumber, channel) })
     }
     
