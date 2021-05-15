@@ -10,3 +10,8 @@ typedef struct DSPBase* DSPRef;
 #else
 #define AK_API
 #endif
+
+/// MIDI Constants
+#define MIDI_NOTE_ON 0x90
+#define MIDI_NOTE_OFF 0x80
+#define MIDI_CONTINUOUS_CONTROLLER 0xB0

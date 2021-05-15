@@ -34,7 +34,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "SynthDSP.h"
 
 // Playback
-#import "PresetManager.h"
 #import "Sampler_Typedefs.h"
 #import "SamplerDSP.h"
 
@@ -44,7 +43,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Automation
 #import "ParameterRamper.h"
 #import "ParameterAutomation.h"
-#import "LinearParameterRamp.h"
 
 // Swift/ObjC/C/C++ Inter-operability
 #import "Interop.h"
@@ -58,10 +56,6 @@ AK_API void akVariableDelaySetMaximumTime(DSPRef dsp, float maximumTime);
 
 typedef void (^CMIDICallback)(uint8_t, uint8_t, uint8_t);
 AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback);
-
-// Custom debug
-#define PhaseDistortionOscillatorDebugPhase 0
-#define OscillatorDebugPhase 0
 
 // Misc
 #import "BufferedAudioBus.h"

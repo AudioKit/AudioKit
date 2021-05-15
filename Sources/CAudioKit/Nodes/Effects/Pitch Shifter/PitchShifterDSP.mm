@@ -53,12 +53,9 @@ public:
             float windowSize = windowSizeRamp.getAndStep();
             float crossfade = crossfadeRamp.getAndStep();
 
-            *pshift0->shift = shift;
-            *pshift1->shift = shift;
-            *pshift0->window = windowSize;
-            *pshift1->window = windowSize;
-            *pshift0->xfade = crossfade;
-            *pshift1->xfade = crossfade;
+            *pshift0->shift = *pshift1->shift = shift;
+            *pshift0->window = *pshift1->window = windowSize;
+            *pshift0->xfade = *pshift1->xfade = crossfade;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

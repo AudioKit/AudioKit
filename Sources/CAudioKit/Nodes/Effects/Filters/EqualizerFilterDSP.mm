@@ -49,17 +49,9 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float centerFrequency = centerFrequencyRamp.getAndStep();
-            eqfil0->freq = centerFrequency;
-            eqfil1->freq = centerFrequency;
-
-            float bandwidth = bandwidthRamp.getAndStep();
-            eqfil0->bw = bandwidth;
-            eqfil1->bw = bandwidth;
-
-            float gain = gainRamp.getAndStep();
-            eqfil0->gain = gain;
-            eqfil1->gain = gain;
+            eqfil0->freq = eqfil1->freq = centerFrequencyRamp.getAndStep();
+            eqfil0->bw = eqfil1->bw = bandwidthRamp.getAndStep();
+            eqfil0->gain = eqfil1->gain = gainRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

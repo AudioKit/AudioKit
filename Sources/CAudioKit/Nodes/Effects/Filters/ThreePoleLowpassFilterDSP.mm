@@ -49,17 +49,9 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float distortion = distortionRamp.getAndStep();
-            lpf180->dist = distortion;
-            lpf181->dist = distortion;
-
-            float cutoffFrequency = cutoffFrequencyRamp.getAndStep();
-            lpf180->cutoff = cutoffFrequency;
-            lpf181->cutoff = cutoffFrequency;
-
-            float resonance = resonanceRamp.getAndStep();
-            lpf180->res = resonance;
-            lpf181->res = resonance;
+            lpf180->dist = lpf181->dist = distortionRamp.getAndStep();
+            lpf180->cutoff = lpf181->cutoff = cutoffFrequencyRamp.getAndStep();
+            lpf180->res = lpf181->res = resonanceRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

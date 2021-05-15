@@ -393,7 +393,7 @@ extension MIDI {
                                           time: MIDITimeStamp = 0,
                                           endpointsUIDs: [MIDIUniqueID]? = nil,
                                           virtualOutputPorts: [MIDIPortRef]? = nil) {
-        let noteCommand: MIDIByte = MIDIByte(0x90) + channel
+        let noteCommand: MIDIByte = noteOnByte + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessageWithTime(message, time: time,
                                  endpointsUIDs: endpointsUIDs,
@@ -412,7 +412,7 @@ extension MIDI {
                                            time: MIDITimeStamp = 0,
                                            endpointsUIDs: [MIDIUniqueID]? = nil,
                                            virtualOutputPorts: [MIDIPortRef]? = nil) {
-        let noteCommand: MIDIByte = MIDIByte(0x80) + channel
+        let noteCommand: MIDIByte = noteOffByte + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessageWithTime(message, time: time,
                                  endpointsUIDs: endpointsUIDs,

@@ -36,7 +36,7 @@ public struct MIDIVariableLengthQuantity {
         var lastByte: MIDIByte = 0xFF
         var byte = bytes[processedBytes]
 
-        while lastByte & 0x80 == 0x80 && processedBytes < bytes.count {
+        while lastByte & noteOffByte == noteOffByte && processedBytes < bytes.count {
             let shifted = result << 7
             let masked: MIDIByte = byte & 0x7f
             result = shifted | UInt32(masked)

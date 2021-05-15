@@ -46,13 +46,8 @@ public:
     void process2(FrameRange range) override {
         for (int i : range) {
 
-            float fundamentalFrequency = fundamentalFrequencyRamp.getAndStep();
-            streson0->freq = fundamentalFrequency;
-            streson1->freq = fundamentalFrequency;
-
-            float feedback = feedbackRamp.getAndStep();
-            streson0->fdbgain = feedback;
-            streson1->fdbgain = feedback;
+            streson0->freq = streson1->freq = fundamentalFrequencyRamp.getAndStep();
+            streson0->fdbgain = streson1->fdbgain = feedbackRamp.getAndStep();
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);
