@@ -121,8 +121,8 @@ class AudioFileTestCase: XCTestCase {
     }
 
     func cleanup() {
-        Log("Removing", AudioFileTestCase.tempFiles.count, "file(s)")
-        for url in AudioFileTestCase.tempFiles {
+        for url in Self.tempFiles {
+            Log("🗑 Removing", url.path)
             try? FileManager.default.removeItem(at: url)
         }
     }

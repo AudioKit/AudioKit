@@ -161,7 +161,7 @@ class AudioPlayerTests: XCTestCase {
         }
         player.seek(time: 0.5)
         player.play()
-        
+
         audio.append(engine.render(duration: 2.0))
 
         let currentTime = player.getCurrentTime()
