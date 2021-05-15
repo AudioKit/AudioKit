@@ -44,8 +44,7 @@ public:
         for (int i : range) {
 
             float cutoffFrequency = cutoffFrequencyRamp.getAndStep();
-            buthp0->freq = cutoffFrequency;
-            buthp1->freq = cutoffFrequency;
+            buthp0->freq = buthp1->freq = cutoffFrequency;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

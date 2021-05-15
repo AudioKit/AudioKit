@@ -47,12 +47,10 @@ public:
         for (int i : range) {
 
             float centerFrequency = centerFrequencyRamp.getAndStep();
-            butbr0->freq = centerFrequency;
-            butbr1->freq = centerFrequency;
+            butbr0->freq = butbr1->freq = centerFrequency;
 
             float bandwidth = bandwidthRamp.getAndStep();
-            butbr0->bw = bandwidth;
-            butbr1->bw = bandwidth;
+            butbr0->bw = butbr1->bw = bandwidth;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

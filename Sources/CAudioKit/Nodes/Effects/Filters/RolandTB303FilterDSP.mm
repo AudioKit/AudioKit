@@ -53,20 +53,16 @@ public:
         for (int i : range) {
 
             float cutoffFrequency = cutoffFrequencyRamp.getAndStep();
-            tbvcf0->fco = cutoffFrequency;
-            tbvcf1->fco = cutoffFrequency;
+            tbvcf0->fco = tbvcf1->fco = cutoffFrequency;
 
             float resonance = resonanceRamp.getAndStep();
-            tbvcf0->res = resonance;
-            tbvcf1->res = resonance;
+            tbvcf0->res = tbvcf1->res = resonance;
 
             float distortion = distortionRamp.getAndStep();
-            tbvcf0->dist = distortion;
-            tbvcf1->dist = distortion;
+            tbvcf0->dist = tbvcf1->dist = distortion;
 
             float resonanceAsymmetry = resonanceAsymmetryRamp.getAndStep();
-            tbvcf0->asym = resonanceAsymmetry;
-            tbvcf1->asym = resonanceAsymmetry;
+            tbvcf0->asym = tbvcf1->asym = resonanceAsymmetry;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

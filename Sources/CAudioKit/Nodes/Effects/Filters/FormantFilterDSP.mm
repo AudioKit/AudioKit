@@ -50,16 +50,13 @@ public:
         for (int i : range) {
 
             float centerFrequency = centerFrequencyRamp.getAndStep();
-            fofilt0->freq = centerFrequency;
-            fofilt1->freq = centerFrequency;
+            fofilt0->freq = fofilt1->freq = centerFrequency;
 
             float attackDuration = attackDurationRamp.getAndStep();
-            fofilt0->atk = attackDuration;
-            fofilt1->atk = attackDuration;
+            fofilt0->atk = fofilt1->atk = attackDuration;
 
             float decayDuration = decayDurationRamp.getAndStep();
-            fofilt0->dec = decayDuration;
-            fofilt1->dec = decayDuration;
+            fofilt0->dec = fofilt1->dec = decayDuration;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

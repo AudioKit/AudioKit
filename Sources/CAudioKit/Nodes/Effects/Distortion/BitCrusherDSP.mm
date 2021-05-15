@@ -47,12 +47,10 @@ public:
         for (int i : range) {
 
             float bitDepth = bitDepthRamp.getAndStep();
-            bitcrush0->bitdepth = bitDepth;
-            bitcrush1->bitdepth = bitDepth;
+            bitcrush0->bitdepth = bitcrush1->bitdepth = bitDepth;
 
             float sampleRate = sampleRateRamp.getAndStep();
-            bitcrush0->srate = sampleRate;
-            bitcrush1->srate = sampleRate;
+            bitcrush0->srate = bitcrush1->srate = sampleRate;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

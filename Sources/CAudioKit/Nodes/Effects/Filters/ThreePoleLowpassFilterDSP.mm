@@ -50,16 +50,13 @@ public:
         for (int i : range) {
 
             float distortion = distortionRamp.getAndStep();
-            lpf180->dist = distortion;
-            lpf181->dist = distortion;
+            lpf180->dist = lpf181->dist = distortion;
 
             float cutoffFrequency = cutoffFrequencyRamp.getAndStep();
-            lpf180->cutoff = cutoffFrequency;
-            lpf181->cutoff = cutoffFrequency;
+            lpf180->cutoff = lpf181->cutoff = cutoffFrequency;
 
             float resonance = resonanceRamp.getAndStep();
-            lpf180->res = resonance;
-            lpf181->res = resonance;
+            lpf180->res = lpf181->res = resonance;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

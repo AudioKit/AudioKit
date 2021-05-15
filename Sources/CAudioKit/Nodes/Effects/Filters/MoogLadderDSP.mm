@@ -47,12 +47,10 @@ public:
         for (int i : range) {
 
             float cutoffFrequency = cutoffFrequencyRamp.getAndStep();
-            moogladder0->freq = cutoffFrequency;
-            moogladder1->freq = cutoffFrequency;
+            moogladder0->freq = moogladder1->freq = cutoffFrequency;
 
             float resonance = resonanceRamp.getAndStep();
-            moogladder0->res = resonance;
-            moogladder1->res = resonance;
+            moogladder0->res = moogladder1->res = resonance;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

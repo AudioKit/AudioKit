@@ -42,7 +42,6 @@ public:
         for (int i : range) {
 
             revsc->feedback = feedbackRamp.getAndStep();
-
             revsc->lpfreq = cutoffFrequencyRamp.getAndStep();
 
             float leftIn = inputSample(0, i);

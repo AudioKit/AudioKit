@@ -50,8 +50,7 @@ public:
         for (int i : range) {
 
             float reverbDuration = reverbDurationRamp.getAndStep();
-            allpass0->revtime = reverbDuration;
-            allpass1->revtime = reverbDuration;
+            allpass0->revtime = allpass1->revtime = reverbDuration;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

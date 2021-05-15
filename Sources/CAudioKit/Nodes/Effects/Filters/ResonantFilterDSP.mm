@@ -47,12 +47,10 @@ public:
         for (int i : range) {
 
             float frequency = frequencyRamp.getAndStep();
-            reson0->freq = frequency;
-            reson1->freq = frequency;
+            reson0->freq = reson1->freq = frequency;
 
             float bandwidth = bandwidthRamp.getAndStep();
-            reson0->bw = bandwidth;
-            reson1->bw = bandwidth;
+            reson0->bw = reson1->bw = bandwidth;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

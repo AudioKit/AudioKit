@@ -50,16 +50,13 @@ public:
         for (int i : range) {
 
             float cutoffFrequency = cutoffFrequencyRamp.getAndStep() - 0.0001f;
-            wpkorg350->cutoff = cutoffFrequency;
-            wpkorg351->cutoff = cutoffFrequency;
+            wpkorg350->cutoff = wpkorg351->cutoff = cutoffFrequency;
 
             float resonance = resonanceRamp.getAndStep();
-            wpkorg350->res = resonance;
-            wpkorg351->res = resonance;
+            wpkorg350->res = wpkorg351->res = resonance;
 
             float saturation = saturationRamp.getAndStep();
-            wpkorg350->saturation = saturation;
-            wpkorg351->saturation = saturation;
+            wpkorg350->saturation = wpkorg351->saturation = saturation;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

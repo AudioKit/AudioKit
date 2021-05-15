@@ -53,20 +53,16 @@ public:
         for (int i : range) {
 
             float ratio = ratioRamp.getAndStep();
-            *compressor0->ratio = ratio;
-            *compressor1->ratio = ratio;
+            *compressor0->ratio = *compressor1->ratio = ratio;
 
             float threshold = thresholdRamp.getAndStep();
-            *compressor0->thresh = threshold;
-            *compressor1->thresh = threshold;
+            *compressor0->thresh = *compressor1->thresh = threshold;
 
             float attackDuration = attackDurationRamp.getAndStep();
-            *compressor0->atk = attackDuration;
-            *compressor1->atk = attackDuration;
+            *compressor0->atk = *compressor1->atk = attackDuration;
 
             float releaseDuration = releaseDurationRamp.getAndStep();
-            *compressor0->rel = releaseDuration;
-            *compressor1->rel = releaseDuration;
+            *compressor0->rel = *compressor1->rel = releaseDuration;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

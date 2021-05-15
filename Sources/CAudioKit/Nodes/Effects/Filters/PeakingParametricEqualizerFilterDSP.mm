@@ -31,8 +31,7 @@ public:
         sp_pareq_init(sp, pareq0);
         sp_pareq_create(&pareq1);
         sp_pareq_init(sp, pareq1);
-        pareq0->mode = 0;
-        pareq1->mode = 0;
+        pareq0->mode = pareq1->mode = 0;
     }
 
     void deinit() override {
@@ -46,24 +45,20 @@ public:
         if (!isInitialized) return;
         sp_pareq_init(sp, pareq0);
         sp_pareq_init(sp, pareq1);
-        pareq0->mode = 0;
-        pareq1->mode = 0;
+        pareq0->mode = pareq1->mode = 0;
     }
 
     void process2(FrameRange range) override {
         for (int i : range) {
 
             float centerFrequency = centerFrequencyRamp.getAndStep();
-            pareq0->fc = centerFrequency;
-            pareq1->fc = centerFrequency;
+            pareq0->fc = pareq1->fc = centerFrequency;
 
             float gain = gainRamp.getAndStep();
-            pareq0->v = gain;
-            pareq1->v = gain;
+            pareq0->v = pareq1->v = gain;
 
             float q = qRamp.getAndStep();
-            pareq0->q = q;
-            pareq1->q = q;
+            pareq0->q = pareq1->q = q;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);

@@ -47,12 +47,10 @@ public:
         for (int i : range) {
 
             float frequency = frequencyRamp.getAndStep();
-            mode0->freq = frequency;
-            mode1->freq = frequency;
+            mode0->freq = mode1->freq = frequency;
 
             float qualityFactor = qualityFactorRamp.getAndStep();
-            mode0->q = qualityFactor;
-            mode1->q = qualityFactor;
+            mode0->q = mode1->q = qualityFactor;
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);
