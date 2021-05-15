@@ -23,10 +23,8 @@ public class FormatConverter {
     /// The source audio file
     public var inputURL: URL?
 
-
     /// The audio file to be created after conversion
     public var outputURL: URL?
-
 
     /// Options for conversion
     public var options: Options?
