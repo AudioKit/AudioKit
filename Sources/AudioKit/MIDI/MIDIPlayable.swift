@@ -27,3 +27,33 @@ protocol MIDIPlayable {
               timeStamp: MIDITimeStamp?)
 }
 
+// TODO: not sure yet, need to think about this.
+//extension Node where Self: MIDIPlayable {
+//    /// Start a note
+//    ///
+//    /// - Parameters:
+//    ///   - noteNumber: Note number to play
+//    ///   - velocity:   Velocity at which to play the note (0 - 127)
+//    ///   - channel:    Channel on which to play the note
+//    ///
+//    func start(noteNumber: MIDINoteNumber,
+//               velocity: MIDIVelocity,
+//               channel: MIDIChannel,
+//               timeStamp: MIDITimeStamp? = nil) {
+//        // TODO: not sure about this
+//        scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: velocity, channel: channel))
+//    }
+//
+//    /// Stop a note
+//    ///
+//    /// - Parameters:
+//    ///   - noteNumber: Note number to stop
+//    ///   - channel:    Channel on which to stop the note
+//    ///
+//    func stop(noteNumber: MIDINoteNumber,
+//              channel: MIDIChannel,
+//              timeStamp: MIDITimeStamp? = nil) {
+//        // TODO: not sure about this
+//        scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: 0, channel: channel))
+//    }
+//}
