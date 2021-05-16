@@ -29,7 +29,7 @@ public class SynthKick: MIDIInstrument {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel = 0) {
+    public func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0) {
         generator.parameter1 = (AUValue(velocity) / 127.0 * 366.0) + 300.0
         generator.parameter2 = 1.0 - AUValue(velocity) / 127.0
         generator.trigger()
@@ -80,7 +80,7 @@ public class SynthSnare: MIDIInstrument {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+    public func play(noteNumber: MIDINoteNumber, velocity: MIDIVelocity = 127, channel: MIDIChannel = 0) {
         generator.parameter1 = (AUValue(velocity) / 127.0 * 1_600.0) + 300.0
         generator.trigger()
     }

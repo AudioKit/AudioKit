@@ -136,6 +136,8 @@ let validatedMD5s: [String: String] = [
     "-[DripTests testDampingFactor]": "19a31b71aa62fbc19de4d1a7993482b1",
     "-[DripTests testDefault]": "290084f9fba0a691b12c306571a3fee2",
     "-[DripTests testIntensity]": "a1cf4153c34661d789ef00e0f2886e24",
+    "-[DrumSynthTests testSynthKick]": "bc0323f2529a42eb1c30245cae4662cf",
+    "-[DrumSynthTests testSynthSnare]": "8642993a77e40ce3d3d505b8e0782205",
     "-[DryWetMixerTests testBalance0]": "54fb40c15242198d45b31b6a79187d07",
     "-[DryWetMixerTests testBalance1]": "4f77a76b108ab1c6e4a83c64bed94820",
     "-[DryWetMixerTests testDefault]": "9c5d2ee60fc0d012f59dc24e5097b305",

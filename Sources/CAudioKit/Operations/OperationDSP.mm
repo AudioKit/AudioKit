@@ -72,11 +72,9 @@ public:
     }
 
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override {
-        if(!inputBufferLists.empty()) {
-            uint8_t status = midiEvent.data[0] & 0xF0;
-            if(status == MIDI_NOTE_ON) {
-                pd.p[OperationTrigger] = 1.0;
-            }
+        uint8_t status = midiEvent.data[0] & 0xF0;
+        if(status == MIDI_NOTE_ON) {
+            pd.p[OperationTrigger] = 1.0;
         }
     }
 
