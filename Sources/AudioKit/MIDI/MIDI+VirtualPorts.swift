@@ -19,23 +19,31 @@ extension MIDI {
     //
 
 
-     /// Create set of virtual input and output MIDI ports
-    public func createVirtualPorts(numberOfPort: Int = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
-        Log("Creating \(numberOfPort) virtual input and output ports", log: OSLog.midi)
+    /// Create set of virtual input and output MIDI ports
+    /// - Parameters:
+    ///   - count: Number of ports to create
+    ///   - uniqueIDs: Optional list of IDs
+    ///   - names: Optional list of names
+    public func createVirtualPorts(count: Int = 1, uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+        Log("Creating \(count) virtual input and output ports", log: OSLog.midi)
         destroyVirtualPorts()
-        createVirtualInputPorts(numberOfPort: numberOfPort, names: names)
-        createVirtualOutputPorts(numberOfPort: numberOfPort, names: names)
+        createVirtualInputPorts(count: count, uniqueIDs: uniqueIDs, names: names)
+        createVirtualOutputPorts(count: count, uniqueIDs: uniqueIDs, names: names)
     }
 
     /// Create virtual MIDI input ports
-    public func createVirtualInputPorts(numberOfPort: Int = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    /// - Parameters:
+    ///   - count: Number of ports to create
+    ///   - uniqueIDs: Optional list of IDs
+    ///   - names: Optional list of names
+    public func createVirtualInputPorts(count: Int = 1, uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualInputPort()
-        guard numberOfPort > 0 else { return Log("Error: Number of port to create can't be less than one)",
+        guard count > 0 else { return Log("Error: Number of port to create can't be less than one)",
                                                  log: OSLog.midi, type: .error)}
 
         var unnamedPortIndex = 1
         var unIDPortIndex: Int32 = 0
-        for virtualPortIndex in 0...numberOfPort - 1 {
+        for virtualPortIndex in 0...count - 1 {
             var virtualPortName: String
             var uniqueID: Int32
             if virtualPortIndex != 0 {virtualInputs.append(0)}
@@ -77,16 +85,20 @@ extension MIDI {
     }
 
     /// Create virtual MIDI output ports
-    public func createVirtualOutputPorts(numberOfPort: Int = 1, _ uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    /// - Parameters:
+    ///   - count: Number of ports to create
+    ///   - uniqueIDs: Optional list of IDs
+    ///   - names: Optional list of names
+    public func createVirtualOutputPorts(count: Int = 1, uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
         destroyVirtualOutputPort()
-        guard numberOfPort > 0 else { return Log("Error: Number of port to create can't be less than one)",
+        guard count > 0 else { return Log("Error: Number of port to create can't be less than one)",
                                                  log: OSLog.midi, type: .error)}
         var unnamedPortIndex = 1
         var unIDPortIndex: Int32 = 0
-        for virtualPortIndex in 0...numberOfPort - 1 {
+        for virtualPortIndex in 0 ..< count {
             var virtualPortName: String
             var uniqueID: Int32
-            if virtualPortIndex != 0 {virtualOutputs.append(0)}
+            if virtualPortIndex != 0 { virtualOutputs.append(0) }
 
             if names?.count ?? 0 > virtualPortIndex, let portName = names?[virtualPortIndex] {
                 virtualPortName = portName
