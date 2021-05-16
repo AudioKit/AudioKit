@@ -138,7 +138,7 @@ public class OperationGenerator: Node {
     ///
     public init(sporth: String = "") {
 
-        avAudioNode = instantiate(generator: "cstg")
+        avAudioNode = instantiate(instrument: "cstg")
         setupParameters()
         
         akOperationSetSporth(au.dsp, sporth)
