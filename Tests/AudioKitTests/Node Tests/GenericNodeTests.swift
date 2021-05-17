@@ -53,7 +53,7 @@ func nodeRandomizedTest(factory: ()->Node) -> AVAudioPCMBuffer {
 
 class GenericNodeTests: XCTestCase {
 
-    func nodeParameterTest(md5: String, factory: ()->Node) {
+    func nodeParameterTest(md5: String, factory: ()->Node, audition: Bool = false) {
 
         let duration = factory().parameters.count
 
@@ -81,6 +81,10 @@ class GenericNodeTests: XCTestCase {
 
             bigBuffer?.append(audio)
 
+        }
+
+        if audition {
+            bigBuffer!.audition()
         }
 
         XCTAssertEqual(bigBuffer!.md5, md5)
