@@ -83,6 +83,8 @@ class GenericNodeTests: XCTestCase {
 
         }
 
+        XCTAssertFalse(bigBuffer!.silence)
+
         if audition {
             bigBuffer!.audition()
         }
@@ -103,8 +105,9 @@ class GenericNodeTests: XCTestCase {
 
     func testEffects() {
         let input = Oscillator(waveform: Table(.triangle))
-        nodeParameterTest(md5: "1234dd57f3af7775d57493b54d59bceb", factory: { CostelloReverb(input) } )
-        nodeParameterTest(md5: "417680ba361dc8620fca800d2c44b169", factory: { AutoPanner(input) })
-        nodeParameterTest(md5: "dc35d6b52ac7add94a6d52f480bf89d4", factory: { AutoWah(input) })
+        input.start()
+        nodeParameterTest(md5: "f893b3a2e1334c34d1fa6704b29cb35b", factory: { CostelloReverb(input) })
+        nodeParameterTest(md5: "d35effd9e3ac75085d4e9404a8362a8c", factory: { AutoPanner(input) })
+        nodeParameterTest(md5: "4a63f96ea20794d24273a43b4d9f01ac", factory: { AutoWah(input) })
     }
 }
