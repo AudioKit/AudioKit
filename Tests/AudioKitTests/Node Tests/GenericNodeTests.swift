@@ -18,7 +18,7 @@ func setParams(node: Node, rng: GKRandomSource) {
 
 }
 
-func generatorNodeRandomizedTest(factory: ()->Node) -> AVAudioPCMBuffer {
+func nodeRandomizedTest(factory: ()->Node) -> AVAudioPCMBuffer {
 
     // We want determinism.
     let rng = GKMersenneTwisterRandomSource(seed: 0)
@@ -51,9 +51,9 @@ func generatorNodeRandomizedTest(factory: ()->Node) -> AVAudioPCMBuffer {
 }
 
 
-class GenericGeneratorTests: XCTestCase {
+class GenericNodeTests: XCTestCase {
 
-    func generatorNodeParameterTest(md5: String, factory: ()->Node) {
+    func nodeParameterTest(md5: String, factory: ()->Node) {
 
         let duration = factory().parameters.count
 
@@ -89,11 +89,11 @@ class GenericGeneratorTests: XCTestCase {
     let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
 
     func testGenerators() {
-        generatorNodeParameterTest(md5: "b9625eb52a6e6dfd7faaeec6c5048c12", factory: { Oscillator(waveform: Table(.triangle)) })
-        generatorNodeParameterTest(md5: "aa55d9609190e0ec3c7a87eac1cfedba", factory: { FMOscillator(waveform: Table(.triangle)) })
-        generatorNodeParameterTest(md5: "7b629793ed707a314b8a8e0ec77d1aff", factory: { MorphingOscillator(waveformArray: waveforms) })
-        generatorNodeParameterTest(md5: "77f3fa06092fe331cbbb98eefb729786", factory: { WhiteNoise() })
-        generatorNodeParameterTest(md5: "4096cd1e94daf68121d28b0613ef3bee", factory: { PinkNoise() })
-        generatorNodeParameterTest(md5: "404e9aab0cf98d0485e154146b1c0862", factory: { BrownianNoise() })
+        nodeParameterTest(md5: "b9625eb52a6e6dfd7faaeec6c5048c12", factory: { Oscillator(waveform: Table(.triangle)) })
+        nodeParameterTest(md5: "aa55d9609190e0ec3c7a87eac1cfedba", factory: { FMOscillator(waveform: Table(.triangle)) })
+        nodeParameterTest(md5: "7b629793ed707a314b8a8e0ec77d1aff", factory: { MorphingOscillator(waveformArray: waveforms) })
+        nodeParameterTest(md5: "77f3fa06092fe331cbbb98eefb729786", factory: { WhiteNoise() })
+        nodeParameterTest(md5: "4096cd1e94daf68121d28b0613ef3bee", factory: { PinkNoise() })
+        nodeParameterTest(md5: "404e9aab0cf98d0485e154146b1c0862", factory: { BrownianNoise() })
     }
 }
