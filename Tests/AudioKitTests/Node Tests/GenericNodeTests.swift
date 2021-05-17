@@ -100,20 +100,22 @@ class GenericNodeTests: XCTestCase {
     let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
 
     func testGenerators() {
-        nodeParameterTest(md5: "b9625eb52a6e6dfd7faaeec6c5048c12", factory: { Oscillator(waveform: Table(.triangle)) })
+        nodeParameterTest(md5: "404e9aab0cf98d0485e154146b1c0862", factory: { BrownianNoise() })
         nodeParameterTest(md5: "aa55d9609190e0ec3c7a87eac1cfedba", factory: { FMOscillator(waveform: Table(.triangle)) })
         nodeParameterTest(md5: "7b629793ed707a314b8a8e0ec77d1aff", factory: { MorphingOscillator(waveformArray: waveforms) })
-        nodeParameterTest(md5: "77f3fa06092fe331cbbb98eefb729786", factory: { WhiteNoise() })
+        nodeParameterTest(md5: "b9625eb52a6e6dfd7faaeec6c5048c12", factory: { Oscillator(waveform: Table(.triangle)) })
+        nodeParameterTest(md5: "f8a6be7c394d88b9d13a208c66efd5f0", factory: { PWMOscillator() })
         nodeParameterTest(md5: "4096cd1e94daf68121d28b0613ef3bee", factory: { PinkNoise() })
-        nodeParameterTest(md5: "404e9aab0cf98d0485e154146b1c0862", factory: { BrownianNoise() })
+        nodeParameterTest(md5: "77f3fa06092fe331cbbb98eefb729786", factory: { WhiteNoise() })
+        
         nodeRandomizedTest(md5: "999a7c4d39edf55550b2b4ef01ae1860", factory: { BrownianNoise() })
     }
 
     func testEffects() {
         let input = Oscillator(waveform: Table(.triangle))
         input.start()
-        nodeParameterTest(md5: "f893b3a2e1334c34d1fa6704b29cb35b", factory: { CostelloReverb(input) })
-        nodeParameterTest(md5: "d35effd9e3ac75085d4e9404a8362a8c", factory: { AutoPanner(input) })
+        nodeParameterTest(md5: "1075bfbdd871ae8fd4b9953b93a48438", factory: { AutoPanner(input, waveform: Table(.triangle)) })
         nodeParameterTest(md5: "4a63f96ea20794d24273a43b4d9f01ac", factory: { AutoWah(input) })
+        nodeParameterTest(md5: "f893b3a2e1334c34d1fa6704b29cb35b", factory: { CostelloReverb(input) })
     }
 }
