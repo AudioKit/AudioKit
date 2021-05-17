@@ -4,6 +4,7 @@ import Foundation
 @testable import AudioKit
 import GameplayKit
 import AVFoundation
+import XCTest
 
 func setParams(node: Node, rng: GKRandomSource) {
 
@@ -49,35 +50,50 @@ func generatorNodeRandomizedTest(factory: ()->Node) -> AVAudioPCMBuffer {
 
 }
 
-func generatorNodeParameterTest(factory: ()->Node) -> AVAudioPCMBuffer {
 
-    let duration = factory().parameters.count
+class GenericGeneratorTests: XCTestCase {
 
-    let engine = AudioEngine()
-    var bigBuffer: AVAudioPCMBuffer? = nil
+    func generatorNodeParameterTest(md5: String, factory: ()->Node) {
 
-    for i in 0 ..< duration {
+        let duration = factory().parameters.count
 
-        let node = factory()
-        engine.output = node
+        let engine = AudioEngine()
+        var bigBuffer: AVAudioPCMBuffer? = nil
 
-        let param = node.parameters[i]
+        for i in 0 ..< duration {
 
-        node.start()
+            let node = factory()
+            engine.output = node
 
-        param.value = param.def.range.lowerBound
-        param.ramp(to: param.def.range.upperBound, duration: 1)
+            let param = node.parameters[i]
 
-        let audio = engine.startTest(totalDuration: 1.0)
-        audio.append(engine.render(duration: 1.0))
+            node.start()
 
-        if bigBuffer == nil {
-            bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength*UInt32(duration))
+            param.value = param.def.range.lowerBound
+            param.ramp(to: param.def.range.upperBound, duration: 1)
+
+            let audio = engine.startTest(totalDuration: 1.0)
+            audio.append(engine.render(duration: 1.0))
+
+            if bigBuffer == nil {
+                bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength*UInt32(duration))
+            }
+
+            bigBuffer?.append(audio)
+
         }
 
-        bigBuffer?.append(audio)
-
+        XCTAssertEqual(bigBuffer!.md5, md5)
     }
 
-    return bigBuffer!
+    let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
+
+    func testGenerators() {
+        generatorNodeParameterTest(md5: "b9625eb52a6e6dfd7faaeec6c5048c12", factory: { Oscillator(waveform: Table(.triangle)) })
+        generatorNodeParameterTest(md5: "aa55d9609190e0ec3c7a87eac1cfedba", factory: { FMOscillator(waveform: Table(.triangle)) })
+        generatorNodeParameterTest(md5: "7b629793ed707a314b8a8e0ec77d1aff", factory: { MorphingOscillator(waveformArray: waveforms) })
+        generatorNodeParameterTest(md5: "77f3fa06092fe331cbbb98eefb729786", factory: { WhiteNoise() })
+        generatorNodeParameterTest(md5: "4096cd1e94daf68121d28b0613ef3bee", factory: { PinkNoise() })
+        generatorNodeParameterTest(md5: "404e9aab0cf98d0485e154146b1c0862", factory: { BrownianNoise() })
+    }
 }

@@ -175,9 +175,4 @@ class OscillatorTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testGeneric() {
-
-        let audio = generatorNodeParameterTest(factory: { Oscillator(waveform: Table(.triangle)) })
-        testMD5(audio)
-    }
 }
