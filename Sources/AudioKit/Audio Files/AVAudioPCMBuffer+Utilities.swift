@@ -39,7 +39,7 @@ extension AVAudioPCMBuffer {
         return digestHex
     }
 
-    public var silence: Bool {
+    public var isSilent: Bool {
         if let floatChannelData = self.floatChannelData {
             for channel in 0 ..< self.format.channelCount {
                 for frame in 0 ..< self.frameLength {

@@ -36,7 +36,7 @@ class OscillatorTests: XCTestCase {
         engine.output = oscillator
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
-        XCTAssertTrue(audio.silence)
+        XCTAssertTrue(audio.isSilent)
     }
 
     func testDetuningMultiplier() {

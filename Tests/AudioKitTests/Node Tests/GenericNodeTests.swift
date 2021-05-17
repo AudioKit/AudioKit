@@ -83,7 +83,7 @@ class GenericNodeTests: XCTestCase {
 
         }
 
-        XCTAssertFalse(bigBuffer!.silence)
+        XCTAssertFalse(bigBuffer!.isSilent)
 
         if audition {
             bigBuffer!.audition()
