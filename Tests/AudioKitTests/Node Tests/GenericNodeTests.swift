@@ -100,4 +100,11 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "4096cd1e94daf68121d28b0613ef3bee", factory: { PinkNoise() })
         nodeParameterTest(md5: "404e9aab0cf98d0485e154146b1c0862", factory: { BrownianNoise() })
     }
+
+    func testEffects() {
+        let input = Oscillator(waveform: Table(.triangle))
+        nodeParameterTest(md5: "1234dd57f3af7775d57493b54d59bceb", factory: { CostelloReverb(input) } )
+        nodeParameterTest(md5: "417680ba361dc8620fca800d2c44b169", factory: { AutoPanner(input) })
+        nodeParameterTest(md5: "dc35d6b52ac7add94a6d52f480bf89d4", factory: { AutoWah(input) })
+    }
 }
