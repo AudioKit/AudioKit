@@ -34,7 +34,7 @@ public class PWMOscillator: Node {
         address: akGetParameterAddress("PWMOscillatorParameterAmplitude"),
         defaultValue: 1.0,
         range: 0.0 ... 10.0,
-        unit: .hertz)
+        unit: .generic)
 
     /// Output amplitude
     @Parameter(amplitudeDef) public var amplitude: AUValue
@@ -46,7 +46,7 @@ public class PWMOscillator: Node {
         address: akGetParameterAddress("PWMOscillatorParameterPulseWidth"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .percent)
+        unit: .generic)
 
     /// Duty cycle width (range 0-1).
     @Parameter(pulseWidthDef) public var pulseWidth: AUValue

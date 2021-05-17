@@ -34,7 +34,6 @@ public:
 
     void init(int channelCount, double sampleRate) override {
         SoundpipeDSPBase::init(channelCount, sampleRate);
-        isStarted = false;
         sp_blsquare_create(&blsquare);
         sp_blsquare_init(sp, blsquare);
     }
@@ -47,7 +46,6 @@ public:
     void reset() override {
         SoundpipeDSPBase::reset();
         if (!isInitialized) return;
-        isStarted = false;
         sp_blsquare_init(sp, blsquare);
     }
 
