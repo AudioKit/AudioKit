@@ -46,7 +46,6 @@ public:
         parameters[DynamicOscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[DynamicOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[DynamicOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
-        isStarted = false;
     }
 
     void collectTables() {

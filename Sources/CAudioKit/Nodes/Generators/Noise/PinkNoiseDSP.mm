@@ -16,7 +16,6 @@ private:
 public:
     PinkNoiseDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[PinkNoiseParameterAmplitude] = &amplitudeRamp;
-        isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {

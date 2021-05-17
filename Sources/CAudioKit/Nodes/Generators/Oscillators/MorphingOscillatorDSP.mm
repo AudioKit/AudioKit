@@ -31,8 +31,6 @@ public:
         parameters[MorphingOscillatorParameterIndex] = &indexRamp;
         parameters[MorphingOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[MorphingOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
-
-        isStarted = false;
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

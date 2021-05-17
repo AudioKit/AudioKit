@@ -16,7 +16,6 @@ private:
 public:
     WhiteNoiseDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[WhiteNoiseParameterAmplitude] = &amplitudeRamp;
-        isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {

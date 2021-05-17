@@ -31,7 +31,6 @@ public:
         parameters[FMOscillatorParameterModulatingMultiplier] = &modulatingMultiplierRamp;
         parameters[FMOscillatorParameterModulationIndex] = &modulationIndexRamp;
         parameters[FMOscillatorParameterAmplitude] = &amplitudeRamp;
-        isStarted = false;
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

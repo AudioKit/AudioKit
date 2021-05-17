@@ -16,7 +16,6 @@ private:
 public:
     BrownianNoiseDSP() : SoundpipeDSPBase(/*inputBusCount*/0) {
         parameters[BrownianNoiseParameterAmplitude] = &amplitudeRamp;
-        isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {

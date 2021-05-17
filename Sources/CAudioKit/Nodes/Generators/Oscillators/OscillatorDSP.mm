@@ -28,7 +28,6 @@ public:
         parameters[OscillatorParameterAmplitude] = &amplitudeRamp;
         parameters[OscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[OscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
-        isStarted = false;
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

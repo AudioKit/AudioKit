@@ -33,8 +33,6 @@ public:
         parameters[PhaseDistortionOscillatorParameterPhaseDistortion] = &phaseDistortionRamp;
         parameters[PhaseDistortionOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[PhaseDistortionOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
-        
-        isStarted = false;
     }
 
     void setWavetable(const float* table, size_t length, int index) override {

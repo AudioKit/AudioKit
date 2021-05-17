@@ -41,8 +41,6 @@ public:
         vocwrapper->diam = 1.0;
         vocwrapper->tenseness = 0.6;
         vocwrapper->nasal = 0.0;
-
-        isStarted = false;
     }
 
     void deinit() override {

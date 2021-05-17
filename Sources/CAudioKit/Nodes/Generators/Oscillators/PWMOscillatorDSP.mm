@@ -28,8 +28,6 @@ public:
         parameters[PWMOscillatorParameterPulseWidth] = &pulseWidthRamp;
         parameters[PWMOscillatorParameterDetuningOffset] = &detuningOffsetRamp;
         parameters[PWMOscillatorParameterDetuningMultiplier] = &detuningMultiplierRamp;
-
-        isStarted = false;
     }
 
     void init(int channelCount, double sampleRate) override {
