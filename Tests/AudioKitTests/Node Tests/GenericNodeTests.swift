@@ -18,40 +18,45 @@ func setParams(node: Node, rng: GKRandomSource) {
 
 }
 
-func nodeRandomizedTest(factory: ()->Node) -> AVAudioPCMBuffer {
+class GenericNodeTests: XCTestCase {
 
-    // We want determinism.
-    let rng = GKMersenneTwisterRandomSource(seed: 0)
+    func nodeRandomizedTest(md5: String, factory: ()->Node, audition: Bool = false) {
 
-    let duration = 10
-    let engine = AudioEngine()
-    var bigBuffer: AVAudioPCMBuffer? = nil
+        // We want determinism.
+        let rng = GKMersenneTwisterRandomSource(seed: 0)
 
-    for _ in 0 ..< duration {
+        let duration = 10
+        let engine = AudioEngine()
+        var bigBuffer: AVAudioPCMBuffer? = nil
 
-        let node = factory()
-        engine.output = node
+        for _ in 0 ..< duration {
 
-        node.start()
+            let node = factory()
+            engine.output = node
 
-        let audio = engine.startTest(totalDuration: 1.0)
-        setParams(node: node, rng: rng)
-        audio.append(engine.render(duration: 1.0))
+            node.start()
 
-        if bigBuffer == nil {
-            bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength*UInt32(duration))
+            let audio = engine.startTest(totalDuration: 1.0)
+            setParams(node: node, rng: rng)
+            audio.append(engine.render(duration: 1.0))
+
+            if bigBuffer == nil {
+                bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength*UInt32(duration))
+            }
+
+            bigBuffer?.append(audio)
+
         }
 
-        bigBuffer?.append(audio)
+        XCTAssertFalse(bigBuffer!.isSilent)
+
+        if audition {
+            bigBuffer!.audition()
+        }
+
+        XCTAssertEqual(bigBuffer!.md5, md5)
 
     }
-
-    return bigBuffer!
-
-}
-
-
-class GenericNodeTests: XCTestCase {
 
     func nodeParameterTest(md5: String, factory: ()->Node, audition: Bool = false) {
 
@@ -101,6 +106,7 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "77f3fa06092fe331cbbb98eefb729786", factory: { WhiteNoise() })
         nodeParameterTest(md5: "4096cd1e94daf68121d28b0613ef3bee", factory: { PinkNoise() })
         nodeParameterTest(md5: "404e9aab0cf98d0485e154146b1c0862", factory: { BrownianNoise() })
+        nodeRandomizedTest(md5: "999a7c4d39edf55550b2b4ef01ae1860", factory: { BrownianNoise() })
     }
 
     func testEffects() {
