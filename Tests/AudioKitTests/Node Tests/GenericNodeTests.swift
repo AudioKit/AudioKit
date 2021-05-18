@@ -114,7 +114,9 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "25da4d13733e7c50e3b9706e028c452d", factory: { VocalTract() })
         nodeParameterTest(md5: "6fc97b719ed8138c53464db8f09f937e", factory: { WhiteNoise() })
         
+        #if os(macOS)
         nodeRandomizedTest(md5: "999a7c4d39edf55550b2b4ef01ae1860", factory: { BrownianNoise() })
+        #endif
     }
 
     func testEffects() {
@@ -140,7 +142,6 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "a6c3c2cdc02e77c1d71bcab22b70982c", factory: { Panner(input) })
         //nodeParameterTest(md5: "dc2fcab5eeb367e93b3767a7f84f7491", factory: { PeakLimiter(input) })
         nodeParameterTest(md5: "95ba7a1fbd8c85c129999d20a0653dfe", factory: { PitchShifter(input) })
-        nodeParameterTest(md5: "99fedd785937d8e1d0e201e15124b19c", factory: { Reverb(input) })
         nodeParameterTest(md5: "d68057bc230214c09607509652dd8994", factory: { RhinoGuitarProcessor(input) })
         nodeParameterTest(md5: "547cc8833929d40042a0a00566cc032f", factory: { RingModulator(input) })
         nodeParameterTest(md5: "addc1655615279c0e02ae9f9db7b79b8", factory: { StereoDelay(input) })
@@ -149,6 +150,15 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "7ce66baf0b5a272dc83db83f443bd1d8", factory: { TanhDistortion(input) })
         nodeParameterTest(md5: "17b152691ddaca9a74a5ab086db0e546", factory: { VariableDelay(input) })
         nodeParameterTest(md5: "b65a3c67da751b0f1bc6b6d604af1908", factory: { ZitaReverb(input) }, m1MD5: "78f088f0a48ab37c3d5fcfca9c9a8365")
+        
+        #if os(iOS)
+        nodeParameterTest(md5: "8adbdf9c9a3329aa8677852e4e53273d", factory: { Reverb(input) })
+        #endif
+        
+        #if os(macOS)
+        nodeParameterTest(md5: "99fedd785937d8e1d0e201e15124b19c", factory: { Reverb(input) })
+        #endif
+        
     }
     
     func testFilters() {
