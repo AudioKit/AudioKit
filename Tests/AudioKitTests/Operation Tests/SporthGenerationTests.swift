@@ -4,7 +4,7 @@ import XCTest
 @testable import AudioKit
 import XCTest
 
-class OperationTests: XCTestCase {
+class SporthGenerationTests: XCTestCase {
 
     func testAdd() {
         let operation1 = Operation.sineWave()
