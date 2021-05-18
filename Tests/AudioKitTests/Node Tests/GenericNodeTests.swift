@@ -60,12 +60,24 @@ class GenericNodeTests: XCTestCase {
 
     func nodeParameterTest(md5: String, factory: ()->Node, audition: Bool = false) {
 
-        let duration = factory().parameters.count
+        let duration = factory().parameters.count + 1
 
         let engine = AudioEngine()
         var bigBuffer: AVAudioPCMBuffer? = nil
 
-        for i in 0 ..< duration {
+        let node = factory()
+        engine.output = node
+        
+        /// Do the default parameters first
+        if bigBuffer == nil {
+            let audio = engine.startTest(totalDuration: 1.0)
+            audio.append(engine.render(duration: 1.0))
+            bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength * UInt32(duration))
+
+            bigBuffer?.append(audio)
+        }
+        
+        for i in 0 ..< factory().parameters.count {
 
             let node = factory()
             engine.output = node
@@ -80,10 +92,6 @@ class GenericNodeTests: XCTestCase {
             let audio = engine.startTest(totalDuration: 1.0)
             audio.append(engine.render(duration: 1.0))
 
-            if bigBuffer == nil {
-                bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength*UInt32(duration))
-            }
-
             bigBuffer?.append(audio)
 
         }
@@ -94,61 +102,62 @@ class GenericNodeTests: XCTestCase {
             bigBuffer!.audition()
         }
 
+        print("SKOD " + bigBuffer!.md5)
         XCTAssertEqual(bigBuffer!.md5, md5)
     }
 
     let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
 
     func testGenerators() {
-        nodeParameterTest(md5: "404e9aab0cf98d0485e154146b1c0862", factory: { BrownianNoise() })
-        nodeParameterTest(md5: "efe8734db6ad9e7f81b551efb0d20ab2", factory: { DynamicOscillator(waveform: Table(.square)) })
-        nodeParameterTest(md5: "aa55d9609190e0ec3c7a87eac1cfedba", factory: { FMOscillator(waveform: Table(.triangle)) })
-        nodeParameterTest(md5: "7b629793ed707a314b8a8e0ec77d1aff", factory: { MorphingOscillator(waveformArray: waveforms) })
-        nodeParameterTest(md5: "b9625eb52a6e6dfd7faaeec6c5048c12", factory: { Oscillator(waveform: Table(.triangle)) })
-        nodeParameterTest(md5: "59fbb6d1b42d3b2d573a18ae8b9cf0d0", factory: { PhaseDistortionOscillator(waveform: Table(.square)) })
-        nodeParameterTest(md5: "f8a6be7c394d88b9d13a208c66efd5f0", factory: { PWMOscillator() })
-        nodeParameterTest(md5: "4096cd1e94daf68121d28b0613ef3bee", factory: { PinkNoise() })
-        nodeParameterTest(md5: "000afd6c1acb3288df1e526e7df283f3", factory: { VocalTract() })
-        nodeParameterTest(md5: "77f3fa06092fe331cbbb98eefb729786", factory: { WhiteNoise() })
+        nodeParameterTest(md5: "91982383233dc367491b40704c803bb8", factory: { BrownianNoise() })
+        nodeParameterTest(md5: "57932788e602736da3895d8dcbb1b4a7", factory: { DynamicOscillator(waveform: Table(.square)) })
+        nodeParameterTest(md5: "d9f942578b818e5028d7040a12721f97", factory: { FMOscillator(waveform: Table(.triangle)) })
+        nodeParameterTest(md5: "01072e25418a79c82b58d4bfe69e5375", factory: { MorphingOscillator(waveformArray: waveforms) })
+        nodeParameterTest(md5: "ecdc68d433f767140b7f5f61b343ac21", factory: { Oscillator(waveform: Table(.triangle)) })
+        nodeParameterTest(md5: "0ef5939e306673edd6809f030e28ce16", factory: { PhaseDistortionOscillator(waveform: Table(.square)) })
+        nodeParameterTest(md5: "5d7c77114f863ec66aeffaf1243ae9c8", factory: { PWMOscillator() })
+        nodeParameterTest(md5: "afdce4990f72e668f088765fabc90f0a", factory: { PinkNoise() })
+        nodeParameterTest(md5: "25da4d13733e7c50e3b9706e028c452d", factory: { VocalTract() })
+        nodeParameterTest(md5: "6fc97b719ed8138c53464db8f09f937e", factory: { WhiteNoise() })
         
-        nodeRandomizedTest(md5: "999a7c4d39edf55550b2b4ef01ae1860", factory: { BrownianNoise() })
+        nodeRandomizedTest(md5: "999a7c4d39edf55550b2b4ef01ae1860", factory: { BrownianNoise() }, audition: true)
     }
 
     func testEffects() {
         let input = Oscillator(waveform: Table(.triangle))
         input.start()
-        nodeParameterTest(md5: "1075bfbdd871ae8fd4b9953b93a48438", factory: { AutoPanner(input, waveform: Table(.triangle)) })
-        nodeParameterTest(md5: "4a63f96ea20794d24273a43b4d9f01ac", factory: { AutoWah(input) })
-        nodeParameterTest(md5: "dc0b9cda4374c77307305ac0e6274526", factory: { BitCrusher(input) })
-        nodeParameterTest(md5: "5dce42089c2cdfdc25af39026ea2fcf6", factory: { Clipper(input) })
-        nodeParameterTest(md5: "d998be5c79d0f96513a698a5dfdda9f3", factory: { Compressor(input) })
-        nodeParameterTest(md5: "f893b3a2e1334c34d1fa6704b29cb35b", factory: { CostelloReverb(input) })
+        nodeParameterTest(md5: "b67881dcf5c17fed56a9997ccc0a5161", factory: { AutoPanner(input, waveform: Table(.triangle)) })
+        nodeParameterTest(md5: "d35074473678f32b4ba7c54e635b2766", factory: { AutoWah(input) })
+        nodeParameterTest(md5: "55d5e818c9e8e3d6bfe1b029b6857ed3", factory: { BitCrusher(input) })
+        nodeParameterTest(md5: "56e76b5bd1d59d77ad4bd670f605f191", factory: { Clipper(input) })
+        nodeParameterTest(md5: "6162703525d7213e58c0b7e6decda293", factory: { Compressor(input) })
+        nodeParameterTest(md5: "1d47a6a4a24667064b747cd6571d0874", factory: { CostelloReverb(input) })
     }
     
     func testFilters() {
         let input = Oscillator(waveform: Table(.triangle))
         input.start()
-        nodeParameterTest(md5: "25087938497d8c0bf5f38ea1f563612f", factory: { BandPassButterworthFilter(input) })
-        nodeParameterTest(md5: "8e64777705cd5f8e3e88780abcc8c3a6", factory: { BandRejectButterworthFilter(input) })
-        nodeParameterTest(md5: "ac25d953bf2dc1a16ab46ecc150b4158", factory: { EqualizerFilter(input) })
-        nodeParameterTest(md5: "cdb62e633e7a4ce6cc58aca1a2586bde", factory: { FormantFilter(input) })
-        nodeParameterTest(md5: "f83fcc5a97ed48a43b0547ccb3403b00", factory: { HighPassButterworthFilter(input) })
-        nodeParameterTest(md5: "2aa558acdf5d8f405f75a25f56ad57bf", factory: { HighPassFilter(input) })
-        nodeParameterTest(md5: "b2417fe1f8b5e50f8a5edb828295a56d", factory: { HighShelfFilter(input) })
-        nodeParameterTest(md5: "84c316c2c9a68b396b395715027e7655", factory: { HighShelfParametricEqualizerFilter(input) })
-        nodeParameterTest(md5: "7af996d0eac52734b0eb91fe52a5acd0", factory: { KorgLowPassFilter(input) })
-        nodeParameterTest(md5: "614d21e487bb7fae7085c34c15916449", factory: { LowPassButterworthFilter(input) })
-        nodeParameterTest(md5: "22571d6861e9b938c956b3b0349c8824", factory: { LowPassFilter(input) })
-        nodeParameterTest(md5: "294a562a44f5cf972543667de71a990e", factory: { LowShelfFilter(input) })
-        nodeParameterTest(md5: "02ae0a77f57ed63bc2bd7ca9662b15d6", factory: { LowShelfParametricEqualizerFilter(input) })
-        nodeParameterTest(md5: "1653597d53066533321351455644f07a", factory: { ModalResonanceFilter(input) })
-        nodeParameterTest(md5: "3f11726b6b3a8002e3216e30f9a27893", factory: { MoogLadder(input) })
-        nodeParameterTest(md5: "8777004f0ddcbcd025980fc56453ce00", factory: { PeakingParametricEqualizerFilter(input) })
-        nodeParameterTest(md5: "ea3c5cad1401b2e7a54a244ef11fe37d", factory: { ResonantFilter(input) })
-        nodeParameterTest(md5: "ff6a59faaca20d7f07f0f1d02989e471", factory: { RolandTB303Filter(input) })
-        nodeParameterTest(md5: "9511d8c2459250d4008d5e56ceabc743", factory: { ThreePoleLowpassFilter(input) })
-        nodeParameterTest(md5: "12b4066b7ea32dd9ab1cac98bb827d12", factory: { ToneComplementFilter(input) })
-        nodeParameterTest(md5: "e7265f68f6ce6480f915408b8e898b72", factory: { ToneFilter(input) })
+        nodeParameterTest(md5: "e21144303552ef8ba518582788c3ea1f", factory: { BandPassButterworthFilter(input) })
+        nodeParameterTest(md5: "cbc23ff6ee40c12b0348866402d9fac3", factory: { BandRejectButterworthFilter(input) })
+        nodeParameterTest(md5: "8eca17f8e436de978afc7250edd765fe", factory: { EqualizerFilter(input) })
+        nodeParameterTest(md5: "433c45f0211948ecaa8bfd404963af7b", factory: { FormantFilter(input) })
+        nodeParameterTest(md5: "9b38c130c6faf04b5b168d6979557a3f", factory: { HighPassButterworthFilter(input) })
+        nodeParameterTest(md5: "4120a8fefb4efe8f455bc8c001ab1538", factory: { HighPassFilter(input) })
+        nodeParameterTest(md5: "5aaeb38a15503c162334f0ec1bfacfcd", factory: { HighShelfFilter(input) })
+        nodeParameterTest(md5: "b4c47d9ad07ccf556accb05336c52469", factory: { HighShelfParametricEqualizerFilter(input) })
+        nodeParameterTest(md5: "6790ba0e808cc8e49f1a609b05b5c490", factory: { KorgLowPassFilter(input) })
+        nodeParameterTest(md5: "ce2bd006a13317b11a460a12ad343835", factory: { LowPassButterworthFilter(input) })
+        nodeParameterTest(md5: "aeec895e45341249b7fc23ea688dfba8", factory: { LowPassFilter(input) })
+        nodeParameterTest(md5: "2f81a7a8c9325863b4afa312ca066ed8", factory: { LowShelfFilter(input) })
+        nodeParameterTest(md5: "2f7e88b1835845342b0c8cca9930cb5c", factory: { LowShelfParametricEqualizerFilter(input) })
+        nodeParameterTest(md5: "0db12817a5def3a82d0d28fc0c3f8ab9", factory: { ModalResonanceFilter(input) })
+        nodeParameterTest(md5: "535192bcc8107d22dae9273f284b1bc5", factory: { MoogLadder(input) })
+        nodeParameterTest(md5: "3a0b95902029e33a5b80b3a3baf6f8a7", factory: { PeakingParametricEqualizerFilter(input) })
+        nodeParameterTest(md5: "06ebb0f4defb20ef2213ec60acf60620", factory: { ResonantFilter(input) })
+        nodeParameterTest(md5: "c0f44f67e4ba3f3265fb536109126eb4", factory: { RolandTB303Filter(input) })
+        nodeParameterTest(md5: "44273d78d701be87ec9613ace6a179cd", factory: { ThreePoleLowpassFilter(input) })
+        nodeParameterTest(md5: "84c3dcb52f76610e0c0ed9b567248fa1", factory: { ToneComplementFilter(input) })
+        nodeParameterTest(md5: "f4b3774bdc83f2220b33ed7de360a184", factory: { ToneFilter(input) })
 
     }
 }
