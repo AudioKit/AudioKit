@@ -45,17 +45,13 @@ class GenericNodeTests: XCTestCase {
             }
 
             bigBuffer?.append(audio)
-
         }
 
         XCTAssertFalse(bigBuffer!.isSilent)
 
-        if audition {
-            bigBuffer!.audition()
-        }
+        if audition { bigBuffer!.audition() }
 
         XCTAssertEqual(bigBuffer!.md5, md5)
-
     }
 
     func nodeParameterTest(md5: String, factory: ()->Node, audition: Bool = false) {
@@ -101,8 +97,6 @@ class GenericNodeTests: XCTestCase {
         if audition {
             bigBuffer!.audition()
         }
-
-        print("SKOD " + bigBuffer!.md5)
         XCTAssertEqual(bigBuffer!.md5, md5)
     }
 
@@ -120,7 +114,7 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "25da4d13733e7c50e3b9706e028c452d", factory: { VocalTract() })
         nodeParameterTest(md5: "6fc97b719ed8138c53464db8f09f937e", factory: { WhiteNoise() })
         
-        nodeRandomizedTest(md5: "999a7c4d39edf55550b2b4ef01ae1860", factory: { BrownianNoise() }, audition: true)
+        nodeRandomizedTest(md5: "999a7c4d39edf55550b2b4ef01ae1860", factory: { BrownianNoise() })
     }
 
     func testEffects() {
@@ -129,9 +123,32 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "b67881dcf5c17fed56a9997ccc0a5161", factory: { AutoPanner(input, waveform: Table(.triangle)) })
         nodeParameterTest(md5: "d35074473678f32b4ba7c54e635b2766", factory: { AutoWah(input) })
         nodeParameterTest(md5: "55d5e818c9e8e3d6bfe1b029b6857ed3", factory: { BitCrusher(input) })
+        nodeParameterTest(md5: "ffd48f502e2a5b2a7027d42b917a6667", factory: { ChowningReverb(input) })
         nodeParameterTest(md5: "56e76b5bd1d59d77ad4bd670f605f191", factory: { Clipper(input) })
+        nodeParameterTest(md5: "c9ab35b7818db6a9af4edfbe2cb83927", factory: { CombFilterReverb(input) })
         nodeParameterTest(md5: "6162703525d7213e58c0b7e6decda293", factory: { Compressor(input) })
         nodeParameterTest(md5: "1d47a6a4a24667064b747cd6571d0874", factory: { CostelloReverb(input) })
+        nodeParameterTest(md5: "6d17509eee0059105454f3cad4499586", factory: { DCBlock(input) })
+        nodeParameterTest(md5: "55d7b2312d921aacf87d92c81bcbc806", factory: { Decimator(input) })
+        nodeParameterTest(md5: "768665e4bad0372b7cdcc8be6040621e", factory: { Delay(input) })
+        nodeParameterTest(md5: "f8fcb22a49489da6fb2d7d12cab10ce8", factory: { DiodeClipper(input) })
+        nodeParameterTest(md5: "2b0db813cce8ff7f2180d7a820737000", factory: { Distortion(input) })
+        nodeParameterTest(md5: "a245e060a95fa63f70f01633eb00db0b", factory: { DynamicRangeCompressor(input) })
+        nodeParameterTest(md5: "3fe8139c1ce37fc14dfba77138345510", factory: { DynaRageCompressor(input) })
+        nodeParameterTest(md5: "6173d108ae0fcede9e7f1f0b122622a9", factory: { Flanger(input) })
+        nodeParameterTest(md5: "b2eac657e060927cd0b3bfd74817c99e", factory: { FlatFrequencyResponseReverb(input) })
+        nodeParameterTest(md5: "a6c3c2cdc02e77c1d71bcab22b70982c", factory: { Panner(input) })
+        nodeParameterTest(md5: "dc2fcab5eeb367e93b3767a7f84f7491", factory: { PeakLimiter(input) })
+        nodeParameterTest(md5: "95ba7a1fbd8c85c129999d20a0653dfe", factory: { PitchShifter(input) })
+        nodeParameterTest(md5: "99fedd785937d8e1d0e201e15124b19c", factory: { Reverb(input) })
+        nodeParameterTest(md5: "d68057bc230214c09607509652dd8994", factory: { RhinoGuitarProcessor(input) })
+        nodeParameterTest(md5: "547cc8833929d40042a0a00566cc032f", factory: { RingModulator(input) })
+        nodeParameterTest(md5: "addc1655615279c0e02ae9f9db7b79b8", factory: { StereoDelay(input) })
+        nodeParameterTest(md5: "2965f1e7d77deddb213a1ad56060e6e3", factory: { StereoFieldLimiter(input) })
+        nodeParameterTest(md5: "56ce31a64d0c7488e814cd16e09ea378", factory: { StringResonator(input) })
+        nodeParameterTest(md5: "7ce66baf0b5a272dc83db83f443bd1d8", factory: { TanhDistortion(input) })
+        nodeParameterTest(md5: "17b152691ddaca9a74a5ab086db0e546", factory: { VariableDelay(input) })
+        nodeParameterTest(md5: "78f088f0a48ab37c3d5fcfca9c9a8365", factory: { ZitaReverb(input) })
     }
     
     func testFilters() {
