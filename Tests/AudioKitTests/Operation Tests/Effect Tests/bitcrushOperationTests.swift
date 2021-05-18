@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class BitcrushTests: XCTestCase {
+class BitCrushTests: XCTestCase {
 
     func testBitDepth() {
         let engine = AudioEngine()
