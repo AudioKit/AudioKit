@@ -97,7 +97,7 @@ class GenericNodeTests: XCTestCase {
         if audition {
             bigBuffer!.audition()
         }
-        XCTAssertEqual(bigBuffer!.md5, md5)
+        XCTAssertEqual(bigBuffer!.md5, md5, "\(node) produced \(bigBuffer!.md5)")
     }
 
     let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
