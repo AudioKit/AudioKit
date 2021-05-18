@@ -81,12 +81,8 @@ class AudioFileTestCase: XCTestCase {
             startTime += pitchDuration
         }
 
-        let zero = [AutomationEvent(targetValue: 0,
-                                    startTime: 0,
-                                    rampDuration: 0)]
-        let fadeIn = [AutomationEvent(targetValue: 1,
-                                      startTime: 0,
-                                      rampDuration: pitchDuration)]
+        let zero = [AutomationEvent(targetValue: 0, startTime: 0, rampDuration: 0)]
+        let fadeIn = [AutomationEvent(targetValue: 1, startTime: 0, rampDuration: pitchDuration)]
         let fadeOut = [AutomationEvent(targetValue: 0,
                                        startTime: AUValue(duration) - pitchDuration,
                                        rampDuration: pitchDuration)]
