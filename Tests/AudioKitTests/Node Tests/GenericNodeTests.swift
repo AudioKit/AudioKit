@@ -131,7 +131,7 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "6d17509eee0059105454f3cad4499586", factory: { DCBlock(input) })
         nodeParameterTest(md5: "55d7b2312d921aacf87d92c81bcbc806", factory: { Decimator(input) })
         nodeParameterTest(md5: "768665e4bad0372b7cdcc8be6040621e", factory: { Delay(input) })
-        //nodeParameterTest(md5: "f8fcb22a49489da6fb2d7d12cab10ce8", factory: { DiodeClipper(input) })
+        nodeParameterTest(md5: "871872be5b831bd9f4f88f90ce2cd177", factory: { DiodeClipper(input) })
         nodeParameterTest(md5: "2b0db813cce8ff7f2180d7a820737000", factory: { Distortion(input) })
         nodeParameterTest(md5: "a245e060a95fa63f70f01633eb00db0b", factory: { DynamicRangeCompressor(input) })
         nodeParameterTest(md5: "3fe8139c1ce37fc14dfba77138345510", factory: { DynaRageCompressor(input) })
@@ -148,7 +148,7 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "56ce31a64d0c7488e814cd16e09ea378", factory: { StringResonator(input) })
         nodeParameterTest(md5: "7ce66baf0b5a272dc83db83f443bd1d8", factory: { TanhDistortion(input) })
         nodeParameterTest(md5: "17b152691ddaca9a74a5ab086db0e546", factory: { VariableDelay(input) })
-        //nodeParameterTest(md5: "78f088f0a48ab37c3d5fcfca9c9a8365", factory: { ZitaReverb(input) })
+        nodeParameterTest(md5: "b65a3c67da751b0f1bc6b6d604af1908", factory: { ZitaReverb(input) })
     }
     
     func testFilters() {
@@ -167,11 +167,11 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "aeec895e45341249b7fc23ea688dfba8", factory: { LowPassFilter(input) })
         nodeParameterTest(md5: "2f81a7a8c9325863b4afa312ca066ed8", factory: { LowShelfFilter(input) })
         nodeParameterTest(md5: "2f7e88b1835845342b0c8cca9930cb5c", factory: { LowShelfParametricEqualizerFilter(input) })
-        //nodeParameterTest(md5: "0db12817a5def3a82d0d28fc0c3f8ab9", factory: { ModalResonanceFilter(input) })
+        nodeParameterTest(md5: "5638bd8e112d88fa1053154dc0027152", factory: { ModalResonanceFilter(input) })
         nodeParameterTest(md5: "535192bcc8107d22dae9273f284b1bc5", factory: { MoogLadder(input) })
         nodeParameterTest(md5: "3a0b95902029e33a5b80b3a3baf6f8a7", factory: { PeakingParametricEqualizerFilter(input) })
         nodeParameterTest(md5: "06ebb0f4defb20ef2213ec60acf60620", factory: { ResonantFilter(input) })
-        //nodeParameterTest(md5: "c0f44f67e4ba3f3265fb536109126eb4", factory: { RolandTB303Filter(input) })
+        nodeParameterTest(md5: "800b4a050e83cf6fe73d2561a973c879", factory: { RolandTB303Filter(input) })
         nodeParameterTest(md5: "44273d78d701be87ec9613ace6a179cd", factory: { ThreePoleLowpassFilter(input) })
         nodeParameterTest(md5: "84c3dcb52f76610e0c0ed9b567248fa1", factory: { ToneComplementFilter(input) })
         nodeParameterTest(md5: "f4b3774bdc83f2220b33ed7de360a184", factory: { ToneFilter(input) })
