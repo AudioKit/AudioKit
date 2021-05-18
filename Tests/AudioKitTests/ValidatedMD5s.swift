@@ -438,7 +438,7 @@ let validatedMD5s: [String: String] = [
     "-[VocalTractOperationTests testParameterSweep]": "e846c8d1a61587825d0c699d162e3cd0",
     "-[VocalTractTests testDefault]": "5b3296351674e4e4d3a5cca9a1bf355f",
     "-[VocalTractTests testFrequency]": "10ce91e07f1be1fe9eb2432f1e45127f",
-    "-[VocalTractTests testNasality]": "9df204fbc98bb8965081cb30a89715fc",
+    "-[VocalTractTests testNasality]": "121f0fe524c22d2c62fefc59de1a6fab",
     "-[VocalTractTests testParametersSetAfterInit]": "c1eea9a035c6dd9f8823c85317d54d76",
     "-[VocalTractTests testParametersSetOnInit]": "c1eea9a035c6dd9f8823c85317d54d76",
     "-[VocalTractTests testTenseness]": "632879480146c0d4f042ac49d772b037",
