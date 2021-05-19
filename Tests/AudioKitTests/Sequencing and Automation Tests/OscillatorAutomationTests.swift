@@ -13,9 +13,8 @@ class OscillatorAutomationTests: XCTestCase {
         engine.output = oscillator
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        oscillator.$frequency.automate(events: [AutomationEvent(targetValue: 880,
-                                                                startTime: 0,
-                                                                rampDuration: 1.0)])
+        let event = AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0)
+        oscillator.$frequency.automate(events: [event])
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -28,9 +27,8 @@ class OscillatorAutomationTests: XCTestCase {
 
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        oscillator.$amplitude.automate(events: [AutomationEvent(targetValue: 1.0,
-                                                                startTime: 0,
-                                                                rampDuration: 1.0)])
+        let event = AutomationEvent(targetValue: 1.0, startTime: 0, rampDuration: 1.0)
+        oscillator.$amplitude.automate(events: [event])
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -43,12 +41,12 @@ class OscillatorAutomationTests: XCTestCase {
 
         oscillator.start()
         let audio = engine.startTest(totalDuration: 1.0)
-        oscillator.$frequency.automate(events: [AutomationEvent(targetValue: 880,
-                                                                startTime: 0,
-                                                                rampDuration: 1.0)])
-        oscillator.$amplitude.automate(events: [AutomationEvent(targetValue: 1.0,
-                                                                startTime: 0,
-                                                                rampDuration: 1.0)])
+        
+        let frequencyEvent = AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0)
+        oscillator.$frequency.automate(events: [frequencyEvent])
+        
+        let amplitudeEvent = AutomationEvent(targetValue: 1.0, startTime: 0, rampDuration: 1.0)
+        oscillator.$amplitude.automate(events: [amplitudeEvent])
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -64,10 +62,8 @@ class OscillatorAutomationTests: XCTestCase {
         // Delay a second.
         let startTime = AVAudioTime(sampleTime: 44100, atRate: 41000)
 
-        oscillator.$frequency.automate(events: [AutomationEvent(targetValue: 880,
-                                                                startTime: 0,
-                                                                rampDuration: 1.0)],
-                                       startTime: startTime)
+        let event = AutomationEvent(targetValue: 880, startTime: 0, rampDuration: 1.0)
+        oscillator.$frequency.automate(events: [event], startTime: startTime)
 
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
