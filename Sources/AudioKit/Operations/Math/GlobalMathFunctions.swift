@@ -98,6 +98,46 @@ public func / (numerator: StereoOperation, denominator: OperationParameter) -> S
     return StereoOperation(module: "dup rot swap / rot rot / swap", inputs: numerator, denominator)
 }
 
+/// Performs absolute value on the operation
+///
+/// - parameter parameter: ComputedParameter to operate on
+///
+public func abs(_ parameter: Operation) -> Operation {
+    return parameter.abs()
+}
+
+/// Performs floor calculation on the operation
+///
+/// - parameter operation: ComputedParameter to operate on
+///
+public func floor(_ operation: Operation) -> Operation {
+    return operation.floor()
+}
+
+/// Returns the fractional part of the operation (as opposed to the integer part)
+///
+/// - parameter operation: ComputedParameter to operate on
+///
+public func fract(_ operation: Operation) -> Operation {
+    return operation.fract()
+}
+
+/// Performs natural logarithm on the operation
+///
+/// - parameter operation: ComputedParameter to operate on
+///
+public func log(_ operation: Operation) -> Operation {
+    return operation.log()
+}
+
+/// Performs Base 10 logarithm on the operation
+///
+/// - parmeter operation: ComputedParameter to operate on
+///
+public func log10(_ operation: Operation) -> Operation {
+    return operation.log10()
+}
+
 /// Maximum of two operations
 ///
 /// - Parameters:
@@ -156,4 +196,12 @@ public func min(_ operation: ComputedParameter, _ parameter: OperationParameter)
 ///
 public func min(_ parameter: OperationParameter, _ operation: ComputedParameter) -> Operation {
     return min(operation, parameter)
+}
+
+/// Rounds the operation to the nearest integer
+///
+/// - parameter operation: ComputedParameter to operate on
+///
+public func round(_ operation: Operation) -> Operation {
+    return operation.round()
 }
