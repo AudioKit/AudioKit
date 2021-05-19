@@ -2,7 +2,7 @@
 
 extension ComputedParameter {
 
-    /// Panner
+    /// Tracked amplitude
     ///
     /// - parameter input: Input audio signal
     ///
