@@ -126,7 +126,7 @@ public class OperationEffect: Node {
         self.init(input, sporth: "")
     }
 
-    /// Initializw with a stereo operation
+    /// Initialize with a stereo operation
     /// - Parameters:
     ///   - input: Node to use for processing
     ///   - operation: Stereo operation
