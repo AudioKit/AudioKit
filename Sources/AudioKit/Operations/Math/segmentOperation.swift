@@ -17,9 +17,6 @@ extension Operation {
         ) -> Operation {
         return Operation(module: "line", inputs: trigger, start, duration, end)
     }
-}
-
-extension Operation {
 
     /// Exponential Segment to change values over time
     ///
