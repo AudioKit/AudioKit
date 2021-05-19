@@ -48,7 +48,6 @@ let validatedMD5s: [String: String] = [
     "-[CompressorTests testParameters]": "a69701ee2b399d88f611f47716e71802",
     "-[CompressorTests testThreshold]": "f5b9440c5a2b3d9eeb5843f9705f3688",
     "-[ConvolutionTests testConvolution]": "d585f94eba7aedafd7987c68af78ff75",
-    "-[DCBlockOperationTests testDefault]": "9df204fbc98bb8965081cb30a89715fc",
     "-[DelayOperationTests testDefault]": "ad1b433de4ec591cecb4c6ab4d91b7a5",
     "-[DelayOperationTests testFeedback]": "9da21169977f6ed9bd562820c2e8939f",
     "-[DelayOperationTests testParameters]": "615ed5bd20fdf38cc9710edcec7921fe",

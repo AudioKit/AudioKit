@@ -18,7 +18,7 @@ extension ComputedParameter {
     /// - parameter input: Input audio signal
     ///
     public func dcBlock() -> Operation {
-        return Operation(module: "dcblock", inputs: toMono())
+        return Operation(module: "dcblk", inputs: toMono())
     }
 
     /// These filters are Butterworth second-order IIR filters. They offer an almost

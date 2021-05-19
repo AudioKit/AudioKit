@@ -44,6 +44,7 @@ class GenericOperationTests: XCTestCase {
         defaultTest("3fdcc5e1cae820dd78ac5899ca1f8c8a", input.bitCrush(bitDepth: 7, sampleRate: 4_000) )
         defaultTest("e2996e3be4916978068370badfb7e0e6", input.clip() )
         defaultTest("58b11ef50752c62d6fba69c4b209326f", input.clip(0.5) )
+        defaultTest("e91da38b298af51b5c2d11032b951135", input.dcBlock() )
         defaultTest("fa9cc80070670c9197077f7c99a941a9", input.distort())
         defaultTest("9eddbd3f55e0d1502117867c3f123b4f", input.highPassButterworthFilter())
         defaultTest("eb229d6421f9d10f7f67c1ee7552645e", input.highPassFilter())
