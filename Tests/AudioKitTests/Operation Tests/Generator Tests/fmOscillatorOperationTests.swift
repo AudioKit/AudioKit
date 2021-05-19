@@ -5,16 +5,6 @@ import XCTest
 
 class FMOscillatorOperationTests: XCTestCase {
 
-    func testDefault() {
-        let engine = AudioEngine()
-        let oscillator = OperationGenerator { Operation.fmOscillator() }
-        engine.output = oscillator
-        oscillator.start()
-        let audio = engine.startTest(totalDuration: 1.0)
-        audio.append(engine.render(duration: 1.0))
-        testMD5(audio)
-    }
-
     func testFMOscillatorOperation() {
         let engine = AudioEngine()
         let oscillator = OperationGenerator {

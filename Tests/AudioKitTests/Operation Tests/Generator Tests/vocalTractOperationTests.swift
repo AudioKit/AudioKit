@@ -7,16 +7,6 @@ class VocalTractOperationTests: XCTestCase {
 
     let vocalTract = OperationGenerator { Operation.vocalTract() }
 
-    func testDefault() {
-        let engine = AudioEngine()
-        let vocalTract = OperationGenerator { Operation.vocalTract() }
-        engine.output = vocalTract
-        vocalTract.start()
-        let audio = engine.startTest(totalDuration: 1.0)
-        audio.append(engine.render(duration: 1.0))
-        testMD5(audio)
-    }
-
     func testParameterSweep() {
         let engine = AudioEngine()
         let vocalTract = OperationGenerator {
