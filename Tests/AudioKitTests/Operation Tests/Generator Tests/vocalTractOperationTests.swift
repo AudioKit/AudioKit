@@ -5,8 +5,6 @@ import XCTest
 
 class VocalTractOperationTests: XCTestCase {
 
-    let vocalTract = OperationGenerator { Operation.vocalTract() }
-
     func testParameterSweep() {
         let engine = AudioEngine()
         let vocalTract = OperationGenerator {

@@ -5,18 +5,6 @@ import XCTest
 
 class PinkNoiseOperationTests: XCTestCase {
 
-    func testAmplitude() {
-        let engine = AudioEngine()
-        let noise = OperationGenerator {
-            return Operation.pinkNoise(amplitude: 0.456)
-        }
-        engine.output = noise
-        noise.start()
-        let audio = engine.startTest(totalDuration: 1.0)
-        audio.append(engine.render(duration: 1.0))
-        testMD5(audio)
-    }
-
     func testParameterSweep() {
         let engine = AudioEngine()
         let noise = OperationGenerator {
