@@ -12,7 +12,6 @@ extension ComputedParameter {
         return Operation(module: "100 autowah", inputs: toMono(), amplitude, wah)
     }
 
-
     /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])
     /// Based on work by Perry Cook.
     ///
