@@ -19,7 +19,10 @@ class GenericOperationTests: XCTestCase {
     }
 
     func testGenerators() {
+        let ramp = Operation.lineSegment(trigger: Operation.periodicTrigger(period: 1), start: 0.0, end: 1.0, duration: 1.0)
         defaultTest("e82a86ae4e7d47f24eeba9700e4745d4", Operation.fmOscillator())
+        defaultTest("d9f1c155c150b5be489377ac7d510367", Operation.fmOscillator(baseFrequency: 10_000 * ramp))
+        defaultTest("df1279e80a00419a84ded35141c088e4", Operation.fmOscillator(carrierMultiplier: 1_000 * ramp))
         defaultTest("f4cc261bdf98ae17320f9561941c8664", Operation.morphingOscillator())
         defaultTest("3828cd394361df9739360d1b910516cf", Operation.phasor())
         defaultTest("79e0b102124e0b7521fb277d3f8d27f9", Operation.pinkNoise())
