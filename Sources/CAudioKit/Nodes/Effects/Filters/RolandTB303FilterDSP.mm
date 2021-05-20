@@ -2,7 +2,7 @@
 
 #include "SoundpipeDSPBase.h"
 #include "ParameterRamper.h"
-#include "soundpipe.h"
+#include "Soundpipe.h"
 
 enum RolandTB303FilterParameter : AUParameterAddress {
     RolandTB303FilterParameterCutoffFrequency,

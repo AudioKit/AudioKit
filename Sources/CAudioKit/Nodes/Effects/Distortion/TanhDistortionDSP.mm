@@ -2,7 +2,7 @@
 
 #include "SoundpipeDSPBase.h"
 #include "ParameterRamper.h"
-#include "soundpipe.h"
+#include "Soundpipe.h"
 
 enum TanhDistortionParameter : AUParameterAddress {
     TanhDistortionParameterPregain,

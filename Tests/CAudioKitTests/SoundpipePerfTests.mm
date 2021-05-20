@@ -1,7 +1,7 @@
 
 #import <XCTest/XCTest.h>
 #import <CAudioKit.h>
-#import <soundpipe.h>
+#import <Soundpipe.h>
 #import <sporth.h>
 #import <plumber.h>
 

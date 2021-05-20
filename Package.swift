@@ -16,31 +16,17 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
+        .package(url: "https://github.com/AudioKit/Soundpipe", .branch("main")),
     ],
     targets: [
-        .target(name: "soundpipe",
-                exclude: [
-                    "README.md",
-                    "lib/kissfft/COPYING",
-                    "lib/kissfft/README",
-                    "lib/inih/LICENSE.txt",
-                ],
-                publicHeadersPath: "include",
-                cSettings: [
-                    .headerSearchPath("lib/kissfft"),
-                    .headerSearchPath("lib/inih"),
-                    .headerSearchPath("Sources/soundpipe/lib/inih"),
-                    .headerSearchPath("modules"),
-                    .headerSearchPath("external")
-                ]),
         .target(
             name: "sporth",
-            dependencies: ["soundpipe"],
+            dependencies: ["Soundpipe"],
             exclude: ["README.md"],
             publicHeadersPath: "include"),
         .target(
             name: "CAudioKit",
-            dependencies: ["soundpipe", "sporth"],
+            dependencies: ["Soundpipe", "sporth"],
             exclude: [
                 "AudioKitCore/Modulated Delay/README.md",
                 "AudioKitCore/Sampler/Wavpack/license.txt",

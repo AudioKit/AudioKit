@@ -2,7 +2,7 @@
 
 #include "PitchTracker.h"
 
-#include "soundpipe.h"
+#include "Soundpipe.h"
 
 struct PitchTracker {
 

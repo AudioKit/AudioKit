@@ -2,7 +2,7 @@
 
 #include "SoundpipeDSPBase.h"
 #include "ParameterRamper.h"
-#include "soundpipe.h"
+#include "Soundpipe.h"
 #include "vocwrapper.h"
 
 enum VocalTractParameter : AUParameterAddress {

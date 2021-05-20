@@ -1,4 +1,4 @@
-#include "soundpipe.h"
+#include "Soundpipe.h"
 #include "sporth.h"
 #include "ugens.h"
 

@@ -2,7 +2,7 @@
 
 #import "SoundpipeDSPBase.h"
 
-#include "soundpipe.h"
+#include "Soundpipe.h"
 #include "vocwrapper.h"
 
 void SoundpipeDSPBase::init(int channelCount, double sampleRate) {

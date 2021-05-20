@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import soundpipe
+import Soundpipe
 
 extension AVAudioPCMBuffer {
     /// Hash useful for testing
