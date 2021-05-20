@@ -1,41 +1,30 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import Soundpipe
+import CryptoKit
 
 extension AVAudioPCMBuffer {
     /// Hash useful for testing
     public var md5: String {
-        let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
-        md5_init(md5state)
+
+        var sampleData = Data()
 
         if let floatChannelData = self.floatChannelData {
             for frame in 0 ..< self.frameCapacity {
                 for channel in 0 ..< self.format.channelCount {
                     let sample = floatChannelData[Int(channel)][Int(frame)]
-                    withUnsafeBytes(of: sample) { samplePtr in
-                        if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
-                            md5_append(md5state, baseAddress, 4)
-                        }
+
+                    withUnsafePointer(to: sample) { ptr in
+                        sampleData.append(UnsafeBufferPointer(start: ptr, count: 1))
                     }
                 }
             }
         }
 
-        var digest = [md5_byte_t](repeating: 0, count: 16)
-        var digestHex = ""
+        let digest = Insecure.MD5.hash(data: sampleData)
 
-        digest.withUnsafeMutableBufferPointer { digestPtr in
-            md5_finish(md5state, digestPtr.baseAddress)
-        }
+        return digest.map { String(format: "%02hhx", $0) }.joined()
 
-        for index in 0 ..< 16 {
-            digestHex += String(format: "%02x", digest[index])
-        }
-
-        md5state.deallocate()
-
-        return digestHex
     }
 
     public var isSilent: Bool {
