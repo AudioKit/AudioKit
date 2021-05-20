@@ -16,7 +16,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/AudioKit/STK", .branch("main")),
     ],
     targets: [
         .target(name: "soundpipe",
@@ -41,7 +40,7 @@ let package = Package(
             publicHeadersPath: "include"),
         .target(
             name: "CAudioKit",
-            dependencies: ["STK", "soundpipe", "sporth"],
+            dependencies: ["soundpipe", "sporth"],
             exclude: [
                 "AudioKitCore/Modulated Delay/README.md",
                 "AudioKitCore/Sampler/Wavpack/license.txt",
