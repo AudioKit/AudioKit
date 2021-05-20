@@ -62,19 +62,19 @@ public:
     }
     
     // Need to override this since it's pure virtual.
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process2(FrameRange range) override {
         
         // Zero output channels.
         for(int channel=0; channel<channelCount; ++channel) {
-            float* outputChannel = ((float *)outputBufferList->mBuffers[channel].mData) + bufferOffset;
-            std::fill(outputChannel, outputChannel+frameCount, 0.0f);
+            float* outputChannel = ((float *)outputBufferList->mBuffers[channel].mData) + range.start;
+            std::fill(outputChannel, outputChannel+range.count, 0.0f);
         }
         
         typename SoulPatchType::template RenderContext<float> context;
         
-        context.numFrames = frameCount;
-        context.inputChannels[0] = ((const float *)inputBufferLists[0]->mBuffers[0].mData) + bufferOffset;
-        context.outputChannels[0] = ((float *)outputBufferList->mBuffers[0].mData) + bufferOffset;
+        context.numFrames = range.count;
+        context.inputChannels[0] = ((const float *)inputBufferLists[0]->mBuffers[0].mData) + range.start;
+        context.outputChannels[0] = ((float *)outputBufferList->mBuffers[0].mData) + range.start;
         context.incomingMIDI.messages = midiMessages.data();
         context.incomingMIDI.numMessages = (uint32_t) midiMessages.size();
         
