@@ -1,6 +1,5 @@
 import AudioKit
 import AVFoundation
-import CAudioKit
 import XCTest
 
 // Real time development tests
