@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
 
 /// Wrapper for AVAudioPlayerNode with a simplified API. The player exists in two interchangeable modes
 /// either playing from memory (isBuffered) or streamed from disk. Longer files are recommended to be
