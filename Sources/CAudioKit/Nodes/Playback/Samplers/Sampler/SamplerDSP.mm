@@ -31,7 +31,7 @@ struct SamplerDSP : DSPBase, CoreSampler
     float getParameter(uint64_t address) override;
 
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override;
+    void process2(FrameRange range) override;
 };
 
 DSPRef akSamplerCreateDSP() {
@@ -382,19 +382,19 @@ void SamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
     }
 }
 
-void SamplerDSP::process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset)
+void SamplerDSP::process2(FrameRange range)
 {
 
-    float *pLeft = (float *)outputBufferList->mBuffers[0].mData + bufferOffset;
-    float *pRight = (float *)outputBufferList->mBuffers[1].mData + bufferOffset;
+    float *pLeft = (float *)outputBufferList->mBuffers[0].mData + range.start;
+    float *pRight = (float *)outputBufferList->mBuffers[1].mData + range.start;
 
-    memset(pLeft, 0, frameCount * sizeof(float));
-    memset(pRight, 0, frameCount * sizeof(float));
+    memset(pLeft, 0, range.count * sizeof(float));
+    memset(pRight, 0, range.count * sizeof(float));
 
     // process in chunks of maximum length CORESAMPLER_CHUNKSIZE
-    for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CORESAMPLER_CHUNKSIZE) {
-        int frameOffset = int(frameIndex + bufferOffset);
-        int chunkSize = frameCount - frameIndex;
+    for (int frameIndex = 0; frameIndex < range.count; frameIndex += CORESAMPLER_CHUNKSIZE) {
+        int frameOffset = int(frameIndex + range.start);
+        int chunkSize = range.count - frameIndex;
         if (chunkSize > CORESAMPLER_CHUNKSIZE) chunkSize = CORESAMPLER_CHUNKSIZE;
 
         // ramp parameters
