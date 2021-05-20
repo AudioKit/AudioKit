@@ -17,7 +17,7 @@ class FFTTapTests: XCTestCase {
     func testBasic() {
         let engine = AudioEngine()
 
-        let oscillator = Oscillator(frequency: 1)
+        let oscillator = Oscillator(waveform: Table(.triangle), frequency: 1)
         engine.output = oscillator
         oscillator.start()
         oscillator.$frequency.ramp(to: 20000, duration: 1.0)
@@ -25,7 +25,7 @@ class FFTTapTests: XCTestCase {
         var fftData: [Int] = []
 
         let expect = expectation(description: "wait for amplitudes")
-        let knownValues: [Int] = [86, 259, 431, 604, 776, 949, 1121, 1294, 1467, 1639]
+        let knownValues: [Int] = [88, 258, 433, 605, 777, 949, 1122, 1294, 1467, 1639]
 
         let tap = FFTTap(oscillator) { fft in
             let max: Float = fft.max() ?? 0.0
@@ -50,7 +50,7 @@ class FFTTapTests: XCTestCase {
     func testWithoutNormalization() {
         let engine = AudioEngine()
 
-        let oscillator = Oscillator(frequency: 1)
+        let oscillator = Oscillator(waveform: Table(.triangle), frequency: 1)
         engine.output = oscillator
         oscillator.start()
         oscillator.$frequency.ramp(to: 20000, duration: 1.0)
@@ -85,7 +85,7 @@ class FFTTapTests: XCTestCase {
     func testWithZeroPadding() {
         let engine = AudioEngine()
 
-        let oscillator = Oscillator(frequency: 1)
+        let oscillator = Oscillator(waveform: Table(.triangle), frequency: 1)
         engine.output = oscillator
         oscillator.start()
         oscillator.$frequency.ramp(to: 20000, duration: 1.0)
@@ -93,7 +93,7 @@ class FFTTapTests: XCTestCase {
         var fftData: [Int] = []
 
         let expect = expectation(description: "wait for amplitudes")
-        let knownValues: [Int] = [349, 694, 1039, 1384, 1729, 2074, 2419, 2764, 3109, 3454]
+        let knownValues: [Int] = [20, 694, 1039, 1384, 1729, 2071, 2418, 2763, 3109, 3453]
 
         let tap = FFTTap(oscillator) { fft in
             let max: Float = fft.max() ?? 0.0
