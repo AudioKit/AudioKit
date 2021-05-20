@@ -130,12 +130,9 @@ public:
     
     void setBuffer(AudioBufferList* buffer, size_t busIndex);
     size_t getInputBusCount() const { return inputBufferLists.size(); }
-    
-    /// The Render function.
-    virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) { };
 
     /// New Render function.
-    virtual void process2(FrameRange range) { process(range.count, range.start); }
+    virtual void process2(FrameRange range) = 0;
     
     /// Uses the ParameterAddress as a key
     virtual void setParameter(AUParameterAddress address, float value, bool immediate = false);
