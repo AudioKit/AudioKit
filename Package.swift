@@ -20,13 +20,8 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "sporth",
-            dependencies: ["Soundpipe"],
-            exclude: ["README.md"],
-            publicHeadersPath: "include"),
-        .target(
             name: "CAudioKit",
-            dependencies: ["Soundpipe", "sporth"],
+            dependencies: ["Soundpipe"],
             exclude: [
                 "AudioKitCore/Modulated Delay/README.md",
                 "AudioKitCore/Sampler/Wavpack/license.txt",
