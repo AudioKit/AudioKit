@@ -118,7 +118,6 @@ let validatedMD5s: [String: String] = [
     "-[PhaseLockedVocoderTests testDefault]": "d3522d2e9cad9467740cbcb3624887f2",
     "-[PinkNoiseOperationTests testParameterSweep]": "ac20cbf3b0342430bab4350de2619feb",
     "-[PitchTapTests testBasic]": "10e7831ee61299f51dd0ef03fa50bb25",
-    "-[PluckedStringOperationTests testDefault]": "bdef4981144f808c1a375a277f4da66f",
     "-[PluckedStringTests testDefault]": "9e2d3aa3b50fa53a43b798901f0cb0e5",
     "-[ResonantFilterOperationTests testParameters1]": "084201aaf20c67dfc4867e0bae54e551",
     "-[ResonantFilterOperationTests testParameters2]": "50e835fabdf04c28c427bed060a0b674",

@@ -24,6 +24,7 @@ class GenericOperationTests: XCTestCase {
         defaultTest("3828cd394361df9739360d1b910516cf", Operation.phasor())
         defaultTest("79e0b102124e0b7521fb277d3f8d27f9", Operation.pinkNoise())
         defaultTest("6704180ca2db755fd17742bb5d2da047", Operation.pinkNoise(amplitude: 0.5))
+        defaultTest("bdef4981144f808c1a375a277f4da66f", Operation.pluckedString(trigger: Operation.metronome()))
         defaultTest("379388bf41f4ece5cf274bf53f270c46", Operation.sawtooth())
         defaultTest("2a5f4c75768a09c068f2c27377142aa7", Operation.sawtoothWave())
         defaultTest("91ec96732b1d1d40a585b6415eef8b51", Operation.sineWave())
