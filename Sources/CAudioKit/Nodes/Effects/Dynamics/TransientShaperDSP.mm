@@ -568,15 +568,15 @@ public:
         return 1;
     }
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process2(FrameRange range) override {
         const float *inBuffers[2];
         float *outBuffers[2];
-        inBuffers[0]  = (const float *)inputBufferLists[0]->mBuffers[0].mData  + bufferOffset;
-        inBuffers[1]  = (const float *)inputBufferLists[0]->mBuffers[1].mData  + bufferOffset;
-        outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + bufferOffset;
-        outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + bufferOffset;
-        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            const int frameOffset = int(frameIndex + bufferOffset);
+        inBuffers[0]  = (const float *)inputBufferLists[0]->mBuffers[0].mData  + range.start;
+        inBuffers[1]  = (const float *)inputBufferLists[0]->mBuffers[1].mData  + range.start;
+        outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + range.start;
+        outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + range.start;
+        for (int frameIndex = 0; frameIndex < range.count; ++frameIndex) {
+            const int frameOffset = int(frameIndex + range.start);
 
             delay1.setDelayMs(10.0);
             delay1.setFeedback(0.0);
