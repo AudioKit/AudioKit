@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "STK",
+        "repositoryURL": "https://github.com/AudioKit/STK",
+        "state": {
+          "branch": "main",
+          "revision": "8c4b9130ee3f860dfb11bc7480863c83b8b8fbec",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
