@@ -46,7 +46,7 @@ public:
         sp_fofilt_init(sp, fofilt1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             fofilt0->freq = fofilt1->freq = centerFrequencyRamp.getAndStep();

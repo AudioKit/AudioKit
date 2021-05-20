@@ -40,7 +40,7 @@ public:
         sp_butlp_init(sp, butlp1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             butlp0->freq = butlp1->freq = cutoffFrequencyRamp.getAndStep();

@@ -43,7 +43,7 @@ public:
         sp_bitcrush_init(sp, bitcrush1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             bitcrush0->bitdepth = bitcrush1->bitdepth = bitDepthRamp.getAndStep();

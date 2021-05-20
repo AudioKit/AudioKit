@@ -57,7 +57,7 @@ public:
 
     void deinit() override;
 
-    void process2(FrameRange range) override;
+    void process(FrameRange range) override;
 };
 
 ModulatedDelayDSP::ModulatedDelayDSP(ModulatedDelayType type)
@@ -83,7 +83,7 @@ void ModulatedDelayDSP::deinit()
 
 #define CHUNKSIZE 8     // defines ramp interval
 
-void ModulatedDelayDSP::process2(FrameRange range)
+void ModulatedDelayDSP::process(FrameRange range)
 {
     float *inBuffers[2], *outBuffers[2];
     inBuffers[0]  = (float *)inputBufferLists[0]->mBuffers[0].mData  + range.start;

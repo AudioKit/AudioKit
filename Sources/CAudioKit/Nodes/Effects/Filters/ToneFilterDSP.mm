@@ -40,7 +40,7 @@ public:
         sp_tone_init(sp, tone1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             tone0->hp = tone1->hp = halfPowerPointRamp.getAndStep();

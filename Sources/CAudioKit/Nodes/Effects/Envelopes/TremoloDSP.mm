@@ -49,7 +49,7 @@ public:
         sp_osc_init(sp, trem, ftbl, 0);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
 
         for (int i : range) {
             trem->freq = frequencyRamp.getAndStep();

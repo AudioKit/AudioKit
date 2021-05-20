@@ -46,7 +46,7 @@ public:
         sp_allpass_init(sp, allpass1, loopDuration);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             allpass0->revtime = allpass1->revtime = reverbDurationRamp.getAndStep();

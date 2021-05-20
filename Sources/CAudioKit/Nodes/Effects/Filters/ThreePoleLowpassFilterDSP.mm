@@ -46,7 +46,7 @@ public:
         sp_lpf18_init(sp, lpf181);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             lpf180->dist = lpf181->dist = distortionRamp.getAndStep();

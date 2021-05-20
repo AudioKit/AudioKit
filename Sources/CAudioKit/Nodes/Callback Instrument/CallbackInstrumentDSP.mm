@@ -27,7 +27,7 @@ public:
         [timer invalidate];
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         count += range.count;
         if (updateTime) {
             lastFrameCount = count;

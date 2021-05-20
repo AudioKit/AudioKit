@@ -46,7 +46,7 @@ public:
         sp_pshift_init(sp, pshift1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             *pshift0->shift = *pshift1->shift = shiftRamp.getAndStep();

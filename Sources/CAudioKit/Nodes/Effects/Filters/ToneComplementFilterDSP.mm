@@ -40,7 +40,7 @@ public:
         sp_atone_init(sp, atone1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             atone0->hp = atone1->hp = halfPowerPointRamp.getAndStep();

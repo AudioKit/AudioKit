@@ -25,7 +25,7 @@ struct SynthDSP : DSPBase, CoreSynth
     float getParameter(uint64_t address) override;
 
     void handleMIDIEvent(const AUMIDIEvent &midiEvent) override;
-    void process2(FrameRange) override;
+    void process(FrameRange) override;
 };
 
 DSPRef akSynthCreateDSP() {
@@ -174,7 +174,7 @@ void SynthDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
     }
 }
 
-void SynthDSP::process2(FrameRange range)
+void SynthDSP::process(FrameRange range)
 {
 
     float *pLeft = (float *)outputBufferList->mBuffers[0].mData + range.start;

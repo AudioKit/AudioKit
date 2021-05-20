@@ -62,7 +62,7 @@ public:
         sp_zitarev_init(sp, zitarev);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             *zitarev->in_delay = predelayRamp.getAndStep();

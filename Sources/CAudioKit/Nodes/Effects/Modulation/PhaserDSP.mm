@@ -59,7 +59,7 @@ public:
         sp_phaser_init(sp, phaser);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             *phaser->MinNotch1Freq = notchMinimumFrequencyRamp.getAndStep();

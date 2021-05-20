@@ -40,7 +40,7 @@ public:
         sp_clip_init(sp, clip1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             clip0->lim = clip1->lim = limitRamp.getAndStep();

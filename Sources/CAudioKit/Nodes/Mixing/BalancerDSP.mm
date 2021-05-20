@@ -30,7 +30,7 @@ public:
         if (isInitialized) sp_bal_init(sp, bal);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             for (int channel = 0; channel < channelCount; ++channel) {

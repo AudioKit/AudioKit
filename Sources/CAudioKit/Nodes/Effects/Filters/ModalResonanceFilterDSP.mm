@@ -43,7 +43,7 @@ public:
         sp_mode_init(sp, mode1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             mode0->freq = mode1->freq = frequencyRamp.getAndStep();

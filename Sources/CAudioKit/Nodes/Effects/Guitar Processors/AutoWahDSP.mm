@@ -46,7 +46,7 @@ public:
         sp_autowah_init(sp, autowah1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             *autowah0->wah =  *autowah1->wah = wahRamp.getAndStep();

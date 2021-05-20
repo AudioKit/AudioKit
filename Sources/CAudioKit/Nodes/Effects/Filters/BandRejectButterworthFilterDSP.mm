@@ -43,7 +43,7 @@ public:
         sp_butbr_init(sp, butbr1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             butbr0->freq = butbr1->freq = centerFrequencyRamp.getAndStep();

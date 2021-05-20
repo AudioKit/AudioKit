@@ -57,7 +57,7 @@ public:
         sp_mincer_init(sp, mincer, ftbl, 2048);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
 
         for (int i : range) {
 

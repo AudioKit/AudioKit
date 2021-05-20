@@ -43,7 +43,7 @@ public:
         sp_moogladder_init(sp, moogladder1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             moogladder0->freq = moogladder1->freq = cutoffFrequencyRamp.getAndStep();

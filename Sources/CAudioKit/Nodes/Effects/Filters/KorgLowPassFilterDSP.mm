@@ -46,7 +46,7 @@ public:
         sp_wpkorg35_init(sp, wpkorg351);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             wpkorg350->cutoff = wpkorg351->cutoff = cutoffFrequencyRamp.getAndStep() - 0.0001f;

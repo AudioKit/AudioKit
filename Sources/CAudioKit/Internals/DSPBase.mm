@@ -213,7 +213,7 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
 void DSPBase::processOrBypass(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
     if(isStarted) {
-        process2(FrameRange{bufferOffset, frameCount});
+        process(FrameRange{bufferOffset, frameCount});
     } else {
 
         // Advance all ramps.

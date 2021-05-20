@@ -34,7 +34,7 @@ public:
         sp_jcrev_init(sp, jcrev1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             float leftIn = inputSample(0, i);

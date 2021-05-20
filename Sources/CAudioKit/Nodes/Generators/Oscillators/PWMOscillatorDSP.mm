@@ -47,7 +47,7 @@ public:
         sp_blsquare_init(sp, blsquare);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
 
         for (int i : range) {
 

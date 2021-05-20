@@ -62,7 +62,7 @@ public:
     }
     
     // Need to override this since it's pure virtual.
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         
         // Zero output channels.
         for(int channel=0; channel<channelCount; ++channel) {

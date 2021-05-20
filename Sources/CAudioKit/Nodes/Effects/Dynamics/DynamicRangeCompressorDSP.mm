@@ -49,7 +49,7 @@ public:
         sp_compressor_init(sp, compressor1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
             *compressor0->ratio = *compressor1->ratio = ratioRamp.getAndStep();
             *compressor0->thresh = *compressor1->thresh = thresholdRamp.getAndStep();

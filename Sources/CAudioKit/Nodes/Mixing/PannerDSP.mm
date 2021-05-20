@@ -35,7 +35,7 @@ public:
         sp_panst_init(sp, panst);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             panst->pan = panRamp.getAndStep();

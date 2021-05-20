@@ -49,7 +49,7 @@ public:
         sp_dist_init(sp, dist1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             dist0->pregain = dist1->pregain = pregainRamp.getAndStep();

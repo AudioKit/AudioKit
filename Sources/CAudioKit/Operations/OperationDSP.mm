@@ -78,7 +78,7 @@ public:
         }
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             if(!inputBufferLists.empty()) {

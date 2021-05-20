@@ -64,7 +64,7 @@ public:
         }
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for(auto i : range) {
 
             float leftIn = inputSample(0, i);

@@ -43,7 +43,7 @@ public:
         sp_streson_init(sp, streson1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             streson0->freq = streson1->freq = fundamentalFrequencyRamp.getAndStep();

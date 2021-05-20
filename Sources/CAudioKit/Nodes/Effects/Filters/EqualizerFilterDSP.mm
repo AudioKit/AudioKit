@@ -46,7 +46,7 @@ public:
         sp_eqfil_init(sp, eqfil1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             eqfil0->freq = eqfil1->freq = centerFrequencyRamp.getAndStep();

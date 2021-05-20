@@ -43,7 +43,7 @@ public:
         sp_reson_init(sp, reson1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             reson0->freq = reson1->freq = frequencyRamp.getAndStep();

@@ -56,7 +56,7 @@ public:
         sp_conv_init(sp, conv1, ftbl, (float)partitionLength);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
             
             sp_conv_compute(sp, conv0, &inputSample(0, i), &outputSample(0, i));

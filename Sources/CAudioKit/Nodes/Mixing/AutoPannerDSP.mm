@@ -47,7 +47,7 @@ public:
         sp_ftbl_destroy(&tbl);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for(auto i : range) {
 
             trem->freq = frequencyRamp.getAndStep();

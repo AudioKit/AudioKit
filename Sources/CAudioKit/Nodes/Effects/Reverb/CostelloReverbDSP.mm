@@ -38,7 +38,7 @@ public:
         sp_revsc_init(sp, revsc);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             revsc->feedback = feedbackRamp.getAndStep();

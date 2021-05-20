@@ -35,7 +35,7 @@ public:
         sp_pinknoise_init(sp, pinknoise);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
 
         for (int i : range) {
 

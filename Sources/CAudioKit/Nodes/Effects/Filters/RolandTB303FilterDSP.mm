@@ -49,7 +49,7 @@ public:
         sp_tbvcf_init(sp, tbvcf1);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             tbvcf0->fco = tbvcf1->fco = cutoffFrequencyRamp.getAndStep();

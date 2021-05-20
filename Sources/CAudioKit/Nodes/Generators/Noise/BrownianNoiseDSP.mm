@@ -35,7 +35,7 @@ public:
         sp_brown_init(sp, brown);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
 
         for (int i : range) {
 

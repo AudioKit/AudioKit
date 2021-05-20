@@ -29,7 +29,7 @@ void SoundpipeDSPBase::handleMIDIEvent(AUMIDIEvent const& midiEvent) {
     }
 }
 
-void SoundpipeDSPBase::process2(FrameRange range) {
+void SoundpipeDSPBase::process(FrameRange range) {
     for (int i : range) {
         for (int channel = 0; channel < channelCount; ++channel) {
             processSample(channel, &inputSample(channel, i), &outputSample(channel, i));

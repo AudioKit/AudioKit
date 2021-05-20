@@ -48,7 +48,7 @@ public:
         pareq0->mode = pareq1->mode = 0;
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             pareq0->fc = pareq1->fc = centerFrequencyRamp.getAndStep();

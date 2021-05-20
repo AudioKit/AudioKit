@@ -46,7 +46,7 @@ public:
         sp_comb_init(sp, comb1, loopDuration);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         for (int i : range) {
 
             comb0->revtime = comb1->revtime = reverbDurationRamp.getAndStep();

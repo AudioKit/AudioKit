@@ -31,7 +31,7 @@ struct SamplerDSP : DSPBase, CoreSampler
     float getParameter(uint64_t address) override;
 
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
-    void process2(FrameRange range) override;
+    void process(FrameRange range) override;
 };
 
 DSPRef akSamplerCreateDSP() {
@@ -382,7 +382,7 @@ void SamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
     }
 }
 
-void SamplerDSP::process2(FrameRange range)
+void SamplerDSP::process(FrameRange range)
 {
 
     float *pLeft = (float *)outputBufferList->mBuffers[0].mData + range.start;

@@ -54,7 +54,7 @@ public:
         sp_drip_init(sp, drip, 0.9);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
 
         for (int i : range) {
 

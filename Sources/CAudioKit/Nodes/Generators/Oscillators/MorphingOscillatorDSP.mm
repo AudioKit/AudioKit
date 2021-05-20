@@ -62,7 +62,7 @@ public:
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
 
         for (int i : range) {
 

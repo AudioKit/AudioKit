@@ -568,7 +568,7 @@ public:
         return 1;
     }
 
-    void process2(FrameRange range) override {
+    void process(FrameRange range) override {
         const float *inBuffers[2];
         float *outBuffers[2];
         inBuffers[0]  = (const float *)inputBufferLists[0]->mBuffers[0].mData  + range.start;
