@@ -61,28 +61,28 @@ public:
 
 #define CHUNKSIZE 8     // defines ramp interval
 
-    void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+    void process2(FrameRange range) override {
         const float *inBuffers[2];
         float *outBuffers[2];
-        inBuffers[0]  = (const float *)inputBufferLists[0]->mBuffers[0].mData  + bufferOffset;
-        inBuffers[1]  = (const float *)inputBufferLists[0]->mBuffers[1].mData  + bufferOffset;
-        outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + bufferOffset;
-        outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + bufferOffset;
+        inBuffers[0]  = (const float *)inputBufferLists[0]->mBuffers[0].mData  + range.start;
+        inBuffers[1]  = (const float *)inputBufferLists[0]->mBuffers[1].mData  + range.start;
+        outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + range.start;
+        outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + range.start;
         //unsigned inChannelCount = inputBufferLists[0]->mNumberBuffers;
         //unsigned outChannelCount = outputBufferList->mNumberBuffers;
 
         if (!isStarted)
         {
             // effect bypassed: just copy input to output
-            memcpy(outBuffers[0], inBuffers[0], frameCount * sizeof(float));
-            memcpy(outBuffers[1], inBuffers[1], frameCount * sizeof(float));
+            memcpy(outBuffers[0], inBuffers[0], range.count * sizeof(float));
+            memcpy(outBuffers[1], inBuffers[1], range.count * sizeof(float));
             return;
         }
 
         // process in chunks of maximum length CHUNKSIZE
-        for (int frameIndex = 0; frameIndex < frameCount; frameIndex += CHUNKSIZE)
+        for (int frameIndex = 0; frameIndex < range.count; frameIndex += CHUNKSIZE)
         {
-            int chunkSize = frameCount - frameIndex;
+            int chunkSize = range.count - frameIndex;
             if (chunkSize > CHUNKSIZE) chunkSize = CHUNKSIZE;
 
             // ramp parameters
