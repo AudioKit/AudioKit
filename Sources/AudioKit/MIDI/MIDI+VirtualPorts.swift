@@ -31,7 +31,7 @@ extension MIDI {
         createVirtualOutputPorts(count: count, uniqueIDs: uniqueIDs, names: names)
     }
 
-    /// Create virtual MIDI input ports
+    /// Create virtual MIDI input ports (ports from AudioKit to the receiving destination)
     /// - Parameters:
     ///   - count: Number of ports to create
     ///   - uniqueIDs: Optional list of IDs
@@ -74,7 +74,7 @@ extension MIDI {
         }
     }
 
-    /// Create virtual MIDI output ports
+    /// Create virtual MIDI output ports (ports from the sending destination to AudioKit)
     /// - Parameters:
     ///   - count: Number of ports to create
     ///   - uniqueIDs: Optional list of IDs
@@ -138,12 +138,12 @@ extension MIDI {
     /// - Returns: Returns true if virtual inputs closed.
     ///
     @discardableResult public func destroyVirtualInputPort() -> Bool {
-        if virtualInputs != [0] {
-            for (index, virtualInput) in virtualInputs.enumerated().reversed() {
-                guard MIDIEndpointDispose(virtualInput) == noErr else {return false}
-                virtualInputs.remove(at: index)
+        if virtualOutputs != [0] {
+            for (index, virtualOutput) in virtualOutputs.enumerated().reversed() {
+                guard MIDIEndpointDispose(virtualOutput) == noErr else {return false}
+                virtualOutputs.remove(at: index)
             }
-            virtualInputs.append(0)
+            virtualOutputs.append(0)
             return true
         }
         return false
@@ -154,12 +154,12 @@ extension MIDI {
     /// - Returns: Returns true if virtual outputs closed.
     ///
     @discardableResult public func destroyVirtualOutputPort() -> Bool {
-        if virtualOutputs != [0] {
-            for (index, virtualOutput) in virtualOutputs.enumerated().reversed() {
-                guard MIDIEndpointDispose(virtualOutput) == noErr else {return false}
-                virtualOutputs.remove(at: index)
+        if virtualInputs != [0] {
+            for (index, virtualInput) in virtualInputs.enumerated().reversed() {
+                guard MIDIEndpointDispose(virtualInput) == noErr else {return false}
+                virtualInputs.remove(at: index)
             }
-            virtualOutputs.append(0)
+            virtualInputs.append(0)
             return true
         }
         return false
