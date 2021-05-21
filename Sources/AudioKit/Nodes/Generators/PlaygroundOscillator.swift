@@ -16,7 +16,7 @@ public class PlaygroundOscillator: Node {
             let value = self.waveform![index] * self.amplitude
 
             // Advance the phase for the next frame.
-            currentPhase += phaseIncrement
+            self.currentPhase += phaseIncrement
             if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
             if self.currentPhase < 0.0 { self.currentPhase += twoPi }
             // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
