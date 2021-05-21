@@ -7,7 +7,7 @@ class TableTests: XCTestCase {
 
     func testReverseSawtooth() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.reverseSawtooth))
+        let input = PlaygroundOscillator(waveform: Table(.reverseSawtooth))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class TableTests: XCTestCase {
 
     func testSawtooth() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.sawtooth))
+        let input = PlaygroundOscillator(waveform: Table(.sawtooth))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -28,7 +28,7 @@ class TableTests: XCTestCase {
     /* Can't test due to sine differences on M1 chip
     func testSine() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.sine))
+        let input = PlaygroundOscillator(waveform: Table(.sine))
         engine.output = input
         // This is just the usual tested sine wave
         input.start()
@@ -40,7 +40,7 @@ class TableTests: XCTestCase {
 
     func testTriangle() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle))
+        let input = PlaygroundOscillator(waveform: Table(.triangle))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -52,7 +52,7 @@ class TableTests: XCTestCase {
     func testHarmonicWithPartialAmplitudes() {
         let engine = AudioEngine()
         let partialAmplitudes: [Float] = [0.8, 0.2, 0.3, 0.06, 0.12, 0.0015]
-        let input = Oscillator(waveform: Table(.harmonic(partialAmplitudes)))
+        let input = PlaygroundOscillator(waveform: Table(.harmonic(partialAmplitudes)))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

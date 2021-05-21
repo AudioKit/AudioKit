@@ -7,7 +7,7 @@ class TransientShaperTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle), amplitude: 2.0)
+        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
         engine.output = TransientShaper(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -17,7 +17,7 @@ class TransientShaperTests: XCTestCase {
 
     func testInputAmount() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle), amplitude: 2.0)
+        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
         engine.output = TransientShaper(input, inputAmount: -20.0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -27,7 +27,7 @@ class TransientShaperTests: XCTestCase {
 
     func testOutputAmount() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle), amplitude: 2.0)
+        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
         engine.output = TransientShaper(input, outputAmount: -20.0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -38,7 +38,7 @@ class TransientShaperTests: XCTestCase {
     /* Produces different MD5s on local machine compared to CI
     func testAttackAmount() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle), amplitude: 2.0)
+        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
         engine.output = TransientShaper(input, attackAmount: 1.0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -49,7 +49,7 @@ class TransientShaperTests: XCTestCase {
 
     func testReleaseAmount() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle), amplitude: 2.0)
+        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
         engine.output = TransientShaper(input, releaseAmount: 1.0)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -60,7 +60,7 @@ class TransientShaperTests: XCTestCase {
     /* This produces different MD5s on local machines vs CI
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle), amplitude: 2.0)
+        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
         engine.output = TransientShaper(input,
                                         inputAmount: -1.0,
                                         attackAmount: -3.0,

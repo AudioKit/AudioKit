@@ -103,7 +103,7 @@ class GenericNodeTests: XCTestCase {
     let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
 
     func testGenerators() {
-        nodeParameterTest(md5: "ecdc68d433f767140b7f5f61b343ac21", factory: { Oscillator(waveform: Table(.triangle)) })
+        nodeParameterTest(md5: "789c1e77803a4f9d10063eb60ca03cea", factory: { PlaygroundOscillator(waveform: Table(.triangle)) })
     }
 
     func testEffects() {
@@ -189,11 +189,11 @@ class GenericNodeTests: XCTestCase {
     }
     
     func testFilters() {
-        let input = Oscillator(waveform: Table(.triangle))
+        let input = PlaygroundOscillator(waveform: Table(.triangle))
         input.start()
-        nodeParameterTest(md5: "4120a8fefb4efe8f455bc8c001ab1538", factory: { HighPassFilter(input) })
-        nodeParameterTest(md5: "5aaeb38a15503c162334f0ec1bfacfcd", factory: { HighShelfFilter(input) })
-        nodeParameterTest(md5: "aeec895e45341249b7fc23ea688dfba8", factory: { LowPassFilter(input) })
-        nodeParameterTest(md5: "2f81a7a8c9325863b4afa312ca066ed8", factory: { LowShelfFilter(input) })
+        nodeParameterTest(md5: "b89da0c23bc2df9fdf1498b88d52ff64", factory: { HighPassFilter(input) })
+        nodeParameterTest(md5: "853a7530822f758afbebadc89662fe04", factory: { HighShelfFilter(input) })
+        nodeParameterTest(md5: "fff0015714f3ca29faa8e1175af8d214", factory: { LowPassFilter(input) })
+        nodeParameterTest(md5: "cf553dae0614ee01243e590b00c6ccb6", factory: { LowShelfFilter(input) })
     }
 }
