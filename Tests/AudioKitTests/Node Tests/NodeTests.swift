@@ -238,12 +238,12 @@ class NodeTests: XCTestCase {
     func testManyMixerConnections() {
         let engine = AudioEngine()
 
-        var oscs: [Oscillator] = []
+        var players: [AudioPlayer] = []
         for _ in 0 ..< 16 {
-            oscs.append(Oscillator())
+            players.append(AudioPlayer())
         }
 
-        let mixer = Mixer(oscs)
+        let mixer = Mixer(players)
         engine.output = mixer
 
         XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
