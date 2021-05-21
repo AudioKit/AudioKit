@@ -150,13 +150,69 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "7ce66baf0b5a272dc83db83f443bd1d8", factory: { TanhDistortion(input) })
         nodeParameterTest(md5: "17b152691ddaca9a74a5ab086db0e546", factory: { VariableDelay(input) })
         nodeParameterTest(md5: "b65a3c67da751b0f1bc6b6d604af1908", factory: { ZitaReverb(input) }, m1MD5: "78f088f0a48ab37c3d5fcfca9c9a8365")
+
+    }
+
+    func nodeParameterTest2(md5: String, factory: (Node)->Node, m1MD5: String = "", audition: Bool = false) {
+
+        let bundle = Bundle.module
+        let url = bundle.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        let node = factory(player)
+
+        let duration = node.parameters.count + 1
+
+        let engine = AudioEngine()
+        var bigBuffer: AVAudioPCMBuffer? = nil
+
+        engine.output = node
+
+        /// Do the default parameters first
+        if bigBuffer == nil {
+            let audio = engine.startTest(totalDuration: 1.0)
+            player.play()
+            player.isLooping = true
+            audio.append(engine.render(duration: 1.0))
+            bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength * UInt32(duration))
+
+            bigBuffer?.append(audio)
+        }
+
+        for i in 0 ..< node.parameters.count {
+
+            let node = factory(player)
+            engine.output = node
+
+            let param = node.parameters[i]
+
+            node.start()
+
+            param.value = param.def.range.lowerBound
+            param.ramp(to: param.def.range.upperBound, duration: 1)
+
+            let audio = engine.startTest(totalDuration: 1.0)
+            audio.append(engine.render(duration: 1.0))
+
+            bigBuffer?.append(audio)
+
+        }
+
+        XCTAssertFalse(bigBuffer!.isSilent)
+
+        if audition {
+            bigBuffer!.audition()
+        }
+        XCTAssertTrue([md5, m1MD5].contains(bigBuffer!.md5), "\(node) produced \(bigBuffer!.md5)")
+    }
+
+    func test2() {
         
         #if os(iOS)
-        nodeParameterTest(md5: "8adbdf9c9a3329aa8677852e4e53273d", factory: { Reverb(input) })
+        nodeParameterTest2(md5: "28d2cb7a5c1e369ca66efa8931d31d4d", factory: { player in Reverb(player) })
         #endif
         
         #if os(macOS)
-        nodeParameterTest(md5: "99fedd785937d8e1d0e201e15124b19c", factory: { Reverb(input) })
+        nodeParameterTest2(md5: "bff0b5fa57e589f5192b17194d9a43cb", factory: { player in Reverb(player) })
         #endif
         
     }
