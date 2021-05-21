@@ -104,7 +104,7 @@ open class BaseTap {
     open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {}
 
     /// Remove the tap on the input
-    public func stop() {
+    open func stop() {
         lock()
         removeTap()
         isStarted = false
