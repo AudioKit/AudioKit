@@ -161,24 +161,4 @@ class AutomationCurveTests: XCTestCase {
         XCTAssertEqual(events[2].rampDuration, 0.0)
 
     }
-    
-        func testCombingSettingParameterWithRamping() {
-            let engine = AudioEngine()
-            let osc = Oscillator()
-            osc.amplitude = 0.1
-            engine.output = osc
-            
-            osc.frequency = 440.0
-            osc.start()
-        
-            let audio = engine.startTest(totalDuration: 2.0)
-            osc.$frequency.ramp(to: 880.0, duration: 1.0)
-            audio.append(engine.render(duration: 1.0))
-            osc.frequency = 440
-            // osc.$frequency.ramp(to: 440.0, duration: 0.0)
-            osc.$frequency.ramp(to: 660.0, duration: 1.0)
-            audio.append(engine.render(duration: 1.0))
-            // audio.audition()
-            // testMD5(audio)
-        }
 }

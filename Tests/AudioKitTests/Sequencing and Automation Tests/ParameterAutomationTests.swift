@@ -103,7 +103,8 @@ class ParameterAutomationTests: XCTestCase {
 
         let engine = AudioEngine()
 
-        let osc = Oscillator(waveform: Table(.square), frequency: 400, amplitude: 0.0)
+        let osc = PlaygroundOscillator(waveform: Table(.square), amplitude: 0.0)
+        let delay = Delay(osc, feedback: 0.1)
         engine.output = osc
 
         try! engine.start()
@@ -111,25 +112,25 @@ class ParameterAutomationTests: XCTestCase {
 
         var values:[AUValue] = []
 
-        osc.$frequency.recordAutomation { (event) in
+        delay.$feedback.recordAutomation { (event) in
             values.append(event.value)
         }
 
         RunLoop.main.run(until: Date().addingTimeInterval(1.0))
 
-        osc.frequency = 800
+        delay.feedback = 0.7
 
         RunLoop.main.run(until: Date().addingTimeInterval(1.0))
 
-        XCTAssertEqual(values, [800])
+        XCTAssertEqual(values, [0.7])
 
-        osc.$frequency.stopRecording()
+        delay.$feedback.stopRecording()
 
-        osc.frequency = 500
+        delay.feedback = 0.0
 
         RunLoop.main.run(until: Date().addingTimeInterval(1.0))
 
-        XCTAssertEqual(values, [800])
+        XCTAssertEqual(values, [0.7])
     }
 
     func testDelayedAutomation() {
