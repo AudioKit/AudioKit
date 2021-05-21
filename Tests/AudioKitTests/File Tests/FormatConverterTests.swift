@@ -96,7 +96,7 @@ class FormatConverterTests: AudioFileTestCase {
                                                     attributes: nil)
         }
 
-        guard let inputFile = generateTestFile() else {
+        guard let inputFile = Bundle.module.url(forResource: "chromaticScale-2", withExtension: "aiff", subdirectory: "TestResources") else {
             let error = createError(message: "Failed to generate file")
             completionHandler(error)
             return

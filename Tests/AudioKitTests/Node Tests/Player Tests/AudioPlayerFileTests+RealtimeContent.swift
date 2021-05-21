@@ -87,7 +87,7 @@ extension AudioPlayerFileTests {
     }
 
     func realtimeTestPause() {
-        guard let player = createPlayer(duration: 6) else {
+        guard let player = createPlayer(duration: 5) else {
             XCTFail("Failed to create AudioPlayer")
             return
         }
@@ -145,7 +145,6 @@ extension AudioPlayerFileTests {
 
     func realtimeLoop(buffered: Bool, duration: TimeInterval) {
         guard let player = createPlayer(duration: duration,
-                                        frequencies: [220, 440, 444, 440],
                                         buffered: buffered) else {
             XCTFail("Failed to create AudioPlayer")
             return
@@ -172,7 +171,7 @@ extension AudioPlayerFileTests {
     }
 
     func realtimeInterrupts() {
-        guard let player = createPlayer(duration: 4, buffered: false) else {
+        guard let player = createPlayer(duration: 5, buffered: false) else {
             XCTFail("Failed to create AudioPlayer")
             return
         }
@@ -184,8 +183,7 @@ extension AudioPlayerFileTests {
         player.play()
         wait(for: 2)
 
-        guard let url2 = generateTestFile(ofDuration: 2,
-                                          frequencies: [220, 440]) else {
+        guard let url2 = Bundle.module.url(forResource: "twoNotes-2", withExtension: "aiff", subdirectory: "TestResources") else {
             XCTFail("Failed to create file")
             return
         }
@@ -202,8 +200,7 @@ extension AudioPlayerFileTests {
 
         wait(for: 1.5)
 
-        guard let url3 = generateTestFile(ofDuration: 3,
-                                          frequencies: [880, 220]) else {
+        guard let url3 = Bundle.module.url(forResource: "twoNotes-3", withExtension: "aiff", subdirectory: "TestResources")  else {
             XCTFail("Failed to create file")
             return
         }
@@ -221,8 +218,7 @@ extension AudioPlayerFileTests {
         wait(for: 2)
 
         // load a buffer
-        guard let url4 = generateTestFile(ofDuration: 3,
-                                          frequencies: chromaticScale),
+        guard let url4 = Bundle.module.url(forResource: "chromaticScale-2", withExtension: "aiff", subdirectory: "TestResources"),
             let buffer = try? AVAudioPCMBuffer(url: url4) else {
             XCTFail("Failed to create file or buffer")
             return
@@ -235,8 +231,7 @@ extension AudioPlayerFileTests {
         wait(for: 1.5)
 
         // load a file after a buffer
-        guard let url5 = generateTestFile(ofDuration: 1,
-                                          frequencies: chromaticScale.reversed()),
+        guard let url5 = Bundle.module.url(forResource: "chromaticScale-1", withExtension: "aiff", subdirectory: "TestResources"),
             let file = try? AVAudioFile(forReading: url5) else {
             XCTFail("Failed to create file or buffer")
             return

@@ -7,11 +7,8 @@ class AudioPlayerFileTests: AudioFileTestCase {
     var realtimeEnabled = false
 
     func createPlayer(duration: TimeInterval,
-                      frequencies: [AUValue]? = nil,
                       buffered: Bool = false) -> AudioPlayer? {
-        let frequencies = frequencies ?? chromaticScale
-        guard let url = generateTestFile(ofDuration: duration,
-                                         frequencies: frequencies) else {
+        guard let url = Bundle.module.url(forResource: "chromaticScale-\(Int(duration))", withExtension: "aiff", subdirectory: "TestResources") else {
             Log("Failed to open file")
             return nil
         }
@@ -29,12 +26,8 @@ class AudioPlayerFileTests: AudioFileTestCase {
 
 extension AudioPlayerFileTests {
     func testLoadOptions() {
-        guard let url = generateTestFile(ofDuration: 5,
-                                         frequencies: chromaticScale) else {
-            XCTFail("Failed to create file")
-            return
-        }
         let engine = AudioEngine()
+        let url = Bundle.module.url(forResource: "chromaticScale-5", withExtension: "aiff", subdirectory: "TestResources")!
         let player = AudioPlayer()
         engine.output = player
 
@@ -65,10 +58,8 @@ extension AudioPlayerFileTests {
     }
 
     func testPlayerIsAttached() {
-        guard let player = createPlayer(duration: 1) else {
-            XCTFail("Failed to create AudioPlayer")
-            return
-        }
+        let url = Bundle.module.url(forResource: "chromaticScale-1", withExtension: "aiff", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
         player.play()
         XCTAssertFalse(player.isPlaying, "isPlaying should be false")
 
@@ -86,8 +77,7 @@ extension AudioPlayerFileTests {
         engine.output = player
         try? engine.start()
         // load a buffer
-        guard let url = generateTestFile(ofDuration: 1,
-                                         frequencies: [220, 440]),
+        guard let url = Bundle.module.url(forResource: "twoNotes-1", withExtension: "aiff", subdirectory: "TestResources"),
             let file = try? AVAudioFile(forReading: url),
             let buffer = try? AVAudioPCMBuffer(url: url) else {
             XCTFail("Failed to create file or buffer")
@@ -101,8 +91,7 @@ extension AudioPlayerFileTests {
     }
 
     func testAVDynamicConnection() {
-        guard let url = generateTestFile(ofDuration: 2,
-                                         frequencies: [220, 440]),
+        guard let url = Bundle.module.url(forResource: "twoNotes-2", withExtension: "aiff", subdirectory: "TestResources"),
             let buffer = try? AVAudioPCMBuffer(url: url) else {
             XCTFail("Failed to create buffer")
             return
