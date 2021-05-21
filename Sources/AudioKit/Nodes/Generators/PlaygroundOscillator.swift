@@ -3,6 +3,7 @@
 import AVFoundation
 
 let twoPi = 2 * Float.pi
+
 /// Pure Swift oscillator
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
 public class PlaygroundOscillator: Node {
@@ -38,10 +39,17 @@ public class PlaygroundOscillator: Node {
     
     fileprivate var waveform: Table?
     
+    /// Pitch in Hz
     public var frequency: Float = 440
     
+    /// Volume usually 0-1
     public var amplitude: AUValue = 1
     
+    /// Initialize the pure Swift oscillator, suitable for Playgrounds
+    /// - Parameters:
+    ///   - waveform: Shape of the oscillator waveform
+    ///   - frequency: Pitch in Hz
+    ///   - amplitude: Volume, usually 0-1
     public init(waveform: Table = Table(.sine), frequency: AUValue = 440, amplitude: AUValue = 1) {
         self.waveform = waveform
         self.frequency = frequency
