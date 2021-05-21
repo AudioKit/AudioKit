@@ -21,7 +21,7 @@ extension AVAudioPCMBuffer {
             }
         }
 
-        if #available(macOS 10.15, *) {
+        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
             let digest = Insecure.MD5.hash(data: sampleData)
             return digest.map { String(format: "%02hhx", $0) }.joined()
         } else {
