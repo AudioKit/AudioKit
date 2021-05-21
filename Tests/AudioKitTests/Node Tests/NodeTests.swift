@@ -18,18 +18,18 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    /*
     func testNodeConnection() {
         let engine = AudioEngine()
         let osc = Oscillator(waveform: Table(.triangle))
         osc.start()
-        let verb = CostelloReverb(osc)
+        let verb = Reverb(osc)
         engine.output = verb
         let audio = engine.startTest(totalDuration: 0.1)
         audio.append(engine.render(duration: 0.1))
+        XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
-*/
+
     func testRedundantConnection() {
         let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer()
@@ -88,7 +88,6 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    /*
     func testDynamicConnection2() {
         let engine = AudioEngine()
 
@@ -103,15 +102,15 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880)
-        let verb = CostelloReverb(osc2)
+        let verb = Reverb(osc2)
         osc2.start()
         mixer.addInput(verb)
 
         audio.append(engine.render(duration: 1.0))
-
+        XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
-*/
+
     func testDynamicConnection3() {
         let engine = AudioEngine()
 
@@ -220,7 +219,6 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    /*
     func testTwoEngines() {
         let engine = AudioEngine()
         let engine2 = AudioEngine()
@@ -229,14 +227,14 @@ class NodeTests: XCTestCase {
         engine2.output = osc
         osc.start()
 
-        let verb = CostelloReverb(osc)
+        let verb = Reverb(osc)
         engine.output = verb
 
         let audio = engine.startTest(totalDuration: 0.1)
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
     }
-*/
+
     func testManyMixerConnections() {
         let engine = AudioEngine()
 
@@ -263,18 +261,16 @@ class NodeTests: XCTestCase {
         return count
     }
 
-    /*
     func testFanout() {
         let engine = AudioEngine()
         let osc = Oscillator(waveform: Table(.triangle))
-        let verb = CostelloReverb(osc)
+        let verb = Reverb(osc)
         let mixer = Mixer(osc, verb)
         engine.output = mixer
 
         XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
         XCTAssertEqual(connectionCount(node: mixer.avAudioNode), 2)
     }
-*/
 
     func testMixerRedundantUpstreamConnection() {
         let engine = AudioEngine()
@@ -336,13 +332,12 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    /*
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
         let engine = AudioEngine()
         let osc = Oscillator(waveform: Table(.triangle))
-        let rev = CostelloReverb(osc)
+        let rev = Reverb(osc)
 
         XCTAssertNotNil(osc.avAudioNode as? AVAudioUnit)
         XCTAssertNil(osc.avAudioNode.engine)
@@ -366,7 +361,7 @@ class NodeTests: XCTestCase {
         let engine = AudioEngine()
         let osc = Oscillator(waveform: Table(.triangle))
         let mix1 = Mixer(osc)
-        let rev = CostelloReverb(mix1)
+        let rev = Reverb(mix1)
         let mix2 = Mixer(rev)
 
         XCTAssertNotNil(osc.avAudioNode as? AVAudioUnit)
@@ -385,16 +380,15 @@ class NodeTests: XCTestCase {
             audio.append(buf)
         }
     }
-     */
+
     func testConnectionTreeDescriptionForStandaloneNode() {
         let osc = Oscillator(waveform: Table(.triangle))
         XCTAssertEqual(osc.connectionTreeDescription, "\(connectionTreeLinePrefix)↳Oscillator")
     }
 
-    /*
     func testConnectionTreeDescriptionForConnectedNode() {
         let osc = Oscillator(waveform: Table(.triangle))
-        let verb = CostelloReverb(osc)
+        let verb = Reverb(osc)
         let mixer = Mixer(osc, verb)
         let mixerAddress = MemoryAddress(of: mixer).description
 
@@ -402,11 +396,10 @@ class NodeTests: XCTestCase {
         """
         \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(connectionTreeLinePrefix) ↳Oscillator
-        \(connectionTreeLinePrefix) ↳CostelloReverb
+        \(connectionTreeLinePrefix) ↳Reverb
         \(connectionTreeLinePrefix)  ↳Oscillator
         """)
     }
-*/
     
     #if !os(tvOS)
     func testConnectionTreeDescriptionForNamedNode() {
