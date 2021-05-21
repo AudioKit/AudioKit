@@ -68,7 +68,7 @@ namespace AudioKitCore
             float readIndex = phase * (nTableSize - 1);
             int ri = int(readIndex);
             float f = readIndex - ri;
-            int rj = ri + 1; if (rj >= nTableSize) rj = nTableSize - 1;
+            int rj = ri + 1; if (rj >= nTableSize) rj = (int)nTableSize - 1;
             
             float si = waveTable[ri];
             float sj = waveTable[rj];
