@@ -7,7 +7,8 @@ class ExpanderTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle))
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let input = AudioPlayer(url: url)!
         engine.output = Expander(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)

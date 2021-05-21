@@ -5,6 +5,7 @@ import XCTest
 
 class TableTests: XCTestCase {
 
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testReverseSawtooth() {
         let engine = AudioEngine()
         let input = PlaygroundOscillator(waveform: Table(.reverseSawtooth))
@@ -15,6 +16,7 @@ class TableTests: XCTestCase {
         testMD5(audio)
     }
 
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testSawtooth() {
         let engine = AudioEngine()
         let input = PlaygroundOscillator(waveform: Table(.sawtooth))
@@ -38,6 +40,7 @@ class TableTests: XCTestCase {
     }
  */
 
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testTriangle() {
         let engine = AudioEngine()
         let input = PlaygroundOscillator(waveform: Table(.triangle))

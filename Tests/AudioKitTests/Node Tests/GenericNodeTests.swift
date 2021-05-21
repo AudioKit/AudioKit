@@ -109,6 +109,7 @@ class GenericNodeTests: XCTestCase {
 
     let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
 
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testGenerators() {
         nodeParameterTest (md5: "0118dbf3e33bc3052f2e375f06793c5f", factory: { _ in PlaygroundOscillator(waveform: Table(.square)) })
         nodeParameterTest (md5: "789c1e77803a4f9d10063eb60ca03cea", factory: { _ in PlaygroundOscillator(waveform: Table(.triangle)) })

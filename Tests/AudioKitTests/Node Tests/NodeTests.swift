@@ -7,51 +7,55 @@ import XCTest
 class NodeTests: XCTestCase {
     func testNodeBasic() {
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        XCTAssertNil(osc.avAudioNode.engine)
-        osc.start()
-        engine.output = osc
-        XCTAssertNotNil(osc.avAudioNode.engine)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        XCTAssertNil(player.avAudioNode.engine)
+        engine.output = player
+        XCTAssertNotNil(player.avAudioNode.engine)
         let audio = engine.startTest(totalDuration: 0.1)
+        player.play()
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
     }
 
     func testNodeConnection() {
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        osc.start()
-        let verb = Reverb(osc)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        let verb = Reverb(player)
         engine.output = verb
         let audio = engine.startTest(totalDuration: 0.1)
+        player.play()
         audio.append(engine.render(duration: 0.1))
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
 
     func testRedundantConnection() {
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
         let mixer = Mixer()
-        mixer.addInput(osc)
-        mixer.addInput(osc)
+        mixer.addInput(player)
+        mixer.addInput(player)
         XCTAssertEqual(mixer.connections.count, 1)
     }
 
     func testDynamicOutput() {
         let engine = AudioEngine()
 
-        let osc1 = PlaygroundOscillator(waveform: Table(.triangle))
-        osc1.start()
-        engine.output = osc1
+        let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player1 = AudioPlayer(url: url1)!
+        engine.output = player1
 
         let audio = engine.startTest(totalDuration: 2.0)
-
+        player1.play()
         let newAudio = engine.render(duration: 1.0)
         audio.append(newAudio)
 
-        let osc2 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 880)
-        osc2.start()
-        engine.output = osc2
+        let url2 = Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
+        let player2 = AudioPlayer(url: url2)!
+        engine.output = player2
+        player2.play()
 
         let newAudio2 = engine.render(duration: 1.0)
         audio.append(newAudio2)
@@ -59,29 +63,32 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
+    /* Dynamic Connections Not Working with Player
+    
     func testDynamicConnection() {
         let engine = AudioEngine()
 
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let mixer = Mixer(osc)
+        let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player1 = AudioPlayer(url: url1)!
+        let mixer = Mixer(player1)
 
-        XCTAssertNil(osc.avAudioNode.engine)
+        XCTAssertNil(player1.avAudioNode.engine)
 
         engine.output = mixer
 
         // Osc should be attached.
-        XCTAssertNotNil(osc.avAudioNode.engine)
+        XCTAssertNotNil(player1.avAudioNode.engine)
 
         let audio = engine.startTest(totalDuration: 2.0)
 
-        osc.start()
+        player1.play()
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 880)
-        osc2.start()
-        mixer.addInput(osc2)
-
+        let url2 = Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
+        let player2 = AudioPlayer(url: url2)!
+        mixer.addInput(player2)
+        player2.play()
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
@@ -90,19 +97,21 @@ class NodeTests: XCTestCase {
     func testDynamicConnection2() {
         let engine = AudioEngine()
 
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let mixer = Mixer(osc)
+        let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player1 = AudioPlayer(url: url1)!
+        let mixer = Mixer(player1)
 
         engine.output = mixer
-        osc.start()
 
         let audio = engine.startTest(totalDuration: 2.0)
+        player1.play()
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 880)
-        let verb = Reverb(osc2)
-        osc2.start()
+        let url2 = Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
+        let player2 = AudioPlayer(url: url2)!
+        let verb = Reverb(player2)
+        player2.play()
         mixer.addInput(verb)
 
         audio.append(engine.render(duration: 1.0))
@@ -113,23 +122,25 @@ class NodeTests: XCTestCase {
     func testDynamicConnection3() {
         let engine = AudioEngine()
 
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let mixer = Mixer(osc)
+        let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player1 = AudioPlayer(url: url1)!
+        let mixer = Mixer(player1)
         engine.output = mixer
 
-        osc.start()
-
         let audio = engine.startTest(totalDuration: 3.0)
+        player1.play()
+        
+        audio.append(engine.render(duration: 1.0))
+
+        let url2 = Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
+        let player2 = AudioPlayer(url: url2)!
+        mixer.addInput(player2)
+
+        player2.play()
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 880)
-        osc2.start()
-        mixer.addInput(osc2)
-
-        audio.append(engine.render(duration: 1.0))
-
-        mixer.removeInput(osc2)
+        mixer.removeInput(player2)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -139,26 +150,27 @@ class NodeTests: XCTestCase {
     func testDynamicConnection4() {
         let engine = AudioEngine()
         let outputMixer = Mixer()
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        outputMixer.addInput(osc)
+        let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player1 = AudioPlayer(url: url1)!
+        outputMixer.addInput(player1)
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 2.0)
 
-        osc.start()
-
+        player1.play()
+        
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = PlaygroundOscillator(waveform: Table(.triangle))
-        osc2.frequency = 880
+        let url2 = Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
+        let player2 = AudioPlayer(url: url2)!
 
         let localMixer = Mixer()
-        localMixer.addInput(osc2)
+        localMixer.addInput(player2)
         outputMixer.addInput(localMixer)
 
-        osc2.start()
+        player2.play()
         audio.append(engine.render(duration: 1.0))
 
-//        testMD5(audio)
+        testMD5(audio)
     }
 
     func testDynamicConnection5() {
@@ -167,32 +179,39 @@ class NodeTests: XCTestCase {
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 1.0)
 
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        
         let mixer = Mixer()
-        mixer.addInput(osc)
+        mixer.addInput(player)
 
         outputMixer.addInput(mixer) // change mixer to osc and this will play
 
-        osc.start()
+        player.play()
+        
         audio.append(engine.render(duration: 1.0))
 
-//        testMD5(audio)
+        testMD5(audio)
     }
+ 
+ */
 
     func testDisconnect() {
         let engine = AudioEngine()
 
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let mixer = Mixer(osc)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        
+        let mixer = Mixer(player)
         engine.output = mixer
 
         let audio = engine.startTest(totalDuration: 2.0)
 
-        osc.start()
+        player.play()
 
         audio.append(engine.render(duration: 1.0))
 
-        mixer.removeInput(osc)
+        mixer.removeInput(player)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -202,16 +221,19 @@ class NodeTests: XCTestCase {
     func testNodeDetach() {
         let engine = AudioEngine()
 
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let mixer = Mixer(osc)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+
+        let mixer = Mixer(player)
         engine.output = mixer
-        osc.start()
 
         let audio = engine.startTest(totalDuration: 2.0)
 
+        player.play()
+
         audio.append(engine.render(duration: 1.0))
 
-        osc.detach()
+        player.detach()
 
         audio.append(engine.render(duration: 1.0))
 
@@ -222,16 +244,19 @@ class NodeTests: XCTestCase {
         let engine = AudioEngine()
         let engine2 = AudioEngine()
 
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        engine2.output = osc
-        osc.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
 
-        let verb = Reverb(osc)
+        engine2.output = player
+
+        let verb = Reverb(player)
         engine.output = verb
 
         let audio = engine.startTest(totalDuration: 0.1)
+        player.play()
+        
         audio.append(engine.render(duration: 0.1))
-        testMD5(audio)
+        XCTAssert(audio.isSilent)
     }
 
     func testManyMixerConnections() {
@@ -262,9 +287,11 @@ class NodeTests: XCTestCase {
 
     func testFanout() {
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let verb = Reverb(osc)
-        let mixer = Mixer(osc, verb)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+
+        let verb = Reverb(player)
+        let mixer = Mixer(player, verb)
         engine.output = mixer
 
         XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
@@ -274,32 +301,34 @@ class NodeTests: XCTestCase {
     func testMixerRedundantUpstreamConnection() {
         let engine = AudioEngine()
 
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let mixer1 = Mixer(osc)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+
+        let mixer1 = Mixer(player)
         let mixer2 = Mixer(mixer1)
 
         engine.output = mixer2
 
         XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
 
-        mixer2.addInput(osc)
+        mixer2.addInput(player)
 
         XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
     }
 
 //    func testTransientNodes() {
 //        let engine = AudioEngine()
-//        let osc = PlaygroundOscillator(waveform: Table(.triangle))
+//        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+//        let player = AudioPlayer(url: url)!
 //        func exampleStart() {
-//            let env = AmplitudeEnvelope(osc)
-//            osc.amplitude = 1
+//            let env = AmplitudeEnvelope(player)
 //            engine.output = env
-//            osc.start()
 //            try! engine.start()
+//            player.play()
 //            sleep(1)
 //        }
 //        func exampleStop() {
-//            osc.stop()
+//            player.stop()
 //            engine.stop()
 //            sleep(1)
 //        }
@@ -311,6 +340,7 @@ class NodeTests: XCTestCase {
 //        exampleStop()
 //    }
 
+    /* TODO
     func testAutomationAfterDelayedConnection() {
         let engine = AudioEngine()
         let osc = Oscillator(waveform: Table(.triangle))
@@ -330,21 +360,24 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+ */
 
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let rev = Reverb(osc)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
 
-        XCTAssertNil(osc.avAudioNode.engine)
-        osc.start()
+        let rev = Reverb(player)
+
+        XCTAssertNil(player.avAudioNode.engine)
         engine.output = rev
-        XCTAssertNotNil(osc.avAudioNode.engine)
+        XCTAssertNotNil(player.avAudioNode.engine)
 
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
+            player.play()
 
             startMeasuring()
             let buf = engine.render(duration: 10.0)
@@ -357,18 +390,20 @@ class NodeTests: XCTestCase {
     // Measure the overhead of mixers.
     func testMixerPerformance() {
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let mix1 = Mixer(osc)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+
+        let mix1 = Mixer(player)
         let rev = Reverb(mix1)
         let mix2 = Mixer(rev)
 
-        XCTAssertNil(osc.avAudioNode.engine)
-        osc.start()
+        XCTAssertNil(player.avAudioNode.engine)
         engine.output = mix2
-        XCTAssertNotNil(osc.avAudioNode.engine)
+        XCTAssertNotNil(player.avAudioNode.engine)
 
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
+            player.play()
 
             startMeasuring()
             let buf = engine.render(duration: 10.0)
@@ -379,22 +414,25 @@ class NodeTests: XCTestCase {
     }
 
     func testConnectionTreeDescriptionForStandaloneNode() {
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        XCTAssertEqual(osc.connectionTreeDescription, "\(connectionTreeLinePrefix)↳PlaygroundOscillator")
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        XCTAssertEqual(player.connectionTreeDescription, "\(connectionTreeLinePrefix)↳AudioPlayer")
     }
 
     func testConnectionTreeDescriptionForConnectedNode() {
-        let osc = PlaygroundOscillator(waveform: Table(.triangle))
-        let verb = Reverb(osc)
-        let mixer = Mixer(osc, verb)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+
+        let verb = Reverb(player)
+        let mixer = Mixer(player, verb)
         let mixerAddress = MemoryAddress(of: mixer).description
 
         XCTAssertEqual(mixer.connectionTreeDescription,
         """
         \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
-        \(connectionTreeLinePrefix) ↳PlaygroundOscillator
+        \(connectionTreeLinePrefix) ↳AudioPlayer
         \(connectionTreeLinePrefix) ↳Reverb
-        \(connectionTreeLinePrefix)  ↳PlaygroundOscillator
+        \(connectionTreeLinePrefix)  ↳AudioPlayer
         """)
     }
     

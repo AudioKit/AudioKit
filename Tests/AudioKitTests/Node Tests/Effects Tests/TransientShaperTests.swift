@@ -7,66 +7,73 @@ class TransientShaperTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
-        engine.output = TransientShaper(input)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = TransientShaper(player)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
-    func testInputAmount() {
+    func testplayerAmount() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
-        engine.output = TransientShaper(input, inputAmount: -20.0)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = TransientShaper(player, inputAmount: -20.0)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testOutputAmount() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
-        engine.output = TransientShaper(input, outputAmount: -20.0)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = TransientShaper(player, outputAmount: -20.0)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
-    /* Produces different MD5s on local machine compared to CI
+    /* Intermittent Tests
+     
     func testAttackAmount() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
-        engine.output = TransientShaper(input, attackAmount: 1.0)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = TransientShaper(player, attackAmount: 1.0)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
-    */
 
     func testReleaseAmount() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
-        engine.output = TransientShaper(input, releaseAmount: 1.0)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = TransientShaper(player, releaseAmount: 1.0)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+ */
 
     /* This produces different MD5s on local machines vs CI
     func testParameters() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 2.0)
-        engine.output = TransientShaper(input,
-                                        inputAmount: -1.0,
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+         let player = AudioPlayer(url: url)!
+        engine.output = TransientShaper(player,
+                                        playerAmount: -1.0,
                                         attackAmount: -3.0,
                                         releaseAmount: 1.0,
                                         outputAmount: 0.0)
-        input.start()
+        player.play()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)

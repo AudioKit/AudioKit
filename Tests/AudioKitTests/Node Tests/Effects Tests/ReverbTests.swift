@@ -9,7 +9,8 @@ class ReverbTests: XCTestCase {
 
     func testCathedral() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle))
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let input = AudioPlayer(url: url)!
         let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.cathedral)
@@ -21,7 +22,8 @@ class ReverbTests: XCTestCase {
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle))
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let input = AudioPlayer(url: url)!
         engine.output = Reverb(input)
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -31,7 +33,8 @@ class ReverbTests: XCTestCase {
 
     func testSmallRoom() {
         let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle))
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let input = AudioPlayer(url: url)!
         let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.smallRoom)

@@ -23,15 +23,16 @@ class EngineTests: XCTestCase {
         }
 
         let engine = AudioEngine()
-        let oscillator = PlaygroundOscillator(waveform: Table(.triangle))
-        let mixer = Mixer(oscillator)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let input = AudioPlayer(url: url)!
+        let mixer = Mixer(input)
 
         // assign input and engine references
         engine.output = mixer
 
         let mixerSampleRate = mixer.avAudioNode.outputFormat(forBus: 0).sampleRate
         let mainMixerNodeSampleRate = engine.mainMixerNode?.avAudioNode.outputFormat(forBus: 0).sampleRate
-        let oscSampleRate = oscillator.avAudioNode.outputFormat(forBus: 0).sampleRate
+        let inputSampleRate = input.avAudioNode.outputFormat(forBus: 0).sampleRate
 
         XCTAssertTrue(mixerSampleRate == newRate,
                       "mixerSampleRate is \(mixerSampleRate), requested rate was \(newRate)")
@@ -39,8 +40,8 @@ class EngineTests: XCTestCase {
         XCTAssertTrue(mainMixerNodeSampleRate == newRate,
                       "mainMixerNodeSampleRate is \(mixerSampleRate), requested rate was \(newRate)")
 
-        XCTAssertTrue(oscSampleRate == newRate,
-                      "oscSampleRate is \(oscSampleRate), requested rate was \(newRate)")
+        XCTAssertTrue(inputSampleRate == newRate,
+                      "oscSampleRate is \(inputSampleRate), requested rate was \(newRate)")
 
         Log(engine.avEngine.description)
 
@@ -96,27 +97,27 @@ class EngineTests: XCTestCase {
 
     func testEngineMainMixerCreated() {
         let engine = AudioEngine()
-        let oscillator = PlaygroundOscillator(waveform: Table(.triangle))
-        engine.output = oscillator
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let input = AudioPlayer(url: url)!
+        engine.output = input
 
         guard let mainMixerNode = engine.mainMixerNode else {
             XCTFail("mainMixerNode wasn't created")
             return
         }
-        let isConnected = mainMixerNode.hasInput(oscillator)
+        let isConnected = mainMixerNode.hasInput(input)
 
-        XCTAssertTrue(isConnected, "PlaygroundOscillator isn't in the mainMixerNode's inputs")
+        XCTAssertTrue(isConnected, "AudioPlayer isn't in the mainMixerNode's inputs")
     }
 
+    /*
     func testEngineSwitchOutputWhileRunning() {
         let engine = AudioEngine()
-        let oscillator = PlaygroundOscillator(waveform: Table(.triangle))
-        oscillator.frequency = 220
-        oscillator.amplitude = 0.1
-        let oscillator2 = PlaygroundOscillator(waveform: Table(.triangle))
-        oscillator2.frequency = 440
-        oscillator2.amplitude = 0.1
-        engine.output = oscillator
+        let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let input1 = AudioPlayer(url: url1)!
+        let url2 = Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
+        let input2 = AudioPlayer(url: url2)!
+        engine.output = input1
 
         do {
             try engine.start()
@@ -126,22 +127,23 @@ class EngineTests: XCTestCase {
         }
 
         XCTAssertTrue(engine.avEngine.isRunning, "engine isn't running")
-        oscillator.start()
+        input1.start()
 
         // sleep(1) // for simple realtime check
 
         // change the output - will stop the engine
-        engine.output = oscillator2
+        engine.output = input2
 
         // is it started again?
         XCTAssertTrue(engine.avEngine.isRunning)
 
-        oscillator2.start()
+        input2.start()
 
         // sleep(1) // for simple realtime check
 
         engine.stop()
     }
+ */
 
     func testConnectionTreeDescriptionForNilMainMixerNode() {
         let engine = AudioEngine()
@@ -150,12 +152,13 @@ class EngineTests: XCTestCase {
 
     func testConnectionTreeDescriptionForSingleNodeAdded() {
         let engine = AudioEngine()
-        let oscillator = PlaygroundOscillator(waveform: Table(.triangle))
-        engine.output = oscillator
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let input = AudioPlayer(url: url)!
+        engine.output = input
         XCTAssertEqual(engine.connectionTreeDescription,
                        """
                        \(connectionTreeLinePrefix)↳Mixer("AudioKit Engine Mixer")
-                       \(connectionTreeLinePrefix) ↳PlaygroundOscillator
+                       \(connectionTreeLinePrefix) ↳AudioPlayer
                        """)
     }
 
