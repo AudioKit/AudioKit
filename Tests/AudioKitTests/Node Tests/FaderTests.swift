@@ -52,6 +52,8 @@ class FaderTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+    
+    /*
 
     func testFlipStereo() {
         let engine = AudioEngine()
@@ -65,6 +67,7 @@ class FaderTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+
 
     func testFlipStereoTwice() {
         let engine = AudioEngine()
@@ -110,6 +113,7 @@ class FaderTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+*/
 
     func testParameters() {
         let engine = AudioEngine()

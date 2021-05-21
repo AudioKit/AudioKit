@@ -18,6 +18,7 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
+    /*
     func testNodeConnection() {
         let engine = AudioEngine()
         let osc = Oscillator(waveform: Table(.triangle))
@@ -28,7 +29,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
     }
-
+*/
     func testRedundantConnection() {
         let osc = Oscillator(waveform: Table(.triangle))
         let mixer = Mixer()
@@ -87,6 +88,7 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
+    /*
     func testDynamicConnection2() {
         let engine = AudioEngine()
 
@@ -109,7 +111,7 @@ class NodeTests: XCTestCase {
 
         testMD5(audio)
     }
-
+*/
     func testDynamicConnection3() {
         let engine = AudioEngine()
 
@@ -218,6 +220,7 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
+    /*
     func testTwoEngines() {
         let engine = AudioEngine()
         let engine2 = AudioEngine()
@@ -233,7 +236,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
     }
-
+*/
     func testManyMixerConnections() {
         let engine = AudioEngine()
 
@@ -260,6 +263,7 @@ class NodeTests: XCTestCase {
         return count
     }
 
+    /*
     func testFanout() {
         let engine = AudioEngine()
         let osc = Oscillator(waveform: Table(.triangle))
@@ -270,6 +274,7 @@ class NodeTests: XCTestCase {
         XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
         XCTAssertEqual(connectionCount(node: mixer.avAudioNode), 2)
     }
+*/
 
     func testMixerRedundantUpstreamConnection() {
         let engine = AudioEngine()
@@ -331,6 +336,7 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
+    /*
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
@@ -379,12 +385,13 @@ class NodeTests: XCTestCase {
             audio.append(buf)
         }
     }
-
+     */
     func testConnectionTreeDescriptionForStandaloneNode() {
         let osc = Oscillator(waveform: Table(.triangle))
         XCTAssertEqual(osc.connectionTreeDescription, "\(connectionTreeLinePrefix)↳Oscillator")
     }
 
+    /*
     func testConnectionTreeDescriptionForConnectedNode() {
         let osc = Oscillator(waveform: Table(.triangle))
         let verb = CostelloReverb(osc)
@@ -399,7 +406,8 @@ class NodeTests: XCTestCase {
         \(connectionTreeLinePrefix)  ↳Oscillator
         """)
     }
-
+*/
+    
     #if !os(tvOS)
     func testConnectionTreeDescriptionForNamedNode() {
         let nameString = "Customized Name"
