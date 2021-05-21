@@ -105,7 +105,7 @@ class EngineTests: XCTestCase {
         }
         let isConnected = mainMixerNode.hasInput(oscillator)
 
-        XCTAssertTrue(isConnected, "Oscillator isn't in the mainMixerNode's inputs")
+        XCTAssertTrue(isConnected, "PlaygroundOscillator isn't in the mainMixerNode's inputs")
     }
 
     func testEngineSwitchOutputWhileRunning() {
