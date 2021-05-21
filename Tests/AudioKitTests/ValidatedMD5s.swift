@@ -11,10 +11,6 @@ extension XCTestCase {
 }
 
 let validatedMD5s: [String: String] = [
-    "-[AmplitudeTapTests testDefault]": "e732ff601fd8b47b3bdb6c4aa65cb7f1",
-    "-[AmplitudeTapTests testLeftStereoMode]": "e732ff601fd8b47b3bdb6c4aa65cb7f1",
-    "-[AmplitudeTapTests testPeakAnalysisMode]": "e732ff601fd8b47b3bdb6c4aa65cb7f1",
-    "-[AmplitudeTapTests testRightStereoMode]": "e732ff601fd8b47b3bdb6c4aa65cb7f1",
     "-[AudioPlayerTests testBasic]": "feb1367cee8917a890088b8967b8d422",
     "-[AudioPlayerTests testEngineRestart]": "b0dd4297f40fd11a2b648f6cb3aad13f",
     "-[AudioPlayerTests testGetCurrentTime]": "af7c73c8c8c6f43a811401246c10cba4",
@@ -29,9 +25,6 @@ let validatedMD5s: [String: String] = [
     "-[CompressorTests testMasterGain]": "b8ff41f64341a786bd6533670d238560",
     "-[CompressorTests testParameters]": "6b99deb194dd53e8ceb6428924d6666b",
     "-[CompressorTests testThreshold]": "e1133fc525a256a72db31453d293c47c",
-    "-[FFTTapTests testBasic]": "68d1550a306b253f9d4c18cda0824d3a",
-    "-[FFTTapTests testWithoutNormalization]": "68d1550a306b253f9d4c18cda0824d3a",
-    "-[FFTTapTests testWithZeroPadding]": "68d1550a306b253f9d4c18cda0824d3a",
     "-[FaderTests testBypass]": "6b2d34e86130813c7e7d9f1cf7a2a87c",
     "-[FaderTests testDefault]": "6b2d34e86130813c7e7d9f1cf7a2a87c",
     "-[FaderTests testGain]": "a26597484ed5afc96d5db12d63b6a34b",
