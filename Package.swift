@@ -26,7 +26,7 @@ let package = Package(
                 "AudioKitCore/Modulated Delay/README.md",
                 "AudioKitCore/Sampler/Wavpack/license.txt",
                 "AudioKitCore/Common/README.md",
-                "Nodes/Effects/Distortion/DiodeClipper.soul",
+                "Nodes/Effects/DiodeClipper.soul",
                 "AudioKitCore/Common/Envelope.hpp",
                 "AudioKitCore/Sampler/README.md",
                 "AudioKitCore/README.md",
@@ -43,7 +43,6 @@ let package = Package(
             name: "AudioKit",
             dependencies: ["CAudioKit"],
             exclude: [
-                "Nodes/Generators/Physical Models/README.md",
                 "Internals/Table/README.md",
                 "Nodes/Playback/Samplers/Sampler/Sampler.md",
                 "Nodes/Playback/Samplers/Apple Sampler/AppleSamplerNotes.md",
