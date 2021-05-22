@@ -129,7 +129,7 @@ extension Node {
     public func bypass() { bypassed = true }
 
     /// All parameters on the Node
-    var parameters: [NodeParameter] {
+    public var parameters: [NodeParameter] {
 
         let mirror = Mirror(reflecting: self)
         var params: [NodeParameter] = []
