@@ -28,7 +28,6 @@ let package = Package(
         ),
         .target(
             name: "AudioKit",
-            dependencies: ["CAudioKit"],
             exclude: [
                 "Internals/Table/README.md",
                 "Internals/README.md",
