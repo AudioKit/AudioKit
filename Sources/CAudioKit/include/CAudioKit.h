@@ -34,3 +34,5 @@ AK_API void akCallbackInstrumentSetCallback(DSPRef dsp, CMIDICallback callback);
 
 // Misc
 #import "BufferedAudioBus.h"
+#import "RingBuffer.h"
+#import "AtomicDataPtr.h"

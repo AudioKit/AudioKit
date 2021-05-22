@@ -3,6 +3,8 @@
 #ifndef AtomicData_hpp
 #define AtomicData_hpp
 
+#ifdef __cplusplus
+
 #include <atomic>
 #include <memory>
 #include <vector>
@@ -79,5 +81,7 @@ private:
         }
     }
 };
+
+#endif // __cplusplus
 
 #endif /* AtomicData_hpp */

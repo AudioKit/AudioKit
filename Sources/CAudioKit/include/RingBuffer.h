@@ -3,6 +3,8 @@
 #ifndef RingBuffer_hpp
 #define RingBuffer_hpp
 
+#ifdef __cplusplus
+
 #include <atomic>
 #include <cstddef> // size_t
 #include <utility> // std::move
@@ -96,5 +98,7 @@ template <typename T> class RingBuffer {
 };
 
 } // namespace AudioKit
+
+#endif // __cplusplus
 
 #endif // RingBuffer_hpp
