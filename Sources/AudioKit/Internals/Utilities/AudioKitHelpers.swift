@@ -4,6 +4,7 @@ import AudioToolbox
 import AVFoundation
 import CoreAudio
 import Accelerate
+import CAudioKit
 
 /// Normally set in AVFoundation or AudioToolbox,
 /// we create it here so users don't have to import those frameworks

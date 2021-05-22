@@ -3,6 +3,7 @@
 import AudioToolbox
 import AVFoundation
 import CAudioKit
+import AudioKit
 
 /// AudioUnit which instantiates a DSP kernel based on the componentSubType.
 open class AudioKitAU: AUAudioUnit {
