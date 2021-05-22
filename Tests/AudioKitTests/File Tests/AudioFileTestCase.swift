@@ -1,6 +1,5 @@
 import AudioKit
 import AVFoundation
-import CAudioKit
 import XCTest
 
 /// Base Test Case for file based testing such as with AudioPlayer
