@@ -91,15 +91,8 @@ open class AppleSampler: Node {
             Log("WAV file not found.")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
-        do {
-            try ExceptionCatcher {
-                try self.samplerUnit.loadAudioFiles(at: [url])
-                self.samplerUnit.reset()
-            }
-        } catch let error as NSError {
-            Log("Error loading wav file at \(url)")
-            throw error
-        }
+        try samplerUnit.loadAudioFiles(at: [url])
+        samplerUnit.reset()
     }
 
     /// Load an EXS24 sample data file
@@ -116,16 +109,8 @@ open class AppleSampler: Node {
     ///
     public func loadAudioFile(_ file: AVAudioFile) throws {
         _audioFiles = [file]
-
-        do {
-            try ExceptionCatcher {
-                try self.samplerUnit.loadAudioFiles(at: [file.url])
-                self.samplerUnit.reset()
-            }
-        } catch let error as NSError {
-            Log("Error loading audio file \"\(file.url.lastPathComponent)\"")
-            throw error
-        }
+        try samplerUnit.loadAudioFiles(at: [file.url])
+        samplerUnit.reset()
     }
 
     /// Load an array of AVAudioFiles
@@ -138,15 +123,8 @@ open class AppleSampler: Node {
     public func loadAudioFiles(_ files: [AVAudioFile] ) throws {
         _audioFiles = files
         let urls = files.map { $0.url }
-        do {
-            try ExceptionCatcher {
-                try self.samplerUnit.loadAudioFiles(at: urls)
-                self.samplerUnit.reset()
-            }
-        } catch let error as NSError {
-            Log("Error loading audio files \(urls)")
-            throw error
-        }
+        try samplerUnit.loadAudioFiles(at: urls)
+        samplerUnit.reset()
     }
 
     /// Load a file path. The sampler can be configured by loading
@@ -156,15 +134,8 @@ open class AppleSampler: Node {
     /// - parameter filePath: Name of the file with the extension
     ///
     public func loadPath(_ filePath: String) throws {
-        do {
-            try ExceptionCatcher {
-                try self.samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
-                self.samplerUnit.reset()
-            }
-        } catch {
-            Log("Error Sampler.loadPath loading file at \(filePath)")
-            throw error
-        }
+        try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
+        samplerUnit.reset()
     }
 
     internal func loadInstrument(_ file: String, type: String, in bundle: Bundle = .main) throws {
@@ -173,15 +144,8 @@ open class AppleSampler: Node {
             Log("File not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
-        do {
-            try ExceptionCatcher {
-                try self.samplerUnit.loadInstrument(at: url)
-                self.samplerUnit.reset()
-            }
-        } catch let error as NSError {
-            Log("Error loading instrument resource \(file)")
-            throw error
-        }
+        try samplerUnit.loadInstrument(at: url)
+        samplerUnit.reset()
     }
 
     /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
@@ -230,13 +194,7 @@ open class AppleSampler: Node {
     ///   - channel: MIDI Channnel
     ///
     open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
-        do {
-            try ExceptionCatcher {
-                self.samplerUnit.stopNote(noteNumber, onChannel: channel)
-            }
-        } catch {
-            Log("Could not stop AppleSampler note: \(error.localizedDescription)", type: .error)
-        }
+        samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
 
     // MARK: - SoundFont Support

@@ -78,21 +78,7 @@
                                       with options: AVAudioSession.CategoryOptions = []) throws {
             guard Settings.disableAVAudioSessionCategoryManagement == false else { return }
 
-            do {
-                try ExceptionCatcher {
-                    if #available(iOS 10.0, *) {
-                        try session.setCategory(category.avCategory, mode: .default, options: options)
-                    } else {
-                        session.perform(NSSelectorFromString("setCategory:error:"), with: category.avCategory)
-                    }
-                }
-            } catch let error as NSError {
-                Log("Cannot set AVAudioSession Category to \(category) " +
-                      "with options: \(options) " + error.localizedDescription,
-                      log: OSLog.settings,
-                      type: .error)
-                throw error
-            }
+            try session.setCategory(category.avCategory, mode: .default, options: options)
 
             // Core Haptics
             do {
@@ -105,27 +91,8 @@
                 Log("Could not allow haptics: \(error)", log: OSLog.settings, type: .error)
             }
 
-            // Preferred IO Buffer Duration
-            do {
-                try ExceptionCatcher {
-                    try session.setPreferredIOBufferDuration(bufferLength.duration)
-                }
-            } catch let error as NSError {
-                Log("Cannot set Preferred IO Buffer Duration to " +
-                    "\(bufferLength.duration) ( = \(bufferLength.samplesCount) samples) due to " +
-                    error.localizedDescription, log: OSLog.settings, type: .error)
-                throw error
-            }
-
-            // Activate session
-            do {
-                try ExceptionCatcher {
-                    try session.setActive(true)
-                }
-            } catch let error as NSError {
-                Log("Cannot set AVAudioSession.setActive to true \(error)", log: OSLog.settings, type: .error)
-                throw error
-            }
+            try session.setPreferredIOBufferDuration(bufferLength.duration)
+            try session.setActive(true)
         }
 
         /// Checks if headphones are connected

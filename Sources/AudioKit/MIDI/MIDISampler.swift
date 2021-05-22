@@ -122,24 +122,12 @@ open class MIDISampler: AppleSampler, NamedNode {
     open override func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
                             channel: MIDIChannel) {
-        do {
-            try ExceptionCatcher {
-                self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
-            }
-        } catch {
-            Log("Could not play MIDISampler note: \(error.localizedDescription)", type: .error)
-        }
+        self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
     /// Stop a note
     open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        do {
-            try ExceptionCatcher {
-                self.samplerUnit.stopNote(noteNumber, onChannel: channel)
-            }
-        } catch {
-            Log("Could not stop MIDISampler note: \(error.localizedDescription)", type: .error)
-        }
+        self.samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
 
     /// Discard all virtual ports
