@@ -3,6 +3,7 @@
 #if !os(tvOS)
 
 import Foundation
+import AudioKit
 
 /// Open-source AudioKit Sequencer
 ///

@@ -12,7 +12,7 @@ let package = Package(
         .library(
             name: "AudioKit",
             type: .static,
-            targets: ["AudioKit"])
+            targets: ["AudioKit", "AudioKitEX"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -37,9 +37,16 @@ let package = Package(
                 "Nodes/Effects/README.md",
                 "Nodes/README.md",
             ]),
+        .target(
+            name: "AudioKitEX",
+            dependencies: ["AudioKit", "CAudioKit"]),
         .testTarget(
             name: "AudioKitTests",
             dependencies: ["AudioKit"],
+            resources: [.copy("TestResources/")]),
+        .testTarget(
+            name: "AudioKitEXTests",
+            dependencies: ["AudioKitEX"],
             resources: [.copy("TestResources/")])
     ],
     cxxLanguageStandard: .cxx14

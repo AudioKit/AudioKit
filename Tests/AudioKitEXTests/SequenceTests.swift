@@ -4,6 +4,7 @@
 import XCTest
 import AudioKit
 import CAudioKit
+import AudioKitEX
 
 class NoteEventSequenceTests: XCTestCase {
 
