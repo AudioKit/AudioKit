@@ -93,7 +93,7 @@ public class NodeParameter {
 
     // MARK: Automation
 
-    var renderObserverToken: Int?
+    public var renderObserverToken: Int?
 
     /// Automate to a new value using a ramp.
     public func ramp(to value: AUValue, duration: Float) {

@@ -2,6 +2,7 @@
 
 import AVFoundation
 import CAudioKit
+import AudioKit
 
 /// Automation functions rely on CAudioKit, so they are in this extension in case we want to
 /// make a pure-swift AudioKit.

@@ -2,6 +2,7 @@
 
 import AVFoundation
 import CAudioKit
+import AudioKit
 
 /// Stereo Fader.
 public class Fader: Node {
