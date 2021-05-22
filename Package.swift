@@ -54,7 +54,7 @@ let package = Package(
         .testTarget(
             name: "AudioKitSequencingTests",
             dependencies: ["AudioKitSequencing"],
-            resources: [.copy("TestResources/")]),
+            resources: [.copy("TestResources/")])
     ],
     cxxLanguageStandard: .cxx14
 )
