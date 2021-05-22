@@ -2,7 +2,7 @@
 
 import XCTest
 import AudioKit
-import CAudioKit
+import CAudioKitEX
 import AVFoundation
 
 class ParameterAutomationTests: XCTestCase {

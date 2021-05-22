@@ -3,7 +3,7 @@
 
 import XCTest
 import AudioKit
-import CAudioKit
+import CAudioKitEX
 import AVFoundation
 import AudioKitEX
 

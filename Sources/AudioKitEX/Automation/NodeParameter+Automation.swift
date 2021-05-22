@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
+import CAudioKitEX
 import AudioKit
 
 /// Automation functions rely on CAudioKit, so they are in this extension in case we want to

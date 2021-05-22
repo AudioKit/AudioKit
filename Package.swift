@@ -16,14 +16,6 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "CAudioKit",
-            publicHeadersPath: "include",
-            cxxSettings: [
-                .headerSearchPath("Internals"),
-                .headerSearchPath(".")
-            ]
-        ),
-        .target(
             name: "AudioKit",
             exclude: [
                 "Internals/Table/README.md",
@@ -35,7 +27,15 @@ let package = Package(
             ]),
         .target(
             name: "AudioKitEX",
-            dependencies: ["AudioKit", "CAudioKit"]),
+            dependencies: ["AudioKit", "CAudioKitEX"]),
+        .target(
+            name: "CAudioKitEX",
+            publicHeadersPath: "include",
+            cxxSettings: [
+                .headerSearchPath("Internals"),
+                .headerSearchPath(".")
+            ]
+        ),
         .testTarget(
             name: "AudioKitTests",
             dependencies: ["AudioKit"],
