@@ -116,7 +116,7 @@ extension Node {
     
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
-        return !au.shouldBypassEffect
+        return !bypassed
     }
 
     /// Start the node

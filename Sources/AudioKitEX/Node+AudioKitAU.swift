@@ -2,6 +2,7 @@
 
 import AVFoundation
 import CAudioKit
+import AudioKit
 
 /// Convenience for getting the AudioKitAU from a Node.
 extension Node {

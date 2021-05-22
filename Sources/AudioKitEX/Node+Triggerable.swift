@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import AudioKit
 
 /// To allow nodes to be triggered
 public protocol Triggerable {
