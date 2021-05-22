@@ -47,7 +47,7 @@ extension MIDI {
         for virtualPortIndex in 0...count - 1 {
             var virtualPortName: String
             var uniqueID: Int32
-            if virtualPortIndex != 0 {virtualInputs.append(0)}
+            if virtualPortIndex != 0 {virtualOutputs.append(0)}
 
             if names?.count ?? 0 > virtualPortIndex, let portName = names?[virtualPortIndex] {
                 virtualPortName = portName
@@ -88,7 +88,7 @@ extension MIDI {
         for virtualPortIndex in 0 ..< count {
             var virtualPortName: String
             var uniqueID: Int32
-            if virtualPortIndex != 0 { virtualOutputs.append(0) }
+            if virtualPortIndex != 0 { virtualInputs.append(0) }
             
             if names?.count ?? 0 > virtualPortIndex, let portName = names?[virtualPortIndex] {
                 virtualPortName = portName
