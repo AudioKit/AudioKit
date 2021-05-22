@@ -5,6 +5,7 @@ import Foundation
 import GameplayKit
 import AVFoundation
 import XCTest
+import AudioKitEX
 
 func setParams(node: Node, rng: GKRandomSource) {
 
@@ -105,38 +106,8 @@ class GenericNodeTests: XCTestCase {
         XCTAssertTrue([md5, m1MD5].contains(bigBuffer!.md5), "\(node)\nFAILEDMD5 \(bigBuffer!.md5)")
     }
 
-
-    let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
-
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-    func testGenerators() {
-        nodeParameterTest (md5: "0118dbf3e33bc3052f2e375f06793c5f", factory: { _ in PlaygroundOscillator(waveform: Table(.square)) })
-        nodeParameterTest (md5: "789c1e77803a4f9d10063eb60ca03cea", factory: { _ in PlaygroundOscillator(waveform: Table(.triangle)) })
-        nodeParameterTest (md5: "8d1ece9eb2417d9da48f5ae796a33ac2", factory: { _ in PlaygroundOscillator(waveform: Table(.triangle), amplitude: 0.1) })
-    }
-
     func testEffects() {
-        //nodeParameterTest(md5: "d15c926f3da74630f986f7325adf044c", factory: { input in Compressor(input) })
-        nodeParameterTest(md5: "d658edfaaebabcaaeb8a6670d1d60541", factory: { input in Decimator(input) })
-        nodeParameterTest(md5: "5955693c964588d2eb571fadb2d744dd", factory: { input in Delay(input) })
-        //nodeParameterTest(md5: "", factory: { input in DiodeClipper(input) }, m1MD5: "9601674f792663a987e62b07b6ce405f")
-        nodeParameterTest(md5: "6df759dd0dae23adb7b5f1c03ca15615", factory: { input in Distortion(input) })
-        //nodeParameterTest(md5: "0ae9a6b248486f343c55bf0818c3007d", factory: { input in PeakLimiter(input) })
+        nodeParameterTest(md5: "8c5c55d9f59f471ca1abb53672e3ffbf", factory: { input in StereoFieldLimiter(input) })
+    }
 
-        #if os(iOS)
-        nodeParameterTest(md5: "28d2cb7a5c1e369ca66efa8931d31d4d", factory: { player in Reverb(player) })
-        #endif
-        
-        #if os(macOS)
-        nodeParameterTest(md5: "bff0b5fa57e589f5192b17194d9a43cb", factory: { player in Reverb(player) })
-        #endif
-        
-    }
-    
-    func testFilters() {
-        nodeParameterTest(md5: "03e7b02e4fceb5fe6a2174740eda7e36", factory: { input in HighPassFilter(input) })
-        nodeParameterTest(md5: "af137ecbe57e669340686e9721a2d1f2", factory: { input in HighShelfFilter(input) })
-        nodeParameterTest(md5: "a43c821e13efa260d88d522b4d29aa45", factory: { input in LowPassFilter(input) })
-        nodeParameterTest(md5: "2007d443458f8536b854d111aae4b51b", factory: { input in LowShelfFilter(input) })
-    }
 }

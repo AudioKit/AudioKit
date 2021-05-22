@@ -2,12 +2,10 @@
 
 import AVFoundation
 import CAudioKit
+import AudioKit
 
 #if !os(tvOS)
 import Foundation
-
-/// Function type for MIDI callbacks
-public typealias MIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
 
 /// New sample-accurate version of CallbackInstrument
 /// Old CallbackInstrument renamed to MIDICallbackInstrument

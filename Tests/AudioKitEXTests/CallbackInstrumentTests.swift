@@ -3,6 +3,7 @@
 
 import XCTest
 import AudioKit
+import AudioKitEX
 
 class CallbackInstrumentTests: XCTestCase {
 
