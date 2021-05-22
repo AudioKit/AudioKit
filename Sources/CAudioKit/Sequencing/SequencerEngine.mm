@@ -9,8 +9,8 @@
 #include <bitset>
 #include <stdio.h>
 #include <atomic>
-#include "../../Internals/Utilities/RingBuffer.h"
-#include "../../Internals/Utilities/AtomicDataPtr.h"
+#include "Internals/Utilities/RingBuffer.h"
+#include "Internals/Utilities/AtomicDataPtr.h"
 
 using AudioKit::RingBuffer;
 

@@ -26,7 +26,6 @@ let package = Package(
             publicHeadersPath: "include",
             cxxSettings: [
                 .headerSearchPath("Internals"),
-                .headerSearchPath("Devoloop/include"),
                 .headerSearchPath(".")
             ]
         ),
@@ -35,7 +34,6 @@ let package = Package(
             dependencies: ["CAudioKit"],
             exclude: [
                 "Internals/Table/README.md",
-                "Nodes/Effects/Guitar Processors/README.md",
                 "Internals/README.md",
                 "MIDI/README.md",
                 "Taps/README.md",

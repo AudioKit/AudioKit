@@ -121,10 +121,7 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "5955693c964588d2eb571fadb2d744dd", factory: { input in Delay(input) })
         //nodeParameterTest(md5: "", factory: { input in DiodeClipper(input) }, m1MD5: "9601674f792663a987e62b07b6ce405f")
         nodeParameterTest(md5: "6df759dd0dae23adb7b5f1c03ca15615", factory: { input in Distortion(input) })
-        nodeParameterTest(md5: "4038dc9888744626dc769da6f5da4d06", factory: { input in DynaRageCompressor(input) })
         //nodeParameterTest(md5: "0ae9a6b248486f343c55bf0818c3007d", factory: { input in PeakLimiter(input) })
-        nodeParameterTest(md5: "a4d00e9a117e58eec42c01023b40a15a", factory: { input in RhinoGuitarProcessor(input) })
-        nodeParameterTest(md5: "b31ce15bb38716fd95070d1299679d3a", factory: { input in RingModulator(input) })
         nodeParameterTest(md5: "8c5c55d9f59f471ca1abb53672e3ffbf", factory: { input in StereoFieldLimiter(input) })
 
         #if os(iOS)
