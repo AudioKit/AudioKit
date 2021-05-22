@@ -43,7 +43,10 @@ let package = Package(
             ]),
         .target(
             name: "AudioKitSequencing",
-            dependencies: ["AudioKit", "CAudioKit"]),
+            dependencies: ["AudioKit", "CAudioKitSequencing"]),
+        .target(
+            name: "CAudioKitSequencing",
+            dependencies: ["CAudioKit"]),
         .testTarget(
             name: "AudioKitTests",
             dependencies: ["AudioKit"],

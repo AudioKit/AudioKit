@@ -6,6 +6,7 @@ import AudioKit
 import CAudioKit
 import AVFoundation
 import AudioKitSequencing
+import CAudioKitSequencing
 
 class SequencerEngineTests: XCTestCase {
 

@@ -22,9 +22,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Testing
 #import "DebugDSP.h"
 
-// Sequencing / MIDI
-#import "SequencerEngine.h"
-
 // Automation
 #import "ParameterRamper.h"
 #import "ParameterAutomation.h"

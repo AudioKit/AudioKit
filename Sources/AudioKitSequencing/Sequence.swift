@@ -3,6 +3,7 @@
 import CAudioKit
 import AudioKit
 import Foundation
+import CAudioKitSequencing
 
 #if !os(tvOS)
 
