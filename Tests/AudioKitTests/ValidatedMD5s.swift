@@ -54,16 +54,11 @@ let validatedMD5s: [String: String] = [
     "-[PeakLimiterTests testDefault]": "61c67b55ea69bad8be2bbfe5d5cde055",
     "-[PeakLimiterTests testParameters]": "e4abd97f9f0a0826823c167fb7ae730b",
     "-[PeakLimiterTests testPreGain]": "2f1b0dd9020be6b1fa5b8799741baa5f",
-    "-[SamplerTests testSampler]": "c37cb5398f1c3e74a9d77d24bbb50d51",
     "-[SequencerTrackTests testChangeTempo]": "9b6ae1c5739c5c6cec623dd4d5be3907",
     "-[SequencerTrackTests testLoop]": "067ebe8a9f345ec0df7d6d94428563db",
     "-[SequencerTrackTests testOneShot]": "a125d07a2023bd56b8e0e88d9b18c1ce",
     "-[SequencerTrackTests testTempo]": "2a1ecd4f6ac9d9c72230971ab5abe63c",
-    "-[SynthTests testChord]": "155d8175419836512ead0794f551c7a0",
-    "-[SynthTests testMonophonicPlayback]": "77fb882efcaf29c3a426036d85d04090",
-    "-[SynthTests testParameterInitialization]": "e27794e7055b8ebdbf7d0591e980484e",
     "-[TableTests testReverseSawtooth]": "b3188781c2e696f065629e2a86ef57a6",
     "-[TableTests testSawtooth]": "6f37a4d0df529995d7ff783053ff18fe",
     "-[TableTests testTriangle]": "789c1e77803a4f9d10063eb60ca03cea",
-
 ]
