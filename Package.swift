@@ -20,9 +20,6 @@ let package = Package(
     targets: [
         .target(
             name: "CAudioKit",
-            exclude: [
-                "Nodes/Effects/DiodeClipper.soul",
-            ],
             publicHeadersPath: "include",
             cxxSettings: [
                 .headerSearchPath("Internals"),
