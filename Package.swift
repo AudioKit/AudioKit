@@ -16,12 +16,10 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/AudioKit/Soundpipe", .branch("main")),
     ],
     targets: [
         .target(
             name: "CAudioKit",
-            dependencies: ["Soundpipe"],
             exclude: [
                 "Nodes/Effects/DiodeClipper.soul",
             ],

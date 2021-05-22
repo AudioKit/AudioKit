@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #include "DebugDSP.h"
-
+/*
 #include "md5.h"
 #include <stddef.h>
 #include <assert.h>
@@ -46,3 +46,4 @@ bool DebugDSPCheck(int slot, const char* expected) {
     }
     return true;
 }
+*/
