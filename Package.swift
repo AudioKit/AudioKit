@@ -11,7 +11,6 @@ let package = Package(
     products: [
         .library(
             name: "AudioKit",
-            type: .static,
             targets: ["AudioKit", "AudioKitEX"])
     ],
     targets: [
