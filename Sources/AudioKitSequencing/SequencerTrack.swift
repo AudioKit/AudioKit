@@ -4,6 +4,7 @@
 
 import CAudioKit
 import Foundation
+import AudioKit
 
 /// Audio player that loads a sample into memory
 open class SequencerTrack {

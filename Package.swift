@@ -12,7 +12,11 @@ let package = Package(
         .library(
             name: "AudioKit",
             type: .static,
-            targets: ["AudioKit"])
+            targets: ["AudioKit"]),
+        .library(
+            name: "AudioKitSequencing",
+            type: .static,
+            targets: ["AudioKitSequencing"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -37,10 +41,17 @@ let package = Package(
                 "Nodes/Effects/README.md",
                 "Nodes/README.md",
             ]),
+        .target(
+            name: "AudioKitSequencing",
+            dependencies: ["AudioKit", "CAudioKit"]),
         .testTarget(
             name: "AudioKitTests",
             dependencies: ["AudioKit"],
-            resources: [.copy("TestResources/")])
+            resources: [.copy("TestResources/")]),
+        .testTarget(
+            name: "AudioKitSequencingTests",
+            dependencies: ["AudioKitSequencing"],
+            resources: [.copy("TestResources/")]),
     ],
     cxxLanguageStandard: .cxx14
 )

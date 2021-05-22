@@ -4,6 +4,7 @@
 import XCTest
 import AudioKit
 import AVFoundation
+import AudioKitSequencing
 
 class SequencerTrackTests: XCTestCase {
 

@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import CAudioKit
+import AudioKit
 import Foundation
 
 #if !os(tvOS)
