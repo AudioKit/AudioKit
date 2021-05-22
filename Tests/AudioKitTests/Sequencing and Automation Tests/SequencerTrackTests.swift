@@ -17,8 +17,8 @@ class SequencerTrackTests: XCTestCase {
     }
 
     func testEmptyTrack() {
-        let synth = Synth()
-        let seq = SequencerTrack(targetNode: synth)
+        let sampler = AppleSampler()
+        let seq = SequencerTrack(targetNode: sampler)
         XCTAssertFalse(seq.isPlaying)
 
         XCTAssertEqual(seq.length, 4.0) // One measure
@@ -27,10 +27,10 @@ class SequencerTrackTests: XCTestCase {
 
     func testLoop() {
         let engine = AudioEngine()
-        let synth = Synth()
+        let sampler = AppleSampler()
 
-        let track = SequencerTrack(targetNode: synth)
-        engine.output = synth
+        let track = SequencerTrack(targetNode: sampler)
+        engine.output = sampler
 
         track.sequence = getTestSequence()
         track.playFromStart()
@@ -44,10 +44,10 @@ class SequencerTrackTests: XCTestCase {
     func testOneShot() {
 
         let engine = AudioEngine()
-        let synth = Synth()
+        let sampler = AppleSampler()
 
-        let track = SequencerTrack(targetNode: synth)
-        engine.output = synth
+        let track = SequencerTrack(targetNode: sampler)
+        engine.output = sampler
 
         track.sequence = getTestSequence()
         track.loopEnabled = false
@@ -61,10 +61,10 @@ class SequencerTrackTests: XCTestCase {
     func testTempo() {
 
         let engine = AudioEngine()
-        let synth = Synth()
+        let sampler = AppleSampler()
 
-        let track = SequencerTrack(targetNode: synth)
-        engine.output = synth
+        let track = SequencerTrack(targetNode: sampler)
+        engine.output = sampler
 
         track.sequence = getTestSequence()
         track.tempo = 60
@@ -78,10 +78,10 @@ class SequencerTrackTests: XCTestCase {
     func testChangeTempo() {
 
         let engine = AudioEngine()
-        let synth = Synth()
+        let sampler = AppleSampler()
 
-        let track = SequencerTrack(targetNode: synth)
-        engine.output = synth
+        let track = SequencerTrack(targetNode: sampler)
+        engine.output = sampler
 
         track.sequence = getTestSequence()
 

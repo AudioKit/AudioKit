@@ -26,17 +26,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Analysis
 #import "PitchTracker.h"
 
-// Effects / Modulation
-#import "ModulatedDelay_Typedefs.h"
-#import "ModulatedDelayDSP.h"
-
-// Synth example
-#import "SynthDSP.h"
-
-// Playback
-#import "Sampler_Typedefs.h"
-#import "SamplerDSP.h"
-
 // Sequencing / MIDI
 #import "SequencerEngine.h"
 
