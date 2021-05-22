@@ -14,9 +14,6 @@ let package = Package(
             type: .static,
             targets: ["AudioKit", "AudioKitEX"])
     ],
-    dependencies: [
-        // Dependencies declare other packages that this package depends on.
-    ],
     targets: [
         .target(
             name: "CAudioKit",
