@@ -38,9 +38,7 @@ let package = Package(
             exclude: [
                 "Internals/Table/README.md",
                 "Nodes/Effects/Guitar Processors/README.md",
-                "Nodes/Playback/Samplers/PreparingSampleSets.md",
                 "Internals/README.md",
-                "Nodes/Effects/Modulation/ModDelay.svg",
                 "MIDI/README.md",
                 "Taps/README.md",
                 "Nodes/Effects/README.md",
