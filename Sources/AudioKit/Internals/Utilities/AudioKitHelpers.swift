@@ -4,7 +4,6 @@ import AudioToolbox
 import AVFoundation
 import CoreAudio
 import Accelerate
-import CAudioKit
 
 /// Normally set in AVFoundation or AudioToolbox,
 /// we create it here so users don't have to import those frameworks
@@ -223,30 +222,27 @@ extension AVAudioNode {
     }
 }
 
-public extension AUParameter {
-    /// Initialize with all specification
-    /// - Parameters:
-    ///   - identifier: ID String
-    ///   - name: Unique name
-    ///   - address: Parameter address
-    ///   - range: Range of valid values
-    ///   - unit: Physical units
-    ///   - flags: Parameter options
-    @nonobjc
-    convenience init(identifier: String,
-                     name: String,
-                     address: AUParameterAddress,
-                     range: ClosedRange<AUValue>,
-                     unit: AudioUnitParameterUnit,
-                     flags: AudioUnitParameterOptions) {
-        self.init(identifier: identifier,
-                  name: name,
-                  address: address,
-                  min: range.lowerBound,
-                  max: range.upperBound,
-                  unit: unit,
-                  flags: flags)
+public extension AUParameterTree {
+
+    class func createParameter(identifier: String,
+                               name: String,
+                               address: AUParameterAddress,
+                               range: ClosedRange<AUValue>,
+                               unit: AudioUnitParameterUnit,
+                               flags: AudioUnitParameterOptions) -> AUParameter {
+
+        AUParameterTree.createParameter(withIdentifier: identifier,
+                                        name: name,
+                                        address: address,
+                                        min: range.lowerBound,
+                                        max: range.upperBound,
+                                        unit: unit,
+                                        unitName: nil,
+                                        flags: flags,
+                                        valueStrings: nil,
+                                        dependentParameters: nil)
     }
+
 }
 
 /// Anything that can hold a value (strings, arrays, etc)

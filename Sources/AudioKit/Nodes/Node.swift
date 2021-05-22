@@ -152,11 +152,10 @@ extension Node {
         for child in mirror.children {
             if let param = child.value as? ParameterBase {
                 let def = param.projectedValue.def
-                let auParam = AUParameter(identifier: def.identifier,
+                let auParam = AUParameterTree.createParameter(identifier: def.identifier,
                                           name: def.name,
                                           address: def.address,
-                                          min: def.range.lowerBound,
-                                          max: def.range.upperBound,
+                                          range: def.range,
                                           unit: def.unit,
                                           flags: def.flags)
                 params.append(auParam)
