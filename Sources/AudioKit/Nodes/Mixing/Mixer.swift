@@ -90,18 +90,6 @@ public class Mixer: Node, NamedNode {
         avAudioNode.disconnect(input: node.avAudioNode)
     }
 
-    /// Remove input from a mixer who's input is connected to another mixer (a split connection)
-    /// - Parameter node: Node to remove
-    /// - Parameter expectSplitConnections: Does the input to remove also have another connection (is it splitting)?
-    public func removeInput(_ node: Node, expectSplitConnections: Bool = false) {
-            inputs.removeAll(where: { $0 === node })
-            if expectSplitConnections {
-                avAudioNode.disconnectExpectingSplitConnections(input: node.avAudioNode)
-            } else {
-                avAudioNode.disconnect(input: node.avAudioNode)
-            }
-        }
-
     /// Remove all inputs from the mixer
     public func removeAllInputs() {
         guard connections.isNotEmpty else { return }
