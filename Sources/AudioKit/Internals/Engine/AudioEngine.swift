@@ -6,21 +6,17 @@ extension AVAudioNode {
     /// Disconnect and manage engine connections
     public func disconnect(input: AVAudioNode) {
         if let engine = engine {
-            let inputTotalConnections = engine.outputConnectionPoints(for: input, outputBus: 0)
             for bus in 0 ..< numberOfInputs {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if cp.node === input {
-                        if inputTotalConnections.count == 2 {
-                            input.disconnectSplitConnection(from: self)
-                        } else {
-                            engine.disconnectNodeInput(self, bus: bus)
-                        }
+                        engine.disconnectNodeInput(self, bus: bus)
                     }
                 }
             }
         }
     }
 
+    /// Break all connections, then reconnect to all nodes except target node
     public func disconnectSplitConnection(from target: AVAudioNode, format: AVAudioFormat? = Settings.audioFormat) {
         guard let engine = engine else { return }
         let connections = engine.outputConnectionPoints(for: self, outputBus: 0)
@@ -28,6 +24,23 @@ extension AVAudioNode {
         engine.disconnectNodeOutput(self, bus: 0)
         engine.connect(self, to: backupConnections, fromBus: 0, format: format)
     }
+
+    public func disconnectExpectingSplitConnections(input: AVAudioNode) {
+            guard let engine = engine else { return }
+            let inputTotalConnections = engine.outputConnectionPoints(for: input, outputBus: 0)
+            for bus in 0 ..< numberOfInputs {
+                if let icp = engine.inputConnectionPoint(for: self, inputBus: bus) {
+                    if icp.node === input {
+                        if inputTotalConnections.count > 1 {
+                            input.disconnectSplitConnection(from: self)
+                        } else {
+                           // current implementation goes here straight away
+                            engine.disconnectNodeInput(self, bus: bus)
+                        }
+                    }
+                }
+            }
+        }
 
     /// Make a connection without breaking other connections.
     public func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
