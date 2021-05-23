@@ -45,7 +45,7 @@ let validatedMD5s: [String: String] = [
     "-[NodeTests testDynamicConnection3]": "70e6414b0f09f42f70ca7c0b0d576e84",
     "-[NodeTests testDynamicOutput]": "faf8254c11a6b73eb3238d57b1c14a9f",
     "-[NodeTests testNodeBasic]": "7e9104f6cbe53a0e3b8ec2d041f56396",
-    "-[NodeTests testNodeConnection]": "d61fb67a211e1ac446c9c6e30d85af00",
+    "-[NodeTests testNodeConnection]": "5fbcf0b327308ff4fc9b42292986e2d5",
     "-[NodeTests testNodeDetach]": "8c5c55d9f59f471ca1abb53672e3ffbf",
     "-[NodeTests testTwoEngines]": "42b1eafdf0fc632f46230ad0497a29bf",
     "-[ParameterAutomationTests testDelayedAutomation]": "b4c68d2afd4fdbb5074b7ddc655ea5c6",
@@ -61,7 +61,4 @@ let validatedMD5s: [String: String] = [
     "-[TableTests testReverseSawtooth]": "b3188781c2e696f065629e2a86ef57a6",
     "-[TableTests testSawtooth]": "6f37a4d0df529995d7ff783053ff18fe",
     "-[TableTests testTriangle]": "789c1e77803a4f9d10063eb60ca03cea",
-    "-[ReverbTests testCathedral]": "7f1a07c82349bcd989a7838fd3f5ca9d",
-    "-[ReverbTests testDefault]": "28d2cb7a5c1e369ca66efa8931d31d4d",
-    "-[ReverbTests testSmallRoom]": "747641220002d1c968d62acb7bea552c"
 ]

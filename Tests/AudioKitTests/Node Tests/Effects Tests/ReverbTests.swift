@@ -14,8 +14,8 @@ class ReverbTests: XCTestCase {
         let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.cathedral)
-        let audio = engine.startTest(totalDuration: 1.0)
         input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -25,8 +25,8 @@ class ReverbTests: XCTestCase {
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let input = AudioPlayer(url: url)!
         engine.output = Reverb(input)
-        let audio = engine.startTest(totalDuration: 1.0)
         input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -38,8 +38,8 @@ class ReverbTests: XCTestCase {
         let effect = Reverb(input)
         engine.output = effect
         effect.loadFactoryPreset(.smallRoom)
-        let audio = engine.startTest(totalDuration: 1.0)
         input.start()
+        let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
