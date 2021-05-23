@@ -29,8 +29,8 @@ extension AVAudioNode {
             guard let engine = engine else { return }
             let inputTotalConnections = engine.outputConnectionPoints(for: input, outputBus: 0)
             for bus in 0 ..< numberOfInputs {
-                if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
-                    if cp.node === input {
+                if let icp = engine.inputConnectionPoint(for: self, inputBus: bus) {
+                    if icp.node === input {
                         if inputTotalConnections.count > 1 {
                             input.disconnectSplitConnection(from: self)
                         } else {
