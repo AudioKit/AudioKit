@@ -326,13 +326,13 @@ extension Table {
     ///   - inputTables: array of tables - which we can assume have a large sample count
     ///   - sampleCount: the number of floating point values to which we will downsample each Table array count
     public class func downSampleTables(inputTables: [Table], to sampleCount: Int = 64) -> [Table] {
-        let numberOfInputSamples = inputTables[0].content.count
-        let inputLength = vDSP_Length(numberOfInputSamples)
+        let inputSampleCount = inputTables[0].content.count
+        let inputLength = vDSP_Length(inputSampleCount)
 
         let filterLength: vDSP_Length = 2
         let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
 
-        let decimationFactor = numberOfInputSamples / sampleCount
+        let decimationFactor = inputSampleCount / sampleCount
         let outputLength = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
 
         var outputTables: [Table] = []
@@ -357,10 +357,10 @@ extension Table {
     ///   - signal: large array of floating point values
     ///   - tableLength: number of floating point values to be stored per table
     public class func chopAudioToTables(signal: [Float], tableLength: Int = 2_048) -> [Table] {
-        let numberOfSamples = signal.count
-        let numberOfOutputTables = numberOfSamples / tableLength
+        let sampleCount = signal.count
+        let outputTableCount = sampleCount / tableLength
         var outputTables: [Table] = []
-        for index in 0..<numberOfOutputTables {
+        for index in 0..<outputTableCount {
             let startIndex = index * tableLength
             let endIndex = startIndex + tableLength
             outputTables.append(Table(Array(signal[startIndex..<endIndex])))
