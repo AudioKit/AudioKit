@@ -2,7 +2,7 @@
 
 #include "DSPBase.h"
 #include "ParameterRamper.h"
-#include "AudioKitCore/Modulated Delay/StereoDelay.h"
+#include "AudioKitCore/Modulated Delay/StereoDelay.hpp"
 
 /*
  The objects marked Cyclone were derived from the Max/MSP Cyclone library source code.
