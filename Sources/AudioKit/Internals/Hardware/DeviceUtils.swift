@@ -23,13 +23,13 @@ struct AudioDeviceUtils {
             return []
         }
 
-        let numDevices = Int(propsize / UInt32(MemoryLayout<AudioDeviceID>.size))
+        let deviceCount = Int(propsize / UInt32(MemoryLayout<AudioDeviceID>.size))
 
-        if numDevices == 0 {
+        if deviceCount == 0 {
             return []
         }
 
-        var devids = [AudioDeviceID](repeating: 0, count: numDevices)
+        var devids = [AudioDeviceID](repeating: 0, count: deviceCount)
 
         result = 0
         devids.withUnsafeMutableBufferPointer { bufferPointer in

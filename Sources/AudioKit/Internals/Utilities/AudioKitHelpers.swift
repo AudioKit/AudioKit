@@ -377,13 +377,13 @@ public extension Array where Element == Float {
     /// Parameters:
     ///   - sampleCount: the number of samples we will downsample the array to
     func downSample(to sampleCount: Int = 128) -> [Element] {
-        let numberOfInputSamples = self.count
-        let inputLength = vDSP_Length(numberOfInputSamples)
+        let inputSampleCount = self.count
+        let inputLength = vDSP_Length(inputSampleCount)
 
         let filterLength: vDSP_Length = 2
         let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
 
-        let decimationFactor = numberOfInputSamples / sampleCount
+        let decimationFactor = inputSampleCount / sampleCount
         let outputLength = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
 
         var outputFloats = [Float](repeating: 0, count: Int(outputLength))

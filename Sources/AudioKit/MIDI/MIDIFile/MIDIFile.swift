@@ -44,8 +44,8 @@ public struct MIDIFile {
     }
 
     /// Track count
-    public var numberOfTracks: Int {
-        return headerChunk?.numTracks ?? 0
+    public var trackCount: Int {
+        return headerChunk?.trackCount ?? 0
     }
 
     /// MIDI Time format

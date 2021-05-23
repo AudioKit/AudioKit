@@ -55,14 +55,14 @@ struct UMPSysex {
     init(group: UInt8 = 0, type: UMPSysexType, data: [UInt8]) {
         var ump = UMP64()
 
-        let numBytes = min(data.count, 6)
-        let dataRange = 2..<2+numBytes
+        let byteCount = min(data.count, 6)
+        let dataRange = 2..<2+byteCount
 
         withUnsafeMutableBytes(of: &ump) {
             $0[0] = .init(highNibble: UMPType.sysex.rawValue, lowNibble: group)
-            $0[1] = .init(highNibble: type.rawValue, lowNibble: UInt8(numBytes))
+            $0[1] = .init(highNibble: type.rawValue, lowNibble: UInt8(byteCount))
             let buffer = UnsafeMutableRawBufferPointer(rebasing: $0[dataRange])
-            buffer.copyBytes(from: data[0..<numBytes])
+            buffer.copyBytes(from: data[0..<byteCount])
         }
         self.umpBigEndian = ump
     }
@@ -86,12 +86,12 @@ struct UMPSysex {
         }
     }
 
-    var numDataBytes: Int {
+    var dataaByteCount: Int {
         withUnsafeBytes(of: umpBigEndian) { Int($0[1].lowNibble) }
     }
 
     var dataRange: Range<Int> {
-        2..<2+numDataBytes
+        2 ..< (2 + dataaByteCount)
     }
 
     var data: [UInt8] {

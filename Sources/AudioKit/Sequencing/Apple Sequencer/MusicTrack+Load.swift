@@ -13,9 +13,9 @@ extension MusicTrackManager {
             if status != OSStatus(noErr) {
                 Log("error reading midi file url: \(fileURL), read status: \(status)")
             }
-            var numTracks = UInt32(0)
-            MusicSequenceGetTrackCount(newSeq, &numTracks)
-            Log("Sequencer has \(numTracks) tracks")
+            var trackCount = UInt32(0)
+            MusicSequenceGetTrackCount(newSeq, &trackCount)
+            Log("Sequencer has \(trackCount) tracks")
             var tempTrack: MusicTrack?
             MusicSequenceGetIndTrack(newSeq, 0, &tempTrack)
             if let sourceTrack = tempTrack, let destTrack = self.internalMusicTrack {

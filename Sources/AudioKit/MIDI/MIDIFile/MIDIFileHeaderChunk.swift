@@ -36,7 +36,7 @@ struct MIDIFileHeaderChunk: MIDIFileChunk {
         return Int(MIDIHelper.convertTo16Bit(msb: data[0], lsb: data[1]))
     }
 
-    var numTracks: Int {
+    var trackCount: Int {
         return Int(MIDIHelper.convertTo16Bit(msb: data[2], lsb: data[3]))
     }
 
