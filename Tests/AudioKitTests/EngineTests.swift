@@ -186,15 +186,17 @@ class EngineTests: XCTestCase {
                        """)
     }
 
+    #if os(macOS)
     func testAudioDevices() {
         XCTAssert(AudioEngine.devices.count > 0)
     }
+    #endif
 
     func testOutputDevices() {
-        XCTAssert(AudioEngine.outputDevices!.count > 0)
+        XCTAssert(AudioEngine.outputDevices.count > 0)
     }
 
     func testInputDevices() {
-        XCTAssert(AudioEngine.inputDevices!.count > 0)
+        XCTAssert(AudioEngine.inputDevices.count > 0)
     }
 }

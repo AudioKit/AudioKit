@@ -237,7 +237,7 @@ public class AudioEngine {
     }
 
     /// Enumerate the list of available input devices.
-    public static var inputDevices: [Device]? {
+    public static var inputDevices: [Device] {
         #if os(macOS)
         return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
             if AudioDeviceUtils.inputChannels(id) > 0 {
@@ -261,12 +261,12 @@ public class AudioEngine {
             }
             return returnDevices
         }
-        return nil
+        return []
         #endif
     }
 
     /// Enumerate the list of available output devices.
-    public static var outputDevices: [Device]? {
+    public static var outputDevices: [Device] {
         #if os(macOS)
         return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
             if AudioDeviceUtils.outputChannels(id) > 0 {
@@ -283,7 +283,7 @@ public class AudioEngine {
             }
             return outs
         }
-        return nil
+        return []
         #endif
     }
 
