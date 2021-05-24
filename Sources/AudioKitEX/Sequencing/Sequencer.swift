@@ -197,7 +197,7 @@ open class Sequencer {
 
  public convenience init(fromURL fileURL: URL) {
  open func enableLooping(_ loopLength: Duration) {
- open func setLoopInfo(_ duration: Duration, numberOfLoops: Int) {
+ open func setLoopInfo(_ duration: Duration, loopCount: Int) {
  open func setLength(_ length: Duration) {
  open var length: Duration {
  open func setRate(_ rate: Double) {

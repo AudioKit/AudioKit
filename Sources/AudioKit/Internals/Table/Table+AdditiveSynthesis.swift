@@ -289,14 +289,14 @@ extension Table {
     /// Create an array of a specified number of tables by interpolating between the inputted array of tables
     /// Parameters:
     ///   - inputTables: tables to be interpolated between
-    ///   - numberOfDesiredTables: total number of tables in resulting array
+    ///   - desiredTableCount: total number of tables in resulting array
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public class func createInterpolatedTables(inputTables: [Table], numberOfDesiredTables: Int = 256) -> [Table] {
+    public class func createInterpolatedTables(inputTables: [Table], desiredTableCount: Int = 256) -> [Table] {
         var interpolatedTables: [Table] = []
         let thresholdForExact = 0.01 * Double(inputTables.count)
-        let rangeValue = (Double(numberOfDesiredTables) / Double(inputTables.count - 1)).rounded(.up)
+        let rangeValue = (Double(desiredTableCount) / Double(inputTables.count - 1)).rounded(.up)
 
-        for index in 1...numberOfDesiredTables {
+        for index in 1...desiredTableCount {
             let waveformIndex = Int(Double(index - 1) / rangeValue)
             let interpolatedIndex = (Double(index - 1) / rangeValue).truncatingRemainder(dividingBy: 1.0)
 

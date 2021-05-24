@@ -132,7 +132,7 @@ open class SequencerTrack {
                                           length: length,
                                           tempo: tempo,
                                           loopEnabled: loopEnabled,
-                                          numberOfLoops: 0)
+                                          loopCount: 0)
 
         let orderedEvents = sequence.beatTimeOrderedEvents()
         orderedEvents.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in

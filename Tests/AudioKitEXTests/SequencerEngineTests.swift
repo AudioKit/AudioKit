@@ -19,7 +19,7 @@ class SequencerEngineTests: XCTestCase {
                                         length: 4,
                                         tempo: 120,
                                         loopEnabled: true,
-                                        numberOfLoops: 0)
+                                        loopCount: 0)
 
         var scheduledEvents = [MIDIEvent]()
 

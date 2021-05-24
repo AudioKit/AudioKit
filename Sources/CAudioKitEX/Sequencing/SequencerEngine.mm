@@ -32,7 +32,7 @@ struct SequencerData {
         .length = 4.0,
         .tempo = 120.0,
         .loopEnabled = true,
-        .numberOfLoops = 0
+        .loopCount = 0
     };
 
     AUScheduleMIDIEventBlock midiBlock = nullptr;

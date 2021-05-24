@@ -25,7 +25,7 @@ typedef struct {
     double length;
     double tempo;
     bool loopEnabled;
-    uint numberOfLoops;
+    uint loopCount;
 } SequenceSettings;
 
 typedef struct SequencerEngine* SequencerEngineRef;
