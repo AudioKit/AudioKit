@@ -217,8 +217,10 @@ internal struct AUWrapper {
 }
 
 extension AVAudioNode {
+    var inputCount: Int { numberOfInputs }
+
     func inputConnections() -> [AVAudioConnectionPoint] {
-        return (0 ..< numberOfInputs).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
+        return (0 ..< inputCount).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
     }
 }
 

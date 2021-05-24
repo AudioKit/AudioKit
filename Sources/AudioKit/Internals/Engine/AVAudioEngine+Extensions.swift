@@ -110,7 +110,7 @@ extension AVAudioEngine {
 
 extension AVAudioEngine {
     internal func mixerHasInputs(mixer: AVAudioMixerNode) -> Bool {
-        return (0 ..< mixer.numberOfInputs).contains {
+        return (0 ..< mixer.inputCount).contains {
             self.inputConnectionPoint(for: mixer, inputBus: $0) != nil
         }
     }

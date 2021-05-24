@@ -268,7 +268,7 @@ class NodeTests: XCTestCase {
         let mixer = Mixer(players)
         engine.output = mixer
 
-        XCTAssertEqual(mixer.avAudioNode.numberOfInputs, 16)
+        XCTAssertEqual(mixer.avAudioNode.inputCount, 16)
     }
 
     func connectionCount(node: AVAudioNode) -> Int {

@@ -10,7 +10,7 @@ extension AVAudioNode {
         if let engine = engine {
 
             var newConnections: [AVAudioNode: [AVAudioConnectionPoint]] = [:]
-            for bus in 0 ..< numberOfInputs {
+            for bus in 0 ..< inputCount {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if cp.node === input {
                         let points = engine.outputConnectionPoints(for: input, outputBus: 0)
