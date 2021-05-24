@@ -2,6 +2,8 @@
 
 import Foundation
 
+// TODO: unit tests
+
 /// helper object to simulate a Swift tuple for ObjC interoperability
 public class TuningTableETNN: NSObject {
     /// MIDI Note Nubmer
