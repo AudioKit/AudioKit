@@ -9,7 +9,7 @@ extension AVAudioNode {
             for bus in 0 ..< numberOfInputs {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if cp.node === input {
-                        engine.disconnectNodeInput(self, bus: bus)
+                        disconnectExpectingSplitConnections(input: input)
                     }
                 }
             }
@@ -20,6 +20,7 @@ extension AVAudioNode {
     public func disconnectSplitConnection(from target: AVAudioNode, format: AVAudioFormat? = Settings.audioFormat) {
         guard let engine = engine else { return }
         let connections = engine.outputConnectionPoints(for: self, outputBus: 0)
+        print("Connections:", connections)
         let backupConnections = connections.filter { $0.node != .some(target) }
         engine.disconnectNodeOutput(self, bus: 0)
         engine.connect(self, to: backupConnections, fromBus: 0, format: format)

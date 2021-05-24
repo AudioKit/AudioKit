@@ -15,7 +15,7 @@ class MixerTests: XCTestCase {
         player.play()
         audio.append(engine.render(duration: 1.0))
         mixer2.addInput(player)
-        mixer2.removeInput(player, expectSplitConnections: true)
+        mixer2.removeInput(player)
         mixer2.addInput(player)
         testMD5(audio)
     }
