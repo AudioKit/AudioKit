@@ -4,6 +4,8 @@ import Accelerate
 import AVFoundation
 import Foundation
 
+// TODO: add unit test.
+
 extension AVAudioEngine {
     /// Render output to an AVAudioFile for a duration.
     ///     - Parameters
