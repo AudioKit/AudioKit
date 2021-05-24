@@ -42,30 +42,6 @@ extension AudioUnitParameterOptions {
     public static let `default`: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
 }
 
-extension CGRect {
-    /// Initialize with a size
-    /// - Parameter size: size to create the CGRect with
-    public init(size: CGSize) {
-        self.init(origin: .zero, size: size)
-    }
-
-    /// Initialize with width and height
-    /// - Parameters:
-    ///   - width: Width of rectangle
-    ///   - height: Height of rectangle
-    public init(width: CGFloat, height: CGFloat) {
-        self.init(origin: .zero, size: CGSize(width: width, height: height))
-    }
-
-    /// Initialize with width and height
-    /// - Parameters:
-    ///   - width: Width of rectangle
-    ///   - height: Height of rectangle
-    public init(width: Int, height: Int) {
-        self.init(width: CGFloat(width), height: CGFloat(height))
-    }
-}
-
 /// Helper function to convert codes for Audio Units
 /// - parameter string: Four character string to convert
 public func fourCC(_ string: String) -> UInt32 {
