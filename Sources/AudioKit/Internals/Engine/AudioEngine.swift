@@ -32,7 +32,7 @@ extension AVAudioNode {
             for bus in 0 ..< numberOfInputs {
                 if let icp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if icp.node === input {
-                        if inputTotalConnections.count > 1 {
+                        if inputTotalConnections.count == 2 {
                             input.disconnectSplitConnection(from: self)
                         } else {
                            // current implementation goes here straight away
