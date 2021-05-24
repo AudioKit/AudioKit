@@ -113,18 +113,18 @@ public struct MIDIEvent: MIDIMessage, Equatable {
                 data = [] // reset internal data
 
                 // voodoo to convert packet 256 element tuple to byte arrays
-                if let midiBytes = MIDIEvent.decode(packet: packet) {
-                    // flag midi system that a sysEx packet has started so it can gather bytes until the end
-                    MIDI.sharedInstance.startReceivingSysEx(with: midiBytes)
-                    data += midiBytes
-                    if let sysExEndIndex = midiBytes.firstIndex(of: MIDISystemCommand.sysExEnd.byte) {
-                        let length = sysExEndIndex + 1
-                        data = Array(data.prefix(length))
-                        MIDI.sharedInstance.stopReceivingSysEx()
-                    } else {
-                        data.removeAll()
-                    }
+                let midiBytes = MIDIEvent.decode(packet: packet)
+                // flag midi system that a sysEx packet has started so it can gather bytes until the end
+                MIDI.sharedInstance.startReceivingSysEx(with: midiBytes)
+                data += midiBytes
+                if let sysExEndIndex = midiBytes.firstIndex(of: MIDISystemCommand.sysExEnd.byte) {
+                    let length = sysExEndIndex + 1
+                    data = Array(data.prefix(length))
+                    MIDI.sharedInstance.stopReceivingSysEx()
+                } else {
+                    data.removeAll()
                 }
+            
             } else if length == 1 {
                 let bytes = [packet.data.0]
                 data = bytes
@@ -290,14 +290,14 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     }
 
     static func appendIncomingSysEx(packet: MIDIPacket) -> MIDIEvent? {
-        if let midiBytes = MIDIEvent.decode(packet: packet) {
-            MIDI.sharedInstance.incomingSysEx += midiBytes
-            if midiBytes.contains(MIDISystemCommand.sysExEnd.rawValue) {
-                let sysExEvent = MIDIEvent(data: MIDI.sharedInstance.incomingSysEx, timeStamp: packet.timeStamp)
-                MIDI.sharedInstance.stopReceivingSysEx()
-                return sysExEvent
-            }
+        let midiBytes = MIDIEvent.decode(packet: packet)
+        MIDI.sharedInstance.incomingSysEx += midiBytes
+        if midiBytes.contains(MIDISystemCommand.sysExEnd.rawValue) {
+            let sysExEvent = MIDIEvent(data: MIDI.sharedInstance.incomingSysEx, timeStamp: packet.timeStamp)
+            MIDI.sharedInstance.stopReceivingSysEx()
+            return sysExEvent
         }
+        
         return nil
     }
 
@@ -353,7 +353,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         return midiEvents
     }
 
-    static func decode(packet: MIDIPacket) -> [MIDIByte]? {
+    static func decode(packet: MIDIPacket) -> [MIDIByte] {
         var outBytes = [MIDIByte]()
         var tupleIndex: UInt16 = 0
         let byteCount = packet.length

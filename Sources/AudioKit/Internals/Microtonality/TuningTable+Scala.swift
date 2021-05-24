@@ -12,13 +12,9 @@ extension TuningTable {
             return nil
         }
 
-        if let scalaFrequencies = frequencies(fromScalaString: contentStr) {
-            let npo = tuningTable(fromFrequencies: scalaFrequencies)
-            return npo
-        }
-
-        // error
-        return nil
+        let scalaFrequencies = frequencies(fromScalaString: contentStr)
+        let npo = tuningTable(fromFrequencies: scalaFrequencies)
+        return npo
     }
 
     fileprivate func stringTrimmedForLeadingAndTrailingWhiteSpacesFromString(_ inputString: String?) -> String? {
@@ -47,9 +43,9 @@ extension TuningTable {
     }
 
     /// Get frequencies from a Scala string
-    public func frequencies(fromScalaString rawStr: String?) -> [Frequency]? {
+    public func frequencies(fromScalaString rawStr: String?) -> [Frequency] {
         guard let inputStr = rawStr else {
-            return nil
+            return []
         }
 
         // default return value is [1.0]
@@ -201,7 +197,7 @@ extension TuningTable {
 
         if !parsedScala {
             Log("FATAL ERROR: cannot parse Scala file")
-            return nil
+            return []
         }
 
         Log("frequencies: \(scalaFrequencies)")

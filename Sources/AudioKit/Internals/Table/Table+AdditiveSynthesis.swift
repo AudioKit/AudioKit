@@ -376,12 +376,12 @@ extension Table {
     ///   - url: URL to audio file
     ///   - tableLength: number of floating point value samples per table (Default: 2048)
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public class func createWavetableArray(_ url: URL, tableLength: Int = 2_048) -> [Table]? {
+    public class func createWavetableArray(_ url: URL, tableLength: Int = 2_048) -> [Table] {
         if let audioInformation = loadAudioSignal(audioURL: url) {
             let signal = audioInformation.signal
             let tables = Table.chopAudioToTables(signal: signal, tableLength: tableLength)
             return Table.createInterpolatedTables(inputTables: tables)
         }
-        return nil
+        return []
     }
 }
