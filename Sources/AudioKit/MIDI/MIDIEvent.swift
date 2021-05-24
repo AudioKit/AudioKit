@@ -242,9 +242,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     ///   - velocity:   MIDI Note velocity (0-127)
     ///   - channel:    Channel on which the note appears
     ///
-    public init(noteOn noteNumber: MIDINoteNumber,
-                velocity: MIDIVelocity,
-                channel: MIDIChannel) {
+    public init(noteOn noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         self.init(data: [MIDIStatus(type: .noteOn, channel: channel).byte, noteNumber, velocity])
     }
 
@@ -255,9 +253,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     ///   - velocity:   MIDI Note velocity (0-127)
     ///   - channel:    Channel on which the note appears
     ///
-    public init(noteOff noteNumber: MIDINoteNumber,
-                velocity: MIDIVelocity,
-                channel: MIDIChannel) {
+    public init(noteOff noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         self.init(data: [MIDIStatus(type: .noteOff, channel: channel).byte, noteNumber, velocity])
     }
 
@@ -267,8 +263,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     ///   - data: Program change byte
     ///   - channel: Channel on which the program change appears
     ///
-    public init(programChange data: MIDIByte,
-                channel: MIDIChannel) {
+    public init(programChange data: MIDIByte, channel: MIDIChannel) {
         self.init(data: [MIDIStatus(type: .programChange, channel: channel).byte, data])
     }
 
@@ -279,9 +274,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     ///   - value:      Value of the controller
     ///   - channel:    Channel on which the controller value has changed
     ///
-    public init(controllerChange controller: MIDIByte,
-                value: MIDIByte,
-                channel: MIDIChannel) {
+    public init(controllerChange controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         self.init(data: [MIDIStatus(type: .controllerChange, channel: channel).byte, controller, value])
     }
 
