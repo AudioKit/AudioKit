@@ -158,6 +158,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     ///
     /// - Parameters:
     ///   - data:  [MIDIByte] bluetooth packet
+    ///   - timeStamp: MIDI Timestamp
     ///
     public init(data: [MIDIByte], timeStamp: MIDITimeStamp? = nil) {
         self.timeStamp = timeStamp
@@ -165,7 +166,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
             if let sysExEndIndex = data.firstIndex(of: MIDISystemCommand.sysExEnd.rawValue) {
                 self.data = Array(data[0...sysExEndIndex])
             }
-        } else if let command = MIDISystemCommand(rawValue: data[0]) {
+        } else if data.isNotEmpty, let command = MIDISystemCommand(rawValue: data[0]) {
             self.data = []
             // is sys command
             if command == .sysEx {
@@ -175,11 +176,11 @@ public struct MIDIEvent: MIDIMessage, Equatable {
             } else {
                 fillData(command: command, bytes: Array(data.suffix(from: 1)))
             }
-        } else if let status = MIDIStatusType.from(byte: data[0]) {
+        } else if data.isNotEmpty, let status = MIDIStatusType.from(byte: data[0]) {
             // is regular MIDI status
             let channel = data[0].lowBit
             fillData(status: status, channel: channel, bytes: Array(data.dropFirst()))
-        } else if let metaType = MIDICustomMetaEventType(rawValue: data[0]) {
+        } else if data.isNotEmpty, let metaType = MIDICustomMetaEventType(rawValue: data[0]) {
             Log("is meta event \(metaType.description)", log: OSLog.midi)
         }
     }
