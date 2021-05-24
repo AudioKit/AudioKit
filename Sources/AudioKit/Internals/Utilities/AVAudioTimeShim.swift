@@ -2,6 +2,8 @@
 
 import AVFoundation
 
+// TODO: write unit tests.
+
 /// Utility to convert between host time and seconds
 private let ticksToSeconds: Double = {
     var tinfo = mach_timebase_info()
