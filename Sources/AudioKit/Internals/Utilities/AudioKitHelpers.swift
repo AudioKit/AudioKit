@@ -5,6 +5,8 @@ import AVFoundation
 import CoreAudio
 import Accelerate
 
+// TODO: write unit tests.
+
 /// Normally set in AVFoundation or AudioToolbox,
 /// we create it here so users don't have to import those frameworks
 public typealias AUValue = Float
