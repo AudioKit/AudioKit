@@ -61,14 +61,11 @@ class NodeTests: XCTestCase {
 
         testMD5(audio)
     }
-
-    /* Dynamic Connections Not Working with Player
     
     func testDynamicConnection() {
         let engine = AudioEngine()
 
-        let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player1 = AudioPlayer(url: url1)!
+        let player1 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
         let mixer = Mixer(player1)
 
         XCTAssertNil(player1.avAudioNode.engine)
@@ -84,14 +81,16 @@ class NodeTests: XCTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let url2 = Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
-        let player2 = AudioPlayer(url: url2)!
+        let player2 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 880, amplitude: 0.1)
         mixer.addInput(player2)
         player2.play()
         audio.append(engine.render(duration: 1.0))
 
+        XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
+
+    /*
 
     func testDynamicConnection2() {
         let engine = AudioEngine()

@@ -40,7 +40,7 @@ let validatedMD5s: [String: String] = [
     "-[MixerTests testSplitConnection]": "6b2d34e86130813c7e7d9f1cf7a2a87c",
     "-[NodeTests testAutomationAfterDelayedConnection]": "f5f2cf536578d5a037c88d2cd458eb10",
     "-[NodeTests testDisconnect]": "8c5c55d9f59f471ca1abb53672e3ffbf",
-    "-[NodeTests testDynamicConnection]": "08bdb8c6f9bad4a7514d6619cf9c3af5",
+    "-[NodeTests testDynamicConnection]": "c61c69779df208d80f371881346635ce",
     "-[NodeTests testDynamicConnection2]": "8c5c55d9f59f471ca1abb53672e3ffbf",
     "-[NodeTests testDynamicConnection3]": "70e6414b0f09f42f70ca7c0b0d576e84",
     "-[NodeTests testDynamicOutput]": "faf8254c11a6b73eb3238d57b1c14a9f",
