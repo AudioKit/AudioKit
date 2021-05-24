@@ -13,7 +13,8 @@ extension AVAudioNode {
             for bus in 0 ..< numberOfInputs {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if cp.node === input {
-                        newConnections[input] = engine.outputConnectionPoints(for: input, outputBus: 0).filter { $0.node != self }
+                        let points = engine.outputConnectionPoints(for: input, outputBus: 0)
+                        newConnections[input] = points.filter { $0.node != self }
                     }
                 }
             }
