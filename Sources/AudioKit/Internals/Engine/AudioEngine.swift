@@ -3,47 +3,33 @@
 import AVFoundation
 
 extension AVAudioNode {
-    /// Disconnect and manage engine connections
-    public func disconnect(input: AVAudioNode) {
+
+    /// Disconnect without breaking other connections.
+    func disconnect(input: AVAudioNode) {
+
         if let engine = engine {
+
+            var newConnections:[AVAudioNode: [AVAudioConnectionPoint]] = [:]
             for bus in 0 ..< numberOfInputs {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if cp.node === input {
-                        disconnectExpectingSplitConnections(input: input)
+                        newConnections[input] = engine.outputConnectionPoints(for: input, outputBus: 0).filter { $0.node != self }
                     }
+                }
+            }
+
+            for (node, connections) in newConnections {
+                if connections.isEmpty {
+                    engine.disconnectNodeOutput(node)
+                } else {
+                    engine.connect(node, to: connections, fromBus: 0, format: Settings.audioFormat)
                 }
             }
         }
     }
-
-    /// Break all connections, then reconnect to all nodes except target node
-    public func disconnectSplitConnection(from target: AVAudioNode, format: AVAudioFormat? = Settings.audioFormat) {
-        guard let engine = engine else { return }
-        let connections = engine.outputConnectionPoints(for: self, outputBus: 0)
-        let backupConnections = connections.filter { $0.node != .some(target) }
-        engine.disconnectNodeOutput(self, bus: 0)
-        engine.connect(self, to: backupConnections, fromBus: 0, format: format)
-    }
-
-    public func disconnectExpectingSplitConnections(input: AVAudioNode) {
-            guard let engine = engine else { return }
-            let inputTotalConnections = engine.outputConnectionPoints(for: input, outputBus: 0)
-            for bus in 0 ..< numberOfInputs {
-                if let icp = engine.inputConnectionPoint(for: self, inputBus: bus) {
-                    if icp.node === input {
-                        if inputTotalConnections.count == 2 {
-                            input.disconnectSplitConnection(from: self)
-                        } else {
-                           // current implementation goes here straight away
-                            engine.disconnectNodeInput(self, bus: bus)
-                        }
-                    }
-                }
-            }
-        }
 
     /// Make a connection without breaking other connections.
-    public func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
+    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: {
