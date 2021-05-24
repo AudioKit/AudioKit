@@ -187,7 +187,7 @@ class EngineTests: XCTestCase {
     }
 
     func testAudioDevices() {
-        XCTAssert(AudioEngine.devices!.count > 0)
+        XCTAssert(AudioEngine.devices.count > 0)
     }
 
     func testOutputDevices() {

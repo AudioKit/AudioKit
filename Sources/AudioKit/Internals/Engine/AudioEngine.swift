@@ -289,7 +289,7 @@ public class AudioEngine {
 
     #if os(macOS)
     /// Enumerate the list of available devices.
-    public static var devices: [Device]? {
+    public static var devices: [Device] {
         return AudioDeviceUtils.devices().map { id in
             Device(deviceID: id)
         }
