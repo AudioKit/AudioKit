@@ -3,6 +3,8 @@
 import Foundation
 import Accelerate
 
+// TODO: Write unit tests.
+
 extension Table {
     /// This method will start at rootFrequency * octave, walk up by octaveStepSize, and halt before reaching nyquist.
     /// This method outputs an array where each entry is a tuple of frequency and the maximum number of harmonics.
