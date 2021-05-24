@@ -185,4 +185,16 @@ class EngineTests: XCTestCase {
                        \(connectionTreeLinePrefix) ↳Mixer("\(addressOfMixerWithoutName)")
                        """)
     }
+
+    func testAudioDevices() {
+        XCTAssert(AudioEngine.devices!.count > 0)
+    }
+
+    func testOutputDevices() {
+        XCTAssert(AudioEngine.outputDevices!.count > 0)
+    }
+
+    func testInputDevices() {
+        XCTAssert(AudioEngine.inputDevices!.count > 0)
+    }
 }
