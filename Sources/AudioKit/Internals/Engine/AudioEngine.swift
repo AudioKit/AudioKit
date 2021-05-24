@@ -9,7 +9,7 @@ extension AVAudioNode {
 
         if let engine = engine {
 
-            var newConnections:[AVAudioNode: [AVAudioConnectionPoint]] = [:]
+            var newConnections: [AVAudioNode: [AVAudioConnectionPoint]] = [:]
             for bus in 0 ..< numberOfInputs {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if cp.node === input {
