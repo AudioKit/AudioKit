@@ -37,6 +37,7 @@ let validatedMD5s: [String: String] = [
     "-[FFTTapTests testBasic]": "68d1550a306b253f9d4c18cda0824d3a",
     "-[FFTTapTests testWithoutNormalization]": "68d1550a306b253f9d4c18cda0824d3a",
     "-[FFTTapTests testWithZeroPadding]": "68d1550a306b253f9d4c18cda0824d3a",
+    "-[MixerTests testSplitConnection]": "6b2d34e86130813c7e7d9f1cf7a2a87c",
     "-[NodeTests testAutomationAfterDelayedConnection]": "f5f2cf536578d5a037c88d2cd458eb10",
     "-[NodeTests testDisconnect]": "8c5c55d9f59f471ca1abb53672e3ffbf",
     "-[NodeTests testDynamicConnection]": "08bdb8c6f9bad4a7514d6619cf9c3af5",

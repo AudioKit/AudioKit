@@ -3,21 +3,34 @@
 import AVFoundation
 
 extension AVAudioNode {
-    /// Disconnect and manage engine connections
-    public func disconnect(input: AVAudioNode) {
+
+    /// Disconnect without breaking other connections.
+    func disconnect(input: AVAudioNode) {
+
         if let engine = engine {
+
+            var newConnections: [AVAudioNode: [AVAudioConnectionPoint]] = [:]
             for bus in 0 ..< numberOfInputs {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if cp.node === input {
-                        engine.disconnectNodeInput(self, bus: bus)
+                        let points = engine.outputConnectionPoints(for: input, outputBus: 0)
+                        newConnections[input] = points.filter { $0.node != self }
                     }
+                }
+            }
+
+            for (node, connections) in newConnections {
+                if connections.isEmpty {
+                    engine.disconnectNodeOutput(node)
+                } else {
+                    engine.connect(node, to: connections, fromBus: 0, format: Settings.audioFormat)
                 }
             }
         }
     }
 
     /// Make a connection without breaking other connections.
-    public func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
+    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: {
