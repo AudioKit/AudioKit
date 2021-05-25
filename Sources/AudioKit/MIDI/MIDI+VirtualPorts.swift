@@ -21,16 +21,18 @@ extension MIDI {
     /// Create set of virtual input and output MIDI ports
     /// - Parameters:
     ///   - count: Number of ports to create (default: 1 Virtual Input and 1 Virtual Output)
-    ///   - uniqueIDs: Optional list of IDs (otherwise they are automatically generated)
-    ///   - names: Optional list of names (otherwise they are automatically generated)
-    public func createVirtualPorts(count: Int = 1, uniqueIDs: [Int32]? = nil, names: [String]? = nil) {
+    ///   - inputPortIDs: Optional list of UIDs for the input port(s) (otherwise they are automatically generated)
+    ///   - outputPortIDs: Optional list of UIDs for the output port(s) (otherwise they are automatically generated)
+    ///   - inputPortNames: Optional list of names for the input port(s) (otherwise they are automatically generated)
+    ///   - outputPortNames: Optional list of names for the output port(s) (otherwise they are automatically generated)
+    public func createVirtualPorts(count: Int = 1, inputPortIDs: [Int32]? = nil, outputPortIDs: [Int32]?, inputPortNames: [String]? = nil, outputPortNames: [String]? = nil) {
         guard count > 0 else {
             return Log("Error: Number of port to create can't be less than one)", log: OSLog.midi, type: .error)
         }
 
         Log("Creating \(count) virtual input and output ports", log: OSLog.midi)
-        createVirtualInputPorts(count: count, uniqueIDs: uniqueIDs, names: names)
-        createVirtualOutputPorts(count: count, uniqueIDs: uniqueIDs, names: names)
+        createVirtualInputPorts(count: count, uniqueIDs: inputPortIDs, names: inputPortNames)
+        createVirtualOutputPorts(count: count, uniqueIDs: outputPortIDs, names: outputPortNames)
     }
 
     /// Create virtual MIDI input ports (ports from AudioKit to the receiving destination)
@@ -42,9 +44,9 @@ extension MIDI {
         guard count > 0 else { return Log("Error: Number of port to create can't be less than one)",
                                           log: OSLog.midi, type: .error)}
         let currentPortCount = self.virtualOutputs.count
-        let startIndex = currentPortCount
-        let endIndex = currentPortCount + (count - 1)
-        var unnamedPortIndex = startIndex
+        let startIndex = currentPortCount - 1
+        let endIndex = startIndex + (count - 1)
+        var unnamedPortIndex = startIndex + 1
         var unIDPortIndex: Int32 = Int32(startIndex)
         for virtualPortIndex in startIndex...(endIndex) {
             var virtualPortName: String
