@@ -27,7 +27,7 @@ extension MIDI {
     ///   - outputPortNames: Optional list of names for the output port(s) (otherwise they are automatically generated)
     public func createVirtualPorts(count: Int = 1,
                                    inputPortIDs: [Int32]? = nil,
-                                   outputPortIDs: [Int32]?,
+                                   outputPortIDs: [Int32]? = nil,
                                    inputPortNames: [String]? = nil,
                                    outputPortNames: [String]? = nil) {
         guard count > 0 else {
