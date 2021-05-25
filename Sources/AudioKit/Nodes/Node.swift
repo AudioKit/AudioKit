@@ -173,6 +173,7 @@ protocol HasInternalConnections: AnyObject {
     func makeInternalConnections()
 }
 
+/// Protocol mostly to support DynamicOscillator in SoundpipeAudioKit, but could be used elsewhere
 public protocol DynamicWaveformNode: Node {
     /// Sets the wavetable
     /// - Parameter waveform: The tablve
