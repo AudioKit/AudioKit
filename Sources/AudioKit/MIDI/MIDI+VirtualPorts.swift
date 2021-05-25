@@ -39,7 +39,7 @@ extension MIDI {
         createVirtualOutputPorts(count: count, uniqueIDs: outputPortIDs, names: outputPortNames)
     }
 
-    /// Create virtual MIDI input ports (ports to AudioKit from the sending destination)
+    /// Create virtual MIDI input ports (ports sending from AudioKit)
     /// - Parameters:
     ///   - count: Number of ports to create (default: 1)
     ///   - uniqueIDs: Optional list of IDs (otherwise they are automatically generated)
@@ -60,7 +60,7 @@ extension MIDI {
             if names?.count ?? 0 > virtualPortIndex, let portName = names?[virtualPortIndex] {
                 virtualPortName = portName
             } else {
-                virtualPortName = String("To \(clientName) \(unnamedPortIndex)")
+                virtualPortName = String("From \(clientName) \(unnamedPortIndex)")
                 unnamedPortIndex += 1
             }
 
@@ -70,18 +70,7 @@ extension MIDI {
                 uniqueID = 2_000_000 + unIDPortIndex
                 unIDPortIndex += 2
             }
-
-            let result = MIDIDestinationCreateWithBlock(
-                client,
-                virtualPortName as CFString,
-                &virtualInputs[virtualPortIndex]) { packetList, _ in
-                for packet in packetList.pointee {
-                    // a Core MIDI packet may contain multiple MIDI events
-                    for event in packet {
-                        self.handleMIDIMessage(event, fromInput: uniqueID)
-                    }
-                }
-            }
+            let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualInputs[virtualPortIndex])
             if result == noErr {
                 MIDIObjectSetIntegerProperty(virtualInputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
@@ -98,7 +87,7 @@ extension MIDI {
         }
     }
 
-    /// Create virtual MIDI output ports (ports to the receiving destination from AudioKit)
+    /// Create virtual MIDI output ports (ports sending to AudioKit)
     /// - Parameters:
     ///   - count: Number of ports to create (default: 1)
     ///   - uniqueIDs: Optional list of IDs (otherwise they are automatically generated)
@@ -119,7 +108,7 @@ extension MIDI {
             if names?.count ?? 0 > virtualPortIndex, let portName = names?[virtualPortIndex] {
                 virtualPortName = portName
             } else {
-                virtualPortName = String("From \(clientName) \(unnamedPortIndex)")
+                virtualPortName = String("To \(clientName) \(unnamedPortIndex)")
                 unnamedPortIndex += 1
             }
 
@@ -130,7 +119,17 @@ extension MIDI {
                 unIDPortIndex += 2
             }
 
-            let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualOutputs[virtualPortIndex])
+            let result = MIDIDestinationCreateWithBlock(
+                client,
+                virtualPortName as CFString,
+                &virtualOutputs[virtualPortIndex]) { packetList, _ in
+                for packet in packetList.pointee {
+                    // a Core MIDI packet may contain multiple MIDI events
+                    for event in packet {
+                        self.handleMIDIMessage(event, fromInput: uniqueID)
+                    }
+                }
+            }
             if result == noErr {
                 MIDIObjectSetIntegerProperty(virtualOutputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
@@ -138,7 +137,7 @@ extension MIDI {
                     """
                     Error \(result) Creating Virtual Output Port:
                     \(virtualPortName) --
-                    \(virtualInputs[virtualPortIndex])
+                    \(virtualOutputs[virtualPortIndex])
                     """,
                     log: OSLog.midi, type: .error
                 )
