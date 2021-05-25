@@ -15,9 +15,9 @@ public struct Device: Equatable, Hashable {
     /// The human-readable name for the device.
     public private(set) var name: String
     /// Number of input channels
-    public private(set) var nInputChannels: Int?
+    public private(set) var inputChannelCount: Int?
     /// Number of output channels
-    public private(set) var nOutputChannels: Int?
+    public private(set) var outputChannelCount: Int?
 
     /// The device identifier.
     public private(set) var deviceID: DeviceID
@@ -44,8 +44,8 @@ public struct Device: Equatable, Hashable {
     /// - Parameter deviceID: DeviceID
     public init(deviceID: DeviceID) {
         self.init(name: AudioDeviceUtils.name(deviceID), deviceID: deviceID)
-        nInputChannels = AudioDeviceUtils.inputChannels(deviceID)
-        nOutputChannels = AudioDeviceUtils.outputChannels(deviceID)
+        inputChannelCount = AudioDeviceUtils.inputChannels(deviceID)
+        outputChannelCount = AudioDeviceUtils.outputChannels(deviceID)
     }
     #endif
 
