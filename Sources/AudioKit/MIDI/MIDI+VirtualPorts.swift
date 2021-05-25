@@ -25,7 +25,11 @@ extension MIDI {
     ///   - outputPortIDs: Optional list of UIDs for the output port(s) (otherwise they are automatically generated)
     ///   - inputPortNames: Optional list of names for the input port(s) (otherwise they are automatically generated)
     ///   - outputPortNames: Optional list of names for the output port(s) (otherwise they are automatically generated)
-    public func createVirtualPorts(count: Int = 1, inputPortIDs: [Int32]? = nil, outputPortIDs: [Int32]?, inputPortNames: [String]? = nil, outputPortNames: [String]? = nil) {
+    public func createVirtualPorts(count: Int = 1,
+                                   inputPortIDs: [Int32]? = nil,
+                                   outputPortIDs: [Int32]?,
+                                   inputPortNames: [String]? = nil,
+                                   outputPortNames: [String]? = nil) {
         guard count > 0 else {
             return Log("Error: Number of port to create can't be less than one)", log: OSLog.midi, type: .error)
         }
