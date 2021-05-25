@@ -85,7 +85,9 @@ extension MIDI {
             if result == noErr {
                 MIDIObjectSetIntegerProperty(virtualInputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
-                Log("Error \(result) Creating Virtual Input Port: \(virtualPortName) -- \(virtualInputs[virtualPortIndex])",
+                Log("Error \(result) Creating Virtual Input Port:
+                    \(virtualPortName) --
+                    \(virtualInputs[virtualPortIndex])",
                     log: OSLog.midi, type: .error)
                 CheckError(result)
             }
@@ -128,7 +130,9 @@ extension MIDI {
             if result == noErr {
                 MIDIObjectSetIntegerProperty(virtualOutputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
-                Log("Error \(result) Creating Virtual Output Port: \(virtualPortName) -- \(virtualInputs[virtualPortIndex])",
+                Log("Error \(result) Creating Virtual Output Port:
+                    \(virtualPortName) --
+                    \(virtualInputs[virtualPortIndex])",
                     log: OSLog.midi, type: .error)
                 CheckError(result)
             }
