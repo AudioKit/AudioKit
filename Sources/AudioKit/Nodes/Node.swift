@@ -169,8 +169,19 @@ extension Node {
 }
 
 protocol HasInternalConnections: AnyObject {
-
     /// Override point for any connections internal to the node.
     func makeInternalConnections()
+}
 
+public protocol DynamicWaveformNode: Node {
+    /// Sets the wavetable
+    /// - Parameter waveform: The tablve
+    func setWaveform(_ waveform: Table)
+
+    /// Gets the floating point values stored in the wavetable
+    func getWaveformValues() -> [Float]
+    
+    /// Set the waveform change handler
+    /// - Parameter handler: Closure with an array of floats as the argument
+    func setWaveformUpdateHandler(_ handler: @escaping ([Float]) -> Void)
 }
