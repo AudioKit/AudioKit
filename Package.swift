@@ -10,7 +10,7 @@ let package = Package(
     targets: [
         .target(name: "AudioKit"),
         .target(name: "AudioKitEX", dependencies: ["AudioKit", "CAudioKitEX"]),
-        .target(name: "CAudioKitEX", publicHeadersPath: "include"),
+        .target(name: "CAudioKitEX", cxxSettings: [.headerSearchPath(".")]),
         .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
         .testTarget(name: "AudioKitEXTests", dependencies: ["AudioKitEX"], resources: [.copy("TestResources/")])
     ],
