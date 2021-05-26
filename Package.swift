@@ -5,35 +5,15 @@ import PackageDescription
 
 let package = Package(
     name: "AudioKit",
-    platforms: [
-        .macOS(.v10_14), .iOS(.v13), .tvOS(.v13)
-    ],
-    products: [
-        .library(
-            name: "AudioKit",
-            targets: ["AudioKit", "AudioKitEX"])
-    ],
+    platforms: [.macOS(.v10_14), .iOS(.v13), .tvOS(.v13)],
+    products: [.library(name: "AudioKit", targets: ["AudioKit", "AudioKitEX"])],
     targets: [
-        .target(
-            name: "AudioKit",
-            exclude: [
-                "Internals/Table/README.md",
-                "Internals/README.md",
-                "MIDI/README.md",
-                "Taps/README.md",
-                "Nodes/Effects/README.md",
-                "Nodes/README.md",
-            ]),
-        .target(
-            name: "AudioKitEX",
-            dependencies: ["AudioKit", "CAudioKitEX"]),
+        .target(name: "AudioKit"),
+        .target(name: "AudioKitEX", dependencies: ["AudioKit", "CAudioKitEX"]),
         .target(
             name: "CAudioKitEX",
             publicHeadersPath: "include",
-            cxxSettings: [
-                .headerSearchPath("Internals"),
-                .headerSearchPath(".")
-            ]
+            cxxSettings: [.headerSearchPath("Internals"), .headerSearchPath(".")]
         ),
         .testTarget(
             name: "AudioKitTests",
