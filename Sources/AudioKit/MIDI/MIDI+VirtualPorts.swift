@@ -69,7 +69,7 @@ extension MIDI {
             } else {
                 uniqueID = 2_000_000 + unIDPortIndex
                 unIDPortIndex += 2
-
+            }
             let result = MIDIDestinationCreateWithBlock(
             client,
             virtualPortName as CFString,
@@ -128,8 +128,8 @@ extension MIDI {
                 uniqueID = 2_000_001 + unIDPortIndex
                 unIDPortIndex += 2
             }
-           }
-           let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualOutputs[virtualPortIndex])
+
+            let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualOutputs[virtualPortIndex])
             if result == noErr {
                 MIDIObjectSetIntegerProperty(virtualOutputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
