@@ -69,6 +69,7 @@ extension MIDI {
             } else {
                 uniqueID = 2_000_000 + unIDPortIndex
                 unIDPortIndex += 2
+           }
 
             let result = MIDIDestinationCreateWithBlock(
             client,
