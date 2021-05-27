@@ -69,8 +69,18 @@ extension MIDI {
             } else {
                 uniqueID = 2_000_000 + unIDPortIndex
                 unIDPortIndex += 2
+
+            let result = MIDIDestinationCreateWithBlock(
+            client,
+            virtualPortName as CFString,
+            &virtualInputs[virtualPortIndex]) { packetList, _ in
+                for packet in packetList.pointee {
+                    // a Core MIDI packet may contain multiple MIDI events
+                    for event in packet {
+                        self.handleMIDIMessage(event, fromInput: uniqueID)
+                    }
+                }
             }
-            let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualInputs[virtualPortIndex])
             if result == noErr {
                 MIDIObjectSetIntegerProperty(virtualInputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
@@ -118,18 +128,8 @@ extension MIDI {
                 uniqueID = 2_000_001 + unIDPortIndex
                 unIDPortIndex += 2
             }
-
-            let result = MIDIDestinationCreateWithBlock(
-                client,
-                virtualPortName as CFString,
-                &virtualOutputs[virtualPortIndex]) { packetList, _ in
-                for packet in packetList.pointee {
-                    // a Core MIDI packet may contain multiple MIDI events
-                    for event in packet {
-                        self.handleMIDIMessage(event, fromInput: uniqueID)
-                    }
-                }
-            }
+           }
+           let result = MIDISourceCreate(client, virtualPortName as CFString, &virtualOutputs[virtualPortIndex])
             if result == noErr {
                 MIDIObjectSetIntegerProperty(virtualOutputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
