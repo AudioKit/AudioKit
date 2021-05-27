@@ -10,7 +10,7 @@ Audio programming is full of abbreviations, difficult concepts, and new terminol
 
 ### Variable naming should be consistent across languages (ie. Swifty)
 
-Since the highest level language we're using is AudioKit, students of AudioKit will learn that first.
+Since the highest level language we're using is Swift, students of AudioKit will learn that first.
 As they dig deeper, they will be exposed to other languages, specifically C-variants, and they should
 not be surprised at the variables in those languages.  In specific, this means camel case variable naming
 with a lowercase first character (except for Classes, which are uppercase).  No Hungarian notation.
@@ -56,7 +56,3 @@ Ideally, our code would not need comments because it would be so clear to read t
 ### Comments should be documentation generating
 
 This requires you to use triple slash commenting usually on the lines above the item being commented on.
-
-### Folders should contain a README.md
-
-The README.md file should attempt to describe the contents of the folder, including files and sub folders.
