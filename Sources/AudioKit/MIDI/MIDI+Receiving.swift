@@ -78,12 +78,24 @@ extension MIDI {
 
     /// Array of input source unique ids
     public var inputUIDs: [MIDIUniqueID] {
-        return MIDISources().uniqueIds
+        var ids = MIDISources().uniqueIds
+        // Remove inputs which are actually virtual outputs from AudioKit
+        for input in self.virtualOutputs {
+            let virtualId = getMIDIObjectIntegerProperty(ref: input, property: kMIDIPropertyUniqueID)
+            ids.removeAll(where: { $0 == virtualId})
+        }
+        return ids
     }
 
     /// Array of input source names
     public var inputNames: [String] {
-        return MIDISources().names
+        var names = MIDISources().names
+        // Remove inputs which are actually virtual outputs from AudioKit
+        for input in self.virtualOutputs {
+            let virtualName = getMIDIObjectStringProperty(ref: input, property: kMIDIPropertyName)
+            names.removeAll(where: { $0 == virtualName})
+        }
+        return names
     }
 
     /// Lookup a input name from its unique id

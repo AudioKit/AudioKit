@@ -118,6 +118,16 @@ extension MIDI {
     public var inputInfos: [EndpointInfo] {
         return MIDISources().endpointInfos
     }
+
+    /// Virtual Outputs
+    public var virtualOutputInfos: [EndpointInfo] {
+        return virtualOutputs.endpointInfos
+    }
+
+    /// Virtual Inputs
+    public var virtualInputInfos: [EndpointInfo] {
+        return virtualInputs.endpointInfos
+    }
 }
 
 #endif
