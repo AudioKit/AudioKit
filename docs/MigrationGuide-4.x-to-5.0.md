@@ -1,4 +1,4 @@
-# AudioKit 5 Migration Guide
+# AudioKit 4.x to 5.0 Migration Guide
 
 AudioKit 5 is still in development, and in order to ensure high quality, some parts of AudioKit 4 have been removed, so the first step in migrating to AudioKit 5 is to determine whether what you used in AudioKit 4 is still available. 
 
