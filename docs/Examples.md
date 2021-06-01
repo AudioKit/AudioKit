@@ -1,4 +1,4 @@
-# AudioKit Examples
+# Examples
 
 The primary source for AudioKit examples is the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook). This app contains all of the mini-examples that used to be included with AudioKit.
 

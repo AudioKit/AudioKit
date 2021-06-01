@@ -1,4 +1,4 @@
-# Contributing to AudioKit
+# Contributing
 
 AudioKit is a Swift framework with internal code in C and C++.  For this reason,
 we mostly use Swift conventions throughout our code, even in the C-variants. We almost entirely defer to
