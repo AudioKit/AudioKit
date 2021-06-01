@@ -13,7 +13,6 @@ AudioKit has several underlying goals that motivate its development.
 4. We want to inspire the next generation of audio app developers and we do that by highlighting AudioKit-powered apps and by creating our own apps under the "AudioKit Pro" brand including the world's most downloaded synth "AudioKit Synth One" and a host of other AudioKit Pro apps.
 
 ## Examples
-
 The primary source for AudioKit examples is the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook). This app contains all of the mini-examples that used to be included with AudioKit.
 
 Larger examples have been moved to their own repositories:
@@ -35,11 +34,8 @@ Larger examples have been moved to their own repositories:
 * [Simple Audio Unit](https://github.com/AudioKit/SimpleAudioUnit)
 * [Song Processor](http://github.com/AudioKit/SongProcessor)
 
-
  ## Github Wiki 
-
 AudioKit's inline comments are processed by [SwiftDoc](https://github.com/SwiftDocOrg/swift-doc) and automatically create documentation on [AudioKit's Github Wiki](https://github.com/AudioKit/AudioKit/wiki).
 
 ## Migration Guide
-
 The [Migration Guide](MigrationGuide-4.x-to-5.0.md) contains a lot of good information on converting your app from Version 4 to 5.
