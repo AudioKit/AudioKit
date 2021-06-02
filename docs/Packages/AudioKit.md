@@ -1,5 +1,22 @@
 # AudioKit
 
+## Installation
+
+Use Swift Package Manageer and point to the URL:  [https://github.com/AudioKit/AudioKit/](https://github.com/AudioKit/AudioKit/])
+
+## Github Wiki 
+
+AudioKit's inline comments are processed by [SwiftDoc](https://github.com/SwiftDocOrg/swift-doc) and automatically create documentation on [AudioKit's Github Wiki](https://github.com/AudioKit/AudioKit/wiki).
+
+## Targets
+
+| Name        | Description                                                      | Language      |
+|-------------|------------------------------------------------------------------|---------------|
+| AudioKit    | Wrappers for AVFoundation Effects                                | Swift         |
+| AudioKitEX  | Nodes, Parameters, Automation, Sequencing                        | Swift         |
+| CAudioKitEX | DSP and other low level code supporting AudioKitEX functionality | Objective-C++ |
+
+
 # AudioKit's samplers
 
 The term "sampler" is a bit misleading. Originally, it referred to a hardware device capable of recording ("sampling") sound and then re-playing it from a keyboard. In practice, the playback aspect proved to be far more popular then the recording aspect, and today the two functions are nearly always completely separated. What we call a "sampler" today is simply a system for replaying previously-prepared sounds ("samples").
@@ -21,7 +38,6 @@ Unfortunately, *AUSampler* has some fatal flaws, and indeed appears to be an unf
 The AudioKit class **AppleSampler** basically just wraps an instance of *AUsampler* and makes its Objective-C based API accessible from Swift. Most music apps use the higher-level **MIDISampler** class, whose `enableMIDI()` function connects it directly to the stream of incoming MIDI data.
 
 # Apple Sampler Notes
-
 
 ## Making AppleSampler not get corrupted by an audio route change 
 
