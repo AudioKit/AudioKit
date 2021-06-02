@@ -2,7 +2,7 @@
 
 ## What is AudioKit?
 
-AudioKit is an entire audio development ecosystem of code repositories, packages, libraries, algorithms, applications, playgorunds, tests, and scripts, built and used by a community of audio programmers, app developers, engineers, researchers, scientists, musicians, gamers, and even people new to programming.
+AudioKit is an entire audio development ecosystem of code repositories, packages, libraries, algorithms, applications, playgorunds, tests, and scripts, built and used by a community of audio programmers, app developers, engineers, researchers, scientists, musicians, gamers, and people new to programming.
 
 AudioKit has several underlying goals that motivate its development.
 
