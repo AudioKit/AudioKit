@@ -1,4 +1,4 @@
-# Docs 
+# Home 
 
 ## What is AudioKit?
 
@@ -16,7 +16,7 @@ AudioKit has several underlying goals that motivate its development.
 
 ## Migration Guide
 
-The [Migration Guide](MigrationGuide-4.x-to-5.0.md) contains a lot of good information on converting your app from Version 4 to 5.
+The [Migration Guide](MigrationGuide.md) contains a lot of good information on converting your app from Version 4 to 5 and beyond.
 
 ## Examples
 
