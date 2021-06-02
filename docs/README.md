@@ -14,6 +14,14 @@ AudioKit has several underlying goals that motivate its development.
 
 4. We want to inspire the next generation of audio app developers and we do that by highlighting AudioKit-powered apps and by creating our own apps under the "AudioKit Pro" brand including the world's most downloaded synth "AudioKit Synth One" and a host of other AudioKit Pro apps.
 
+## Github Wiki 
+
+AudioKit's inline comments are processed by [SwiftDoc](https://github.com/SwiftDocOrg/swift-doc) and automatically create documentation on [AudioKit's Github Wiki](https://github.com/AudioKit/AudioKit/wiki).
+
+## Migration Guide
+
+The [Migration Guide](MigrationGuide-4.x-to-5.0.md) contains a lot of good information on converting your app from Version 4 to 5.
+
 ## Examples
 
 The primary source for AudioKit examples is the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook). This app contains all of the mini-examples that used to be included with AudioKit.
@@ -37,10 +45,75 @@ Larger examples have been moved to their own repositories:
 * [Simple Audio Unit](https://github.com/AudioKit/SimpleAudioUnit)
 * [Song Processor](http://github.com/AudioKit/SongProcessor)
 
-## Github Wiki 
+## MIDI
 
-AudioKit's inline comments are processed by [SwiftDoc](https://github.com/SwiftDocOrg/swift-doc) and automatically create documentation on [AudioKit's Github Wiki](https://github.com/AudioKit/AudioKit/wiki).
+AudioKit MIDI is an implementation of CoreMIDI meant to simplify creating and responding to MIDI signals. 
 
-## Migration Guide
+Add MIDI listeners like this:
+ ```
+var midi = MIDI()
+midi.openInput()
+midi.addListener(someClass)
+ ```
+ ...where `someClass` conforms to the `MIDIListener` protocol
 
-The [Migration Guide](MigrationGuide-4.x-to-5.0.md) contains a lot of good information on converting your app from Version 4 to 5.
+You then implement the methods you need from `MIDIListener` and use the data how you need.
+
+
+## Tables
+
+Tables are just arrays of float data. They are most often used to store waveform data and they have some defaults for the most common cases:
+
+* sine wave
+* triangle wave
+* square wave
+* sawtooth wave
+* reverse sawtooth wave
+* positive sine
+* positive triangle
+* positive square
+* positive sawtooth
+* positive reverse sawtooth
+
+Tables can also store audio or control data.
+
+## Taps
+
+Taps are a way to get access to the audio stream at a given point in the signal chain without 
+inserting a node into the signal chain, but instead sort of syphoning off audio "tapping" it and using
+the data for some side purpose like plotting or running analysis of the stream at that point.
+
+# Nodes
+
+Nodes are interconnectable components that work with the audio stream. For a node to work, audio has to be pulled through it. For audio to be pulled through a node, the audio signal chain that includes the node has to eventually reach an output. 
+
+AudioKit has several kinds of nodes:
+
+## Analysis 
+
+These nodes do not change the audio at all.  They examine the audio stream and extract information about the stream.  For example, the two most common uses for this are determining the audio's pitch and loudness.
+
+## Effects
+
+These nodes do change the audio stream.  They require an input to process.
+
+## Generators
+
+Generators create audio signal from scratch and as such they do not require an input signal.
+
+## Input 
+
+Like generator nodes, input nodes create audio, but in this case the audio that is create is retrieved from an input like a microphone or another app's output.
+
+## Mixing
+
+These nodes are about managing more than one sound simultaneously. Sounds can be combined, placed spatially, have their volumes changed, etc.
+
+## Offline Rendering
+
+This is for processing an audio quickly and saving it, rather than playing it in realtime through a speaker.
+
+## Playback
+
+Playback nodes are about playing and working with audio files.  We also include metronome nodes here.
+
