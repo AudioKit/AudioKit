@@ -2,9 +2,9 @@
 
 ## AudioKit 4.x to 5.0
 
-AudioKit 5 is still in development, and in order to ensure high quality, some parts of AudioKit 4 have been removed, so the first step in migrating to AudioKit 5 is to determine whether what you used in AudioKit 4 is still available. 
+In order to ensure high quality for AudioKit 5, some parts of AudioKit 4 have been removed, so the first step in migrating to AudioKit 5 is to determine whether what you used in AudioKit 4 is still available. 
 
-### Removed
+## Removed
 
 So, first we'll start out with a list of things that are just not in AudioKit 5 in any form:
 
@@ -18,7 +18,7 @@ So, first we'll start out with a list of things that are just not in AudioKit 5 
 
 5. `AKMetronome` has been removed. Its easy enough to create a metronome with `Sequencer` and one track. This will be demonstrated in the Cookbook examples project.
 
-### Significantly Changed
+## Significantly Changed
 
 The following items have been very significantly changed, even if their names are similar:
 
@@ -28,7 +28,7 @@ The following items have been very significantly changed, even if their names ar
 
 3. The following taps have been removed: `AKLazyTap`, `AKRenderTap` and `AKTimelineTap`. Instead, we have traditional AVAudioEngine style taps: `AmplitudeTap`, `PitchTap`,  and `RawDataTap`.
 
-### Lesser Differences
+## Lesser Differences
 
 Next we have things that are different but rather trivial to reimplement (and very worthwhile to do so).
 
@@ -87,7 +87,7 @@ Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` al
 
 9. All of the projects in the Examples for have been moved out of this repository. See the [Examples](Examples.md) documentary for links to the new repositories. 
 
-### Class Name Changes and Notes
+## Class Name Changes and Notes
 
 | Old Name                               | New Name                           | Notes                                                                                                                                                        |
 | -------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
