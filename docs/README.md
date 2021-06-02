@@ -34,7 +34,7 @@ Larger examples have been moved to their own repositories:
 * [Simple Audio Unit](https://github.com/AudioKit/SimpleAudioUnit)
 * [Song Processor](http://github.com/AudioKit/SongProcessor)
 
- ## Github Wiki 
+## Github Wiki 
 AudioKit's inline comments are processed by [SwiftDoc](https://github.com/SwiftDocOrg/swift-doc) and automatically create documentation on [AudioKit's Github Wiki](https://github.com/AudioKit/AudioKit/wiki).
 
 ## Migration Guide
