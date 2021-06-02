@@ -14,53 +14,6 @@ AudioKit has several underlying goals that motivate its development.
 
 4. We want to inspire the next generation of audio app developers and we do that by highlighting AudioKit-powered apps and by creating our own apps under the "AudioKit Pro" brand including the world's most downloaded synth "AudioKit Synth One" and a host of other AudioKit Pro apps.
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css" />
-
-<div class="w-full">
-    <div class="flex px-2">
-        <div class="w-full">
-            <button class="bg-orange-500 px-4 py-2 text-black font-bold rounded-full border-2 border-gray-400 hover:bg-orange-700 w-full">Cookbook (Demonstration App)</button>
-        </div>
-    </div>
-    <div class="flex pz-2">
-        <div class="p-2">
-            <button class="bg-orange-500 px-4 py-10 text-black font-bold rounded-lg hover:bg-orange-700 border-2">AudioKitUI</button>
-        </div>
-        <div class="w-full p-2">
-            <div class="p-1">
-                <button class="bg-gray-500 px-4 py-2 text-black font-bold rounded-lg border-2 border-gray-400 hover:bg-gray-600 w-full h-full">SporthAudioKit</button>
-            </div>
-            <div class="p-1">
-                <button class="bg-gray-500 px-4 py-2 text-black font-bold rounded-lg border-2 border-gray-400 hover:bg-gray-600 w-full h-full">SporthAudioKit</button>
-            </div>
-        </div>
-        <div class="p-2">
-            <button class="bg-gray-500 px-4 py-10 text-black font-bold rounded-lg hover:bg-gray-600 border-2"><i>AAA</i>AudioKit</button>
-        </div>
-        <div class="p-2">
-            <button class="px-4 py-10 text-white font-bold">&hellip;</button></div>
-        <div class="p-2">
-            <button class="bg-gray-500 px-4 py-10 text-black font-bold rounded-lg hover:bg-gray-600 border-2"><i>ZZZ</i>AudioKit</button>
-        </div>
-    </div>
-    <div class="flex p-2">
-        <div class="w-full">
-            <button class="bg-gray-500 px-4 py-2 text-black font-bold rounded-lg border-2 border-gray-400 hover:bg-gray-600 w-full h-full">AudioKit</button>
-        </div>
-    </div>
-    <div class="flex p-2">
-        <div class="w-full">
-            <button class="bg-gray-500 px-4 py-2 text-black font-bold rounded-lg border w-full">AVFoundation</button>
-        </div>
-    </div>
-</div>
-
-## What are the AAA-ZZZ AudioKits? 
-
-* [Dunne AudioKit](/DunneAudioKit/)
-* [Soundpipe AudioKit](/SoundpipeAudioKit/)
-* [Sporth AudioKit](/SporthAudioKit/)
-
 ## Migration Guide
 
 The [Migration Guide](MigrationGuide-4.x-to-5.0.md) contains a lot of good information on converting your app from Version 4 to 5.
