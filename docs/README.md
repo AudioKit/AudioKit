@@ -2,7 +2,7 @@
 
 ## What is AudioKit?
 
-AudioKit is not just one thing any more, it is an entire audio development ecosystem of code repositories, packages, libraries, algorithms, applications, playgorunds, tests, and scripts, built and used by a community of audio programmers, app developers, engineers, researchers, scientists, musicians, gamers, and kids.
+AudioKit is an entire audio development ecosystem of code repositories, packages, libraries, algorithms, applications, playgorunds, tests, and scripts, built and used by a community of audio programmers, app developers, engineers, researchers, scientists, musicians, gamers, and even people new to programming.
 
 AudioKit has several underlying goals that motivate its development.
 
@@ -40,44 +40,6 @@ Larger examples have been moved to their own repositories:
 * [SamplerDemo](http://github.com/AudioKit/SamplerDemo/)
 * [Simple Audio Unit](https://github.com/AudioKit/SimpleAudioUnit)
 * [Song Processor](http://github.com/AudioKit/SongProcessor)
-
-## MIDI
-
-AudioKit MIDI is an implementation of CoreMIDI meant to simplify creating and responding to MIDI signals. 
-
-Add MIDI listeners like this:
- ```
-var midi = MIDI()
-midi.openInput()
-midi.addListener(someClass)
- ```
- ...where `someClass` conforms to the `MIDIListener` protocol
-
-You then implement the methods you need from `MIDIListener` and use the data how you need.
-
-
-## Tables
-
-Tables are just arrays of float data. They are most often used to store waveform data and they have some defaults for the most common cases:
-
-* sine wave
-* triangle wave
-* square wave
-* sawtooth wave
-* reverse sawtooth wave
-* positive sine
-* positive triangle
-* positive square
-* positive sawtooth
-* positive reverse sawtooth
-
-Tables can also store audio or control data.
-
-## Taps
-
-Taps are a way to get access to the audio stream at a given point in the signal chain without 
-inserting a node into the signal chain, but instead sort of syphoning off audio "tapping" it and using
-the data for some side purpose like plotting or running analysis of the stream at that point.
 
 # Nodes
 
