@@ -2,6 +2,9 @@
 
 Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit
 
+## Installation
+
+Use Swift Package Manageer and point to the URL: Github URL: https://github.com/AudioKit/DunneAudioKit/
 
 
 ## Modulation effects
