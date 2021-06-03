@@ -1,7 +1,9 @@
-# Contributing
+# Contributing Code
 
 When you want to modify AudioKit, check out the [develop](https://github.com/audiokit/AudioKit/tree/develop) branch (as opposed to main),
 make your changes, and send us a [pull request](https://github.com/audiokit/AudioKit/pulls).
+
+# Style Guide
 
 AudioKit is a Swift framework with internal code in C and C++.  For this reason,
 we mostly use Swift conventions throughout our code, even in the C-variants. We almost entirely defer to
