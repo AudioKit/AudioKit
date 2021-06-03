@@ -1,12 +1,12 @@
 # Soul AudioKit
 
-A basis for creating AudioKit nodes with SOUL. 
+A basis for creating AudioKit nodes with the [SOUL Sound Language](https://soul.dev).
 
 * [Diode Clipper](https://github.com/AudioKit/SoulAudioKit/wiki) - Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
 
 ## Github URL
 
-[https://github.com/AudioKit/DevoloopAudioKit](https://github.com/AudioKit/DevoloopAudioKit)
+[https://github.com/AudioKit/SoulAudioKit](https://github.com/AudioKit/SoulAudioKit)
 
 ## TODO
 
