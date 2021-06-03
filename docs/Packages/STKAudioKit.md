@@ -1,4 +1,4 @@
-# STKAudioKit
+# STK AudioKit
 
 This extension to AudioKit allows you to use physical models from Stanford's [Synthesis Toolkit (STK)](https://ccrma.stanford.edu/software/stk/).
 
@@ -12,14 +12,14 @@ To add AudioKitUI to your Xcode project, select File -> Swift Packages -> Add Pa
 
 ## API Reference
 
-* [STKBase](https://github.com/AudioKit/AudioKitUI/wiki/STKBase) - Superclass for STK physical models, do not use directly
-* [Clarinet](https://github.com/AudioKit/AudioKitUI/wiki/Clarinet)
-* [Flute](https://github.com/AudioKit/AudioKitUI/wiki/Flute)
-* [Mandolin String](https://github.com/AudioKit/AudioKitUI/wiki/MandolinString)
-* [Rhodes Piano](https://github.com/AudioKit/AudioKitUI/wiki/RhodesPianoKey)
-* [Shaker](https://github.com/AudioKit/AudioKitUI/wiki/Shaker)
-* [Shaker Type](https://github.com/AudioKit/AudioKitUI/wiki/ShakerType)
-* [Tubular Bells](https://github.com/AudioKit/AudioKitUI/wiki/TubularBells)
+* [STK Base](https://github.com/AudioKit/STKAudioKit/wiki/STKBase) - Superclass for STK physical models, do not use directly
+* [Clarinet](https://github.com/AudioKit/STKAudioKit/wiki/Clarinet)
+* [Flute](https://github.com/AudioKit/STKAudioKit/wiki/Flute)
+* [Mandolin String](https://github.com/AudioKit/STKAudioKit/wiki/MandolinString)
+* [Rhodes Piano](https://github.com/AudioKit/STKAudioKit/wiki/RhodesPianoKey)
+* [Shaker](https://github.com/AudioKit/STKAudioKit/wiki/Shaker)
+* [Shaker Type](https://github.com/AudioKit/STKAudioKit/wiki/ShakerType)
+* [Tubular Bells](https://github.com/AudioKit/STKAudioKit/wiki/TubularBells)
 
 ## Examples
 
