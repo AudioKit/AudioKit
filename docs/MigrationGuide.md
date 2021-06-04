@@ -4,6 +4,78 @@
 
 This version update involves separating AudioKit into separate Sub-AudioKits which are included as separate Swift Packages. This way, developers do not have to compile code that their apps don't require. Most users will probably have to include the SoundpipeAudioKit package since that is the one that contained many of the oscillators, effects, and filters. In addition to including the packages, developers may also have to update their files to import the correct packages. 
 
+| Class                              | New Package       |
+|------------------------------------|-------------------|
+| DynaRageCompressor                 | DevoloopAudioKit  |
+| RhinoGuitarProcessor               | DevoloopAudioKit  |
+| Flanger                            | DunneAudioKit     |
+| Chorus                             | DunneAudioKit     |
+| Sampler                            | DunneAudioKit     |
+| StereoDelay                        | DunneAudioKit     |
+| Synth                              | DunneAudioKit     |
+| TransientShaper                    | DunneAudioKit     |
+| DiodeClipper                       | SoulAudioKit      |
+| BrownianNoise                      | SoundpipeAudioKit |
+| Drip                               | SoundpipeAudioKit |
+| DynamicOscillator                  | SoundpipeAudioKit |
+| FMOscillator                       | SoundpipeAudioKit |
+| MetalBar                           | SoundpipeAudioKit |
+| MorphingOscillator                 | SoundpipeAudioKit |
+| Oscillator                         | SoundpipeAudioKit |
+| PWMOscillator                      | SoundpipeAudioKit |
+| PhaseDistortionOscillator          | SoundpipeAudioKit |
+| PhaseLockedVocoder                 | SoundpipeAudioKit |
+| PinkNoise                          | SoundpipeAudioKit |
+| PluckedString                      | SoundpipeAudioKit |
+| WhiteNoise                         | SoundpipeAudioKit |
+| VocalTract                         | SoundpipeAudioKit |
+| AmplitudeEnvelope                  | SoundpipeAudioKit |
+| AutoPanner                         | SoundpipeAudioKit |
+| AutoWah                            | SoundpipeAudioKit |
+| Balancer                           | SoundpipeAudioKit |
+| BandPassButterworthFilter          | SoundpipeAudioKit |
+| BandRejectButterworthFilter        | SoundpipeAudioKit |
+| BitCrusher                         | SoundpipeAudioKit |
+| ChowningReverb                     | SoundpipeAudioKit |
+| Clipper                            | SoundpipeAudioKit |
+| CombFilterReverb                   | SoundpipeAudioKit |
+| Convolution                        | SoundpipeAudioKit |
+| CostelloReverb                     | SoundpipeAudioKit |
+| DCBlock                            | SoundpipeAudioKit |
+| DynamicRangeCompressor             | SoundpipeAudioKit |
+| EqualizerFilter                    | SoundpipeAudioKit |
+| FlatFrequencyResponseReverb        | SoundpipeAudioKit |
+| FormantFilter                      | SoundpipeAudioKit |
+| HighPassButterworthFilter          | SoundpipeAudioKit |
+| HighShelfParametricEqualizerFilter | SoundpipeAudioKit |
+| KorgLowPassFilter                  | SoundpipeAudioKit |
+| LowPassButterworthFilter           | SoundpipeAudioKit |
+| LowShelfParametricEqualizerFilter  | SoundpipeAudioKit |
+| ModalResonanceFilter               | SoundpipeAudioKit |
+| MoogLadder                         | SoundpipeAudioKit |
+| Panner                             | SoundpipeAudioKit |
+| PeakingParametricEqualizerFilter   | SoundpipeAudioKit |
+| Phaser                             | SoundpipeAudioKit |
+| PitchShifter                       | SoundpipeAudioKit |
+| ResonantFilter                     | SoundpipeAudioKit |
+| RolandTB303Filter                  | SoundpipeAudioKit |
+| StringResonator                    | SoundpipeAudioKit |
+| TanhDistortion                     | SoundpipeAudioKit |
+| ThreePoleLowpassFilter             | SoundpipeAudioKit |
+| ToneComplementFilter               | SoundpipeAudioKit |
+| ToneFilter                         | SoundpipeAudioKit |
+| Tremolo                            | SoundpipeAudioKit |
+| VariableDelay                      | SoundpipeAudioKit |
+| ZitaReverb                         | SoundpipeAudioKit |
+| OperationEffect                    | SporthAudioKit    |
+| OperationGenerator                 | SporthAudioKit    |
+| Clarinet                           | STKAudioKit       |
+| Flute                              | STKAudioKit       |
+| MandolinString                     | STKAudioKit       |
+| RhodesPiano                        | STKAudioKit       |
+| Shaker                             | STKAudioKit       |
+| TubularBells                       | STKAudioKit       |
+
 ## AudioKit 5.0 to 5.1
 
 The major change in AudioKit 5.1 is that the `Node` class was changed to be a `Node` protocol.  The parameters and parameter definition system was cleaned up as well. While these are big changes that warrant the version change, they shouldn't affect most users.
