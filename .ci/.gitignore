@@ -1,7 +1,0 @@
-*.framework
-*.zip
-AudioKit-*
-AudioKitPlaygrounds*
-Carthage
-docs
-packages
