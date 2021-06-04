@@ -2,7 +2,7 @@
 
 ## Installation
 
-Use Swift Package Manageer and point to the URL:  [https://github.com/AudioKit/AudioKit/](https://github.com/AudioKit/AudioKit/)
+Use Swift Package Manager and point to the URL:  [https://github.com/AudioKit/AudioKit/](https://github.com/AudioKit/AudioKit/)
 
 ## Github Wiki 
 

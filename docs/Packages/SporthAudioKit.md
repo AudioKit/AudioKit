@@ -4,7 +4,7 @@ This extension to AudioKit allows for complex, interconnected DSP.
 
 ## Installation
 
-Use Swift Package Manageer and point to the URL: [https://github.com/AudioKit/SporthAudioKit/](https://github.com/AudioKit/SporthAudioKit/])
+Use Swift Package Manager and point to the URL: [https://github.com/AudioKit/SporthAudioKit/](https://github.com/AudioKit/SporthAudioKit/])
 
 ## Targets
 

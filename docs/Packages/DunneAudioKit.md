@@ -1,10 +1,23 @@
 # Dunne AudioKit
 
-Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit
+Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit, by Shane Dunne.
 
-## Installation
+## Github URL
 
-Use Swift Package Manageer and point to the URL: Github URL: https://github.com/AudioKit/DunneAudioKit/
+[https://github.com/AudioKit/DunneAudioKit/](https://github.com/AudioKit/DunneAudioKit/)
+
+## API Reference
+
+* [Chorus](https://github.com/AudioKit/DunneAudioKit/wiki/Chorus)
+* [Flanger](https://github.com/AudioKit/DunneAudioKit/wiki/Flanger)
+* [Sampler](https://github.com/AudioKit/DunneAudioKit/wiki/Sampler)
+* [Stereo Delay](https://github.com/AudioKit/DunneAudioKit/wiki/StereoDelay)
+* [Synth](https://github.com/AudioKit/DunneAudioKit/wiki/Synth)
+* [Transient Shaper](https://github.com/AudioKit/DunneAudioKit/wiki/TransientShaper)
+
+## Examples
+
+See the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook/) for examples.
 
 
 ## Modulation effects
