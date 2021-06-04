@@ -16,7 +16,6 @@ AudioKit's inline comments are processed by [SwiftDoc](https://github.com/SwiftD
 | AudioKitEX  | Nodes, Parameters, Automation, Sequencing                        | Swift         |
 | CAudioKitEX | DSP and other low level code supporting AudioKitEX functionality | Objective-C++ |
 
-
 ## Format Converter
 
 FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.

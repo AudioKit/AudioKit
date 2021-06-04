@@ -19,6 +19,12 @@ Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit, by Shane Dunne.
 
 See the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook/) for examples.
 
+## Targets
+
+| Name           | Description | Language      |
+|----------------|-------------|---------------|
+| DunneAudioKit  | API Layer   | Swift         |
+| CDunneAudioKit | DSP Layer   | Objective-C++ |
 
 ## Modulation effects
 

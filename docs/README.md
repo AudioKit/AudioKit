@@ -14,6 +14,10 @@ AudioKit has several underlying goals that motivate its development.
 
 4. We want to inspire the next generation of audio app developers and we do that by highlighting AudioKit-powered apps and by creating our own apps under the "AudioKit Pro" brand including the world's most downloaded synth "AudioKit Synth One" and a host of other AudioKit Pro apps.
 
+## AudioKit.io (this website)
+
+This web site is created from the main AudioKit repository on Github. In that repository there is a `docs` folder that contains all of the documnets that appear here. Updating the AudioKit.io is the same as updating AudioKit, simply create a pull request with your proposed changes.  Base your changes off of the `develop` branch and once merged, they will appear on the website. 
+
 ## Migration Guide
 
 The [Migration Guide](MigrationGuide.md) contains a lot of good information on converting your app from Version 4 to 5 and beyond.

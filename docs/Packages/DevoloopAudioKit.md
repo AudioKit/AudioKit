@@ -14,3 +14,10 @@ but they can be used on any source material.
 ## Installation via Swift Package Manager
 
 To add AudioKitUI to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/DevoloopAudioKit` for the URL. 
+
+## Targets
+
+| Name              | Description                     | Language      |
+|-------------------|---------------------------------|---------------|
+| DevoloopAudioKit  | Wrappers for Guitar Effects     | Swift         |
+| CDevoloopAudioKit | Digital Signal Processing Layer | Objective-C++ |

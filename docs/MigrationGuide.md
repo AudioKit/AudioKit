@@ -1,5 +1,13 @@
 # Migration Guide
 
+## AudioKit 5.1 to 5.2
+
+This version update involves separating AudioKit into separate Sub-AudioKits which are included as separate Swift Packages. This way, developers do not have to compile code that their apps don't require. Most users will probably have to include the SoundpipeAudioKit package since that is the one that contained many of the oscillators, effects, and filters. In addition to including the packages, developers may also have to update their files to import the correct packages. 
+
+## AudioKit 5.0 to 5.1
+
+The major change in AudioKit 5.1 is that the `Node` class was changed to be a `Node` protocol.  The parameters and parameter definition system was cleaned up as well. While these are big changes that warrant the version change, they shouldn't affect most users.
+
 ## AudioKit 4.x to 5.0
 
 In order to ensure high quality for AudioKit 5, some parts of AudioKit 4 have been removed, so the first step in migrating to AudioKit 5 is to determine whether what you used in AudioKit 4 is still available. 
