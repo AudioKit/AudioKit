@@ -7,7 +7,7 @@ but they can be used on any source material.
 * [DynaRage Tube Compressor](https://github.com/AudioKit/DevoloopAudioKit/wiki/DynaRageCompressor) - based on DynaRage Tube Compressor RE for Reason by Mike Gazzarusso.
 * [Rhino Guitar Processor](https://github.com/AudioKit/DevoloopAudioKit/wiki/RhinoGuitarProcessor) - Guitar amplifier head and cabinet simulator by Mike Gazzaruso.
 
-<img src="https://github.com/AudioKit/DevoloopAudioKit/blob/develop/images/dynarage.jpg" width="100%">
+<img src="https://github.com/AudioKit/DevoloopAudioKit/blob/develop/images/dynarage.jpg?raw=true" width="100%">
 
 ## Github URL
 
