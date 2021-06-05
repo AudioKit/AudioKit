@@ -49,7 +49,7 @@ Another fractional scale factor which is the amount of delayed signal which is "
 The effects' output is a mix of the input ("dry") signal and the delayed ("wet") signal. The *dryWetMix* value is the scale factor (always a fraction 0.0 - 1.0) for the wet signal. The scale factor for the dry signal is computed internally as 1.0 - *dryWetMix*, so they always sum to unity. The higher the *dryWetMix* value, the more pronounced the effect.
 
 
-# Modulated Delay Effects
+## Modulated Delay Effects
 
 Modulated-delay effects include **chorus**, **flanging**, and **vibrato**. These are all achieved by mixing an input signal with a delayed version of itself, and modulating the delay-time with a low-frequency oscillator (LFO).
 
@@ -63,39 +63,39 @@ A user-selected *Rate* parameter sets the LFO frequency, and a *Depth* parameter
 
 For some effects, a fraction (indicated as *Feedback* in the diagram) of the delayed signal is fed back into the delay line.
 
-## Chorus
+### Chorus
 For a chorus effect, the delay time varies about *mid_delay* which is fixed at the midpoint of the delay-line, whose total length is typically 20-40 ms. A user-selected *Depth* parameter controls how far *mid_delay* and *max_delay* deviate from this central value, from a minimum of zero (no change) to the point where *min_delay* becomes zero. No feedback is used.
 
 In the **Chorus** effect, *mid_delay* is fixed at 14 ms. Setting the *Depth* parameter to 1.0 (maximum) results in actual delay values of 14 ± 10 ms, i.e. *min_delay* = 4 ms, *max_delay* = 24 ms. The *Feedback* parameter will normally be left at the default value of 0, but can be set as high as 0.25. **Chorus** uses a sine-wave LFO, range 0.1 Hz to 10.0 Hz.
 
-## Flanger
+### Flanger
 For a flanging effect, *min_delay* is fixed at nearly zero, and the user-selected *Depth* parameter controls *max_delay*, from a minimum of zero to a maximum of about 7-10 ms. Typical settings include a 50/50 wet/dry mix, and at least some feedback.
 
 The *Feedback* parameter is a signed fraction in the range -1.0 to + 1.0, where negative values indicate that the signal is inverted before begin fed back. This is important because when the delay time gets very close to zero, the low-frequency parts of the wet and dry signals overlap almost perfectly, so positive feedback can result in a sudden increase in volume. Using negative feedback instead yields a momentary reduction in volume, which is less noticeable.
 
 In the **Flanger** effect, setting the *Depth* parameter to 1.0 results in *max_delay* = 10 ms. *Feedback* may vary from -0.95 to +0.95. LFO is a triangle wave, 0.1 - 10 Hz.
 
-## Vibrato
+### Vibrato
 With a modulated-delay effect in either chorus (*mid_delay* fixed at midpoint of delay-line) or flanger (*min_delay* fixed at near-zero) configuration, setting the *Wet Level* to 100% will yield a vibrato effect. This is due to the effect of the LFO modulating the delay time. When the delay-time is decreasing, the short fragment of sound in the delay-line is effectively resampled at a rate faster than its original sample rate, so the pitch rises. When the delay-time is increasing, the sound is resampled at a rate slower than its original sampling rate, so the pitch drops.
 
-## Stereo Chorus and Flanging
+### Stereo Chorus and Flanging
 Both **Chorus** and **Flanger** are actually stereo effects. The DSP structure shown in the above diagram is duplicated for each of the Left and Right channels. The two LFOs run in lock-step at the same frequency (set by the *Rate* parameter) and amplitude (set by *Depth*), but offset in phase by 90 degrees. This technique, called *quadrature modulation*, is quite common in stereo modulation effects.
 
-## For more information
+### For more information
 Modulated-delay effects are described in detail in Chapter 10 of [Designing Audio Effect Plug-Ins in C++](https://www.amazon.com/Designing-Audio-Effect-Plug-Ins-Processing/dp/0240825152) by Will Pirkle.
 
 
-# Sampler
+## Sampler
 
 **Sampler** is a new, polyphonic sample-playback engine built from scratch in C++.  It is 64-voice polyphonic and features a per-voice, stereo low-pass filter with resonance and ADSR envelopes for both amplitude and filter cutoff. Samples must be loaded into memory and remain resident there; it does not do streaming.  It reads standard audio files via **AVAudioFile**, as well as a more efficient [Wavpack](http://www.wavpack.com/)-based compressed format.
 
-## Sampler vs AppleSampler
+### Sampler vs AppleSampler
 
 **AppleSampler** and its companion class **MIDISampler** are wrappers for Apple's *AUSampler* Audio Unit, an exceptionally powerful polyphonic, multi-timbral sampler instrument which is built-in to both macOS and iOS. Unfortunately, *AUSampler* is far from perfect and not properly documented. This **Sampler** is an attempt to provide an open-source alternative.
 
 **Sampler** is nowhere near as powerful as *AUSampler*. If your app depends on **AppleSampler** or the **MIDISampler** wrapper class, you should continue to use it.
 
-## Loading samples
+### Loading samples
 **Sampler** provides three distinct mechanisms for loading samples:
 
 1. `loadRawSampleData()` allows use of sample data already in memory, e.g. data generated programmatically or read using custom file-reading code.
@@ -264,20 +264,20 @@ Note in the last line of the code above, `sampler` is a **Sampler** instance. Se
 
 
 
-# Sampler Audio Unit and Node
+## Sampler Audio Unit and Node
 
 Implementation of the **Sampler** Swift class, which is built on top of the similarly-named C++ Core class.
 
 There are *four distinct layers of code* here, as follows.
 
-## SamplerDSP
+### SamplerDSP
 **SamplerDSP** is a C++ class which inherits from the Core *Sampler* as well as **DSPBase**, one of the primary AudioKit base classes for DSP code.
 
 The implementation resides in a `.mm` file rather than a `.cpp` file, because it also contains several Objective-C accessor functions which facilitate bridging between Swift code above and C++ code below.
 
 Hence there are *two separate code layers* here: the **SamplerDSP** class below and the Objective-C accessor functions above.
 
-## SamplerAudioUnit
+### SamplerAudioUnit
 The Swift **SamplerAudioUnit** class is the next level above the **Sampler** class and its Objective-C accessor functions. It wraps the DSP code within a *version-3 Audio Unit* object which exposes several dynamic *parameters* and can be connected to other Audio Unit objects to process the audio stream it generates.
 
 ## Sampler and extensions
@@ -288,7 +288,7 @@ The **Sampler** class also includes utility functions to assist with loading sam
 Additional utility functions are implemented in separate files as Swift *extensions*. `Sampler+SFZ.swift` adds a rudimentary facility to load whole sets of samples by interpreting a [SFZ file](https://en.wikipedia.org/wiki/SFZ_(file_format)).
 
 
-# Preparing sample sets for Sampler
+## Preparing sample sets for Sampler
 
 Preparing sets of samples for **Sampler** involves four steps:
 
@@ -301,14 +301,14 @@ This document describes the process of preparing a set of demonstration samples,
 
 You can download the finished product from [this link](http://audiokit.io/downloads/ROMPlayerInstruments.zip).
 
-## Preparing/acquiring sample files
+### Preparing/acquiring sample files
 The demo samples were recorded and prepared by Matthew Fecher from a Yamaha TX81z hardware FM synthesizer module, using commercial sampling software called [SampleRobot](http://www.samplerobot.com). If you have *MainStage 3* on the Mac, you can use its excellent *autosampler* function instead.
 
 **Important:** If you're planning to work with existing samples, or capture the output from a sample-based instrument, *give careful consideration to copyright issues*. See Matt Fecher's excellent summary [What Sounds Can You Use in your App?](https://github.com/AudioKit/ROMPlayer#what-sounds-can-you-use-in-your-app) *Be very careful with SoundFont files you find on the Internet.* Many are marked "public domain", but actually consist of unlicensed, illegally copied content. While such things are fine for your own personal use, distributing them publicly with your name attached (e.g. in an iOS app on the App Store) can land you in serious legal trouble.
 
 Turning a set of rough digital recordings into cleanly-playing, looping samples is a complex process in itself, which is beyond the scope of this document. For a quick introduction, see [The Secrets of Great Sounding Samples](http://tweakheadz.com/sampling-tips/). For in-depth exploration, look into YouTube videos by [John Lemkuhl aka PlugInGuru](https://www.youtube.com/user/thepluginguru), in particular [this one](https://youtu.be/o7rL38xrRSE), [this one](https://youtu.be/qPbf5nNyQYo) and [this one](https://youtu.be/Bx9PC8JJNGg).
 
-## Sample file compression
+### Sample file compression
 **Sampler** reads `.wv` files compressed using the open-source [Wavpack](http://www.wavpack.com) software. On the Mac, you must first install the Wavpack command-line tools. Then you can use the following Python 2 script to compress a whole folder-full of `.wav` files:
 
 ```python
@@ -341,7 +341,7 @@ for aif in os.listdir('.'):
     #os.remove(aif)
 ```
 
-## Creating a SFZ metatdata file
+### Creating a SFZ metatdata file
 Mapping of MIDI (note-number, velocity) pairs to sample files requires additional data, for which **Sampler** uses a simple subset of the [SFZ format](https://en.wikipedia.org/wiki/SFZ_(file_format)). SFZ is essentially a text-based, open-standard alternative to the proprietary [SoundFont](https://en.wikipedia.org/wiki/SoundFont) format.
 
 In addition to key-mapping, SFZ files can also contain other important metadata such as loop-start and -end points for each sample file.
@@ -631,8 +631,8 @@ Lets look at the last 2 lines:
 
 `<region>` has other opcodes you can use such as `lovel` and `hivel`, if you do not place your `sample=YOURSAMPLENAME.YOURFILEFORMAT` as the last element in the `<region>` line, the samples will not load!
 
-## Testing
+### Testing
 Whatever methods you use to create samples and metadata files, it's important to test, test, test, to make sure things are working the way you want.
 
-## Going further
+### Going further
 The subject of preparing sample sets is deep and complex, and this article has barely scratched the surface. We hope to provide additional online resources as time goes on, especially as **Sampler**'s implementation expands and changes. Interested users, especially those with practical experience to share, are encouraged to get in touch with the AudioKit team to help with this process.
