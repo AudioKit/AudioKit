@@ -10,7 +10,7 @@ nav:
     - Packages:
         - AudioKit: /Packages/AudioKit
         - AudioKitUI: /Packages/AudioKitUI
-        - Develoop AudioKit: /Packages/DeveloopAudioKit
+        - Develoop AudioKit: /Packages/DevoloopAudioKit
         - Dunne AudioKit: /Packages/DunneAudioKit
         - Soul AudioKit: /Packages/SoulAudioKit
         - Soundpipe AudioKit: /Packages/SoundpipeAudioKit
