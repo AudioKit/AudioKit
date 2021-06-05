@@ -1,0 +1,5 @@
+site_name: AudioKit
+repo_url: https://github.com/AudioKit/AudioKit/
+
+nav:
+    - Home: index.md
