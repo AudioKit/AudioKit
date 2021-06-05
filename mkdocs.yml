@@ -4,9 +4,6 @@ repo_url: https://github.com/AudioKit/AudioKit/
 nav:
     - Home: README.md
     - Migration Guide: MigrationGuide.md
-    - About:
-        - About Us: AboutUs.md
-        - Contributing Code: Contributing.md
     - Packages:
         - AudioKit: AudioKit.md
         - AudioKitUI: AudioKitUI.md
@@ -16,3 +13,6 @@ nav:
         - Soundpipe AudioKit: SoundpipeAudioKit.md
         - Sporth AudioKit: SporthAudioKit.md
         - STK AudioKit: STKAudioKit.md
+    - About:
+        - About Us: AboutUs.md
+        - Contributing Code: Contributing.md
