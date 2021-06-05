@@ -61,6 +61,17 @@ extension NodeParameter {
             avAudioNode.auAudioUnit.removeRenderObserver(token)
         }
     }
-
+    
+    /// Ramp from a source value (which is ramped to over 20ms) to a target value
+    /// 
+    /// - Parameters:
+    ///   - start: initial value
+    ///   - target: destination value
+    ///   - duration: duration to ramp to the target value in seconds
+    public func ramp(from start: AUValue, to target: AUValue, duration: Float) {
+        let events = [AutomationEvent(targetValue: start, startTime: 0, rampDuration: 0.02),
+                      AutomationEvent(targetValue: target, startTime: 0.02, rampDuration: duration)]
+        automate(events: events)
+    }
     
 }

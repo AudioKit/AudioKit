@@ -96,9 +96,15 @@ public class NodeParameter {
     public var renderObserverToken: Int?
 
     /// Automate to a new value using a ramp.
-    public func ramp(to value: AUValue, duration: Float) {
+    public func ramp(to value: AUValue, duration: Float, delay: Float = 0) {
+        var delaySamples = AUAudioFrameCount(delay * Float(Settings.sampleRate))
+        if delaySamples > 4096 {
+            print("Warning: delay longer than 4096, setting to to 4096")
+            delaySamples = 4096
+        }
+        assert(delaySamples < 4096)
         let paramBlock = avAudioNode.auAudioUnit.scheduleParameterBlock
-        paramBlock(AUEventSampleTimeImmediate,
+        paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
                    AUAudioFrameCount(duration * Float(Settings.sampleRate)),
                    parameter.address,
                    range.clamp(value))

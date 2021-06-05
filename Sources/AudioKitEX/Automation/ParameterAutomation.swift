@@ -9,9 +9,7 @@ public extension ParameterAutomationPoint {
     ///   - targetValue: Target value
     ///   - startTime: Start time
     ///   - rampDuration: Ramp duration
-    init(targetValue: AUValue,
-         startTime: Float,
-         rampDuration: Float) {
+    init(targetValue: AUValue, startTime: Float, rampDuration: Float) {
         self.init(targetValue: targetValue,
                   startTime: startTime,
                   rampDuration: rampDuration,
