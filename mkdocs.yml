@@ -1,12 +1,12 @@
 site_name: AudioKit
-repo_url: https://github.com/AudioKit/AudioKit/tree/develop
+repo_url: https://github.com/AudioKit/AudioKit/
 
 theme:
     name: readthedocs
 
 nav:
-    - Home: README
-    - Migration Guide: MigrationGuide
+    - Home: /
+    - Migration Guide: MigrationGuide.md
     - Packages:
         - AudioKit: /Packages/AudioKit
         - AudioKitUI: /Packages/AudioKitUI
