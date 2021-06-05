@@ -4,18 +4,3 @@ repo_url: https://github.com/AudioKit/AudioKit/
 theme:
     name: readthedocs
 
-nav:
-    - Home: /
-    - Migration Guide: MigrationGuide
-    - Packages:
-        - AudioKit: /Packages/AudioKit
-        - AudioKitUI: /Packages/AudioKitUI
-        - Develoop AudioKit: /Packages/DevoloopAudioKit
-        - Dunne AudioKit: /Packages/DunneAudioKit
-        - Soul AudioKit: /Packages/SoulAudioKit
-        - Soundpipe AudioKit: /Packages/SoundpipeAudioKit
-        - Sporth AudioKit: /Packages/SporthAudioKit
-        - STK AudioKit: /Packages/STKAudioKit
-    - About:
-        - About Us: /About/AboutUs
-        - Contributing Code: /About/Contributing
