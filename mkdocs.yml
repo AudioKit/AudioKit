@@ -1,6 +1,9 @@
 site_name: AudioKit
 repo_url: https://github.com/AudioKit/AudioKit/
 
+theme:
+    name: readthedocs
+    
 nav:
     - Home: README.md
     - Migration Guide: MigrationGuide.md
