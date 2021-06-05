@@ -14,7 +14,6 @@ extension Node {
         }
         return au
     }
-
 }
 
 /// Create an AVAudioUnit for the given description

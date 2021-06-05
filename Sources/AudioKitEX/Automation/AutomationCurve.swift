@@ -2,7 +2,6 @@
 
 import AVFoundation
 import CAudioKitEX
-
 import Foundation
 
 /// An automation curve (with curved segments) suitable for any time varying parameter.
@@ -16,17 +15,13 @@ public struct AutomationCurve {
     /// Array of points that make up the curve
     public var points: [Point]
 
-
     /// Initialize with points
     /// - Parameter points: Array of points
     public init(points: [Point]) {
         self.points = points
     }
 
-    static func evalRamp(start: Float,
-                         segment: Point,
-                         time: Float,
-                         endTime: Float) -> Float {
+    static func evalRamp(start: Float, segment: Point, time: Float, endTime: Float) -> Float {
         let remain = endTime - time
         let taper = segment.rampTaper
         let goal = segment.targetValue
@@ -48,8 +43,7 @@ public struct AutomationCurve {
     ///   - resolution: Duration of each linear segment in seconds
     ///
     /// - Returns: A new array of piecewise linear automation points
-    public func evaluate(initialValue: AUValue,
-                         resolution: Float) -> [AutomationEvent] {
+    public func evaluate(initialValue: AUValue, resolution: Float) -> [AutomationEvent] {
 
         var result = [AutomationEvent]()
 
@@ -62,8 +56,8 @@ public struct AutomationCurve {
             if point.isLinear() {
 
                 result.append(AutomationEvent(targetValue: point.targetValue,
-                                                startTime: point.startTime,
-                                                rampDuration: point.rampDuration))
+                                              startTime: point.startTime,
+                                              rampDuration: point.rampDuration))
                 value = point.targetValue
 
             } else {
@@ -82,14 +76,14 @@ public struct AutomationCurve {
                 for _ in 0 ..< Int(round(endTime / resolution)) {
 
                     value = AutomationCurve.evalRamp(start: start,
-                                                       segment: point,
-                                                       time: t + resolution,
-                                                       endTime: point.startTime + point.rampDuration)
-
+                                                     segment: point,
+                                                     time: t + resolution,
+                                                     endTime: point.startTime + point.rampDuration)
+                    
                     result.append(AutomationEvent(targetValue: value,
-                                                    startTime: t,
-                                                    rampDuration: resolution))
-
+                                                  startTime: t,
+                                                  rampDuration: resolution))
+                    
                     t += resolution
                 }
             }
@@ -114,9 +108,7 @@ public struct AutomationCurve {
         let stopTime = range.upperBound
 
         // Clear existing points in segment range.
-        result.removeAll { point in
-            point.startTime >= startTime && point.startTime <= stopTime
-        }
+        result.removeAll { point in point.startTime >= startTime && point.startTime <= stopTime }
 
         // Append recorded points.
         result.append(contentsOf: newPoints.map { point in

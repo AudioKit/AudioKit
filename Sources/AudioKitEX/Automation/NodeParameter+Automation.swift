@@ -21,7 +21,8 @@ extension NodeParameter {
 
         if !lastRenderTime.isSampleTimeValid {
             if let engine = avAudioNode.engine, engine.isInManualRenderingMode {
-                lastRenderTime = AVAudioTime(sampleTime: engine.manualRenderingSampleTime, atRate: Settings.sampleRate)
+                lastRenderTime = AVAudioTime(sampleTime: engine.manualRenderingSampleTime,
+                                             atRate: Settings.sampleRate)
             } else {
                 lastRenderTime = AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
             }
