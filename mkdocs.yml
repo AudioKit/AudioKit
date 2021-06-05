@@ -6,7 +6,7 @@ theme:
 
 nav:
     - Home: /
-    - Migration Guide: MigrationGuide.md
+    - Migration Guide: MigrationGuide
     - Packages:
         - AudioKit: /Packages/AudioKit
         - AudioKitUI: /Packages/AudioKitUI
