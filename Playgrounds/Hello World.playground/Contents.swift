@@ -1,5 +1,4 @@
-//: Run this playground to test AudioKit
-
+//: Run this playground to test that AudioKit is working
 import AudioKit
 import AudioKitEX
 import Foundation
@@ -7,20 +6,16 @@ import Foundation
 var greeting = "Hello, playground"
 
 let osc = PlaygroundOscillator()
-let fader = Fader(osc, gain: 0.3)
 
 let engine = AudioEngine()
-engine.output = fader
-osc.play()
-
+engine.output = osc
 try! engine.start()
+
+osc.play()
 
 while true {
     osc.frequency = Float.random(in: 200...800)
-    fader.gain = 0.3
-    usleep(10000)
-    fader.$leftGain.ramp(to: 0.0, duration: 0.9)
-    fader.$rightGain.ramp(to: 0.0, duration: 0.9)
-    sleep(1)
+    osc.amplitude = Float.random(in: 0.0...0.3)
+    usleep(100000)
 }
 
