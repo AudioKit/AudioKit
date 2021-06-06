@@ -25,7 +25,7 @@ AudioKit has several underlying goals that motivate its development.
 The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above are placeholders for the many different packages that extend AudioKit.
 
 | Package Name                                        | Description                                   |
-|-----------------------------------------------------------------------------------------------------|
+|-----------------------------------------------------|-----------------------------------------------|
 | [AudioKitUI](/Packages/AudioKitUI)                  | Waveform visualization and UI components      |
 | [Devoloop AudioKit](/Packages/DevoloopAudioKit)     | Guitar processors                             |
 | [Dunne AudioKit](/Packages/DunneAudioKit)           | Chorus, Flanger, Sampler, Stereo Delay, Synth |
