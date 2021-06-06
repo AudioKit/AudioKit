@@ -1,4 +1,4 @@
-# Sporth AudioKit (AudioKit Operations)
+# Sporth AudioKit Operations
 
 This extension to AudioKit allows for complex, interconnected DSP. 
 
