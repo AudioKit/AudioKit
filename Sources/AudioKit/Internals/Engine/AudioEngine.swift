@@ -355,6 +355,7 @@ public class AudioEngine {
     ///
     /// - Parameters:
     ///   - audioFile: A file initialized for writing
+    ///   - maximumFrameCount: Highest frame count to render, defaults to 4096
     ///   - duration: Duration to render, in seconds
     ///   - prerender: Closure called before rendering starts, used to start players, set initial parameters, etc.
     ///   - progress: Closure called while rendering, use this to fetch render progress

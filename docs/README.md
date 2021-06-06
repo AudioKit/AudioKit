@@ -16,13 +16,16 @@ AudioKit has several underlying goals that motivate its development.
 
 4. We want to inspire the next generation of audio app developers and we do that by highlighting AudioKit-powered apps and by creating our own apps under the "AudioKit Pro" brand including the world's most downloaded synth "AudioKit Synth One" and a host of other AudioKit Pro apps.
 
-# Layer Diagram
+# Packages / Layer Diagram
 
 <img src="/images/AudioKitLayers.svg" width=100%>
 
-# Packages
+The Cookbook demo app layer is an example of where your app would be in this diagram. It could depend on any subset of the packages below it.
+
+Packages can depend on other packages, and this is shown in the example of SporthAudioKit depending on (on top of) SoundpipeAudioKit.
 
 The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above are placeholders for the many different packages that extend AudioKit.
+
 
 | Package Name                                        | Description                                   |
 |-----------------------------------------------------|-----------------------------------------------|
@@ -34,6 +37,7 @@ The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above ar
 | [Soundpipe AudioKit](/Packages/SoulAudioKit)        | Oscillators, Effects, Filters, and more       |
 | [Sporth AudioKit](/Packages/SporthAudioKit)         | Operations for complex DSP with simple syntax |
 | [STK AudioKit](/Packages/STKAudioKit)               | Stanford Synthesis Toolkit physical models    |
+
 
 # AudioKit.io (this website)
 
