@@ -11,7 +11,7 @@ Use Swift Package Manager and point to the URL: [https://github.com/AudioKit/Spo
 | Name            | Description                                 | Language      |
 |-----------------|---------------------------------------------|---------------|
 | SporthAudioKit  | API for creating Sporth-powered Audio Units | Swift         |
-| CSporthAudioKit | Audio Unit for Opoeration DSP               | Objective-C++ |
+| CSporthAudioKit | Audio Unit for Operation DSP                | Objective-C++ |
 | Sporth          | Stack-based DSP language                    | C             |
 
 ## Documentation
