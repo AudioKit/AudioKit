@@ -78,12 +78,24 @@ extension MIDI {
 
     /// Array of input source unique ids
     public var inputUIDs: [MIDIUniqueID] {
-        return MIDISources().uniqueIds
+        var ids = MIDISources().uniqueIds
+        // Remove inputs which are actually virtual outputs from AudioKit
+        for input in self.virtualOutputs {
+            let virtualId = getMIDIObjectIntegerProperty(ref: input, property: kMIDIPropertyUniqueID)
+            ids.removeAll(where: { $0 == virtualId})
+        }
+        return ids
     }
 
     /// Array of input source names
     public var inputNames: [String] {
-        return MIDISources().names
+        var names = MIDISources().names
+        // Remove inputs which are actually virtual outputs from AudioKit
+        for input in self.virtualOutputs {
+            let virtualName = getMIDIObjectStringProperty(ref: input, property: kMIDIPropertyName)
+            names.removeAll(where: { $0 == virtualName})
+        }
+        return names
     }
 
     /// Lookup a input name from its unique id
@@ -197,7 +209,7 @@ extension MIDI {
     
     /// Converting UMP SysEx message data to conform existing MIDI parser code.
     /// Returns only complete SysEx message data.
-    private func processUMPSysExMessage(with bytes: [UInt8]) -> [UInt8]? {
+    private func processUMPSysExMessage(with bytes: [UInt8]) -> [UInt8] {
         // Chapter 4.4 of Universal MIDI Packet (UMP) Format and MIDI 2.0 Protocol, Version 1.0
         // http://download.xskernel.org/docs/protocols/M2-104-UM_v1-0_UMP_and_MIDI_2-0_Protocol_Specification.pdf
         
@@ -229,13 +241,13 @@ extension MIDI {
             incomigUMPSysExMessage.append(0xF0)
             incomigUMPSysExMessage.append(contentsOf: validBytes)
             // Full message not ready, nothing to return
-            return nil
+            return []
         case .Continue:
             Log("UMP SYSEX - Continue receiving UMP SysEx messages", log: OSLog.midi)
             
             incomigUMPSysExMessage.append(contentsOf: validBytes)
             // Full message not ready, nothing to return
-            return nil
+            return []
         case .End:
             Log("UMP SYSEX - End of UMP SysEx messages", log: OSLog.midi)
             
@@ -244,7 +256,7 @@ extension MIDI {
             return incomigUMPSysExMessage
         default:
             Log("UMP SYSEX - Got unsupported UMPSysEx7bitStatus", log: OSLog.midi)
-            return nil
+            return []
         }
     }
 
@@ -284,9 +296,9 @@ extension MIDI {
                 // Appending bytes from second word to byte array
                 let secondWordBytes = byteArray(from: words[wordIndex + 1])
                 umpMessageBytes.append(contentsOf: secondWordBytes)
-                if let completeSysExMessageData = processUMPSysExMessage(with: umpMessageBytes) {
-                    midiEvents.append(MIDIEvent(data: completeSysExMessageData, timeStamp: timeStamp))
-                }
+                let completeSysExMessageData = processUMPSysExMessage(with: umpMessageBytes)
+                midiEvents.append(MIDIEvent(data: completeSysExMessageData, timeStamp: timeStamp))
+
                 wordIndex += 2
                 break
             case .MIDI2ChannelVoice64bit, .Reserved64bit_3, .Reserved64bit_4, .Reserved64bit_5:

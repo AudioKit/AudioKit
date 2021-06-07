@@ -5,6 +5,8 @@ import AVFoundation
 import CoreAudio
 import Accelerate
 
+// TODO: write unit tests.
+
 /// Normally set in AVFoundation or AudioToolbox,
 /// we create it here so users don't have to import those frameworks
 public typealias AUValue = Float
@@ -40,30 +42,6 @@ public typealias CMIDICallback = @convention(block) (MIDIByte, MIDIByte, MIDIByt
 extension AudioUnitParameterOptions {
     /// Default options
     public static let `default`: AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
-}
-
-extension CGRect {
-    /// Initialize with a size
-    /// - Parameter size: size to create the CGRect with
-    public init(size: CGSize) {
-        self.init(origin: .zero, size: size)
-    }
-
-    /// Initialize with width and height
-    /// - Parameters:
-    ///   - width: Width of rectangle
-    ///   - height: Height of rectangle
-    public init(width: CGFloat, height: CGFloat) {
-        self.init(origin: .zero, size: CGSize(width: width, height: height))
-    }
-
-    /// Initialize with width and height
-    /// - Parameters:
-    ///   - width: Width of rectangle
-    ///   - height: Height of rectangle
-    public init(width: Int, height: Int) {
-        self.init(width: CGFloat(width), height: CGFloat(height))
-    }
 }
 
 /// Helper function to convert codes for Audio Units
@@ -217,35 +195,34 @@ internal struct AUWrapper {
 }
 
 extension AVAudioNode {
+    var inputCount: Int { numberOfInputs }
+
     func inputConnections() -> [AVAudioConnectionPoint] {
-        return (0 ..< numberOfInputs).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
+        return (0 ..< inputCount).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
     }
 }
 
-public extension AUParameter {
-    /// Initialize with all specification
-    /// - Parameters:
-    ///   - identifier: ID String
-    ///   - name: Unique name
-    ///   - address: Parameter address
-    ///   - range: Range of valid values
-    ///   - unit: Physical units
-    ///   - flags: Parameter options
-    @nonobjc
-    convenience init(identifier: String,
-                     name: String,
-                     address: AUParameterAddress,
-                     range: ClosedRange<AUValue>,
-                     unit: AudioUnitParameterUnit,
-                     flags: AudioUnitParameterOptions) {
-        self.init(identifier: identifier,
-                  name: name,
-                  address: address,
-                  min: range.lowerBound,
-                  max: range.upperBound,
-                  unit: unit,
-                  flags: flags)
+public extension AUParameterTree {
+
+    class func createParameter(identifier: String,
+                               name: String,
+                               address: AUParameterAddress,
+                               range: ClosedRange<AUValue>,
+                               unit: AudioUnitParameterUnit,
+                               flags: AudioUnitParameterOptions) -> AUParameter {
+
+        AUParameterTree.createParameter(withIdentifier: identifier,
+                                        name: name,
+                                        address: address,
+                                        min: range.lowerBound,
+                                        max: range.upperBound,
+                                        unit: unit,
+                                        unitName: nil,
+                                        flags: flags,
+                                        valueStrings: nil,
+                                        dependentParameters: nil)
     }
+
 }
 
 /// Anything that can hold a value (strings, arrays, etc)
@@ -380,13 +357,13 @@ public extension Array where Element == Float {
     /// Parameters:
     ///   - sampleCount: the number of samples we will downsample the array to
     func downSample(to sampleCount: Int = 128) -> [Element] {
-        let numberOfInputSamples = self.count
-        let inputLength = vDSP_Length(numberOfInputSamples)
+        let inputSampleCount = self.count
+        let inputLength = vDSP_Length(inputSampleCount)
 
         let filterLength: vDSP_Length = 2
         let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
 
-        let decimationFactor = numberOfInputSamples / sampleCount
+        let decimationFactor = inputSampleCount / sampleCount
         let outputLength = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
 
         var outputFloats = [Float](repeating: 0, count: Int(outputLength))

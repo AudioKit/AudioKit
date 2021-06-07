@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
 
 /// Definition or specification of a node parameter
 public struct NodeParameterDef {
@@ -49,7 +48,7 @@ public struct NodeParameterDef {
 /// NodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
 public class NodeParameter {
-    private var avAudioNode: AVAudioNode!
+    public private(set) var avAudioNode: AVAudioNode!
 
     /// AU Parameter that this wraps
     public private(set) var parameter: AUParameter!
@@ -94,67 +93,21 @@ public class NodeParameter {
 
     // MARK: Automation
 
-    private var renderObserverToken: Int?
-
-    /// Begin automation of the parameter.
-    ///
-    /// If `startTime` is nil, the automation will be scheduled as soon as possible.
-    ///
-    /// - Parameter events: automation curve
-    /// - Parameter startTime: optional time to start automation
-    public func automate(events: [AutomationEvent], startTime: AVAudioTime? = nil) {
-        var lastRenderTime = avAudioNode.lastRenderTime ?? AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
-
-        if !lastRenderTime.isSampleTimeValid {
-            if let engine = avAudioNode.engine, engine.isInManualRenderingMode {
-                lastRenderTime = AVAudioTime(sampleTime: engine.manualRenderingSampleTime, atRate: Settings.sampleRate)
-            } else {
-                lastRenderTime = AVAudioTime(sampleTime: 0, atRate: Settings.sampleRate)
-            }
-        }
-
-        var lastTime = startTime ?? lastRenderTime
-
-        if lastTime.isHostTimeValid {
-            // Convert to sample time.
-            let lastTimeSeconds = AVAudioTime.seconds(forHostTime: lastRenderTime.hostTime)
-            let startTimeSeconds = AVAudioTime.seconds(forHostTime: lastTime.hostTime)
-
-            lastTime = lastRenderTime.offset(seconds: startTimeSeconds - lastTimeSeconds)
-        }
-
-        assert(lastTime.isSampleTimeValid)
-        stopAutomation()
-
-        events.withUnsafeBufferPointer { automationPtr in
-
-            guard let automationBaseAddress = automationPtr.baseAddress else { return }
-
-            guard let observer = ParameterAutomationGetRenderObserver(parameter.address,
-                                                                      avAudioNode.auAudioUnit.scheduleParameterBlock,
-                                                                      Float(Settings.sampleRate),
-                                                                      Float(lastTime.sampleTime),
-                                                                      automationBaseAddress,
-                                                                      events.count) else { return }
-
-            renderObserverToken = avAudioNode.auAudioUnit.token(byAddingRenderObserver: observer)
-        }
-    }
+    public var renderObserverToken: Int?
 
     /// Automate to a new value using a ramp.
-    public func ramp(to value: AUValue, duration: Float) {
+    public func ramp(to value: AUValue, duration: Float, delay: Float = 0) {
+        var delaySamples = AUAudioFrameCount(delay * Float(Settings.sampleRate))
+        if delaySamples > 4096 {
+            print("Warning: delay longer than 4096, setting to to 4096")
+            delaySamples = 4096
+        }
+        assert(delaySamples < 4096)
         let paramBlock = avAudioNode.auAudioUnit.scheduleParameterBlock
-        paramBlock(AUEventSampleTimeImmediate,
+        paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
                    AUAudioFrameCount(duration * Float(Settings.sampleRate)),
                    parameter.address,
                    range.clamp(value))
-    }
-
-    /// Stop automation
-    public func stopAutomation() {
-        if let token = renderObserverToken {
-            avAudioNode.auAudioUnit.removeRenderObserver(token)
-        }
     }
 
     private var parameterObserverToken: AUParameterObserverToken?

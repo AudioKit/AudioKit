@@ -92,12 +92,25 @@ extension MIDI {
 
     /// Array of destination unique ids
     public var destinationUIDs: [MIDIUniqueID] {
-        return MIDIDestinations().uniqueIds
+        var ids = MIDIDestinations().uniqueIds
+        // Remove outputs which are actually virtual inputs to AudioKit
+        for output in self.virtualInputs {
+            let virtualId = getMIDIObjectIntegerProperty(ref: output, property: kMIDIPropertyUniqueID)
+            ids.removeAll(where: { $0 == virtualId})
+            // Add this UID to the inputUIDs
+        }
+        return ids
     }
 
     /// Array of destination names
     public var destinationNames: [String] {
-        return MIDIDestinations().names
+        var names = MIDIDestinations().names
+        // Remove outputs which are actually virtual inputs to AudioKit
+        for output in self.virtualInputs {
+            let virtualName = getMIDIObjectStringProperty(ref: output, property: kMIDIPropertyName)
+            names.removeAll(where: { $0 == virtualName})
+        }
+        return names
     }
 
     /// Lookup a destination name from its unique id
@@ -393,7 +406,7 @@ extension MIDI {
                                           time: MIDITimeStamp = 0,
                                           endpointsUIDs: [MIDIUniqueID]? = nil,
                                           virtualOutputPorts: [MIDIPortRef]? = nil) {
-        let noteCommand: MIDIByte = MIDIByte(0x90) + channel
+        let noteCommand: MIDIByte = noteOnByte + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessageWithTime(message, time: time,
                                  endpointsUIDs: endpointsUIDs,
@@ -412,7 +425,7 @@ extension MIDI {
                                            time: MIDITimeStamp = 0,
                                            endpointsUIDs: [MIDIUniqueID]? = nil,
                                            virtualOutputPorts: [MIDIPortRef]? = nil) {
-        let noteCommand: MIDIByte = MIDIByte(0x80) + channel
+        let noteCommand: MIDIByte = noteOffByte + channel
         let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
         self.sendMessageWithTime(message, time: time,
                                  endpointsUIDs: endpointsUIDs,

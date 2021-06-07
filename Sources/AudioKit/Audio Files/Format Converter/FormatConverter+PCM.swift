@@ -150,24 +150,24 @@ extension FormatConverter {
 
                 var fillBufList = AudioBufferList(mNumberBuffers: 1,
                                                   mBuffers: mBuffer)
-                var numFrames: UInt32 = 0
+                var frameCount: UInt32 = 0
 
                 if outputDescription.mBytesPerFrame > 0 {
-                    numFrames = bufferByteSize / outputDescription.mBytesPerFrame
+                    frameCount = bufferByteSize / outputDescription.mBytesPerFrame
                 }
 
                 if noErr != ExtAudioFileRead(strongInputFile,
-                                             &numFrames,
+                                             &frameCount,
                                              &fillBufList) {
                     completionHandler?(Self.createError(message: "Unable to read input file."))
                     return
                 }
                 // EOF
-                if numFrames == 0 { break }
+                if frameCount == 0 { break }
 
-                sourceFrameOffset += numFrames
+                sourceFrameOffset += frameCount
 
-                if noErr != ExtAudioFileWrite(strongOutputFile, numFrames, &fillBufList) {
+                if noErr != ExtAudioFileWrite(strongOutputFile, frameCount, &fillBufList) {
                     completionHandler?(Self.createError(message: "Unable to write output file."))
                     return
                 }

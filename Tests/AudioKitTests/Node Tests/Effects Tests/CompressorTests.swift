@@ -7,55 +7,60 @@ class CompressorTests: XCTestCase {
 
     func testAttackTime() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle))
-        engine.output = Compressor(input, attackTime: 0.1)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = Compressor(player, attackTime: 0.1)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testDefault() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle))
-        engine.output = Compressor(input)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = Compressor(player)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testHeadRoom() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle))
-        engine.output = Compressor(input, headRoom: 0)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = Compressor(player, headRoom: 0)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testMasterGain() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle))
-        engine.output = Compressor(input, masterGain: 1)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = Compressor(player, masterGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testParameters() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle))
-        engine.output = Compressor(input,
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = Compressor(player,
                                      threshold: -25,
                                      headRoom: 10,
                                      attackTime: 0.1,
                                      releaseTime: 0.1,
                                      masterGain: 1)
-        input.start()
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -64,10 +69,11 @@ class CompressorTests: XCTestCase {
 
     func testThreshold() {
         let engine = AudioEngine()
-        let input = Oscillator(waveform: Table(.triangle))
-        engine.output = Compressor(input, threshold: -25)
-        input.start()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = Compressor(player, threshold: -25)
         let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }

@@ -2,7 +2,6 @@
 
 import Accelerate
 import AVFoundation
-import CAudioKit
 
 /// Get the raw data for any node
 open class RawDataTap: BaseTap {

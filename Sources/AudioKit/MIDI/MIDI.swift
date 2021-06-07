@@ -16,7 +16,7 @@ public class MIDI {
     public var client = MIDIClientRef()
 
     /// MIDI Client Name
-    internal let clientName: CFString = "MIDI Client" as CFString
+    internal let clientName: CFString = "AudioKit" as CFString
 
     /// Array of MIDI In ports
     public var inputPorts = [MIDIUniqueID: MIDIPortRef]()

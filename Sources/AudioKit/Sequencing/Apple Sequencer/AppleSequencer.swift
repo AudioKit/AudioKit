@@ -93,7 +93,7 @@ open class AppleSequencer: NSObject {
 
     /// Enable looping for all tracks - loops entire sequence
     public func enableLooping() {
-        setLoopInfo(length, numberOfLoops: 0)
+        setLoopInfo(length, loopCount: 0)
         loopEnabled = true
     }
 
@@ -102,13 +102,13 @@ open class AppleSequencer: NSObject {
     /// - parameter loopLength: Loop length in beats
     ///
     public func enableLooping(_ loopLength: Duration) {
-        setLoopInfo(loopLength, numberOfLoops: 0)
+        setLoopInfo(loopLength, loopCount: 0)
         loopEnabled = true
     }
 
     /// Disable looping for all tracks
     public func disableLooping() {
-        setLoopInfo(Duration(beats: 0), numberOfLoops: 0)
+        setLoopInfo(Duration(beats: 0), loopCount: 0)
         loopEnabled = false
     }
 
@@ -116,11 +116,11 @@ open class AppleSequencer: NSObject {
     ///
     /// - Parameters:
     ///   - duration: Duration of the loop in beats
-    ///   - numberOfLoops: The number of time to repeat
+    ///   - loopCount: The number of time to repeat
     ///
-    public func setLoopInfo(_ duration: Duration, numberOfLoops: Int) {
+    public func setLoopInfo(_ duration: Duration, loopCount: Int) {
         for track in tracks {
-            track.setLoopInfo(duration, numberOfLoops: numberOfLoops)
+            track.setLoopInfo(duration, loopCount: loopCount)
         }
         loopEnabled = true
     }

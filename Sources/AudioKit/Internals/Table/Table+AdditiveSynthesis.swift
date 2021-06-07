@@ -3,6 +3,8 @@
 import Foundation
 import Accelerate
 
+// TODO: Write unit tests.
+
 extension Table {
     /// This method will start at rootFrequency * octave, walk up by octaveStepSize, and halt before reaching nyquist.
     /// This method outputs an array where each entry is a tuple of frequency and the maximum number of harmonics.
@@ -289,14 +291,14 @@ extension Table {
     /// Create an array of a specified number of tables by interpolating between the inputted array of tables
     /// Parameters:
     ///   - inputTables: tables to be interpolated between
-    ///   - numberOfDesiredTables: total number of tables in resulting array
+    ///   - desiredTableCount: total number of tables in resulting array
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public class func createInterpolatedTables(inputTables: [Table], numberOfDesiredTables: Int = 256) -> [Table] {
+    public class func createInterpolatedTables(inputTables: [Table], desiredTableCount: Int = 256) -> [Table] {
         var interpolatedTables: [Table] = []
         let thresholdForExact = 0.01 * Double(inputTables.count)
-        let rangeValue = (Double(numberOfDesiredTables) / Double(inputTables.count - 1)).rounded(.up)
+        let rangeValue = (Double(desiredTableCount) / Double(inputTables.count - 1)).rounded(.up)
 
-        for index in 1...numberOfDesiredTables {
+        for index in 1...desiredTableCount {
             let waveformIndex = Int(Double(index - 1) / rangeValue)
             let interpolatedIndex = (Double(index - 1) / rangeValue).truncatingRemainder(dividingBy: 1.0)
 
@@ -326,13 +328,13 @@ extension Table {
     ///   - inputTables: array of tables - which we can assume have a large sample count
     ///   - sampleCount: the number of floating point values to which we will downsample each Table array count
     public class func downSampleTables(inputTables: [Table], to sampleCount: Int = 64) -> [Table] {
-        let numberOfInputSamples = inputTables[0].content.count
-        let inputLength = vDSP_Length(numberOfInputSamples)
+        let inputSampleCount = inputTables[0].content.count
+        let inputLength = vDSP_Length(inputSampleCount)
 
         let filterLength: vDSP_Length = 2
         let filter = [Float](repeating: 1 / Float(filterLength), count: Int(filterLength))
 
-        let decimationFactor = numberOfInputSamples / sampleCount
+        let decimationFactor = inputSampleCount / sampleCount
         let outputLength = vDSP_Length((inputLength - filterLength) / vDSP_Length(decimationFactor))
 
         var outputTables: [Table] = []
@@ -357,10 +359,10 @@ extension Table {
     ///   - signal: large array of floating point values
     ///   - tableLength: number of floating point values to be stored per table
     public class func chopAudioToTables(signal: [Float], tableLength: Int = 2_048) -> [Table] {
-        let numberOfSamples = signal.count
-        let numberOfOutputTables = numberOfSamples / tableLength
+        let sampleCount = signal.count
+        let outputTableCount = sampleCount / tableLength
         var outputTables: [Table] = []
-        for index in 0..<numberOfOutputTables {
+        for index in 0..<outputTableCount {
             let startIndex = index * tableLength
             let endIndex = startIndex + tableLength
             outputTables.append(Table(Array(signal[startIndex..<endIndex])))
@@ -374,12 +376,12 @@ extension Table {
     ///   - url: URL to audio file
     ///   - tableLength: number of floating point value samples per table (Default: 2048)
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    public class func createWavetableArray(_ url: URL, tableLength: Int = 2_048) -> [Table]? {
+    public class func createWavetableArray(_ url: URL, tableLength: Int = 2_048) -> [Table] {
         if let audioInformation = loadAudioSignal(audioURL: url) {
             let signal = audioInformation.signal
             let tables = Table.chopAudioToTables(signal: signal, tableLength: tableLength)
             return Table.createInterpolatedTables(inputTables: tables)
         }
-        return nil
+        return []
     }
 }

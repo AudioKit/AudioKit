@@ -4,6 +4,8 @@ import Accelerate
 import AVFoundation
 import Foundation
 
+// TODO: add unit test.
+
 extension AVAudioEngine {
     /// Render output to an AVAudioFile for a duration.
     ///     - Parameters
@@ -28,17 +30,15 @@ extension AVAudioEngine {
                           userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
         }
 
-        try ExceptionCatcher {
-            // Engine can't be running when switching to offline render mode.
-            if self.isRunning { self.stop() }
-            try self.enableManualRenderingMode(.offline,
-                                               format: audioFile.processingFormat,
-                                               maximumFrameCount: maximumFrameCount)
+        // Engine can't be running when switching to offline render mode.
+        if self.isRunning { self.stop() }
+        try self.enableManualRenderingMode(.offline,
+                                           format: audioFile.processingFormat,
+                                           maximumFrameCount: maximumFrameCount)
 
-            // This resets the sampleTime of offline rendering to 0.
-            self.reset()
-            try self.start()
-        }
+        // This resets the sampleTime of offline rendering to 0.
+        self.reset()
+        try self.start()
 
         guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat,
                                             frameCapacity: manualRenderingMaximumFrameCount) else {
@@ -105,16 +105,14 @@ extension AVAudioEngine {
             }
         }
 
-        try ExceptionCatcher {
-            self.stop()
-            self.disableManualRenderingMode()
-        }
+        self.stop()
+        self.disableManualRenderingMode()
     }
 }
 
 extension AVAudioEngine {
     internal func mixerHasInputs(mixer: AVAudioMixerNode) -> Bool {
-        return (0 ..< mixer.numberOfInputs).contains {
+        return (0 ..< mixer.inputCount).contains {
             self.inputConnectionPoint(for: mixer, inputBus: $0) != nil
         }
     }

@@ -17,6 +17,11 @@ extension AudioPlayer {
         if isPlaying || isPaused {
             playerNode.stop()
         }
+        
+        if isPaused {
+            resume()
+            return
+        }
 
         guard let engine = playerNode.engine else {
             Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
@@ -43,7 +48,6 @@ extension AudioPlayer {
 
         playerNode.play()
         isPlaying = true
-        isPaused = false
     }
 
     /// Pauses audio player. Calling play() will resume from the paused time.
@@ -53,12 +57,19 @@ extension AudioPlayer {
         playerNode.pause()
         isPaused = true
     }
+    
+    /// Resumes audio player from paused time
+    public func resume() {
+        isPaused = false
+        seek(time: pausedTime)
+        playerNode.play()
+    }
 
     /// Gets the accurate playhead time regardless of seeking and pausing
     /// Can't be relied on if playerNode has its playstate modified directly
     public func getCurrentTime() -> TimeInterval {
         if let nodeTime = playerNode.lastRenderTime,
-           nodeTime.isSampleTimeValid && nodeTime.isHostTimeValid,
+           nodeTime.isSampleTimeValid,
            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
         }

@@ -1,24 +1,36 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
 
 extension AVAudioNode {
-    /// Disconnect and manage engine connections
-    public func disconnect(input: AVAudioNode) {
+
+    /// Disconnect without breaking other connections.
+    func disconnect(input: AVAudioNode) {
+
         if let engine = engine {
-            for bus in 0 ..< numberOfInputs {
+
+            var newConnections: [AVAudioNode: [AVAudioConnectionPoint]] = [:]
+            for bus in 0 ..< inputCount {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
                     if cp.node === input {
-                        engine.disconnectNodeInput(self, bus: bus)
+                        let points = engine.outputConnectionPoints(for: input, outputBus: 0)
+                        newConnections[input] = points.filter { $0.node != self }
                     }
+                }
+            }
+
+            for (node, connections) in newConnections {
+                if connections.isEmpty {
+                    engine.disconnectNodeOutput(node)
+                } else {
+                    engine.connect(node, to: connections, fromBus: 0, format: Settings.audioFormat)
                 }
             }
         }
     }
 
     /// Make a connection without breaking other connections.
-    public func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
+    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: {
@@ -225,7 +237,7 @@ public class AudioEngine {
     }
 
     /// Enumerate the list of available input devices.
-    public static var inputDevices: [Device]? {
+    public static var inputDevices: [Device] {
         #if os(macOS)
         return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
             if AudioDeviceUtils.inputChannels(id) > 0 {
@@ -249,12 +261,12 @@ public class AudioEngine {
             }
             return returnDevices
         }
-        return nil
+        return []
         #endif
     }
 
     /// Enumerate the list of available output devices.
-    public static var outputDevices: [Device]? {
+    public static var outputDevices: [Device] {
         #if os(macOS)
         return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
             if AudioDeviceUtils.outputChannels(id) > 0 {
@@ -271,13 +283,13 @@ public class AudioEngine {
             }
             return outs
         }
-        return nil
+        return []
         #endif
     }
 
     #if os(macOS)
     /// Enumerate the list of available devices.
-    public static var devices: [Device]? {
+    public static var devices: [Device] {
         return AudioDeviceUtils.devices().map { id in
             Device(deviceID: id)
         }
@@ -343,6 +355,7 @@ public class AudioEngine {
     ///
     /// - Parameters:
     ///   - audioFile: A file initialized for writing
+    ///   - maximumFrameCount: Highest frame count to render, defaults to 4096
     ///   - duration: Duration to render, in seconds
     ///   - prerender: Closure called before rendering starts, used to start players, set initial parameters, etc.
     ///   - progress: Closure called while rendering, use this to fetch render progress

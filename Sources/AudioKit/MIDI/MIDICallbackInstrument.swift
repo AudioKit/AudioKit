@@ -4,6 +4,9 @@
 
 import AVFoundation
 
+/// Function type for MIDI callbacks
+public typealias MIDICallback = (MIDIByte, MIDIByte, MIDIByte) -> Void
+
 /// MIDI Instrument that triggers functions on MIDI note on/off commands
 /// This is used mostly with the AppleSequencer sending to a MIDIEndpointRef
 /// Another callback instrument, CallbackInstrument

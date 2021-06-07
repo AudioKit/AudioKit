@@ -1,42 +1,48 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
-import soundpipe
+import CryptoKit
 
 extension AVAudioPCMBuffer {
     /// Hash useful for testing
     public var md5: String {
-        let md5state = UnsafeMutablePointer<md5_state_s>.allocate(capacity: 1)
-        md5_init(md5state)
+
+        var sampleData = Data()
 
         if let floatChannelData = self.floatChannelData {
             for frame in 0 ..< self.frameCapacity {
                 for channel in 0 ..< self.format.channelCount {
                     let sample = floatChannelData[Int(channel)][Int(frame)]
-                    withUnsafeBytes(of: sample) { samplePtr in
-                        if let baseAddress = samplePtr.bindMemory(to: md5_byte_t.self).baseAddress {
-                            md5_append(md5state, baseAddress, 4)
-                        }
+
+                    withUnsafePointer(to: sample) { ptr in
+                        sampleData.append(UnsafeBufferPointer(start: ptr, count: 1))
                     }
                 }
             }
         }
 
-        var digest = [md5_byte_t](repeating: 0, count: 16)
-        var digestHex = ""
-
-        digest.withUnsafeMutableBufferPointer { digestPtr in
-            md5_finish(md5state, digestPtr.baseAddress)
+        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
+            let digest = Insecure.MD5.hash(data: sampleData)
+            return digest.map { String(format: "%02hhx", $0) }.joined()
+        } else {
+            // Fallback on earlier versions
+            return "Oh well, old version"
         }
+        
 
-        for index in 0 ..< 16 {
-            digestHex += String(format: "%02x", digest[index])
+    }
+
+    public var isSilent: Bool {
+        if let floatChannelData = self.floatChannelData {
+            for channel in 0 ..< self.format.channelCount {
+                for frame in 0 ..< self.frameLength {
+                    if floatChannelData[Int(channel)][Int(frame)] != 0.0 {
+                        return false
+                    }
+                }
+            }
         }
-
-        md5state.deallocate()
-
-        return digestHex
+        return true
     }
 
     /// Add to an existing buffer
@@ -109,17 +115,17 @@ extension AVAudioPCMBuffer {
 
         let frameSize = Int(format.streamDescription.pointee.mBytesPerFrame)
         if let src = buffer.floatChannelData,
-            let dst = floatChannelData {
+           let dst = floatChannelData {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else if let src = buffer.int16ChannelData,
-            let dst = int16ChannelData {
+                  let dst = int16ChannelData {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else if let src = buffer.int32ChannelData,
-            let dst = int32ChannelData {
+                  let dst = int32ChannelData {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
@@ -135,7 +141,7 @@ extension AVAudioPCMBuffer {
     /// - Returns: an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
     public func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
-            let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample) else {
+              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample) else {
             return nil
         }
         let framesCopied = buffer.copy(from: self, readOffset: startSample)

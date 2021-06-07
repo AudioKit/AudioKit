@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
 
 /// Node in an audio graph.
 public protocol Node: AnyObject {
@@ -117,7 +116,7 @@ extension Node {
     
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
-        return !au.shouldBypassEffect
+        return !bypassed
     }
 
     /// Start the node
@@ -130,7 +129,7 @@ extension Node {
     public func bypass() { bypassed = true }
 
     /// All parameters on the Node
-    var parameters: [NodeParameter] {
+    public var parameters: [NodeParameter] {
 
         let mirror = Mirror(reflecting: self)
         var params: [NodeParameter] = []
@@ -153,13 +152,12 @@ extension Node {
         for child in mirror.children {
             if let param = child.value as? ParameterBase {
                 let def = param.projectedValue.def
-                let auParam = AUParameter(identifier: def.identifier,
-                                          name: def.name,
-                                          address: def.address,
-                                          min: def.range.lowerBound,
-                                          max: def.range.upperBound,
-                                          unit: def.unit,
-                                          flags: def.flags)
+                let auParam = AUParameterTree.createParameter(identifier: def.identifier,
+                                                              name: def.name,
+                                                              address: def.address,
+                                                              range: def.range,
+                                                              unit: def.unit,
+                                                              flags: def.flags)
                 params.append(auParam)
                 param.projectedValue.associate(with: avAudioNode, parameter: auParam)
             }
@@ -168,66 +166,23 @@ extension Node {
         avAudioNode.auAudioUnit.parameterTree = AUParameterTree.createTree(withChildren: params)
     }
 
-    /// Audio Unit for AudioKit
-    public var au: AudioKitAU {
-        guard let au = avAudioNode.auAudioUnit as? AudioKitAU else {
-            fatalError("Wrong audio unit type.")
-        }
-        return au
-    }
-}
-
-/// Create an AVAudioUnit for the given description
-/// - Parameter componentDescription: Audio Component Description
-func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit {
-
-    let semaphore = DispatchSemaphore(value: 0)
-    var result: AVAudioUnit!
-
-    AUAudioUnit.registerSubclass(AudioKitAU.self,
-                                 as: componentDescription,
-                                 name: "Local internal AU",
-                                 version: .max)
-    AVAudioUnit.instantiate(with: componentDescription) { avAudioUnit, _ in
-        guard let au = avAudioUnit else {
-            fatalError("Unable to instantiate AVAudioUnit")
-        }
-        result = au
-        semaphore.signal()
-    }
-
-    _ = semaphore.wait(wallTimeout: .distantFuture)
-
-    return result
-}
-
-/// Create a generator for the given unique identifier
-/// - Parameter code: Unique four letter identifier
-public func instantiate(generator code: String) -> AVAudioNode {
-    instantiate(componentDescription: AudioComponentDescription(generator: code))
-}
-
-/// Create an instrument for the given unique identifier
-/// - Parameter code: Unique four letter identifier
-public func instantiate(instrument code: String) -> AVAudioNode {
-    instantiate(componentDescription: AudioComponentDescription(instrument: code))
-}
-
-/// Create an effect for the given unique identifier
-/// - Parameter code: Unique four letter identifier
-public func instantiate(effect code: String) -> AVAudioNode {
-    instantiate(componentDescription: AudioComponentDescription(effect: code))
-}
-
-/// Create a mixer for the given unique identifier
-/// - Parameter code: Unique four letter identifier
-public func instantiate(mixer code: String) -> AVAudioNode {
-    instantiate(componentDescription: AudioComponentDescription(mixer: code))
 }
 
 protocol HasInternalConnections: AnyObject {
-
     /// Override point for any connections internal to the node.
     func makeInternalConnections()
+}
 
+/// Protocol mostly to support DynamicOscillator in SoundpipeAudioKit, but could be used elsewhere
+public protocol DynamicWaveformNode: Node {
+    /// Sets the wavetable
+    /// - Parameter waveform: The tablve
+    func setWaveform(_ waveform: Table)
+
+    /// Gets the floating point values stored in the wavetable
+    func getWaveformValues() -> [Float]
+    
+    /// Set the waveform change handler
+    /// - Parameter handler: Closure with an array of floats as the argument
+    func setWaveformUpdateHandler(_ handler: @escaping ([Float]) -> Void)
 }

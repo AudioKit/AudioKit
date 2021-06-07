@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
 
 extension AUParameterTree {
     /// Look up paramters by key
@@ -37,7 +36,7 @@ extension AudioComponentDescription {
     /// Initialize as an effect with sub-type
     /// - Parameter subType: OSType
     public init(effect subType: OSType) {
-        self.init(type: kAudioUnitType_Effect, subType: subType)
+        self.init(type: kAudioUnitType_MusicEffect, subType: subType)
     }
 
     /// Initialize as an effect with sub-type string

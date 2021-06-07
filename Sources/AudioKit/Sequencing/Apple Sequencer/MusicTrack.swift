@@ -139,13 +139,13 @@ open class MusicTrackManager {
     /// Set loop info
     ///
     /// - parameter duration: How long the loop will last, from the end of the track backwards
-    /// - parameter numberOfLoops: how many times to loop. 0 is infinte
+    /// - parameter loopCount: how many times to loop. 0 is infinte
     ///
-    public func setLoopInfo(_ duration: Duration, numberOfLoops: Int) {
+    public func setLoopInfo(_ duration: Duration, loopCount: Int) {
         let size: UInt32 = UInt32(MemoryLayout<MusicTrackLoopInfo>.size)
         let loopDuration = duration.musicTimeStamp
         var loopInfo = MusicTrackLoopInfo(loopDuration: loopDuration,
-                                          numberOfLoops: Int32(numberOfLoops))
+                                          numberOfLoops: Int32(loopCount))
         if let musicTrack = internalMusicTrack {
             MusicTrackSetProperty(musicTrack, kSequenceTrackProperty_LoopInfo, &loopInfo, size)
         }

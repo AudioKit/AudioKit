@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import CAudioKit
 
 /// Wrapper for AVAudioPlayerNode with a simplified API. The player exists in two interchangeable modes
 /// either playing from memory (isBuffered) or streamed from disk. Longer files are recommended to be
@@ -9,7 +8,6 @@ import CAudioKit
 /// loop will not be totally seamless.
 
 public class AudioPlayer: Node {
-
     /// Nodes providing input to this node.
     public var connections: [Node] { [] }
 
@@ -184,14 +182,14 @@ public class AudioPlayer: Node {
             return
         }
     }
-    
+
     // MARK: - Init
 
     /// Create an AudioPlayer with default properties and nothing pre-loaded
-    public init() { }
+    public init() {}
 
     /// Create an AudioPlayer from file, optionally choosing to buffer it
-    public init?(file: AVAudioFile, buffered: Bool = false) {
+    public init?(file: AVAudioFile, buffered: Bool? = nil) {
         do {
             try load(file: file, buffered: buffered)
         } catch let error as NSError {
@@ -201,7 +199,7 @@ public class AudioPlayer: Node {
     }
 
     /// Create an AudioPlayer from URL, optionally choosing to buffer it
-    public convenience init?(url: URL, buffered: Bool = false) {
+    public convenience init?(url: URL, buffered: Bool? = nil) {
         self.init()
         do {
             try load(url: url, buffered: buffered)
@@ -228,7 +226,7 @@ public class AudioPlayer: Node {
     /// - Parameters:
     ///   - url: URL of the audio file
     ///   - buffered: Boolean of whether you want the audio buffered
-    public func load(url: URL, buffered: Bool = false) throws {
+    public func load(url: URL, buffered: Bool? = nil) throws {
         let file = try AVAudioFile(forReading: url)
         try load(file: file, buffered: buffered)
     }
@@ -237,11 +235,27 @@ public class AudioPlayer: Node {
     /// - Parameters:
     ///   - file: File to play
     ///   - buffered: Boolean of whether you want the audio buffered
-    public func load(file: AVAudioFile, buffered: Bool = false) throws {
-        self.file = file
-        isBuffered = buffered
+    public func load(file: AVAudioFile, buffered: Bool? = nil) throws {
+        var formatHasChanged = false
 
-        if buffered {
+        if let currentFile = self.file,
+           currentFile.fileFormat != file.fileFormat {
+            Log("Format has changed, player will be reconnected with format", file.fileFormat)
+            engine?.disconnectNodeInput(playerNode)
+            formatHasChanged = true
+        }
+
+        self.file = file
+
+        if formatHasChanged {
+            makeInternalConnections()
+        }
+
+        if let buffered = buffered {
+            isBuffered = buffered
+        }
+
+        if isBuffered {
             updateBuffer()
         }
     }
@@ -250,19 +264,20 @@ public class AudioPlayer: Node {
     /// - Parameter buffer: Buffer to play
     public func load(buffer: AVAudioPCMBuffer) {
         self.buffer = buffer
+        isBuffered = true
     }
 }
 
 extension AudioPlayer: HasInternalConnections {
-
     /// called in the connection chain to attach the playerNode
     public func makeInternalConnections() {
-        guard let engine = mixerNode.engine else {
+        guard let engine = engine else {
             Log("Engine is nil", type: .error)
             return
         }
-        engine.attach(playerNode)
+        if playerNode.engine == nil {
+            engine.attach(playerNode)
+        }
         engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
     }
-
 }
