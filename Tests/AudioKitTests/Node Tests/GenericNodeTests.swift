@@ -27,7 +27,7 @@ class GenericNodeTests: XCTestCase {
 
         let duration = 10
         let engine = AudioEngine()
-        var bigBuffer: AVAudioPCMBuffer? = nil
+        var bigBuffer: AVAudioPCMBuffer?
 
         for _ in 0 ..< duration {
 

@@ -115,17 +115,17 @@ extension AVAudioPCMBuffer {
 
         let frameSize = Int(format.streamDescription.pointee.mBytesPerFrame)
         if let src = buffer.floatChannelData,
-            let dst = floatChannelData {
+           let dst = floatChannelData {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else if let src = buffer.int16ChannelData,
-            let dst = int16ChannelData {
+                  let dst = int16ChannelData {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else if let src = buffer.int32ChannelData,
-            let dst = int32ChannelData {
+                  let dst = int32ChannelData {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
@@ -141,7 +141,7 @@ extension AVAudioPCMBuffer {
     /// - Returns: an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
     public func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
-            let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample) else {
+              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample) else {
             return nil
         }
         let framesCopied = buffer.copy(from: self, readOffset: startSample)

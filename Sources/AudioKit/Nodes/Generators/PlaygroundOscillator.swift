@@ -10,14 +10,14 @@ let twoPi = 2 * Float.pi
 public class PlaygroundOscillator: Node {
     fileprivate lazy var sourceNode = AVAudioSourceNode { [self] _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
-                
+        
         if self.isStarted {
             let phaseIncrement = (twoPi / Float(Settings.sampleRate)) * self.frequency
             for frame in 0..<Int(frameCount) {
                 // Get signal value for this frame at time.
                 let index = Int(self.currentPhase / twoPi * Float(self.waveform!.count))
                 let value = self.waveform![index] * self.amplitude
-
+                
                 // Advance the phase for the next frame.
                 self.currentPhase += phaseIncrement
                 if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
@@ -31,10 +31,10 @@ public class PlaygroundOscillator: Node {
         }
         return noErr
     }
-
+    
     /// Connected nodes
     public var connections: [Node] { [] }
-
+    
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { sourceNode }
     

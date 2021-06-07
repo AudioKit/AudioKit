@@ -6,19 +6,19 @@ import os.log
 
 /// A container for the values that define a MIDI event
 public struct MIDIEvent: MIDIMessage, Equatable {
-
+    
     /// Internal data
     public var data = [MIDIByte]()
-
+    
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?
-
+    
     /// Offset within a buffer. Used mostly in receiving events from an au sequencer
     public var offset: MIDITimeStamp?
-
+    
     /// TimeStamp from packet. Used mostly in receiving packets live
     public var timeStamp: MIDITimeStamp?
-
+    
     /// Pretty printout
     public var description: String {
         if let status = self.status {
@@ -32,7 +32,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         }
         return "Unhandled event \(data)"
     }
-
+    
     #if swift(>=5.2)
     // This method CRASHES the LLVM compiler with Swift version 5.1 and "Build Libraries for Distribution" turned on
     /// Internal MIDIByte-sized packets - in development / not used yet
@@ -48,12 +48,12 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         return splitData
     }
     #endif
-
+    
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     public var length: Int {
         return data.count
     }
-
+    
     /// Status
     public var status: MIDIStatus? {
         if let statusByte = data.first {
@@ -61,7 +61,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         }
         return nil
     }
-
+    
     /// System Command
     public var command: MIDISystemCommand? {
         // FIXME: Improve this if statement to catch valid system reset commands (0xFF)
@@ -71,12 +71,12 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         }
         return nil
     }
-
+    
     /// MIDI Channel
     public var channel: MIDIChannel? {
         return status?.channel
     }
-
+    
     /// MIDI Note Number
     public var noteNumber: MIDINoteNumber? {
         if status?.type == .noteOn || status?.type == .noteOff, data.count > 1 {
@@ -84,7 +84,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         }
         return nil
     }
-
+    
     /// Representation of the pitchBend data as a MIDI word 0-16383
     public var pitchbendAmount: MIDIWord? {
         if status?.type == .pitchWheel {
@@ -94,9 +94,9 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         }
         return nil
     }
-
+    
     // MARK: - Initialization
-
+    
     /// Initialize the MIDI Event from a MIDI Packet
     ///
     /// - parameter packet: MIDIPacket that is potentially a known event type
@@ -104,14 +104,14 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     public init(packet: MIDIPacket) {
         timeStamp = packet.timeStamp
         // MARK: we currently assume this is one midi event could be any number of events
-
+        
         let isSystemCommand = packet.isSystemCommand
         if isSystemCommand {
             let systemCommand = packet.systemCommand
             let length = systemCommand?.length
             if systemCommand == .sysEx {
                 data = [] // reset internal data
-
+                
                 // voodoo to convert packet 256 element tuple to byte arrays
                 let midiBytes = MIDIEvent.decode(packet: packet)
                 // flag midi system that a sysEx packet has started so it can gather bytes until the end
@@ -124,7 +124,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
                 } else {
                     data.removeAll()
                 }
-            
+                
             } else if length == 1 {
                 let bytes = [packet.data.0]
                 data = bytes
@@ -140,7 +140,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
             data = bytes
         }
     }
-
+    
     init?(fileEvent event: MIDIFileChunkEvent) {
         guard
             event.computedData.isNotEmpty,
@@ -153,7 +153,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
             positionInBeats = event.position
         }
     }
-
+    
     /// Initialize the MIDI Event from a raw MIDIByte packet (ie. from Bluetooth)
     ///
     /// - Parameters:
@@ -184,7 +184,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
             Log("is meta event \(metaType.description)", log: OSLog.midi)
         }
     }
-
+    
     /// Initialize the MIDI Event from a status message
     ///
     /// - Parameters:
@@ -197,7 +197,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         let data = [byte1, byte2]
         fillData(status: status, channel: channel, bytes: data)
     }
-
+    
     fileprivate mutating func fillData(status: MIDIStatusType,
                                        channel: MIDIChannel,
                                        bytes: [MIDIByte]) {
@@ -207,7 +207,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
             data.append(byte.lower7bits())
         }
     }
-
+    
     /// Initialize the MIDI Event from a system command message
     ///
     /// - Parameters:
@@ -222,19 +222,19 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         }
         fillData(command: command, bytes: data)
     }
-
+    
     fileprivate mutating func fillData(command: MIDISystemCommand,
                                        bytes: [MIDIByte]) {
         data.removeAll()
         data.append(command.byte)
-
+        
         for byte in bytes {
             data.append(byte)
         }
     }
-
+    
     // MARK: - Utility constructors for common MIDI events
-
+    
     /// Create note on event
     ///
     /// - Parameters:
@@ -245,7 +245,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     public init(noteOn noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         self.init(data: [MIDIStatus(type: .noteOn, channel: channel).byte, noteNumber, velocity])
     }
-
+    
     /// Create note off event
     ///
     /// - Parameters:
@@ -256,7 +256,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     public init(noteOff noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
         self.init(data: [MIDIStatus(type: .noteOff, channel: channel).byte, noteNumber, velocity])
     }
-
+    
     /// Create program change event
     ///
     /// - Parameters:
@@ -266,7 +266,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     public init(programChange data: MIDIByte, channel: MIDIChannel) {
         self.init(data: [MIDIStatus(type: .programChange, channel: channel).byte, data])
     }
-
+    
     /// Create controller event
     ///
     /// - Parameters:
@@ -277,12 +277,12 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     public init(controllerChange controller: MIDIByte, value: MIDIByte, channel: MIDIChannel) {
         self.init(data: [MIDIStatus(type: .controllerChange, channel: channel).byte, controller, value])
     }
-
+    
     /// Array of MIDI events from a MIDI packet list poionter
     public static func midiEventsFrom(packetListPointer: UnsafePointer<MIDIPacketList>) -> [MIDIEvent] {
         return packetListPointer.pointee.map { MIDIEvent(packet: $0) }
     }
-
+    
     static func appendIncomingSysEx(packet: MIDIPacket) -> MIDIEvent? {
         let midiBytes = MIDIEvent.decode(packet: packet)
         MIDI.sharedInstance.incomingSysEx += midiBytes
@@ -294,14 +294,14 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         
         return nil
     }
-
+    
     /// Generate array of MIDI events from Bluetooth data
     public static func generateFrom(bluetoothData: [MIDIByte]) -> [MIDIEvent] {
         //1st byte timestamp coarse will always be > 128
         //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysEx
         //3nd < 128 running message - timestamp
         //status byte determines length of message
-
+        
         var midiEvents: [MIDIEvent] = []
         if bluetoothData.count > 1 {
             var rawEvents: [[MIDIByte]] = []
@@ -312,12 +312,12 @@ public struct MIDIEvent: MIDIMessage, Equatable {
                 var rawEvent: [MIDIByte] = []
                 var lastStatus: MIDIByte = 0
                 var messageJustFinished = false
-
+                
                 // drops first two bytes as these are timestamp bytes
                 for byte in bluetoothData.dropFirst().dropFirst() {
                     if byte >= 128 {
                         // if we have a new status byte or if rawEvent is a real event
-
+                        
                         if messageJustFinished, byte >= 128 {
                             messageJustFinished = false
                             continue
@@ -346,7 +346,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         } // end bluetoothData.count > 0
         return midiEvents
     }
-
+    
     static func decode(packet: MIDIPacket) -> [MIDIByte] {
         var outBytes = [MIDIByte]()
         var tupleIndex: UInt16 = 0

@@ -153,11 +153,11 @@ extension Node {
             if let param = child.value as? ParameterBase {
                 let def = param.projectedValue.def
                 let auParam = AUParameterTree.createParameter(identifier: def.identifier,
-                                          name: def.name,
-                                          address: def.address,
-                                          range: def.range,
-                                          unit: def.unit,
-                                          flags: def.flags)
+                                                              name: def.name,
+                                                              address: def.address,
+                                                              range: def.range,
+                                                              unit: def.unit,
+                                                              flags: def.flags)
                 params.append(auParam)
                 param.projectedValue.associate(with: avAudioNode, parameter: auParam)
             }

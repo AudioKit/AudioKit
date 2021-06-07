@@ -16,7 +16,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
     }
-
+    
     func testNodeConnection() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
@@ -29,7 +29,7 @@ class NodeTests: XCTestCase {
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
-
+    
     func testRedundantConnection() {
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
@@ -38,58 +38,58 @@ class NodeTests: XCTestCase {
         mixer.addInput(player)
         XCTAssertEqual(mixer.connections.count, 1)
     }
-
+    
     func testDynamicOutput() {
         let engine = AudioEngine()
-
+        
         let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player1 = AudioPlayer(url: url1)!
         engine.output = player1
-
+        
         let audio = engine.startTest(totalDuration: 2.0)
         player1.play()
         let newAudio = engine.render(duration: 1.0)
         audio.append(newAudio)
-
+        
         let url2 = Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
         let player2 = AudioPlayer(url: url2)!
         engine.output = player2
         player2.play()
-
+        
         let newAudio2 = engine.render(duration: 1.0)
         audio.append(newAudio2)
-
+        
         testMD5(audio)
     }
     
     func testDynamicConnection() {
         let engine = AudioEngine()
-
+        
         let osc1 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
         let mixer = Mixer(osc1)
-
+        
         XCTAssertNil(osc1.avAudioNode.engine)
-
+        
         engine.output = mixer
-
+        
         // Osc should be attached.
         XCTAssertNotNil(osc1.avAudioNode.engine)
-
+        
         let audio = engine.startTest(totalDuration: 2.0)
-
+        
         osc1.play()
-
+        
         audio.append(engine.render(duration: 1.0))
-
+        
         let osc2 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 880, amplitude: 0.1)
         mixer.addInput(osc2)
         osc2.play()
         audio.append(engine.render(duration: 1.0))
-
+        
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
-
+    
     /*
 
     func testDynamicConnection2() {
@@ -196,81 +196,81 @@ class NodeTests: XCTestCase {
 
     func testDisconnect() {
         let engine = AudioEngine()
-
+        
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
         
         let mixer = Mixer(player)
         engine.output = mixer
-
+        
         let audio = engine.startTest(totalDuration: 2.0)
-
+        
         player.play()
-
+        
         audio.append(engine.render(duration: 1.0))
-
+        
         mixer.removeInput(player)
-
+        
         audio.append(engine.render(duration: 1.0))
-
+        
         testMD5(audio)
     }
-
+    
     func testNodeDetach() {
         let engine = AudioEngine()
-
+        
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
-
+        
         let mixer = Mixer(player)
         engine.output = mixer
-
+        
         let audio = engine.startTest(totalDuration: 2.0)
-
+        
         player.play()
-
+        
         audio.append(engine.render(duration: 1.0))
-
+        
         player.detach()
-
+        
         audio.append(engine.render(duration: 1.0))
-
+        
         testMD5(audio)
     }
-
+    
     func testTwoEngines() {
         let engine = AudioEngine()
         let engine2 = AudioEngine()
-
+        
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
-
+        
         engine2.output = player
-
+        
         let verb = Reverb(player)
         engine.output = verb
-
+        
         let audio = engine.startTest(totalDuration: 0.1)
         player.play()
         
         audio.append(engine.render(duration: 0.1))
         XCTAssert(audio.isSilent)
     }
-
+    
     func testManyMixerConnections() {
         let engine = AudioEngine()
-
+        
         var players: [AudioPlayer] = []
         for _ in 0 ..< 16 {
             players.append(AudioPlayer())
         }
-
+        
         let mixer = Mixer(players)
         engine.output = mixer
-
+        
         XCTAssertEqual(mixer.avAudioNode.inputCount, 16)
     }
-
+    
     func connectionCount(node: AVAudioNode) -> Int {
         var count = 0
         for bus in 0 ..< node.numberOfInputs {
@@ -282,35 +282,35 @@ class NodeTests: XCTestCase {
         }
         return count
     }
-
+    
     func testFanout() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
-
+        
         let verb = Reverb(player)
         let mixer = Mixer(player, verb)
         engine.output = mixer
-
+        
         XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
         XCTAssertEqual(connectionCount(node: mixer.avAudioNode), 2)
     }
-
+    
     func testMixerRedundantUpstreamConnection() {
         let engine = AudioEngine()
-
+        
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
-
+        
         let mixer1 = Mixer(player)
         let mixer2 = Mixer(mixer1)
-
+        
         engine.output = mixer2
-
+        
         XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
-
+        
         mixer2.addInput(player)
-
+        
         XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
     }
 
@@ -366,67 +366,67 @@ class NodeTests: XCTestCase {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
-
+        
         let rev = Reverb(player)
-
+        
         XCTAssertNil(player.avAudioNode.engine)
         engine.output = rev
         XCTAssertNotNil(player.avAudioNode.engine)
-
+        
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
             player.play()
-
+            
             startMeasuring()
             let buf = engine.render(duration: 10.0)
             stopMeasuring()
-
+            
             audio.append(buf)
         }
     }
-
+    
     // Measure the overhead of mixers.
     func testMixerPerformance() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
-
+        
         let mix1 = Mixer(player)
         let rev = Reverb(mix1)
         let mix2 = Mixer(rev)
-
+        
         XCTAssertNil(player.avAudioNode.engine)
         engine.output = mix2
         XCTAssertNotNil(player.avAudioNode.engine)
-
+        
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
             player.play()
-
+            
             startMeasuring()
             let buf = engine.render(duration: 10.0)
             stopMeasuring()
-
+            
             audio.append(buf)
         }
     }
-
+    
     func testConnectionTreeDescriptionForStandaloneNode() {
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
         XCTAssertEqual(player.connectionTreeDescription, "\(connectionTreeLinePrefix)↳AudioPlayer")
     }
-
+    
     func testConnectionTreeDescriptionForConnectedNode() {
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
-
+        
         let verb = Reverb(player)
         let mixer = Mixer(player, verb)
         let mixerAddress = MemoryAddress(of: mixer).description
-
+        
         XCTAssertEqual(mixer.connectionTreeDescription,
-        """
+                       """
         \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(connectionTreeLinePrefix) ↳AudioPlayer
         \(connectionTreeLinePrefix) ↳Reverb
@@ -441,9 +441,9 @@ class NodeTests: XCTestCase {
         let compressor = Compressor(sampler)
         let mixer = Mixer(compressor)
         let mixerAddress = MemoryAddress(of: mixer).description
-
+        
         XCTAssertEqual(mixer.connectionTreeDescription,
-        """
+                       """
         \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(connectionTreeLinePrefix) ↳Compressor
         \(connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
