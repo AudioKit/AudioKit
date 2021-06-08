@@ -165,7 +165,9 @@ init() {
 ```
 Also, `AKMicrophoneTracker` was removed. Using an `AudioEngine`'s `InputNode` along with a `PitchTap` is a better solution.
 
-9. All of the projects in the Examples for have been moved out of this repository. See the [Examples](Examples.md) documentary for links to the new repositories. 
+9. All of the projects in the Examples for have been moved out of this repository. See the [Examples](Examples.md) documentary for links to the new repositories.
+ 
+10. Using AudioKit as a Swift Package within a C++ or Objective-C project requires you to enable modules to import AudioKit (add `-fcxx-modules` to `OTHER_CXX_FLAGS`).
 
 ## v4-v5 Class Name Changes
 
