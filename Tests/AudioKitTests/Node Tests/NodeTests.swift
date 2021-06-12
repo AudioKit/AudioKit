@@ -61,7 +61,8 @@ class NodeTests: XCTestCase {
         
         testMD5(audio)
     }
-    
+
+    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testDynamicConnection() {
         let engine = AudioEngine()
         
