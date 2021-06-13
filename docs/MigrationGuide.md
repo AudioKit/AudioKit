@@ -2,10 +2,13 @@
 
 ## AudioKit 5.1 to 5.2
 
-This version update involves separating AudioKit into separate Sub-AudioKits which are included as separate Swift Packages. This way, developers do not have to compile code that their apps don't require. Most users will probably have to include the SoundpipeAudioKit package since that is the one that contained many of the oscillators, effects, and filters. In addition to including the packages, developers may also have to update their files to import the correct packages. 
+This version update involves separating AudioKit into separate Sub-AudioKits which are included as separate Swift Packages. This way, developers do not have to compile code that their apps don't require. Most users will probably have to include the SoundpipeAudioKit package since that is the one that contained many of the oscillators, effects, and filters. In addition to including the packages, developers may also have to update their files to import the correct frameworks. 
 
-| Class                              | New Package       |
+| Class                              | New Framework     |
 |------------------------------------|-------------------|
+| CallbackInstrument                 | AudioKitEX        |
+| Fader                              | AudioKitEX        |
+| StereoFieldLimiter                 | AudioKitEX        |
 | DynaRageCompressor                 | DevoloopAudioKit  |
 | RhinoGuitarProcessor               | DevoloopAudioKit  |
 | Flanger                            | DunneAudioKit     |
