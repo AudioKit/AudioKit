@@ -50,6 +50,7 @@ public class Mixer: Node, NamedNode {
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: A variadic list of Nodes
+    /// - parameter name: Optional name of the mixer
     ///
     public convenience init(_ inputs: Node..., name: String? = nil) {
         self.init(inputs.compactMap { $0 }, name: name)
@@ -60,6 +61,7 @@ public class Mixer: Node, NamedNode {
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: An array of Nodes
+    /// - parameter name: Optional name of the mixer
     ///
     public convenience init(_ inputs: [Node], name: String? = nil) {
         self.init(name: name)
