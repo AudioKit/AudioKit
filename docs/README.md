@@ -20,6 +20,14 @@ AudioKit has several underlying goals that motivate its development.
 
 <img src="/images/AudioKitLayers.svg" width=100%>
 
+The AudioKit Layer itself contains three frameworks you can import from:
+
+| Framework Name | Description                                                             |
+|----------------|-------------------------------------------------------------------------|
+| AudioKit       | Swift-only base layer for AudioKit, usable in the Swift Playgrounds app |
+| AudioKitEX     | Swift API for extension to AudioKit written in C++                      |
+| CAudioKitEX    | The DSP and other lower level code supporting AudioKitEX functionality  |
+
 The Cookbook demo app layer is an example of where your app would be in this diagram. It could depend on any subset of the packages below it.
 
 Packages can depend on other packages, and this is shown in the example of SporthAudioKit depending on (on top of) SoundpipeAudioKit.
@@ -37,7 +45,6 @@ The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above ar
 | [Soundpipe AudioKit](/Packages/SoundpipeAudioKit)   | Oscillators, Effects, Filters, and more       |
 | [Sporth AudioKit](/Packages/SporthAudioKit)         | Operations for complex DSP with simple syntax |
 | [STK AudioKit](/Packages/STKAudioKit)               | Stanford Synthesis Toolkit physical models    |
-
 
 # AudioKit.io (this website)
 

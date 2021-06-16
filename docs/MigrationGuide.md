@@ -64,6 +64,7 @@ Here is a list of types that moved into a new package, and where they live now.
 | PeakingParametricEqualizerFilter   | SoundpipeAudioKit |
 | Phaser                             | SoundpipeAudioKit |
 | PitchShifter                       | SoundpipeAudioKit |
+| PitchTap                           | SoundpipeAudioKit |
 | ResonantFilter                     | SoundpipeAudioKit |
 | RolandTB303Filter                  | SoundpipeAudioKit |
 | StringResonator                    | SoundpipeAudioKit |
