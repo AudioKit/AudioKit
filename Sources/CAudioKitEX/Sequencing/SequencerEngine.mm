@@ -187,12 +187,17 @@ struct SequencerEngineImpl {
                         sendMidiData(event.status, event.data1, event.data2,
                                      offset, event.beat);
                     }
+                } else if (currentStartSample == 0 && triggerTime == lengthInSamples() && data->settings.loopEnabled) {
+                    // this event handles the case of skipped last note 
+                    sendMidiData(event.status, event.data1, event.data2,
+                                 0, event.beat);
                 } else if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
                     // this event is supposed to trigger between currentStartSample and currentEndSample
                     int offset = (int)(triggerTime - currentStartSample);
                     sendMidiData(event.status, event.data1, event.data2,
                                  offset, event.beat);
                 }
+               
             }
 
             positionInSamples += frameCount;
