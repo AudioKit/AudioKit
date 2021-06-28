@@ -174,12 +174,12 @@ struct SequencerEngineImpl {
             for (auto& event : events) {
                 // go through every event
                 int triggerTime = beatToSamples(event.beat);
-                int triggerTimeInLoop = triggerTime % lengthInSamples();
 
                 if (currentEndSample > lengthInSamples() && data->settings.loopEnabled) {
                     // this buffer extends beyond the length of the loop and looping is on
                     int loopRestartInBuffer = (int)(lengthInSamples() - currentStartSample);
                     int samplesOfBufferForNewLoop = frameCount - loopRestartInBuffer;
+                    int triggerTimeInLoop = triggerTime % lengthInSamples();
                     if (triggerTimeInLoop < samplesOfBufferForNewLoop) {
                         // this event would trigger early enough in the next loop that it should happen in this buffer
                         // ie. this buffer contains events from the previous loop, and the next loop
@@ -187,12 +187,17 @@ struct SequencerEngineImpl {
                         sendMidiData(event.status, event.data1, event.data2,
                                      offset, event.beat);
                     }
-                } else if (currentStartSample <= triggerTimeInLoop && triggerTimeInLoop < currentEndSample) {
+                } else if (currentStartSample == 0 && triggerTime == lengthInSamples() && data->settings.loopEnabled) {
+                    // this event handles the case of skipped last note 
+                    sendMidiData(event.status, event.data1, event.data2,
+                                 0, event.beat);
+                } else if (currentStartSample <= triggerTime && triggerTime < currentEndSample) {
                     // this event is supposed to trigger between currentStartSample and currentEndSample
                     int offset = (int)(triggerTime - currentStartSample);
                     sendMidiData(event.status, event.data1, event.data2,
                                  offset, event.beat);
                 }
+               
             }
 
             positionInSamples += frameCount;
