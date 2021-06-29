@@ -13,42 +13,22 @@ open class SequencerTrack {
     public var targetNode: Node?
 
     /// Length of the track in beats
-    public var length: Double = 4 {
-        didSet {
-            updateSequence()
-        }
-    }
+    public var length: Double = 4 { didSet { updateSequence() }}
 
     /// Speed of the track in beats per minute
-    public var tempo: BPM = 120 {
-        didSet {
-            akSequencerEngineSetTempo(engine, tempo)
-        }
-    }
+    public var tempo: BPM = 120 { didSet { akSequencerEngineSetTempo(engine, tempo) }}
 
     /// Maximum number of times to play, ie. loop the track
-    public var maximumPlayCount: Double = 1 {
-        didSet {
-            updateSequence()
-        }
-    }
+    public var maximumPlayCount: Double = 1 { didSet { updateSequence() }}
 
     /// Is looping enabled?
-    public var loopEnabled: Bool = true {
-        didSet {
-            updateSequence()
-        }
-    }
+    public var loopEnabled: Bool = true { didSet { updateSequence() }}
 
     /// Is the track currently playing?
-    public var isPlaying: Bool {
-        return akSequencerEngineIsPlaying(engine)
-    }
+    public var isPlaying: Bool { akSequencerEngineIsPlaying(engine) }
 
     /// Current position of the track
-    public var currentPosition: Double {
-        akSequencerEngineGetPosition(engine)
-    }
+    public var currentPosition: Double { akSequencerEngineGetPosition(engine) }
 
     private var engine: SequencerEngineRef
 
@@ -66,7 +46,6 @@ open class SequencerTrack {
                 auAudioUnit.removeRenderObserver(token)
             }
         }
-
         akSequencerEngineRelease(engine)
     }
 
@@ -103,12 +82,8 @@ open class SequencerTrack {
         akSequencerEngineSeekTo(engine, position)
     }
 
-    /// Sequence
-    public var sequence = NoteEventSequence() {
-        didSet {
-            updateSequence()
-        }
-    }
+    /// Sequence on this track
+    public var sequence = NoteEventSequence() { didSet { updateSequence() }}
 
     /// Remove the notes in the track
     public func clear() {
@@ -129,10 +104,10 @@ open class SequencerTrack {
         }
 
         let settings = SequenceSettings(maximumPlayCount: Int32(maximumPlayCount),
-                                          length: length,
-                                          tempo: tempo,
-                                          loopEnabled: loopEnabled,
-                                          loopCount: 0)
+                                        length: length,
+                                        tempo: tempo,
+                                        loopEnabled: loopEnabled,
+                                        loopCount: 0)
 
         let orderedEvents = sequence.beatTimeOrderedEvents()
         orderedEvents.withUnsafeBufferPointer { (eventsPtr: UnsafeBufferPointer<SequenceEvent>) -> Void in

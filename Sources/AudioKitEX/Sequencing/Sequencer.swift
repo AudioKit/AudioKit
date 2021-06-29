@@ -152,8 +152,7 @@ open class Sequencer {
             Log("Track index \(trackIndex) out of range (sequencer has \(tracks.count) tracks)")
             return
         }
-        tracks[trackIndex].sequence.add(event: event,
-                                        position: position)
+        tracks[trackIndex].sequence.add(event: event, position: position)
     }
 
     /// Remove all notes
