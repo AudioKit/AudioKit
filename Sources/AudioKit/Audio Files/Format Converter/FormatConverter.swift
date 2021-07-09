@@ -6,6 +6,7 @@ import AVFoundation
  FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
  ```swift
  let options = FormatConverter.Options()
+
  // any options left nil will adopt the value of the input file
  options.format = "wav"
  options.sampleRate = 48000
@@ -14,7 +15,7 @@ import AVFoundation
  let converter = FormatConverter(inputURL: oldURL, outputURL: newURL, options: options)
 
  converter.start { error in
-    // check to see if error isn't nil, otherwise you're good
+    // the error will be nil on success
  }
  ```
  */
@@ -139,7 +140,7 @@ extension FormatConverter {
     /// An option to block upsampling to a higher bit depth than the source.
     /// For example, converting to 24bit from 16 doesn't have much benefit
     public enum BitDepthRule {
-        /// For example: don't allow upsampling to 24bit if the src is 16
+        /// Don't allow upsampling to 24bit if the src is 16
         case lessThanOrEqual
 
         /// allow any conversaion

@@ -19,8 +19,6 @@ extension FormatConverter {
             completionHandler?(Self.createError(message: "Options can't be nil."))
             return
         }
-        // Log("converting to", outputURL)
-
         var format: AudioFileTypeID
 
         switch outputFormat {
@@ -40,7 +38,6 @@ extension FormatConverter {
 
         func closeFiles() {
             if let strongFile = inputFile {
-                // Log("🗑 Disposing input", inputURL.path)
                 if noErr != ExtAudioFileDispose(strongFile) {
                     Log("Error disposing input file, could have a memory leak")
                 }
@@ -48,7 +45,6 @@ extension FormatConverter {
             inputFile = nil
 
             if let strongFile = outputFile {
-                // Log("🗑 Disposing output", outputURL.path)
                 if noErr != ExtAudioFileDispose(strongFile) {
                     Log("Error disposing output file, could have a memory leak")
                 }
@@ -121,10 +117,10 @@ extension FormatConverter {
             return
         }
 
-//        The format must be linear PCM (kAudioFormatLinearPCM).
-//        You must set this in order to encode or decode a non-PCM file data format.
-//        You may set this on PCM files to specify the data format used in your calls
-//        to read/write.
+        // The format must be linear PCM (kAudioFormatLinearPCM).
+        // You must set this in order to encode or decode a non-PCM file data format.
+        // You may set this on PCM files to specify the data format used in your calls
+        // to read/write.
         if noErr != ExtAudioFileSetProperty(strongInputFile,
                                             kExtAudioFileProperty_ClientDataFormat,
                                             inputDescriptionSize,
@@ -163,7 +159,7 @@ extension FormatConverter {
                 if noErr != ExtAudioFileRead(strongInputFile,
                                              &numFrames,
                                              &fillBufList) {
-                    completionProxy(error: Self.createError(message: "Unable to read input file."),
+                    completionProxy(error: Self.createError(message: "Error reading from the input file."),
                                     completionHandler: completionHandler)
                     return
                 }
@@ -172,8 +168,10 @@ extension FormatConverter {
 
                 sourceFrameOffset += numFrames
 
-                if noErr != ExtAudioFileWrite(strongOutputFile, numFrames, &fillBufList) {
-                    completionProxy(error: Self.createError(message: "Unable to write output file."),
+                if noErr != ExtAudioFileWrite(strongOutputFile,
+                                              numFrames,
+                                              &fillBufList) {
+                    completionProxy(error: Self.createError(message: "Error reading from the output file."),
                                     completionHandler: completionHandler)
                     return
                 }
