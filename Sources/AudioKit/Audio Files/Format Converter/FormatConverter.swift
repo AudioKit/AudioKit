@@ -148,6 +148,7 @@ extension FormatConverter {
     }
 
     /// The conversion options, leave any property nil to adopt the value of the input file
+    /// bitRate assumes a stereo bit rate and the converter will half it for mono
     public struct Options {
         public var format: String?
         public var sampleRate: Double?

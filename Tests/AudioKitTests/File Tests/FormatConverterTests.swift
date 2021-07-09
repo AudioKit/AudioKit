@@ -3,86 +3,111 @@ import AVFoundation
 import XCTest
 
 class FormatConverterTests: AudioFileTestCase {
-    func testConversions() throws {
-        var wave48k24bit: FormatConverter.Options {
-            var options = FormatConverter.Options()
-            options.sampleRate = 48000
-            options.bitDepth = UInt32(24)
-            options.format = "wav"
-            options.eraseFile = true
-            options.bitDepthRule = .lessThanOrEqual
-            return options
-        }
-        var aiff44k16bit: FormatConverter.Options {
-            var options = FormatConverter.Options()
-            options.sampleRate = 44100
-            options.bitDepth = UInt32(16)
-            options.format = "aif"
-            options.eraseFile = true
-            options.bitDepthRule = .any
-            return options
-        }
-        var caf96k32bit: FormatConverter.Options {
-            var options = FormatConverter.Options()
-            options.sampleRate = 96000
-            options.bitDepth = UInt32(32)
-            options.format = "caf"
-            options.eraseFile = true
-            options.bitDepthRule = .any
-            return options
-        }
-        var m4a44k24bit: FormatConverter.Options {
-            var options = FormatConverter.Options()
-            options.sampleRate = 44100
-            options.bitRate = 256000
-            options.format = "m4a"
-            options.eraseFile = true
-            options.bitDepthRule = .any
-            return options
-        }
-
-        let expectation1 = XCTestExpectation(description: "1")
-        let expectation2 = XCTestExpectation(description: "2")
-        let expectation3 = XCTestExpectation(description: "3")
-        let expectation4 = XCTestExpectation(description: "4")
-
-        var blocks = [expectation1]
-
-        try convert(with: m4a44k24bit) { error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
-            }
-            expectation1.fulfill()
-        }
-
-        blocks.append(expectation2)
-        try convert(with: wave48k24bit) { error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
-            }
-            expectation2.fulfill()
-        }
-
-        blocks.append(expectation3)
-        try convert(with: aiff44k16bit) { error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
-            }
-            expectation3.fulfill()
-        }
-
-        blocks.append(expectation4)
-        try convert(with: caf96k32bit) { error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
-            }
-            expectation4.fulfill()
-        }
-
-        wait(for: blocks, timeout: 20)
+    var stereoAIFF44k32Bit: URL? {
+        Bundle.module.url(forResource: "chromaticScale-5", withExtension: "aiff", subdirectory: "TestResources")
     }
 
+    var monoWAVE44k24Bit: URL? {
+        Bundle.module.url(forResource: "dish", withExtension: "wav", subdirectory: "TestResources")
+    }
+
+    var stereoWAVE44k16Bit: URL? {
+        Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")
+    }
+
+    func testbitDepthRule() throws {
+        var options = FormatConverter.Options()
+        options.sampleRate = 48000
+        options.bitDepth = UInt32(24)
+        options.format = "wav"
+        options.eraseFile = true
+        options.bitDepthRule = .lessThanOrEqual
+
+        let expectation = XCTestExpectation(description: String(describing: options))
+
+        try convert(with: options, input: stereoWAVE44k16Bit) { error in
+            if let error = error {
+                Log(error.localizedDescription)
+            }
+            // should be not nil as the target bitDepth is higher than the source
+            XCTAssertNotNil(error)
+
+            expectation.fulfill()
+        }
+    }
+
+    func testConvertAIFF44k16bit() throws {
+        var options = FormatConverter.Options()
+        options.sampleRate = 44100
+        options.bitDepth = UInt32(16)
+        options.format = "aif"
+        options.eraseFile = true
+        options.bitDepthRule = .any
+
+        let expectation = XCTestExpectation(description: String(describing: options))
+        try convert(with: options) { error in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            }
+            expectation.fulfill()
+        }
+    }
+
+    func testConvertCAF96k32bit() throws {
+        var options = FormatConverter.Options()
+        options.sampleRate = 96000
+        options.bitDepth = UInt32(32)
+        options.format = "caf"
+        options.eraseFile = true
+        options.bitDepthRule = .any
+
+        let expectation = XCTestExpectation(description: String(describing: options))
+        try convert(with: options) { error in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            }
+            expectation.fulfill()
+        }
+    }
+
+    func testConvertM4A24Bit() throws {
+        var options = FormatConverter.Options()
+        options.sampleRate = 44100
+        options.bitRate = 256000
+        options.format = "m4a"
+        options.eraseFile = true
+        options.bitDepthRule = .any
+
+        let expectation = XCTestExpectation(description: String(describing: options))
+        try convert(with: options) { error in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            }
+            expectation.fulfill()
+        }
+    }
+
+    func testConvertMonoM4A24Bit() throws {
+        var options = FormatConverter.Options()
+        options.sampleRate = 48000
+        options.bitRate = 320000
+        options.format = "m4a"
+        options.eraseFile = true
+        options.bitDepthRule = .any
+
+        let expectation = XCTestExpectation(description: String(describing: options))
+        try convert(with: options, input: monoWAVE44k24Bit) { error in
+            if let error = error {
+                XCTFail(error.localizedDescription)
+            }
+            expectation.fulfill()
+        }
+    }
+
+    // MARK: helpers
+
     private func convert(with options: FormatConverter.Options,
+                         input: URL? = nil,
                          completionHandler: FormatConverter.FormatConverterCallback) throws {
         guard let format = options.format,
               let sampleRate = options.sampleRate else {
@@ -96,7 +121,7 @@ class FormatConverterTests: AudioFileTestCase {
                                                     attributes: nil)
         }
 
-        guard let inputFile = Bundle.module.url(forResource: "chromaticScale-5", withExtension: "aiff", subdirectory: "TestResources") else {
+        guard let inputFile = input ?? stereoAIFF44k32Bit else {
             let error = createError(message: "Failed to generate file")
             completionHandler(error)
             return
