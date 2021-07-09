@@ -6,15 +6,16 @@ import AVFoundation
  FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
  ```swift
  let options = FormatConverter.Options()
- // any options left nil will assume the value of the input file
+ // any options left nil will adopt the value of the input file
  options.format = "wav"
  options.sampleRate = 48000
  options.bitDepth = 24
 
  let converter = FormatConverter(inputURL: oldURL, outputURL: newURL, options: options)
+
  converter.start { error in
- // check to see if error isn't nil, otherwise you're good
- })
+    // check to see if error isn't nil, otherwise you're good
+ }
  ```
  */
 public class FormatConverter {
@@ -125,6 +126,8 @@ extension FormatConverter {
     /// Formats that this class can write
     public static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
+    public static let defaultOutputFormat = "wav"
+
     /// Formats that this class can read
     public static let inputFormats = FormatConverter.outputFormats + [
         "mp3", "snd", "au", "sd2",
@@ -145,17 +148,14 @@ extension FormatConverter {
 
     /// The conversion options, leave any property nil to adopt the value of the input file
     public struct Options {
-        /// Audio Format asw a string
         public var format: String?
-        /// Sample Rate in Hertz
         public var sampleRate: Double?
         /// used only with PCM data
         public var bitDepth: UInt32?
         /// used only when outputting compressed audio
         public var bitRate: UInt32 = 128000 {
             didSet {
-                // TODO: clamp valid range
-                if bitRate < 64000 { bitRate = 64000 }
+                bitRate = bitRate.clamped(to: 64000 ... 320000)
             }
         }
 
@@ -172,7 +172,6 @@ extension FormatConverter {
         /// Overwrite existing files, set false if you want to handle this before you call start()
         public var eraseFile: Bool = true
 
-        /// Empty Initializer
         public init() {}
 
         /// Create options by parsing the contents of the url and using the audio settings
@@ -210,5 +209,26 @@ extension FormatConverter {
             self.bitDepth = bitDepth
             self.channels = channels
         }
+    }
+
+    func completionProxy(error: Error?,
+                         deleteOutputOnError: Bool = true,
+                         completionHandler: FormatConverterCallback? = nil) {
+        guard let error = error,
+              deleteOutputOnError,
+              let outputURL = outputURL,
+              FileManager.default.fileExists(atPath: outputURL.path) else {
+            completionHandler?(error)
+            return
+        }
+
+        do {
+            Log("Deleting on error", outputURL.path)
+            try FileManager.default.removeItem(at: outputURL)
+        } catch let err as NSError {
+            Log("Failed to remove file", outputURL, err)
+        }
+
+        completionHandler?(error)
     }
 }

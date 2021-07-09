@@ -5,7 +5,7 @@ import AVFoundation
 extension FormatConverter {
     class func createError(message: String, code: Int = 1) -> NSError {
         let userInfo = [NSLocalizedDescriptionKey: message]
-        return NSError(domain: "io.audiokit.FormatConverter.error",
+        return NSError(domain: "com.audiodesigndesk.FormatConverter.error",
                        code: code,
                        userInfo: userInfo)
     }
@@ -88,5 +88,16 @@ extension FormatConverter {
             // basically all other format IDs are compressed
             return true
         }
+    }
+}
+
+extension Comparable {
+    // ie: 5.clamped(to: 7...10)
+    // ie: 5.0.clamped(to: 7.0...10.0)
+    // ie: "a".clamped(to: "b"..."h")
+    /// **OTCore:**
+    /// Returns the value clamped to the passed range.
+    @inlinable internal func clamped(to limits: ClosedRange<Self>) -> Self {
+        min(max(self, limits.lowerBound), limits.upperBound)
     }
 }

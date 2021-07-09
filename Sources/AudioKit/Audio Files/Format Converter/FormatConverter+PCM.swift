@@ -110,12 +110,14 @@ extension FormatConverter {
                                               nil,
                                               AudioFileFlags.eraseFile.rawValue, // overwrite old file if present
                                               &outputFile) {
-            completionHandler?(Self.createError(message: "Unable to create output file at \(outputURL.path). dstFormat \(outputDescription)"))
+            completionProxy(error: Self.createError(message: "Unable to create output file at \(outputURL.path). dstFormat \(outputDescription)"),
+                            completionHandler: completionHandler)
             return
         }
 
         guard let strongOutputFile = outputFile else {
-            completionHandler?(Self.createError(message: "Output file is nil."))
+            completionProxy(error: Self.createError(message: "Output file is nil."),
+                            completionHandler: completionHandler)
             return
         }
 
@@ -127,7 +129,8 @@ extension FormatConverter {
                                             kExtAudioFileProperty_ClientDataFormat,
                                             inputDescriptionSize,
                                             &outputDescription) {
-            completionHandler?(Self.createError(message: "Unable to set data format on input file."))
+            completionProxy(error: Self.createError(message: "Unable to set data format on input file."),
+                            completionHandler: completionHandler)
             return
         }
 
@@ -135,7 +138,8 @@ extension FormatConverter {
                                             kExtAudioFileProperty_ClientDataFormat,
                                             inputDescriptionSize,
                                             &outputDescription) {
-            completionHandler?(Self.createError(message: "Unable to set the output file data format."))
+            completionProxy(error: Self.createError(message: "Unable to set the output file data format."),
+                            completionHandler: completionHandler)
             return
         }
         let bufferByteSize: UInt32 = 32768
@@ -150,25 +154,27 @@ extension FormatConverter {
 
                 var fillBufList = AudioBufferList(mNumberBuffers: 1,
                                                   mBuffers: mBuffer)
-                var frameCount: UInt32 = 0
+                var numFrames: UInt32 = 0
 
                 if outputDescription.mBytesPerFrame > 0 {
-                    frameCount = bufferByteSize / outputDescription.mBytesPerFrame
+                    numFrames = bufferByteSize / outputDescription.mBytesPerFrame
                 }
 
                 if noErr != ExtAudioFileRead(strongInputFile,
-                                             &frameCount,
+                                             &numFrames,
                                              &fillBufList) {
-                    completionHandler?(Self.createError(message: "Unable to read input file."))
+                    completionProxy(error: Self.createError(message: "Unable to read input file."),
+                                    completionHandler: completionHandler)
                     return
                 }
                 // EOF
-                if frameCount == 0 { break }
+                if numFrames == 0 { break }
 
-                sourceFrameOffset += frameCount
+                sourceFrameOffset += numFrames
 
-                if noErr != ExtAudioFileWrite(strongOutputFile, frameCount, &fillBufList) {
-                    completionHandler?(Self.createError(message: "Unable to write output file."))
+                if noErr != ExtAudioFileWrite(strongOutputFile, numFrames, &fillBufList) {
+                    completionProxy(error: Self.createError(message: "Unable to write output file."),
+                                    completionHandler: completionHandler)
                     return
                 }
             }
