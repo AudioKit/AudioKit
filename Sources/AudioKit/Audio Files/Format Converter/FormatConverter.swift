@@ -218,7 +218,7 @@ extension FormatConverter {
     func completionProxy(error: Error?,
                          deleteOutputOnError: Bool = true,
                          completionHandler: FormatConverterCallback? = nil) {
-        guard let error = error,
+        guard error != nil,
               deleteOutputOnError,
               let outputURL = outputURL,
               FileManager.default.fileExists(atPath: outputURL.path) else {
