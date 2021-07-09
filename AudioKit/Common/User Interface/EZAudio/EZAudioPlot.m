@@ -149,6 +149,9 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
     self.points = calloc(EZAudioPlotDefaultMaxHistoryBufferLength, sizeof(CGPoint));
     self.pointCount = [self initialPointCount];
+    
+    self.previousPlotIsZero = self.canReusePreviousPlot = false;
+    
     [self redraw];
 }
 
@@ -177,6 +180,8 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
     self.historyInfo = [EZAudioUtilities historyInfoWithDefaultLength:[self defaultRollingHistoryLength]
                                                         maximumLength:[self maximumRollingHistoryLength]];
+    
+    self.previousPlotIsZero = self.canReusePreviousPlot = false;
 }
 
 //------------------------------------------------------------------------------
@@ -247,6 +252,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
         [self resetHistoryBuffers];
         float data[self.pointCount];
         memset(data, 0, self.pointCount * sizeof(float));
+        self.previousPlotIsZero = self.canReusePreviousPlot = false;
         [self setSampleData:data length:self.pointCount];
         [self redraw];
     }
@@ -256,6 +262,10 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
 - (void)redraw
 {
+    if (self.canReusePreviousPlot) {
+        // No need to redraw, return to reduce CPU consumption
+        return;
+    }
     EZRect frame = [self.waveformLayer frame];
     CGPathRef path = [self createPathWithPoints:self.points
                                      pointCount:self.pointCount
@@ -376,11 +386,17 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 - (void)setSampleData:(float *)data length:(int)length
 {
     CGPoint *points = self.points;
+    bool plotIsZero = true;
     for (int i = 0; i < length; i++)
     {
         points[i].x = i;
         points[i].y = data[i] * self.gain;
+        if (data[i] != 0) {
+            plotIsZero = false;
+        }
     }
+    self.canReusePreviousPlot = plotIsZero && self.previousPlotIsZero;
+    self.previousPlotIsZero = plotIsZero;
     points[0].y = points[length - 1].y = 0.0f;
     self.pointCount = length;
 }
@@ -399,6 +415,9 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 - (int)setRollingHistoryLength:(int)historyLength
 {
     self.historyInfo->bufferSize = MIN(EZAudioPlotDefaultMaxHistoryBufferLength, historyLength);
+    
+    self.previousPlotIsZero = self.canReusePreviousPlot = false;
+    
     return self.historyInfo->bufferSize;
 }
 
