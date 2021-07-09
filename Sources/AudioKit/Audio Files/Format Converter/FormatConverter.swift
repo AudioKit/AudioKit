@@ -150,7 +150,9 @@ extension FormatConverter {
     /// The conversion options, leave any property nil to adopt the value of the input file
     /// bitRate assumes a stereo bit rate and the converter will half it for mono
     public struct Options {
+        /// Audio Format as a string
         public var format: String?
+        /// Sample Rate in Hertz
         public var sampleRate: Double?
         /// used only with PCM data
         public var bitDepth: UInt32?
