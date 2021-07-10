@@ -282,7 +282,9 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
         self.waveformLayer.path = path;
     }
     CGPathRelease(path);
-    self.isDrawn = true;
+    if (frame.size.width > 0 && frame.size.height > 0) {
+        self.isDrawn = true;
+    }
 }
 
 //------------------------------------------------------------------------------
