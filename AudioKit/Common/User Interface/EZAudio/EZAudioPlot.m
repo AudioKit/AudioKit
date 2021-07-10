@@ -150,7 +150,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     self.points = calloc(EZAudioPlotDefaultMaxHistoryBufferLength, sizeof(CGPoint));
     self.pointCount = [self initialPointCount];
     
-    self.previousPlotIsZero = self.canReusePreviousPlot = false;
+    self.previousPlotIsZero = self.canReusePreviousPlot = self.isDrawn = false;
     
     [self redraw];
 }
@@ -262,7 +262,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 
 - (void)redraw
 {
-    if (self.canReusePreviousPlot) {
+    if (self.canReusePreviousPlot && self.isDrawn) {
         // No need to redraw, return to reduce CPU consumption
         return;
     }
@@ -282,6 +282,7 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
         self.waveformLayer.path = path;
     }
     CGPathRelease(path);
+    self.isDrawn = true;
 }
 
 //------------------------------------------------------------------------------
