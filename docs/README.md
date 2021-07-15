@@ -48,7 +48,7 @@ The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above ar
 
 # AudioKit.io (this website)
 
-This web site is created from the main AudioKit repository on Github. In that repository there is a `docs` folder that contains all of the documnets that appear here. Updating the AudioKit.io is the same as updating AudioKit, simply create a pull request with your proposed changes.  Base your changes off of the `develop` branch and once merged, they will appear on the website. 
+This web site is created from the main AudioKit repository on Github. In that repository there is a `docs` folder that contains all of the documents that appear here. Updating the AudioKit.io is the same as updating AudioKit, simply create a pull request with your proposed changes.  Base your changes off of the `develop` branch and once merged, they will appear on the website. 
 
 # Examples
 
