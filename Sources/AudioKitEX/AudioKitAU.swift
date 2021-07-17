@@ -88,7 +88,7 @@ open class AudioKitAU: AUAudioUnit {
             
             _parameterTree?.implementorStringFromValueCallback = { parameter, value in
                 if let value = value {
-                    return String(format: "%.f", value)
+                    return String(format: "%.2f", value.pointee)
                 } else {
                     return "Invalid"
                 }
