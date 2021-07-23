@@ -90,10 +90,10 @@ class NodeTests: XCTestCase {
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
-    
-    /*
 
-    func testDynamicConnection2() {
+    func testDynamicConnection2() throws {
+        try XCTSkipIf(true, "TODO Skipped test")
+
         let engine = AudioEngine()
 
         let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
@@ -118,7 +118,9 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testDynamicConnection3() {
+    func testDynamicConnection3() throws {
+        try XCTSkipIf(true, "TODO Skipped test")
+
         let engine = AudioEngine()
 
         let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
@@ -146,7 +148,8 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testDynamicConnection4() {
+    func testDynamicConnection4() throws {
+        try XCTSkipIf(true, "TODO Skipped test")
         let engine = AudioEngine()
         let outputMixer = Mixer()
         let url1 = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
@@ -172,7 +175,8 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testDynamicConnection5() {
+    func testDynamicConnection5() throws {
+        try XCTSkipIf(true, "TODO Skipped test")
         let engine = AudioEngine()
         let outputMixer = Mixer()
         engine.output = outputMixer
@@ -192,8 +196,6 @@ class NodeTests: XCTestCase {
 
         testMD5(audio)
     }
- 
- */
 
     func testDisconnect() {
         let engine = AudioEngine()
@@ -315,51 +317,30 @@ class NodeTests: XCTestCase {
         XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
     }
 
-//    func testTransientNodes() {
-//        let engine = AudioEngine()
-//        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-//        let player = AudioPlayer(url: url)!
-//        func exampleStart() {
-//            let env = AmplitudeEnvelope(player)
-//            engine.output = env
-//            try! engine.start()
-//            player.play()
-//            sleep(1)
-//        }
-//        func exampleStop() {
-//            player.stop()
-//            engine.stop()
-//            sleep(1)
-//        }
-//        exampleStart()
-//        exampleStop()
-//        exampleStart()
-//        exampleStop()
-//        exampleStart()
-//        exampleStop()
-//    }
+    func testTransientNodes() throws {
+        try XCTSkipIf(true, "TODO Skipped test")
 
-    /* TODO
-    func testAutomationAfterDelayedConnection() {
         let engine = AudioEngine()
-        let osc = Oscillator(waveform: Table(.triangle))
-        let osc2 = Oscillator(waveform: Table(.triangle))
-        let mixer = Mixer()
-        let events = [AutomationEvent(targetValue: 1320, startTime: 0.0, rampDuration: 0.5)]
-        engine.output = mixer
-        mixer.addInput(osc)
-        let audio = engine.startTest(totalDuration: 2.0)
-        osc.play()
-        osc.$frequency.automate(events: events)
-        audio.append(engine.render(duration: 1.0))
-        mixer.removeInput(osc)
-        mixer.addInput(osc2)
-        osc2.play()
-        osc2.$frequency.automate(events: events)
-        audio.append(engine.render(duration: 1.0))
-        testMD5(audio)
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        func exampleStart() {
+            engine.output = player
+            try! engine.start()
+            player.play()
+            sleep(1)
+        }
+        func exampleStop() {
+            player.stop()
+            engine.stop()
+            sleep(1)
+        }
+        exampleStart()
+        exampleStop()
+        exampleStart()
+        exampleStop()
+        exampleStart()
+        exampleStop()
     }
- */
 
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
