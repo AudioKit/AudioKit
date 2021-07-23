@@ -83,7 +83,7 @@ open class SequencerTrack {
     }
 
     /// Sequence on this track
-    public var sequence = NoteEventSequence() { didSet { updateSequence() }}
+    public var sequence = NoteEventSequence() { didSet { updateSequence() } }
 
     /// Remove the notes in the track
     public func clear() {
@@ -96,6 +96,7 @@ open class SequencerTrack {
     }
 
     private var renderObserverToken: Int?
+    public var renderObserver: AURenderObserver?
 
     private func updateSequence() {
         guard let block = targetNode?.avAudioNode.auAudioUnit.scheduleMIDIEventBlock else {
@@ -120,6 +121,7 @@ open class SequencerTrack {
 
             guard let auAudioUnit = targetNode?.avAudioNode.auAudioUnit else { return }
 
+            renderObserver = observer
             if renderObserverToken == nil {
                 renderObserverToken = auAudioUnit.token(byAddingRenderObserver: observer)
             }
