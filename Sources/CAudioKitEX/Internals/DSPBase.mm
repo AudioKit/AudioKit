@@ -133,22 +133,28 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
 
 void DSPBase::setParameter(AUParameterAddress address, float value, bool immediate)
 {
-    assert(address < maxParameters);
-    if(auto parameter = parameters[address]) {
-        if (immediate || !isInitialized) {
-            parameter->startRamp(value, 0);
+    if (address < maxParameters) {
+        if(auto parameter = parameters[address]) {
+            if (immediate || !isInitialized) {
+                parameter->startRamp(value, 0);
+            }
+            else {
+                parameter->setUIValue(value);
+            }
         }
-        else {
-            parameter->setUIValue(value);
-        }
+    } else {
+        return;
     }
 }
 
 float DSPBase::getParameter(AUParameterAddress address)
 {
-    assert(address < maxParameters);
-    if(auto parameter = parameters[address]) {
-        return parameter->getUIValue();
+    if (address < maxParameters) {
+        if(auto parameter = parameters[address]) {
+            return parameter->getUIValue();
+        }
+    } else {
+        return;
     }
     return 0.0f;
 }
@@ -267,10 +273,13 @@ void DSPBase::handleOneEvent(AURenderEvent const *event)
 void DSPBase::startRamp(const AUParameterEvent& event)
 {
     auto address = event.parameterAddress;
-    assert(address < maxParameters);
-    auto ramper = parameters[address];
-    if(ramper == nullptr) return;
-    ramper->startRamp(event.value, event.rampDurationSampleFrames);
+    if (address < maxParameters) {
+        auto ramper = parameters[address];
+        if(ramper == nullptr) return;
+        ramper->startRamp(event.value, event.rampDurationSampleFrames);
+    } else {
+        return;
+    }
 }
 
 using DSPFactoryMap = std::map<std::string, DSPBase::CreateFunction>;
