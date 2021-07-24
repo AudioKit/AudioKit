@@ -19,9 +19,9 @@ public class PeakLimiter: Node {
 
     /// Specification details for attackTime
     public static let attackTimeDef = NodeParameterDef(
-        identifier: "attackTime",
+        identifier: "kLimiterParam_AttackTime",
         name: "Attack Time",
-        address: 0,
+        address: AUParameterAddress(kLimiterParam_AttackTime),
         defaultValue: 0.012,
         range: 0.001 ... 0.03,
         unit: .seconds)
@@ -31,9 +31,9 @@ public class PeakLimiter: Node {
 
     /// Specification details for decayTime
     public static let decayTimeDef = NodeParameterDef(
-        identifier: "decayTime",
-        name: "Decay Time",
-        address: 1,
+        identifier: "kLimiterParam_DecayTime",
+        name: "Release Time",
+        address: AUParameterAddress(kLimiterParam_DecayTime),
         defaultValue: 0.024,
         range: 0.001 ... 0.06,
         unit: .seconds)
@@ -43,9 +43,9 @@ public class PeakLimiter: Node {
 
     /// Specification details for preGain
     public static let preGainDef = NodeParameterDef(
-        identifier: "preGain",
-        name: "Pre Gain",
-        address: 2,
+        identifier: "kLimiterParam_PreGain",
+        name: "Pre-Gain",
+        address: AUParameterAddress(kLimiterParam_PreGain),
         defaultValue: 0,
         range: -40 ... 40,
         unit: .decibels)
