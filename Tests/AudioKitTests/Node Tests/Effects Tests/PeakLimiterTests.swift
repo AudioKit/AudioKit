@@ -72,4 +72,21 @@ class PeakLimiterTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+
+    func testPreGainChangingAfterEngineStarted() throws {
+        try XCTSkipIf(true, "TODO This proves that the preGain can't be set after engine started")
+        let engine = AudioEngine()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        let effect =  PeakLimiter(player, attackTime: 0.02, decayTime: 0.03, preGain: -40)
+        engine.output = effect
+        let audio = engine.startTest(totalDuration: 2.0)
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        player.stop()
+        player.play()
+        effect.preGain = 40
+        audio.append(engine.render(duration: 1.0))
+        audio.audition()
+    }
 }
