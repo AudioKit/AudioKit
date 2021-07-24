@@ -156,6 +156,7 @@ float DSPBase::getParameter(AUParameterAddress address)
     } else {
         return 0.0f;
     }
+    return 0.0f;
 }
 
 void DSPBase::init(int channelCount, double sampleRate)
