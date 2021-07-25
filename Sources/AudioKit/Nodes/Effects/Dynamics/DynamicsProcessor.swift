@@ -21,7 +21,7 @@ public class DynamicsProcessor: Node {
     public static let thresholdDef = NodeParameterDef(
         identifier: "threshold",
         name: "Threshold",
-        address: 0,
+        address: AUParameterAddress(kDynamicsProcessorParam_Threshold),
         defaultValue: -20,
         range: -40 ... 20,
         unit: .decibels)
@@ -33,7 +33,7 @@ public class DynamicsProcessor: Node {
     public static let headRoomDef = NodeParameterDef(
         identifier: "headRoom",
         name: "Head Room",
-        address: 1,
+        address: AUParameterAddress(kDynamicsProcessorParam_HeadRoom),
         defaultValue: 5,
         range: 0.1 ... 40.0,
         unit: .decibels)
@@ -45,7 +45,7 @@ public class DynamicsProcessor: Node {
     public static let expansionRatioDef = NodeParameterDef(
         identifier: "expansionRatio",
         name: "Expansion Ratio",
-        address: 2,
+        address: AUParameterAddress(kDynamicsProcessorParam_ExpansionRatio),
         defaultValue: 2,
         range: 1 ... 50.0,
         unit: .rate)
@@ -57,7 +57,7 @@ public class DynamicsProcessor: Node {
     public static let expansionThresholdDef = NodeParameterDef(
         identifier: "expansionThreshold",
         name: "Expansion Threshold",
-        address: 3,
+        address: AUParameterAddress(kDynamicsProcessorParam_ExpansionThreshold),
         defaultValue: 2,
         range: 1 ... 50.0,
         unit: .decibels)
@@ -69,7 +69,7 @@ public class DynamicsProcessor: Node {
     public static let attackTimeDef = NodeParameterDef(
         identifier: "attackTime",
         name: "Attack Time",
-        address: 4,
+        address: AUParameterAddress(kDynamicsProcessorParam_AttackTime),
         defaultValue: 0.001,
         range: 0.0001 ... 0.2,
         unit: .seconds)
@@ -81,7 +81,7 @@ public class DynamicsProcessor: Node {
     public static let releaseTimeDef = NodeParameterDef(
         identifier: "releaseTime",
         name: "Release Time",
-        address: 5,
+        address: AUParameterAddress(kDynamicsProcessorParam_ReleaseTime),
         defaultValue: 0.05,
         range: 0.01 ... 3,
         unit: .seconds)
@@ -93,7 +93,7 @@ public class DynamicsProcessor: Node {
     public static let masterGainDef = NodeParameterDef(
         identifier: "masterGain",
         name: "Master Gain",
-        address: 6,
+        address: AUParameterAddress(kDynamicsProcessorParam_MasterGain),
         defaultValue: 0,
         range: -40 ... 40,
         unit: .decibels)

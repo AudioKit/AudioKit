@@ -21,7 +21,7 @@ public class ParametricEQ: Node {
     public static let centerFreqDef = NodeParameterDef(
         identifier: "centerFreq",
         name: "Center Freq",
-        address: 0,
+        address: AUParameterAddress(kParametricEQParam_CenterFreq),
         defaultValue: 2000,
         range: 20 ... 22050,
         unit: .hertz)
@@ -33,7 +33,7 @@ public class ParametricEQ: Node {
     public static let qDef = NodeParameterDef(
         identifier: "q",
         name: "Q",
-        address: 1,
+        address: AUParameterAddress(kParametricEQParam_Q),
         defaultValue: 1.0,
         range: 0.1 ... 20,
         unit: .hertz)
@@ -45,7 +45,7 @@ public class ParametricEQ: Node {
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: 2,
+        address: AUParameterAddress(kParametricEQParam_Gain),
         defaultValue: 0,
         range: -20 ... 20,
         unit: .decibels)
