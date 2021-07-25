@@ -273,7 +273,8 @@ extension AudioPlayer: HasInternalConnections {
     func playerNodeConnectedToMixerNode(engine: AVAudioEngine) -> Bool {
         var iBus = 0
         while iBus < playerNode.numberOfOutputs {
-            for playercp in engine.outputConnectionPoints(for: playerNode, outputBus: iBus) where playercp.node == mixerNode {
+            for playercp in engine.outputConnectionPoints(for: playerNode, outputBus: iBus)
+            where playercp.node == mixerNode {
                 return true
             }
             iBus += 1
