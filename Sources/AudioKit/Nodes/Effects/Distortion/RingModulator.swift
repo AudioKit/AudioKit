@@ -21,7 +21,7 @@ public class RingModulator: Node {
     public static let ringModFreq1Def = NodeParameterDef(
         identifier: "ringModFreq1",
         name: "Ring Mod Freq1",
-        address: 3,
+        address: AUParameterAddress(kDistortionParam_RingModFreq1),
         defaultValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz)
@@ -33,7 +33,7 @@ public class RingModulator: Node {
     public static let ringModFreq2Def = NodeParameterDef(
         identifier: "ringModFreq2",
         name: "Ring Mod Freq2",
-        address: 4,
+        address: AUParameterAddress(kDistortionParam_RingModFreq2),
         defaultValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz)
@@ -45,7 +45,7 @@ public class RingModulator: Node {
     public static let ringModBalanceDef = NodeParameterDef(
         identifier: "ringModBalance",
         name: "Ring Mod Balance",
-        address: 5,
+        address: AUParameterAddress(kDistortionParam_RingModBalance),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -57,7 +57,7 @@ public class RingModulator: Node {
     public static let finalMixDef = NodeParameterDef(
         identifier: "finalMix",
         name: "Final Mix",
-        address: 15,
+        address: AUParameterAddress(kDistortionParam_FinalMix),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
