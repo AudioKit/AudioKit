@@ -195,4 +195,39 @@ class AudioPlayerTests: XCTestCase {
         
         testMD5(audio)
     }
+
+    func testSwitchFilesDuringPlayback() {
+        guard let url1 = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+        guard let url2 = Bundle.module.url(forResource: "TestResources/chromaticScale-1", withExtension: "aiff") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.isLooping = true
+
+        let audio = engine.startTest(totalDuration: 3.0)
+        do {
+            try player.load(url: url1)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        player.play()
+
+        do {
+            try player.load(url: url2)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        audio.append(engine.render(duration: 3.0))
+        testMD5(audio)
+    }
 }

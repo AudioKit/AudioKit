@@ -269,6 +269,22 @@ public class AudioPlayer: Node {
 }
 
 extension AudioPlayer: HasInternalConnections {
+    /// Check if the playerNode is already connected to the mixerNode
+    var isPlayerConnectedToMixerNode: Bool {
+        var iBus = 0
+        let engine = self.playerNode.engine
+        if let engine = engine {
+            while iBus < playerNode.numberOfOutputs {
+                for playercp in engine.outputConnectionPoints(for: playerNode, outputBus: iBus)
+                where playercp.node == mixerNode {
+                    return true
+                }
+                iBus += 1
+            }
+        }
+        return false
+    }
+
     /// called in the connection chain to attach the playerNode
     public func makeInternalConnections() {
         guard let engine = engine else {
@@ -278,6 +294,8 @@ extension AudioPlayer: HasInternalConnections {
         if playerNode.engine == nil {
             engine.attach(playerNode)
         }
-        engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
+        if !isPlayerConnectedToMixerNode {
+            engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
+        }
     }
 }
