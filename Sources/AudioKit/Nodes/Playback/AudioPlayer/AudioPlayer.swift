@@ -94,7 +94,7 @@ public class AudioPlayer: Node {
             scheduleTime = nil
             let wasPlaying = isPlaying
             if wasPlaying { stop() }
-            updateBuffer(force: true)
+
             if wasPlaying {
                 play()
             }
@@ -116,19 +116,10 @@ public class AudioPlayer: Node {
         }
     }
 
-    /// Boolean - true: clips file playback to edit time bounds, false: full file playback (default: false)
-    public var isEditTimeEnabled = false
-
     private var _editStartTime: TimeInterval = 0
     /// Get or set the edit start time of the player.
     public var editStartTime: TimeInterval {
-        get {
-            if isEditTimeEnabled {
-                return _editStartTime
-            } else {
-                return 0
-            }
-        }
+        get { _editStartTime }
         set {
             _editStartTime = (0 ... duration).clamp(newValue)
         }
@@ -139,11 +130,7 @@ public class AudioPlayer: Node {
     /// the edit and set to the duration of the player
     public var editEndTime: TimeInterval {
         get {
-            if isEditTimeEnabled {
-                return _editEndTime
-            } else {
-                return duration
-            }
+            _editEndTime
         }
 
         set {
