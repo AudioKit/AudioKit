@@ -95,6 +95,11 @@ public class AudioPlayer: Node {
             let wasPlaying = isPlaying
             if wasPlaying { stop() }
 
+            // Force the buffer to update with new file
+            if isBuffered && file != oldValue {
+                updateBuffer(force: true)
+            }
+
             if wasPlaying {
                 play()
             }
@@ -112,6 +117,25 @@ public class AudioPlayer: Node {
 
             if wasPlaying {
                 play()
+            }
+        }
+    }
+
+    private var _isEditTimeEnabled: Bool = false
+    /// Boolean that determines whether the edit time is enabled (default: true)
+    public var isEditTimeEnabled: Bool {
+        get { _isEditTimeEnabled }
+        set(preference) {
+            if preference == false {
+                savedEditStartTime = editStartTime
+                savedEditEndTime = editEndTime
+                editStartTime = 0
+                editEndTime = 0
+                _isEditTimeEnabled = false
+            } else {
+                editStartTime = savedEditStartTime ?? 0
+                editEndTime = savedEditEndTime ?? 0
+                _isEditTimeEnabled = true
             }
         }
     }
@@ -149,6 +173,10 @@ public class AudioPlayer: Node {
 
     // the last time scheduled. Only used to check if play() should schedule()
     var scheduleTime: AVAudioTime?
+
+    // saved edit times to load when user enables isEditTimeEnabled property
+    var savedEditStartTime: TimeInterval? = nil
+    var savedEditEndTime: TimeInterval? = nil
 
     var bufferOptions: AVAudioPlayerNodeBufferOptions = .interrupts
 
@@ -235,7 +263,8 @@ public class AudioPlayer: Node {
     /// - Parameters:
     ///   - file: File to play
     ///   - buffered: Boolean of whether you want the audio buffered
-    public func load(file: AVAudioFile, buffered: Bool? = nil) throws {
+    ///   - preserveEditTime: Boolean of whether the loaded file should keep the previous edit time region (default: false)
+    public func load(file: AVAudioFile, buffered: Bool? = nil, preserveEditTime: Bool = false) throws {
         var formatHasChanged = false
 
         if let currentFile = self.file,
@@ -246,6 +275,12 @@ public class AudioPlayer: Node {
         }
 
         self.file = file
+
+        if preserveEditTime == false {
+            // Clear edit time preferences after file is loaded
+            editStartTime = 0
+            editEndTime = 0
+        }
 
         if formatHasChanged {
             makeInternalConnections()
