@@ -196,52 +196,6 @@ class AudioPlayerTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testToggleEditTime() {
-        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
-            XCTFail("Didn't get test file")
-            return
-        }
-        let engine = AudioEngine()
-        let player = AudioPlayer()
-        engine.output = player
-        player.isLooping = true
-
-        let audio = engine.startTest(totalDuration: 1.0)
-
-        do {
-            try player.load(url: url, buffered: true)
-        } catch let error as NSError {
-            Log(error, type: .error)
-            XCTFail(error.description)
-        }
-        player.editStartTime = 0.5
-        player.editEndTime = 0.6
-
-        player.play()
-        audio.append(engine.render(duration: 1.0))
-
-        let onStartTime = player.editStartTime
-        let onEndTime = player.editEndTime
-        XCTAssertEqual(onStartTime, 0.5)
-        XCTAssertEqual(onEndTime, 0.6)
-
-        player.isEditTimeEnabled = false
-
-        let offStartTime = player.editStartTime
-        let offEndTime = player.editEndTime
-        XCTAssertEqual(offStartTime, 0)
-        XCTAssertEqual(offEndTime, player.file?.duration)
-
-        player.isEditTimeEnabled = true
-
-        let nextOnStartTime = player.editStartTime
-        let nextOnEndTime = player.editEndTime
-        XCTAssertEqual(nextOnStartTime, 0.5)
-        XCTAssertEqual(nextOnEndTime, 0.6)
-
-        testMD5(audio)
-    }
-
     func testSwitchFilesDuringPlayback() {
         guard let url1 = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
             XCTFail("Didn't get test file")
