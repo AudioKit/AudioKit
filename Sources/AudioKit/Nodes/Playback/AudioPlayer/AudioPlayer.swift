@@ -175,8 +175,8 @@ public class AudioPlayer: Node {
     var scheduleTime: AVAudioTime?
 
     // saved edit times to load when user enables isEditTimeEnabled property
-    var savedEditStartTime: TimeInterval? = nil
-    var savedEditEndTime: TimeInterval? = nil
+    var savedEditStartTime: TimeInterval?
+    var savedEditEndTime: TimeInterval?
 
     var bufferOptions: AVAudioPlayerNodeBufferOptions = .interrupts
 
@@ -263,8 +263,10 @@ public class AudioPlayer: Node {
     /// - Parameters:
     ///   - file: File to play
     ///   - buffered: Boolean of whether you want the audio buffered
-    ///   - preserveEditTime: Boolean of whether the loaded file should keep the previous edit time region (default: false)
-    public func load(file: AVAudioFile, buffered: Bool? = nil, preserveEditTime: Bool = false) throws {
+    ///   - preserveEditTime: Boolean - keep the previous edit time region? (default: false)
+    public func load(file: AVAudioFile,
+                     buffered: Bool? = nil,
+                     preserveEditTime: Bool = false) throws {
         var formatHasChanged = false
 
         if let currentFile = self.file,
