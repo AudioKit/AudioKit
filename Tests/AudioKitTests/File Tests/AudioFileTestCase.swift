@@ -33,6 +33,10 @@ class AudioFileTestCase: XCTestCase {
         resourceURL?.appendingPathComponent("12345.wav")
     }()
 
+    lazy var pinkNoiseURL: URL? = {
+        resourceURL?.appendingPathComponent("PinkNoise.wav")
+    }()
+    
     lazy var drumloopURL: URL? = {
         resourceURL?.appendingPathComponent("drumloop.wav")
     }()

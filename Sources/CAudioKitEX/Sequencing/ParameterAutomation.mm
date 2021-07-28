@@ -7,6 +7,7 @@
 #include <vector>
 #include <list>
 #include <utility>
+#include <iostream>
 
 /// Returns a render observer block which will apply the automation to the selected parameter.
 extern "C"
@@ -17,69 +18,76 @@ AURenderObserver ParameterAutomationGetRenderObserver(AUParameterAddress address
                                                       const struct AutomationEvent* eventsArray,
                                                       size_t count) {
 
-    std::vector<AutomationEvent> events{eventsArray, eventsArray+count};
+	std::vector<AutomationEvent> events {eventsArray, eventsArray+count};
 
-    // Sort events by start time.
-    std::sort(events.begin(), events.end(), [](auto a, auto b) {
-        return a.startTime < b.startTime;
-    });
+	// Sort events by start time.
+	std::sort(events.begin(), events.end(), [] (auto a, auto b) {
+		return a.startTime < b.startTime;
+	});
 
-    __block int index = 0;
+	__block int index = 0;
 
-    return ^void(AudioUnitRenderActionFlags actionFlags,
-                 const AudioTimeStamp *timestamp,
-                 AUAudioFrameCount frameCount,
-                 NSInteger outputBusNumber)
-    {
-        if (actionFlags != kAudioUnitRenderAction_PreRender) return;
+	return ^void (AudioUnitRenderActionFlags actionFlags,
+	              const AudioTimeStamp *timestamp,
+	              AUAudioFrameCount frameCount,
+	              NSInteger outputBusNumber)
+	       {
+		       if (actionFlags != kAudioUnitRenderAction_PreRender) return;
 
-        float blockStartTime = (timestamp->mSampleTime - startSampleTime) / sampleRate;
-        float blockEndTime = blockStartTime + frameCount / sampleRate;
+		       float blockStartTime = (timestamp->mSampleTime - startSampleTime) / sampleRate;
+		       float blockEndTime = blockStartTime + frameCount / sampleRate;
 
-        AUValue initial = NAN;
+		       AUValue initial = NAN;
 
-        // Skip over events completely in the past to determine
-        // an initial value.
-        for(; index < count; ++index) {
-            auto event = events[index];
-            if ( !(event.startTime + event.rampDuration < blockStartTime) ) {
-               break;
-            }
-            initial = event.targetValue;
-        }
+		       // Skip over events completely in the past to determine
+		       // an initial value.
+		       for (; index < count; ++index) {
+			       auto event = events[index];
+			       if ( !(event.startTime + event.rampDuration < blockStartTime) ) {
+				       break;
+			       }
+			       initial = event.targetValue;
+			       // std::cout << "__C initialValue " << initial << std::endl;
+		       }
 
-        // Do we have an initial value from completed events?
-        if(!isnan(initial)) {
-            scheduleParameterBlock(AUEventSampleTimeImmediate,
-                                   0,
-                                   address,
-                                   initial);
-        }
+		       // Do we have an initial value from completed events?
+		       if (!isnan(initial)) {
+			       scheduleParameterBlock(AUEventSampleTimeImmediate,
+			                              0,
+			                              address,
+			                              initial);
+//			       std::cout << "__C AUEventSampleTimeImmediate: initial value is: " << initial << std::endl;
+		       }
 
-        // Apply parameter automation for the segment.
-        while (index < count) {
-            auto event = events[index];
+		       // Apply parameter automation for the segment.
+		       while (index < count) {
+			       auto event = events[index];
 
-            // Is it after the current block?
-            if (event.startTime >= blockEndTime) break;
+			       // Is it after the current block?
+			       if (event.startTime >= blockEndTime) break;
 
-            AUEventSampleTime startTime = (event.startTime - blockStartTime) * sampleRate;
-            AUAudioFrameCount duration = event.rampDuration * sampleRate;
+			       AUEventSampleTime startTime = (event.startTime - blockStartTime) * sampleRate;
+			       AUAudioFrameCount duration = event.rampDuration * sampleRate;
 
-            // If the event has already started, ensure we hit the targetValue
-            // at the appropriate time.
-            if(startTime < 0) {
-                duration += startTime;
-            }
+			       // If the event has already started, ensure we hit the targetValue
+			       // at the appropriate time.
+			       if (startTime < 0) {
+				       duration += startTime;
+			       }
 
-            scheduleParameterBlock(startTime,
-                                   duration,
-                                   address,
-                                   event.targetValue);
+			       scheduleParameterBlock(startTime,
+			                              duration,
+			                              address,
+			                              event.targetValue);
 
-            index++;
-        }
+//				       std::cout << "__C (" << index << "/" << count - 1 << ") startTime " <<
+//				               startTime << " duration " << duration << " targetValue " << event.targetValue << std::endl;
 
-    };
+			       index++;
+
+
+		       }
+
+	       };
 
 }

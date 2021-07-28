@@ -1,14 +1,13 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AudioKit
 import AVFoundation
 import CAudioKitEX
-import AudioKit
 
 /// Stereo Fader.
 public class Fader: Node {
-
     let input: Node
-    
+
     /// Connected nodes
     public var connections: [Node] { [input] }
 
@@ -92,19 +91,21 @@ public class Fader: Node {
     ///
     public init(_ input: Node, gain: AUValue = 1) {
         self.input = input
-        
+
         setupParameters()
-        
-        self.leftGain = gain
-        self.rightGain = gain
-        self.flipStereo = false
-        self.mixToMono = false
+
+        leftGain = gain
+        rightGain = gain
+        flipStereo = false
+        mixToMono = false
     }
 
     deinit {
         // Log("* { Fader }")
     }
+}
 
+extension Fader {
     // MARK: - Automation
 
     /// Gain automation helper
@@ -114,6 +115,31 @@ public class Fader: Node {
     public func automateGain(events: [AutomationEvent], startTime: AVAudioTime? = nil) {
         $leftGain.automate(events: events, startTime: startTime)
         $rightGain.automate(events: events, startTime: startTime)
+    }
+
+    public func automateGain(events: [AutomationEvent], offset: TimeInterval, startTime: AVAudioTime? = nil) {
+        $leftGain.automate(events: events, offset: offset, startTime: startTime)
+        $rightGain.automate(events: events, offset: offset, startTime: startTime)
+    }
+
+    /// Linear ramp the gain in real time
+    /// - Parameters:
+    ///   - start: Value to start at
+    ///   - target: Value to ramp to
+    ///   - duration: the duration to ramp
+    public func rampGain(from start: AUValue,
+                         to target: AUValue,
+                         duration: Float,
+                         tapered: Bool = true,
+                         startTime scheduledTime: AVAudioTime? = nil) {
+        // then ramp to the target
+        if tapered {
+            $leftGain.taperedRamp(from: start, to: target, duration: duration, startTime: scheduledTime)
+            $rightGain.taperedRamp(from: start, to: target, duration: duration, startTime: scheduledTime)
+        } else {
+            $leftGain.ramp(from: start, to: target, duration: duration, startTime: scheduledTime)
+            $rightGain.ramp(from: start, to: target, duration: duration, startTime: scheduledTime)
+        }
     }
 
     /// Stop automation
