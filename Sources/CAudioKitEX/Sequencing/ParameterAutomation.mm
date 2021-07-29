@@ -47,7 +47,6 @@ AURenderObserver ParameterAutomationGetRenderObserver(AUParameterAddress address
 				       break;
 			       }
 			       initial = event.targetValue;
-			       // std::cout << "__C initialValue " << initial << std::endl;
 		       }
 
 		       // Do we have an initial value from completed events?
@@ -56,7 +55,6 @@ AURenderObserver ParameterAutomationGetRenderObserver(AUParameterAddress address
 			                              0,
 			                              address,
 			                              initial);
-//			       std::cout << "__C AUEventSampleTimeImmediate: initial value is: " << initial << std::endl;
 		       }
 
 		       // Apply parameter automation for the segment.
@@ -80,14 +78,9 @@ AURenderObserver ParameterAutomationGetRenderObserver(AUParameterAddress address
 			                              address,
 			                              event.targetValue);
 
-//				       std::cout << "__C (" << index << "/" << count - 1 << ") startTime " <<
-//				               startTime << " duration " << duration << " targetValue " << event.targetValue << std::endl;
-
 			       index++;
 
-
 		       }
-
 	       };
 
 }
