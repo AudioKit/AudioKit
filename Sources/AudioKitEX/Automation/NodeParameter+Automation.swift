@@ -126,7 +126,7 @@ extension NodeParameter {
         let events = [
             AutomationEvent(targetValue: start, startTime: 0, rampDuration: 0),
             AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01),
-            AutomationEvent(targetValue: target, startTime: startTime + 0.02, rampDuration: duration),
+            AutomationEvent(targetValue: target, startTime: startTime + 0.02, rampDuration: duration)
         ]
         automate(events: events, startTime: scheduledTime)
     }
@@ -162,7 +162,7 @@ extension NodeParameter {
         // this insures we get a AUEventSampleTimeImmediate set to the start value
         let setupEvents = [
             AutomationEvent(targetValue: start, startTime: 0, rampDuration: 0),
-            AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01),
+            AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01)
         ]
 
         let points = [
@@ -176,7 +176,7 @@ extension NodeParameter {
                                      startTime: startTime + 0.04,
                                      rampDuration: duration - 0.04,
                                      rampTaper: rampTaper,
-                                     rampSkew: rampSkew),
+                                     rampSkew: rampSkew)
         ]
         let curve = AutomationCurve(points: points)
         let events = setupEvents + curve.evaluate(initialValue: start,
