@@ -10,14 +10,18 @@ public class Distortion: Node {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for delay
     public static let delayDef = NodeParameterDef(
         identifier: "delay",
         name: "Delay",
-        address: 0,
+        address: AUParameterAddress(kDistortionParam_Delay),
         defaultValue: 0.1,
         range: 0.1 ... 500,
         unit: .milliseconds)
@@ -29,7 +33,7 @@ public class Distortion: Node {
     public static let decayDef = NodeParameterDef(
         identifier: "decay",
         name: "Decay",
-        address: 1,
+        address: AUParameterAddress(kDistortionParam_Decay),
         defaultValue: 1.0,
         range: 0.1 ... 50,
         unit: .rate)
@@ -41,7 +45,7 @@ public class Distortion: Node {
     public static let delayMixDef = NodeParameterDef(
         identifier: "delayMix",
         name: "Delay Mix",
-        address: 2,
+        address: AUParameterAddress(kDistortionParam_DelayMix),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -53,7 +57,7 @@ public class Distortion: Node {
     public static let ringModFreq1Def = NodeParameterDef(
         identifier: "ringModFreq1",
         name: "Ring Mod Freq1",
-        address: 3,
+        address: AUParameterAddress(kDistortionParam_RingModFreq1),
         defaultValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz)
@@ -65,7 +69,7 @@ public class Distortion: Node {
     public static let ringModFreq2Def = NodeParameterDef(
         identifier: "ringModFreq2",
         name: "Ring Mod Freq2",
-        address: 4,
+        address: AUParameterAddress(kDistortionParam_RingModFreq2),
         defaultValue: 100,
         range: 0.5 ... 8000,
         unit: .hertz)
@@ -77,7 +81,7 @@ public class Distortion: Node {
     public static let ringModBalanceDef = NodeParameterDef(
         identifier: "ringModBalance",
         name: "Ring Mod Balance",
-        address: 5,
+        address: AUParameterAddress(kDistortionParam_RingModBalance),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -89,7 +93,7 @@ public class Distortion: Node {
     public static let ringModMixDef = NodeParameterDef(
         identifier: "ringModMix",
         name: "Ring Mod Mix",
-        address: 6,
+        address: AUParameterAddress(kDistortionParam_RingModMix),
         defaultValue: 0,
         range: 0 ... 100,
         unit: .percent)
@@ -101,7 +105,7 @@ public class Distortion: Node {
     public static let decimationDef = NodeParameterDef(
         identifier: "decimation",
         name: "Decimation",
-        address: 7,
+        address: AUParameterAddress(kDistortionParam_Decimation),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -113,7 +117,7 @@ public class Distortion: Node {
     public static let roundingDef = NodeParameterDef(
         identifier: "rounding",
         name: "Rounding",
-        address: 8,
+        address: AUParameterAddress(kDistortionParam_Rounding),
         defaultValue: 0,
         range: 0 ... 100,
         unit: .percent)
@@ -125,7 +129,7 @@ public class Distortion: Node {
     public static let decimationMixDef = NodeParameterDef(
         identifier: "decimationMix",
         name: "Decimation Mix",
-        address: 9,
+        address: AUParameterAddress(kDistortionParam_DecimationMix),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -137,7 +141,7 @@ public class Distortion: Node {
     public static let linearTermDef = NodeParameterDef(
         identifier: "linearTerm",
         name: "Linear Term",
-        address: 10,
+        address: AUParameterAddress(kDistortionParam_LinearTerm),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -149,7 +153,7 @@ public class Distortion: Node {
     public static let squaredTermDef = NodeParameterDef(
         identifier: "squaredTerm",
         name: "Squared Term",
-        address: 11,
+        address: AUParameterAddress(kDistortionParam_SquaredTerm),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -161,7 +165,7 @@ public class Distortion: Node {
     public static let cubicTermDef = NodeParameterDef(
         identifier: "cubicTerm",
         name: "Cubic Term",
-        address: 12,
+        address: AUParameterAddress(kDistortionParam_CubicTerm),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -173,7 +177,7 @@ public class Distortion: Node {
     public static let polynomialMixDef = NodeParameterDef(
         identifier: "polynomialMix",
         name: "Polynomial Mix",
-        address: 13,
+        address: AUParameterAddress(kDistortionParam_PolynomialMix),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -185,7 +189,7 @@ public class Distortion: Node {
     public static let softClipGainDef = NodeParameterDef(
         identifier: "softClipGain",
         name: "Soft Clip Gain",
-        address: 14,
+        address: AUParameterAddress(kDistortionParam_SoftClipGain),
         defaultValue: -6,
         range: -80 ... 20,
         unit: .decibels)
@@ -197,7 +201,7 @@ public class Distortion: Node {
     public static let finalMixDef = NodeParameterDef(
         identifier: "finalMix",
         name: "Final Mix",
-        address: 15,
+        address: AUParameterAddress(kDistortionParam_FinalMix),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)

@@ -10,14 +10,18 @@ public class HighShelfFilter: Node {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighShelfFilter)
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for cutOffFrequency
     public static let cutOffFrequencyDef = NodeParameterDef(
         identifier: "cutOffFrequency",
         name: "Cut Off Frequency",
-        address: 0,
+        address: AUParameterAddress(kHighShelfParam_CutOffFrequency),
         defaultValue: 10000,
         range: 10000 ... 22050,
         unit: .hertz)
@@ -29,7 +33,7 @@ public class HighShelfFilter: Node {
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: 1,
+        address: AUParameterAddress(kHighShelfParam_Gain),
         defaultValue: 0,
         range: -40 ... 40,
         unit: .decibels)

@@ -16,10 +16,23 @@ class PeakLimiterTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testDecayTime() {
+    func testDecayTime() throws {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
+        player.volume = 5 // Had to be loud to allow for decay time to affected the sound
+        engine.output = PeakLimiter(player, decayTime: 0.02)
+        let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
+    func testDecayTime2() throws {
+        let engine = AudioEngine()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        player.volume = 5 // Had to be loud to allow for decay time to affected the sound
         engine.output = PeakLimiter(player, decayTime: 0.03)
         let audio = engine.startTest(totalDuration: 1.0)
         player.play()
@@ -58,5 +71,22 @@ class PeakLimiterTests: XCTestCase {
         player.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
+    }
+
+    func testPreGainChangingAfterEngineStarted() throws {
+        try XCTSkipIf(true, "TODO This proves that the preGain can't be set after engine started")
+        let engine = AudioEngine()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        let effect =  PeakLimiter(player, attackTime: 0.02, decayTime: 0.03, preGain: -40)
+        engine.output = effect
+        let audio = engine.startTest(totalDuration: 2.0)
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        player.stop()
+        player.play()
+        effect.preGain = 40
+        audio.append(engine.render(duration: 1.0))
+        audio.audition()
     }
 }

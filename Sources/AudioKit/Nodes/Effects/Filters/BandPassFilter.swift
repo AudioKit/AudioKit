@@ -10,14 +10,18 @@ public class BandPassFilter: Node {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for centerFrequency
     public static let centerFrequencyDef = NodeParameterDef(
         identifier: "centerFrequency",
         name: "Center Frequency",
-        address: 0,
+        address: AUParameterAddress(kBandpassParam_CenterFrequency),
         defaultValue: 5000,
         range: 20 ... 22050,
         unit: .hertz)
@@ -29,7 +33,7 @@ public class BandPassFilter: Node {
     public static let bandwidthDef = NodeParameterDef(
         identifier: "bandwidth",
         name: "Bandwidth",
-        address: 1,
+        address: AUParameterAddress(kBandpassParam_Bandwidth),
         defaultValue: 600,
         range: 100 ... 12000,
         unit: .cents)

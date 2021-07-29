@@ -72,6 +72,8 @@ extension AudioPlayer {
            nodeTime.isSampleTimeValid,
            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
+        } else if isPaused {
+            return pausedTime
         }
         return editStartTime
     }

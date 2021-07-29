@@ -10,14 +10,18 @@ public class LowPassFilter: Node {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowPassFilter)
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
-        address: 0,
+        address: AUParameterAddress(kLowPassParam_CutoffFrequency),
         defaultValue: 6900,
         range: 10 ... 22050,
         unit: .hertz)
@@ -29,7 +33,7 @@ public class LowPassFilter: Node {
     public static let resonanceDef = NodeParameterDef(
         identifier: "resonance",
         name: "Resonance",
-        address: 1,
+        address: AUParameterAddress(kLowPassParam_Resonance),
         defaultValue: 0,
         range: -20 ... 40,
         unit: .decibels)
