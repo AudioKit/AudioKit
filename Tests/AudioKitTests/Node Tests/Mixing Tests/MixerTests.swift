@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import AVFoundation
 import XCTest
 
 class MixerTests: XCTestCase {
@@ -18,5 +19,27 @@ class MixerTests: XCTestCase {
         mixer2.removeInput(player)
         mixer2.addInput(player)
         testMD5(audio)
+    }
+}
+
+extension MixerTests {
+    func testWiringAfterEngineStart() {
+        let engine = AudioEngine()
+        let engineMixer = Mixer()
+
+        engine.output = engineMixer
+        try? engine.start()
+
+        let subtreeMixer = Mixer()
+        engineMixer.addInput(subtreeMixer)
+
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        subtreeMixer.addInput(player)
+
+        print(engine.connectionTreeDescription)
+        player.play()
+
+        engine.stop()
     }
 }
