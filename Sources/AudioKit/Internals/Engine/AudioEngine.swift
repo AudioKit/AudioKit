@@ -43,9 +43,40 @@ extension AVAudioNode {
 }
 
 extension AVAudioMixerNode {
+
+    internal func hasInputs() -> Bool {
+        return (0 ..< self.numberOfInputs).contains {
+            self.engine!.inputConnectionPoint(for: self, inputBus: $0) != nil
+        }
+    }
+
+    /// If an AVAudioMixerNode's output connection is made while engine is running, and there are no input connections
+    /// on the mixer, subsequent connections made to the mixer will silently fail.  A workaround is to connect a dummy
+    /// node to the mixer prior to making a connection, then removing the dummy node after the connection has been made.
+    /// This is still a bug as of macOS 11.4 (2021).
+    internal func initializeMixer(format: AVAudioFormat?) {
+        // Only an issue if engine is running, and mixer has no inputs
+        guard let engine = self.engine,
+              engine.isRunning,
+              !hasInputs() else {
+            return
+        }
+
+        let dummy = AVAudioUnitSampler()
+        engine.attach(dummy)
+        engine.connect(dummy,
+                to: self,
+                format: format)
+
+        print("⚠️ Work around for AVAudioEngine bug: added dummy to mixer.")
+    }
+
     /// Make a connection without breaking other connections.
     public func connectMixer(input: AVAudioNode, format: AVAudioFormat? = Settings.audioFormat) {
         if let engine = engine {
+
+            initializeMixer(format: format)
+
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: { $0.node === self }) { return }
             points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
