@@ -43,7 +43,7 @@ extension MixerTests {
         wait(for: player.duration)
         engine.stop()
     }
-    
+
     // for waiting in the background for realtime testing
     private func wait(for interval: TimeInterval) {
         let delayExpectation = XCTestExpectation(description: "delayExpectation")
@@ -52,5 +52,4 @@ extension MixerTests {
         }
         wait(for: [delayExpectation], timeout: interval + 1)
     }
-    
 }
