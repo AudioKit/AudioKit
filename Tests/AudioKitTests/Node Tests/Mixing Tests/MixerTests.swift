@@ -40,6 +40,17 @@ extension MixerTests {
         print(engine.connectionTreeDescription)
         player.play()
 
+        wait(for: player.duration)
         engine.stop()
     }
+    
+    // for waiting in the background for realtime testing
+    private func wait(for interval: TimeInterval) {
+        let delayExpectation = XCTestExpectation(description: "delayExpectation")
+        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+            delayExpectation.fulfill()
+        }
+        wait(for: [delayExpectation], timeout: interval + 1)
+    }
+    
 }
