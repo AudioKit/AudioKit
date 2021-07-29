@@ -9,10 +9,14 @@ import XCTest
 class FaderAutomationTests: XCTestCase {
     // Bypass tests for automated CI
     var realtimeEnabled = false
+    
+    private struct FaderTestNodes {
+        var engine: AudioEngine
+        var player: AudioPlayer
+        var fader: Fader
+    }
 
-    private func setupFaderTest(filename: String = "12345") -> (engine: AudioEngine,
-                                                                player: AudioPlayer,
-                                                                fader: Fader)? {
+    private func setupFaderTest(filename: String = "12345") -> FaderTestNodes? {
         guard realtimeEnabled else {
             return nil
         }
@@ -31,7 +35,7 @@ class FaderAutomationTests: XCTestCase {
         fader.start()
 
         // return engine as well so it isn't collected
-        return (engine: engine, player: player, fader: fader)
+        return FaderTestNodes(engine: engine, player: player, fader: fader)
     }
 
     /// Linear fade in now

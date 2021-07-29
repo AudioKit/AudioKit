@@ -36,7 +36,7 @@ class AudioFileTestCase: XCTestCase {
     lazy var pinkNoiseURL: URL? = {
         resourceURL?.appendingPathComponent("PinkNoise.wav")
     }()
-    
+
     lazy var drumloopURL: URL? = {
         resourceURL?.appendingPathComponent("drumloop.wav")
     }()
@@ -67,7 +67,7 @@ class AudioFileTestCase: XCTestCase {
     func cleanup() {
         for url in Self.tempFiles {
             Log("🗑 Removing", url.path)
-            //try? FileManager.default.removeItem(at: url)
+            // try? FileManager.default.removeItem(at: url)
         }
     }
 }
