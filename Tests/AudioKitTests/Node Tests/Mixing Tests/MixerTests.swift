@@ -40,7 +40,8 @@ extension MixerTests {
         print(engine.connectionTreeDescription)
         player.play()
 
-        wait(for: player.duration)
+        // only for auditioning
+        // wait(for: player.duration)
         engine.stop()
     }
 
