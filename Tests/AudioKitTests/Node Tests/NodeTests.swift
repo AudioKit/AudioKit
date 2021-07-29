@@ -432,23 +432,4 @@ class NodeTests: XCTestCase {
         """)
     }
     #endif
-
-    func testWiringAfterEngineStart() {
-        let engine = AudioEngine()
-        let engineMixer = Mixer()
-
-        engine.output = engineMixer
-        try? engine.start()
-
-        let subtreeMixer = Mixer()
-        engineMixer.addInput(subtreeMixer)
-
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        subtreeMixer.addInput(player)
-        player.start()
-
-        sleep(1)
-        engine.stop()
-    }
 }
