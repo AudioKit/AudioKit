@@ -35,8 +35,8 @@ public:
     /// This should ONLY be called on the audio thread.
     void update() {
         _Holder* newData = _next;
-        if(newData != _data) {
-            if(_data) {
+        if (newData != _data) {
+            if (_data) {
                 _data->done = true;
             }
 

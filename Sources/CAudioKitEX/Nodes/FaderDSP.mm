@@ -65,7 +65,7 @@ public:
     }
 
     void process(FrameRange range) override {
-        for(auto i : range) {
+        for (auto i : range) {
 
             float leftIn = inputSample(0, i);
             float rightIn = inputSample(1, i);
@@ -76,11 +76,11 @@ public:
             float leftGain = leftGainRamp.getAndStep();
             float rightGain = rightGainRamp.getAndStep();
 
-            if(mixToMono) {
+            if (mixToMono) {
                 leftOut = rightOut = 0.5 * (leftIn * leftGain + rightIn * rightGain);
             } else {
 
-                if(flipStereo) {
+                if (flipStereo) {
                     std::swap(leftIn, rightIn);
                 }
 

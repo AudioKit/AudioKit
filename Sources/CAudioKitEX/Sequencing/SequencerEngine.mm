@@ -95,7 +95,7 @@ struct SequencerEngineImpl {
     }
 
     void sendMidiData(UInt8 status, UInt8 data1, UInt8 data2, int offset, double time) {
-        if(data->midiBlock) {
+        if (data->midiBlock) {
             UInt8 midiBytes[3] = {status, data1, data2};
             updateRunningStatus(status, data1, data2);
             data->midiBlock(AUEventSampleTimeImmediate + offset, 0, 3, midiBytes);
@@ -104,10 +104,10 @@ struct SequencerEngineImpl {
 
     /// Update note playing status
     void updateRunningStatus(UInt8 status, UInt8 data1, UInt8 data2) {
-        if(status == MIDI_NOTE_OFF) {
+        if (status == MIDI_NOTE_OFF) {
             runningStatus.set(data1, 0);
         }
-        if(status == MIDI_NOTE_ON) {
+        if (status == MIDI_NOTE_ON) {
             runningStatus.set(data1, 1);
         }
     }
@@ -115,9 +115,9 @@ struct SequencerEngineImpl {
     /// Stop all notes whose running status is currently on
     /// If panic is set to true, a note-off message will be sent for all notes
     void stopAllPlayingNotes(bool panic = false) {
-        if(runningStatus.any() || (panic == true)) {
-            for(int i = (int)runningStatus.size() - 1; i >= 0; i--) {
-                if(runningStatus[i] == 1 || (panic == true)) {
+        if (runningStatus.any() || (panic == true)) {
+            for (int i = (int)runningStatus.size() - 1; i >= 0; i--) {
+                if (runningStatus[i] == 1 || (panic == true)) {
                     sendMidiData(MIDI_NOTE_OFF, (UInt8)i, 0, 1, 0);
                 }
             }
@@ -136,15 +136,15 @@ struct SequencerEngineImpl {
     void processEvents() {
 
         eventQueue.popAll([this](const SequencerEvent& event) {
-            if(event.notesOff) {
+            if (event.notesOff) {
                 stopAllPlayingNotes();
             }
 
-            if(!isnan(event.seekPosition)) {
+            if (!isnan(event.seekPosition)) {
                 seekTo(event.seekPosition);
             }
 
-            if(!isnan(event.tempo)) {
+            if (!isnan(event.tempo)) {
                 double lastPosition = currentPositionInBeats(); // 1) save where we are before we manipulate time
                 data->settings.tempo = event.tempo;             // 2) manipulate time
                 seekTo(lastPosition);                           // 3) go back to where we were before time manipulation
