@@ -10,14 +10,18 @@ public class Decimator: Node {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for decimation
     public static let decimationDef = NodeParameterDef(
         identifier: "decimation",
         name: "Decimation",
-        address: 7,
+        address: AUParameterAddress(kDistortionParam_Decimation),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)
@@ -29,7 +33,7 @@ public class Decimator: Node {
     public static let roundingDef = NodeParameterDef(
         identifier: "rounding",
         name: "Rounding",
-        address: 8,
+        address: AUParameterAddress(kDistortionParam_Rounding),
         defaultValue: 0,
         range: 0 ... 100,
         unit: .percent)
@@ -41,7 +45,7 @@ public class Decimator: Node {
     public static let finalMixDef = NodeParameterDef(
         identifier: "finalMix",
         name: "Final Mix",
-        address: 15,
+        address: AUParameterAddress(kDistortionParam_FinalMix),
         defaultValue: 50,
         range: 0 ... 100,
         unit: .percent)

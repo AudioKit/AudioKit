@@ -95,10 +95,10 @@ public class Fader: Node {
         
         setupParameters()
         
-        self.leftGain = gain
-        self.rightGain = gain
-        self.flipStereo = false
-        self.mixToMono = false
+        leftGain = gain
+        rightGain = gain
+        flipStereo = false
+        mixToMono = false
     }
 
     deinit {

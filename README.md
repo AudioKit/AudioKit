@@ -23,7 +23,7 @@ All AudioKit documentation is generated from this repository. The documentation 
 
 ## Examples
 
-The [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) contains many recipes for simple uses for AudioKit components. More examples are [here](docs/Examples.md).
+The [AudioKit Cookbook](https://github.com/AudioKit/Cookbook) contains many recipes for simple uses for AudioKit components.
 
 ## Getting help
 

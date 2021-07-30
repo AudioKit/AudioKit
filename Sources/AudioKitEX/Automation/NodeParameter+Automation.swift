@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import AudioKit
 import AVFoundation
 import CAudioKitEX
-import AudioKit
 
 // TODO: need unit tests (were moved to SoundpipeAudioKit)
 
@@ -55,16 +55,16 @@ extension NodeParameter {
             renderObserverToken = avAudioNode.auAudioUnit.token(byAddingRenderObserver: observer)
         }
     }
-    
+
     /// Stop automation
     public func stopAutomation() {
         if let token = renderObserverToken {
             avAudioNode.auAudioUnit.removeRenderObserver(token)
         }
     }
-    
+
     /// Ramp from a source value (which is ramped to over 20ms) to a target value
-    /// 
+    ///
     /// - Parameters:
     ///   - start: initial value
     ///   - target: destination value

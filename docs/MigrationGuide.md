@@ -22,6 +22,7 @@ Here is a list of types that moved into a new package, and where they live now.
 | Synth                              | DunneAudioKit     |
 | TransientShaper                    | DunneAudioKit     |
 | DiodeClipper                       | SoulAudioKit      |
+| DryWetMixer                        | SoundpipeAudioKit |
 | BrownianNoise                      | SoundpipeAudioKit |
 | Drip                               | SoundpipeAudioKit |
 | DynamicOscillator                  | SoundpipeAudioKit |

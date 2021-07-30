@@ -40,16 +40,16 @@ AURenderObserver ParameterAutomationGetRenderObserver(AUParameterAddress address
 
         // Skip over events completely in the past to determine
         // an initial value.
-        for(; index < count; ++index) {
+        for (; index < count; ++index) {
             auto event = events[index];
             if ( !(event.startTime + event.rampDuration < blockStartTime) ) {
-               break;
+                break;
             }
             initial = event.targetValue;
         }
 
         // Do we have an initial value from completed events?
-        if(!isnan(initial)) {
+        if (!isnan(initial)) {
             scheduleParameterBlock(AUEventSampleTimeImmediate,
                                    0,
                                    address,
@@ -68,7 +68,7 @@ AURenderObserver ParameterAutomationGetRenderObserver(AUParameterAddress address
 
             // If the event has already started, ensure we hit the targetValue
             // at the appropriate time.
-            if(startTime < 0) {
+            if (startTime < 0) {
                 duration += startTime;
             }
 

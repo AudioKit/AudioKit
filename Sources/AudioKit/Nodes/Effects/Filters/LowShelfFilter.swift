@@ -10,14 +10,18 @@ public class LowShelfFilter: Node {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowShelfFilter)
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
         identifier: "cutoffFrequency",
         name: "Cutoff Frequency",
-        address: 0,
+        address: AUParameterAddress(kAULowShelfParam_CutoffFrequency),
         defaultValue: 80,
         range: 10 ... 200,
         unit: .hertz)
@@ -29,7 +33,7 @@ public class LowShelfFilter: Node {
     public static let gainDef = NodeParameterDef(
         identifier: "gain",
         name: "Gain",
-        address: 1,
+        address: AUParameterAddress(kAULowShelfParam_Gain),
         defaultValue: 0,
         range: -40 ... 40,
         unit: .decibels)
