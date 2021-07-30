@@ -165,35 +165,6 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
-/// Adding subscript
-extension AVAudioUnit {
-    subscript(param: AudioUnitParameterID) -> AUValue {
-        get {
-            return AudioUnitGetParameter(audioUnit, param: param)
-        }
-        set {
-            AudioUnitSetParameter(audioUnit, param: param, to: newValue)
-        }
-    }
-}
-
-internal struct AUWrapper {
-    private let avAudioUnit: AVAudioUnit
-
-    init(_ avAudioUnit: AVAudioUnit) {
-        self.avAudioUnit = avAudioUnit
-    }
-
-    subscript(param: AudioUnitParameterID) -> AUValue {
-        get {
-            return self.avAudioUnit[param]
-        }
-        set {
-            self.avAudioUnit[param] = newValue
-        }
-    }
-}
-
 extension AVAudioNode {
     var inputCount: Int { numberOfInputs }
 

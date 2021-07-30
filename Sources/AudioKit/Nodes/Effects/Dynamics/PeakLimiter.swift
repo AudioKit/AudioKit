@@ -29,11 +29,7 @@ public class PeakLimiter: Node {
         unit: .seconds)
 
     /// Attack Time (seconds) ranges from 0.001 to 0.03 (Default: 0.012)
-    @Parameter(attackTimeDef) public var attackTime: AUValue {
-        didSet {
-            effectAU[kLimiterParam_AttackTime] = attackTime
-        }
-    }
+    @Parameter(attackTimeDef) public var attackTime: AUValue
 
     /// Specification details for decayTime
     public static let decayTimeDef = NodeParameterDef(
@@ -45,11 +41,7 @@ public class PeakLimiter: Node {
         unit: .seconds)
 
     /// Decay Time (seconds) ranges from 0.001 to 0.06 (Default: 0.024)
-    @Parameter(decayTimeDef) public var decayTime: AUValue {
-        didSet {
-            effectAU[kLimiterParam_DecayTime] = decayTime
-        }
-    }
+    @Parameter(decayTimeDef) public var decayTime: AUValue
 
     /// Specification details for preGain
     public static let preGainDef = NodeParameterDef(
@@ -61,11 +53,7 @@ public class PeakLimiter: Node {
         unit: .decibels)
 
     /// Pre Gain (decibels) ranges from -40 to 40 (Default: 0)
-    @Parameter(preGainDef) public var preGain: AUValue {
-        didSet {
-            effectAU[kLimiterParam_PreGain] = preGain
-        }
-    }
+    @Parameter(preGainDef) public var preGain: AUValue
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true

@@ -28,11 +28,7 @@ public class Expander: Node {
         unit: .rate)
 
     /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
-    @Parameter(expansionRatioDef) public var expansionRatio: AUValue {
-        didSet {
-            effectAU[kDynamicsProcessorParam_ExpansionRatio] = expansionRatio
-        }
-    }
+    @Parameter(expansionRatioDef) public var expansionRatio: AUValue
 
     /// Specification details for expansionThreshold
     public static let expansionThresholdDef = NodeParameterDef(
@@ -44,11 +40,7 @@ public class Expander: Node {
         unit: .rate)
 
     /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
-    @Parameter(expansionThresholdDef) public var expansionThreshold: AUValue {
-        didSet {
-            effectAU[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
-        }
-    }
+    @Parameter(expansionThresholdDef) public var expansionThreshold: AUValue
 
     /// Specification details for attackTime
     public static let attackTimeDef = NodeParameterDef(
@@ -60,12 +52,7 @@ public class Expander: Node {
         unit: .seconds)
 
     /// Attack Time (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
-    @Parameter(attackTimeDef) public var attackTime: AUValue {
-        didSet {
-            effectAU[kDynamicsProcessorParam_AttackTime] = attackTime
-        }
-    }
-
+    @Parameter(attackTimeDef) public var attackTime: AUValue
 
     /// Specification details for releaseTime
     public static let releaseTimeDef = NodeParameterDef(
@@ -77,11 +64,7 @@ public class Expander: Node {
         unit: .seconds)
 
     /// Release Time (seconds) ranges from 0.01 to 3 (Default: 0.05)
-    @Parameter(releaseTimeDef) public var releaseTime: AUValue {
-        didSet {
-            effectAU[kDynamicsProcessorParam_ReleaseTime] = releaseTime
-        }
-    }
+    @Parameter(releaseTimeDef) public var releaseTime: AUValue
 
     /// Specification details for masterGain
     public static let masterGainDef = NodeParameterDef(
@@ -93,11 +76,7 @@ public class Expander: Node {
         unit: .decibels)
 
     /// Master Gain (decibels) ranges from -40 to 40 (Default: 0)
-    @Parameter(masterGainDef) public var masterGain: AUValue {
-        didSet {
-            effectAU[kDynamicsProcessorParam_MasterGain] = masterGain
-        }
-    }
+    @Parameter(masterGainDef) public var masterGain: AUValue
 
     /// Compression Amount (dB) read only
     public var compressionAmount: AUValue {
