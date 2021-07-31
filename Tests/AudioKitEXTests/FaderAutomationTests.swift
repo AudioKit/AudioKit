@@ -9,7 +9,7 @@ import XCTest
 class FaderAutomationTests: XCTestCase {
     // Bypass tests for automated CI
     var realtimeEnabled = false
-    
+
     private struct FaderTestNodes {
         var engine: AudioEngine
         var player: AudioPlayer
@@ -112,7 +112,7 @@ class FaderAutomationTests: XCTestCase {
                                          startTime: time + 1,
                                          rampDuration: 0.5,
                                          rampTaper: 1 / rampTaper,
-                                         rampSkew: 1 / rampSkew),
+                                         rampSkew: 1 / rampSkew)
             ]
 
             time += 1
