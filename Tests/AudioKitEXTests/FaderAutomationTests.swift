@@ -8,7 +8,7 @@ import XCTest
 
 class FaderAutomationTests: XCTestCase {
     // Bypass tests for automated CI
-    var realtimeEnabled = false
+    var realtimeEnabled = true
     
     private struct FaderTestNodes {
         var engine: AudioEngine

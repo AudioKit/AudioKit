@@ -159,12 +159,12 @@ extension Fader {
     ///   - rampSkew: Skew, default is 1/3 for fade in, and 3 for fade out
     ///   - resolution: Segment duration, default 20ms
     fileprivate func taperedRamp(from start: AUValue,
-                            to target: AUValue,
-                            duration: AUValue,
-                            rampTaper: AUValue = 3,
-                            rampSkew: AUValue = 0.333,
-                            resolution: AUValue = 0.02,
-                            startTime scheduledTime: AVAudioTime? = nil) {
+                                 to target: AUValue,
+                                 duration: AUValue,
+                                 rampTaper: AUValue = 3,
+                                 rampSkew: AUValue = 0.333,
+                                 resolution: AUValue = 0.02,
+                                 startTime scheduledTime: AVAudioTime? = nil) {
         stopAutomation()
 
         let startTime: AUValue = 0.02
@@ -180,7 +180,7 @@ extension Fader {
         // this insures we get a AUEventSampleTimeImmediate set to the start value
         let setupEvents = [
             AutomationEvent(targetValue: start, startTime: 0, rampDuration: 0),
-            AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01)
+            AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01),
         ]
 
         let points = [
@@ -194,7 +194,7 @@ extension Fader {
                                      startTime: startTime + 0.04,
                                      rampDuration: duration - 0.04,
                                      rampTaper: rampTaper,
-                                     rampSkew: rampSkew)
+                                     rampSkew: rampSkew),
         ]
         let curve = AutomationCurve(points: points)
         let events = setupEvents + curve.evaluate(initialValue: start,
