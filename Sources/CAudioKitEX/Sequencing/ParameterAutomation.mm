@@ -7,7 +7,6 @@
 #include <vector>
 #include <list>
 #include <utility>
-#include <iostream>
 
 /// Returns a render observer block which will apply the automation to the selected parameter.
 extern "C"
