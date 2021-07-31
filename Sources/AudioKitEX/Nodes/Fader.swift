@@ -194,7 +194,7 @@ extension Fader {
                                      startTime: startTime + 0.04,
                                      rampDuration: duration - 0.04,
                                      rampTaper: rampTaper,
-                                     rampSkew: rampSkew),
+                                     rampSkew: rampSkew)
         ]
         let curve = AutomationCurve(points: points)
         let events = setupEvents + curve.evaluate(initialValue: start,
