@@ -55,6 +55,7 @@ let validatedMD5s: [String: String] = [
     "-[PeakLimiterTests testDefault]": "61c67b55ea69bad8be2bbfe5d5cde055",
     "-[PeakLimiterTests testParameters]": "e4abd97f9f0a0826823c167fb7ae730b",
     "-[PeakLimiterTests testPreGain]": "2f1b0dd9020be6b1fa5b8799741baa5f",
+    "-[PeakLimiterTests testPreGainChangingAfterEngineStarted]": "ed14bc85f1732bd77feaa417c0c20cae",
     "-[ReverbTests testBypass]": "6b2d34e86130813c7e7d9f1cf7a2a87c",
     "-[ReverbTests testCathedral]": "7f1a07c82349bcd989a7838fd3f5ca9d",
     "-[ReverbTests testDefault]": "28d2cb7a5c1e369ca66efa8931d31d4d",

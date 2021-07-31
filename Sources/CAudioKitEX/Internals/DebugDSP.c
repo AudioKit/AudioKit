@@ -15,15 +15,15 @@ static bool active = false;
 
 void DebugDSPSetActive(bool activate) {
     active = activate;
-    if(active) {
-        for(int i=0;i<MAX_SLOTS;++i) {
+    if (active) {
+        for (int i=0;i<MAX_SLOTS;++i) {
             md5_init(state+i);
         }
     }
 }
 
 void DebugDSP(int slot, float value) {
-    if(active) {
+    if (active) {
         assert(slot < MAX_SLOTS);
         md5_append(state+slot, (md5_byte_t*)&value, sizeof(float));
     }
@@ -36,11 +36,11 @@ bool DebugDSPCheck(int slot, const char* expected) {
     md5_finish(state+slot, digest);
 
     char digestStr[33];
-    for(int i=0;i<16;++i) {
+    for (int i=0;i<16;++i) {
         sprintf(digestStr+2*i, "%02x", digest[i]);
     }
 
-    if(strcmp(digestStr, expected)) {
+    if (strcmp(digestStr, expected)) {
         printf("Slot %d debug hash %s does not match expected hash %s\n", slot, digestStr, expected);
         return false;
     }

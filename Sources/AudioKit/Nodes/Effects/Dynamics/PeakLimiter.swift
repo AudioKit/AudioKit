@@ -7,7 +7,8 @@ import AVFoundation
 ///
 public class PeakLimiter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter)
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter
+    )
 
     let input: Node
 
