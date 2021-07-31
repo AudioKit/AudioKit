@@ -126,7 +126,7 @@ extension NodeParameter {
         let events = [
             AutomationEvent(targetValue: start, startTime: 0, rampDuration: 0),
             AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01),
-            AutomationEvent(targetValue: target, startTime: startTime + 0.02, rampDuration: duration),
+            AutomationEvent(targetValue: target, startTime: startTime + 0.02, rampDuration: duration)
         ]
         automate(events: events, startTime: scheduledTime)
     }
