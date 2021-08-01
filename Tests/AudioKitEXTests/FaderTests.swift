@@ -145,4 +145,33 @@ class FaderTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
+
+    func testRealtimeRamp() {
+        let engine = AudioEngine()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        let fader = Fader(player)
+
+        engine.output = fader
+
+        try? engine.start()
+
+        fader.start()
+        player.play()
+
+        fader.$leftGain.ramp(from: 0, to: 1, duration: Float(player.duration))
+        fader.$rightGain.ramp(from: 0, to: 1, duration: Float(player.duration))
+
+        wait(for: player.duration + 0.5)
+
+    }
+
+    // for waiting in the background for realtime testing
+    func wait(for interval: TimeInterval) {
+        let delayExpectation = XCTestExpectation(description: "delayExpectation")
+        DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+            delayExpectation.fulfill()
+        }
+        wait(for: [delayExpectation], timeout: interval + 1)
+    }
 }
