@@ -130,14 +130,13 @@ extension Fader {
     public func rampGain(from start: AUValue,
                          to target: AUValue,
                          duration: Float,
-                         tapered: Bool = true,
-                         startTime scheduledTime: AVAudioTime? = nil) {
+                         tapered: Bool = true) {
         // then ramp to the target
         if tapered {
-            taperedRamp(from: start, to: target, duration: duration, startTime: scheduledTime)
+            taperedRamp(from: start, to: target, duration: duration)
         } else {
-            $leftGain.ramp(from: start, to: target, duration: duration, startTime: scheduledTime)
-            $rightGain.ramp(from: start, to: target, duration: duration, startTime: scheduledTime)
+            $leftGain.ramp(from: start, to: target, duration: duration)
+            $rightGain.ramp(from: start, to: target, duration: duration)
         }
     }
 

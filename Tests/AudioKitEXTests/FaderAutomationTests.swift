@@ -60,25 +60,6 @@ class FaderAutomationTests: XCTestCase {
         wait(for: nodes.player.duration + 0.5)
     }
 
-    /// Play and fade in in the future
-    func testRealtimeScheduleTaperedRamp() {
-        guard let nodes = setupFaderTest() else {
-            return
-        }
-        let duration = Float(nodes.player.duration)
-
-        // schedule time in seconds
-        let delay: TimeInterval = 3
-
-        let scheduledTime = AVAudioTime(hostTime: mach_absolute_time()).offset(seconds: delay)
-        nodes.fader.rampGain(from: 0, to: 1, duration: duration, tapered: true, startTime: scheduledTime)
-        nodes.player.play(at: scheduledTime)
-
-        Log("Start scheduled play at", scheduledTime)
-
-        wait(for: nodes.player.duration + delay)
-    }
-
     func testRealtimeLongerAutomation() {
         guard let nodes = setupFaderTest(filename: "PinkNoise") else {
             // didn't want to add this file, so it'll just fail here if not in TestResources.
