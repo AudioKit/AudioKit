@@ -179,7 +179,7 @@ extension Fader {
         // this insures we get a AUEventSampleTimeImmediate set to the start value
         let setupEvents = [
             AutomationEvent(targetValue: start, startTime: 0, rampDuration: 0),
-            AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01),
+            AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01)
         ]
 
         let points = [
