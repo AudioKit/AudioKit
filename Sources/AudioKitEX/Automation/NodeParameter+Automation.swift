@@ -119,15 +119,8 @@ extension NodeParameter {
     ///   - start: initial value
     ///   - target: destination value
     ///   - duration: duration to ramp to the target value in seconds
-    public func ramp(from start: AUValue, to target: AUValue, duration: AUValue, startTime scheduledTime: AVAudioTime? = nil) {
-        let startTime: AUValue = 0.02
-
-        // without the initial value set here it can miss the AUEventSampleTimeImmediate
-        let events = [
-            AutomationEvent(targetValue: start, startTime: 0, rampDuration: 0),
-            AutomationEvent(targetValue: start, startTime: startTime + 0.01, rampDuration: 0.01),
-            AutomationEvent(targetValue: target, startTime: startTime + 0.02, rampDuration: duration)
-        ]
-        automate(events: events, startTime: scheduledTime)
+    public func ramp(from start: AUValue, to target: AUValue, duration: Float) {
+        ramp(to: start, duration: 0.02, delay: 0)
+        ramp(to: target, duration: duration, delay: 0.02)
     }
 }
