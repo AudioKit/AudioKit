@@ -14,13 +14,14 @@ extension AudioPlayer {
                      to endTime: TimeInterval? = nil,
                      at when: AVAudioTime? = nil,
                      completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
-        if isPlaying || isPaused {
-            playerNode.stop()
-        }
         
         if isPaused {
             resume()
             return
+        }
+
+        if isPlaying {
+            stop()
         }
 
         guard let engine = playerNode.engine else {

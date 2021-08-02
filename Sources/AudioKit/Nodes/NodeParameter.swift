@@ -61,7 +61,14 @@ public class NodeParameter {
     /// Value of the parameter
     public var value: AUValue {
         get { parameter.value }
-        set { parameter.value = range.clamp(newValue) }
+        set {
+            if let avAudioUnit = avAudioNode as? AVAudioUnit {
+                AudioUnitSetParameter(avAudioUnit.audioUnit,
+                                      param: AudioUnitParameterID(def.address),
+                                      to: range.clamp(newValue))
+            }
+            parameter.value = range.clamp(newValue)
+        }
     }
 
     /// Boolean values for parameters
@@ -146,9 +153,7 @@ public class NodeParameter {
         guard let tree = avAudioNode.auAudioUnit.parameterTree else {
             fatalError("No parameter tree.")
         }
-        parameter = tree.allParameters[Int(def.address)]
-        // For some reason the previous line works whereas the following commented out line doesn't
-        // parameter = tree.parameter(withAddress: def.address)
+        parameter = tree.parameter(withAddress: def.address)
         assert(parameter != nil)
     }
     
