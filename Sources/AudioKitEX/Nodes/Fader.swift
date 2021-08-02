@@ -17,7 +17,7 @@ public class Fader: Node {
 
     // MARK: - Parameters
 
-    /// Amplification Factor, from 0 ... 4
+    /// Amplification Factor
     open var gain: AUValue = 1 {
         willSet {
             leftGain = newValue
@@ -52,7 +52,7 @@ public class Fader: Node {
     /// Right Channel Amplification Factor
     @Parameter(rightGainDef) public var rightGain: AUValue
 
-    /// Amplification Factor in db
+    /// Amplification Factor in db - 0 is unity (gain = 1.0)
     public var dB: AUValue {
         set { gain = pow(10.0, newValue / 20.0) }
         get { return 20.0 * log10(gain) }
