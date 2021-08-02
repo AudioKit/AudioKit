@@ -17,6 +17,7 @@ public class Fader: Node {
 
     // MARK: - Parameters
 
+    /// Amplification Factor
     open var gain: AUValue = 1 {
         willSet {
             leftGain = newValue
