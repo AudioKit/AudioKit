@@ -81,8 +81,8 @@ public class Mixer: Node, NamedNode {
 
         inputs.append(node)
 
-        if let mixerReset = mixerReset {
-            mixerAU.engine?.detach(mixerReset)
+        if let dummy = mixerReset {
+            mixerAU.engine?.detach(dummy)
         }
 
         makeAVConnections()
