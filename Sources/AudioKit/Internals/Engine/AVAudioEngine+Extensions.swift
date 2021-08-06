@@ -129,7 +129,7 @@ extension AVAudioEngine {
             return nil
         }
 
-        let dummy = AVAudioUnitSampler()
+        let dummy = EngineResetNode()
         attach(dummy)
         connect(dummy,
                 to: mixer,
@@ -138,4 +138,7 @@ extension AVAudioEngine {
         Log("⚠️🎚 Added dummy to mixer (\(mixer) with format", Settings.audioFormat)
         return dummy
     }
+    
+    // Create a new type so we're sure what it is if instances are leaked
+    private class EngineResetNode: AVAudioUnitSampler {}
 }

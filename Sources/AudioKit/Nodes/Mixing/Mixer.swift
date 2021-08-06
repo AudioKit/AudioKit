@@ -82,7 +82,7 @@ public class Mixer: Node, NamedNode {
         inputs.append(node)
 
         if let mixerReset = mixerReset {
-            mixerAU.engine?.disconnectNodeOutput(mixerReset)
+            mixerAU.engine?.detach(mixerReset)
         }
 
         makeAVConnections()
