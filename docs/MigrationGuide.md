@@ -2,10 +2,17 @@
 
 ## AudioKit 5.1 to 5.2
 
-This version update involves separating AudioKit into separate Sub-AudioKits which are included as separate Swift Packages. This way, developers do not have to compile code that their apps don't require. Most users will probably have to include the SoundpipeAudioKit package since that is the one that contained many of the oscillators, effects, and filters. In addition to including the packages, developers may also have to update their files to import the correct packages. 
+This version update involves separating AudioKit into separate Sub-AudioKits which are included as separate Swift Packages. This way, developers do not have to compile code that their apps don't require. Most users will probably have to include the SoundpipeAudioKit package since that is the one that contained many of the oscillators, effects, and filters. In addition to including the packages, developers may also have to update their files to import the correct frameworks.
 
-| Class                              | New Package       |
+Also, please note that some types that did not move into a new *package* still moved into a new *module*. For example, `Sequencer` lives in the base AudioKit package, but code that references it will need to import the `AudioKitEX` module that is included in that package.
+
+Here is a list of types that moved into a new package, and where they live now.
+
+| Class                              | New Framework     |
 |------------------------------------|-------------------|
+| CallbackInstrument                 | AudioKitEX        |
+| Fader                              | AudioKitEX        |
+| StereoFieldLimiter                 | AudioKitEX        |
 | DynaRageCompressor                 | DevoloopAudioKit  |
 | RhinoGuitarProcessor               | DevoloopAudioKit  |
 | Flanger                            | DunneAudioKit     |
@@ -15,6 +22,7 @@ This version update involves separating AudioKit into separate Sub-AudioKits whi
 | Synth                              | DunneAudioKit     |
 | TransientShaper                    | DunneAudioKit     |
 | DiodeClipper                       | SoulAudioKit      |
+| DryWetMixer                        | SoundpipeAudioKit |
 | BrownianNoise                      | SoundpipeAudioKit |
 | Drip                               | SoundpipeAudioKit |
 | DynamicOscillator                  | SoundpipeAudioKit |
@@ -57,6 +65,7 @@ This version update involves separating AudioKit into separate Sub-AudioKits whi
 | PeakingParametricEqualizerFilter   | SoundpipeAudioKit |
 | Phaser                             | SoundpipeAudioKit |
 | PitchShifter                       | SoundpipeAudioKit |
+| PitchTap                           | SoundpipeAudioKit |
 | ResonantFilter                     | SoundpipeAudioKit |
 | RolandTB303Filter                  | SoundpipeAudioKit |
 | StringResonator                    | SoundpipeAudioKit |

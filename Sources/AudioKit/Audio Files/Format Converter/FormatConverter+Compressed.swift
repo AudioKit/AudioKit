@@ -15,6 +15,9 @@ extension FormatConverter {
     /// +allExportPresets to obtain the complete list of presets available. Use
     /// +exportPresetsCompatibleWithAsset: to obtain a list of presets that are compatible
     /// with a specific AVAsset.*
+    ///
+    /// This is no longer used in this class as it's not possible to convert sample rate or other
+    /// required options. It will use the next function instead
     func convertCompressed(presetName: String, completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
@@ -46,6 +49,8 @@ extension FormatConverter {
         }
     }
 
+    /// Convert to compressed first creating a tmp file to PCM to allow more flexible conversion
+    /// options to work.
     func convertCompressed(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = self.inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
@@ -170,7 +175,6 @@ extension FormatConverter {
         let bitDepth = (options.bitDepth ?? inputFormat.settings[AVLinearPCMBitDepthKey] ?? 16) as Any
         var isFloat = false
         if let intDepth = bitDepth as? Int {
-            // 32 bit means it's floating point
             isFloat = intDepth == 32
         }
 
@@ -181,49 +185,59 @@ extension FormatConverter {
             Log("Sample rate can't be 0 - assigning to default format of 48k. inputFormat is", inputFormat)
             sampleRate = 48000
         }
-        var outputSettings: [String: Any] = [
-            AVFormatIDKey: formatKey,
-            AVSampleRateKey: sampleRate,
-            AVNumberOfChannelsKey: channels,
-            AVLinearPCMBitDepthKey: bitDepth,
-            AVLinearPCMIsFloatKey: isFloat,
-            AVLinearPCMIsBigEndianKey: format != .wav,
-            AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFormat.isInterleaved),
-        ]
+        var outputSettings: [String: Any]?
 
-        // Note: AVAssetReaderOutput does not currently support compressed audio?
+        // Note: AVAssetReaderOutput does not currently support compressed audio
         if formatKey == kAudioFormatMPEG4AAC {
             if sampleRate > 48000 {
                 sampleRate = 48000
             }
+            // mono should be 1/2 the shown bitrate
+            let perChannel = channels == 1 ? 2 : 1
+
             // reset these for m4a:
             outputSettings = [
                 AVFormatIDKey: formatKey,
                 AVSampleRateKey: sampleRate,
                 AVNumberOfChannelsKey: channels,
-                AVEncoderBitRateKey: Int(options.bitRate),
+                AVEncoderBitRateKey: Int(options.bitRate) / perChannel,
                 AVEncoderBitRateStrategyKey: AVAudioBitRateStrategy_Constant,
+            ]
+        } else {
+            outputSettings = [
+                AVFormatIDKey: formatKey,
+                AVSampleRateKey: sampleRate,
+                AVNumberOfChannelsKey: channels,
+                AVLinearPCMBitDepthKey: bitDepth,
+                AVLinearPCMIsFloatKey: isFloat,
+                AVLinearPCMIsBigEndianKey: format != .wav,
+                AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFormat.isInterleaved),
             ]
         }
 
-        let writerInput = AVAssetWriterInput(mediaType: .audio, outputSettings: outputSettings)
+        let hint = asset.audioFormat?.formatDescription
+
+        let writerInput = AVAssetWriterInput(mediaType: .audio, outputSettings: outputSettings, sourceFormatHint: hint)
         writer.add(writerInput)
 
         guard let track = asset.tracks(withMediaType: .audio).first else {
-            completionHandler?(Self.createError(message: "No audio was found in the input file."))
+            completionProxy(error: Self.createError(message: "No audio was found in the input file."),
+                            completionHandler: completionHandler)
             return
         }
 
         let readerOutput = AVAssetReaderTrackOutput(track: track, outputSettings: nil)
         guard reader.canAdd(readerOutput) else {
-            completionHandler?(Self.createError(message: "Unable to add reader output."))
+            completionProxy(error: Self.createError(message: "Unable to add reader output."),
+                            completionHandler: completionHandler)
             return
         }
         reader.add(readerOutput)
 
         if !writer.startWriting() {
             Log("Failed to start writing. Error:", writer.error?.localizedDescription)
-            completionHandler?(writer.error)
+            completionProxy(error: writer.error,
+                            completionHandler: completionHandler)
             return
         }
 
@@ -231,7 +245,8 @@ extension FormatConverter {
 
         if !reader.startReading() {
             Log("Failed to start reading. Error:", reader.error?.localizedDescription)
-            completionHandler?(reader.error)
+            completionProxy(error: reader.error,
+                            completionHandler: completionHandler)
             return
         }
 
@@ -253,18 +268,20 @@ extension FormatConverter {
                     case .failed:
                         Log("Conversion failed with error", reader.error)
                         writer.cancelWriting()
-                        completionHandler?(reader.error)
+                        self.completionProxy(error: reader.error, completionHandler: completionHandler)
                     case .cancelled:
                         Log("Conversion cancelled")
-                        completionHandler?(nil)
+                        self.completionProxy(error: Self.createError(message: "Process canceled"),
+                                             completionHandler: completionHandler)
                     case .completed:
-                        // writer.endSession(atSourceTime: asset.duration)
                         writer.finishWriting {
                             switch writer.status {
                             case .failed:
-                                completionHandler?(writer.error)
+                                Log("Conversion failed at finishWriting")
+                                self.completionProxy(error: writer.error,
+                                                     completionHandler: completionHandler)
                             default:
-                                // Log("Conversion complete")
+                                // no errors
                                 completionHandler?(nil)
                             }
                         }

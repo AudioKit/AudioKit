@@ -133,22 +133,28 @@ AUInternalRenderBlock DSPBase::internalRenderBlock()
 
 void DSPBase::setParameter(AUParameterAddress address, float value, bool immediate)
 {
-    assert(address < maxParameters);
-    if(auto parameter = parameters[address]) {
-        if (immediate || !isInitialized) {
-            parameter->startRamp(value, 0);
+    if (address < maxParameters) {
+        if (auto parameter = parameters[address]) {
+            if (immediate || !isInitialized) {
+                parameter->startRamp(value, 0);
+            }
+            else {
+                parameter->setUIValue(value);
+            }
         }
-        else {
-            parameter->setUIValue(value);
-        }
+    } else {
+        return;
     }
 }
 
 float DSPBase::getParameter(AUParameterAddress address)
 {
-    assert(address < maxParameters);
-    if(auto parameter = parameters[address]) {
-        return parameter->getUIValue();
+    if (address < maxParameters) {
+        if (auto parameter = parameters[address]) {
+            return parameter->getUIValue();
+        }
+    } else {
+        return 0.0f;
     }
     return 0.0f;
 }
@@ -172,8 +178,8 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
     now = timestamp->mSampleTime;
 
     // Chceck for parameter updates from the UI.
-    for(int index = 0; index < maxParameters; ++index) {
-        if(parameters[index]) {
+    for (int index = 0; index < maxParameters; ++index) {
+        if (parameters[index]) {
             parameters[index]->dezipperCheck(sampleRate * 0.02f);
         } else {
             break;
@@ -212,7 +218,7 @@ void DSPBase::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCou
 
 void DSPBase::processOrBypass(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) {
 
-    if(isStarted) {
+    if (isStarted) {
         process(FrameRange{bufferOffset, frameCount});
     } else {
 
@@ -220,8 +226,8 @@ void DSPBase::processOrBypass(AUAudioFrameCount frameCount, AUAudioFrameCount bu
         stepRampsBy(frameCount);
 
         // Copy input to output.
-        if(inputBufferLists.size() and !bCanProcessInPlace) {
-            for(int channel=0; channel< channelCount; ++channel) {
+        if (inputBufferLists.size() and !bCanProcessInPlace) {
+            for (int channel=0; channel< channelCount; ++channel) {
                 auto input = (const float *)inputBufferLists[0]->mBuffers[channel].mData + bufferOffset;
                 auto output = (float *)outputBufferList->mBuffers[channel].mData + bufferOffset;
                 std::copy(input, input+frameCount, output);
@@ -229,7 +235,7 @@ void DSPBase::processOrBypass(AUAudioFrameCount frameCount, AUAudioFrameCount bu
         }
 
         // Generators should be silent.
-        if(inputBufferLists.empty()) {
+        if (inputBufferLists.empty()) {
             zeroOutput(frameCount, bufferOffset);
         }
     }
@@ -267,18 +273,21 @@ void DSPBase::handleOneEvent(AURenderEvent const *event)
 void DSPBase::startRamp(const AUParameterEvent& event)
 {
     auto address = event.parameterAddress;
-    assert(address < maxParameters);
-    auto ramper = parameters[address];
-    if(ramper == nullptr) return;
-    ramper->startRamp(event.value, event.rampDurationSampleFrames);
+    if (address < maxParameters) {
+        auto ramper = parameters[address];
+        if (ramper == nullptr) return;
+        ramper->startRamp(event.value, event.rampDurationSampleFrames);
+    } else {
+        return;
+    }
 }
 
 using DSPFactoryMap = std::map<std::string, DSPBase::CreateFunction>;
 
 void DSPBase::stepRampsBy(AUAudioFrameCount frames) {
 
-    for(int index=0;index<maxParameters;++index) {
-        if(parameters[index]) {
+    for (int index=0;index<maxParameters;++index) {
+        if (parameters[index]) {
             parameters[index]->stepBy(frames);
         }
     }
@@ -311,7 +320,7 @@ static DSPFactoryMap* factoryMap = nullptr;
 
 void DSPBase::addCreateFunction(const char* name, CreateFunction func) {
 
-    if(factoryMap == nullptr) {
+    if (factoryMap == nullptr) {
         factoryMap = new DSPFactoryMap;
     }
 
@@ -326,7 +335,7 @@ DSPRef DSPBase::create(const char* name) {
 
     auto iter = factoryMap->find(name);
 
-    if(iter == factoryMap->end()) {
+    if (iter == factoryMap->end()) {
         printf("Unknown DSPBase subclass: %s\n", name);
         return nullptr;
     }
@@ -354,7 +363,7 @@ AUParameterAddress akGetParameterAddress(const char* name) {
 
     auto iter = paramMap->find(name);
 
-    if(iter == paramMap->end()) {
+    if (iter == paramMap->end()) {
         printf("akGetParameterAddress: Unknown parameter name: %s\n", name);
         return 0;
     }
@@ -364,7 +373,7 @@ AUParameterAddress akGetParameterAddress(const char* name) {
 
 void DSPBase::addParameter(const char* name, AUParameterAddress address) {
 
-    if(paramMap == nullptr) {
+    if (paramMap == nullptr) {
         paramMap = new DSPParameterMap;
     }
 

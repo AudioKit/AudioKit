@@ -41,10 +41,10 @@ extension Array where Element == SequenceEvent {
             let event1Beat = event1.beat
             let event2Beat = event2.beat
             let simultaneous = (event1Beat == event2Beat) && (event1.data1 == event2.data1)
-            if(isNoteOn(event1.status) && isNoteOff(event2.status) && simultaneous) {
+            if isNoteOn(event1.status) && isNoteOff(event2.status) && simultaneous {
                 return false
             }
-            if(isNoteOff(event1.status) && isNoteOn(event2.status) && simultaneous) {
+            if isNoteOff(event1.status) && isNoteOn(event2.status) && simultaneous {
                 return true
             }
             return event1Beat < event2Beat

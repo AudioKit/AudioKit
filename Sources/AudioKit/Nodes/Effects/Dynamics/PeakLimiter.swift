@@ -7,17 +7,22 @@ import AVFoundation
 ///
 public class PeakLimiter: Node {
 
-    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter)
+    fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter
+    )
 
     let input: Node
+
+    /// Connected nodes
     public var connections: [Node] { [input] }
+
+    /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for attackTime
     public static let attackTimeDef = NodeParameterDef(
         identifier: "attackTime",
         name: "Attack Time",
-        address: 0,
+        address: AUParameterAddress(kLimiterParam_AttackTime),
         defaultValue: 0.012,
         range: 0.001 ... 0.03,
         unit: .seconds)
@@ -29,7 +34,7 @@ public class PeakLimiter: Node {
     public static let decayTimeDef = NodeParameterDef(
         identifier: "decayTime",
         name: "Decay Time",
-        address: 1,
+        address: AUParameterAddress(kLimiterParam_DecayTime),
         defaultValue: 0.024,
         range: 0.001 ... 0.06,
         unit: .seconds)
@@ -41,7 +46,7 @@ public class PeakLimiter: Node {
     public static let preGainDef = NodeParameterDef(
         identifier: "preGain",
         name: "Pre Gain",
-        address: 2,
+        address: AUParameterAddress(kLimiterParam_PreGain),
         defaultValue: 0,
         range: -40 ... 40,
         unit: .decibels)

@@ -15,6 +15,17 @@ public class Reverb: Node {
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
 
+    // Hacking start, stop, play, and bypass to use dryWetMix because reverbAU's bypass results in no sound
+
+    /// Start the node
+    public func start() { reverbAU.wetDryMix = dryWetMix * 100.0 }
+    /// Stop the node
+    public func stop() { reverbAU.wetDryMix = 0.0  }
+    /// Play the node
+    public func play() { reverbAU.wetDryMix = dryWetMix * 100.0 }
+    /// Bypass the node
+    public func bypass() { reverbAU.wetDryMix = 0.0 }
+
     /// Dry/Wet Mix (Default 0.5)
     public var dryWetMix: AUValue = 0.5 {
         didSet {

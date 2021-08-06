@@ -14,13 +14,14 @@ extension AudioPlayer {
                      to endTime: TimeInterval? = nil,
                      at when: AVAudioTime? = nil,
                      completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
-        if isPlaying || isPaused {
-            playerNode.stop()
-        }
         
         if isPaused {
             resume()
             return
+        }
+
+        if isPlaying {
+            stop()
         }
 
         guard let engine = playerNode.engine else {
@@ -72,6 +73,8 @@ extension AudioPlayer {
            nodeTime.isSampleTimeValid,
            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
+        } else if isPaused {
+            return pausedTime
         }
         return editStartTime
     }

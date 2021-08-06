@@ -95,6 +95,11 @@ public class AudioPlayer: Node {
             let wasPlaying = isPlaying
             if wasPlaying { stop() }
 
+            // Force the buffer to update with new file
+            if isBuffered && file != oldValue {
+                updateBuffer(force: true)
+            }
+
             if wasPlaying {
                 play()
             }
@@ -112,6 +117,25 @@ public class AudioPlayer: Node {
 
             if wasPlaying {
                 play()
+            }
+        }
+    }
+
+    private var _isEditTimeEnabled: Bool = false
+    /// Boolean that determines whether the edit time is enabled (default: true)
+    public var isEditTimeEnabled: Bool {
+        get { _isEditTimeEnabled }
+        set(preference) {
+            if preference == false {
+                savedEditStartTime = editStartTime
+                savedEditEndTime = editEndTime
+                editStartTime = 0
+                editEndTime = 0
+                _isEditTimeEnabled = false
+            } else {
+                editStartTime = savedEditStartTime ?? 0
+                editEndTime = savedEditEndTime ?? 0
+                _isEditTimeEnabled = true
             }
         }
     }
@@ -150,6 +174,10 @@ public class AudioPlayer: Node {
     // the last time scheduled. Only used to check if play() should schedule()
     var scheduleTime: AVAudioTime?
 
+    // saved edit times to load when user enables isEditTimeEnabled property
+    var savedEditStartTime: TimeInterval?
+    var savedEditEndTime: TimeInterval?
+
     var bufferOptions: AVAudioPlayerNodeBufferOptions = .interrupts
 
     var bufferDuration: TimeInterval {
@@ -174,8 +202,8 @@ public class AudioPlayer: Node {
               engine?.isInManualRenderingMode == false else { return }
 
         scheduleTime = nil
-        completionHandler?()
         isPlaying = false
+        completionHandler?()
 
         if !isBuffered, isLooping, engine?.isRunning == true {
             play()
@@ -235,7 +263,10 @@ public class AudioPlayer: Node {
     /// - Parameters:
     ///   - file: File to play
     ///   - buffered: Boolean of whether you want the audio buffered
-    public func load(file: AVAudioFile, buffered: Bool? = nil) throws {
+    ///   - preserveEditTime: Boolean - keep the previous edit time region? (default: false)
+    public func load(file: AVAudioFile,
+                     buffered: Bool? = nil,
+                     preserveEditTime: Bool = false) throws {
         var formatHasChanged = false
 
         if let currentFile = self.file,
@@ -246,6 +277,12 @@ public class AudioPlayer: Node {
         }
 
         self.file = file
+
+        if preserveEditTime == false {
+            // Clear edit time preferences after file is loaded
+            editStartTime = 0
+            editEndTime = 0
+        }
 
         if formatHasChanged {
             makeInternalConnections()
@@ -269,6 +306,22 @@ public class AudioPlayer: Node {
 }
 
 extension AudioPlayer: HasInternalConnections {
+    /// Check if the playerNode is already connected to the mixerNode
+    var isPlayerConnectedToMixerNode: Bool {
+        var iBus = 0
+        let engine = self.playerNode.engine
+        if let engine = engine {
+            while iBus < playerNode.numberOfOutputs {
+                for playercp in engine.outputConnectionPoints(for: playerNode, outputBus: iBus)
+                where playercp.node == mixerNode {
+                    return true
+                }
+                iBus += 1
+            }
+        }
+        return false
+    }
+
     /// called in the connection chain to attach the playerNode
     public func makeInternalConnections() {
         guard let engine = engine else {
@@ -278,6 +331,8 @@ extension AudioPlayer: HasInternalConnections {
         if playerNode.engine == nil {
             engine.attach(playerNode)
         }
-        engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
+        if !isPlayerConnectedToMixerNode {
+            engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
+        }
     }
 }

@@ -8,7 +8,7 @@ public class Mixer: Node, NamedNode {
     fileprivate let mixerAU = AVAudioMixerNode()
 
     var inputs: [Node] = []
-    
+
     /// Connected nodes
     public var connections: [Node] { inputs }
 
@@ -50,6 +50,7 @@ public class Mixer: Node, NamedNode {
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: A variadic list of Nodes
+    /// - parameter name: Optional name of the mixer
     ///
     public convenience init(_ inputs: Node..., name: String? = nil) {
         self.init(inputs.compactMap { $0 }, name: name)
@@ -60,6 +61,7 @@ public class Mixer: Node, NamedNode {
     /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: An array of Nodes
+    /// - parameter name: Optional name of the mixer
     ///
     public convenience init(_ inputs: [Node], name: String? = nil) {
         self.init(name: name)
@@ -73,7 +75,16 @@ public class Mixer: Node, NamedNode {
             Log("🛑 Error: Node is already connected to Mixer.")
             return
         }
+
+        // if this mixer is empty, must initialize
+        let mixerReset = mixerAU.engine?.initializeMixer(mixerAU)
+
         inputs.append(node)
+
+        if let mixerReset = mixerReset {
+            mixerAU.engine?.detach(mixerReset)
+        }
+
         makeAVConnections()
     }
 
@@ -100,14 +111,14 @@ public class Mixer: Node, NamedNode {
         }
         inputs.removeAll()
     }
-    
+
     /// Resize underlying AVAudioMixerNode input busses array to accomodate for required count of inputs.
     ///
-    ///```
-    ///let desiredInputCount = 5
-    ///let allowedCount = mixer.resizeInputBussesArray(requiredSize: desiredInputCount)
+    /// ```
+    /// let desiredInputCount = 5
+    /// let allowedCount = mixer.resizeInputBussesArray(requiredSize: desiredInputCount)
     ///// allowedCount is now 5 or less
-    ///```
+    /// ```
     /// If engine has already started, underlying AVAudioMixerNode won't resize its input busses
     /// array when new input nodes are added into it, which may eventually cause a crash.
     ///

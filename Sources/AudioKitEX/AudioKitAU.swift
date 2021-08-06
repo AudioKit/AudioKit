@@ -12,6 +12,14 @@ open class AudioKitAU: AUAudioUnit {
     private var inputBusArray: [AUAudioUnitBus] = []
     private var outputBusArray: [AUAudioUnitBus] = []
     private var internalBuffers: [AVAudioPCMBuffer] = []
+
+    // Default supported channel capabilities
+    public var supportedLeftChannelCount: NSNumber = 2
+    public var supportedRightChannelCount: NSNumber = 2
+
+    override public var channelCapabilities: [NSNumber]? {
+        return [supportedLeftChannelCount, supportedRightChannelCount]
+    }
     
     /// Allocate the render resources
     override public func allocateRenderResources() throws {
@@ -88,7 +96,7 @@ open class AudioKitAU: AUAudioUnit {
             
             _parameterTree?.implementorStringFromValueCallback = { parameter, value in
                 if let value = value {
-                    return String(format: "%.f", value)
+                    return String(format: "%.2f", value.pointee)
                 } else {
                     return "Invalid"
                 }

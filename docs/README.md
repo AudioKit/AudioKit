@@ -20,6 +20,14 @@ AudioKit has several underlying goals that motivate its development.
 
 <img src="/images/AudioKitLayers.svg" width=100%>
 
+The AudioKit Layer itself contains three frameworks you can import from:
+
+| Framework Name | Description                                                             |
+|----------------|-------------------------------------------------------------------------|
+| AudioKit       | Swift-only base layer for AudioKit, usable in the Swift Playgrounds app |
+| AudioKitEX     | Swift API for extension to AudioKit written in C++                      |
+| CAudioKitEX    | The DSP and other lower level code supporting AudioKitEX functionality  |
+
 The Cookbook demo app layer is an example of where your app would be in this diagram. It could depend on any subset of the packages below it.
 
 Packages can depend on other packages, and this is shown in the example of SporthAudioKit depending on (on top of) SoundpipeAudioKit.
@@ -34,14 +42,13 @@ The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above ar
 | [Dunne AudioKit](/Packages/DunneAudioKit)           | Chorus, Flanger, Sampler, Stereo Delay, Synth |
 | [Microtonal AudioKit](/Packages/MicrotonalAudioKit) | Custom tuning tables                          |
 | [Soul AudioKit](/Packages/SoulAudioKit)             | Diode Clipper and basis for more development  |
-| [Soundpipe AudioKit](/Packages/SoulAudioKit)        | Oscillators, Effects, Filters, and more       |
+| [Soundpipe AudioKit](/Packages/SoundpipeAudioKit)   | Oscillators, Effects, Filters, and more       |
 | [Sporth AudioKit](/Packages/SporthAudioKit)         | Operations for complex DSP with simple syntax |
 | [STK AudioKit](/Packages/STKAudioKit)               | Stanford Synthesis Toolkit physical models    |
 
-
 # AudioKit.io (this website)
 
-This web site is created from the main AudioKit repository on Github. In that repository there is a `docs` folder that contains all of the documnets that appear here. Updating the AudioKit.io is the same as updating AudioKit, simply create a pull request with your proposed changes.  Base your changes off of the `develop` branch and once merged, they will appear on the website. 
+This web site is created from the main AudioKit repository on Github. In that repository there is a `docs` folder that contains all of the documents that appear here. Updating the AudioKit.io is the same as updating AudioKit, simply create a pull request with your proposed changes.  Base your changes off of the `develop` branch and once merged, they will appear on the website. 
 
 # Examples
 

@@ -116,12 +116,12 @@ class GenericNodeTests: XCTestCase {
     }
 
     func testEffects() {
-        //nodeParameterTest(md5: "d15c926f3da74630f986f7325adf044c", factory: { input in Compressor(input) })
+        nodeParameterTest(md5: "d15c926f3da74630f986f7325adf044c", factory: { input in Compressor(input) })
         nodeParameterTest(md5: "d658edfaaebabcaaeb8a6670d1d60541", factory: { input in Decimator(input) })
         nodeParameterTest(md5: "5955693c964588d2eb571fadb2d744dd", factory: { input in Delay(input) })
-        //nodeParameterTest(md5: "", factory: { input in DiodeClipper(input) }, m1MD5: "9601674f792663a987e62b07b6ce405f")
         nodeParameterTest(md5: "6df759dd0dae23adb7b5f1c03ca15615", factory: { input in Distortion(input) })
-        //nodeParameterTest(md5: "0ae9a6b248486f343c55bf0818c3007d", factory: { input in PeakLimiter(input) })
+        nodeParameterTest(md5: "0ae9a6b248486f343c55bf0818c3007d", factory: { input in PeakLimiter(input) })
+        nodeParameterTest(md5: "b31ce15bb38716fd95070d1299679d3a", factory: { input in RingModulator(input) })
 
         #if os(iOS)
         nodeParameterTest(md5: "28d2cb7a5c1e369ca66efa8931d31d4d", factory: { player in Reverb(player) })

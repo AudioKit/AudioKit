@@ -15,7 +15,7 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 
 ## Installation
 
-To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/AudioKit` for the URL.  You can define which version range you want, or which branch to use, or even which exact commit you would like use. 
+To add AudioKit to your Xcode project, select File -> Swift Packages -> Add Package Depedency. Enter `https://github.com/AudioKit/AudioKit` for the URL.  You can define which version range you want, or which branch to use, or even which exact commit you would like use. 
 
 ## Documentation
 
