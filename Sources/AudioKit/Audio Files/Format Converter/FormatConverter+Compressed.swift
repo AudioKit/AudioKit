@@ -211,7 +211,7 @@ extension FormatConverter {
                 AVLinearPCMBitDepthKey: bitDepth,
                 AVLinearPCMIsFloatKey: isFloat,
                 AVLinearPCMIsBigEndianKey: format != .wav,
-                AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFormat.isInterleaved),
+                AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFormat.isInterleaved)
             ]
         }
 
