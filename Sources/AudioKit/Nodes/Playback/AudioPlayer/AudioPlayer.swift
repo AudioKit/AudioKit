@@ -206,6 +206,10 @@ public class AudioPlayer: Node {
         completionHandler?()
 
         if !isBuffered, isLooping, engine?.isRunning == true {
+            if !isEditTimeEnabled {
+                editStartTime = 0
+                editEndTime = 0
+            }
             play()
             return
         }
