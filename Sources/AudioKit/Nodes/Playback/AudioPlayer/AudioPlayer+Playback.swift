@@ -62,7 +62,9 @@ extension AudioPlayer {
     /// Resumes audio player from paused time
     public func resume() {
         isPaused = false
-        seek(time: pausedTime)
+        if !isBuffered {
+            seek(time: pausedTime)
+        }
         playerNode.play()
     }
 
