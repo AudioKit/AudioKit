@@ -4,7 +4,7 @@ Many oscillators, physical models, effects, and filters for AudioKit.
 
 ## Installation
 
-Use Swift Package Manager and point to the URL: [https://github.com/AudioKit/SoundpipeAudioKit/](https://github.com/AudioKit/SoundpipeAudioKit/])
+Use Swift Package Manager and point to the URL: [https://github.com/AudioKit/SoundpipeAudioKit/](https://github.com/AudioKit/SoundpipeAudioKit/)
 
 ## Targets
 
