@@ -382,14 +382,14 @@ public extension DSPSplitComplex {
     /// Initialize a DSPSplitComplex with repeating values for real and imaginary splits
     ///
     /// - Parameters:
-    ///   - repeating: value to set elements to
+    ///   - initialValue: value to set elements to
     ///   - count: number of real and number of imaginary elements
-    init(repeating: Float, count: Int) {
-        let real = [Float](repeating: repeating, count: count)
+    init(repeating initialValue: Float, count: Int) {
+        let real = [Float](repeating: initialValue, count: count)
         let realp = UnsafeMutablePointer<Float>.allocate(capacity: real.count)
         realp.assign(from: real, count: real.count)
 
-        let imag = [Float](repeating: repeating, count: count)
+        let imag = [Float](repeating: initialValue, count: count)
         let imagp = UnsafeMutablePointer<Float>.allocate(capacity: imag.count)
         imagp.assign(from: imag, count: imag.count)
 
