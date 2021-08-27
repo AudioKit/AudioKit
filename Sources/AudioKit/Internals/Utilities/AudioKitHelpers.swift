@@ -377,3 +377,23 @@ public func loadAudioSignal(audioURL: URL) -> (signal: [Float], rate: Double, fr
     }
     return nil
 }
+
+public extension DSPSplitComplex {
+    
+    /// Initialize a DSPSplitComplex with repeating values for real and imaginary splits
+    ///
+    /// - Parameters:
+    ///   - repeating: value to set elements to
+    ///   - count: number of real and number of imaginary elements
+    init(repeating: Float, count: Int) {
+        let real = [Float](repeating: repeating, count: count)
+        let realp = UnsafeMutablePointer<Float>.allocate(capacity: real.count)
+        realp.assign(from: real, count: real.count)
+
+        let imag = [Float](repeating: 0, count: count)
+        let imagp = UnsafeMutablePointer<Float>.allocate(capacity: imag.count)
+        imagp.assign(from: imag, count: imag.count)
+        
+        self.init(realp: realp, imagp: imagp)
+    }
+}
