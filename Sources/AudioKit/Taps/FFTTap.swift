@@ -28,8 +28,7 @@ open class FFTTap: BaseTap {
     public init(_ input: Node,
                 bufferSize: UInt32 = 4096,
                 fftValidBinCount: FFTValidBinCount? = nil,
-                handler: @escaping Handler)
-    {
+                handler: @escaping Handler) {
         self.handler = handler
         fftData = Array(repeating: 0.0, count: Int(bufferSize))
         if let fftBinCount = fftValidBinCount {
@@ -55,8 +54,7 @@ open class FFTTap: BaseTap {
     static func performFFT(buffer: AVAudioPCMBuffer,
                            isNormalized: Bool = true,
                            zeroPaddingFactor: UInt32 = 0,
-                           fftSetupForBinCount: FFTSetupForBinCount? = nil) -> [Float]
-    {
+                           fftSetupForBinCount: FFTSetupForBinCount? = nil) -> [Float] {
         let frameCount = buffer.frameLength + buffer.frameLength * zeroPaddingFactor
         let log2n = determineLog2n(frameCount: frameCount, fftSetupForBinCount: fftSetupForBinCount)
         let bufferSizePOT = Int(1 << log2n) // 1 << n = 2^n
