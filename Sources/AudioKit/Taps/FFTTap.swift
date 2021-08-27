@@ -25,7 +25,11 @@ open class FFTTap: BaseTap {
     ///   - bufferSize: Size of buffer to analyze
     ///   - fftValidBinNumber: Valid fft bin count to return
     ///   - handler: Callback to call when FFT is calculated
-    public init(_ input: Node, bufferSize: UInt32 = 4096, fftValidBinCount: FFTValidBinCount? = nil, handler: @escaping Handler) {
+    public init(_ input: Node,
+                bufferSize: UInt32 = 4096,
+                fftValidBinCount: FFTValidBinCount? = nil,
+                handler: @escaping Handler)
+    {
         self.handler = handler
         fftData = Array(repeating: 0.0, count: Int(bufferSize))
         if let fftBinCount = fftValidBinCount {
@@ -41,23 +45,20 @@ open class FFTTap: BaseTap {
     override open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
-        fftData = FFTTap.performFFT(buffer: buffer, isNormalized: isNormalized, zeroPaddingFactor: zeroPaddingFactor, fftSetupForBinCount: fftSetupForBinCount)
+        fftData = FFTTap.performFFT(buffer: buffer,
+                                    isNormalized: isNormalized,
+                                    zeroPaddingFactor: zeroPaddingFactor,
+                                    fftSetupForBinCount: fftSetupForBinCount)
         handler(fftData)
     }
 
-    static func performFFT(buffer: AVAudioPCMBuffer, isNormalized: Bool = true, zeroPaddingFactor: UInt32 = 0, fftSetupForBinCount: FFTSetupForBinCount? = nil) -> [Float] {
+    static func performFFT(buffer: AVAudioPCMBuffer,
+                           isNormalized: Bool = true,
+                           zeroPaddingFactor: UInt32 = 0,
+                           fftSetupForBinCount: FFTSetupForBinCount? = nil) -> [Float]
+    {
         let frameCount = buffer.frameLength + buffer.frameLength * zeroPaddingFactor
-
-        // default to original log2n calculation from frameCount (backwards compatibility and used when we get bad input)
-        var log2n = UInt(round(log2(Double(frameCount))))
-
-        // if a valid amount of bins was requested - use log2n value for number of bins
-        if let setup = fftSetupForBinCount { // do we have a FFTSetupForBinCount object?
-            if frameCount >= setup.binCount { // guard against more bins than buffer size
-                log2n = UInt(setup.log2n + 1) // +1 because we divide bufferSizePOT by two
-            }
-        }
-
+        let log2n = determineLog2n(frameCount: frameCount, fftSetupForBinCount: fftSetupForBinCount)
         let bufferSizePOT = Int(1 << log2n) // 1 << n = 2^n
         let inputCount = bufferSizePOT / 2 // number of bins returned
 
@@ -121,10 +122,20 @@ open class FFTTap: BaseTap {
         super.stop()
         for i in 0 ..< fftData.count { fftData[i] = 0.0 }
     }
-    
+
+    /// Determines the value to use for log2n input to fft
+    static func determineLog2n(frameCount: UInt32, fftSetupForBinCount: FFTSetupForBinCount?) -> UInt {
+        if let setup = fftSetupForBinCount {
+            if frameCount >= setup.binCount { // guard against more bins than buffer size
+                return UInt(setup.log2n + 1) // +1 because we divide bufferSizePOT by two
+            }
+        }
+        // default to frameCount (for bad input or no bin count argument)
+        return UInt(round(log2(Double(frameCount))))
+    }
+
     /// Relevant values for setting the fft bin count
     struct FFTSetupForBinCount {
-        
         /// Initialize FFTSetupForBinCount with a valid number of fft bins
         ///
         /// - Parameters:
