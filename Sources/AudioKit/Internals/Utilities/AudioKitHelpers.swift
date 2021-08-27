@@ -389,7 +389,7 @@ public extension DSPSplitComplex {
         let realp = UnsafeMutablePointer<Float>.allocate(capacity: real.count)
         realp.assign(from: real, count: real.count)
 
-        let imag = [Float](repeating: 0, count: count)
+        let imag = [Float](repeating: repeating, count: count)
         let imagp = UnsafeMutablePointer<Float>.allocate(capacity: imag.count)
         imagp.assign(from: imag, count: imag.count)
 
