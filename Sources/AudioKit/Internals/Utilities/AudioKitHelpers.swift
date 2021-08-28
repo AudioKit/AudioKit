@@ -395,7 +395,7 @@ public extension DSPSplitComplex {
 
         self.init(realp: realp, imagp: imagp)
     }
-    
+
     /// Initialize a DSPSplitComplex with repeating values for real and imaginary splits
     ///
     /// - Parameters:

@@ -32,15 +32,14 @@ open class FFTTap: BaseTap {
         self.handler = handler
         if let fftBinCount = fftValidBinCount {
             fftSetupForBinCount = FFTSetupForBinCount(binCount: fftBinCount)
-            
         }
-        
+
         if let binCount = fftSetupForBinCount?.binCount {
             fftData = Array(repeating: 0.0, count: binCount)
         } else {
             fftData = Array(repeating: 0.0, count: Int(bufferSize))
         }
-        
+
         super.init(input, bufferSize: bufferSize)
     }
 
