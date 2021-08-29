@@ -30,10 +30,16 @@ open class FFTTap: BaseTap {
                 fftValidBinCount: FFTValidBinCount? = nil,
                 handler: @escaping Handler) {
         self.handler = handler
-        fftData = Array(repeating: 0.0, count: Int(bufferSize))
         if let fftBinCount = fftValidBinCount {
             fftSetupForBinCount = FFTSetupForBinCount(binCount: fftBinCount)
         }
+
+        if let binCount = fftSetupForBinCount?.binCount {
+            fftData = Array(repeating: 0.0, count: binCount)
+        } else {
+            fftData = Array(repeating: 0.0, count: Int(bufferSize))
+        }
+
         super.init(input, bufferSize: bufferSize)
     }
 
@@ -58,11 +64,11 @@ open class FFTTap: BaseTap {
         let frameCount = buffer.frameLength + buffer.frameLength * zeroPaddingFactor
         let log2n = determineLog2n(frameCount: frameCount, fftSetupForBinCount: fftSetupForBinCount)
         let bufferSizePOT = Int(1 << log2n) // 1 << n = 2^n
-        let inputCount = bufferSizePOT / 2 // number of bins returned
+        let binCount = bufferSizePOT / 2
 
         let fftSetup = vDSP_create_fftsetup(log2n, Int32(kFFTRadix2))
 
-        var output = DSPSplitComplex(repeating: 0, count: inputCount)
+        var output = DSPSplitComplex(repeating: 0, count: binCount)
 
         let windowSize = bufferSizePOT
         var transferBuffer = [Float](repeating: 0, count: windowSize)
@@ -78,7 +84,7 @@ open class FFTTap: BaseTap {
         transferBuffer.withUnsafeBufferPointer { pointer in
             pointer.baseAddress!.withMemoryRebound(to: DSPComplex.self,
                                                    capacity: transferBuffer.count) {
-                vDSP_ctoz($0, 2, &output, 1, vDSP_Length(inputCount))
+                vDSP_ctoz($0, 2, &output, 1, vDSP_Length(binCount))
             }
         }
 
@@ -86,17 +92,17 @@ open class FFTTap: BaseTap {
         vDSP_fft_zrip(fftSetup!, &output, 1, log2n, FFTDirection(FFT_FORWARD))
 
         // Parseval's theorem - Scale with respect to the number of bins
-        var scaledOutput = DSPSplitComplex(repeating: 0, count: inputCount)
-        var scaleMultiplier = DSPSplitComplex(repeating: 1.0 / Float(inputCount), count: 1)
+        var scaledOutput = DSPSplitComplex(repeating: 0, count: binCount)
+        var scaleMultiplier = DSPSplitComplex(repeatingReal: 1.0 / Float(binCount), repeatingImag: 0, count: 1)
         vDSP_zvzsml(&output,
                     1,
                     &scaleMultiplier,
                     &scaledOutput,
                     1,
-                    vDSP_Length(inputCount))
+                    vDSP_Length(binCount))
 
-        var magnitudes = [Float](repeating: 0.0, count: inputCount)
-        vDSP_zvmags(&scaledOutput, 1, &magnitudes, 1, vDSP_Length(inputCount))
+        var magnitudes = [Float](repeating: 0.0, count: binCount)
+        vDSP_zvmags(&scaledOutput, 1, &magnitudes, 1, vDSP_Length(binCount))
         vDSP_destroy_fftsetup(fftSetup)
 
         if !isNormalized {
@@ -105,13 +111,13 @@ open class FFTTap: BaseTap {
 
         // normalize according to the momentary maximum value of the fft output bins
         var normalizationMultiplier: [Float] = [1.0 / (magnitudes.max() ?? 1.0)]
-        var normalizedMagnitudes = [Float](repeating: 0.0, count: inputCount)
+        var normalizedMagnitudes = [Float](repeating: 0.0, count: binCount)
         vDSP_vsmul(&magnitudes,
                    1,
                    &normalizationMultiplier,
                    &normalizedMagnitudes,
                    1,
-                   vDSP_Length(inputCount))
+                   vDSP_Length(binCount))
         return normalizedMagnitudes
     }
 
