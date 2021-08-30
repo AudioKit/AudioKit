@@ -139,6 +139,15 @@ open class NodeRecorder: NSObject {
         // "If non-nil, attempts to apply this as the format of the specified output bus. This should
         // only be done when attaching to an output bus which is not connected to another node"
         // In most cases AudioKit nodes will be attached to something else.
+
+        // Make sure the input node has an engine
+        // before recording
+        if node.avAudioNode.engine == nil {
+            Log("🛑 Error: Error recording. Input node '\(node)' has no engine.")
+            isRecording = false
+            return
+        }
+
         node.avAudioNode.installTap(onBus: bus,
                                     bufferSize: bufferLength,
                                     format: recordFormat,

@@ -106,7 +106,8 @@ extension FormatConverter {
                                               nil,
                                               AudioFileFlags.eraseFile.rawValue, // overwrite old file if present
                                               &outputFile) {
-            completionProxy(error: Self.createError(message: "Unable to create output file at \(outputURL.path). dstFormat \(outputDescription)"),
+            completionProxy(error: Self.createError(message: "Unable to create output file at \(outputURL.path). " +
+                                                        "dstFormat \(outputDescription)"),
                             completionHandler: completionHandler)
             return
         }

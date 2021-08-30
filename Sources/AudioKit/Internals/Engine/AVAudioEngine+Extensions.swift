@@ -64,14 +64,14 @@ extension AVAudioEngine {
 
             let status = try renderOffline(framesToRender, to: buffer)
 
-            // 0 - 1
-            var progressValue: Double = 0
+            // Progress in the range of starting (0) - finished (1)
+            var progress: Double = 0
 
             switch status {
             case .success:
                 try audioFile.write(from: buffer)
-                progressValue = min(Double(audioFile.framePosition) / Double(targetSamples), 1.0)
-                progressHandler?(progressValue)
+                progress = min(Double(audioFile.framePosition) / Double(targetSamples), 1.0)
+                progressHandler?(progress)
             case .cannotDoInCurrentContext:
                 Log("renderToFile cannotDoInCurrentContext", type: .error)
                 continue
@@ -83,7 +83,7 @@ extension AVAudioEngine {
                 isRendering = false
             }
 
-            if renderUntilSilent, progressValue == 1, let data = buffer.floatChannelData {
+            if renderUntilSilent, progress == 1, let data = buffer.floatChannelData {
                 var rms: Float = 0.0
                 for i in 0 ..< channelCount {
                     var channelRms: Float = 0.0
@@ -129,7 +129,7 @@ extension AVAudioEngine {
             return nil
         }
 
-        let dummy = AVAudioUnitSampler()
+        let dummy = EngineResetNode()
         attach(dummy)
         connect(dummy,
                 to: mixer,
@@ -138,4 +138,7 @@ extension AVAudioEngine {
         Log("⚠️🎚 Added dummy to mixer (\(mixer) with format", Settings.audioFormat)
         return dummy
     }
+
+    // Create a new type so we're sure what it is if instances are leaked
+    private class EngineResetNode: AVAudioUnitSampler {}
 }
