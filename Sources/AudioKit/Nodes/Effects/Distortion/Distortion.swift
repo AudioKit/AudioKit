@@ -142,11 +142,11 @@ public class Distortion: Node {
         identifier: "linearTerm",
         name: "Linear Term",
         address: AUParameterAddress(kDistortionParam_LinearTerm),
-        defaultValue: 50,
-        range: 0 ... 100,
-        unit: .percent)
+        defaultValue: 0.5,
+        range: 0 ... 1,
+        unit: .generic)
 
-    /// Linear Term (Percent) ranges from 0 to 100 (Default: 50)
+    /// Linear Term (Percent) ranges from 0 to 1 (Default: 0.5)
     @Parameter(linearTermDef) public var linearTerm: AUValue
 
     /// Specification details for squaredTerm
@@ -154,11 +154,11 @@ public class Distortion: Node {
         identifier: "squaredTerm",
         name: "Squared Term",
         address: AUParameterAddress(kDistortionParam_SquaredTerm),
-        defaultValue: 50,
-        range: 0 ... 100,
-        unit: .percent)
+        defaultValue: 10,
+        range: 0 ... 20,
+        unit: .generic)
 
-    /// Squared Term (Percent) ranges from 0 to 100 (Default: 50)
+    /// Squared Term (Percent) ranges from 0 to 20 (Default: 10)
     @Parameter(squaredTermDef) public var squaredTerm: AUValue
 
     /// Specification details for cubicTerm
@@ -166,11 +166,11 @@ public class Distortion: Node {
         identifier: "cubicTerm",
         name: "Cubic Term",
         address: AUParameterAddress(kDistortionParam_CubicTerm),
-        defaultValue: 50,
-        range: 0 ... 100,
-        unit: .percent)
+        defaultValue: 10,
+        range: 0 ... 20,
+        unit: .generic)
 
-    /// Cubic Term (Percent) ranges from 0 to 100 (Default: 50)
+    /// Cubic Term (Percent) ranges from 0 to 20 (Default: 10)
     @Parameter(cubicTermDef) public var cubicTerm: AUValue
 
     /// Specification details for polynomialMix
