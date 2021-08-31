@@ -117,7 +117,7 @@ class GenericNodeTests: XCTestCase {
 
     func testEffects() {
         nodeParameterTest(md5: "d15c926f3da74630f986f7325adf044c", factory: { input in Compressor(input) })
-        nodeParameterTest(md5: "e499f2ea0951f830d6dc6ccd5f751b19", factory: { input in Decimator(input) })
+        nodeParameterTest(md5: "ddfea2413fac59b7cdc71f1b8ed733a2", factory: { input in Decimator(input) })
         nodeParameterTest(md5: "5955693c964588d2eb571fadb2d744dd", factory: { input in Delay(input) })
         nodeParameterTest(md5: "6df759dd0dae23adb7b5f1c03ca15615", factory: { input in Distortion(input) })
         nodeParameterTest(md5: "0ae9a6b248486f343c55bf0818c3007d", factory: { input in PeakLimiter(input) })
