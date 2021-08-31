@@ -42,7 +42,7 @@ void resetDSP(DSPRef pDSP)
 
 void setParameterValueDSP(DSPRef pDSP, AUParameterAddress address, AUValue value)
 {
-    pDSP->setParameter(address, value, false);
+    pDSP->setParameter(address, value, /* immediate */ false);
 }
 
 AUValue getParameterValueDSP(DSPRef pDSP, AUParameterAddress address)
