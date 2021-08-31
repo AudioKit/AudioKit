@@ -53,6 +53,42 @@ public class Decimator: Node {
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue
 
+    /// Specification details for polynomialMix
+    private static let polynomialMixDef = NodeParameterDef(
+        identifier: "polynomialMix",
+        name: "Polynomial Mix",
+        address: AUParameterAddress(kDistortionParam_PolynomialMix),
+        defaultValue: 0,
+        range: 0 ... 100,
+        unit: .percent)
+
+    /// Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50). Turned off specifically for decimator
+    @Parameter(polynomialMixDef) private var polynomialMix: AUValue
+
+    /// Specification details for delayMix
+    private static let delayMixDef = NodeParameterDef(
+        identifier: "delayMix",
+        name: "Delay Mix",
+        address: AUParameterAddress(kDistortionParam_DelayMix),
+        defaultValue: 0,
+        range: 0 ... 100,
+        unit: .percent)
+
+    /// Delay Mix (Percent) ranges from 0 to 100 (Default: 50). Turned off specifically for decimator
+    @Parameter(delayMixDef) private var delayMix: AUValue
+
+    /// Specification details for ringModMix
+    private static let ringModMixDef = NodeParameterDef(
+        identifier: "ringModMix",
+        name: "RingMod Mix",
+        address: AUParameterAddress(kDistortionParam_RingModMix),
+        defaultValue: 0,
+        range: 0 ... 100,
+        unit: .percent)
+
+    /// Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 50). Turned off specifically for decimator
+    @Parameter(ringModMixDef) private var ringModMix: AUValue
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
@@ -75,6 +111,11 @@ public class Decimator: Node {
         self.decimation = decimation
         self.rounding = rounding
         self.finalMix = finalMix
+        // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
+
+        self.ringModMix = 0
+        self.polynomialMix = 0
+        self.delayMix = 0
     }
 
     /// Function to start, play, or activate the node, all do the same thing
