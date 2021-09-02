@@ -144,7 +144,7 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_LinearTerm),
         defaultValue: 0.5,
         range: 0 ... 1,
-        unit: .generic)
+        unit: .linearGain)
 
     /// Linear Term (Percent) ranges from 0 to 1 (Default: 0.5)
     @Parameter(linearTermDef) public var linearTerm: AUValue
@@ -156,7 +156,7 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_SquaredTerm),
         defaultValue: 10,
         range: 0 ... 20,
-        unit: .generic)
+        unit: .linearGain)
 
     /// Squared Term (Percent) ranges from 0 to 20 (Default: 10)
     @Parameter(squaredTermDef) public var squaredTerm: AUValue
@@ -168,7 +168,7 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_CubicTerm),
         defaultValue: 10,
         range: 0 ... 20,
-        unit: .generic)
+        unit: .linearGain)
 
     /// Cubic Term (Percent) ranges from 0 to 20 (Default: 10)
     @Parameter(cubicTermDef) public var cubicTerm: AUValue
