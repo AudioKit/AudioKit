@@ -109,6 +109,10 @@ public class NodeParameter {
             print("Warning: delay longer than 4096, setting to to 4096")
             delaySamples = 4096
         }
+        if !parameter.flags.contains(.flag_CanRamp) {
+            print("Error: can't ramp parameter \(parameter.displayName)")
+            return
+        }
         assert(delaySamples < 4096)
         let paramBlock = avAudioNode.auAudioUnit.scheduleParameterBlock
         paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
