@@ -42,17 +42,18 @@ public class WaveformDataRequest {
 
     /// will be returned on the queue you pass in or the global queue
     public func getDataAsync(with samplesPerPixel: Int,
+                             offset: Int = 0, length: Int = 0,
                              queue: DispatchQueue = DispatchQueue.global(qos: .userInitiated),
                              completionHandler: @escaping ((FloatChannelData?) -> Void)) {
         queue.async {
-            completionHandler(self.getData(with: samplesPerPixel))
+            completionHandler(self.getData(with: samplesPerPixel, offset: offset, length: length))
         }
     }
 
     /// Get waveform data
     /// - Parameter samplesPerPixel: Number of samples you want per point
     /// - Returns: An array of arry of floats, one for each channel
-    public func getData(with samplesPerPixel: Int) -> FloatChannelData? {
+    public func getData(with samplesPerPixel: Int, offset: Int = 0, length: Int = 0) -> FloatChannelData? {
         guard let audioFile = audioFile else { return nil }
 
         // prevent division by zero, + minimum resolution
@@ -70,9 +71,23 @@ public class WaveformDataRequest {
         let channelCount = Int(audioFile.processingFormat.channelCount)
         var data = Array(repeating: [Float](zeros: samplesPerPixel), count: channelCount)
 
-        var startFrame: AVAudioFramePosition = 0
+        var start = offset
+        if offset < 0 {
+            // offset < 0 case. read from the currentFrame
+            start = Int(currentFrame / Int64(framesPerBuffer))
+        }
+        var startFrame: AVAudioFramePosition = offset >= 0 ? Int64(offset*Int(framesPerBuffer)) : currentFrame
 
-        for i in 0 ..< samplesPerPixel {
+        var end = samplesPerPixel
+        if length > 0 {
+            end = start + length
+        }
+        // check end
+        if end > samplesPerPixel {
+            end = samplesPerPixel
+        }
+
+        for i in start ..< end {
             if abortGetWaveformData {
                 // return the file to frame is was on previously
                 audioFile.framePosition = currentFrame
