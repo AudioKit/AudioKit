@@ -42,7 +42,7 @@ public class WaveformDataRequest {
 
     /// will be returned on the queue you pass in or the global queue
     public func getDataAsync(with samplesPerPixel: Int,
-                             offset: Int = 0, length: Int = 0,
+                             offset: Int? = 0, length: UInt? = nil,
                              queue: DispatchQueue = DispatchQueue.global(qos: .userInitiated),
                              completionHandler: @escaping ((FloatChannelData?) -> Void)) {
         queue.async {
@@ -52,8 +52,10 @@ public class WaveformDataRequest {
 
     /// Get waveform data
     /// - Parameter samplesPerPixel: Number of samples you want per point
+    /// - Parameter offset: optional start offset to retrieve samples (default 0 : from 0, nil or minus : from currentFrame)
+    /// - Parameter length: optional length of retrieve samples (default is full length or remains)
     /// - Returns: An array of arry of floats, one for each channel
-    public func getData(with samplesPerPixel: Int, offset: Int = 0, length: Int = 0) -> FloatChannelData? {
+    public func getData(with samplesPerPixel: Int, offset: Int? = 0, length: UInt? = nil) -> FloatChannelData? {
         guard let audioFile = audioFile else { return nil }
 
         // prevent division by zero, + minimum resolution
@@ -71,20 +73,33 @@ public class WaveformDataRequest {
         let channelCount = Int(audioFile.processingFormat.channelCount)
         var data = Array(repeating: [Float](zeros: samplesPerPixel), count: channelCount)
 
-        var start = offset
-        if offset < 0 {
-            // offset < 0 case. read from the currentFrame
+        var start: Int
+        if let offset = offset, offset >= 0 {
+            start = offset
+        } else {
+            // offset == nil or minus case. read from the currentFrame
             start = Int(currentFrame / Int64(framesPerBuffer))
+            if let offset = offset, offset < 0 {
+                start += offset
+            }
+            // check start offset
+            if start < 0 {
+                start = 0
+            }
         }
-        var startFrame: AVAudioFramePosition = offset >= 0 ? Int64(offset*Int(framesPerBuffer)) : currentFrame
+        var startFrame: AVAudioFramePosition = offset == nil ? currentFrame : Int64(start*Int(framesPerBuffer))
 
         var end = samplesPerPixel
-        if length > 0 {
-            end = start + length
+        if let length = length {
+            end = start + Int(length)
         }
         // check end
         if end > samplesPerPixel {
             end = samplesPerPixel
+        }
+        if start > end {
+            Log("offset is larger than total length.")
+            return nil
         }
 
         for i in start ..< end {
