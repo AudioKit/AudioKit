@@ -75,6 +75,18 @@ public class Decimator: Node {
         self.decimation = decimation
         self.rounding = rounding
         self.finalMix = finalMix
+        // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
+
+        // turn off all the other distortions
+        func zero(_ param: AudioUnitParameterID) {
+            if let avAudioUnit = avAudioNode as? AVAudioUnit {
+                AudioUnitSetParameter(avAudioUnit.audioUnit, param: param, to: 0)
+            }
+        }
+
+        zero(kDistortionParam_PolynomialMix)
+        zero(kDistortionParam_RingModMix)
+        zero(kDistortionParam_DelayMix)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

@@ -40,19 +40,32 @@ public class WaveformDataRequest {
         audioFile = nil
     }
 
-    /// will be returned on the queue you pass in or the global queue
+    /// Get waveform data asynchronously
+    /// - Parameters:
+    ///   - samplesPerPixel: Number of samples you want per point
+    ///   - offset: optional start offset to retrieve samples (default 0 : from 0, nil or minus : from currentFrame)
+    ///   - length: optional length of retrieve samples (default is full length or remains)
+    ///   - queue: Optional distpatch Queue to  use, defaults to global user initiated queue
+    ///   - completionHandler: Code to call when the process is done
     public func getDataAsync(with samplesPerPixel: Int,
+                             offset: Int? = 0,
+                             length: UInt? = nil,
                              queue: DispatchQueue = DispatchQueue.global(qos: .userInitiated),
                              completionHandler: @escaping ((FloatChannelData?) -> Void)) {
         queue.async {
-            completionHandler(self.getData(with: samplesPerPixel))
+            completionHandler(self.getData(with: samplesPerPixel, offset: offset, length: length))
         }
     }
 
     /// Get waveform data
-    /// - Parameter samplesPerPixel: Number of samples you want per point
+    /// - Parameters:
+    ///   - samplesPerPixel: Number of samples you want per point
+    ///   - offset: optional start offset to retrieve samples (default 0 : from 0, nil or minus : from currentFrame)
+    ///   - length: optional length of retrieve samples (default is full length or remains)
     /// - Returns: An array of arry of floats, one for each channel
-    public func getData(with samplesPerPixel: Int) -> FloatChannelData? {
+    public func getData(with samplesPerPixel: Int,
+                        offset: Int? = 0,
+                        length: UInt? = nil) -> FloatChannelData? {
         guard let audioFile = audioFile else { return nil }
 
         // prevent division by zero, + minimum resolution
@@ -61,8 +74,8 @@ public class WaveformDataRequest {
         // store the current frame
         let currentFrame = audioFile.framePosition
 
-        let totalFrames = AVAudioFrameCount(audioFile.length)
-        var framesPerBuffer: AVAudioFrameCount = totalFrames / AVAudioFrameCount(samplesPerPixel)
+        let totalFrameCount = AVAudioFrameCount(audioFile.length)
+        var framesPerBuffer: AVAudioFrameCount = totalFrameCount / AVAudioFrameCount(samplesPerPixel)
 
         guard let rmsBuffer = AVAudioPCMBuffer(pcmFormat: audioFile.processingFormat,
                                                frameCapacity: AVAudioFrameCount(framesPerBuffer)) else { return nil }
@@ -70,9 +83,36 @@ public class WaveformDataRequest {
         let channelCount = Int(audioFile.processingFormat.channelCount)
         var data = Array(repeating: [Float](zeros: samplesPerPixel), count: channelCount)
 
-        var startFrame: AVAudioFramePosition = 0
+        var start: Int
+        if let offset = offset, offset >= 0 {
+            start = offset
+        } else {
+            // offset == nil or minus case. read from the currentFrame
+            start = Int(currentFrame / Int64(framesPerBuffer))
+            if let offset = offset, offset < 0 {
+                start += offset
+            }
+            // check start offset
+            if start < 0 {
+                start = 0
+            }
+        }
+        var startFrame: AVAudioFramePosition = offset == nil ? currentFrame : Int64(start*Int(framesPerBuffer))
 
-        for i in 0 ..< samplesPerPixel {
+        var end = samplesPerPixel
+        if let length = length {
+            end = start + Int(length)
+        }
+        // check end
+        if end > samplesPerPixel {
+            end = samplesPerPixel
+        }
+        if start > end {
+            Log("offset is larger than total length.")
+            return nil
+        }
+
+        for i in start ..< end {
             if abortGetWaveformData {
                 // return the file to frame is was on previously
                 audioFile.framePosition = currentFrame
@@ -100,8 +140,8 @@ public class WaveformDataRequest {
 
             startFrame += AVAudioFramePosition(framesPerBuffer)
 
-            if startFrame + AVAudioFramePosition(framesPerBuffer) > totalFrames {
-                framesPerBuffer = totalFrames - AVAudioFrameCount(startFrame)
+            if startFrame + AVAudioFramePosition(framesPerBuffer) > totalFrameCount {
+                framesPerBuffer = totalFrameCount - AVAudioFrameCount(startFrame)
                 if framesPerBuffer <= 0 { break }
             }
         }

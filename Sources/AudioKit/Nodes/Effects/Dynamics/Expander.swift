@@ -69,7 +69,7 @@ public class Expander: Node {
     public static let masterGainDef = NodeParameterDef(
         identifier: "masterGain",
         name: "Master Gain",
-        address: AUParameterAddress(kDynamicsProcessorParam_MasterGain),
+        address: AUParameterAddress(6),
         defaultValue: 0,
         range: -40 ... 40,
         unit: .decibels)
