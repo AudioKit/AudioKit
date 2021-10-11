@@ -1,24 +1,30 @@
 {
-  "name": "AudioKit Collection",
-  "overview": "Swift audio synthesis, processing, & analysis platform for iOS, macOS and tvOS",
+  "name": "AudioKit Packages",
+  "overview": "Swift audio synthesis, processing, & analysis.  Includes the AudioKit base and optional add-on audio kits with their own special capabilities.",
   "packages": [
     {
-      "url": "https://github.com/audiokit/audiokit.git"
-    },
-    {
-      "url": "https://github.com/audiokit/soundpipeaudiokit.git"
-    },
-    {
-      "url": "https://github.com/audiokit/stkaudiokit.git"
-    },
-    {
-      "url": "https://github.com/audiokit/SporthAudioKit.git"
-    },
-    {
-      "url": "https://github.com/audiokit/DunneAudioKit.git"
+      "url": "https://github.com/AudioKit/AudioKit.git"
     },
     {
       "url": "https://github.com/AudioKit/DevoloopAudioKit.git"
+    },
+    {
+      "url": "https://github.com/AudioKit/DunneAudioKit.git"
+    },
+    {
+      "url": "https://github.com/AudioKit/MicrotonalAudioKit.git"
+    },
+    {
+      "url": "https://github.com/AudioKit/SoundpipeAudioKit.git"
+    },
+    {
+      "url": "https://github.com/AudioKit/SoulAudioKit.git"
+    },
+    {
+      "url": "https://github.com/AudioKit/SporthAudioKit.git"
+    },
+    {
+      "url": "https://github.com/AudioKit/STKAudioKit.git"
     }
   ]
 }
