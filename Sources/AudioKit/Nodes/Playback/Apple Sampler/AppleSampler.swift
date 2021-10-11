@@ -44,7 +44,7 @@ open class AppleSampler: Node {
     public var avAudioNode: AVAudioNode { samplerUnit }
 
     /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
-    /// Doesn't transpose by playing another note (and the accoring zone and layer)
+    /// Doesn't transpose by playing another note (and the according zone and layer)
     /// but bends the sound up and down like tuning.
     public var tuning: AUValue {
         get {
@@ -177,7 +177,7 @@ open class AppleSampler: Node {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number to play
     ///   - velocity: MIDI Velocity
-    ///   - channel: MIDI Channnel
+    ///   - channel: MIDI Channel
     ///
     /// NB: when using an audio file, noteNumber 60 will play back the file at normal
     /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
@@ -191,7 +191,7 @@ open class AppleSampler: Node {
     ///
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number to stop
-    ///   - channel: MIDI Channnel
+    ///   - channel: MIDI Channel
     ///
     open func stop(noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
         samplerUnit.stopNote(noteNumber, onChannel: channel)
