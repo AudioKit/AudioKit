@@ -80,6 +80,17 @@ open class AppleSampler: Node {
         return nil
     }
 
+    /// Variant of the above method to find a file either in the main bundle or at an absolute path
+    /// by trying several file extensions. The first match will be returned.
+    internal func findFileURL(_ path: String, withExtension extensions: [String], in bundle: Bundle = .main) -> URL? {
+        for ext in extensions {
+            if let url = findFileURL(path, withExtension: ext, in: bundle) {
+                return url
+            }
+        }
+        return nil
+    }
+
     /// Load a wav file
     ///
     /// - Parameters:
@@ -128,7 +139,7 @@ open class AppleSampler: Node {
     }
 
     /// Load a file path. The sampler can be configured by loading
-    /// instruments from different types of files such as an aupreset, a DLS or SF2 sound bank,
+    /// instruments from different types of files such as an aupreset,
     /// an EXS24 instrument, a single audio file, or an array of audio files.
     ///
     /// - parameter filePath: Name of the file with the extension
@@ -203,8 +214,8 @@ open class AppleSampler: Node {
     // SoundFont extension, but when place there, iOS12 beta crashed
 
     fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int, in bundle: Bundle = .main) throws {
-        guard let url = findFileURL(file, withExtension: "sf2", in: bundle) else {
-            Log("Soundfont file not found: \(file)")
+        guard let url = findFileURL(file, withExtension: ["sf2", "dls"], in: bundle) else {
+            Log("SoundFont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         do {
@@ -220,16 +231,16 @@ open class AppleSampler: Node {
         }
     }
 
-    /// Load a Bank from a SoundFont SF2 sample data file
+    /// Load a Bank from a SoundFont SF2 sample data file or a DLS file
     ///
     /// - Parameters:
-    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - file: Name of the SoundFont SF2 or the DLS file without the .sf2 / .dls extension
     ///   - preset: Number of the program to use
     ///   - bank: Number of the bank to use
     ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
     public func loadSoundFont(_ file: String, preset: Int, bank: Int, in bundle: Bundle = .main) throws {
-        guard let url = findFileURL(file, withExtension: "sf2", in: bundle) else {
+        guard let url = findFileURL(file, withExtension: ["sf2", "dls"], in: bundle) else {
             Log("Soundfont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
@@ -253,10 +264,10 @@ open class AppleSampler: Node {
         }
     }
 
-    /// Load a Melodic SoundFont SF2 sample data file
+    /// Load a Melodic SoundFont SF2 sample data file or a DLS file
     ///
     /// - Parameters:
-    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - file: Name of the SoundFont SF2 or the DLS file without the .sf2 / .dls extension
     ///   - preset: Number of the program to use
     ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
@@ -264,10 +275,10 @@ open class AppleSampler: Node {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
     }
 
-    /// Load a Percussive SoundFont SF2 sample data file
+    /// Load a Percussive SoundFont SF2 sample data file or a DLS file
     ///
     /// - Parameters:
-    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - file: Name of the SoundFont SF2 or the DLS file without the .sf2 / .dls extension
     ///   - preset: Number of the program to use
     ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
