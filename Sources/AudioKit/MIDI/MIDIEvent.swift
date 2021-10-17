@@ -215,7 +215,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     ///   - byte1:   First data byte
     ///   - byte2:   Second data byte
     ///
-    init(command: MIDISystemCommand, byte1: MIDIByte, byte2: MIDIByte? = nil) {
+    public init(command: MIDISystemCommand, byte1: MIDIByte, byte2: MIDIByte? = nil) {
         var data = [byte1]
         if let byte2 = byte2 {
             data.append(byte2)
