@@ -21,7 +21,7 @@ To add AudioKit to your Xcode project
 
 1. Select File -> Add Packages...
 2. Enter `https://github.com/AudioKit/AudioKit` for the URL, into the search input field in the top right.
-3. Click on the "Add Package" button.
+3. When the AudioKit package appears, click on the "Add Package" button.
 4. When the dialogue box appears, saying "Choose Package Products for AudioKit," you can define which version range you want, or which branch to use, or even which exact commit you would like use. If you only have one package, it will be checked by default.
 5. Click on the "Add Package" button to complete the download of the AudioKit Swift Package.
 
