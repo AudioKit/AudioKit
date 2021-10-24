@@ -17,13 +17,14 @@ AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS
 
 ### In Xcode 13:
 
-To add AudioKit to your Xcode project
+You can AudioKit and any of the other AudioKit libraries using Collections
 
 1. Select File -> Add Packages...
-2. Enter `https://github.com/AudioKit/AudioKit` for the URL, into the search input field in the top right.
-3. When the AudioKit package appears, click on the "Add Package" button.
-4. When the dialogue box appears, saying "Choose Package Products for AudioKit," you can define which version range you want, or which branch to use, or even which exact commit you would like use. If you only have one package, it will be checked by default.
-5. Click on the "Add Package" button to complete the download of the AudioKit Swift Package.
+2. Click the `+` icon on the bottom left of the Collections sidebar on the left.
+3. Choose `Add Swift Package Collection` from the pop-up menu.
+4. In the `Add Package Collection` dialog box, enter `https://swiftpackageindex.com/AudioKit/collection.json` as the URL and click the "Load" button.
+5. It will warn you that the collection is not signed, but it is fine, click "Add Unsigned Collection".
+6. Now you can add any of the AudioKit Swift Packages you need and read about what they do, right from within Xcode.
 
 ### In Xcode 11 & 12:
 
