@@ -5,7 +5,7 @@ import AVFoundation
 extension AVAudioNode {
 
     /// Disconnect without breaking other connections.
-    func disconnect(input: AVAudioNode) {
+    public func disconnect(input: AVAudioNode) {
 
         if let engine = engine {
 

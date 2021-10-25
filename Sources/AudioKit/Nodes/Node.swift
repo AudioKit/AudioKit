@@ -32,7 +32,7 @@ extension Node {
         }
     }
 
-    func disconnectAV() {
+    public func disconnectAV() {
         if let engine = avAudioNode.engine {
             engine.disconnectNodeInput(avAudioNode)
             for (_, connection) in connections.enumerated() {
