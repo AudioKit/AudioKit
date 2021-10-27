@@ -5,8 +5,12 @@
 import Darwin
 
 /// A property wrapper that ensures atomic access to a value, meaning thread-safe with implicit serial read/write access.
+///
 /// Multiple read accesses can potentially read at the same time, just not during a write.
-/// By using `pthread` to do the locking, this safer then using a `DispatchQueue/barrier` as there isn't a chance of priority inversion.
+///
+/// By using `pthread` to do the locking, this safer than using a `DispatchQueue/barrier` as there isn't a chance of priority inversion.
+///
+/// By using `_modify { }` instead of `set { }` for mutation, direct and exclusive mutability is provided. In cases where get-then-set semantics may otherwise exist on wrapped value types (such as with subscript setters on `Array` or `Dictionary`), these remain stable during concurrent access by assuring the get and set happen in a single operation, and also provides a performance improvement.
 @propertyWrapper
 public final class ThreadLockedAccessor<T> {
     private var value: T
@@ -24,21 +28,11 @@ public final class ThreadLockedAccessor<T> {
             defer { self.lock.unlock() }
             return value
         }
-        set {
+        _modify {
             lock.writeLock()
-            value = newValue
+            yield &value
             lock.unlock()
         }
-    }
-
-    /// Provides a closure that will be called synchronously.
-    /// This closure will be passed in the current value and it is free to modify it.
-    /// Any modifications will be saved back to the original value.
-    /// No other reads/writes will be allowed between when the closure is called and it returns.
-    public func mutate(_ closure: (inout T) -> Void) {
-        lock.writeLock()
-        closure(&value)
-        lock.unlock()
     }
 }
 
