@@ -413,4 +413,9 @@ public extension DSPSplitComplex {
 
         self.init(realp: realp, imagp: imagp)
     }
+
+    func deallocate() {
+        realp.deallocate()
+        imagp.deallocate()
+    }
 }

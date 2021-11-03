@@ -69,6 +69,9 @@ open class FFTTap: BaseTap {
         let fftSetup = vDSP_create_fftsetup(log2n, Int32(kFFTRadix2))
 
         var output = DSPSplitComplex(repeating: 0, count: binCount)
+        defer {
+            output.deallocate()
+        }
 
         let windowSize = bufferSizePOT
         var transferBuffer = [Float](repeating: 0, count: windowSize)
@@ -94,6 +97,10 @@ open class FFTTap: BaseTap {
         // Parseval's theorem - Scale with respect to the number of bins
         var scaledOutput = DSPSplitComplex(repeating: 0, count: binCount)
         var scaleMultiplier = DSPSplitComplex(repeatingReal: 1.0 / Float(binCount), repeatingImag: 0, count: 1)
+        defer {
+            scaledOutput.deallocate()
+            scaleMultiplier.deallocate()
+        }
         vDSP_zvzsml(&output,
                     1,
                     &scaleMultiplier,
