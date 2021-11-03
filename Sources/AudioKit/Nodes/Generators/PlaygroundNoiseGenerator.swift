@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import CoreAudio // for UnsafeMutableAudioBufferListPointer
 
 /// Pure Swift Noise Generator
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
