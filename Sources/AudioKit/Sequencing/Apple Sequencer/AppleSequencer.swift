@@ -710,17 +710,13 @@ open class AppleSequencer: NSObject {
 
     /// Get a new track
     public func newTrack(_ name: String = "Unnamed") -> MusicTrackManager? {
+        guard let existingSequence = sequence else { return nil }
         var newMusicTrack: MusicTrack?
-        var count: UInt32 = 0
-        if let existingSequence = sequence {
-            MusicSequenceNewTrack(existingSequence, &newMusicTrack)
-            MusicSequenceGetTrackCount(existingSequence, &count)
-        }
-        if let existingNewMusicTrack = newMusicTrack {
-            tracks.append(MusicTrackManager(musicTrack: existingNewMusicTrack, name: name))
-        }
-
-        return tracks.last
+        MusicSequenceNewTrack(existingSequence, &newMusicTrack)
+        guard let musicTrack = newMusicTrack else { return nil }
+        let newTrack = MusicTrackManager(musicTrack: musicTrack, name: name)
+        tracks.append(newTrack)
+        return newTrack
     }
 
     // MARK: - Delete Tracks
