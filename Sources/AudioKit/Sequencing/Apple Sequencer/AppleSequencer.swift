@@ -839,4 +839,39 @@ open class AppleSequencer: NSObject {
     func modTime(_ time: Double) -> Double {
         return time.truncatingRemainder(dividingBy: length.beats)
     }
+
+    // MARK: - Time Conversion
+
+    public enum MusicPlayerTimeConversionError: Error {
+        case musicPlayerIsNotPlaying
+        case osStatus(OSStatus)
+    }
+
+    /// Returns the host time that will be (or was) played at the specified beat.
+    /// This function is valid only if the music player is playing.
+    public func hostTime(forBeats inBeats: AVMusicTimeStamp) throws -> UInt64 {
+        guard let musicPlayer = self.musicPlayer, self.isPlaying else {
+            throw MusicPlayerTimeConversionError.musicPlayerIsNotPlaying
+        }
+        var hostTime: UInt64 = 0
+        let code = MusicPlayerGetHostTimeForBeats(musicPlayer, inBeats, &hostTime)
+        guard code == noErr else {
+            throw MusicPlayerTimeConversionError.osStatus(code)
+        }
+        return hostTime
+    }
+
+    /// Returns the beat that will be (or was) played at the specified host time.
+    /// This function is valid only if the music player is playing.
+    public func beats(forHostTime inHostTime: UInt64) throws -> AVMusicTimeStamp {
+        guard let musicPlayer = self.musicPlayer, self.isPlaying else {
+            throw MusicPlayerTimeConversionError.musicPlayerIsNotPlaying
+        }
+        var beats: MusicTimeStamp = 0
+        let code = MusicPlayerGetBeatsForHostTime(musicPlayer, inHostTime, &beats)
+        guard code == noErr else {
+            throw MusicPlayerTimeConversionError.osStatus(code)
+        }
+        return beats
+    }
 }
