@@ -602,6 +602,84 @@ class AppleSequencerTests: XCTestCase {
         XCTAssertEqual(seq.getTimeSignature(at: 3.5), fourFour)
     }
 
+    // MARK: - Time Conversion
+
+    func testHostTimeForBeats_shouldReportErrorWhenNotPlaying() {
+        XCTAssertThrowsError(try seq.hostTime(forBeats: 0))
+    }
+
+    func testHostTimeForBeats_willGiveCorrectResultForConstantTempo() throws {
+        let newTrack = try XCTUnwrap(seq.newTrack())
+        newTrack.replaceMIDINoteData(with: generateMIDINoteDataArray(beatCount: 4, noteNumber: 50))
+        seq.setTempo(90)
+        seq.play()
+        let estimatedPlayerStartTime = mach_absolute_time()
+        let beatTime = try seq.hostTime(forBeats: 4)
+        seq.stop()
+        let expected4thBeatHostTime = UInt64(
+            Double(4 * 60.0 / 90.0) * Double(NSEC_PER_SEC) *
+            Double(machTimebaseInfo.denom) / Double(machTimebaseInfo.numer)
+        ) + estimatedPlayerStartTime
+        let diff = abs(CMClockMakeHostTimeFromSystemUnits(beatTime).seconds -
+                       CMClockMakeHostTimeFromSystemUnits(expected4thBeatHostTime).seconds)
+        XCTAssert(diff < 0.1)
+    }
+
+    func testHostTimeForBeats_willGiveCorrectResultForMultipleTempoEvents() throws {
+        let newTrack = try XCTUnwrap(seq.newTrack())
+        newTrack.replaceMIDINoteData(with: generateMIDINoteDataArray(beatCount: 4, noteNumber: 50))
+        seq.setTempo(90)
+        seq.addTempoEventAt(tempo: 60, position: Duration(beats: 2))
+        seq.play()
+        let estimatedPlayerStartTime = mach_absolute_time()
+        let beatTime = try seq.hostTime(forBeats: 4)
+        seq.stop()
+        let beatTimeInSeconds: TimeInterval = 2.0 * 60.0 / 90.0 + 2.0 * 60.0 / 60.0
+        let expected4thBeatHostTime = UInt64(
+            beatTimeInSeconds * Double(NSEC_PER_SEC) *
+            Double(machTimebaseInfo.denom) / Double(machTimebaseInfo.numer)
+        ) + estimatedPlayerStartTime
+        let diff = abs(CMClockMakeHostTimeFromSystemUnits(beatTime).seconds -
+                       CMClockMakeHostTimeFromSystemUnits(expected4thBeatHostTime).seconds)
+        XCTAssert(diff < 0.1)
+    }
+
+    func testBeatsForHostTime_shouldReportErrorWhenNotPlaying() {
+        XCTAssertThrowsError(try seq.beats(forHostTime: mach_absolute_time()))
+    }
+
+    func testBeatsForHostTime_willGiveCorrectResultForConstantTempo() throws {
+        let newTrack = try XCTUnwrap(seq.newTrack())
+        newTrack.replaceMIDINoteData(with: generateMIDINoteDataArray(beatCount: 4, noteNumber: 50))
+        seq.setTempo(90)
+        seq.play()
+        let estimatedPlayerStartTime = mach_absolute_time()
+        let expected4thBeatTime = UInt64(
+            Double(4 * 60.0 / 90.0) * Double(NSEC_PER_SEC) *
+            Double(machTimebaseInfo.denom) / Double(machTimebaseInfo.numer)
+        ) + estimatedPlayerStartTime
+        let beat = try seq.beats(forHostTime: expected4thBeatTime)
+        seq.stop()
+        XCTAssert(round(beat) == 4)
+    }
+
+    func testBeatsForHostTime_willGiveCorrectResultForMultipleTempoEvents() throws {
+        let newTrack = try XCTUnwrap(seq.newTrack())
+        newTrack.replaceMIDINoteData(with: generateMIDINoteDataArray(beatCount: 4, noteNumber: 50))
+        seq.setTempo(90)
+        seq.addTempoEventAt(tempo: 60, position: Duration(beats: 2))
+        seq.play()
+        let estimatedPlayerStartTime = mach_absolute_time()
+        let beatTimeInSeconds: TimeInterval = 2.0 * 60.0 / 90.0 + 2.0 * 60.0 / 60.0
+        let expected4thBeatHostTime = UInt64(
+            beatTimeInSeconds * Double(NSEC_PER_SEC) *
+            Double(machTimebaseInfo.denom) / Double(machTimebaseInfo.numer)
+        ) + estimatedPlayerStartTime
+        let beat = try seq.beats(forHostTime: expected4thBeatHostTime)
+        seq.stop()
+        XCTAssert(round(beat) == 4)
+    }
+
     // MARK: - helper functions
     func generateMIDINoteDataArray(beatCount: Int, noteNumber: Int = 60) -> [MIDINoteData] {
         return (0 ..< beatCount).map { MIDINoteData(noteNumber: MIDINoteNumber(noteNumber),
@@ -626,6 +704,13 @@ class AppleSequencerTests: XCTestCase {
                                  bottomValue: TimeSignature.TimeSignatureBottomValue.four)
     let sevenEight = TimeSignature(topValue: 7,
                                    bottomValue: TimeSignature.TimeSignatureBottomValue.eight)
+
+    let machTimebaseInfo: mach_timebase_info = {
+        var info = mach_timebase_info()
+        let machTimebaseInfoResult = mach_timebase_info(&info)
+        precondition(machTimebaseInfoResult == KERN_SUCCESS)
+        return info
+    }()
 }
 
 extension AppleSequencer {
