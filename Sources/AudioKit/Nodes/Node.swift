@@ -168,7 +168,7 @@ extension Node {
 
 }
 
-protocol HasInternalConnections: AnyObject {
+public protocol HasInternalConnections: AnyObject {
     /// Override point for any connections internal to the node.
     func makeInternalConnections()
 }
