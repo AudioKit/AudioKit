@@ -29,7 +29,7 @@ public class Reverb: Node {
     /// Dry/Wet Mix (Default 0.5)
     public var dryWetMix: AUValue = 0.5 {
         didSet {
-            dryWetMix = (0...1).clamp(dryWetMix)
+            dryWetMix = dryWetMix.clamped(to: 0...1)
             reverbAU.wetDryMix = dryWetMix * 100.0
         }
     }

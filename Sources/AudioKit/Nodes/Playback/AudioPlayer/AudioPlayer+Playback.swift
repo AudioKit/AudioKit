@@ -88,7 +88,7 @@ extension AudioPlayer {
     public func seek(time: TimeInterval) {
         let wasPlaying = isPlaying
 
-        let time = (0 ... duration).clamp(time)
+        let time = time.clamped(to: 0...duration)
 
         isSeeking = true
 

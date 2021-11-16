@@ -145,7 +145,7 @@ public class AudioPlayer: Node {
     public var editStartTime: TimeInterval {
         get { _editStartTime }
         set {
-            _editStartTime = (0 ... duration).clamp(newValue)
+            _editStartTime = newValue.clamped(to: 0...duration)
         }
     }
 
@@ -162,7 +162,7 @@ public class AudioPlayer: Node {
             if newValue == 0 {
                 newValue = duration
             }
-            _editEndTime = (0 ... duration).clamp(newValue)
+            _editEndTime = newValue.clamped(to: 0...duration)
         }
     }
 
