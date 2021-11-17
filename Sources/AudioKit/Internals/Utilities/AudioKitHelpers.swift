@@ -136,14 +136,6 @@ extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntege
     }
 }
 
-extension ClosedRange {
-    /// Clamp value to the range
-    /// - parameter value: Value to clamp
-    public func clamp(_ value: Bound) -> Bound {
-        return Swift.min(Swift.max(value, lowerBound), upperBound)
-    }
-}
-
 extension Sequence where Iterator.Element: Hashable {
     internal var unique: [Iterator.Element] {
         var s: Set<Iterator.Element> = []

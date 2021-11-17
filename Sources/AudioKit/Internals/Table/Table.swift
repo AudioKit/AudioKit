@@ -63,7 +63,7 @@ public class Table: MutableCollection {
     /// Phase of the table
     public var phase: Float {
         didSet {
-            phase = (0 ... 1).clamp(phase)
+            phase = phase.clamped(to: 0...1)
         }
     }
 

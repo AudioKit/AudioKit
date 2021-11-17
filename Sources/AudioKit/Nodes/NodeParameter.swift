@@ -65,9 +65,9 @@ public class NodeParameter {
             if let avAudioUnit = avAudioNode as? AVAudioUnit {
                 AudioUnitSetParameter(avAudioUnit.audioUnit,
                                       param: AudioUnitParameterID(def.address),
-                                      to: range.clamp(newValue))
+                                      to: newValue.clamped(to: range))
             }
-            parameter.value = range.clamp(newValue)
+            parameter.value = newValue.clamped(to: range)
         }
     }
 
@@ -118,7 +118,7 @@ public class NodeParameter {
         paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
                    AUAudioFrameCount(duration * Float(Settings.sampleRate)),
                    parameter.address,
-                   range.clamp(value))
+                   value.clamped(to: range))
     }
 
     private var parameterObserverToken: AUParameterObserverToken?

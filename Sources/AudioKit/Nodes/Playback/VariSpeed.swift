@@ -19,7 +19,7 @@ public class VariSpeed: Node {
     /// Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
     public var rate: AUValue = 1.0 {
         didSet {
-            rate = (0.25...4).clamp(rate)
+            rate = rate.clamped(to: 0.25...4)
             variSpeedAU.rate = rate
         }
     }

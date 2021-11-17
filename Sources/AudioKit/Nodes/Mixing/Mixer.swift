@@ -29,8 +29,7 @@ public class Mixer: Node, NamedNode {
     /// Output Pan (-1 to 1, Default 0 = center)
     public var pan: AUValue = 0 {
         didSet {
-            pan = min(pan, 1)
-            pan = max(pan, -1)
+            pan = pan.clamped(to: -1...1)
             mixerAU.pan = pan
         }
     }
