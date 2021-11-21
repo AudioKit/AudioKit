@@ -40,7 +40,7 @@ public class MultiSegmentAudioPlayer: Node {
     /// - Parameters:
     ///     - audioSegments: segments of audio files to be scheduled for playback
     ///     - referenceTimeStamp: time to schedule against (think global time / timeline location / studio time)
-    public func playSegments(audioSegments: [StreamableAudioSegment], referenceTimeStamp: TimeInterval) {
+    public func playSegments(audioSegments: [StreamableAudioSegment], referenceTimeStamp: TimeInterval = 0) {
         scheduleSegments(audioSegments: audioSegments, referenceTimeStamp: referenceTimeStamp)
         play()
     }
@@ -51,7 +51,13 @@ public class MultiSegmentAudioPlayer: Node {
     ///     - referenceTimeStamp: time to schedule against (think global time / timeline location / studio time)
     public func scheduleSegments(audioSegments: [StreamableAudioSegment], referenceTimeStamp: TimeInterval = 0) {
         for segment in audioSegments {
-            if segment.endingTime < referenceTimeStamp { continue } // skip the clip if it's already past
+            
+            // how long the file will be playing back for in seconds
+            let durationToSchedule = segment.fileEndTime - segment.fileStartTime
+            
+            let endTimeWithRespectToReference = segment.playbackStartTime + durationToSchedule
+            
+            if endTimeWithRespectToReference < referenceTimeStamp { continue } // skip the clip if it's already past
 
             // either play right away or schedule for a future time to begin playback
             var whenToPlay = AVAudioTime.now()
@@ -59,13 +65,13 @@ public class MultiSegmentAudioPlayer: Node {
             // the specific location in the audio file we will start playing from
             var fileStartTime = segment.fileStartTime
             
-            if segment.startingTime > referenceTimeStamp {
+            if segment.playbackStartTime > referenceTimeStamp {
                 // there's space before we should start playing
-                let offsetSeconds = segment.startingTime - referenceTimeStamp
+                let offsetSeconds = segment.playbackStartTime - referenceTimeStamp
                 whenToPlay = whenToPlay.offset(seconds: offsetSeconds)
             } else {
                 // adjust for playing somewhere in the middle of a segment
-                fileStartTime = segment.fileStartTime + referenceTimeStamp - segment.startingTime
+                fileStartTime = segment.fileStartTime + referenceTimeStamp - segment.playbackStartTime
             }
             
             let sampleRate = segment.audioFile.fileFormat.sampleRate
@@ -116,8 +122,7 @@ extension MultiSegmentAudioPlayer: HasInternalConnections {
 
 public protocol StreamableAudioSegment {
     var audioFile: AVAudioFile { get }
-    var startingTime: TimeInterval { get }
-    var endingTime: TimeInterval { get }
+    var playbackStartTime: TimeInterval { get }
     var fileStartTime: TimeInterval { get }
     var fileEndTime: TimeInterval { get }
     var completionHandler: AVAudioNodeCompletionHandler? { get }
