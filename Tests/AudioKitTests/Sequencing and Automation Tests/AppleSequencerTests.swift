@@ -680,6 +680,30 @@ class AppleSequencerTests: XCTestCase {
         XCTAssert(round(beat) == 4)
     }
 
+    func testChords() {
+        let url = Bundle.module.url(forResource: "chords", withExtension: "mid", subdirectory: "TestResources")!
+        seq.loadMIDIFile(fromURL: url)
+
+        var eventCount = 0
+        let expectedEvents = 24
+        let expect = XCTestExpectation(description: "wait for callback")
+
+        let inst = MIDICallbackInstrument(midiInputName: "test") { byte0, byte1, byte2 in
+            print("received midi \(byte0), \(byte1), \(byte2)")
+            eventCount += 1
+            if eventCount == expectedEvents {
+                expect.fulfill()
+            }
+        }
+
+        seq.setGlobalMIDIOutput(inst.midiIn)
+        seq.play()
+
+        wait(for: [expect], timeout: 5.0)
+
+        XCTAssertEqual(eventCount, expectedEvents)
+    }
+
     // MARK: - helper functions
     func generateMIDINoteDataArray(beatCount: Int, noteNumber: Int = 60) -> [MIDINoteData] {
         return (0 ..< beatCount).map { MIDINoteData(noteNumber: MIDINoteNumber(noteNumber),
