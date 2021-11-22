@@ -24,7 +24,7 @@ jobs:
       - name: Run Tests (ASAN)
         run: |
           set -euo pipefail
-          xcodebuild -scheme AudioKit -enableAddressSanitizer YES test
+          xcodebuild -destination 'platform=OS X,arch=x86_64' -scheme AudioKit -enableAddressSanitizer YES test
 
   # Generate Wiki docs on release
   docs:
