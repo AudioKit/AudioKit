@@ -47,11 +47,15 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
                          name: String? = nil) {
         let cfName = (name ?? self.name) as CFString
         CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
-            for e in packetList.pointee {
-                e.forEach { (event) in
-                    DispatchQueue.main.async {
-                        self.handle(event: event)
+            withUnsafePointer(to: packetList.pointee.packet) { packetPtr in
+                var p = packetPtr
+                for _ in 1...packetList.pointee.numPackets {
+                    p.pointee.forEach { event in
+                        DispatchQueue.main.async {
+                            self.handle(event: event)
+                        }
                     }
+                    p = UnsafePointer<MIDIPacket>(MIDIPacketNext(p))
                 }
             }
         })
