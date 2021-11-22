@@ -30,16 +30,6 @@ extension AudioPlayer {
             endFrame = AVAudioFramePosition(revEndTime * sampleRate)
         }
 
-        let updateNeeded = force ||
-            buffer == nil ||
-            startFrame != startingFrame ||
-            endFrame != endingFrame
-
-        guard updateNeeded else {
-            // Log("Data is unchanged, no buffer update is needed")
-            return
-        }
-
         guard file.length > 0 else {
             Log("Could not set PCM buffer in " +
                 "\(file.url.lastPathComponent) length = 0.", type: .error)
