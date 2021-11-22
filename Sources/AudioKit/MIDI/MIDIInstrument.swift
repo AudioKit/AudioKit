@@ -50,7 +50,7 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
             withUnsafePointer(to: packetList.pointee.packet) { packetPtr in
                 var p = packetPtr
                 for _ in 1...packetList.pointee.numPackets {
-                    p.pointee.forEach { event in
+                    for event in p.pointee {
                         DispatchQueue.main.async {
                             self.handle(event: event)
                         }
