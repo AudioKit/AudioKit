@@ -50,10 +50,14 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
             withUnsafePointer(to: packetList.pointee.packet) { packetPtr in
                 var p = packetPtr
                 for _ in 1...packetList.pointee.numPackets {
-                    p.pointee.forEach { event in
+                    let packetData = MIDIEvent.decode(packet: p.pointee)
+                    var i = 0
+                    while i < packetData.count {
+                        let event = MIDIEvent(data: Array<MIDIByte>(packetData[i..<i+3]), timeStamp: nil)
                         DispatchQueue.main.async {
                             self.handle(event: event)
                         }
+                        i += 3 // XXX: assume length 3 for now
                     }
                     p = UnsafePointer<MIDIPacket>(MIDIPacketNext(p))
                 }
