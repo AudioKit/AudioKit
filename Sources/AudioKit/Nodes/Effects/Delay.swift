@@ -20,7 +20,7 @@ public class Delay: Node {
         identifier: "dryWetMix",
         name: "Dry-Wet Mix",
         address: 0,
-        defaultValue: 1,
+        defaultValue: 50,
         range: 0.0 ... 1.0,
         unit: .generic)
 

@@ -88,9 +88,16 @@ open class NodeRecorder: NSObject {
 
     // MARK: - Methods
 
+    /// Use Date and Time as Filename
+    private static func createDateFileName() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss"
+        return dateFormatter.string(from:Date())
+    }
+
     /// Returns a CAF file in the NSTemporaryDirectory suitable for writing to via Settings.audioFormat
     public static func createTempFile() -> AVAudioFile? {
-        let filename = UUID().uuidString + ".caf"
+        let filename = createDateFileName() + ".caf"
         let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(filename)
         var settings = Settings.audioFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
