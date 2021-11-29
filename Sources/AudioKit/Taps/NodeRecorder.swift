@@ -92,7 +92,7 @@ open class NodeRecorder: NSObject {
     private static func createDateFileName() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss"
-        return dateFormatter.string(from:Date())
+        return dateFormatter.string(from: Date())
     }
 
     /// Returns a CAF file in the NSTemporaryDirectory suitable for writing to via Settings.audioFormat
