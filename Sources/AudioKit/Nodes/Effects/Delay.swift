@@ -20,11 +20,11 @@ public class Delay: Node {
         identifier: "dryWetMix",
         name: "Dry-Wet Mix",
         address: 0,
-        defaultValue: 50,
-        range: 0.0 ... 1.0,
+        defaultValue: 100,
+        range: 0.0 ... 100.0,
         unit: .generic)
 
-    /// Dry/wet mix. Should be a value between 0-1.
+    /// Dry/wet mix. Should be a value between 0-100.
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
     
     /// Specification details for time
