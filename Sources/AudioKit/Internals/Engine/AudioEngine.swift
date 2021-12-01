@@ -276,14 +276,7 @@ public class AudioEngine {
         }
         #else
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
-        if devs.isNotEmpty {
-            var outs = [Device]()
-            for dev in devs {
-                outs.append(Device(name: dev.portName, deviceID: dev.uid))
-            }
-            return outs
-        }
-        return []
+        return devs.map { Device(name: $0.portName, deviceID: $0.uid) }
         #endif
     }
 
@@ -325,15 +318,9 @@ public class AudioEngine {
 
     /// The current input device, if available.
     public var inputDevice: Device? {
-        if let portDescription = AVAudioSession.sharedInstance().preferredInput {
+        let session = AVAudioSession.sharedInstance()
+        if let portDescription = session.preferredInput ?? session.currentRoute.inputs.first {
             return Device(portDescription: portDescription)
-        } else {
-            let inputDevices = AVAudioSession.sharedInstance().currentRoute.inputs
-            if inputDevices.isNotEmpty {
-                for device in inputDevices {
-                    return Device(portDescription: device)
-                }
-            }
         }
         return nil
     }
@@ -341,10 +328,7 @@ public class AudioEngine {
     /// The current output device, if available.
     public var outputDevice: Device? {
         let devs = AVAudioSession.sharedInstance().currentRoute.outputs
-        if devs.isNotEmpty {
-            return Device(name: devs[0].portName, deviceID: devs[0].uid)
-        }
-        return nil
+        return devs.first.map { Device(name: $0.portName, deviceID: $0.uid) }
     }
     #endif
 
