@@ -70,8 +70,9 @@ public class AudioEngine {
         var isNotConnected = true
 
         func connect(to engine: AudioEngine) {
-            Settings.audioFormat = AVAudioFormat(standardFormatWithSampleRate: engine.avEngine.inputNode.inputFormat(forBus: 0).sampleRate,
-                                                 channels: 2) ?? AVAudioFormat()
+            Settings.audioFormat = AVAudioFormat(standardFormatWithSampleRate:
+                                                    engine.avEngine.inputNode.inputFormat(forBus: 0)
+                                                    .sampleRate,channels: 2) ?? AVAudioFormat()
             engine.avEngine.attach(avAudioNode)
             engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
         }
