@@ -70,6 +70,7 @@ public class AudioEngine {
         var isNotConnected = true
 
         func connect(to engine: AudioEngine) {
+            Settings.audioFormat = engine.avEngine.inputNode.inputFormat(forBus: 0)
             engine.avEngine.attach(avAudioNode)
             engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
         }
