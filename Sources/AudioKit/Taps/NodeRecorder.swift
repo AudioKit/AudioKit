@@ -74,14 +74,7 @@ open class NodeRecorder: NSObject {
             return
         }
 
-        do {
-            // We initialize AVAudioFile for writing (and check that we can write to)
-            internalAudioFile = try AVAudioFile(forWriting: file.url,
-                                                settings: file.fileFormat.settings)
-        } catch let error as NSError {
-            Log("Error: cannot write to", file.url)
-            throw error
-        }
+        internalAudioFile = file
 
         self.bus = bus
     }
