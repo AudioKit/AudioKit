@@ -56,7 +56,9 @@ extension AudioPlayer {
                                    frameCount: frameCount,
                                    at: audioTime,
                                    completionCallbackType: completionCallbackType) { callbackType in
-            self.internalCompletionHandler()
+            DispatchQueue.main.async {
+                self.internalCompletionHandler()
+            }
         }
 
         playerNode.prepare(withFrameCount: frameCount)
@@ -85,7 +87,9 @@ extension AudioPlayer {
                                   at: audioTime,
                                   options: bufferOptions,
                                   completionCallbackType: completionCallbackType) { callbackType in
-            self.internalCompletionHandler()
+            DispatchQueue.main.async {
+                self.internalCompletionHandler()
+            }
         }
 
         playerNode.prepare(withFrameCount: buffer.frameLength)
