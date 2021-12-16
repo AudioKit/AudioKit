@@ -144,14 +144,14 @@ Define the event handler:
 
 ```
 @objc func routeChanged(_ notification: Notification) {
-    print("Audio route changed")
+    Log("Audio route changed")
     
     AudioKit.stop() // Note 1
 
     do {
         try sampler.loadEXS24(yourSounds) // Note 2
     } catch  {
-        print("could not load samples")
+        Log("could not load samples")
     }
 
     AudioKit.start()

@@ -106,11 +106,11 @@ public class NodeParameter {
     public func ramp(to value: AUValue, duration: Float, delay: Float = 0) {
         var delaySamples = AUAudioFrameCount(delay * Float(Settings.sampleRate))
         if delaySamples > 4096 {
-            print("Warning: delay longer than 4096, setting to to 4096")
+            Log("Warning: delay longer than 4096, setting to to 4096")
             delaySamples = 4096
         }
         if !parameter.flags.contains(.flag_CanRamp) {
-            print("Error: can't ramp parameter \(parameter.displayName)")
+            Log("Error: can't ramp parameter \(parameter.displayName)", type: .error)
             return
         }
         assert(delaySamples < 4096)

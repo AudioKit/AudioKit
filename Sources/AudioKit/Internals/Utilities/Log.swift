@@ -9,10 +9,10 @@ extension OSLog {
     /// Generic AudioKit log
     public static let general = OSLog(subsystem: subsystem, category: "general")
 
-    /// Generic AudioKit log
+    /// Settings-related log
     public static let settings = OSLog(subsystem: subsystem, category: "settings")
 
-    /// AudioKit MIDI related log
+    /// MIDI related log
     public static let midi = OSLog(subsystem: subsystem, category: "midi")
 
     /// Log revolving around finding, reading, and writing files
@@ -32,7 +32,7 @@ extension OSLog {
 ///
 @inline(__always)
 public func Log(_ items: Any?...,
-                log: OSLog = OSLog.general,
+                log: OSLog = .general,
                 type: OSLogType = .info,
                 file: String = #file,
                 function: String = #function,
