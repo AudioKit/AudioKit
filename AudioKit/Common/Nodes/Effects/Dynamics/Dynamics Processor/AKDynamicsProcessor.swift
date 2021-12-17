@@ -68,7 +68,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
     @objc open dynamic var masterGain: Double = 0 {
         didSet {
             masterGain = (-40...40).clamp(masterGain)
-            au[kDynamicsProcessorParam_MasterGain] = masterGain
+            au[kDynamicsProcessorParam_OverallGain] = masterGain
         }
     }
 
@@ -174,7 +174,7 @@ open class AKDynamicsProcessor: AKNode, AKToggleable, AUEffect, AKInput {
         au[kDynamicsProcessorParam_ExpansionThreshold] = expansionThreshold
         au[kDynamicsProcessorParam_AttackTime] = attackDuration
         au[kDynamicsProcessorParam_ReleaseTime] = releaseDuration
-        au[kDynamicsProcessorParam_MasterGain] = masterGain
+        au[kDynamicsProcessorParam_OverallGain] = masterGain
     }
 
     public var inputNode: AVAudioNode {
