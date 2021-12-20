@@ -52,4 +52,70 @@ class AVAudioPCMBufferTests: XCTestCase {
         XCTAssertTrue(inFile.length > 0)
 
     }
+
+    func testPlayerToM4A() {
+
+        self.continueAfterFailure = false // causes XCTFail to abort the test
+
+        NodeRecorder.removeTempFiles() // just make sure the temp dir exists
+
+        let inputFileURL = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav")!
+
+        XCTAssertTrue(FileManager.default.fileExists(atPath: inputFileURL.path), "inputFileURL does not exist")
+
+        let fm = FileManager.default
+        let filename = UUID().uuidString + ".m4a"
+        let outputFileURL = fm.temporaryDirectory.appendingPathComponent(filename)
+
+        let player = AudioPlayer(url: inputFileURL)!
+
+        let engine = AudioEngine()
+        engine.output = player
+        try! engine.start()
+
+        player.play()
+
+        var settings = Settings.audioFormat.settings
+        settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
+        settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
+
+        var outFile: AVAudioFile!
+        do {
+            outFile = try AVAudioFile(forWriting: outputFileURL, settings: settings)
+        } catch {
+            XCTFail("could not create outFile: \(error.localizedDescription)")
+        }
+
+        XCTAssertTrue(FileManager.default.fileExists(atPath: outFile.url.path), "outFile does not exist")
+
+        var recorder: NodeRecorder!
+        do {
+            recorder = try NodeRecorder(node: player, file: outFile)
+        } catch {
+            XCTFail("could not create recorder: \(error.localizedDescription)")
+        }
+
+        do {
+            try recorder.record()
+        } catch {
+            XCTFail("could not run recorder.record(): \(error.localizedDescription)")
+        }
+
+        sleep(6) // a little longer than 2 seconds to allow some wiggle room
+
+        player.stop()
+        recorder.stop()
+        engine.stop()
+
+        var successFile: AVAudioFile!
+        do {
+            successFile = try AVAudioFile(forReading: outputFileURL)
+        } catch {
+            XCTFail("could not create successFile: \(error.localizedDescription)")
+        }
+
+        XCTAssertTrue(successFile.length > 0, "successFile length is not > 0")
+
+        print ("*** Created m4a file?: \(recorder.audioFile?.url)")
+    }
 }
