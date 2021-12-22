@@ -6,13 +6,10 @@ import PackageDescription
 let package = Package(
     name: "AudioKit",
     platforms: [.macOS(.v10_13), .iOS(.v11), .tvOS(.v11)],
-    products: [.library(name: "AudioKit", targets: ["AudioKit", "AudioKitEX"])],
+    products: [.library(name: "AudioKit", targets: ["AudioKit"])],
     targets: [
         .target(name: "AudioKit"),
-        .target(name: "AudioKitEX", dependencies: ["AudioKit", "CAudioKitEX"]),
-        .target(name: "CAudioKitEX", cxxSettings: [.headerSearchPath(".")]),
         .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
-        .testTarget(name: "AudioKitEXTests", dependencies: ["AudioKitEX"], resources: [.copy("TestResources/")])
     ],
     cxxLanguageStandard: .cxx14
 )
