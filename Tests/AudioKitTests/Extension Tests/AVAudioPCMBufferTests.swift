@@ -56,4 +56,20 @@ class AVAudioPCMBufferTests: XCTestCase {
         XCTAssertTrue(inFile.length > 0)
 
     }
+
+    func testSimpleRecord() {
+        let engine = AudioEngine()
+        let input = PlaygroundOscillator()
+        input.start()
+        let recorder = try! NodeRecorder(node: input)
+        engine.output = input
+        try! recorder.record()
+        try! engine.start()
+        sleep(2)
+        recorder.stop()
+        engine.stop()
+
+        let result = recorder.audioFile!
+        XCTAssertTrue(result.length > 0)
+    }
 }
