@@ -1,5 +1,10 @@
 # Migration Guide
 
+## AudioKit 5.2 to 5.3
+
+AudioKit 5.3 is a Swift-only package, so it should be usable on iPad's Swift Playgrounds app.  To allow for this, AudioKitEX has been moved to its own package, so you will likely have to update your package dependencies to also include AudioKitEX. 
+
+
 ## AudioKit 5.1 to 5.2
 
 This version update involves separating AudioKit into separate Sub-AudioKits which are included as separate Swift Packages. This way, developers do not have to compile code that their apps don't require. Most users will probably have to include the SoundpipeAudioKit package since that is the one that contained many of the oscillators, effects, and filters. In addition to including the packages, developers may also have to update their files to import the correct frameworks.
