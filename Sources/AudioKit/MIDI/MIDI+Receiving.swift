@@ -97,6 +97,16 @@ extension MIDI {
         }
         return names
     }
+    
+    /// Array of input source endpoint references
+    public var inputRefs: [MIDIEndpointRef] {
+        var refs = MIDISources().endpointRefs
+        // Remove inputs which are actually virtual outputs from AudioKit
+        for input in self.virtualOutputs {
+            refs.removeAll(where: { $0 == input })
+        }
+        return refs
+    }
 
     /// Lookup a input name from its unique id
     ///
@@ -329,7 +339,11 @@ extension MIDI {
     /// - parameter inputUID: Unique identifier for a MIDI Input
     ///
     public func openInput(uid inputUID: MIDIUniqueID) {
-        for (uid, src) in zip(inputUIDs, MIDISources()) {
+        
+        // Since inputUIDs filters out our own virtual outputs, we need to do the same with the endpoint refs.
+        let sources = inputRefs
+        
+        for (uid, src) in zip(inputUIDs, sources) {
             if inputUID == 0 || inputUID == uid {
                 inputPorts[inputUID] = MIDIPortRef()
 

@@ -70,6 +70,12 @@ extension Collection where Iterator.Element == MIDIEndpointRef {
             getMIDIObjectIntegerProperty(ref: $0, property: kMIDIPropertyUniqueID)
         }
     }
+    
+    var endpointRefs: [MIDIEndpointRef] {
+        return map {
+            $0
+        }
+    }
 }
 
 internal func getMIDIObjectStringProperty(ref: MIDIObjectRef, property: CFString) -> String {
@@ -111,6 +117,16 @@ extension MIDI {
             names.removeAll(where: { $0 == virtualName})
         }
         return names
+    }
+    
+    /// Array of destination endpoint references
+    public var destinationRefs: [MIDIEndpointRef] {
+        var refs = MIDIDestinations().endpointRefs
+        // Remove outputs which are actually virtual inputs to AudioKit
+        for output in self.virtualInputs {
+            refs.removeAll(where: { $0 == output })
+        }
+        return refs
     }
 
     /// Lookup a destination name from its unique id
@@ -186,7 +202,8 @@ extension MIDI {
             outputPort = tempPort
         }
 
-        let destinations = MIDIDestinations()
+        // Since destinationUIDs filters out our own virtual inputs, we need to do the same with the endpoint refs.
+        let destinations = destinationRefs
 
         // To get all endpoints; and set in endpoints array (mapping without condition)
         if outputUid == 0 {
