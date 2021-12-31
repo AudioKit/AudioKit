@@ -19,7 +19,7 @@ extension AudioPlayer {
             resume()
             return
         }
-        
+
         // Do nothing if player is already playing
         if isPlaying {
             return
