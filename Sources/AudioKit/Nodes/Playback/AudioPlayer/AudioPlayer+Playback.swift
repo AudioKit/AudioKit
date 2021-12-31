@@ -20,8 +20,9 @@ extension AudioPlayer {
             return
         }
 
+        // Do nothing if player is already playing
         if isPlaying {
-            stop()
+            return
         }
 
         guard let engine = playerNode.engine else {
@@ -62,9 +63,6 @@ extension AudioPlayer {
     /// Resumes audio player from paused time
     public func resume() {
         isPaused = false
-        if !isBuffered {
-            seek(time: pausedTime)
-        }
         playerNode.play()
     }
 
