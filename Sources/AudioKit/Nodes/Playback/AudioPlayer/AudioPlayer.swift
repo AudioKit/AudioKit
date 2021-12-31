@@ -202,7 +202,11 @@ public class AudioPlayer: Node {
               engine?.isInManualRenderingMode == false else { return }
 
         scheduleTime = nil
-        isPlaying = false
+
+        if !isLooping {
+            isPlaying = false
+        }
+
         completionHandler?()
 
         if !isBuffered, isLooping, engine?.isRunning == true {
