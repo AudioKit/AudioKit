@@ -46,6 +46,7 @@ public class MIDIFileTrackNoteMap {
     public var noteRange: Int = 0
     /// End of track
     public var endOfTrack: Double = 0.0
+    private var var notesInProgress: [Int: (Double, Double)] = [:]
     /// A list of all the note events in the MIDI file for tracking purposes
     public var noteList = [MIDINoteDuration]()
 
@@ -79,88 +80,49 @@ public class MIDIFileTrackNoteMap {
         self.getEndOfTrack()
     }
 
+    private func addNoteOff(event: MIDIEvent) {
+        let eventPosition = (event.positionInBeats ?? 1.0) / Double(self.midiFile.ticksPerBeat ?? 1)
+        let noteNumber = Int(event.data[1])
+        if let prevPosValue = notesInProgress[noteNumber]?.0 {
+            notesInProgress[noteNumber] = (prevPosValue, eventPosition)
+            var noteTracker: MIDINoteDuration = MIDINoteDuration(
+                noteOnPosition: 0.0,
+                noteOffPosition: 0.0, noteNumber: 0)
+            if let note = notesInProgress[noteNumber] {
+                noteTracker = MIDINoteDuration(
+                    noteOnPosition:
+                        note.0,
+                    noteOffPosition:
+                        note.1,
+                    noteNumber: noteNumber)
+            }
+            notesInProgress.removeValue(forKey: noteNumber)
+            noteList.append(noteTracker)
+        }
+    }
+
+    private func addNoteOn(event: MIDIEvent) {
+        let eventPosition = (event.positionInBeats ?? 1.0) / Double(self.midiFile.ticksPerBeat ?? 1)
+        let noteNumber = Int(event.data[1])
+        notesInProgress[noteNumber] = (eventPosition, 0.0)
+    }
+
     private func getNoteList() {
-        var finalNoteList = [MIDINoteDuration]()
-        var eventPosition = 0.0
-        var noteNumber = 0
-        var noteOn = 0
-        var noteOff = 0
-        var velocityEvent: Int?
-        var notesInProgress: [Int: (Double, Double)] = [:]
         var events = midiTrack.channelEvents
         for event in events {
-            let data = event.data
-            let eventTypeNumber = data[0]
-            let eventType = event.status?.type?.description ?? "No Event"
-            // Usually the third element of a note event is the velocity
-            if data.count > 2 {
-                velocityEvent = Int(data[2])
-            }
-
-            if noteOn == 0 {
-                if eventType == "Note On" {
-                    noteOn = Int(eventTypeNumber)
-                }
-            }
-            if noteOff == 0 {
-                if eventType == "Note Off" {
-                    noteOff = Int(eventTypeNumber)
-                }
-            }
-            if eventTypeNumber == noteOn {
+            if event.status?.type?.description == MIDIStatusType.noteOn {
                 //A note played with a velocity of zero is the equivalent
                 //of a noteOff command
                 if velocityEvent == 0 {
-                    eventPosition = (event.positionInBeats ?? 1.0) / Double(self.midiFile.ticksPerBeat ?? 1)
-                    noteNumber = Int(data[1])
-                    if let prevPosValue = notesInProgress[noteNumber]?.0 {
-                        notesInProgress[noteNumber] = (prevPosValue, eventPosition)
-                        var noteTracker: MIDINoteDuration = MIDINoteDuration(
-                            noteOnPosition: 0.0,
-                            noteOffPosition: 0.0, noteNumber: 0)
-                        if let note = notesInProgress[noteNumber] {
-                            noteTracker = MIDINoteDuration(
-                                noteOnPosition:
-                                    note.0,
-                                noteOffPosition:
-                                    note.1,
-                                noteNumber: noteNumber)
-                        }
-                        notesInProgress.removeValue(forKey: noteNumber)
-                        finalNoteList.append(noteTracker)
-                    }
+                    addNoteOff(event: event)
                 } else {
-                    eventPosition = (event.positionInBeats ?? 1.0) / Double(self.midiFile.ticksPerBeat ?? 1)
-                    noteNumber = Int(data[1])
-                    notesInProgress[noteNumber] = (eventPosition, 0.0)
+                    addNoteOn(event: event)
                 }
             }
-            if eventTypeNumber == noteOff {
-                eventPosition = (event.positionInBeats ?? 1.0) / Double(self.midiFile.ticksPerBeat ?? 1)
-                noteNumber = Int(data[1])
-                if let prevPosValue = notesInProgress[noteNumber]?.0 {
-                    notesInProgress[noteNumber] = (prevPosValue, eventPosition)
-                    var noteTracker: MIDINoteDuration = MIDINoteDuration(
-                        noteOnPosition: 0.0,
-                        noteOffPosition: 0.0,
-                        noteNumber: 0)
-                    if let note = notesInProgress[noteNumber] {
-                        noteTracker = MIDINoteDuration(
-                            noteOnPosition:
-                                note.0,
-                            noteOffPosition:
-                                note.1,
-                            noteNumber: noteNumber)
-                    }
-                    notesInProgress.removeValue(forKey: noteNumber)
-                    finalNoteList.append(noteTracker)
-                }
+            if event.status?.type?.description == MIDIStatusType.noteOff {
+                addNoteOff(event: event)
             }
-            eventPosition = 0.0
-            noteNumber = 0
-            velocityEvent = nil
         }
-        self.noteList = finalNoteList
     }
 
     private func getLoNote() {
