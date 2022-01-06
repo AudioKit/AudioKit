@@ -46,7 +46,7 @@ public class MIDIFileTrackNoteMap {
     public var noteRange: Int = 0
     /// End of track
     public var endOfTrack: Double = 0.0
-    private var var notesInProgress: [Int: (Double, Double)] = [:]
+    private var notesInProgress: [Int: (Double, Double)] = [:]
     /// A list of all the note events in the MIDI file for tracking purposes
     public var noteList = [MIDINoteDuration]()
 
@@ -109,17 +109,22 @@ public class MIDIFileTrackNoteMap {
 
     private func getNoteList() {
         var events = midiTrack.channelEvents
+        var velocityEvent: Int?
         for event in events {
-            if event.status?.type?.description == MIDIStatusType.noteOn {
-                //A note played with a velocity of zero is the equivalent
-                //of a noteOff command
+            // Usually the third element of a note event is the velocity
+            if event.data.count > 2 {
+                velocityEvent = Int(event.data[2])
+            }
+            if event.status?.type == MIDIStatusType.noteOn {
+                // A note played with a velocity of zero is the equivalent
+                // of a noteOff command
                 if velocityEvent == 0 {
                     addNoteOff(event: event)
                 } else {
                     addNoteOn(event: event)
                 }
             }
-            if event.status?.type?.description == MIDIStatusType.noteOff {
+            if event.status?.type == MIDIStatusType.noteOff {
                 addNoteOff(event: event)
             }
         }
