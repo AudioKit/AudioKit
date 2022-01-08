@@ -16,7 +16,7 @@ final class AudioEngineTwo {
         engine.output = mixer
 
         do {
-            try AudioKit.Settings.setSession(category:.playAndRecord,
+            try AudioKit.Settings.setSession(category: .playAndRecord,
                                              with: [.allowBluetoothA2DP,
                                                         .allowAirPlay])
         } catch let error {
