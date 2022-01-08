@@ -4,7 +4,7 @@ import XCTest
 
 final class AudioEngineTwo {
 
-    private let engine = AudioKit.AudioEngine()
+    private let engine = AudioEngine()
 
     let mixer: Mixer
 
@@ -16,7 +16,7 @@ final class AudioEngineTwo {
         engine.output = mixer
 
         do {
-            try AudioKit.Settings.setSession(category: .playAndRecord,
+            try Settings.setSession(category: .playAndRecord,
                                              with: [.allowBluetoothA2DP,
                                                         .allowAirPlay])
         } catch let error {
