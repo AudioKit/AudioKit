@@ -2,6 +2,66 @@ import AudioKit
 import AVFoundation
 import XCTest
 
+final class AudioEngineTwo {
+
+    private let engine = AudioKit.AudioEngine()
+
+    let mixer: Mixer
+
+    let player = AudioPlayer()
+
+    init() {
+        mixer = Mixer()
+        mixer.addInput(player)
+        engine.output = mixer
+
+        do {
+            try AudioKit.Settings.setSession(category:.playAndRecord,
+                                             with: [.allowBluetoothA2DP,
+                                                        .allowAirPlay])
+        } catch let error {
+            print("AudioEngine Error:\(error)")
+        }
+    }
+
+    func startTest(totalDuration duration: Double) -> AVAudioPCMBuffer {
+        engine.startTest(totalDuration: duration)
+    }
+
+    func render(duration: Double) -> AVAudioPCMBuffer {
+        engine.render(duration: duration)
+    }
+
+    func playSound(url: URL) {
+        do {
+            try player.load(url: url)
+        } catch let error {
+            print(error)
+        }
+
+        player.isLooping = true
+        player.play()
+    }
+
+    func stop() {
+        player.stop()
+    }
+}
+
+class AudioPlayerAdditionalTests: XCTestCase {
+    func testSpecialPlayer() {
+        let audioEngine = AudioEngineTwo()
+        guard let url = Bundle.module.url(forResource: "TestResources/alphabet", withExtension: "mp3") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+        let audio = audioEngine.startTest(totalDuration: 10.0)
+        audioEngine.playSound(url: url)
+        audio.append(audioEngine.render(duration: 10.0))
+        testMD5(audio)
+    }
+}
+
 class AudioPlayerTests: XCTestCase {
     
     func testBasic() {

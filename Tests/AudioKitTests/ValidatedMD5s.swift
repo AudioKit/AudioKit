@@ -26,6 +26,7 @@ let validatedMD5s: [String: String] = [
     "-[AudioPlayerTests testSeek]": "3bba42419e6583797e166b7a6d4bb45d",
     "-[AudioPlayerTests testVolume]": "ba487f42fa93379f0b24c7930d51fdd3",
     "-[AudioPlayerTests testSwitchFilesDuringPlayback]": "5bd0d50c56837bfdac4d9881734d0f8e",
+    "-[AudioPlayerAdditionalTests testSpecialPlayer]": "a07c1384e06b944bde41236e6fe968bb",
     "-[CompressorTests testAttackTime]": "f2da585c3e9838c1a41f1a5f34c467d0",
     "-[CompressorTests testDefault]": "3064ef82b30c512b2f426562a2ef3448",
     "-[CompressorTests testHeadRoom]": "98ac5f20a433ba5a858c461aa090d81f",
