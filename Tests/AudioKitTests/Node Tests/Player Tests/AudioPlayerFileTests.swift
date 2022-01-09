@@ -61,13 +61,13 @@ extension AudioPlayerFileTests {
         let url = Bundle.module.url(forResource: "chromaticScale-1", withExtension: "aiff", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
         player.play()
-        XCTAssertFalse(player.isPlaying, "isPlaying should be false")
+        XCTAssertTrue(player.status == .stopped, "Player should be stopped")
 
         let engine = AudioEngine()
         engine.output = player
         try? engine.start()
         player.play()
-        XCTAssertTrue(player.isPlaying, "isPlaying should be true")
+        XCTAssertTrue(player.status == .playing, "Player should be playing")
         player.stop()
     }
 
