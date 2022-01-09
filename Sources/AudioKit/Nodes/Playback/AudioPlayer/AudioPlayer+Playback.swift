@@ -14,56 +14,81 @@ extension AudioPlayer {
                      to endTime: TimeInterval? = nil,
                      at when: AVAudioTime? = nil,
                      completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
-        
-        if isPaused {
+        switch status {
+        case .paused:
             resume()
+            break
+        case .playing:
             return
-        }
+        case .stopped:
+            guard let engine = playerNode.engine else {
+                Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
+                return
+            }
 
-        // Do nothing if player is already playing
-        if isPlaying {
-            return
-        }
+            guard engine.isRunning else {
+                Log("🛑 Error: AudioPlayer's engine must be running before playback.", type: .error)
+                return
+            }
 
-        guard let engine = playerNode.engine else {
-            Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
-            return
-        }
+            if when != nil {
+                scheduleTime = nil
+                playerNode.stop()
+            }
 
-        guard engine.isRunning else {
-            Log("🛑 Error: AudioPlayer's engine must be running before playback.", type: .error)
-            return
-        }
+            editStartTime = startTime ?? editStartTime
+            editEndTime = endTime ?? editEndTime
 
-        if when != nil {
-            scheduleTime = nil
-            playerNode.stop()
-        }
+            if !isScheduled {
+                schedule(at: when,
+                         completionCallbackType: completionCallbackType)
+            }
 
-        editStartTime = startTime ?? editStartTime
-        editEndTime = endTime ?? editEndTime
+            playerNode.play()
+            status = .playing
+            break
+        case .seeking:
+            guard let engine = playerNode.engine else {
+                Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
+                return
+            }
 
-        if !isScheduled || isSeeking {
+            guard engine.isRunning else {
+                Log("🛑 Error: AudioPlayer's engine must be running before playback.", type: .error)
+                return
+            }
+
+            if when != nil {
+                scheduleTime = nil
+                playerNode.stop()
+            }
+
+            editStartTime = startTime ?? editStartTime
+            editEndTime = endTime ?? editEndTime
+
             schedule(at: when,
                      completionCallbackType: completionCallbackType)
-        }
 
-        playerNode.play()
-        isPlaying = true
+            playerNode.play()
+            status = .playing
+            break
+        case .scheduling:
+            return
+        }
     }
 
     /// Pauses audio player. Calling play() will resume from the paused time.
     public func pause() {
-        guard isPlaying, !isPaused else { return }
+        guard status == .playing else { return }
         pausedTime = getCurrentTime()
         playerNode.pause()
-        isPaused = true
+        status = .paused
     }
     
     /// Resumes audio player from paused time
     public func resume() {
-        isPaused = false
         playerNode.play()
+        status = .playing
     }
 
     /// Gets the accurate playhead time regardless of seeking and pausing
@@ -73,7 +98,7 @@ extension AudioPlayer {
            nodeTime.isSampleTimeValid,
            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
             return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
-        } else if isPaused {
+        } else if status == .paused {
             return pausedTime
         }
         return editStartTime
@@ -84,20 +109,16 @@ extension AudioPlayer {
     /// - Parameters:
     ///   - time seconds into the audio file to set playhead
     public func seek(time: TimeInterval) {
-        let wasPlaying = isPlaying
-
         let time = time.clamped(to: 0...duration)
 
-        isSeeking = true
-
-        if wasPlaying {
+        if status == .playing {
+            stop()
+            status = .seeking
             play(from: time, to: duration)
         } else {
             editStartTime = time
             editEndTime = duration
         }
-
-        isSeeking = false
     }
 }
 
@@ -112,11 +133,10 @@ extension AudioPlayer {
 
     /// Stop audio player. This won't generate a callback event
     public func stop() {
-        guard isPlaying else { return }
+        guard status == .playing else { return }
         pausedTime = getCurrentTime()
-        isPlaying = false
-        isSeeking = false
         playerNode.stop()
+        status = .stopped
         scheduleTime = nil
     }
 }

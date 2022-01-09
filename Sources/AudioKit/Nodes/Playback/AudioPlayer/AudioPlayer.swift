@@ -25,6 +25,8 @@ public class AudioPlayer: Node {
         get { playerNode.volume }
         set { playerNode.volume = newValue }
     }
+    
+    public internal(set) var status = NodeStatus.Playback.stopped
 
     /// Whether or not the playing is playing
     public internal(set) var isPlaying: Bool = false
@@ -92,17 +94,15 @@ public class AudioPlayer: Node {
     public var file: AVAudioFile? {
         didSet {
             scheduleTime = nil
-            let wasPlaying = isPlaying
-            if wasPlaying { stop() }
+
+            if status == .playing { stop() }
 
             // Force the buffer to update with new file
             if isBuffered && file != oldValue {
                 updateBuffer(force: true)
             }
 
-            if wasPlaying {
-                play()
-            }
+            if status == .stopped { play() }
         }
     }
 
@@ -112,12 +112,8 @@ public class AudioPlayer: Node {
             isBuffered = buffer != nil
             scheduleTime = nil
 
-            let wasPlaying = isPlaying
-            if wasPlaying { stop() }
-
-            if wasPlaying {
-                play()
-            }
+            if status == .playing { stop() }
+            if status == .stopped { play() }
         }
     }
 
@@ -197,12 +193,11 @@ public class AudioPlayer: Node {
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
-        guard !isSeeking,
-              isPlaying,
-              engine?.isInManualRenderingMode == false else { return }
+        guard status == .playing,
+                engine?.isInManualRenderingMode == false else { return }
 
         scheduleTime = nil
-        isPlaying = false
+
         completionHandler?()
 
         if !isBuffered, isLooping, engine?.isRunning == true {
