@@ -14,55 +14,17 @@ extension AudioPlayer {
                      to endTime: TimeInterval? = nil,
                      at when: AVAudioTime? = nil,
                      completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
-        switch status {
-        case .paused:
-            resume()
-            break
-        case .playing:
+        guard let engine = playerNode.engine else {
+            Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
             return
+        }
+
+        guard engine.isRunning else {
+            Log("🛑 Error: AudioPlayer's engine must be running before playback.", type: .error)
+            return
+        }
+        switch status {
         case .stopped:
-            guard let engine = playerNode.engine else {
-                Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
-                return
-            }
-
-            guard engine.isRunning else {
-                Log("🛑 Error: AudioPlayer's engine must be running before playback.", type: .error)
-                return
-            }
-
-            if when != nil {
-                scheduleTime = nil
-                playerNode.stop()
-            }
-
-            editStartTime = startTime ?? editStartTime
-            editEndTime = endTime ?? editEndTime
-
-            if !isScheduled {
-                schedule(at: when,
-                         completionCallbackType: completionCallbackType)
-            }
-
-            playerNode.play()
-            status = .playing
-            break
-        case .seeking:
-            guard let engine = playerNode.engine else {
-                Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
-                return
-            }
-
-            guard engine.isRunning else {
-                Log("🛑 Error: AudioPlayer's engine must be running before playback.", type: .error)
-                return
-            }
-
-            if when != nil {
-                scheduleTime = nil
-                playerNode.stop()
-            }
-
             editStartTime = startTime ?? editStartTime
             editEndTime = endTime ?? editEndTime
 
@@ -72,7 +34,14 @@ extension AudioPlayer {
             playerNode.play()
             status = .playing
             break
+        case .playing:
+            // player is already playing
+            return
+        case .paused:
+            resume()
+            break
         case .scheduling:
+            // player is already scheduling
             return
         }
     }
@@ -113,7 +82,6 @@ extension AudioPlayer {
 
         if status == .playing {
             stop()
-            status = .seeking
             play(from: time, to: duration)
         } else {
             editStartTime = time
@@ -124,7 +92,7 @@ extension AudioPlayer {
 
 extension AudioPlayer {
     /// Synonym for isPlaying
-    public var isStarted: Bool { isPlaying }
+    public var isStarted: Bool { status == .playing }
 
     /// Synonym for play()
     public func start() {
@@ -137,6 +105,5 @@ extension AudioPlayer {
         pausedTime = getCurrentTime()
         playerNode.stop()
         status = .stopped
-        scheduleTime = nil
     }
 }

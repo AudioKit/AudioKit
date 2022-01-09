@@ -26,16 +26,8 @@ public class AudioPlayer: Node {
         set { playerNode.volume = newValue }
     }
     
+    /// Status of the player node (playing, paused, stopped, or scheduling
     public internal(set) var status = NodeStatus.Playback.stopped
-
-    /// Whether or not the playing is playing
-    public internal(set) var isPlaying: Bool = false
-
-    /// Whether or not the playing is paused
-    public internal(set) var isPaused: Bool = false
-
-    /// Will be true if there is an existing schedule event
-    public var isScheduled: Bool { scheduleTime != nil }
 
     private var _isBuffered: Bool = false
     /// If the player is currently using a buffer as an audio source
@@ -60,7 +52,7 @@ public class AudioPlayer: Node {
             guard newValue != isReversed else { return }
             _isReversed = newValue
 
-            if isPlaying { stop() }
+            if status == .playing { stop() }
 
             if newValue && !isBuffered {
                 isBuffered = true
@@ -93,8 +85,6 @@ public class AudioPlayer: Node {
     /// The file to use with the player. This can be set while the player is playing.
     public var file: AVAudioFile? {
         didSet {
-            scheduleTime = nil
-
             if status == .playing { stop() }
 
             // Force the buffer to update with new file
@@ -110,7 +100,6 @@ public class AudioPlayer: Node {
     public var buffer: AVAudioPCMBuffer? {
         didSet {
             isBuffered = buffer != nil
-            scheduleTime = nil
 
             if status == .playing { stop() }
             if status == .stopped { play() }
@@ -167,9 +156,6 @@ public class AudioPlayer: Node {
     // Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
     var pausedTime: TimeInterval = 0.0
 
-    // the last time scheduled. Only used to check if play() should schedule()
-    var scheduleTime: AVAudioTime?
-
     // saved edit times to load when user enables isEditTimeEnabled property
     var savedEditStartTime: TimeInterval?
     var savedEditEndTime: TimeInterval?
@@ -195,8 +181,6 @@ public class AudioPlayer: Node {
     func internalCompletionHandler() {
         guard status == .playing,
                 engine?.isInManualRenderingMode == false else { return }
-
-        scheduleTime = nil
 
         completionHandler?()
 

@@ -11,7 +11,6 @@ extension AudioPlayer {
     public func schedule(at when: AVAudioTime? = nil,
                          completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
         status = .scheduling
-        scheduleTime = when ?? AVAudioTime.now()
 
         if isBuffered {
             updateBuffer()
@@ -24,7 +23,6 @@ extension AudioPlayer {
 
         } else {
             Log("The player needs a file or a valid buffer to schedule", type: .error)
-            scheduleTime = nil
         }
     }
 
