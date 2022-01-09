@@ -85,14 +85,15 @@ public class AudioPlayer: Node {
     /// The file to use with the player. This can be set while the player is playing.
     public var file: AVAudioFile? {
         didSet {
-            if status == .playing { stop() }
+            let wasPlaying = status == .playing
+            if wasPlaying { stop() }
 
             // Force the buffer to update with new file
             if isBuffered && file != oldValue {
                 updateBuffer(force: true)
             }
 
-            if status == .stopped { play() }
+            if wasPlaying { play() }
         }
     }
 
@@ -100,14 +101,14 @@ public class AudioPlayer: Node {
     public var buffer: AVAudioPCMBuffer? {
         didSet {
             isBuffered = buffer != nil
-
-            if status == .playing { stop() }
-            if status == .stopped { play() }
+            let wasPlaying = status == .playing
+            if wasPlaying { stop() }
+            if wasPlaying { play() }
         }
     }
 
     private var _isEditTimeEnabled: Bool = false
-    /// Boolean that determines whether the edit time is enabled (default: true)
+    /// Boolean that determines whether the edit time is enabled (default: false)
     public var isEditTimeEnabled: Bool {
         get { _isEditTimeEnabled }
         set(preference) {
@@ -181,6 +182,8 @@ public class AudioPlayer: Node {
     func internalCompletionHandler() {
         guard status == .playing,
                 engine?.isInManualRenderingMode == false else { return }
+        
+        status = .stopped
 
         completionHandler?()
 

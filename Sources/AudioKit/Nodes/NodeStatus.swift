@@ -4,13 +4,13 @@
 public enum NodeStatus {
     /// Node status for a playback node
     public enum Playback {
-        /// The node is stopped
+        /// The player node is stopped.
         case stopped
-        /// The node is playing
+        /// The player node is playing.
         case playing
-        /// The node is paused
+        /// The player node is paused.
         case paused
-        /// The node is scheduling
+        /// The player node is scheduling.
         case scheduling
     }
 }
