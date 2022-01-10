@@ -25,7 +25,7 @@ public class AudioPlayer: Node {
         get { playerNode.volume }
         set { playerNode.volume = newValue }
     }
-    
+
     /// Status of the player node (playing, paused, stopped, or scheduling
     public internal(set) var status = NodeStatus.Playback.stopped
 
@@ -182,7 +182,7 @@ public class AudioPlayer: Node {
     func internalCompletionHandler() {
         guard status == .playing,
                 engine?.isInManualRenderingMode == false else { return }
-        
+
         status = .completed
 
         completionHandler?()

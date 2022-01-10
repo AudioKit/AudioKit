@@ -33,13 +33,11 @@ extension AudioPlayer {
 
             playerNode.play()
             status = .playing
-            break
         case .playing:
             // player is already playing
             return
         case .paused:
             resume()
-            break
         case .scheduling:
             // player is already scheduling
             return
@@ -51,7 +49,6 @@ extension AudioPlayer {
             } else if !isLooping && !isBuffered {
                 status = .stopped
             }
-            break
         }
     }
 

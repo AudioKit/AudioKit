@@ -240,9 +240,11 @@ class NodeTests: XCTestCase {
         
         testMD5(audio)
     }
-    
+
     func testNodeStatus() {
-        let url = Bundle.module.url(forResource: "chromaticScale-1", withExtension: "aiff", subdirectory: "TestResources")!
+        let url = Bundle.module.url(forResource: "chromaticScale-1",
+                                    withExtension: "aiff",
+                                    subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
         XCTAssertTrue(player.status == .stopped, "Player status should be '.stopped'")
 
@@ -263,7 +265,7 @@ class NodeTests: XCTestCase {
         XCTAssertTrue(player.status == .playing, "Player status should be '.playing'")
         player.stop()
     }
-    
+
     func testTwoEngines() {
         let engine = AudioEngine()
         let engine2 = AudioEngine()
