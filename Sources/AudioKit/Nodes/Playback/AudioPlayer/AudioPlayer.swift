@@ -183,18 +183,10 @@ public class AudioPlayer: Node {
         guard status == .playing,
                 engine?.isInManualRenderingMode == false else { return }
         
-        status = .stopped
+        status = .completed
 
         completionHandler?()
-
-        if !isBuffered, isLooping, engine?.isRunning == true {
-            if !isEditTimeEnabled {
-                editStartTime = 0
-                editEndTime = 0
-            }
-            play()
-            return
-        }
+        play()
     }
 
     // MARK: - Init
