@@ -10,7 +10,7 @@ extension AudioPlayer {
     ///   - completionCallbackType: Constants that specify when the completion handler must be invoked.
     public func schedule(at when: AVAudioTime? = nil,
                          completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
-        scheduleTime = when ?? AVAudioTime.now()
+        status = .scheduling
 
         if isBuffered {
             updateBuffer()
@@ -23,7 +23,6 @@ extension AudioPlayer {
 
         } else {
             Log("The player needs a file or a valid buffer to schedule", type: .error)
-            scheduleTime = nil
         }
     }
 

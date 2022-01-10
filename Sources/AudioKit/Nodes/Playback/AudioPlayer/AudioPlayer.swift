@@ -26,14 +26,8 @@ public class AudioPlayer: Node {
         set { playerNode.volume = newValue }
     }
 
-    /// Whether or not the playing is playing
-    public internal(set) var isPlaying: Bool = false
-
-    /// Whether or not the playing is paused
-    public internal(set) var isPaused: Bool = false
-
-    /// Will be true if there is an existing schedule event
-    public var isScheduled: Bool { scheduleTime != nil }
+    /// Status of the player node (playing, paused, stopped, scheduling, or completed)
+    public internal(set) var status = NodeStatus.Playback.stopped
 
     private var _isBuffered: Bool = false
     /// If the player is currently using a buffer as an audio source
@@ -58,7 +52,7 @@ public class AudioPlayer: Node {
             guard newValue != isReversed else { return }
             _isReversed = newValue
 
-            if isPlaying { stop() }
+            if status == .playing { stop() }
 
             if newValue && !isBuffered {
                 isBuffered = true
@@ -91,8 +85,7 @@ public class AudioPlayer: Node {
     /// The file to use with the player. This can be set while the player is playing.
     public var file: AVAudioFile? {
         didSet {
-            scheduleTime = nil
-            let wasPlaying = isPlaying
+            let wasPlaying = status == .playing
             if wasPlaying { stop() }
 
             // Force the buffer to update with new file
@@ -100,9 +93,7 @@ public class AudioPlayer: Node {
                 updateBuffer(force: true)
             }
 
-            if wasPlaying {
-                play()
-            }
+            if wasPlaying { play() }
         }
     }
 
@@ -110,19 +101,14 @@ public class AudioPlayer: Node {
     public var buffer: AVAudioPCMBuffer? {
         didSet {
             isBuffered = buffer != nil
-            scheduleTime = nil
-
-            let wasPlaying = isPlaying
+            let wasPlaying = status == .playing
             if wasPlaying { stop() }
-
-            if wasPlaying {
-                play()
-            }
+            if wasPlaying { play() }
         }
     }
 
     private var _isEditTimeEnabled: Bool = false
-    /// Boolean that determines whether the edit time is enabled (default: true)
+    /// Boolean that determines whether the edit time is enabled (default: false)
     public var isEditTimeEnabled: Bool {
         get { _isEditTimeEnabled }
         set(preference) {
@@ -171,9 +157,6 @@ public class AudioPlayer: Node {
     // Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
     var pausedTime: TimeInterval = 0.0
 
-    // the last time scheduled. Only used to check if play() should schedule()
-    var scheduleTime: AVAudioTime?
-
     // saved edit times to load when user enables isEditTimeEnabled property
     var savedEditStartTime: TimeInterval?
     var savedEditEndTime: TimeInterval?
@@ -197,22 +180,13 @@ public class AudioPlayer: Node {
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
-        guard !isSeeking,
-              isPlaying,
-              engine?.isInManualRenderingMode == false else { return }
+        guard status == .playing,
+                engine?.isInManualRenderingMode == false else { return }
 
-        scheduleTime = nil
-        isPlaying = false
+        status = .completed
+
         completionHandler?()
-
-        if !isBuffered, isLooping, engine?.isRunning == true {
-            if !isEditTimeEnabled {
-                editStartTime = 0
-                editEndTime = 0
-            }
-            play()
-            return
-        }
+        play()
     }
 
     // MARK: - Init

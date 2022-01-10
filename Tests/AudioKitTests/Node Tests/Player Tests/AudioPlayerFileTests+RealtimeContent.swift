@@ -269,7 +269,7 @@ extension AudioPlayerFileTests {
         player.seek(time: 1)
         player.play()
 
-        XCTAssertTrue(player.isPlaying)
+        XCTAssertTrue(player.status == .playing)
         wait(for: 1)
         player.stop()
         wait(for: 1)
@@ -278,7 +278,7 @@ extension AudioPlayerFileTests {
         player.seek(time: 3)
         player.play()
 
-        XCTAssertTrue(player.isPlaying)
+        XCTAssertTrue(player.status == .playing)
         wait(for: 1)
 
         // NOTE: the completionHandler will set isPlaying to false. This happens in a different
