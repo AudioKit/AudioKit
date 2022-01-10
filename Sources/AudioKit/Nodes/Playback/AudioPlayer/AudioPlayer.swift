@@ -26,7 +26,7 @@ public class AudioPlayer: Node {
         set { playerNode.volume = newValue }
     }
 
-    /// Status of the player node (playing, paused, stopped, or scheduling
+    /// Status of the player node (playing, paused, stopped, scheduling, or completed)
     public internal(set) var status = NodeStatus.Playback.stopped
 
     private var _isBuffered: Bool = false
