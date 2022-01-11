@@ -19,9 +19,7 @@ extension MusicTrackManager {
         var pgmEvents = [MIDIProgramChangeEvent]()
         if let events = eventData {
             for event in events where event.type == kMusicEventType_MIDIChannelMessage {
-                let data = UnsafePointer<MIDIChannelMessage>(
-                    event.data?.assumingMemoryBound(to: MIDIChannelMessage.self)
-                )
+                let data = event.data?.bindMemory(to: MIDIChannelMessage.self, capacity: 1)
                 guard let data1 = data?.pointee.data1,
                     let statusData: MIDIByte = data?.pointee.status else {
                     break
@@ -45,7 +43,7 @@ extension MusicTrackManager {
         for event in events {
             switch event.type {
             case kMusicEventType_MIDINoteMessage:
-                let data = UnsafePointer<MIDINoteMessage>(event.data?.assumingMemoryBound(to: MIDINoteMessage.self))
+                let data = event.data?.bindMemory(to: MIDINoteMessage.self, capacity: 1)
                 guard let channel = data?.pointee.channel,
                     let note = data?.pointee.note,
                     let velocity = data?.pointee.velocity,
@@ -55,7 +53,7 @@ extension MusicTrackManager {
                 }
                 Log("MIDI Note @:\(event.time) note:\(note) velocity:\(velocity) duration:\(dur) channel:\(channel)")
             case kMusicEventType_Meta:
-                let data = UnsafePointer<MIDIMetaEvent>(event.data?.assumingMemoryBound(to: MIDIMetaEvent.self))
+                let data = event.data?.bindMemory(to: MIDIMetaEvent.self, capacity: 1)
                 guard let midiData = data?.pointee.data,
                     let length = data?.pointee.dataLength,
                     let type = data?.pointee.metaEventType else {
@@ -64,9 +62,7 @@ extension MusicTrackManager {
                 }
                 Log("MIDI Meta @ \(event.time) - size: \(length) - type: \(type) - data: \(midiData)")
             case kMusicEventType_MIDIChannelMessage:
-                let data = UnsafePointer<MIDIChannelMessage>(
-                    event.data?.assumingMemoryBound(to: MIDIChannelMessage.self)
-                )
+                let data = event.data?.bindMemory(to: MIDIChannelMessage.self, capacity: 1)
                 guard let data1 = data?.pointee.data1,
                     let data2 = data?.pointee.data2,
                     let statusData = data?.pointee.status else {
