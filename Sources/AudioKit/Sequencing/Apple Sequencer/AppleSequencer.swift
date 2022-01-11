@@ -258,9 +258,8 @@ open class AppleSequencer: NSObject {
             MusicEventIteratorPreviousEvent(iterator)
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
             if eventType == kMusicEventType_ExtendedTempo {
-                if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
-                    let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
-                    tempoOut = tempoEventPointer.pointee.bpm
+                if let data = eventData?.bindMemory(to: ExtendedTempoEvent.self, capacity: 1) {
+                    tempoOut = data.pointee.bpm
                 }
             }
         }
@@ -280,9 +279,8 @@ open class AppleSequencer: NSObject {
         if let tempoTrack = tempoTrack {
             MusicTrackManager.iterateMusicTrack(tempoTrack) { _, eventTime, eventType, eventData, _, _ in
                 if eventType == kMusicEventType_ExtendedTempo {
-                    if let data = eventData?.assumingMemoryBound(to: ExtendedTempoEvent.self) {
-                        let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(data)
-                        tempos.append((eventTime, tempoEventPointer.pointee.bpm))
+                    if let data = eventData?.bindMemory(to: ExtendedTempoEvent.self, capacity: 1) {
+                        tempos.append((eventTime, data.pointee.bpm))
                     }
                 }
             }
@@ -325,15 +323,6 @@ open class AppleSequencer: NSObject {
 
     /// Return and array of (MusicTimeStamp, TimeSignature) tuples
     open var allTimeSignatureEvents: [(MusicTimeStamp, TimeSignature)] {
-        struct TimeSignatureEvent {
-            var metaEventType: MIDIByte = 0
-            var unused1: MIDIByte = 0
-            var unused2: MIDIByte = 0
-            var unused3: MIDIByte = 0
-            var dataLength: UInt32 = 0
-            var data: (MIDIByte, MIDIByte, MIDIByte, MIDIByte) = (0, 0, 0, 0)
-        }
-
         var tempoTrack: MusicTrack?
         var result = [(MusicTimeStamp, TimeSignature)]()
 
@@ -351,16 +340,15 @@ open class AppleSequencer: NSObject {
             guard let eventData = eventData else { return }
             guard eventType == kMusicEventType_Meta else { return }
 
-            let metaEventPointer = eventData.bindMemory(to: MIDIMetaEvent.self, capacity: Int(dataSize))
-            let metaEvent = metaEventPointer.pointee
+            let metaEventPointer = UnsafeMIDIMetaEventPointer(eventData)
+            let metaEvent = metaEventPointer.event.pointee
             if metaEvent.metaEventType == timeSignatureMetaEventByte {
-                let timeSigPointer = eventData.bindMemory(to: TimeSignatureEvent.self, capacity: Int(dataSize))
-                let rawTimeSig = timeSigPointer.pointee
-                guard let bottomValue = TimeSignature.TimeSignatureBottomValue(rawValue: rawTimeSig.data.1) else {
+                let rawTimeSig = metaEventPointer.payload
+                guard let bottomValue = TimeSignature.TimeSignatureBottomValue(rawValue: rawTimeSig[1]) else {
                     Log("Inavlid time signature bottom value")
                     return
                 }
-                let timeSigEvent = TimeSignature(topValue: rawTimeSig.data.0,
+                let timeSigEvent = TimeSignature(topValue: rawTimeSig[0],
                                                    bottomValue: bottomValue)
                 result.append((eventTime, timeSigEvent))
             }
@@ -442,7 +430,7 @@ open class AppleSequencer: NSObject {
             isReadyForNextEvent = true
             guard eventType == metaEventType else { return }
 
-            let data = UnsafePointer<MIDIMetaEvent>(eventData?.assumingMemoryBound(to: MIDIMetaEvent.self))
+            let data = eventData?.bindMemory(to: MIDIMetaEvent.self, capacity: 1)
             guard let dataMetaEventType = data?.pointee.metaEventType else { return }
 
             if dataMetaEventType == timeSignatureMetaEventByte {

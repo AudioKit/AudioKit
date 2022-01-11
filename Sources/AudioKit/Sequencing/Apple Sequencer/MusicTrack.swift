@@ -212,7 +212,7 @@ open class MusicTrackManager {
                                                &eventDataSize)
 
                 if eventType == kMusicEventType_MIDINoteMessage {
-                    let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
+                    let data = eventData?.bindMemory(to: MIDINoteMessage.self, capacity: 1)
 
                     guard let channel = data?.pointee.channel,
                         let note = data?.pointee.note,
@@ -604,7 +604,7 @@ open class MusicTrackManager {
 
         MusicTrackManager.iterateMusicTrack(track) { _, eventTime, eventType, eventData, _, _ in
             guard eventType == kMusicEventType_MIDINoteMessage else { return }
-            let data = UnsafePointer<MIDINoteMessage>(eventData?.assumingMemoryBound(to: MIDINoteMessage.self))
+            let data = eventData?.bindMemory(to: MIDINoteMessage.self, capacity: 1)
 
             guard let channel = data?.pointee.channel,
                 let note = data?.pointee.note,
