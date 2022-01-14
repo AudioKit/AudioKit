@@ -45,7 +45,7 @@ open class MIDISampler: AppleSampler, NamedNode {
         }
         CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
             for e in packetList.pointee {
-                e.forEach { event in
+                for event in e {
                     event.data.withUnsafeBufferPointer { ptr in
                         guard let ptr = ptr.baseAddress else { return }
                         midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)

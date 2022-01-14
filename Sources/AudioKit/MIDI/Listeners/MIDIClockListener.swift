@@ -139,13 +139,13 @@ extension MIDIClockListener {
 
 extension MIDIClockListener: MIDIBeatObserver {
     internal func sendMIDIBeatUpdateToObservers() {
-        observers.forEach { (observer) in
+        for observer in observers {
             observer.receivedBeatEvent(beat: sppMIDIBeatCounter)
         }
     }
 
     internal func sendQuantumUpdateToObservers(time: MIDITimeStamp) {
-        observers.forEach { (observer) in
+        for observer in observers {
             observer.receivedQuantum(time: time,
                                      quarterNote: fourCount,
                                      beat: sppMIDIBeatCounter,
@@ -154,28 +154,24 @@ extension MIDIClockListener: MIDIBeatObserver {
     }
 
     internal func sendQuarterNoteMessageToObservers() {
-        observers.forEach { (observer) in
+        for observer in observers {
             observer.receivedQuarterNoteBeat(quarterNote: fourCount)
         }
     }
 
     internal func sendPreparePlayToObservers(continue resume: Bool) {
-        observers.forEach { (observer) in
+        for observer in observers {
             observer.preparePlay(continue: resume)
         }
     }
 
     internal func sendStartContinueToObservers() {
         guard sendContinue || sendStart else { return }
-        observers.forEach { (observer) in
-            observer.startFirstBeat(continue: sendContinue)
-        }
+        for observer in observers { observer.startFirstBeat(continue: sendContinue) }
     }
 
     internal func sendStopToObservers() {
-        observers.forEach { (observer) in
-            observer.stopSRT()
-        }
+        for observer in observers { observer.stopSRT() }
     }
 }
 

@@ -126,7 +126,7 @@ struct BPMHistoryStatistics {
 
         var newStats: [BPMStats] = []
 
-        historyCounts.forEach { (count) in
+        for count in historyCounts {
             // Peform Statistics
             let dropCount = bpmHistory.count - count
             guard dropCount > 0 else { return }
@@ -141,7 +141,7 @@ struct BPMHistoryStatistics {
 
         var newStats: [TimeStats] = []
 
-        historyCounts.forEach { (count) in
+        for count in historyCounts {
             // Peform Statistics
             let dropCount = timeHistory.count - count
             guard dropCount > 0 else { return }

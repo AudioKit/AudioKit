@@ -239,21 +239,15 @@ extension MIDISystemRealTimeListener {
     }
     /// Send stop command to all observers
     func sendStopToObservers() {
-        observers.forEach { (observer) in
-            observer.stopSRT(listener: self)
-        }
+        for observer in observers { observer.stopSRT(listener: self) }
     }
 
     func sendStartToObservers() {
-        observers.forEach { (observer) in
-            observer.startSRT(listener: self)
-        }
+        for observer in observers { observer.startSRT(listener: self) }
     }
 
     func sendContinueToObservers() {
-        observers.forEach { (observer) in
-            observer.continueSRT(listener: self)
-        }
+        for observer in observers { observer.continueSRT(listener: self) }
     }
 }
 

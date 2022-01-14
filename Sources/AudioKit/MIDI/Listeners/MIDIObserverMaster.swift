@@ -47,8 +47,6 @@ class MIDIObserverMaster<P> where P: ObserverProtocol {
     /// Do something to all observers
     /// - Parameter block: Block to call on each observer
     public func forEachObserver(_ block: (P) -> Void ) {
-        observers.forEach { (observer) in
-            block(observer)
-        }
+        for observer in observers { block(observer) }
     }
 }

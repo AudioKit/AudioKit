@@ -457,7 +457,7 @@ open class MusicTrackManager {
     ///
     public func replaceMIDINoteData(with trackMIDINoteData: [MIDINoteData]) {
         clearRange(start: Duration(beats: 0), duration: Duration(beats: length))
-        trackMIDINoteData.forEach { add(midiNoteData: $0) }
+        for data in trackMIDINoteData { add(midiNoteData: data) }
     }
 
     /// Add Controller change to sequence
