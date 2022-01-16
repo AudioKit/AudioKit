@@ -214,9 +214,7 @@ public final class MultiChannelInputNodeTap {
     /// Convenience function for testing
     public func prepare(channelMap: [Int32]) {
         let fileChannels = channelMap.map {
-            MultiChannelInputNodeTap.FileChannel(
-                name: "Audio \($0 + 1)",
-                channel: $0)
+            MultiChannelInputNodeTap.FileChannel(name: "Audio \($0 + 1)", channel: $0)
         }
         prepare(fileChannels: fileChannels)
     }

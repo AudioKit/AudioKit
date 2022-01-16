@@ -139,9 +139,7 @@ extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntege
 extension Sequence where Iterator.Element: Hashable {
     internal var unique: [Iterator.Element] {
         var s: Set<Iterator.Element> = []
-        return filter {
-            s.insert($0).inserted
-        }
+        return filter { s.insert($0).inserted }
     }
 }
 
