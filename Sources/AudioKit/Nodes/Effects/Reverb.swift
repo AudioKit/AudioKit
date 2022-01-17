@@ -58,3 +58,64 @@ public class Reverb: Node {
     }
 
 }
+
+public extension AVAudioUnitReverbPreset {
+    static var allCases: [AVAudioUnitReverbPreset] =
+    [.smallRoom, .mediumRoom,
+     .largeHall, .mediumHall, .largeHall,
+     .plate,
+     .mediumChamber, .largeChamber,
+     .cathedral,
+     .largeRoom2, .mediumHall2, .mediumHall3, .largeHall2]
+
+
+    var name: String {
+        switch self {
+
+        case .smallRoom:
+            return "Small Room"
+        case .mediumRoom:
+            return "Medium Room"
+        case .largeRoom:
+            return "Large Hall"
+        case .mediumHall:
+            return "Medium Hall"
+        case .largeHall:
+            return "Large Hall"
+        case .plate:
+            return "Plate"
+        case .mediumChamber:
+            return "Medium Chamber"
+        case .largeChamber:
+            return "Large Chamber"
+        case .cathedral:
+            return "Cathedral"
+        case .largeRoom2:
+            return "Large Room 2"
+        case .mediumHall2:
+            return "Medium Hall 2"
+        case .mediumHall3:
+            return "Medium Hall 3"
+        case .largeHall2:
+            return "Large Hall 2"
+        @unknown default:
+            return "Unknown "
+        }
+    }
+
+    static var defaultValue: AVAudioUnitReverbPreset {
+        return .smallRoom
+    }
+
+    var next: AVAudioUnitReverbPreset {
+        return AVAudioUnitReverbPreset(rawValue: (rawValue + 1) % AVAudioUnitReverbPreset.allCases.count) ?? AVAudioUnitReverbPreset.defaultValue
+    }
+
+    var previous: AVAudioUnitReverbPreset {
+        var newValue = rawValue - 1
+        while newValue < 0 {
+            newValue += AVAudioUnitReverbPreset.allCases.count
+        }
+        return AVAudioUnitReverbPreset(rawValue: rawValue - 1) ?? AVAudioUnitReverbPreset.defaultValue
+    }
+}
