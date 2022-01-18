@@ -108,7 +108,7 @@ public class MIDIFileTrackNoteMap {
     }
 
     private func getNoteList() {
-        var events = midiTrack.channelEvents
+        let events = midiTrack.channelEvents
         var velocityEvent: Int?
         for event in events {
             // Usually the third element of a note event is the velocity

@@ -24,7 +24,7 @@ struct UnsafeMIDIMetaEventPointer {
 
     init(_ pointer: UnsafeRawPointer) {
         let event = pointer.bindMemory(to: MIDIMetaEvent.self, capacity: 1)
-        let offset = MemoryLayout<MIDIMetaEvent>.offset(of: \.data)!
+        let offset = MemoryLayout<MIDIMetaEvent>.offset(of: \MIDIMetaEvent.data)!
         let dataLength = Int(event.pointee.dataLength)
         let dataPointer = pointer.advanced(by: offset).bindMemory(to: UInt8.self, capacity: dataLength)
         self.event = event
