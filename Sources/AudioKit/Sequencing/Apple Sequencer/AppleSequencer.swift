@@ -183,7 +183,7 @@ open class AppleSequencer: NSObject {
     /// Clears all existing tempo events and adds single tempo event at start
     /// Will also adjust the tempo immediately if sequence is playing when called
     public func setTempo(_ bpm: Double) {
-        let constrainedTempo = bpm.clamped(to: 10...280)
+        let constrainedTempo = max(1,bpm)
 
         var tempoTrack: MusicTrack?
 
@@ -214,7 +214,7 @@ open class AppleSequencer: NSObject {
     ///   - position: Point in time in beats
     ///
     public func addTempoEventAt(tempo bpm: Double, position: Duration) {
-        let constrainedTempo = bpm.clamped(to: 10...280)
+        let constrainedTempo = max(1,bpm)
 
         var tempoTrack: MusicTrack?
 
