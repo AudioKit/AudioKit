@@ -114,6 +114,14 @@ open class AppleSampler: Node {
         try loadInstrument(file, type: "exs")
     }
 
+    /// Load an AUPreset file
+    ///
+    /// - parameter file: Name of the AUPreset file without the .aupreset extension
+    ///
+    public func loadAUPreset(_ file: String) throws {
+        try loadInstrument(file, type: "aupreset")
+    }
+
     /// Load an AVAudioFile
     ///
     /// - parameter file: an AVAudioFile
