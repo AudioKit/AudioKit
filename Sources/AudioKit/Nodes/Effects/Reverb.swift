@@ -69,7 +69,7 @@ public extension AVAudioUnitReverbPreset {
      .largeRoom2, .mediumHall2, .mediumHall3, .largeHall2]
 
 
-    var name: String {
+    public var name: String {
         switch self {
 
         case .smallRoom:
@@ -107,15 +107,15 @@ public extension AVAudioUnitReverbPreset {
         return .smallRoom
     }
 
-    var next: AVAudioUnitReverbPreset {
+    public var next: AVAudioUnitReverbPreset {
         return AVAudioUnitReverbPreset(rawValue: (rawValue + 1) % AVAudioUnitReverbPreset.allCases.count) ?? AVAudioUnitReverbPreset.defaultValue
     }
 
-    var previous: AVAudioUnitReverbPreset {
+    public var previous: AVAudioUnitReverbPreset {
         var newValue = rawValue - 1
         while newValue < 0 {
             newValue += AVAudioUnitReverbPreset.allCases.count
         }
-        return AVAudioUnitReverbPreset(rawValue: rawValue - 1) ?? AVAudioUnitReverbPreset.defaultValue
+        return AVAudioUnitReverbPreset(rawValue: newValue) ?? AVAudioUnitReverbPreset.defaultValue
     }
 }

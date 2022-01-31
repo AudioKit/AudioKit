@@ -81,6 +81,6 @@ public enum MusicalDuration: Int, CaseIterable {
         while newValue < 0 {
             newValue += MusicalDuration.allCases.count
         }
-        return MusicalDuration(rawValue: rawValue - 1) ?? .eighth
+        return MusicalDuration(rawValue: newValue) ?? .eighth
     }
 }
