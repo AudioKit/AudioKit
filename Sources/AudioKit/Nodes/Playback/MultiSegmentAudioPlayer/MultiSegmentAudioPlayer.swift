@@ -50,7 +50,7 @@ public class MultiSegmentAudioPlayer: Node {
     ///     - audioSegments: segments of audio files to be scheduled for playback
     ///     - referenceTimeStamp: time to schedule against (think global time / timeline location / studio time)
     /// - Description:
-    ///     - the segments must be sorted by their fileStartTime in chronological order
+    ///     - the segments must be sorted by their playbackStartTime in chronological order
     ///     - this has not been tested on overlapped segments (any most likely does not work for this use case)
     public func scheduleSegments(audioSegments: [StreamableAudioSegment], referenceTimeStamp: TimeInterval = 0) {
         for segment in audioSegments {
