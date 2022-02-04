@@ -49,6 +49,9 @@ public class MultiSegmentAudioPlayer: Node {
     /// - Parameters:
     ///     - audioSegments: segments of audio files to be scheduled for playback
     ///     - referenceTimeStamp: time to schedule against (think global time / timeline location / studio time)
+    /// - Description:
+    ///     - the segments must be sorted by their fileStartTime in chronological order
+    ///     - this has not been tested on overlapped segments (any most likely does not work for this use case)
     public func scheduleSegments(audioSegments: [StreamableAudioSegment], referenceTimeStamp: TimeInterval = 0) {
         for segment in audioSegments {
             
@@ -57,7 +60,7 @@ public class MultiSegmentAudioPlayer: Node {
             
             let endTimeWithRespectToReference = segment.playbackStartTime + durationToSchedule
             
-            if endTimeWithRespectToReference < referenceTimeStamp { continue } // skip the clip if it's already past
+            if endTimeWithRespectToReference <= referenceTimeStamp { continue } // skip the clip if it's already past
 
             // either play right away or schedule for a future time to begin playback
             var whenToPlay = AVAudioTime.now()
