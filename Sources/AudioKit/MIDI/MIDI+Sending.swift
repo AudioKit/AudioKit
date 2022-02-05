@@ -365,15 +365,13 @@ extension MIDI {
     /// Send a Note Off Message
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
-    ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channel (default: 0)
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
-                                   velocity: MIDIVelocity,
                                    channel: MIDIChannel = 0,
                                    endpointsUIDs: [MIDIUniqueID]? = nil,
                                    virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = noteOffByte + channel
-        let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
+        let message: [MIDIByte] = [noteCommand, noteNumber, 0]
         self.sendMessage(message, endpointsUIDs: endpointsUIDs, virtualOutputPorts: virtualOutputPorts)
     }
 
