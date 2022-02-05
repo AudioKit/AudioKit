@@ -49,6 +49,8 @@ open class NodeRecorder: NSObject {
             return nil
         }
     }
+    
+    private var fileDirectoryPath: String
 
     private static var tmpFiles = [URL]()
 
@@ -60,21 +62,26 @@ open class NodeRecorder: NSObject {
     ///
     /// - Parameters:
     ///   - node: Node to record from
-    ///   - file: Audio file to record to
+    ///   - file: Audio file to record to (if not provided: - creates temporary file in NSTemporaryDirectory or a specified fileDirectoryPath)
+    ///   - fileDirectoryPath: Directory to write audio files to (uses NSTemporaryDirectory as default) (ignored if file is provided)
     ///   - bus: Integer index of the bus to use
     ///
     public init(node: Node,
-                file: AVAudioFile? = NodeRecorder.createTempFile(),
+                file: AVAudioFile? = nil,
+                fileDirectoryPath: String? = nil,
                 bus: Int = 0) throws {
         self.node = node
+        self.fileDirectoryPath = fileDirectoryPath ?? NSTemporaryDirectory()
         super.init()
+        
+        let audioFile = file ?? NodeRecorder.createTempFile(fileDirectoryPath: self.fileDirectoryPath)
 
-        guard let file = file else {
+        guard let audioFile = audioFile else {
             Log("Error, no file to write to")
             return
         }
 
-        internalAudioFile = file
+        internalAudioFile = audioFile
 
         self.bus = bus
     }
@@ -89,9 +96,9 @@ open class NodeRecorder: NSObject {
     }
 
     /// Returns a CAF file in the NSTemporaryDirectory suitable for writing to via Settings.audioFormat
-    public static func createTempFile() -> AVAudioFile? {
+    public static func createTempFile(fileDirectoryPath: String = NSTemporaryDirectory()) -> AVAudioFile? {
         let filename = createDateFileName() + ".caf"
-        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(filename)
+        let url = URL(fileURLWithPath: fileDirectoryPath).appendingPathComponent(filename)
         var settings = Settings.audioFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
@@ -123,7 +130,7 @@ open class NodeRecorder: NSObject {
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
             // record to new tmp file
-            if let tmpFile = NodeRecorder.createTempFile() {
+            if let tmpFile = NodeRecorder.createTempFile(fileDirectoryPath: fileDirectoryPath) {
                 internalAudioFile = try AVAudioFile(forWriting: tmpFile.url,
                                                     settings: tmpFile.fileFormat.settings)
             }
