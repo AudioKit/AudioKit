@@ -73,7 +73,7 @@ open class NodeRecorder: NSObject {
         self.node = node
         self.fileDirectoryPath = fileDirectoryPath ?? NSTemporaryDirectory()
         super.init()
-    
+
         let audioFile = file ?? NodeRecorder.createTempFile(fileDirectoryPath: self.fileDirectoryPath)
 
         guard let audioFile = audioFile else {
