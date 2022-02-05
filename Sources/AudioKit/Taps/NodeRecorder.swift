@@ -49,7 +49,7 @@ open class NodeRecorder: NSObject {
             return nil
         }
     }
-    
+
     private var fileDirectoryPath: String
 
     private static var tmpFiles = [URL]()
@@ -62,8 +62,8 @@ open class NodeRecorder: NSObject {
     ///
     /// - Parameters:
     ///   - node: Node to record from
-    ///   - file: Audio file to record to (if not provided: - creates temporary file in NSTemporaryDirectory or a specified fileDirectoryPath)
-    ///   - fileDirectoryPath: Directory to write audio files to (uses NSTemporaryDirectory as default) (ignored if file is provided)
+    ///   - file: Audio file to record to
+    ///   - fileDirectoryPath: Directory to write audio files to
     ///   - bus: Integer index of the bus to use
     ///
     public init(node: Node,
@@ -73,7 +73,7 @@ open class NodeRecorder: NSObject {
         self.node = node
         self.fileDirectoryPath = fileDirectoryPath ?? NSTemporaryDirectory()
         super.init()
-        
+    
         let audioFile = file ?? NodeRecorder.createTempFile(fileDirectoryPath: self.fileDirectoryPath)
 
         guard let audioFile = audioFile else {
