@@ -95,8 +95,8 @@ open class NodeRecorder: NSObject {
         return dateFormatter.string(from: Date())
     }
 
-    /// Returns a CAF file in the NSTemporaryDirectory suitable for writing to via Settings.audioFormat
-    public static func createTempFile(fileDirectoryPath: String = NSTemporaryDirectory()) -> AVAudioFile? {
+    /// Returns a CAF file in specified directory suitable for writing to via Settings.audioFormat
+    public static func createAudioFile(fileDirectoryPath: String = NSTemporaryDirectory()) -> AVAudioFile? {
         let filename = createDateFileName() + ".caf"
         let url = URL(fileURLWithPath: fileDirectoryPath).appendingPathComponent(filename)
         var settings = Settings.audioFormat.settings
