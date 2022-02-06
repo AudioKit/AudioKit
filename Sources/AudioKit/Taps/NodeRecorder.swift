@@ -50,7 +50,9 @@ open class NodeRecorder: NSObject {
         }
     }
 
-    private static var tmpFiles = [URL]()
+    private var fileDirectoryPath: String
+
+    private static var recordedFiles = [URL]()
 
     // MARK: - Initialization
 
@@ -61,20 +63,25 @@ open class NodeRecorder: NSObject {
     /// - Parameters:
     ///   - node: Node to record from
     ///   - file: Audio file to record to
+    ///   - fileDirectoryPath: Directory to write audio files to
     ///   - bus: Integer index of the bus to use
     ///
     public init(node: Node,
-                file: AVAudioFile? = NodeRecorder.createTempFile(),
+                file: AVAudioFile? = nil,
+                fileDirectoryPath: String? = nil,
                 bus: Int = 0) throws {
         self.node = node
+        self.fileDirectoryPath = fileDirectoryPath ?? NSTemporaryDirectory()
         super.init()
 
-        guard let file = file else {
+        let audioFile = file ?? NodeRecorder.createAudioFile(fileDirectoryPath: self.fileDirectoryPath)
+
+        guard let audioFile = audioFile else {
             Log("Error, no file to write to")
             return
         }
 
-        internalAudioFile = file
+        internalAudioFile = audioFile
 
         self.bus = bus
     }
@@ -88,30 +95,30 @@ open class NodeRecorder: NSObject {
         return dateFormatter.string(from: Date())
     }
 
-    /// Returns a CAF file in the NSTemporaryDirectory suitable for writing to via Settings.audioFormat
-    public static func createTempFile() -> AVAudioFile? {
+    /// Returns a CAF file in specified directory suitable for writing to via Settings.audioFormat
+    public static func createAudioFile(fileDirectoryPath: String = NSTemporaryDirectory()) -> AVAudioFile? {
         let filename = createDateFileName() + ".caf"
-        let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(filename)
+        let url = URL(fileURLWithPath: fileDirectoryPath).appendingPathComponent(filename)
         var settings = Settings.audioFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
         Log("Creating temp file at", url)
-        guard let tmpFile = try? AVAudioFile(forWriting: url,
+        guard let audioFile = try? AVAudioFile(forWriting: url,
                                              settings: settings,
                                              commonFormat: Settings.audioFormat.commonFormat,
                                              interleaved: true) else { return nil }
 
-        tmpFiles.append(url)
-        return tmpFile
+        recordedFiles.append(url)
+        return audioFile
     }
 
-    /// When done with this class, remove any temp files that were created with createTempFile()
-    public static func removeTempFiles() {
-        for url in NodeRecorder.tmpFiles {
+    /// When done with this class, remove any audio files that were created with createAudioFile()
+    public static func removeRecordedFiles() {
+        for url in NodeRecorder.recordedFiles {
             try? FileManager.default.removeItem(at: url)
             Log("𝗫 Deleted tmp file at", url)
         }
-        NodeRecorder.tmpFiles.removeAll()
+        NodeRecorder.recordedFiles.removeAll()
     }
 
     /// Start recording
@@ -122,10 +129,10 @@ open class NodeRecorder: NSObject {
         }
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
-            // record to new tmp file
-            if let tmpFile = NodeRecorder.createTempFile() {
-                internalAudioFile = try AVAudioFile(forWriting: tmpFile.url,
-                                                    settings: tmpFile.fileFormat.settings)
+            // record to new audio file
+            if let audioFile = NodeRecorder.createAudioFile(fileDirectoryPath: fileDirectoryPath) {
+                internalAudioFile = try AVAudioFile(forWriting: audioFile.url,
+                                                    settings: audioFile.fileFormat.settings)
             }
         }
 
