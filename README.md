@@ -30,7 +30,7 @@ You can AudioKit and any of the other AudioKit libraries using Collections
 
 To add AudioKit to your Xcode project
 
-1. Select File -> Swift Packages -> Add Package Depedency. 
+1. Select File -> Swift Packages -> Add Package Dependency. 
 2. Enter `https://github.com/AudioKit/AudioKit` for the URL.  You can define which version range you want, or which branch to use, or even which exact commit you would like use. 
 
 ## Documentation
