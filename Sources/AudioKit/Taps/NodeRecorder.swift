@@ -91,7 +91,7 @@ open class NodeRecorder: NSObject {
     /// Use Date and Time as Filename
     private static func createDateFileName() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss.SSSS"
         return dateFormatter.string(from: Date())
     }
 
@@ -225,5 +225,14 @@ open class NodeRecorder: NSObject {
             Log("Error: Can't record to" + url.lastPathComponent)
             throw error
         }
+    }
+
+    /// Creates a new audio file for recording
+    public func createNewFile() {
+        if isRecording == true {
+            stop()
+        }
+
+        self.internalAudioFile = NodeRecorder.createAudioFile(fileDirectoryPath: self.fileDirectoryPath)
     }
 }
