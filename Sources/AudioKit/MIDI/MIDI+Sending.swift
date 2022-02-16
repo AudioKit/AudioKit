@@ -431,17 +431,15 @@ extension MIDI {
     /// Send a Note Off Message with timestamp
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
-    ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channel (default: 0)
     ///   - time: MIDI Timestamp (default: 0)
     public func sendNoteOffMessageWithTime(noteNumber: MIDINoteNumber,
-                                           velocity: MIDIVelocity,
                                            channel: MIDIChannel = 0,
                                            time: MIDITimeStamp = 0,
                                            endpointsUIDs: [MIDIUniqueID]? = nil,
                                            virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = noteOffByte + channel
-        let message: [MIDIByte] = [noteCommand, noteNumber, velocity]
+        let message: [MIDIByte] = [noteCommand, noteNumber, 0]
         self.sendMessageWithTime(message, time: time,
                                  endpointsUIDs: endpointsUIDs,
                                  virtualOutputPorts: virtualOutputPorts)
