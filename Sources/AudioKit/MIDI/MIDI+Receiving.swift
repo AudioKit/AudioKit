@@ -239,31 +239,31 @@ extension MIDI {
         case .CompleteMessage:
             Log("UMP SYSEX - Got complete SysEx message in one UMP packet", log: OSLog.midi)
             
-            incomigUMPSysExMessage = [UInt8]()
-            incomigUMPSysExMessage.append(0xF0)
-            incomigUMPSysExMessage.append(contentsOf: validBytes)
-            incomigUMPSysExMessage.append(0xF7)
-            return incomigUMPSysExMessage
+            incomingUMPSysExMessage = [UInt8]()
+            incomingUMPSysExMessage.append(0xF0)
+            incomingUMPSysExMessage.append(contentsOf: validBytes)
+            incomingUMPSysExMessage.append(0xF7)
+            return incomingUMPSysExMessage
         case .Start:
             Log("UMP SYSEX - Start receiving UMP SysEx messages", log: OSLog.midi)
             
-            incomigUMPSysExMessage = [UInt8]()
-            incomigUMPSysExMessage.append(0xF0)
-            incomigUMPSysExMessage.append(contentsOf: validBytes)
+            incomingUMPSysExMessage = [UInt8]()
+            incomingUMPSysExMessage.append(0xF0)
+            incomingUMPSysExMessage.append(contentsOf: validBytes)
             // Full message not ready, nothing to return
             return []
         case .Continue:
             Log("UMP SYSEX - Continue receiving UMP SysEx messages", log: OSLog.midi)
             
-            incomigUMPSysExMessage.append(contentsOf: validBytes)
+            incomingUMPSysExMessage.append(contentsOf: validBytes)
             // Full message not ready, nothing to return
             return []
         case .End:
             Log("UMP SYSEX - End of UMP SysEx messages", log: OSLog.midi)
             
-            incomigUMPSysExMessage.append(contentsOf: validBytes)
-            incomigUMPSysExMessage.append(0xF7)
-            return incomigUMPSysExMessage
+            incomingUMPSysExMessage.append(contentsOf: validBytes)
+            incomingUMPSysExMessage.append(0xF7)
+            return incomingUMPSysExMessage
         default:
             Log("UMP SYSEX - Got unsupported UMPSysEx7bitStatus", log: OSLog.midi)
             return []

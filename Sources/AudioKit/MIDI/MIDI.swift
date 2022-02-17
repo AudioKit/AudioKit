@@ -100,6 +100,6 @@ public class MIDI {
     
     // I don't want to break logic of existing code for receiving SysEx messages,
     // So I use separate var for processUMPSysExMessage method
-    internal var incomigUMPSysExMessage = [UInt8]()
+    internal var incomingUMPSysExMessage = [UInt8]()
 }
 #endif
