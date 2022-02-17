@@ -14,7 +14,7 @@ open class MIDISystemRealTimeListener: NSObject {
         case `continue` = 0xFB
     }
 
-    /// System real-tiem state
+    /// System real-time state
     public enum SRTState {
         /// Stopped
         case stopped

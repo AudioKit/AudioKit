@@ -74,7 +74,7 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
     
     /// Handle MIDI commands that come in externally
     /// - Parameters:
-    ///   - noteNumber: MIDI Note Numbe
+    ///   - noteNumber: MIDI Note Number
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channel
     ///   - portID: Incoming MIDI Source
@@ -94,7 +94,7 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
     
     /// Handle MIDI commands that come in externally
     /// - Parameters:
-    ///   - noteNumber: MIDI Note Numbe
+    ///   - noteNumber: MIDI Note Number
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channel
     ///   - portID: Incoming MIDI Source

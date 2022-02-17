@@ -1,14 +1,14 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 // MIDI+Receiving Goals
-//      * Simplicty in discovery and presentation of available source inputs
-//      * Simplicty in inserting multiple midi transformations between a source and listeners
-//      * Simplicty in removing an individual midi transformation
-//      * Simplicty in removing all midi transformations
-//      * Simplicty in attaching multiple listeners to a source input
-//      * Simplicty in removing an individual listeners from a source input
-//      * Simplicty in removing all listeners
-//      * Simplicty to close all ports
+//      * Simplicity in discovery and presentation of available source inputs
+//      * Simplicity in inserting multiple midi transformations between a source and listeners
+//      * Simplicity in removing an individual midi transformation
+//      * Simplicity in removing all midi transformations
+//      * Simplicity in attaching multiple listeners to a source input
+//      * Simplicity in removing an individual listeners from a source input
+//      * Simplicity in removing all listeners
+//      * Simplicity to close all ports
 //      * Ports must be identifiers using MIDIUniqueIDs because ports can share the same name across devices and clients
 //
 

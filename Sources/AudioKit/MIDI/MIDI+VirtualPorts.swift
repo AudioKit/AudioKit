@@ -9,8 +9,8 @@ extension MIDI {
     // MARK: - Virtual MIDI
     //
     // Virtual MIDI Goals
-    //      * Simplicty in creating a virtual input and virtual output ports together
-    //      * Simplicty in disposing of virtual ports together
+    //      * Simplicity in creating a virtual input and virtual output ports together
+    //      * Simplicity in disposing of virtual ports together
     //      * Ability to create a single virtual input, or single virtual output
     //
     // Possible Improvements:
