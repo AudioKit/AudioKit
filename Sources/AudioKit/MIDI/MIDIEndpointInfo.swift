@@ -11,7 +11,7 @@ public struct EndpointInfo: Hashable, Codable {
     /// Unique name
     public var name = ""
 
-    /// Dispaly name
+    /// Display name
     public var displayName = ""
     /// Model information
     public var model = ""

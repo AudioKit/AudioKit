@@ -179,7 +179,7 @@ extension MIDIClockListener: MIDIBeatObserver {
 
 extension MIDIClockListener: MIDITempoObserver {
 
-    /// Resets the quantumc ounter
+    /// Resets the quantum counter
     public func midiClockFollowerMode() {
         Log("MIDI Clock Follower", log: OSLog.midi)
         quarterNoteQuantumCounter = 0

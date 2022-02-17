@@ -2,7 +2,7 @@
 
 import Foundation
 
-/// MIDI Varialbe Length Quantity
+/// MIDI Variable Length Quantity
 public struct MIDIVariableLengthQuantity {
     /// Data in bytes
     public let data: [MIDIByte]
@@ -18,7 +18,7 @@ public struct MIDIVariableLengthQuantity {
         self.init(fromBytes: Array(data))
     }
 
-    /// Initialize from arry
+    /// Initialize from array
     /// - Parameter data: MIDI Byte array
     public init?(fromBytes data: [MIDIByte]) {
         guard data.isNotEmpty else { return nil }

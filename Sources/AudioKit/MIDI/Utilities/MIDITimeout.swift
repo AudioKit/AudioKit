@@ -4,7 +4,7 @@ import Foundation
 
 /// A class that performs an action block, then starts a timer that
 /// catches timeout conditions where a response is not received.
-/// Since the external caller is responsible for what constitues succes,
+/// Since the external caller is responsible for what constitutes success,
 /// they are expected to call succeed() which will prevent timeout from
 /// happening.
 @objc open class MIDITimeout: NSObject {
@@ -25,7 +25,7 @@ import Foundation
     /// Initialize timeout
     /// - Parameters:
     ///   - time: Time Interval
-    ///   - onMainThread: Whether ot perfom on main thread
+    ///   - onMainThread: Whether to perform on main thread
     ///   - success: Closure to run on success
     ///   - timeout: Closure to run on timeout
     public init(timeoutInterval time: TimeInterval,

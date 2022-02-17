@@ -39,7 +39,7 @@ public struct MIDIFileTempoTrack {
         self.tempoData = tempoData
     }
 
-    /// Array of tempo byts
+    /// Array of tempo bytes
     public var tempoData = [MIDIByte]()
 
     /// Current tempo

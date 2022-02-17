@@ -26,7 +26,7 @@ public typealias BPMType = TimeInterval
 ///     let tempoListener = MIDITempoListener()
 ///     MIDI().addListener(tempoListener)
 ///
-/// Make your class a MIDITempoObserver and you will recieve callbacks when the BPM
+/// Make your class a MIDITempoObserver and you will receive callbacks when the BPM
 /// changes.
 ///
 ///     class YOURCLASS: MIDITempoObserver {

@@ -5,7 +5,7 @@
 import AVFoundation
 
 extension AVAudioSequencer: Collection {
-    /// This is a collection of AVMusicTracls, so we define element as such
+    /// This is a collection of AVMusicTracks, so we define element as such
     public typealias Element = AVMusicTrack
 
     /// Index by an integer
@@ -159,4 +159,3 @@ public class MIDIPlayer: AVAudioSequencer {
     }
 }
 #endif
-
