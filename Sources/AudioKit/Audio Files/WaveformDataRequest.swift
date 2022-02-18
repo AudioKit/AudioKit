@@ -12,7 +12,7 @@ public class WaveformDataRequest {
                                                        attributes: .concurrent)
 
     private var _abortGetWaveformData: Bool = false
-    /// Should we abort the wave formadata
+    /// Should we abort the waveform data
     public var abortGetWaveformData: Bool {
         get { _abortGetWaveformData }
         set {
@@ -45,7 +45,7 @@ public class WaveformDataRequest {
     ///   - samplesPerPixel: Number of samples you want per point
     ///   - offset: optional start offset to retrieve samples (default 0 : from 0, nil or minus : from currentFrame)
     ///   - length: optional length of retrieve samples (default is full length or remains)
-    ///   - queue: Optional distpatch Queue to  use, defaults to global user initiated queue
+    ///   - queue: Optional dispatch Queue to use, defaults to global user initiated queue
     ///   - completionHandler: Code to call when the process is done
     public func getDataAsync(with samplesPerPixel: Int,
                              offset: Int? = 0,
@@ -62,7 +62,7 @@ public class WaveformDataRequest {
     ///   - samplesPerPixel: Number of samples you want per point
     ///   - offset: optional start offset to retrieve samples (default 0 : from 0, nil or minus : from currentFrame)
     ///   - length: optional length of retrieve samples (default is full length or remains)
-    /// - Returns: An array of arry of floats, one for each channel
+    /// - Returns: An array of array of floats, one for each channel
     public func getData(with samplesPerPixel: Int,
                         offset: Int? = 0,
                         length: UInt? = nil) -> FloatChannelData? {

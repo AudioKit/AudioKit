@@ -212,7 +212,7 @@ extension Bool: NodeParameterType {
 }
 
 extension AUValue: NodeParameterType {
-    /// Conver to AUValue
+    /// Convert to AUValue
     /// - Returns: Value of type AUValue
     public func toAUValue() -> AUValue {
         self

@@ -353,7 +353,7 @@ extension Table {
 
     /// Takes a large array of floating point values and splits them up into an array of Tables.
     /// Returns an array of tables
-    /// If there are extra samples at the end of the signal that are less than tableLength, they are ommitted.
+    /// If there are extra samples at the end of the signal that are less than tableLength, they are omitted.
     ///
     /// Parameters:
     ///   - signal: large array of floating point values

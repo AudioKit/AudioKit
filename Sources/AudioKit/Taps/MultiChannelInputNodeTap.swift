@@ -15,7 +15,7 @@ public final class MultiChannelInputNodeTap {
         var channel: Int32
     }
 
-    /// Receive update events during the lifecyle of this class
+    /// Receive update events during the lifecycle of this class
     public weak var delegate: MultiChannelInputNodeTapDelegate?
 
     /// A simple name and channel pair for each channel being recorded
@@ -423,7 +423,7 @@ public final class MultiChannelInputNodeTap {
     }
 }
 
-/// Delegate for the Mutli-Channel Input Node Tap
+/// Delegate for the Multi-Channel Input Node Tap
 public protocol MultiChannelInputNodeTapDelegate: AnyObject {
     /// Sent when the tap is installed on the inputNode
     func tapInstalled(sender: MultiChannelInputNodeTap)

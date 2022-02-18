@@ -153,7 +153,7 @@ public class Table: MutableCollection {
 
     /// Create table from an array of Element
     /// - Parameters:
-    ///   - content: Array of elemnts
+    ///   - content: Array of elements
     ///   - phase: Offset
     public init(_ content: [Element], phase: Float = 0) {
         self.type = .custom
@@ -339,7 +339,7 @@ extension Table: RandomAccessCollection {
     /// Index offset from current index
     /// - Parameters:
     ///   - i: current index
-    ///   - n: offset idstance
+    ///   - n: offset distance
     @inline(__always)
     public func index(_ i: Index, offsetBy n: IndexDistance) -> Index {
         return i + n

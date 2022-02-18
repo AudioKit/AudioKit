@@ -40,7 +40,7 @@ extension Array where Element == Double {
     }
 
     func meanAndStdDev() -> (mean: Double, std: Double) {
-        // Peform Statistics
+        // Perform Statistics
         let meanCalc = avg()
         let stdDev = std()
         return (meanCalc, stdDev)
@@ -127,7 +127,7 @@ struct BPMHistoryStatistics {
         var newStats: [BPMStats] = []
 
         for count in historyCounts {
-            // Peform Statistics
+            // Perform Statistics
             let dropCount = bpmHistory.count - count
             guard dropCount > 0 else { return }
             let history = bpmHistory.dropFirst(dropCount).compactMap({ $0 })
@@ -142,7 +142,7 @@ struct BPMHistoryStatistics {
         var newStats: [TimeStats] = []
 
         for count in historyCounts {
-            // Peform Statistics
+            // Perform Statistics
             let dropCount = timeHistory.count - count
             guard dropCount > 0 else { return }
             let history = timeHistory.dropFirst(dropCount).compactMap({ $0 })
@@ -192,7 +192,7 @@ struct BPMHistoryStatistics {
 }
 
 /// BPMHistoryAveraging keeps a history of BPM values that recorded into it.
-/// Each time a value is recorded, it calcualtes a average and standard
+/// Each time a value is recorded, it calculates an average and standard
 //  deviation so that the stability of the BPM clock can be examined.
 struct BPMHistoryAveraging {
     var bpmHistory: [BPMType]

@@ -108,7 +108,7 @@ public class AudioEngine {
             let wasRunning = avEngine.isRunning
             if wasRunning { stop() }
 
-            // remove the exisiting node if it is present
+            // remove the existing node if it is present
             if let node = oldValue {
                 mainMixerNode?.removeInput(node)
                 node.detach()

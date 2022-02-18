@@ -1,14 +1,14 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 // MIDI+Receiving Goals
-//      * Simplicty in discovery and presentation of available source inputs
-//      * Simplicty in inserting multiple midi transformations between a source and listeners
-//      * Simplicty in removing an individual midi transformation
-//      * Simplicty in removing all midi transformations
-//      * Simplicty in attaching multiple listeners to a source input
-//      * Simplicty in removing an individual listeners from a source input
-//      * Simplicty in removing all listeners
-//      * Simplicty to close all ports
+//      * Simplicity in discovery and presentation of available source inputs
+//      * Simplicity in inserting multiple midi transformations between a source and listeners
+//      * Simplicity in removing an individual midi transformation
+//      * Simplicity in removing all midi transformations
+//      * Simplicity in attaching multiple listeners to a source input
+//      * Simplicity in removing an individual listeners from a source input
+//      * Simplicity in removing all listeners
+//      * Simplicity to close all ports
 //      * Ports must be identifiers using MIDIUniqueIDs because ports can share the same name across devices and clients
 //
 
@@ -239,31 +239,31 @@ extension MIDI {
         case .CompleteMessage:
             Log("UMP SYSEX - Got complete SysEx message in one UMP packet", log: OSLog.midi)
             
-            incomigUMPSysExMessage = [UInt8]()
-            incomigUMPSysExMessage.append(0xF0)
-            incomigUMPSysExMessage.append(contentsOf: validBytes)
-            incomigUMPSysExMessage.append(0xF7)
-            return incomigUMPSysExMessage
+            incomingUMPSysExMessage = [UInt8]()
+            incomingUMPSysExMessage.append(0xF0)
+            incomingUMPSysExMessage.append(contentsOf: validBytes)
+            incomingUMPSysExMessage.append(0xF7)
+            return incomingUMPSysExMessage
         case .Start:
             Log("UMP SYSEX - Start receiving UMP SysEx messages", log: OSLog.midi)
             
-            incomigUMPSysExMessage = [UInt8]()
-            incomigUMPSysExMessage.append(0xF0)
-            incomigUMPSysExMessage.append(contentsOf: validBytes)
+            incomingUMPSysExMessage = [UInt8]()
+            incomingUMPSysExMessage.append(0xF0)
+            incomingUMPSysExMessage.append(contentsOf: validBytes)
             // Full message not ready, nothing to return
             return []
         case .Continue:
             Log("UMP SYSEX - Continue receiving UMP SysEx messages", log: OSLog.midi)
             
-            incomigUMPSysExMessage.append(contentsOf: validBytes)
+            incomingUMPSysExMessage.append(contentsOf: validBytes)
             // Full message not ready, nothing to return
             return []
         case .End:
             Log("UMP SYSEX - End of UMP SysEx messages", log: OSLog.midi)
             
-            incomigUMPSysExMessage.append(contentsOf: validBytes)
-            incomigUMPSysExMessage.append(0xF7)
-            return incomigUMPSysExMessage
+            incomingUMPSysExMessage.append(contentsOf: validBytes)
+            incomingUMPSysExMessage.append(0xF7)
+            return incomingUMPSysExMessage
         default:
             Log("UMP SYSEX - Got unsupported UMPSysEx7bitStatus", log: OSLog.midi)
             return []
@@ -377,7 +377,7 @@ extension MIDI {
                             for packet in packetList.pointee {
                                 // a CoreMIDI packet may contain multiple MIDI events -
                                 // treat it like an array of events that can be transformed
-                                let events = [MIDIEvent](packet) //uses MIDIPacketeList makeIterator
+                                let events = [MIDIEvent](packet) //uses MIDIPacketList makeIterator
                                 let transformedMIDIEventList = self.transformMIDIEventList(events)
                                 // Note: incomplete SysEx packets will not have a status
                                 for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
@@ -448,7 +448,7 @@ extension MIDI {
                     if result == noErr {
                         Log("Disposed \(name)", log: OSLog.midi)
                     } else {
-                        Log("Error displosing  MIDI port: \(result)", log: OSLog.midi, type: .error)
+                        Log("Error disposing MIDI port: \(result)", log: OSLog.midi, type: .error)
                     }
                 }
             }

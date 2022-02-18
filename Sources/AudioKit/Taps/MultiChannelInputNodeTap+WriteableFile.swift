@@ -86,7 +86,7 @@ extension MultiChannelInputNodeTap {
             amplitude = buffer.rms
         }
 
-        // The actual buffer length is unpredicatable if using a Tap. This isn't ideal.
+        // The actual buffer length is unpredictable if using a Tap. This isn't ideal.
         // The system will change the buffer size to whatever it wants to, which seems
         // strange that they let you set a buffer size in the first place. macOS is setting to
         // 4800 when at 48k, or sampleRate / 10. That's a big buffer.

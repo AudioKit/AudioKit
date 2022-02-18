@@ -203,7 +203,7 @@ Here's an example of creating a sample programmatically in Swift, and loading it
 A few points to note about this example:
 
 * We get the scary-typed pointer by calling the pointer type's `init(mutating:)` function
-* `Settings.sampeRate` provides the current audio sampling rate
+* `Settings.sampleRate` provides the current audio sampling rate
 * Since we have only one note, the `noteNumber` can be anything
 * We can set `min_note` etc. to -1, because we call `buildSimpleKeyMap()` not `buildKeyMap()`
 * `fLoopStart` and `fLoopEnd` are normally sample counts (i.e., we could specify 0.0 and 999.0 to loop over the whole sample), but values between 0 and 1 are interpreted as *fractions* of the full sample length. Hence we can just use 0 to mean "start of the sample" and 1 to mean "end of the sample".
@@ -322,7 +322,7 @@ for aif in os.listdir('.'):
     #os.remove(aif)
 ```
 
-### Creating a SFZ metatdata file
+### Creating a SFZ metadata file
 Mapping of MIDI (note-number, velocity) pairs to sample files requires additional data, for which **Sampler** uses a simple subset of the [SFZ format](https://en.wikipedia.org/wiki/SFZ_(file_format)). SFZ is essentially a text-based, open-standard alternative to the proprietary [SoundFont](https://en.wikipedia.org/wiki/SoundFont) format.
 
 In addition to key-mapping, SFZ files can also contain other important metadata such as loop-start and -end points for each sample file.
@@ -354,7 +354,7 @@ Since SFZ files are simply plain-text files, you can use an ordinary text editor
 At the other end of the scale, a company called Chicken Systems sells a very powerful tool called [Translator](http://www.chickensys.com/products2/translator/), which can convert both sample and metadata to and from a huge list of professional formats, including ESX24 (Apple), SoundFont (SF2 and SFZ), Kontakt 5 (Native Instruments), and many more. The full version costs $149 (USD), but if you're only interested in converting to SFZ, you can buy the "Special Edition" for just $79.
 
 ### Scripts for MainStage 3 Autosampler
-The autosampler built into Apple's *MainStage 3* produces AIFF-C audio fils and an EXS24 metadata file, in a newer format than vonRed's `esxtosfz.py` script can handle. However, all the necessary details are actually encoded right in the `.aif` sample files. The following Python script uses a simplistic parsing technique to pull the necessary numbers out of a set of `.aif` files and create a corresponding `.sfz` file:
+The autosampler built into Apple's *MainStage 3* produces AIFF-C audio files and an EXS24 metadata file, in a newer format than vonRed's `esxtosfz.py` script can handle. However, all the necessary details are actually encoded right in the `.aif` sample files. The following Python script uses a simplistic parsing technique to pull the necessary numbers out of a set of `.aif` files and create a corresponding `.sfz` file:
 
 ```python
 import sys, os
@@ -575,7 +575,7 @@ This SFZ file is an example of a piano sampler with samples matched note for not
 
 `<control>`
 
-This is a necessary SFZ keyword to deonte that this is indeed a SFZ file.
+This is a necessary SFZ keyword to denote that this is indeed a SFZ file.
 
 `default_path=samples/`
 
@@ -604,7 +604,7 @@ Lets look at the last 2 lines:
 `<group>lokey=72 hikey=80 pitch_keycenter=72
 <region> sample=C5.wv`
 
-`lokey` and `hikey` allows us to use one sample to map to multiple keys or MIDI notes. `pitch_keycenter` tells us where to center the key or MIDI note for the sample. In these two lines, we are assigning the sample `C5.wv` to MIDI notes (or keys) 72 *through* 80. The sampler will pitch shift the sample in order to accomdate the higher/lower notes. Be aware that small amounts of pitch shifting will be hard to descern, but anything past a Perfect 5th (7 semitones) will start to exhibit pitch shifting artifacts. Check out more information on [`lokey` and `hikey`](https://sfzformat.com/opcodes/hikey), and [`pitch_keycenter`](https://sfzformat.com/opcodes/pitch_keycenter).
+`lokey` and `hikey` allows us to use one sample to map to multiple keys or MIDI notes. `pitch_keycenter` tells us where to center the key or MIDI note for the sample. In these two lines, we are assigning the sample `C5.wv` to MIDI notes (or keys) 72 *through* 80. The sampler will pitch shift the sample in order to accommodate the higher/lower notes. Be aware that small amounts of pitch shifting will be hard to discern, but anything past a Perfect 5th (7 semitones) will start to exhibit pitch shifting artifacts. Check out more information on [`lokey` and `hikey`](https://sfzformat.com/opcodes/hikey), and [`pitch_keycenter`](https://sfzformat.com/opcodes/pitch_keycenter).
 
 **IMPORTANT** 
 
