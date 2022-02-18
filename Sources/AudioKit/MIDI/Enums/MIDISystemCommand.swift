@@ -72,7 +72,7 @@ public enum MIDISystemCommand: MIDIByte, MIDIMessage {
         case .sysEx:
             return "SysEx Begin"
         case .timeCodeQuarterFrame:
-            return "Timecode Quater Frame"
+            return "Timecode Quarter Frame"
         case .songPosition:
             return "Song Position"
         case .songSelect:

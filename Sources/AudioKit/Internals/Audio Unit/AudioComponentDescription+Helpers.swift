@@ -3,7 +3,7 @@
 import AVFoundation
 
 extension AUParameterTree {
-    /// Look up paramters by key
+    /// Look up parameters by key
     public subscript(key: String) -> AUParameter? {
         return value(forKey: key) as? AUParameter
     }

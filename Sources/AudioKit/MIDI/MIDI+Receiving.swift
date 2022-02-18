@@ -377,7 +377,7 @@ extension MIDI {
                             for packet in packetList.pointee {
                                 // a CoreMIDI packet may contain multiple MIDI events -
                                 // treat it like an array of events that can be transformed
-                                let events = [MIDIEvent](packet) //uses MIDIPacketeList makeIterator
+                                let events = [MIDIEvent](packet) //uses MIDIPacketList makeIterator
                                 let transformedMIDIEventList = self.transformMIDIEventList(events)
                                 // Note: incomplete SysEx packets will not have a status
                                 for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
@@ -448,7 +448,7 @@ extension MIDI {
                     if result == noErr {
                         Log("Disposed \(name)", log: OSLog.midi)
                     } else {
-                        Log("Error displosing  MIDI port: \(result)", log: OSLog.midi, type: .error)
+                        Log("Error disposing MIDI port: \(result)", log: OSLog.midi, type: .error)
                     }
                 }
             }

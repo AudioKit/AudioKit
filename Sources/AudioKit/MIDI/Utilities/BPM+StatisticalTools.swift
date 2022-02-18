@@ -40,7 +40,7 @@ extension Array where Element == Double {
     }
 
     func meanAndStdDev() -> (mean: Double, std: Double) {
-        // Peform Statistics
+        // Perform Statistics
         let meanCalc = avg()
         let stdDev = std()
         return (meanCalc, stdDev)
@@ -192,7 +192,7 @@ struct BPMHistoryStatistics {
 }
 
 /// BPMHistoryAveraging keeps a history of BPM values that recorded into it.
-/// Each time a value is recorded, it calculates a average and standard
+/// Each time a value is recorded, it calculates an average and standard
 //  deviation so that the stability of the BPM clock can be examined.
 struct BPMHistoryAveraging {
     var bpmHistory: [BPMType]

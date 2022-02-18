@@ -61,7 +61,7 @@ open class MIDICallbackInstrument: MIDIInstrument {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number being stopped
     ///   - channel: MIDI Channel
-    ///   - offset: MIDI Timetamp
+    ///   - offset: MIDI Timestamp
     ///
     open override func stop(noteNumber: MIDINoteNumber,
                             channel: MIDIChannel,

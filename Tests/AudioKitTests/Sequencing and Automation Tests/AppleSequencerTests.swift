@@ -289,7 +289,7 @@ class AppleSequencerTests: XCTestCase {
         XCTAssertEqual(seq.trackCount, trackCount)
     }
 
-    func testLoadMIDIFile_shouldCompletlyOverwriteExistingContent() {
+    func testLoadMIDIFile_shouldCompletelyOverwriteExistingContent() {
         // original seq will have three tracks, 8 beats long
         for _ in 0 ..< 3 {
             let newTrack = seq.newTrack()

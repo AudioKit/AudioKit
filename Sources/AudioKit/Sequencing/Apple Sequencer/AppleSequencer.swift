@@ -345,7 +345,7 @@ open class AppleSequencer: NSObject {
             if metaEvent.metaEventType == timeSignatureMetaEventByte {
                 let rawTimeSig = metaEventPointer.payload
                 guard let bottomValue = TimeSignature.TimeSignatureBottomValue(rawValue: rawTimeSig[1]) else {
-                    Log("Inavlid time signature bottom value")
+                    Log("Invalid time signature bottom value")
                     return
                 }
                 let timeSigEvent = TimeSignature(topValue: rawTimeSig[0],
@@ -495,7 +495,7 @@ open class AppleSequencer: NSObject {
         }
     }
 
-    /// Wheter or not the sequencer is currently playing
+    /// Whether or not the sequencer is currently playing
     open var isPlaying: Bool {
         var isPlayingBool: DarwinBoolean = false
         if let existingMusicPlayer = musicPlayer {

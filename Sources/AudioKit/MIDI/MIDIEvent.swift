@@ -278,7 +278,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
         self.init(data: [MIDIStatus(type: .controllerChange, channel: channel).byte, controller, value])
     }
     
-    /// Array of MIDI events from a MIDI packet list poionter
+    /// Array of MIDI events from a MIDI packet list pointer
     public static func midiEventsFrom(packetListPointer: UnsafePointer<MIDIPacketList>) -> [MIDIEvent] {
         return packetListPointer.pointee.map { MIDIEvent(packet: $0) }
     }
@@ -299,7 +299,7 @@ public struct MIDIEvent: MIDIMessage, Equatable {
     public static func generateFrom(bluetoothData: [MIDIByte]) -> [MIDIEvent] {
         //1st byte timestamp coarse will always be > 128
         //2nd byte fine timestamp will always be > 128 - if 2nd message < 128, is continuing sysEx
-        //3nd < 128 running message - timestamp
+        //3rd < 128 running message - timestamp
         //status byte determines length of message
         
         var midiEvents: [MIDIEvent] = []

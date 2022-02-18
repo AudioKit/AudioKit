@@ -19,7 +19,7 @@ You can AudioKit and any of the other AudioKit libraries using Collections
 |--------------------|-------------------------------------------------------------|---------------|
 | SoundpipeAudioKit  | API for using Soundpipe-powered Audio Units                 | Swift         |
 | CSoundpipeAudioKit | Audio Units for the Soundpipe DSP                           | Objective-C++ |
-| Soundpipe          | Low-level DSP for oscillators, physcial models, and effects | C             |
+| Soundpipe          | Low-level DSP for oscillators, physical models, and effects | C             |
 
 ## Generators / Instruments
 

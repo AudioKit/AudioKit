@@ -51,7 +51,7 @@ public class Settings: NSObject {
         }
     }
 
-    /// Defaul t audio format
+    /// Default audio format
     public static let defaultAudioFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100,
                                                          channels: 2) ?? AVAudioFormat()
 
