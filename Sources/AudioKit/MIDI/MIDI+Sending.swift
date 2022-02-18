@@ -306,7 +306,7 @@ extension MIDI {
     ///   - time: MIDI Timestamp (default: mach_absolute_time())
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
                                    channel: MIDIChannel = 0,
-                                   time: MIDITimeStamp = mach_absolute_time(),
+                                   time: MIDITimeStamp = MIDITimeStamp(mach_absolute_time()),
                                    endpointsUIDs: [MIDIUniqueID]? = nil,
                                    virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = noteOffByte + channel
