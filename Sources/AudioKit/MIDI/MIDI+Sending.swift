@@ -287,11 +287,11 @@ extension MIDI {
     ///   - noteNumber: MIDI Note Number
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channel (default: 0)
-    ///   - time: MIDI Timestamp (default: mach_absolute_time())
+    ///   - time: MIDI Timestamp (default: mach_absolute_time(), note: time should never be 0)
     public func sendNoteOnMessage(noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity,
                                   channel: MIDIChannel = 0,
-                                  time: MIDITimeStamp = MIDITimeStamp(mach_absolute_time()),
+                                  time: MIDITimeStamp = mach_absolute_time(),
                                   endpointsUIDs: [MIDIUniqueID]? = nil,
                                   virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = noteOnByte + channel
@@ -303,10 +303,10 @@ extension MIDI {
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
     ///   - channel: MIDI Channel (default: 0)
-    ///   - time: MIDI Timestamp (default: mach_absolute_time())
+    ///   - time: MIDI Timestamp (default: mach_absolute_time(), note: time should never be 0)
     public func sendNoteOffMessage(noteNumber: MIDINoteNumber,
                                    channel: MIDIChannel = 0,
-                                   time: MIDITimeStamp = MIDITimeStamp(mach_absolute_time()),
+                                   time: MIDITimeStamp = mach_absolute_time(),
                                    endpointsUIDs: [MIDIUniqueID]? = nil,
                                    virtualOutputPorts: [MIDIPortRef]? = nil) {
         let noteCommand: MIDIByte = noteOffByte + channel
@@ -351,9 +351,9 @@ extension MIDI {
     /// Send Message with data with timestamp
     /// - Parameters:
     ///   - data: Array of MIDI Bytes
-    ///   - time: MIDI Timestamp (default mach_absolute_time())
+    ///   - time: MIDI Timestamp (default: mach_absolute_time(), note: time should never be 0)
     public func sendMessage(_ data: [MIDIByte],
-                            time: MIDITimeStamp =  MIDITimeStamp(mach_absolute_time()),
+                            time: MIDITimeStamp = mach_absolute_time(),
                             endpointsUIDs: [MIDIUniqueID]? = nil,
                             virtualOutputPorts: [MIDIPortRef]? = nil) {
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
