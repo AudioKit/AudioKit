@@ -43,7 +43,7 @@ extension Array where Element == MIDIByte {
 extension MIDIWord {
     /// Construct a 14 bit integer MIDIWord value
     ///
-    /// This would be used for converting two incoming MIDIBytes into a useable value
+    /// This would be used for converting two incoming MIDIBytes into a usable value
     ///
     /// - Parameters:
     ///   - byte1: The least significant byte in the 14 bit integer value

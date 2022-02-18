@@ -170,7 +170,7 @@ extension FormatConverter {
         /// How many channels to convert to. Typically 1 or 2
         public var channels: UInt32?
 
-        /// Maps to PCM Convertion format option `AVLinearPCMIsNonInterleaved`
+        /// Maps to PCM Conversion format option `AVLinearPCMIsNonInterleaved`
         public var isInterleaved: Bool?
 
         /// Overwrite existing files, set false if you want to handle this before you call start()

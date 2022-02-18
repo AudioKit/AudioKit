@@ -48,7 +48,7 @@ with a lowercase first character (except for Classes, which are uppercase).  No 
 
 Example: `leftOutput` not `outputLeft`
 
-The primary reason for adding descriptors to the right is some sort of vertical alignment or alphabetical arrangement to your variables. Unfortuanately, English is the opposite from this, so to maximize readability, the descriptors come before the nouns.
+The primary reason for adding descriptors to the right is some sort of vertical alignment or alphabetical arrangement to your variables. Unfortunately, English is the opposite from this, so to maximize readability, the descriptors come before the nouns.
 
 ### Variables should not include the units of the variable unless absolutely necessary
 
@@ -68,7 +68,7 @@ Example: `channelCount` not `numberOfChannels`
 
 Examples: `enableMIDI` not `enableMidi` and `adsrEnvelope` not `AdsrEnvelope`
 
-While some acronyms are pronouncable (like 'MIDI') many are not, and when you see words in camel case variables, we expect to be able to mentally separate and pronounce the components as words.  Capitalization alerts the reader of this.  The exception to all caps is all lower case, for when the acronym appears in the beginning of the variable name.
+While some acronyms are pronounceable (like 'MIDI') many are not, and when you see words in camel case variables, we expect to be able to mentally separate and pronounce the components as words.  Capitalization alerts the reader of this.  The exception to all caps is all lower case, for when the acronym appears in the beginning of the variable name.
 
 ### Time Intervals are "Durations"
 
@@ -76,5 +76,5 @@ When you're writing audio apps, timing is often a very important issue.  The dis
 
 ### Boolean variable should start with "is" and if a verb, should end with "ed" or "ing"
 
-Examples: `isLooping` not `loop` because loop can be misinterpretted as a noun and `isFilterEnabled` not `filterEnable` because the latter sounds like a verb.
+Examples: `isLooping` not `loop` because loop can be misinterpreted as a noun and `isFilterEnabled` not `filterEnable` because the latter sounds like a verb.
 

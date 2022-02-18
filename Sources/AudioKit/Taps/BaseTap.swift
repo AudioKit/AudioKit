@@ -80,7 +80,7 @@ open class BaseTap {
                                            block: handleTapBlock(buffer:at:))
     }
 
-    /// Overide this method to handle Tap in derived class
+    /// Override this method to handle Tap in derived class
     /// - Parameters:
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
@@ -100,7 +100,7 @@ open class BaseTap {
         }
     }
 
-    /// Overide this method to handle Tap in derived class
+    /// Override this method to handle Tap in derived class
     open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {}
 
     /// Remove the tap on the input

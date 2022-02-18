@@ -339,7 +339,7 @@ extension MIDI {
         endpoints.removeAll()
     }
 
-    /// Send Messsage from MIDI event data
+    /// Send Message from MIDI event data
     /// - Parameter event: Event so send
     public func sendEvent(_ event: MIDIEvent,
                           endpointsUIDs: [MIDIUniqueID]? = nil,

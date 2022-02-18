@@ -139,7 +139,7 @@ open class MusicTrackManager {
     /// Set loop info
     ///
     /// - parameter duration: How long the loop will last, from the end of the track backwards
-    /// - parameter loopCount: how many times to loop. 0 is infinte
+    /// - parameter loopCount: how many times to loop. 0 is infinite
     ///
     public func setLoopInfo(_ duration: Duration, loopCount: Int) {
         let size: UInt32 = UInt32(MemoryLayout<MusicTrackLoopInfo>.size)
@@ -715,7 +715,7 @@ open class MusicTrackManager {
         DisposeMusicEventIterator(iterator)
     }
 
-    /// Set the MIDI Ouput
+    /// Set the MIDI Output
     ///
     /// - parameter endpoint: MIDI Endpoint Port
     ///

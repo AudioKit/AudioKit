@@ -111,7 +111,7 @@ public class Mixer: Node, NamedNode {
         inputs.removeAll()
     }
 
-    /// Resize underlying AVAudioMixerNode input busses array to accomodate for required count of inputs.
+    /// Resize underlying AVAudioMixerNode input busses array to accommodate for required count of inputs.
     ///
     /// ```
     /// let desiredInputCount = 5

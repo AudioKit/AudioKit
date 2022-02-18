@@ -7,7 +7,7 @@ import CoreAudioKit
 class BTMIDICentralViewController: CABTMIDICentralViewController {
     var uiViewController: UIViewController?
 
-    /// Called when subview area layed out
+    /// Called when subview area laid out
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
@@ -15,7 +15,7 @@ class BTMIDICentralViewController: CABTMIDICentralViewController {
                                                             action: #selector(doneAction))
     }
 
-    /// Dismiss view cotnroller when done
+    /// Dismiss view controller when done
     @objc public func doneAction() {
         uiViewController?.dismiss(animated: true, completion: nil)
     }

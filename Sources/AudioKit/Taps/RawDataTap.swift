@@ -24,7 +24,7 @@ open class RawDataTap: BaseTap {
         super.init(input, bufferSize: bufferSize)
     }
 
-    /// Overide this method to handle Tap in derived class
+    /// Override this method to handle Tap in derived class
     /// - Parameters:
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case

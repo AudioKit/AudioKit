@@ -50,7 +50,7 @@ public class AmplitudeTap: BaseTap {
         super.init(input, bufferSize: bufferSize)
     }
 
-    /// Overide this method to handle Tap in derived class
+    /// Override this method to handle Tap in derived class
     /// - Parameters:
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
@@ -94,7 +94,7 @@ public class AmplitudeTap: BaseTap {
     }
 }
 
-/// Tyep of analysis
+/// Type of analysis
 public enum AnalysisMode {
     /// Root Mean Squared
     case rms

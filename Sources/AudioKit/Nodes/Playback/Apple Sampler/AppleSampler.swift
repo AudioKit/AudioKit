@@ -297,7 +297,7 @@ open class AppleSampler: Node {
     /// Set the pitch bend amount
     /// - Parameters:
     ///   - amount: Value of the pitch bend
-    ///   - channel: MIDI Channel ot apply the bend to
+    ///   - channel: MIDI Channel to apply the bend to
     public func setPitchbend(amount: MIDIWord, channel: MIDIChannel) {
         samplerUnit.sendPitchBend(amount, onChannel: channel)
     }
