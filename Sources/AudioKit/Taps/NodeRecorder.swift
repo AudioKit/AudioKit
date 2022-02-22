@@ -99,7 +99,6 @@ open class NodeRecorder: NSObject {
     public static func createAudioFile(fileDirectoryURL: URL = URL(fileURLWithPath: NSTemporaryDirectory())) -> AVAudioFile? {
         let filename = createDateFileName() + ".caf"
         let url = fileDirectoryURL.appendingPathComponent(filename)
-        //let url = URL(fileURLWithPath: fileDirectoryPath).appendingPathComponent(filename)
         var settings = Settings.audioFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
