@@ -157,6 +157,17 @@ open class AppleSampler: Node {
         samplerUnit.reset()
     }
 
+    /// Loads an instrument at a URL. The sampler can be configured by loading
+    /// instruments from different types of files such as an aupreset, a DLS or SF2 sound bank,
+    /// an EXS24 instrument, a single audio file, or an array of audio files.
+    ///
+    /// - parameter url: URL to the instrument file
+    ///
+    public func loadInstrument(url: URL) throws {
+        try samplerUnit.loadInstrument(at: url)
+        samplerUnit.reset()
+    }
+
     internal func loadInstrument(_ file: String, type: String, in bundle: Bundle = .main) throws {
         //Log("filename is \(file)")
         guard let url = findFileURL(file, withExtension: type, in: bundle) else {
