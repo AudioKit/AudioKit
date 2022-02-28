@@ -58,4 +58,15 @@ class AppleSamplerTests: XCTestCase {
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
     }
+
+    // Repro case.
+    /*
+    func testLoadEXS24_bug() throws {
+        let engine = AVAudioEngine()
+        let samplerUnit = AVAudioUnitSampler()
+        engine.attach(samplerUnit)
+        let exsURL = Bundle.module.url(forResource: "TestResources/Sampler Instruments/sawPiano1", withExtension: "exs")!
+        try samplerUnit.loadInstrument(at: exsURL)
+    }
+    */
 }
