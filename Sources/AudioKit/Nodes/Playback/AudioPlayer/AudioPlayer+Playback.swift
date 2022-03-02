@@ -87,8 +87,10 @@ extension AudioPlayer {
         let time = time.clamped(to: 0...duration)
 
         if status == .playing {
+            isSeeking = true
             stop()
             play(from: time, to: duration)
+            isSeeking = false
         } else {
             editStartTime = time
             editEndTime = duration

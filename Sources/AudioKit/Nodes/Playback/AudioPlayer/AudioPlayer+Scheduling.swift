@@ -55,6 +55,7 @@ extension AudioPlayer {
                                    frameCount: frameCount,
                                    at: audioTime,
                                    completionCallbackType: completionCallbackType) { callbackType in
+            if self.isSeeking { return }
             DispatchQueue.main.async {
                 self.internalCompletionHandler()
             }
@@ -86,6 +87,7 @@ extension AudioPlayer {
                                   at: audioTime,
                                   options: bufferOptions,
                                   completionCallbackType: completionCallbackType) { callbackType in
+            if self.isSeeking { return }
             DispatchQueue.main.async {
                 self.internalCompletionHandler()
             }
