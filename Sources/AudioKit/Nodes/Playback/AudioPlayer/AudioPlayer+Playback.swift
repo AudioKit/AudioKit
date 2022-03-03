@@ -47,6 +47,7 @@ extension AudioPlayer {
                 status = .stopped
                 play()
             } else if !isLooping && !isBuffered {
+                playerNode.stop()
                 status = .stopped
             }
         }
