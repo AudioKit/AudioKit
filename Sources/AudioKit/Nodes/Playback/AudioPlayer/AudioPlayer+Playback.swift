@@ -43,12 +43,11 @@ extension AudioPlayer {
             return
         case .completed:
             // reset the status and play again if isLooping and not buffered
+            status = .stopped
             if isLooping && !isBuffered {
-                status = .stopped
                 play()
-            } else if !isLooping && !isBuffered {
+            } else {
                 playerNode.stop()
-                status = .stopped
             }
         }
     }
