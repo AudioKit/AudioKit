@@ -1,6 +1,4 @@
-//: Run this playground to test that AudioKit is working
 import AudioKit
-import AudioKitEX
 import Foundation
 
 var greeting = "Hello, playground"
