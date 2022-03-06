@@ -108,8 +108,17 @@ open class AppleSampler: Node {
 
     /// Load an EXS24 sample data file
     ///
+    /// - parameter URL: Complete URL of the EXS file
+    ///
+    public func loadEXS24(url: URL) throws {
+        try samplerUnit.loadInstrument(at: url)
+    }
+
+    /// Load an EXS24 sample data file
+    ///
     /// - parameter file: Name of the EXS24 file without the .exs extension
     ///
+    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
     public func loadEXS24(_ file: String) throws {
         try loadInstrument(file, type: "exs")
     }
@@ -250,6 +259,20 @@ open class AppleSampler: Node {
         }
     }
 
+    fileprivate func loadSoundFont(url: URL, preset: Int, type: Int, in bundle: Bundle = .main) throws {
+        do {
+            try samplerUnit.loadSoundBankInstrument(
+                at: url,
+                program: MIDIByte(preset),
+                bankMSB: MIDIByte(type),
+                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
+            samplerUnit.reset()
+        } catch let error as NSError {
+            Log("Error loading SoundFont \(url)")
+            throw error
+        }
+    }
+
     /// Load a Bank from a SoundFont SF2 sample data file or a DLS file
     ///
     /// - Parameters:
@@ -292,6 +315,10 @@ open class AppleSampler: Node {
     ///
     public func loadMelodicSoundFont(_ file: String, preset: Int, in bundle: Bundle = .main) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
+    }
+
+    public func loadMelodicSoundFont(url: URL, preset: Int, in bundle: Bundle = .main) throws {
+        try loadSoundFont(url: url, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
     }
 
     /// Load a Percussive SoundFont SF2 sample data file or a DLS file
