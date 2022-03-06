@@ -111,7 +111,7 @@ extension AudioPlayer {
     public func stop() {
         guard status == .playing else { return }
         pausedTime = getCurrentTime()
-        playerNode.stop()
         status = .stopped
+        playerNode.stop()
     }
 }
