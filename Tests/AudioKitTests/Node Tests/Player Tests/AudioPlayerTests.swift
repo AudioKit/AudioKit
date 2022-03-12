@@ -68,6 +68,29 @@ class AudioPlayerTests: XCTestCase {
         
         testMD5(audio)
     }
+
+    func testStopAfterPause() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let file = try? AVAudioFile(forReading: url) else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+
+        let audio = engine.startTest(totalDuration: 5.0)
+        player.file = file
+
+        player.play()
+        audio.append(engine.render(duration: 2.0))
+        player.pause()
+        audio.append(engine.render(duration: 1.0))
+        player.stop()
+
+        XCTAssertEqual(player.status, .stopped)
+    }
     
     func testEngineRestart() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
@@ -192,7 +215,7 @@ class AudioPlayerTests: XCTestCase {
         
         let currentTime = player.getCurrentTime()
         XCTAssertEqual(currentTime, 2.5)
-        
+
         testMD5(audio)
     }
 
