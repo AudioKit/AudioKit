@@ -196,6 +196,36 @@ class AudioPlayerTests: XCTestCase {
         testMD5(audio)
     }
 
+    // If we play for 1 second and pause, and then seek 1 more second forward, we
+    // should be given the current time of 2 seconds
+    func testGetCurrentTimeAfterPauseAndSeek() {
+      guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+        XCTFail("Didn't get test file")
+        return
+      }
+      let engine = AudioEngine()
+      let player = AudioPlayer()
+      engine.output = player
+
+      let audio = engine.startTest(totalDuration: 3.0)
+
+      do {
+        try player.load(url: url, buffered: true)
+      } catch let error as NSError {
+        Log(error, type: .error)
+        XCTFail(error.description)
+      }
+
+      player.play()
+      audio.append(engine.render(duration: 1.0))
+
+      player.pause()
+      player.seek(time: 2.0)
+
+      let currentTime = player.getCurrentTime()
+      XCTAssertEqual(currentTime, 2.0)
+    }
+
     func testToggleEditTime() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
             XCTFail("Didn't get test file")
