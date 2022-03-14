@@ -23,17 +23,7 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .lessThanOrEqual
 
-        let expectation = XCTestExpectation(description: String(describing: options))
-
-        try convert(with: options, input: stereoWAVE44k16Bit) { error in
-            if let error = error {
-                Log(error.localizedDescription)
-            }
-            // should be not nil as the target bitDepth is higher than the source
-            XCTAssertNotNil(error)
-
-            expectation.fulfill()
-        }
+        XCTAssertThrowsError(try convert(with: options, input: stereoWAVE44k16Bit))
     }
 
     func testConvertAIFF44k16bit() throws {
@@ -44,13 +34,7 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .any
 
-        let expectation = XCTestExpectation(description: String(describing: options))
-        try convert(with: options) { error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
-            }
-            expectation.fulfill()
-        }
+        try convert(with: options)
     }
 
     func testConvertCAF96k32bit() throws {
@@ -61,13 +45,7 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .any
 
-        let expectation = XCTestExpectation(description: String(describing: options))
-        try convert(with: options) { error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
-            }
-            expectation.fulfill()
-        }
+        try convert(with: options)
     }
 
     func testConvertM4A24Bit() throws {
@@ -78,13 +56,7 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .any
 
-        let expectation = XCTestExpectation(description: String(describing: options))
-        try convert(with: options) { error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
-            }
-            expectation.fulfill()
-        }
+        try convert(with: options)
     }
 
     func testConvertMonoM4A24Bit() throws {
@@ -95,20 +67,13 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .any
 
-        let expectation = XCTestExpectation(description: String(describing: options))
-        try convert(with: options, input: monoWAVE44k24Bit) { error in
-            if let error = error {
-                XCTFail(error.localizedDescription)
-            }
-            expectation.fulfill()
-        }
+        try convert(with: options, input: monoWAVE44k24Bit)
     }
 
     // MARK: helpers
 
     private func convert(with options: FormatConverter.Options,
-                         input: URL? = nil,
-                         completionHandler: FormatConverter.FormatConverterCallback) throws {
+                         input: URL? = nil) throws {
         guard let format = options.format,
               let sampleRate = options.sampleRate else {
             throw createError(message: "Invalid Options")
@@ -122,9 +87,7 @@ class FormatConverterTests: AudioFileTestCase {
         }
 
         guard let inputFile = input ?? stereoAIFF44k32Bit else {
-            let error = createError(message: "Failed to generate file")
-            completionHandler(error)
-            return
+            throw createError(message: "Failed to generate file")
         }
 
         let name = inputFile.deletingPathExtension().lastPathComponent
@@ -148,34 +111,25 @@ class FormatConverterTests: AudioFileTestCase {
         wait(for: [expectation], timeout: 9)
 
         guard FileManager.default.fileExists(atPath: outputURL.path) else {
-            let error = createError(message: "File is missing at \(outputURL.path)")
-            completionHandler(error)
-            return
+            throw createError(message: "File is missing at \(outputURL.path)")
         }
 
         let avFile = try AVAudioFile(forReading: outputURL)
         let streamDescription: AudioStreamBasicDescription = avFile.fileFormat.streamDescription.pointee
 
         guard avFile.fileFormat.sampleRate == sampleRate else {
-            let error = createError(message: "Incorrect Sample Rate of \(avFile.fileFormat.sampleRate), should be \(sampleRate)")
-            completionHandler(error)
-            return
+            throw createError(message: "Incorrect Sample Rate of \(avFile.fileFormat.sampleRate), should be \(sampleRate)")
         }
 
         guard outputURL.pathExtension == format else {
-            let error = createError(message: "Incorrect format of \(outputURL.pathExtension), should be \(format)")
-            completionHandler(error)
-            return
+            throw createError(message: "Incorrect format of \(outputURL.pathExtension), should be \(format)")
         }
 
         if streamDescription.mFormatID == kAudioFormatLinearPCM, let bitDepth = options.bitDepth {
             guard streamDescription.mBitsPerChannel == bitDepth else {
-                let error = createError(message: "Incorrect bitDepth of \(streamDescription.mBitsPerChannel), should be \(bitDepth)")
-                completionHandler(error)
-                return
+                throw createError(message: "Incorrect bitDepth of \(streamDescription.mBitsPerChannel), should be \(bitDepth)")
             }
         }
 
-        completionHandler(nil)
     }
 }
