@@ -14,6 +14,10 @@ extension AudioPlayer {
                      to endTime: TimeInterval? = nil,
                      at when: AVAudioTime? = nil,
                      completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack) {
+
+        editStartTime = startTime ?? editStartTime
+        editEndTime = endTime ?? editEndTime
+
         guard let engine = playerNode.engine else {
             Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
             return
@@ -23,11 +27,9 @@ extension AudioPlayer {
             Log("🛑 Error: AudioPlayer's engine must be running before playback.", type: .error)
             return
         }
+
         switch status {
         case .stopped:
-            editStartTime = startTime ?? editStartTime
-            editEndTime = endTime ?? editEndTime
-
             schedule(at: when,
                      completionCallbackType: completionCallbackType)
 
