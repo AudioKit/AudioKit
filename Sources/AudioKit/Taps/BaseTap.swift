@@ -75,9 +75,9 @@ open class BaseTap {
         }
 
         input.avAudioNode.installTap(onBus: bus,
-                                           bufferSize: bufferSize,
-                                           format: nil,
-                                           block: handleTapBlock(buffer:at:))
+                                     bufferSize: bufferSize,
+                                     format: nil,
+                                     block: { [weak self] in self?.handleTapBlock(buffer: $0, at: $1) })
     }
 
     /// Override this method to handle Tap in derived class
