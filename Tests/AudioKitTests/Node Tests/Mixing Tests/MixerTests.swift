@@ -45,6 +45,18 @@ extension MixerTests {
         engine.stop()
     }
 
+    func testDoesntCrashWhenAddingSamplersInSubmix() throws {
+        let engine = AudioEngine()
+        engine.output = createMix()
+        try! engine.start()
+
+        wait(for: 0.1)
+        engine.output = createMix()
+
+        wait(for: 0.1)
+    }
+
+
     // for waiting in the background for realtime testing
     private func wait(for interval: TimeInterval) {
         let delayExpectation = XCTestExpectation(description: "delayExpectation")
@@ -53,4 +65,33 @@ extension MixerTests {
         }
         wait(for: [delayExpectation], timeout: interval + 1)
     }
+}
+
+private func createSampler() -> AppleSampler {
+    let sampler = AppleSampler()
+    let sampleURL = Bundle.module.url(forResource: "TestResources/sinechirp", withExtension: "wav")!
+    let audioFile = try! AVAudioFile(forReading: sampleURL)
+    try! sampler.loadAudioFile(audioFile)
+    return sampler
+}
+
+private func createMix() -> Mixer {
+    let mixer = Mixer()
+    DispatchQueue.main.async {
+        mixer.addInput(createSubMix())
+        mixer.addInput(createSubMix())
+    }
+    return mixer
+}
+
+private func createSubMix() -> Mixer {
+    let mixer = Mixer() // Mixer([DummyNode()]) Initializing Mixer with DummyNode fixes the problem
+    DispatchQueue.main.async { mixer.addInput(createSampler()) }
+    return mixer
+}
+
+private class DummyNode: Node {
+    private let dummy = AVAudioPlayerNode()
+    var connections: [Node] = []
+    var avAudioNode: AVAudioNode { dummy }
 }
