@@ -50,9 +50,16 @@ open class NodeRecorder: NSObject {
         }
     }
 
+    /// Directory audio files will be written to
     private var fileDirectoryURL: URL
 
     private static var recordedFiles = [URL]()
+    
+    /// Callback type
+    public typealias RawAudioDataHandler = ([Float]) -> Void
+    
+    /// Callback of incoming audio floating point values for monitoring purposes
+    public var rawDataTapHandler: RawAudioDataHandler?
 
     // MARK: - Initialization
 
@@ -65,13 +72,16 @@ open class NodeRecorder: NSObject {
     ///   - file: Audio file to record to
     ///   - fileDirectoryPath: Directory to write audio files to
     ///   - bus: Integer index of the bus to use
+    ///   - rawDataTapHandler: Raw audio data callback
     ///
     public init(node: Node,
                 file: AVAudioFile? = nil,
                 fileDirectoryURL: URL? = nil,
-                bus: Int = 0) throws {
+                bus: Int = 0,
+                rawDataTapHandler: RawAudioDataHandler? = nil) throws {
         self.node = node
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
+        self.rawDataTapHandler = rawDataTapHandler
         super.init()
 
         let audioFile = file ?? NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
@@ -167,6 +177,10 @@ open class NodeRecorder: NSObject {
         do {
             recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
             try internalAudioFile.write(from: buffer)
+            
+            if rawDataTapHandler != nil {
+                doHandleTapBlock(buffer: buffer)
+            }
 
             // allow an optional timed stop
             if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {
@@ -176,6 +190,20 @@ open class NodeRecorder: NSObject {
         } catch let error as NSError {
             Log("Write failed: error -> \(error.localizedDescription)")
         }
+    }
+    
+    /// When a raw data tap handler is provided, we call it back with the recorded float values
+    private func doHandleTapBlock(buffer: AVAudioPCMBuffer) {
+        guard buffer.floatChannelData != nil else { return }
+
+        let offset = Int(buffer.frameCapacity - buffer.frameLength)
+        var data = [Float]()
+        if let channelData = buffer.floatChannelData?[0] {
+            for index in 0 ..< buffer.frameLength {
+                data.append(channelData[offset + Int(index)])
+            }
+        }
+        rawDataTapHandler?(data)
     }
 
     /// Stop recording
