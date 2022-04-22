@@ -54,10 +54,10 @@ open class NodeRecorder: NSObject {
     private var fileDirectoryURL: URL
 
     private static var recordedFiles = [URL]()
-    
+
     /// Callback type
     public typealias RawAudioDataHandler = ([Float]) -> Void
-    
+
     /// Callback of incoming audio floating point values for monitoring purposes
     public var rawDataTapHandler: RawAudioDataHandler?
 
@@ -191,7 +191,7 @@ open class NodeRecorder: NSObject {
             Log("Write failed: error -> \(error.localizedDescription)")
         }
     }
-    
+
     /// When a raw data tap handler is provided, we call it back with the recorded float values
     private func doHandleTapBlock(buffer: AVAudioPCMBuffer) {
         guard buffer.floatChannelData != nil else { return }
