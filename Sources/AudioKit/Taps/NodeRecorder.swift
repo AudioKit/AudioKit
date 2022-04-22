@@ -177,7 +177,7 @@ open class NodeRecorder: NSObject {
         do {
             recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
             try internalAudioFile.write(from: buffer)
-            
+
             if rawDataTapHandler != nil {
                 doHandleTapBlock(buffer: buffer)
             }
