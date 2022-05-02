@@ -76,7 +76,7 @@ open class NodeRecorder: NSObject {
 
         let audioFile = file ?? NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
 
-        guard let audioFile = audioFile else {
+        guard audioFile != nil else {
             Log("Error, no file to write to")
             return
         }
