@@ -20,6 +20,20 @@ class ReverbTests: XCTestCase {
         testMD5(audio)
     }
 
+    func testNotStartedWhenBypassed() {
+        let effect = Reverb(AudioPlayer())
+        effect.isStarted = true
+        effect.bypass()
+        XCTAssertFalse(effect.isStarted)
+    }
+
+    func testStartedAfterStart() {
+        let effect = Reverb(AudioPlayer())
+        effect.isStarted = false
+        effect.start()
+        XCTAssertTrue(effect.isStarted)
+    }
+
     func testCathedral() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
