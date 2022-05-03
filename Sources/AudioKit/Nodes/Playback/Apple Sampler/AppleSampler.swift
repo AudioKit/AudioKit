@@ -43,21 +43,32 @@ open class AppleSampler: Node {
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { samplerUnit }
 
+    /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
+    public var amplitude: AUValue = 0 { didSet { samplerUnit.masterGain = Float(amplitude) } }
+
+    /// Normalized Output Volume. Range: 0 -> 1, Default: 1
+    public var volume: AUValue = 1 {
+        didSet {
+            let newGain = volume.denormalized(to: -90.0 ... 0.0)
+            samplerUnit.masterGain = Float(newGain)
+        }
+    }
+
+    /// Pan. Range: -1 -> 1, Default: 0
+    public var pan: AUValue = 0 { didSet { samplerUnit.stereoPan = Float(100.0 * pan) } }
+
     /// Tuning amount in semitones, from -24.0 to 24.0, Default: 0.0
     /// Doesn't transpose by playing another note (and the according zone and layer)
     /// but bends the sound up and down like tuning.
     public var tuning: AUValue {
-        get {
-            return AUValue(samplerUnit.globalTuning / 100.0)
-        }
-        set {
-            samplerUnit.globalTuning = Float(newValue * 100.0)
-        }
+        get { return AUValue(samplerUnit.globalTuning / 100.0) }
+        set { samplerUnit.globalTuning = Float(newValue * 100.0) }
     }
 
     // MARK: - Initializers
 
     /// Initialize the sampler node
+    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
     public init(file: String? = nil) {
         internalAU = samplerUnit.auAudioUnit
 
@@ -70,66 +81,18 @@ open class AppleSampler: Node {
         }
     }
 
-    /// Utility method to find a file either in the main bundle or at an absolute path
-    internal func findFileURL(_ path: String, withExtension ext: String, in bundle: Bundle = .main) -> URL? {
-        if path.hasPrefix("/") && FileManager.default.fileExists(atPath: path + "." + ext) {
-            return URL(fileURLWithPath: path + "." + ext)
-        } else if let url = bundle.url(forResource: path, withExtension: ext) {
-            return url
-        }
-        return nil
-    }
+    // Add URL based initializers
 
-    /// Variant of the above method to find a file either in the main bundle or at an absolute path
-    /// by trying several file extensions. The first match will be returned.
-    internal func findFileURL(_ path: String, withExtension extensions: [String], in bundle: Bundle = .main) -> URL? {
-        for ext in extensions {
-            if let url = findFileURL(path, withExtension: ext, in: bundle) {
-                return url
-            }
-        }
-        return nil
-    }
+    // MARK: - Loaders
 
-    /// Load a wav file
+    /// Load a Soundfont, EXS24, etc.
     ///
-    /// - Parameters:
-    ///   - file: Name of the file without an extension (assumed to be accessible from the bundle)
-    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
+    /// - parameter URL: Complete URL of the file to load
     ///
-    public func loadWav(_ file: String, in bundle: Bundle = .main) throws {
-        guard let url = findFileURL(file, withExtension: "wav", in: bundle) else {
-            Log("WAV file not found.")
-            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
-        }
-        try samplerUnit.loadAudioFiles(at: [url])
-        samplerUnit.reset()
-    }
-
-    /// Load an EXS24 sample data file
-    ///
-    /// - parameter URL: Complete URL of the EXS file
-    ///
-    public func loadEXS24(url: URL) throws {
+    public func loadInstrument(at url: URL) throws {
         try samplerUnit.loadInstrument(at: url)
     }
 
-    /// Load an EXS24 sample data file
-    ///
-    /// - parameter file: Name of the EXS24 file without the .exs extension
-    ///
-    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public func loadEXS24(_ file: String) throws {
-        try loadInstrument(file, type: "exs")
-    }
-
-    /// Load an AUPreset file
-    ///
-    /// - parameter file: Name of the AUPreset file without the .aupreset extension
-    ///
-    public func loadAUPreset(_ file: String) throws {
-        try loadInstrument(file, type: "aupreset")
-    }
 
     /// Load an AVAudioFile
     ///
@@ -155,17 +118,6 @@ open class AppleSampler: Node {
         samplerUnit.reset()
     }
 
-    /// Load a file path. The sampler can be configured by loading
-    /// instruments from different types of files such as an aupreset,
-    /// an EXS24 instrument, a single audio file, or an array of audio files.
-    ///
-    /// - parameter filePath: Name of the file with the extension
-    ///
-    public func loadPath(_ filePath: String) throws {
-        try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
-        samplerUnit.reset()
-    }
-
     /// Loads an instrument at a URL. The sampler can be configured by loading
     /// instruments from different types of files such as an aupreset, a DLS or SF2 sound bank,
     /// an EXS24 instrument, a single audio file, or an array of audio files.
@@ -175,38 +127,6 @@ open class AppleSampler: Node {
     public func loadInstrument(url: URL) throws {
         try samplerUnit.loadInstrument(at: url)
         samplerUnit.reset()
-    }
-
-    internal func loadInstrument(_ file: String, type: String, in bundle: Bundle = .main) throws {
-        //Log("filename is \(file)")
-        guard let url = findFileURL(file, withExtension: type, in: bundle) else {
-            Log("File not found: \(file)")
-            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
-        }
-        try samplerUnit.loadInstrument(at: url)
-        samplerUnit.reset()
-    }
-
-    /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
-    public var amplitude: AUValue = 0 {
-        didSet {
-            samplerUnit.masterGain = Float(amplitude)
-        }
-    }
-
-    /// Normalized Output Volume. Range: 0 -> 1, Default: 1
-    public var volume: AUValue = 1 {
-        didSet {
-            let newGain = volume.denormalized(to: -90.0 ... 0.0)
-            samplerUnit.masterGain = Float(newGain)
-        }
-    }
-
-    /// Pan. Range: -1 -> 1, Default: 0
-    public var pan: AUValue = 0 {
-        didSet {
-            samplerUnit.stereoPan = Float(100.0 * pan)
-        }
     }
 
     // MARK: - Playback
@@ -236,102 +156,6 @@ open class AppleSampler: Node {
         samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
 
-    // MARK: - SoundFont Support
-
-    // NOTE: The following methods might seem like they belong in the
-    // SoundFont extension, but when place there, iOS12 beta crashed
-
-    fileprivate func loadSoundFont(_ file: String, preset: Int, type: Int, in bundle: Bundle = .main) throws {
-        guard let url = findFileURL(file, withExtension: ["sf2", "dls"], in: bundle) else {
-            Log("SoundFont file not found: \(file)")
-            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
-        }
-        do {
-            try samplerUnit.loadSoundBankInstrument(
-                at: url,
-                program: MIDIByte(preset),
-                bankMSB: MIDIByte(type),
-                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
-            samplerUnit.reset()
-        } catch let error as NSError {
-            Log("Error loading SoundFont \(file)")
-            throw error
-        }
-    }
-
-    fileprivate func loadSoundFont(url: URL, preset: Int, type: Int, in bundle: Bundle = .main) throws {
-        do {
-            try samplerUnit.loadSoundBankInstrument(
-                at: url,
-                program: MIDIByte(preset),
-                bankMSB: MIDIByte(type),
-                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
-            samplerUnit.reset()
-        } catch let error as NSError {
-            Log("Error loading SoundFont \(url)")
-            throw error
-        }
-    }
-
-    /// Load a Bank from a SoundFont SF2 sample data file or a DLS file
-    ///
-    /// - Parameters:
-    ///   - file: Name of the SoundFont SF2 or the DLS file without the .sf2 / .dls extension
-    ///   - preset: Number of the program to use
-    ///   - bank: Number of the bank to use
-    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
-    ///
-    public func loadSoundFont(_ file: String, preset: Int, bank: Int, in bundle: Bundle = .main) throws {
-        guard let url = findFileURL(file, withExtension: ["sf2", "dls"], in: bundle) else {
-            Log("Soundfont file not found: \(file)")
-            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
-        }
-        do {
-            var bMSB: Int
-            if bank <= 127 {
-                bMSB = kAUSampler_DefaultMelodicBankMSB
-            } else {
-                bMSB = kAUSampler_DefaultPercussionBankMSB
-            }
-            let bLSB: Int = bank % 128
-            try samplerUnit.loadSoundBankInstrument(
-                at: url,
-                program: MIDIByte(preset),
-                bankMSB: MIDIByte(bMSB),
-                bankLSB: MIDIByte(bLSB))
-            samplerUnit.reset()
-        } catch let error as NSError {
-            Log("Error loading SoundFont \(file)")
-            throw error
-        }
-    }
-
-    /// Load a Melodic SoundFont SF2 sample data file or a DLS file
-    ///
-    /// - Parameters:
-    ///   - file: Name of the SoundFont SF2 or the DLS file without the .sf2 / .dls extension
-    ///   - preset: Number of the program to use
-    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
-    ///
-    public func loadMelodicSoundFont(_ file: String, preset: Int, in bundle: Bundle = .main) throws {
-        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
-    }
-
-    public func loadMelodicSoundFont(url: URL, preset: Int, in bundle: Bundle = .main) throws {
-        try loadSoundFont(url: url, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
-    }
-
-    /// Load a Percussive SoundFont SF2 sample data file or a DLS file
-    ///
-    /// - Parameters:
-    ///   - file: Name of the SoundFont SF2 or the DLS file without the .sf2 / .dls extension
-    ///   - preset: Number of the program to use
-    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
-    ///
-    public func loadPercussiveSoundFont(_ file: String, preset: Int = 0, in bundle: Bundle = .main) throws {
-        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB, in: bundle)
-    }
-
     /// Set the pitch bend amount
     /// - Parameters:
     ///   - amount: Value of the pitch bend
@@ -344,4 +168,98 @@ open class AppleSampler: Node {
     public func resetSampler() {
         samplerUnit.reset()
     }
+}
+
+// MARK: - Deprecatable junk
+extension AppleSampler {
+    /// Utility method to find a file either in the main bundle or at an absolute path
+    internal func findFileURL(_ path: String, withExtension ext: String, in bundle: Bundle = .main) -> URL? {
+        if path.hasPrefix("/") && FileManager.default.fileExists(atPath: path + "." + ext) {
+            return URL(fileURLWithPath: path + "." + ext)
+        } else if let url = bundle.url(forResource: path, withExtension: ext) {
+            return url
+        }
+        return nil
+    }
+
+    /// Variant of the above method to find a file either in the main bundle or at an absolute path
+    /// by trying several file extensions. The first match will be returned.
+    internal func findFileURL(_ path: String, withExtension extensions: [String], in bundle: Bundle = .main) -> URL? {
+        for ext in extensions {
+            if let url = findFileURL(path, withExtension: ext, in: bundle) {
+                return url
+            }
+        }
+        return nil
+    }
+
+    internal func loadInstrument(_ file: String, type: String, in bundle: Bundle = .main) throws {
+        //Log("filename is \(file)")
+        guard let url = findFileURL(file, withExtension: type, in: bundle) else {
+            Log("File not found: \(file)")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
+        }
+        try samplerUnit.loadInstrument(at: url)
+        samplerUnit.reset()
+    }
+
+    /// Load an AUPreset file
+    ///
+    /// - parameter file: Name of the AUPreset file without the .aupreset extension
+    ///
+    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
+    public func loadAUPreset(_ file: String) throws {
+        try loadInstrument(file, type: "aupreset")
+    }
+
+    /// Load a EXS24 sample data file
+    ///
+    /// - parameter file: Name of the EXS24 file without the .exs extension
+    ///
+    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
+    public func loadEXS24(_ file: String) throws {
+        try loadInstrument(file, type: "exs")
+    }
+
+    /// Load a Melodic SoundFont SF2 sample data file or a DLS file
+    ///
+    /// - Parameters:
+    ///   - file: Name of the SoundFont SF2 or the DLS file without the .sf2 / .dls extension
+    ///   - preset: Number of the program to use
+    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
+    ///
+    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
+    public func loadMelodicSoundFont(_ file: String, preset: Int, in bundle: Bundle = .main) throws {
+        try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
+    }
+
+    /// Load a file path. The sampler can be configured by loading
+    /// instruments from different types of files such as an aupreset,
+    /// an EXS24 instrument, a single audio file, or an array of audio files.
+    ///
+    /// - parameter filePath: Name of the file with the extension
+    ///
+    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
+    public func loadPath(_ filePath: String) throws {
+        try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
+        samplerUnit.reset()
+    }
+
+    /// Load a wav file
+    ///
+    /// - Parameters:
+    ///   - file: Name of the file without an extension (assumed to be accessible from the bundle)
+    ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
+    ///
+    ///
+    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
+    public func loadWav(_ file: String, in bundle: Bundle = .main) throws {
+        guard let url = findFileURL(file, withExtension: "wav", in: bundle) else {
+            Log("WAV file not found.")
+            throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
+        }
+        try samplerUnit.loadAudioFiles(at: [url])
+        samplerUnit.reset()
+    }
+
 }

@@ -3,7 +3,7 @@ name: CI
 
 on: [push, pull_request]
 env:
-  XCODE_VER: 13.1
+  XCODE_VER: latest-stable
 
 jobs:
   test:
