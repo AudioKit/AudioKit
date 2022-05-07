@@ -209,9 +209,6 @@ public class Distortion: Node {
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
-
     /// Initialize the distortion node
     ///
     /// - parameter input: Input node to process
@@ -270,17 +267,5 @@ public class Distortion: Node {
         self.polynomialMix = polynomialMix
         self.softClipGain = softClipGain
         self.finalMix = finalMix
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        effectAU.bypass = false
-        isStarted = true
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        effectAU.bypass = true
-        isStarted = false
     }
 }

@@ -115,8 +115,6 @@ public class DynamicsProcessor: Node {
     public var outputAmplitude: AUValue {
         return effectAU.auAudioUnit.parameterTree?.allParameters[9].value ?? 0
     }
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
 
     /// Initialize the dynamics processor node
     ///
@@ -149,17 +147,5 @@ public class DynamicsProcessor: Node {
         self.attackTime = attackTime
         self.releaseTime = releaseTime
         self.masterGain = masterGain
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        effectAU.bypass = false
-        isStarted = true
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        effectAU.bypass = true
-        isStarted = false
     }
 }
