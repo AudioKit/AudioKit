@@ -13,7 +13,7 @@ public protocol Node: AnyObject {
 
     /// Start the node
     func start()
-    
+
     /// Stop the node
     func stop()
 
