@@ -17,6 +17,10 @@ extension AudioPlayer {
 
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
+        if let whenTime = when, let renderTime = playerNode.lastRenderTime
+        {
+            scheduledTime = whenTime.timeIntervalSince(otherTime: renderTime) ?? 0.0
+        }
 
         guard let engine = playerNode.engine else {
             Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
@@ -74,7 +78,7 @@ extension AudioPlayer {
         if let nodeTime = playerNode.lastRenderTime,
            nodeTime.isSampleTimeValid,
            let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
+            return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime - scheduledTime
         } else if status == .paused {
             return pausedTime
         }

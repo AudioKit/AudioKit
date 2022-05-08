@@ -175,6 +175,9 @@ public class AudioPlayer: Node {
     var startingFrame: AVAudioFramePosition?
     var endingFrame: AVAudioFramePosition?
 
+    /// Time player is scheduled to play (seconds)
+    var scheduledTime: TimeInterval = 0.0
+
     var engine: AVAudioEngine? { mixerNode.engine }
 
     // MARK: - Internal functions
