@@ -17,8 +17,7 @@ extension AudioPlayer {
 
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
-        if let whenTime = when, let renderTime = playerNode.lastRenderTime
-        {
+        if let whenTime = when, let renderTime = playerNode.lastRenderTime {
             scheduledTime = whenTime.timeIntervalSince(otherTime: renderTime) ?? 0.0
         }
 
