@@ -42,7 +42,7 @@ public class Reverb: Node {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
+    public internal(set) var isStarted = true
 
     /// Initialize the reverb node
     ///

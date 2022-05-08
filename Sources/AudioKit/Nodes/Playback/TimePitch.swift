@@ -24,11 +24,6 @@ public class TimePitch: Node {
         }
     }
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
-        return !timePitchAU.bypass
-    }
-
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
     public var pitch: AUValue = 0.0 {
         didSet {
@@ -65,16 +60,6 @@ public class TimePitch: Node {
         self.overlap = overlap
 
         avAudioNode = timePitchAU
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        timePitchAU.bypass = false
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        timePitchAU.bypass = true
     }
 
     // TODO This node is untested

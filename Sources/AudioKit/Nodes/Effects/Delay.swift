@@ -63,9 +63,6 @@ public class Delay: Node {
     /// Low-pass cutoff frequency Cutoff Frequency (Hertz) ranges from 10 to 200 (Default: 80)
     @Parameter(lowPassCutoffDef) public var lowPassCutoff: AUValue
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
-
     /// Initialize the delay node
     ///
     /// - Parameters:
@@ -90,17 +87,5 @@ public class Delay: Node {
         self.time = time
         self.feedback = feedback
         self.lowPassCutoff = lowPassCutoff
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        isStarted = true
-        delayAU.bypass = false
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        isStarted = false
-        delayAU.bypass = true
     }
 }
