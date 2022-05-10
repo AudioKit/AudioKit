@@ -62,6 +62,7 @@ extension AudioPlayer {
         }
 
         playerNode.prepare(withFrameCount: frameCount)
+        self.status = .stopped
     }
 
     private func scheduleBuffer(at audioTime: AVAudioTime?,
