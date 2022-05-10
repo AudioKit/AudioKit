@@ -130,15 +130,34 @@ extension AudioPlayerFileTests {
         }
 
         // test schedule with play
-        player.play(at: AVAudioTime.now().offset(seconds: 3))
+        let timeBeforePlay = 0.6
+        player.play(from: 3.1, at: AVAudioTime.now().offset(seconds: timeBeforePlay))
 
-        wait(for: player.duration + 4)
+        // Make sure player doesn't count time before file starts playing
+        // Truncate time to one decimal for precision in comparison
+        var playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        XCTAssert(playerTime == player.editStartTime)
+        wait(for: timeBeforePlay)
+        // Truncate time to one decimal for precision in comparison
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        XCTAssert(playerTime == player.editStartTime)
+
+        wait(for: player.duration)
 
         // test schedule separated from play
-        player.schedule(at: AVAudioTime.now().offset(seconds: 3))
+        player.schedule(at: AVAudioTime.now().offset(seconds: timeBeforePlay))
         player.play()
 
-        wait(for: player.duration + 4)
+        // Make sure player doesn't count time before file starts playing
+        // Truncate time to one decimal for precision in comparison
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        XCTAssert(playerTime == player.editStartTime)
+        wait(for: timeBeforePlay)
+        // Truncate time to one decimal for precision in comparison
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        XCTAssert(playerTime == player.editStartTime)
+
+        wait(for: player.duration)
 
         XCTAssertEqual(completionCounter, 2, "Completion handler wasn't called on both completions")
     }
