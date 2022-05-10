@@ -115,7 +115,7 @@ extension AudioPlayerFileTests {
     }
 
     func realtimeScheduleFile() {
-        guard let player = createPlayer(duration: 2) else {
+        guard let player = createPlayer(duration: 5) else {
             XCTFail("Failed to create AudioPlayer")
             return
         }
