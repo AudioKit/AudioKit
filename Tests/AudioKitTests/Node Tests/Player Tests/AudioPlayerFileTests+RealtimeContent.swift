@@ -130,15 +130,17 @@ extension AudioPlayerFileTests {
         }
 
         // test schedule with play
-        let timeBeforePlay = 3.0
-        player.play(at: AVAudioTime.now().offset(seconds: timeBeforePlay))
+        let timeBeforePlay = 0.6
+        player.play(from: 3.1, at: AVAudioTime.now().offset(seconds: timeBeforePlay))
 
         // Make sure player doesn't count time before file starts playing
-        var playerTime = player.getCurrentTime()
-        XCTAssert(playerTime == 0)
+        // Truncate time to one decimal for precision in comparison
+        var playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        XCTAssert(playerTime == player.editStartTime)
         wait(for: timeBeforePlay)
-        playerTime = player.getCurrentTime()
-        XCTAssert(playerTime < timeBeforePlay)
+        // Truncate time to one decimal for precision in comparison
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        XCTAssert(playerTime == player.editStartTime)
 
         wait(for: player.duration)
 
@@ -147,11 +149,13 @@ extension AudioPlayerFileTests {
         player.play()
 
         // Make sure player doesn't count time before file starts playing
-        playerTime = player.getCurrentTime()
-        XCTAssert(playerTime == 0)
+        // Truncate time to one decimal for precision in comparison
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        XCTAssert(playerTime == player.editStartTime)
         wait(for: timeBeforePlay)
-        playerTime = player.getCurrentTime()
-        XCTAssert(playerTime < timeBeforePlay)
+        // Truncate time to one decimal for precision in comparison
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        XCTAssert(playerTime == player.editStartTime)
 
         wait(for: player.duration)
 

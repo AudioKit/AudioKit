@@ -80,13 +80,13 @@ extension AudioPlayer {
             if let nodeTime = playerNode.lastRenderTime,
                nodeTime.isSampleTimeValid,
                let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-               let currTime = Double(playerTime.sampleTime) / playerTime.sampleRate + editStartTime
+               let currTime = Double(playerTime.sampleTime) / playerTime.sampleRate
 
                 // Don't count time before file starts playing
                 if currTime < timeBeforePlay {
                     return editStartTime
                 } else {
-                    return currTime - timeBeforePlay
+                    return currTime + editStartTime - timeBeforePlay
                 }
             } else {
                 return editStartTime
