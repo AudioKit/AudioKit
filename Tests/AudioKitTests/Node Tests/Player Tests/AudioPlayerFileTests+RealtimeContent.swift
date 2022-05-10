@@ -130,30 +130,15 @@ extension AudioPlayerFileTests {
         }
 
         // test schedule with play
-        let timeBeforePlay = 3.0
-        player.play(at: AVAudioTime.now().offset(seconds: timeBeforePlay))
+        player.play(at: AVAudioTime.now().offset(seconds: 3))
 
-        // Make sure player doesn't count time before file starts playing
-        var playerTime = player.getCurrentTime()
-        XCTAssert(playerTime == 0)
-        wait(for: timeBeforePlay)
-        playerTime = player.getCurrentTime()
-        XCTAssert(playerTime < timeBeforePlay)
-
-        wait(for: player.duration)
+        wait(for: player.duration + 4)
 
         // test schedule separated from play
-        player.schedule(at: AVAudioTime.now().offset(seconds: timeBeforePlay))
+        player.schedule(at: AVAudioTime.now().offset(seconds: 3))
         player.play()
 
-        // Make sure player doesn't count time before file starts playing
-        playerTime = player.getCurrentTime()
-        XCTAssert(playerTime == 0)
-        wait(for: timeBeforePlay)
-        playerTime = player.getCurrentTime()
-        XCTAssert(playerTime < timeBeforePlay)
-
-        wait(for: player.duration)
+        wait(for: player.duration + 4)
 
         XCTAssertEqual(completionCounter, 2, "Completion handler wasn't called on both completions")
     }

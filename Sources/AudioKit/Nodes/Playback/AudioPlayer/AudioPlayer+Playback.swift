@@ -17,9 +17,6 @@ extension AudioPlayer {
 
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
-        if let renderTime = self.playerNode.lastRenderTime, let whenTime = when {
-            timeBeforePlay = whenTime.timeIntervalSince(otherTime: renderTime) ?? 0.0
-        }
 
         guard let engine = playerNode.engine else {
             Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
@@ -74,27 +71,14 @@ extension AudioPlayer {
     /// Gets the accurate playhead time regardless of seeking and pausing
     /// Can't be relied on if playerNode has its playstate modified directly
     public func getCurrentTime() -> TimeInterval {
-        switch status {
-        case .playing:
-            if let nodeTime = playerNode.lastRenderTime,
-               nodeTime.isSampleTimeValid,
-               let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-               let currTime = Double(playerTime.sampleTime) / playerTime.sampleRate + editStartTime
-
-                // Don't count time before file starts playing
-                if currTime < timeBeforePlay {
-                    return editStartTime
-                } else {
-                    return currTime - timeBeforePlay
-                }
-            } else {
-                return editStartTime
-            }
-        case .paused:
+        if let nodeTime = playerNode.lastRenderTime,
+           nodeTime.isSampleTimeValid,
+           let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
+            return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
+        } else if status == .paused {
             return pausedTime
-        default:
-            return editStartTime
         }
+        return editStartTime
     }
 
     /// Sets the player's audio file to a certain time in the track (in seconds)
