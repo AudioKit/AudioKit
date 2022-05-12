@@ -200,7 +200,7 @@ class EngineTests: XCTestCase {
         XCTAssert(AudioEngine.inputDevices.count > 0)
     }
 
-    func testGetAudioUnit() {
+    func testFindAudioUnit() {
         let engine = AudioEngine()
         let delayAVAudioUnit = engine.findAudioUnit(named: "AUDelay")
         XCTAssertNotNil(delayAVAudioUnit)
