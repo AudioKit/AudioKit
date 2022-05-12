@@ -240,12 +240,13 @@ public class AudioEngine {
     }
 
     /// Find an Audio Unit on the system by name and load it.
-    /// Run this before processing any audio to avoid blocking.
+    /// Make sure to do this before the engine is running to avoid blocking.
     /// - Parameter named: Display name of the Audio Unit
     /// - Returns: The Audio Unit's AVAudioUnit
     public func findAudioUnit(named: String) -> AVAudioUnit? {
         var foundAU: AVAudioUnit?
-        for component in AVAudioUnitComponentManager().components(matching: AudioComponentDescription()) where component.name == named {
+        let allComponents = AVAudioUnitComponentManager().components(matching: AudioComponentDescription())
+        for component in allComponents where component.name == named {
             AVAudioUnit.instantiate(with: component.audioComponentDescription) { theAudioUnit, _ in
                 if let newAU = theAudioUnit {
                     foundAU = newAU
