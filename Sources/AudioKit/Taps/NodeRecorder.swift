@@ -104,9 +104,7 @@ open class NodeRecorder: NSObject {
 
         Log("Creating temp file at", url)
         guard let audioFile = try? AVAudioFile(forWriting: url,
-                                             settings: settings,
-                                             commonFormat: Settings.audioFormat.commonFormat,
-                                             interleaved: true) else { return nil }
+                                               settings: settings) else { return nil }
 
         recordedFiles.append(url)
         return audioFile
