@@ -112,18 +112,7 @@ open class NodeRecorder: NSObject {
             // Keep track of file URL before closing
             recordedFileURL = fileURL
         }
-        guard let engine = self.node.avAudioNode.engine else {
-            Log("Error: Can't close file because NodeRecorder has no engine!")
-            return
-        }
-        // Need to pause rendering because closing the file can interfere with audio thread
-        engine.pause()
         file = nil
-        do {
-            try engine.start()
-        } catch let err {
-            Log(err.localizedDescription, type: .error)
-        }
     }
 
     /// Returns a CAF file in specified directory suitable for writing to via Settings.audioFormat
