@@ -96,7 +96,7 @@ open class NodeRecorder: NSObject {
         dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss.SSSS"
         return dateFormatter.string(from: Date())
     }
-    
+
     /// Open file a for recording
     /// - Parameter file: Reference to the file you want to record to
     public func openFile(file: inout AVAudioFile?) {
