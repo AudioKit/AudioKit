@@ -85,6 +85,7 @@ class RecordingTests: AudioFileTestCase {
         let osc = PlaygroundOscillator()
         let recorder = try? NodeRecorder(node: osc)
         recorder?.openFile(file: &outFile)
+        let player = AudioPlayer()
         engine.output = osc
 
         try? engine.start()
@@ -94,12 +95,18 @@ class RecordingTests: AudioFileTestCase {
         recorder?.stop()
         osc.stop()
         engine.stop()
+        engine.output = player
         recorder?.closeFile(file: &outFile)
         guard let recordedFile = recorder?.audioFile else {
             XCTFail("Couldn't open recorded audio file!")
             return
         }
-        XCTAssert(recordedFile.length > 0)
+        wait(for: 2)
+
+        player.file = recordedFile
+        try? engine.start()
+        player.play()
+        wait(for: 2)
     }
 }
 #endif
