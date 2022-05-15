@@ -21,7 +21,7 @@ class AVAudioPCMBufferTests: XCTestCase {
         settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
-        let outFile = try! AVAudioFile(
+        var outFile = try? AVAudioFile(
             forWriting: url,
             settings: settings)
 
@@ -29,7 +29,8 @@ class AVAudioPCMBufferTests: XCTestCase {
         if #available(iOS 13.0, *) {
             let osc = PlaygroundOscillator()
             osc.start()
-            let recorder = try! NodeRecorder(node: osc, file: outFile)
+            let recorder = try! NodeRecorder(node: osc)
+            recorder.openFile(file: &outFile)
             engine.output = osc
             try! recorder.record()
             try! engine.start()

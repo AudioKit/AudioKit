@@ -67,5 +67,46 @@ class RecordingTests: AudioFileTestCase {
 
         engine.stop()
     }
+    
+    func testOpenCloseFile() {
+        let fm = FileManager.default
+        let filename = UUID().uuidString + ".m4a"
+        let fileUrl = fm.temporaryDirectory.appendingPathComponent(filename)
+
+        var settings = Settings.audioFormat.settings
+        settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
+        settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
+
+        var outFile = try? AVAudioFile(
+            forWriting: fileUrl,
+            settings: settings)
+
+        let engine = AudioEngine()
+        let osc = PlaygroundOscillator()
+        let recorder = try! NodeRecorder(node: osc)
+        recorder.openFile(file: &outFile)
+        let player = AudioPlayer()
+        engine.output = osc
+
+        try! engine.start()
+        osc.start()
+        try! recorder.record()
+        wait(for: 2)
+        recorder.stop()
+        osc.stop()
+        engine.stop()
+        engine.output = player
+        recorder.closeFile(file: &outFile)
+        guard let recordedFile = recorder.audioFile else {
+            XCTFail("Couldn't open recorded audio file!")
+            return
+        }
+        wait(for: 2)
+
+        player.file = recordedFile
+        try! engine.start()
+        player.play()
+        wait(for: 2)
+    }
 }
 #endif
