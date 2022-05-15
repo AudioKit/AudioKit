@@ -32,7 +32,7 @@ class AVAudioPCMBufferTests: XCTestCase {
             let recorder = try? NodeRecorder(node: osc)
             recorder?.openFile(file: &outFile)
             engine.output = osc
-            try! recorder?.record()
+            try? recorder?.record()
             try! engine.start()
             sleep(2)
             recorder?.stop()
