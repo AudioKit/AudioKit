@@ -69,6 +69,11 @@ class RecordingTests: AudioFileTestCase {
     }
 
     func testOpenCloseFile() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let file = try? AVAudioFile(forReading: url) else {
+            XCTFail("Didn't get test file")
+            return
+        }
         let fileManager = FileManager.default
         let filename = UUID().uuidString + ".m4a"
         let fileUrl = fileManager.temporaryDirectory.appendingPathComponent(filename)
@@ -82,18 +87,22 @@ class RecordingTests: AudioFileTestCase {
             settings: settings)
 
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator()
-        let recorder = try? NodeRecorder(node: osc)
+        let input = AudioPlayer(file: file)
+        guard let input = input else {
+            XCTFail("Couldn't load input Node.")
+            return
+        }
+        let recorder = try? NodeRecorder(node: input)
         recorder?.openFile(file: &outFile)
         let player = AudioPlayer()
-        engine.output = osc
+        engine.output = input
 
         try? engine.start()
-        osc.start()
+        input.start()
         try? recorder?.record()
         wait(for: 2)
         recorder?.stop()
-        osc.stop()
+        input.stop()
         engine.stop()
         engine.output = player
         recorder?.closeFile(file: &outFile)
