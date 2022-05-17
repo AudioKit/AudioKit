@@ -41,7 +41,7 @@ open class NodeRecorder: NSObject {
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
         do {
-            guard let url = internalAudioFile?.url else { return nil }
+            guard let url = recordedFileURL else { return nil }
             return try AVAudioFile(forReading: url)
 
         } catch let error as NSError {
@@ -51,6 +51,8 @@ open class NodeRecorder: NSObject {
     }
 
     private var fileDirectoryURL: URL
+
+    private var recordedFileURL: URL?
 
     private static var recordedFiles = [URL]()
 
@@ -62,19 +64,17 @@ open class NodeRecorder: NSObject {
     ///
     /// - Parameters:
     ///   - node: Node to record from
-    ///   - file: Audio file to record to
     ///   - fileDirectoryPath: Directory to write audio files to
     ///   - bus: Integer index of the bus to use
     ///
     public init(node: Node,
-                file: AVAudioFile? = nil,
                 fileDirectoryURL: URL? = nil,
                 bus: Int = 0) throws {
         self.node = node
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         super.init()
 
-        let audioFile = file ?? NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
+        let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
 
         guard audioFile != nil else {
             Log("Error, no file to write to")
@@ -86,6 +86,8 @@ open class NodeRecorder: NSObject {
         self.bus = bus
     }
 
+    deinit { NodeRecorder.removeRecordedFiles() }
+
     // MARK: - Methods
 
     /// Use Date and Time as Filename
@@ -93,6 +95,24 @@ open class NodeRecorder: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss.SSSS"
         return dateFormatter.string(from: Date())
+    }
+
+    /// Open file a for recording
+    /// - Parameter file: Reference to the file you want to record to
+    public func openFile(file: inout AVAudioFile?) {
+        internalAudioFile = file
+        // Close the file object passed in, try returning another one for reading after
+        closeFile(file: &file)
+    }
+
+    /// Close file after recording
+    /// - Parameter file: Reference to the file you want to close
+    public func closeFile(file: inout AVAudioFile?) {
+        if let fileURL = file?.url {
+            // Keep track of file URL before closing
+            recordedFileURL = fileURL
+        }
+        file = nil
     }
 
     /// Returns a CAF file in specified directory suitable for writing to via Settings.audioFormat
@@ -191,6 +211,7 @@ open class NodeRecorder: NSObject {
             usleep(delay)
         }
         node.avAudioNode.removeTap(onBus: bus)
+        closeFile(file: &internalAudioFile)
     }
 
     /// Reset the AVAudioFile to clear previous recordings
