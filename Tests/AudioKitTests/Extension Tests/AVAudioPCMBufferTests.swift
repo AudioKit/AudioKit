@@ -42,8 +42,8 @@ class AVAudioPCMBufferTests: XCTestCase {
         }
     }
 
+    // This get's stuck in CI sometimes
     func testM4A() {
-
         let fm = FileManager.default
 
         let filename = UUID().uuidString + ".m4a"

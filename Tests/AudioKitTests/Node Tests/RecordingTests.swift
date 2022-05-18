@@ -68,6 +68,7 @@ class RecordingTests: AudioFileTestCase {
         engine.stop()
     }
 
+    // This gets stuck in CI sometimes
     func testOpenCloseFile() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
               let file = try? AVAudioFile(forReading: url) else {
