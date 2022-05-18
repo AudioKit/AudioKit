@@ -71,7 +71,7 @@ extension AudioPlayerFileTests {
         guard realtimeEnabled else { return }
         realtimeTestReversed(from: 1, to: 3)
     }
-    
+
     func testPlayerStatus() {
         guard realtimeEnabled else { return }
         realtimeTestPlayerStatus()
