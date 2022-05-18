@@ -185,7 +185,7 @@ extension AudioPlayerFileTests {
         player.isLooping = true
         player.play()
 
-        wait(for: 5)
+        wait(for: 10)
         player.stop()
     }
 
@@ -328,6 +328,40 @@ extension AudioPlayerFileTests {
             wait(for: 1)
         }
         player.stop()
+    }
+    
+    func realtimeTestPlayerStatus() {
+        guard let countingURL = countingURL else {
+            XCTFail("Didn't find the 12345.wav")
+            return
+        }
+        guard let drumloopURL = drumloopURL else {
+            XCTFail("Didn't find the 12345.wav")
+            return
+        }
+        guard let countingFile = try? AVAudioFile(forReading: countingURL) else {
+            XCTFail("Failed to open file URL \(countingURL) for reading")
+            return
+        }
+        guard let drumloopFile = try? AVAudioFile(forReading: drumloopURL) else {
+            XCTFail("Failed to open file URL \(drumloopURL) for reading")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        try? engine.start()
+
+        player.file = countingFile
+        player.play()
+        wait(for: 1)
+        player.stop()
+        player.file = drumloopFile
+        player.play()
+        XCTAssert(player.status == .playing)
+        wait(for: 4)
+        XCTAssert(player.status == .stopped)
     }
 }
 
