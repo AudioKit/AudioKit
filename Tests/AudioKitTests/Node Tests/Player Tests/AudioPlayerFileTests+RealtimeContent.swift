@@ -329,7 +329,7 @@ extension AudioPlayerFileTests {
         }
         player.stop()
     }
-    
+
     func realtimeTestPlayerStatus() {
         guard let countingURL = countingURL else {
             XCTFail("Didn't find the 12345.wav")
