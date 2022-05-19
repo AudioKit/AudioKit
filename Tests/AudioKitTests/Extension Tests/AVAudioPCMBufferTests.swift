@@ -26,6 +26,7 @@ class AVAudioPCMBufferTests: XCTestCase {
             settings: settings)
 
         let engine = AudioEngine()
+        let expectation = XCTestExpectation(description: "Record to file from source node asynchronously")
         if #available(iOS 13.0, *) {
             let osc = PlaygroundOscillator()
             osc.start()
@@ -37,9 +38,13 @@ class AVAudioPCMBufferTests: XCTestCase {
             sleep(2)
             recorder?.stop()
             engine.stop()
+            XCTAssertNotNil(recorder?.audioFile, "Expected to load a file.")
+            expectation.fulfill()
         } else {
             // Fallback on earlier versions
         }
+        // Wait for the expectation to fulfill or time out.
+        wait(for: [expectation], timeout: 20.0)
     }
 
     func testM4A() {
