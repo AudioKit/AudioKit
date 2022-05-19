@@ -40,6 +40,7 @@ open class NodeRecorder: NSObject {
 
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
+        // Close the writing file locally before trying to read
         if internalAudioFile != nil { internalAudioFile = nil }
         do {
             guard let url = recordedFileURL else { return nil }
