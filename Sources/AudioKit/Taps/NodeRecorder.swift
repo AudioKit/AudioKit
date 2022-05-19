@@ -40,6 +40,8 @@ open class NodeRecorder: NSObject {
 
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
+        // Close the writing file locally before trying to read
+        if internalAudioFile != nil { internalAudioFile = nil }
         do {
             guard let url = recordedFileURL else { return nil }
             return try AVAudioFile(forReading: url)
@@ -53,6 +55,8 @@ open class NodeRecorder: NSObject {
     private var fileDirectoryURL: URL
 
     private var recordedFileURL: URL?
+
+    private var recordedFileSettings: [String: Any]?
 
     private static var recordedFiles = [URL]()
 
@@ -98,9 +102,9 @@ open class NodeRecorder: NSObject {
     }
 
     /// Open file a for recording
-    /// - Parameter file: Reference to the file you want to record to
+    /// - Parameter file: Reference to the file you want to record to.
+    /// Has to be optional because this file will be set to `nil` when the recorder is done using it.
     public func openFile(file: inout AVAudioFile?) {
-        internalAudioFile = file
         // Close the file object passed in, try returning another one for reading after
         closeFile(file: &file)
     }
@@ -108,9 +112,10 @@ open class NodeRecorder: NSObject {
     /// Close file after recording
     /// - Parameter file: Reference to the file you want to close
     public func closeFile(file: inout AVAudioFile?) {
-        if let fileURL = file?.url {
-            // Keep track of file URL before closing
-            recordedFileURL = fileURL
+        if let inFile = file {
+            // Keep track of file URL/settings before closing
+            recordedFileURL = inFile.url
+            recordedFileSettings = inFile.fileFormat.settings
         }
         file = nil
     }
@@ -144,6 +149,19 @@ open class NodeRecorder: NSObject {
         if isRecording == true {
             Log("Warning: already recording")
             return
+        }
+
+        guard let writeToURL = recordedFileURL, let writeToSettings = recordedFileSettings else {
+            Log("🛑 Error: No file URL/settings to record to", type: .error)
+            return
+        }
+
+        do {
+            internalAudioFile = try AVAudioFile(forWriting: writeToURL,
+                                                settings: writeToSettings)
+        } catch let err {
+            Log("🛑 Error: Couldn't create internal file error: \(err.localizedDescription)",
+                type: .error)
         }
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
@@ -211,7 +229,6 @@ open class NodeRecorder: NSObject {
             usleep(delay)
         }
         node.avAudioNode.removeTap(onBus: bus)
-        closeFile(file: &internalAudioFile)
     }
 
     /// Reset the AVAudioFile to clear previous recordings
