@@ -55,8 +55,8 @@ open class NodeRecorder: NSObject {
     private var fileDirectoryURL: URL
 
     private var recordedFileURL: URL?
-    
-    private var recordedFileSettings: [String : Any]?
+
+    private var recordedFileSettings: [String:Any]?
 
     private static var recordedFiles = [URL]()
 
