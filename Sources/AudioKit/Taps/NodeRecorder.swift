@@ -105,7 +105,6 @@ open class NodeRecorder: NSObject {
     /// Has to be optional because this file will be set to `nil` when the recorder is done using it.
     public func openFile(file: inout AVAudioFile?) {
         // Close the file object passed in, try returning another one for reading after
-        openFile(file: &file)
         closeFile(file: &file)
     }
 
