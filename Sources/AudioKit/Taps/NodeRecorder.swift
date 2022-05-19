@@ -40,6 +40,7 @@ open class NodeRecorder: NSObject {
 
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
+        if internalAudioFile != nil { internalAudioFile = nil }
         do {
             guard let url = recordedFileURL else { return nil }
             return try AVAudioFile(forReading: url)
@@ -211,7 +212,6 @@ open class NodeRecorder: NSObject {
             usleep(delay)
         }
         node.avAudioNode.removeTap(onBus: bus)
-        closeFile(file: &internalAudioFile)
     }
 
     /// Reset the AVAudioFile to clear previous recordings
