@@ -151,6 +151,19 @@ open class NodeRecorder: NSObject {
             return
         }
 
+        guard let writeToURL = recordedFileURL, let writeToSettings = recordedFileSettings else {
+            Log("🛑 Error: No file URL/settings to record to", type: .error)
+            return
+        }
+
+        do {
+            internalAudioFile = try AVAudioFile(forWriting: writeToURL,
+                                                settings: writeToSettings)
+        } catch let err {
+            Log("🛑 Error: Couldn't create internal file error: \(err.localizedDescription)",
+                type: .error)
+        }
+
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
             // record to new audio file
             if let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: fileDirectoryURL) {
@@ -176,19 +189,6 @@ open class NodeRecorder: NSObject {
             Log("🛑 Error: Error recording. Input node '\(node)' has no engine.")
             isRecording = false
             return
-        }
-
-        guard let writeToURL = recordedFileURL, let writeToSettings = recordedFileSettings else {
-            Log("🛑 Error: No file URL/settings to record to", type: .error)
-            return
-        }
-
-        do {
-            internalAudioFile = try AVAudioFile(forWriting: writeToURL,
-                                                settings: writeToSettings)
-        } catch let err {
-            Log("🛑 Error: Couldn't create internal file error: \(err.localizedDescription)",
-                type: .error)
         }
 
         node.avAudioNode.installTap(onBus: bus,
