@@ -47,20 +47,12 @@ extension AudioPlayer {
         case .scheduling:
             // player is already scheduling
             return
-        case .completed:
-            // reset the status and play again if isLooping and not buffered
-            status = .stopped
-            if isLooping && !isBuffered {
-                play()
-            } else {
-                playerNode.stop()
-            }
         }
     }
 
     /// Pauses audio player. Calling play() will resume from the paused time.
     public func pause() {
-        guard status == .playing || status == .completed else { return }
+        guard status == .playing else { return }
         pausedTime = getCurrentTime()
         playerNode.pause()
         status = .paused
