@@ -36,6 +36,7 @@ class AVAudioPCMBufferTests: XCTestCase {
             try! engine.start()
             sleep(2)
             recorder?.stop()
+            osc.stop()
             engine.stop()
         } else {
             // Fallback on earlier versions
