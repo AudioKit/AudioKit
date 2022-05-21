@@ -44,6 +44,9 @@ open class NodeRecorder: NSObject {
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
         do {
+            if internalAudioFile != nil {
+                closeFile(file: &internalAudioFile)
+            }
             guard let url = recordedFileURL else { return nil }
             return try AVAudioFile(forReading: url)
 
@@ -77,14 +80,7 @@ open class NodeRecorder: NSObject {
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         super.init()
 
-        let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
-
-        guard audioFile != nil else {
-            Log("Error, no file to write to")
-            return
-        }
-
-        internalAudioFile = audioFile
+        createDefaultFile()
 
         self.bus = bus
     }
@@ -100,8 +96,18 @@ open class NodeRecorder: NSObject {
         return dateFormatter.string(from: Date())
     }
 
+    func createDefaultFile() {
+        let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
+        guard audioFile != nil else {
+            Log("Error, no file to write to")
+            return
+        }
+        internalAudioFile = audioFile
+    }
+
     /// Open file a for recording
     /// - Parameter file: Reference to the file you want to record to
+    /// Has to be optional because the file will be set to `nil` after recording.
     public func openFile(file: inout AVAudioFile?) {
         internalAudioFile = file
         // Close the file object passed in, try returning another one for reading after
@@ -147,6 +153,10 @@ open class NodeRecorder: NSObject {
         if isRecording == true {
             Log("Warning: already recording")
             return
+        }
+
+        if internalAudioFile == nil {
+            createDefaultFile()
         }
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
@@ -215,7 +225,6 @@ open class NodeRecorder: NSObject {
             usleep(delay)
         }
         node.avAudioNode.removeTap(onBus: bus)
-        closeFile(file: &internalAudioFile)
     }
 
     /// Pause recording
