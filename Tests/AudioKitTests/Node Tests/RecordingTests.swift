@@ -68,22 +68,32 @@ class RecordingTests: AudioFileTestCase {
         engine.stop()
     }
 
+    func createFileURL() -> URL {
+        let fileManager = FileManager.default
+        let filename = UUID().uuidString + ".m4a"
+        let fileUrl = fileManager.temporaryDirectory.appendingPathComponent(filename)
+        return fileUrl
+    }
+
+    func getSettings() -> [String: Any] {
+        var settings = Settings.audioFormat.settings
+        settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
+        settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
+        return settings
+    }
+
     func testOpenCloseFile() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
               let file = try? AVAudioFile(forReading: url) else {
             XCTFail("Didn't get test file")
             return
         }
-        let fileManager = FileManager.default
-        let filename = UUID().uuidString + ".m4a"
-        let fileUrl = fileManager.temporaryDirectory.appendingPathComponent(filename)
 
-        var settings = Settings.audioFormat.settings
-        settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
-        settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
+        let fileURL = createFileURL()
+        let settings = getSettings()
 
         var outFile = try? AVAudioFile(
-            forWriting: fileUrl,
+            forWriting: fileURL,
             settings: settings)
 
         let engine = AudioEngine()
@@ -92,6 +102,7 @@ class RecordingTests: AudioFileTestCase {
             XCTFail("Couldn't load input Node.")
             return
         }
+
         let recorder = try? NodeRecorder(node: input)
         recorder?.openFile(file: &outFile)
         let player = AudioPlayer()
@@ -101,11 +112,14 @@ class RecordingTests: AudioFileTestCase {
         input.start()
         try? recorder?.record()
         wait(for: 2)
+
         recorder?.stop()
         input.stop()
         engine.stop()
+
         engine.output = player
         recorder?.closeFile(file: &outFile)
+
         guard let recordedFile = recorder?.audioFile else {
             XCTFail("Couldn't open recorded audio file!")
             return
@@ -116,6 +130,62 @@ class RecordingTests: AudioFileTestCase {
         try? engine.start()
         player.play()
         wait(for: 2)
+    }
+
+    func testPauseRecording() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let file = try? AVAudioFile(forReading: url) else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let fileURL = createFileURL()
+        let settings = getSettings()
+
+        var outFile = try? AVAudioFile(
+            forWriting: fileURL,
+            settings: settings)
+
+        let engine = AudioEngine()
+        let player = AudioPlayer(file: file)
+        guard let player = player else {
+            XCTFail("Couldn't load input Node.")
+            return
+        }
+
+        let recorder = try? NodeRecorder(node: player)
+        recorder?.openFile(file: &outFile)
+        engine.output = player
+
+        try? engine.start()
+        player.play()
+        try? recorder?.record()
+        wait(for: 1.5)
+
+        recorder?.pause()
+        wait(for: 1.2)
+
+        recorder?.resume()
+        wait(for: 1.2)
+
+        recorder?.stop()
+        player.stop()
+        engine.stop()
+        engine.output = player
+
+        recorder?.closeFile(file: &outFile)
+
+        guard let recordedFile = recorder?.audioFile else {
+            XCTFail("Couldn't open recorded audio file!")
+            return
+        }
+        wait(for: 1)
+
+        player.file = recordedFile
+        try? engine.start()
+        // 1, 2, 4
+        player.play()
+        wait(for: 3)
     }
 }
 #endif

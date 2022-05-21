@@ -12,6 +12,9 @@ open class NodeRecorder: NSObject {
     /// True if we are recording.
     public private(set) var isRecording = false
 
+    /// True if we are paused
+    public private(set) var isPaused = false
+
     /// An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0
 
@@ -40,9 +43,10 @@ open class NodeRecorder: NSObject {
 
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
-        // Close the writing file locally before trying to read
-        if internalAudioFile != nil { internalAudioFile = nil }
         do {
+            if internalAudioFile != nil {
+                closeFile(file: &internalAudioFile)
+            }
             guard let url = recordedFileURL else { return nil }
             return try AVAudioFile(forReading: url)
 
@@ -55,8 +59,6 @@ open class NodeRecorder: NSObject {
     private var fileDirectoryURL: URL
 
     private var recordedFileURL: URL?
-
-    private var recordedFileSettings: [String: Any]?
 
     private static var recordedFiles = [URL]()
 
@@ -78,14 +80,7 @@ open class NodeRecorder: NSObject {
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         super.init()
 
-        let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
-
-        guard audioFile != nil else {
-            Log("Error, no file to write to")
-            return
-        }
-
-        internalAudioFile = audioFile
+        createDefaultFile()
 
         self.bus = bus
     }
@@ -101,10 +96,20 @@ open class NodeRecorder: NSObject {
         return dateFormatter.string(from: Date())
     }
 
+    func createDefaultFile() {
+        let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
+        guard audioFile != nil else {
+            Log("Error, no file to write to")
+            return
+        }
+        internalAudioFile = audioFile
+    }
+
     /// Open file a for recording
-    /// - Parameter file: Reference to the file you want to record to.
-    /// Has to be optional because this file will be set to `nil` when the recorder is done using it.
+    /// - Parameter file: Reference to the file you want to record to
+    /// Has to be optional because the file will be set to `nil` after recording.
     public func openFile(file: inout AVAudioFile?) {
+        internalAudioFile = file
         // Close the file object passed in, try returning another one for reading after
         closeFile(file: &file)
     }
@@ -112,10 +117,9 @@ open class NodeRecorder: NSObject {
     /// Close file after recording
     /// - Parameter file: Reference to the file you want to close
     public func closeFile(file: inout AVAudioFile?) {
-        if let inFile = file {
-            // Keep track of file URL/settings before closing
-            recordedFileURL = inFile.url
-            recordedFileSettings = inFile.fileFormat.settings
+        if let fileURL = file?.url {
+            // Keep track of file URL before closing
+            recordedFileURL = fileURL
         }
         file = nil
     }
@@ -151,17 +155,8 @@ open class NodeRecorder: NSObject {
             return
         }
 
-        guard let writeToURL = recordedFileURL, let writeToSettings = recordedFileSettings else {
-            Log("🛑 Error: No file URL/settings to record to", type: .error)
-            return
-        }
-
-        do {
-            internalAudioFile = try AVAudioFile(forWriting: writeToURL,
-                                                settings: writeToSettings)
-        } catch let err {
-            Log("🛑 Error: Couldn't create internal file error: \(err.localizedDescription)",
-                type: .error)
+        if internalAudioFile == nil {
+            createDefaultFile()
         }
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
@@ -201,14 +196,15 @@ open class NodeRecorder: NSObject {
         guard let internalAudioFile = internalAudioFile else { return }
 
         do {
-            recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
-            try internalAudioFile.write(from: buffer)
+            if !isPaused {
+                recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
+                try internalAudioFile.write(from: buffer)
 
-            // allow an optional timed stop
-            if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {
-                stop()
+                // allow an optional timed stop
+                if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {
+                    stop()
+                }
             }
-
         } catch let error as NSError {
             Log("Write failed: error -> \(error.localizedDescription)")
         }
@@ -229,6 +225,16 @@ open class NodeRecorder: NSObject {
             usleep(delay)
         }
         node.avAudioNode.removeTap(onBus: bus)
+    }
+
+    /// Pause recording
+    public func pause() {
+        isPaused = true
+    }
+
+    /// Resume recording
+    public func resume() {
+        isPaused = false
     }
 
     /// Reset the AVAudioFile to clear previous recordings
