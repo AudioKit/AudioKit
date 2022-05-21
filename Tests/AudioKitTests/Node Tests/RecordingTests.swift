@@ -67,14 +67,14 @@ class RecordingTests: AudioFileTestCase {
 
         engine.stop()
     }
-    
+
     func createFileURL() -> URL {
         let fileManager = FileManager.default
         let filename = UUID().uuidString + ".m4a"
         let fileUrl = fileManager.temporaryDirectory.appendingPathComponent(filename)
         return fileUrl
     }
-    
+
     func getSettings() -> [String: Any] {
         var settings = Settings.audioFormat.settings
         settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
@@ -131,7 +131,7 @@ class RecordingTests: AudioFileTestCase {
         player.play()
         wait(for: 2)
     }
-    
+
     func testPauseRecording() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
               let file = try? AVAudioFile(forReading: url) else {
