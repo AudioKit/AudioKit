@@ -12,6 +12,9 @@ open class NodeRecorder: NSObject {
     /// True if we are recording.
     public private(set) var isRecording = false
 
+    /// True if we are paused
+    public private(set) var isPaused = false
+
     /// An optional duration for the recording to auto-stop when reached
     open var durationToRecord: Double = 0
 
@@ -201,14 +204,15 @@ open class NodeRecorder: NSObject {
         guard let internalAudioFile = internalAudioFile else { return }
 
         do {
-            recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
-            try internalAudioFile.write(from: buffer)
+            if !isPaused {
+                recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
+                try internalAudioFile.write(from: buffer)
 
-            // allow an optional timed stop
-            if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {
-                stop()
+                // allow an optional timed stop
+                if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {
+                    stop()
+                }
             }
-
         } catch let error as NSError {
             Log("Write failed: error -> \(error.localizedDescription)")
         }
@@ -229,6 +233,16 @@ open class NodeRecorder: NSObject {
             usleep(delay)
         }
         node.avAudioNode.removeTap(onBus: bus)
+    }
+
+    /// Pause recording
+    public func pause() {
+        isPaused = true
+    }
+
+    /// Resume recording
+    public func resume() {
+        isPaused = false
     }
 
     /// Reset the AVAudioFile to clear previous recordings
