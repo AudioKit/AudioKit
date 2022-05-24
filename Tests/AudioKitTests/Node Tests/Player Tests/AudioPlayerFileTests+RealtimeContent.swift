@@ -86,6 +86,54 @@ extension AudioPlayerFileTests {
         Log("Done")
     }
 
+    func stopAndStart(file: AVAudioFile, clipPlayer: AudioPlayer) {
+        print("status:\(clipPlayer.status)")
+        XCTAssert(clipPlayer.status == NodeStatus.Playback.playing)
+        clipPlayer.stop()
+        do {
+            try clipPlayer.load(file: file)
+            clipPlayer.play()
+        } catch {
+            Log(error.localizedDescription, type: .error)
+        }
+    }
+
+    func testPlayThreeFiles() {
+        guard let url1 = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test url")
+            return
+        }
+        guard let url2 = Bundle.module.url(forResource: "TestResources/drumloop", withExtension: "wav") else {
+            XCTFail("Didn't get test url")
+            return
+        }
+        guard let url3 = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test url")
+            return
+        }
+        let first = try? AVAudioFile(forReading: url1)
+        let second = try? AVAudioFile(forReading: url2)
+        let third = try? AVAudioFile(forReading: url3)
+        guard let file1 = first, let file2 = second, let file3 = third else {
+            XCTFail("Didn't get test files")
+            return
+        }
+        let engine = AudioEngine()
+        let player = AudioPlayer(file: file1)
+        guard let clipPlayer = player else {
+            XCTFail("Couldn't create player")
+            return
+        }
+        engine.output = clipPlayer
+        try? engine.start()
+        clipPlayer.play()
+        wait(for: 2.0)
+        stopAndStart(file: file2, clipPlayer: clipPlayer)
+        wait(for: 2.0)
+        stopAndStart(file: file3, clipPlayer: clipPlayer)
+        wait(for: 2.0)
+    }
+
     func realtimeTestPause() {
         guard let player = createPlayer(duration: 5) else {
             XCTFail("Failed to create AudioPlayer")

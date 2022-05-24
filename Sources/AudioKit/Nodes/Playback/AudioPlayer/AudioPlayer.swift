@@ -186,11 +186,10 @@ public class AudioPlayer: Node {
         guard status == .playing,
                 engine?.isInManualRenderingMode == false else { return }
 
-        status = .stopped
-
         completionHandler?()
 
         if isLooping && !isBuffered {
+            status = .stopped
             play()
         }
     }
