@@ -85,19 +85,15 @@ open class BaseTap {
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
-        // Call on the main thread so the client doesn't have to worry
-        // about thread safety.
         buffer.frameLength = bufferSize
-        DispatchQueue.main.async {
-            // Create trackers as needed.
-            self.lock()
-            guard self.isStarted == true else {
-                self.unlock()
-                return
-            }
-            self.doHandleTapBlock(buffer: buffer, at: time)
+        // Create trackers as needed.
+        self.lock()
+        guard self.isStarted == true else {
             self.unlock()
+            return
         }
+        self.doHandleTapBlock(buffer: buffer, at: time)
+        self.unlock()
     }
 
     /// Override this method to handle Tap in derived class
