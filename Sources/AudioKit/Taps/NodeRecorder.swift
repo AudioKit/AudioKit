@@ -80,7 +80,7 @@ open class NodeRecorder: NSObject {
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         super.init()
 
-        createDefaultFile()
+        createNewFile()
 
         self.bus = bus
     }
@@ -94,15 +94,6 @@ open class NodeRecorder: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss.SSSS"
         return dateFormatter.string(from: Date())
-    }
-
-    func createDefaultFile() {
-        let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
-        guard audioFile != nil else {
-            Log("Error, no file to write to")
-            return
-        }
-        internalAudioFile = audioFile
     }
 
     /// Open file a for recording
@@ -156,7 +147,7 @@ open class NodeRecorder: NSObject {
         }
 
         if internalAudioFile == nil {
-            createDefaultFile()
+            createNewFile()
         }
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
