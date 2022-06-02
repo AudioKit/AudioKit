@@ -187,7 +187,7 @@ class RecordingTests: AudioFileTestCase {
         player.play()
         wait(for: 3)
     }
-    
+
     func testReset() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
               let file = try? AVAudioFile(forReading: url) else {
