@@ -9,7 +9,7 @@ public class PlaygroundNoiseGenerator: Node {
     fileprivate lazy var sourceNode = AVAudioSourceNode { [self] _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
         
-        if isStarted {
+        if self.isStarted {
             for frame in 0..<Int(frameCount) {
                 // Get signal value for this frame at time.
                 let value = self.amplitude * Float.random(in: -1 ... 1)

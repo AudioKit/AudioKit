@@ -11,7 +11,7 @@ public class PlaygroundOscillator: Node {
     fileprivate lazy var sourceNode = AVAudioSourceNode { [self] _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
         
-        if isStarted {
+        if self.isStarted {
             let phaseIncrement = (twoPi / Float(Settings.sampleRate)) * self.frequency
             for frame in 0..<Int(frameCount) {
                 // Get signal value for this frame at time.
