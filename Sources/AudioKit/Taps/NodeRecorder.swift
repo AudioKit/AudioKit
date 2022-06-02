@@ -216,6 +216,11 @@ open class NodeRecorder: NSObject {
             usleep(delay)
         }
         node.avAudioNode.removeTap(onBus: bus)
+
+        // Unpause if paused
+        if isPaused {
+            isPaused = false
+        }
     }
 
     /// Pause recording
@@ -230,10 +235,6 @@ open class NodeRecorder: NSObject {
 
     /// Reset the AVAudioFile to clear previous recordings
     public func reset() throws {
-        // Unpause if paused
-        if isPaused {
-            isPaused = false
-        }
         // Stop recording
         if isRecording == true {
             stop()
