@@ -28,6 +28,10 @@ extension AudioPlayer {
             return
         }
 
+        if let renderTime = self.playerNode.lastRenderTime, let whenTime = when {
+            timeBeforePlay = whenTime.timeIntervalSince(otherTime: renderTime) ?? 0.0
+        }
+
         switch status {
         case .stopped:
             schedule(at: when,
@@ -43,20 +47,12 @@ extension AudioPlayer {
         case .scheduling:
             // player is already scheduling
             return
-        case .completed:
-            // reset the status and play again if isLooping and not buffered
-            status = .stopped
-            if isLooping && !isBuffered {
-                play()
-            } else {
-                playerNode.stop()
-            }
         }
     }
 
     /// Pauses audio player. Calling play() will resume from the paused time.
     public func pause() {
-        guard status == .playing || status == .completed else { return }
+        guard status == .playing else { return }
         pausedTime = getCurrentTime()
         playerNode.pause()
         status = .paused
@@ -71,14 +67,27 @@ extension AudioPlayer {
     /// Gets the accurate playhead time regardless of seeking and pausing
     /// Can't be relied on if playerNode has its playstate modified directly
     public func getCurrentTime() -> TimeInterval {
-        if let nodeTime = playerNode.lastRenderTime,
-           nodeTime.isSampleTimeValid,
-           let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
-            return (Double(playerTime.sampleTime) / playerTime.sampleRate) + editStartTime
-        } else if status == .paused {
+        switch status {
+        case .playing:
+            if let nodeTime = playerNode.lastRenderTime,
+               nodeTime.isSampleTimeValid,
+               let playerTime = playerNode.playerTime(forNodeTime: nodeTime) {
+               let currTime = Double(playerTime.sampleTime) / playerTime.sampleRate
+
+                // Don't count time before file starts playing
+                if currTime < timeBeforePlay {
+                    return editStartTime
+                } else {
+                    return currTime + editStartTime - timeBeforePlay
+                }
+            } else {
+                return editStartTime
+            }
+        case .paused:
             return pausedTime
+        default:
+            return editStartTime
         }
-        return editStartTime
     }
 
     /// Sets the player's audio file to a certain time in the track (in seconds)

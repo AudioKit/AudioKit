@@ -152,6 +152,9 @@ public class AudioPlayer: Node {
         }
     }
 
+    // Internal variable to keep track of how much time before the player is scheduled to play
+    var timeBeforePlay = 0.0
+
     // MARK: - Internal properties
 
     // Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
@@ -183,10 +186,12 @@ public class AudioPlayer: Node {
         guard status == .playing,
                 engine?.isInManualRenderingMode == false else { return }
 
-        status = .completed
-
         completionHandler?()
-        play()
+
+        if isLooping && !isBuffered {
+            status = .stopped
+            play()
+        }
     }
 
     // MARK: - Init

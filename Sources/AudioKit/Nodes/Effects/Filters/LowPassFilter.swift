@@ -41,9 +41,6 @@ public class LowPassFilter: Node {
     /// Resonance (decibels) ranges from -20 to 40 (Default: 0)
     @Parameter(resonanceDef) public var resonance: AUValue
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
-
     /// Initialize the low pass filter node
     ///
     /// - parameter input: Input node to process
@@ -60,17 +57,5 @@ public class LowPassFilter: Node {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        effectAU.bypass = false
-        isStarted = true
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        effectAU.bypass = true
-        isStarted = false
     }
 }

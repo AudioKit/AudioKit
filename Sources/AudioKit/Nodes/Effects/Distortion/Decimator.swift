@@ -53,9 +53,6 @@ public class Decimator: Node {
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
-
     /// Initialize the decimator node
     ///
     /// - parameter input: Input node to process
@@ -87,17 +84,5 @@ public class Decimator: Node {
         zero(kDistortionParam_PolynomialMix)
         zero(kDistortionParam_RingModMix)
         zero(kDistortionParam_DelayMix)
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        effectAU.bypass = false
-        isStarted = true
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        effectAU.bypass = true
-        isStarted = false
     }
 }

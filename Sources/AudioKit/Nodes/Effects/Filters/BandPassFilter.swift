@@ -41,9 +41,6 @@ public class BandPassFilter: Node {
     /// Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     @Parameter(bandwidthDef) public var bandwidth: AUValue
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
-
     /// Initialize the band pass filter node
     ///
     /// - parameter input: Input node to process
@@ -60,17 +57,5 @@ public class BandPassFilter: Node {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        effectAU.bypass = false
-        isStarted = true
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        effectAU.bypass = true
-        isStarted = false
     }
 }

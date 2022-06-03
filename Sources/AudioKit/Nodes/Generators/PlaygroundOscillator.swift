@@ -11,20 +11,29 @@ public class PlaygroundOscillator: Node {
     fileprivate lazy var sourceNode = AVAudioSourceNode { [self] _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
         
-        let phaseIncrement = (twoPi / Float(Settings.sampleRate)) * self.frequency
-        for frame in 0..<Int(frameCount) {
-            // Get signal value for this frame at time.
-            let index = Int(self.currentPhase / twoPi * Float(self.waveform!.count))
-            let value = self.waveform![index] * self.amplitude
+        if self.isStarted {
+            let phaseIncrement = (twoPi / Float(Settings.sampleRate)) * self.frequency
+            for frame in 0..<Int(frameCount) {
+                // Get signal value for this frame at time.
+                let index = Int(self.currentPhase / twoPi * Float(self.waveform!.count))
+                let value = self.waveform![index] * self.amplitude
 
-            // Advance the phase for the next frame.
-            self.currentPhase += phaseIncrement
-            if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
-            if self.currentPhase < 0.0 { self.currentPhase += twoPi }
-            // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
-            for buffer in ablPointer {
-                let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
-                buf[frame] = self.isStarted ? value : 0
+                // Advance the phase for the next frame.
+                self.currentPhase += phaseIncrement
+                if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
+                if self.currentPhase < 0.0 { self.currentPhase += twoPi }
+                // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
+                for buffer in ablPointer {
+                    let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
+                    buf[frame] = value
+                }
+            }
+        } else {
+            for frame in 0..<Int(frameCount) {
+                for buffer in ablPointer {
+                    let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
+                    buf[frame] = 0
+                }
             }
         }
         return noErr

@@ -23,7 +23,7 @@ You can AudioKit and any of the other AudioKit libraries using Collections
 
 ## Documentation
 
-The Githbub [Wiki](https://github.com/AudioKit/SporthAudioKit/wiki) hosts the documentation for this project.
+The Github [Wiki](https://github.com/AudioKit/SporthAudioKit/wiki) hosts the documentation for this project.
 
 ## Examples
 

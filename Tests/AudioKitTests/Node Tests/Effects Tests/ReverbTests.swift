@@ -1,7 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import AudioKit
+@testable import AudioKit
 import XCTest
+import AVFAudio
 
 class ReverbTests: XCTestCase {
 
@@ -18,6 +19,30 @@ class ReverbTests: XCTestCase {
         input.start()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
+    }
+
+    func testNotStartedWhenBypassed() {
+        let effect = Reverb(AudioPlayer())
+        effect.isStarted = true
+        effect.bypass()
+        XCTAssertFalse(effect.isStarted)
+    }
+
+    func testNotStartedWhenBypassedAsNode() {
+        // Node has its own extension of bypass
+        // bypass() needs to be a part of protocol
+        // for this to work properly
+        let effect = Reverb(AudioPlayer())
+        effect.isStarted = true
+        (effect as Node).bypass()
+        XCTAssertFalse(effect.isStarted)
+    }
+
+    func testStartedAfterStart() {
+        let effect = Reverb(AudioPlayer())
+        effect.isStarted = false
+        effect.start()
+        XCTAssertTrue(effect.isStarted)
     }
 
     func testCathedral() {
