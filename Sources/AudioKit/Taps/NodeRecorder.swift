@@ -80,7 +80,7 @@ open class NodeRecorder: NSObject {
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         super.init()
 
-        createDefaultFile()
+        createNewFile()
 
         self.bus = bus
     }
@@ -94,15 +94,6 @@ open class NodeRecorder: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH-mm-ss.SSSS"
         return dateFormatter.string(from: Date())
-    }
-
-    func createDefaultFile() {
-        let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
-        guard audioFile != nil else {
-            Log("Error, no file to write to")
-            return
-        }
-        internalAudioFile = audioFile
     }
 
     /// Open file a for recording
@@ -156,7 +147,7 @@ open class NodeRecorder: NSObject {
         }
 
         if internalAudioFile == nil {
-            createDefaultFile()
+            createNewFile()
         }
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
@@ -225,6 +216,11 @@ open class NodeRecorder: NSObject {
             usleep(delay)
         }
         node.avAudioNode.removeTap(onBus: bus)
+
+        // Unpause if paused
+        if isPaused {
+            isPaused = false
+        }
     }
 
     /// Pause recording
@@ -244,19 +240,18 @@ open class NodeRecorder: NSObject {
             stop()
         }
 
-        guard let internalAudioFile = internalAudioFile else { return }
+        guard let audioFile = audioFile else { return }
 
         // Delete the physical recording file
         let fileManager = FileManager.default
-        let settings = internalAudioFile.fileFormat.settings
-        let url = internalAudioFile.url
+        let settings = audioFile.fileFormat.settings
+        let url = audioFile.url
 
         do {
-            if let path = audioFile?.url.path {
-                try fileManager.removeItem(atPath: path)
-            }
+            let path = audioFile.url.path
+            try fileManager.removeItem(atPath: path)
         } catch let error as NSError {
-            Log("Error: Can't delete" + (audioFile?.url.lastPathComponent ?? "nil") + error.localizedDescription)
+            Log("Error: Can't delete" + (audioFile.url.lastPathComponent ?? "nil") + error.localizedDescription)
         }
 
         // Creates a blank new file

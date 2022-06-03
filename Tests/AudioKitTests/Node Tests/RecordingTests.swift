@@ -187,5 +187,53 @@ class RecordingTests: AudioFileTestCase {
         player.play()
         wait(for: 3)
     }
+
+    func testReset() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let file = try? AVAudioFile(forReading: url) else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer(file: file)
+
+        guard let player = player else {
+            XCTFail("Couldn't load input Node.")
+            return
+        }
+
+        let recorder = try? NodeRecorder(node: player)
+        engine.output = player
+        try? engine.start()
+        player.play()
+        try? recorder?.record()
+        wait(for: 1.5)
+
+        // Pause for fun
+        recorder?.pause()
+
+        // Try to reset and record again
+        try? recorder?.reset()
+        try? recorder?.record()
+        wait(for: 1.2)
+
+        recorder?.stop()
+        player.stop()
+        engine.stop()
+        engine.output = player
+
+        guard let recordedFile = recorder?.audioFile else {
+            XCTFail("Couldn't open recorded audio file!")
+            return
+        }
+        wait(for: 1)
+
+        player.file = recordedFile
+        try? engine.start()
+        // 3
+        player.play()
+        wait(for: 3)
+    }
 }
 #endif
