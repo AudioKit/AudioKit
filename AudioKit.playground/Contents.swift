@@ -1,8 +1,6 @@
 import AudioKit
 import Foundation
 
-var greeting = "Hello, playground"
-
 let osc = PlaygroundOscillator()
 
 let engine = AudioEngine()
