@@ -26,8 +26,6 @@ class AmplitudeTapTests: XCTestCase {
                 XCTAssertEqual(values[i], 0.579 * known[i], accuracy: 0.01)
             }
         }
-        print(values)
-        print(known)
     }
 
     func testDefault() {
