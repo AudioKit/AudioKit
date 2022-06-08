@@ -126,6 +126,9 @@ extension AudioPlayerFileTests {
         }
         engine.output = clipPlayer
         try? engine.start()
+
+        return // this should not play live but instead invoke a test
+
         clipPlayer.play()
         wait(for: 2.0)
         stopAndStart(file: file2, clipPlayer: clipPlayer)
@@ -145,6 +148,8 @@ extension AudioPlayerFileTests {
 
         player.completionHandler = { Log("🏁 Completion Handler") }
         var duration = player.duration
+
+        return // this should not play live but instead invoke a test
 
         Log("▶️")
         player.play()
