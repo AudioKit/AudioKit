@@ -279,7 +279,7 @@ open class NodeRecorder: NSObject {
             let path = audioFile.url.path
             try fileManager.removeItem(atPath: path)
         } catch let error as NSError {
-            Log("Error: Can't delete" + (audioFile.url.lastPathComponent ?? "nil") + error.localizedDescription)
+            Log("Error: Can't delete" + (audioFile.url.lastPathComponent) + error.localizedDescription)
         }
 
         // Creates a blank new file
