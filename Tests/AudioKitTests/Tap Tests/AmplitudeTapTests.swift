@@ -23,7 +23,7 @@ class AmplitudeTapTests: XCTestCase {
     func check(values: [Float], known: [Float]) {
         if values.count >= known.count {
             for i in 0..<known.count {
-                XCTAssertEqual(values[i], 0.579 * known[i], accuracy: 0.01)
+                XCTAssertEqual(values[i], 0.579 * known[i], accuracy: 0.03)
             }
         }
     }
