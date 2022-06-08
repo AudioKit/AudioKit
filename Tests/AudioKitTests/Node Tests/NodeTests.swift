@@ -457,4 +457,90 @@ class NodeTests: XCTestCase {
         """)
     }
     #endif
+
+    func testAllNodesInChainDeallocatedOnRemove() {
+        let engine = AudioEngine()
+        var chain: Node? = createChain()
+        weak var weakPitch = chain?.avAudioNode
+        weak var weakDelay = chain?.connections.first?.avAudioNode
+        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
+        let mixer = Mixer(chain!, createChain())
+        engine.output = mixer
+
+        mixer.removeInput(chain!)
+        chain = nil
+
+        XCTAssertNil(weakPitch)
+        XCTAssertNil(weakDelay)
+        XCTAssertNil(weakPlayer)
+    }
+
+    @available(iOS 13.0, *)
+    func testNodesThatHaveOtherConnectionsNotDeallocated() {
+        let engine = AudioEngine()
+        var chain: Node? = createChain()
+        weak var weakPitch = chain?.avAudioNode
+        weak var weakDelay = chain?.connections.first?.avAudioNode
+        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
+        let mixer1 = Mixer(chain!, createChain())
+        let mixer2 = Mixer(mixer1, chain!)
+        engine.output = mixer2
+
+        mixer1.removeInput(chain!)
+        chain = nil
+
+        XCTAssertNotNil(weakPitch)
+        XCTAssertNotNil(weakDelay)
+        XCTAssertNotNil(weakPlayer)
+        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakPitch!))
+        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakDelay!))
+        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakPlayer!))
+    }
+
+    @available(iOS 13.0, *)
+    func testInnerNodesThatHaveOtherConnectionsNotDeallocated() {
+        let engine = AudioEngine()
+        var chain: Node? = createChain()
+        weak var weakPitch = chain?.avAudioNode
+        weak var weakDelayNode = chain?.connections.first
+        weak var weakDelay = chain?.connections.first?.avAudioNode
+        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
+        let mixer = Mixer(chain!, createChain(), weakDelayNode!)
+        engine.output = mixer
+
+        mixer.removeInput(chain!)
+        chain = nil
+
+        XCTAssertNil(weakPitch)
+        XCTAssertNotNil(weakDelay)
+        XCTAssertNotNil(weakDelayNode)
+        XCTAssertNotNil(weakPlayer)
+        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakDelay!))
+        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakPlayer!))
+    }
+
+    @available(iOS 13.0, *)
+    func testInnerNodesThatHaveMultipleInnerConnectionsDeallocated() {
+        let engine = AudioEngine()
+        var chain: Node? = createChain()
+        weak var weakPitch = chain?.avAudioNode
+        weak var weakDelay = chain?.connections.first?.avAudioNode
+        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
+        var mixer: Mixer? = Mixer(chain!, Mixer(chain!))
+        var outer: Mixer? = Mixer(mixer!)
+        engine.output = outer
+
+        outer!.removeInput(mixer!)
+        outer = nil
+        mixer = nil
+        chain = nil
+
+        XCTAssertNil(weakPitch)
+        XCTAssertNil(weakDelay)
+        XCTAssertNil(weakPlayer)
+    }
+}
+
+private extension NodeTests {
+    func createChain() -> Node { TimePitch(Delay(AudioPlayer())) }
 }
