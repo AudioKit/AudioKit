@@ -28,6 +28,7 @@ class AmplitudeTapTests: XCTestCase {
         }
     }
 
+    @available(iOS 13.0, *)
     func testDefault() {
 
         let engine = AudioEngine()

@@ -14,6 +14,7 @@ class FFTTapTests: XCTestCase {
         }
     }
 
+    @available(iOS 13.0, *)
     func testBasic() {
         let engine = AudioEngine()
 
