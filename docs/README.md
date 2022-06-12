@@ -41,7 +41,6 @@ The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above ar
 | [Devoloop AudioKit](/Packages/DevoloopAudioKit)     | Guitar processors                             |
 | [Dunne AudioKit](/Packages/DunneAudioKit)           | Chorus, Flanger, Sampler, Stereo Delay, Synth |
 | [Microtonal AudioKit](/Packages/MicrotonalAudioKit) | Custom tuning tables                          |
-| [Soul AudioKit](/Packages/SoulAudioKit)             | Diode Clipper and basis for more development  |
 | [Soundpipe AudioKit](/Packages/SoundpipeAudioKit)   | Oscillators, Effects, Filters, and more       |
 | [Sporth AudioKit](/Packages/SporthAudioKit)         | Operations for complex DSP with simple syntax |
 | [STK AudioKit](/Packages/STKAudioKit)               | Stanford Synthesis Toolkit physical models    |
