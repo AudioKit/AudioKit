@@ -84,7 +84,7 @@ public extension AVAudioUnitReverbPreset {
         case .mediumRoom:
             return "Medium Room"
         case .largeRoom:
-            return "Larg Room"
+            return "Large Room"
         case .mediumHall:
             return "Medium Hall"
         case .largeHall:
