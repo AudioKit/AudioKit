@@ -1,6 +1,6 @@
 # STK AudioKit
 
-This extension to AudioKit allows you to use physical models from Stanford's [Synthesis Toolkit (STK)](https://ccrma.stanford.edu/software/stk/).
+This extension to AudioKit allows you to use physical models from Stanford's Synthesis Toolkit (STK). (https://ccrma.stanford.edu/software/stk/)
 
 ## Github URL
 

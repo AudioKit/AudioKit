@@ -1,5 +1,7 @@
 #  About Us
 
+AudioKit was created by large team of programmers and musicians.
+
 AudioKit was created by
 [Aurelius Prochazka](https://github.com/aure) who is your life line if you need help!
 [Matthew Fecher](https://github.com/analogcode),

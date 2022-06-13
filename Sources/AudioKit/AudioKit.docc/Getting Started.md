@@ -1,10 +1,8 @@
-<div align=center>
-<img src="https://github.com/AudioKit/Cookbook/raw/main/Cookbook/Cookbook/Assets.xcassets/audiokit-icon.imageset/audiokit-icon.png" width="20%"/>
-</div>
-
-# What is AudioKit?
+# Getting Started
 
 AudioKit is an entire audio development ecosystem of code repositories, packages, libraries, algorithms, applications, playgrounds, tests, and scripts, built and used by a community of audio programmers, app developers, engineers, researchers, scientists, musicians, gamers, and people new to programming.
+
+## Overview
 
 AudioKit has several underlying goals that motivate its development.
 
@@ -16,9 +14,9 @@ AudioKit has several underlying goals that motivate its development.
 
 4. We want to inspire the next generation of audio app developers and we do that by highlighting AudioKit-powered apps and by creating our own apps under the "AudioKit Pro" brand including the world's most downloaded synth "AudioKit Synth One" and a host of other AudioKit Pro apps.
 
-# Packages / Layer Diagram
+## Packages / Layer Diagram
 
-<img src="/images/AudioKitLayers.svg" width=100%>
+![Layer Diagram](AudioKitLayers)
 
 The AudioKit Layer itself contains three frameworks you can import from:
 
@@ -45,11 +43,11 @@ The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above ar
 | [Sporth AudioKit](/Packages/SporthAudioKit)         | Operations for complex DSP with simple syntax |
 | [STK AudioKit](/Packages/STKAudioKit)               | Stanford Synthesis Toolkit physical models    |
 
-# AudioKit.io (this website)
+## AudioKit.io (this website)
 
-This web site is created from the main AudioKit repository on Github. In that repository there is a `docs` folder that contains all of the documents that appear here. Updating the AudioKit.io is the same as updating AudioKit, simply create a pull request with your proposed changes.  Base your changes off of the `develop` branch and once merged, they will appear on the website. 
+This web site is created from the main AudioKit Docc style content. 
 
-# Examples
+## Examples
 
 The primary source for AudioKit examples is the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook). This app contains all of the mini-examples that used to be included with AudioKit.
 
@@ -73,3 +71,9 @@ Larger examples have been moved to their own repositories:
 * [Simple Audio Unit](https://github.com/AudioKit/SimpleAudioUnit)
 * [Song Processor](http://github.com/AudioKit/SongProcessor)
 
+
+## Topics
+
+### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
+
+- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
