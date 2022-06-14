@@ -40,8 +40,16 @@ public class MultiSegmentAudioPlayer: Node {
     /// - Parameters:
     ///     - audioSegments: segments of audio files to be scheduled for playback
     ///     - referenceTimeStamp: time to schedule against (think global time / timeline location / studio time)
-    public func playSegments(audioSegments: [StreamableAudioSegment], referenceTimeStamp: TimeInterval = 0) {
-        scheduleSegments(audioSegments: audioSegments, referenceTimeStamp: referenceTimeStamp)
+    ///     - referenceNowTime: used to share a single now time between many players
+    ///     - processingDelay: used to allow many players to process the scheduling of segments and then play in sync
+    public func playSegments(audioSegments: [StreamableAudioSegment],
+                             referenceTimeStamp: TimeInterval = 0,
+                             referenceNowTime: AVAudioTime = AVAudioTime.now(),
+                             processingDelay: TimeInterval = 0) {
+        scheduleSegments(audioSegments: audioSegments,
+                         referenceTimeStamp: referenceTimeStamp,
+                         referenceNowTime: referenceNowTime,
+                         processingDelay: processingDelay)
         play()
     }
     
@@ -49,10 +57,15 @@ public class MultiSegmentAudioPlayer: Node {
     /// - Parameters:
     ///     - audioSegments: segments of audio files to be scheduled for playback
     ///     - referenceTimeStamp: time to schedule against (think global time / timeline location / studio time)
+    ///     - referenceNowTime: used to share a single now time between many players
+    ///     - processingDelay: used to allow many players to process the scheduling of segments and then play in sync
     /// - Description:
     ///     - the segments must be sorted by their playbackStartTime in chronological order
     ///     - this has not been tested on overlapped segments (any most likely does not work for this use case)
-    public func scheduleSegments(audioSegments: [StreamableAudioSegment], referenceTimeStamp: TimeInterval = 0) {
+    public func scheduleSegments(audioSegments: [StreamableAudioSegment],
+                                 referenceTimeStamp: TimeInterval = 0,
+                                 referenceNowTime: AVAudioTime = AVAudioTime.now(),
+                                 processingDelay: TimeInterval = 0) {
         for segment in audioSegments {
             
             // how long the file will be playing back for in seconds
@@ -63,7 +76,7 @@ public class MultiSegmentAudioPlayer: Node {
             if endTimeWithRespectToReference <= referenceTimeStamp { continue } // skip the clip if it's already past
 
             // either play right away or schedule for a future time to begin playback
-            var whenToPlay = AVAudioTime.now()
+            var whenToPlay = referenceNowTime.offset(seconds: processingDelay)
             
             // the specific location in the audio file we will start playing from
             var fileStartTime = segment.fileStartTime
