@@ -75,6 +75,46 @@ class MultiSegmentPlayerTests: XCTestCase {
         testMD5(audio)
     }
     
+    func testPlayMultiplePlayersInSync() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let file = try? AVAudioFile(forReading: url)
+        else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+
+        let playerA = MultiSegmentAudioPlayer()
+        let playerB = MultiSegmentAudioPlayer()
+        let playerC = MultiSegmentAudioPlayer()
+        let playerD = MultiSegmentAudioPlayer()
+
+        let segmentA = ExampleSegment(audioFile: file)
+        let segmentB = ExampleSegment(audioFile: file, fileStartTime: 1.0)
+        let segmentC = ExampleSegment(audioFile: file, playbackStartTime: 1.0)
+        let segmentD = ExampleSegment(audioFile: file, playbackStartTime: 1.0, fileStartTime: 1.0)
+
+        let players = [playerA, playerB, playerC, playerD]
+        let mixer = Mixer(players)
+        engine.output = mixer
+
+        let audio = engine.startTest(totalDuration: 5.0)
+
+        let referenceNowTime = AVAudioTime.now()
+        let processingDelay = 0.1
+        for player in players {
+            player.playSegments(audioSegments: [segmentA, segmentB, segmentC, segmentD],
+                                referenceNowTime: referenceNowTime,
+                                processingDelay: processingDelay)
+            player.play()
+        }
+
+        audio.append(engine.render(duration: 5.0))
+
+        testMD5(audio)
+    }
+
     func testPlayWithinSegment() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
               let file = try? AVAudioFile(forReading: url)
