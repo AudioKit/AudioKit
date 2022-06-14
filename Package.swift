@@ -9,6 +9,5 @@ let package = Package(
     targets: [
         .target(name: "AudioKit"),
         .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
-    ],
-    cxxLanguageStandard: .cxx14
+    ]
 )
