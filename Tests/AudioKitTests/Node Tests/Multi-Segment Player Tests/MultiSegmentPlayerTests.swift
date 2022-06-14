@@ -114,7 +114,7 @@ class MultiSegmentPlayerTests: XCTestCase {
 
         testMD5(audio)
     }
-    
+
     func testPlayWithinSegment() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
               let file = try? AVAudioFile(forReading: url)
