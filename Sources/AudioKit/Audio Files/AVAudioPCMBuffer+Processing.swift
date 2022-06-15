@@ -203,7 +203,7 @@ extension AVAudioPCMBuffer {
             fadeInPower = sampleTime / inTime
 
         } else {
-            fadeInPower = exp(log(10) * sampleTime / inTime)
+            fadeInPower = exp(log(100) * sampleTime / inTime)
         }
 
         if linearRamp {
@@ -224,9 +224,9 @@ extension AVAudioPCMBuffer {
             for n in 0 ..< channelCount {
                 if i < fadeInSamples, inTime > 0 {
                     if linearRamp {
-                        gain *= fadeInPower
-                    } else {
                         gain += fadeInPower
+                    } else {
+                        gain *= fadeInPower
                     }
 
                 } else if i > fadeOutSamples, outTime > 0 {
