@@ -23,6 +23,10 @@ public protocol Node: AnyObject {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
 
+    /// Audio format to use when connecting this node.
+    /// Defaults to `Settings.audioFormat`.
+    var outputFormat: AVAudioFormat { get }
+
 }
 
 public extension Node {
@@ -56,6 +60,7 @@ public extension Node {
     func stop() { bypassed = true }
     func play() { bypassed = false }
     func bypass() { bypassed = true }
+    var outputFormat: AVAudioFormat { Settings.audioFormat }
 
     /// All parameters on the Node
     var parameters: [NodeParameter] {
@@ -111,7 +116,7 @@ extension Node {
                 }
                 engine.detach(input.avAudioNode)
             } else {
-                avAudioNode.disconnect(input: input.avAudioNode)
+                avAudioNode.disconnect(input: input.avAudioNode, format: input.outputFormat)
             }
         }
     }
@@ -175,9 +180,9 @@ extension Node {
 
                 // Mixers will decide which input bus to use.
                 if let mixer = avAudioNode as? AVAudioMixerNode {
-                    mixer.connectMixer(input: connection.avAudioNode)
+                    mixer.connectMixer(input: connection.avAudioNode, format: connection.outputFormat)
                 } else {
-                    avAudioNode.connect(input: connection.avAudioNode, bus: bus)
+                    avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
                 }
 
                 connection.makeAVConnections()
