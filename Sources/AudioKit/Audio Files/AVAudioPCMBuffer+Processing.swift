@@ -224,9 +224,9 @@ extension AVAudioPCMBuffer {
             for n in 0 ..< channelCount {
                 if i < fadeInSamples, inTime > 0 {
                     if linearRamp {
-                        gain *= fadeInPower
-                    } else {
                         gain += fadeInPower
+                    } else {
+                        gain *= fadeInPower
                     }
 
                 } else if i > fadeOutSamples, outTime > 0 {
