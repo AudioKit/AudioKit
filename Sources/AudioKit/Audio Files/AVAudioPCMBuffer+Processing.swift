@@ -203,7 +203,7 @@ extension AVAudioPCMBuffer {
             fadeInPower = sampleTime / inTime
 
         } else {
-            fadeInPower = exp(log(100) * sampleTime / inTime)
+            fadeInPower = exp(log(10) * sampleTime / inTime)
         }
 
         if linearRamp {
