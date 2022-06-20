@@ -331,7 +331,6 @@ class NodeTests: XCTestCase {
     
     func testMixerRedundantUpstreamConnection() {
         let engine = AudioEngine()
-        
 
         let player = AudioPlayer(testFile: "12345")
         
