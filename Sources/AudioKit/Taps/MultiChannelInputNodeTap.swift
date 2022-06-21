@@ -13,7 +13,7 @@ public final class MultiChannelInputNodeTap {
     public struct FileChannel {
         public var name: String
         public var channel: Int32
-        
+
         public init(name: String, channel: Int32) {
             self.name = name
             self.channel = channel
