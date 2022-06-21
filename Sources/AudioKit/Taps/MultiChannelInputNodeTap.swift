@@ -11,8 +11,13 @@ import AVFoundation
 public final class MultiChannelInputNodeTap {
     /// a file name and its associated input channel
     public struct FileChannel {
-        var name: String
-        var channel: Int32
+        public var name: String
+        public var channel: Int32
+        
+        public init(name: String, channel: Int32) {
+            self.name = name
+            self.channel = channel
+        }
     }
 
     /// Receive update events during the lifecycle of this class
