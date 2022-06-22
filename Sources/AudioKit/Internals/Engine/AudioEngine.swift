@@ -5,7 +5,7 @@ import AVFoundation
 extension AVAudioNode {
 
     /// Disconnect without breaking other connections.
-    func disconnect(input: AVAudioNode) {
+    func disconnect(input: AVAudioNode, format: AVAudioFormat) {
 
         if let engine = engine {
 
@@ -23,14 +23,14 @@ extension AVAudioNode {
                 if connections.isEmpty {
                     engine.disconnectNodeOutput(node)
                 } else {
-                    engine.connect(node, to: connections, fromBus: 0, format: Settings.audioFormat)
+                    engine.connect(node, to: connections, fromBus: 0, format: format)
                 }
             }
         }
     }
 
     /// Make a connection without breaking other connections.
-    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
+    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: {
@@ -44,7 +44,7 @@ extension AVAudioNode {
 
 extension AVAudioMixerNode {
     /// Make a connection without breaking other connections.
-    public func connectMixer(input: AVAudioNode, format: AVAudioFormat? = Settings.audioFormat) {
+    public func connectMixer(input: AVAudioNode, format: AVAudioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: { $0.node === self }) { return }
@@ -112,7 +112,7 @@ public class AudioEngine {
             if let node = oldValue {
                 mainMixerNode?.removeInput(node)
                 node.detach()
-                avEngine.outputNode.disconnect(input: node.avAudioNode)
+                avEngine.outputNode.disconnect(input: node.avAudioNode, format: node.outputFormat)
             }
 
             // if non nil, set the main output now
@@ -149,7 +149,7 @@ public class AudioEngine {
 
     private func removeEngineMixer() {
         guard let mixer = mainMixerNode else { return }
-        avEngine.outputNode.disconnect(input: mixer.avAudioNode)
+        avEngine.outputNode.disconnect(input: mixer.avAudioNode, format: mixer.outputFormat)
         mixer.removeAllInputs()
         mixer.detach()
         mainMixerNode = nil
