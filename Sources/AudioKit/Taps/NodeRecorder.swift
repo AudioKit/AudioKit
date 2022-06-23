@@ -58,7 +58,7 @@ open class NodeRecorder: NSObject {
 
     /// Directory audio files will be written to
     private var fileDirectoryURL: URL
-    
+
     private var shouldCleanupRecordings: Bool
 
     private var recordedFileURL: URL?
