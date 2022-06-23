@@ -81,18 +81,18 @@ open class NodeRecorder: NSObject {
     ///   - node: Node to record from
     ///   - fileDirectoryPath: Directory to write audio files to
     ///   - bus: Integer index of the bus to use
-    ///   - rawDataTapHandler: Raw audio data callback
     ///   - shouldCleanupRecordings: Determines if recorded files are deleted upon deinit (default = true)
+    ///   - rawDataTapHandler: Raw audio data callback
     ///
     public init(node: Node,
                 fileDirectoryURL: URL? = nil,
                 bus: Int = 0,
-                rawDataTapHandler: RawAudioDataHandler? = nil,
-                shouldCleanupRecordings: Bool = true) throws {
+                shouldCleanupRecordings: Bool = true,
+                rawDataTapHandler: RawAudioDataHandler? = nil) throws {
         self.node = node
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
-        self.rawDataTapHandler = rawDataTapHandler
         self.shouldCleanupRecordings = shouldCleanupRecordings
+        self.rawDataTapHandler = rawDataTapHandler
         super.init()
 
         createNewFile()
