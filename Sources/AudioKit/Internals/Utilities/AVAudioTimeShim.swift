@@ -88,7 +88,7 @@ extension AVAudioTime {
     }
 
     /// Convert seconds to AVAudioTime with a hostTime reference -- time must be > 0
-    open class func secondsToAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
+    public class func secondsToAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()
         mach_timebase_info(&timebaseInfo)
