@@ -328,7 +328,7 @@ public class AudioEngine {
     public static func setInputDevice(_ input: Device) throws {
         // Set the port description first eg iPhone Microphone / Headset Microphone etc
         guard let portDescription = input.portDescription else {
-            throw CommonError.DeviceNotFound
+            throw CommonError.deviceNotFound
         }
         try AVAudioSession.sharedInstance().setPreferredInput(portDescription)
 
