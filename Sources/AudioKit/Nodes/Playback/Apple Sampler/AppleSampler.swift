@@ -68,16 +68,18 @@ open class AppleSampler: Node {
     // MARK: - Initializers
 
     /// Initialize the sampler node
+    public init() {
+        internalAU = samplerUnit.auAudioUnit
+    }
+
     @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public init(file: String? = nil) {
+    public init(file: String) {
         internalAU = samplerUnit.auAudioUnit
 
-        if let newFile = file {
-            do {
-                try loadWav(newFile)
-            } catch {
-                Log("Could not load \(newFile)")
-            }
+        do {
+            try loadWav(file)
+        } catch {
+            Log("Could not load \(file)")
         }
     }
 
