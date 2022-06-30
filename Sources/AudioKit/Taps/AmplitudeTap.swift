@@ -6,7 +6,7 @@ import AVFoundation
 /// Tap to do amplitude analysis on any node.
 /// start() will add the tap, and stop() will remove it.
 public class AmplitudeTap: BaseTap {
-    private var amp: [Float] = Array(repeating: 0, count: 2)
+    private var amp: [Float]
 
     /// Detected amplitude (average of left and right channels)
     public var amplitude: Float {
@@ -47,6 +47,7 @@ public class AmplitudeTap: BaseTap {
         self.handler = handler
         self.stereoMode = stereoMode
         self.analysisMode = analysisMode
+        self.amp = Array(repeating: 0, count: Int(input.outputFormat.channelCount))
         super.init(input, bufferSize: bufferSize)
     }
 

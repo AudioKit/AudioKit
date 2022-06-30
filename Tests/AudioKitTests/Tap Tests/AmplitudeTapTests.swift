@@ -2,6 +2,7 @@
 
 import XCTest
 import AudioKit
+import AVFAudio
 
 class AmplitudeTapTests: XCTestCase {
 
@@ -18,6 +19,21 @@ class AmplitudeTapTests: XCTestCase {
         tap.stop()
 
         XCTAssertFalse(tap.isStarted)
+    }
+
+    func testDoesntCrashForMoreThenTwoChannels() {
+        let channelCount: UInt32 = 4
+        let channelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_DiscreteInOrder | channelCount)!
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
+
+        let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
+        let tap = AmplitudeTap(reverb)
+
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
+        for channel in 0...Int(channelCount - 1) {
+            buffer.floatChannelData?[channel][0] = 0.0
+        }
+        tap.doHandleTapBlock(buffer: buffer, at: .now())
     }
 
     func check(values: [Float], known: [Float]) {
