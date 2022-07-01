@@ -409,3 +409,12 @@ public extension DSPSplitComplex {
         imagp.deallocate()
     }
 }
+
+public extension AVAudioTime {
+    /// Returns an AVAudioTime set to sampleTime of zero at the default sample rate
+    static func sampleTimeZero() -> AVAudioTime {
+        let sampleRate = Double(Settings.sampleRate)
+        let sampleTime = AVAudioFramePosition(Double(0))
+        return AVAudioTime(sampleTime: sampleTime, atRate: sampleRate)
+    }
+}
