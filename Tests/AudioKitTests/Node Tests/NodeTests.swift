@@ -28,24 +28,14 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    static let reverbFormat = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 2)!
     func testNodeOutputFormatRespected() {
-        class TestReverb: Node {
-            private let reverb: Reverb
-            var avAudioNode: AVAudioNode { reverb.avAudioNode }
-            var connections: [Node] { reverb.connections }
-            var outputFormat: AVAudioFormat { NodeTests.reverbFormat }
-
-            init(_ input: Node) {
-                self.reverb = Reverb(input)
-            }
-        }
+        let outputFormat = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 2)!
         let engine = AudioEngine()
         let player = AudioPlayer(testFile: "12345")
-        let verb = TestReverb(player)
+        let verb = CustomFormatReverb(player, outputFormat: outputFormat)
         engine.output = verb
 
-        XCTAssertEqual(engine.mainMixerNode!.avAudioNode.inputFormat(forBus: 0), Self.reverbFormat)
+        XCTAssertEqual(engine.mainMixerNode!.avAudioNode.inputFormat(forBus: 0), outputFormat)
         XCTAssertEqual(verb.avAudioNode.inputFormat(forBus: 0), Settings.audioFormat)
     }
     
