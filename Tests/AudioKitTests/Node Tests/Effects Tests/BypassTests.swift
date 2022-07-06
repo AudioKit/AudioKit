@@ -5,25 +5,6 @@ import XCTest
 import AVFAudio
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-public class ConstantGenerator: Node {
-    public var connections: [Node] { [] }
-    public private(set) var avAudioNode: AVAudioNode
-
-    init(constant: Float) {
-        avAudioNode = AVAudioSourceNode { _, _, frameCount, audioBufferList in
-            let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
-            for frame in 0..<Int(frameCount) {
-                for buffer in ablPointer {
-                    let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
-                    buf[frame] = constant
-                }
-            }
-            return noErr
-        }
-    }
-}
-
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
 class BypassTests: XCTestCase {
     let duration = 0.1
     let source = ConstantGenerator(constant: 1)
