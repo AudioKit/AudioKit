@@ -60,4 +60,14 @@ class AVAudioPCMBufferTests: XCTestCase {
         XCTAssertTrue(inFile.length > 0)
 
     }
+
+    func testFileLength() {
+        let path = Bundle.module.url(forResource: "TestResources/SIN_0045_0", withExtension: "wav")
+
+        let file = try! AVAudioFile(forReading: path!)
+
+        let samples = file.toFloatChannelData()!
+
+        XCTAssertEqual(Int(file.length), samples[0].count)
+    }
 }
