@@ -66,8 +66,10 @@ public class MultiSegmentAudioPlayer: Node {
                                  referenceTimeStamp: TimeInterval = 0,
                                  referenceNowTime: AVAudioTime? = nil,
                                  processingDelay: TimeInterval = 0) {
+        // will not schedule if the engine is not running or if the node is disconnected
+        guard let lastRenderTime = playerNode.lastRenderTime else { return }
+
         for segment in audioSegments {
-            guard let lastRenderTime = playerNode.lastRenderTime else { return }
             let sampleTime = referenceNowTime ?? AVAudioTime.sampleTimeZero(sampleRate: lastRenderTime.sampleRate)
 
             // how long the file will be playing back for in seconds
