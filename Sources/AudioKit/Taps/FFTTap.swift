@@ -80,8 +80,8 @@ open class FFTTap: BaseTap {
         // Hann windowing to reduce the frequency leakage
         vDSP_hann_window(&window, vDSP_Length(windowSize), Int32(vDSP_HANN_NORM))
         vDSP_vmul((buffer.floatChannelData?.pointee)!, 1, window,
-                  1, &transferBuffer, 1, vDSP_Length(windowSize))
-
+                  1, &transferBuffer, 1, vDSP_Length(buffer.frameLength))
+        
         // Transforming the [Float] buffer into a UnsafePointer<Float> object for the vDSP_ctoz method
         // And then pack the input into the complex buffer (output)
         transferBuffer.withUnsafeBufferPointer { pointer in
