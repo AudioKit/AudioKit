@@ -75,10 +75,10 @@ open class FFTTap: BaseTap {
 
         let windowSize = bufferSizePOT
         var transferBuffer = [Float](repeating: 0, count: windowSize)
-        var window = [Float](repeating: 0, count: windowSize)
+		var window = [Float](repeating: 0, count: Int(buffer.frameLength))
 
         // Hann windowing to reduce the frequency leakage
-        vDSP_hann_window(&window, vDSP_Length(windowSize), Int32(vDSP_HANN_NORM))
+        vDSP_hann_window(&window, vDSP_Length(buffer.frameLength), Int32(vDSP_HANN_NORM))
         vDSP_vmul((buffer.floatChannelData?.pointee)!, 1, window,
                   1, &transferBuffer, 1, vDSP_Length(buffer.frameLength))
         
