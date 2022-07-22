@@ -51,4 +51,45 @@ class FFTTapTests: XCTestCase {
 
         check(values: fftData, known: expectedBuckets)
     }
+
+    @available(iOS 13.0, *)
+    func testZeroPadding() {
+        let paddingFactor = 7
+
+        let engine = AudioEngine()
+
+        let oscillator = PlaygroundOscillator()
+        engine.output = oscillator
+        oscillator.start()
+
+        var fftData: [Int] = []
+
+        let expect = expectation(description: "wait for buckets")
+        let targetFrequencies: [Float] = [88, 258, 433, 605, 777, 949, 1122, 1294, 1467, 1639]
+        let expectedBuckets: [Int] = [8, 24, 40, 56, 72, 88, 104, 120, 136, 152]
+
+        let tap = FFTTap(oscillator) { fft in
+            let max: Float = fft.max() ?? 0.0
+            let index = Int(fft.firstIndex(of: max) ?? 0) / (paddingFactor + 1)
+            if !fftData.contains(index) {
+                fftData.append(index)
+                if fftData.count == targetFrequencies.count {
+                    expect.fulfill()
+                }
+            }
+        }
+        tap.zeroPaddingFactor = UInt32(paddingFactor)
+        tap.start()
+
+        let audio = engine.startTest(totalDuration: 10.0)
+        for targetFrequency in targetFrequencies {
+            oscillator.frequency = targetFrequency
+            audio.append(engine.render(duration: 1.0))
+        }
+
+        wait(for: [expect], timeout: 10.0)
+        tap.stop()
+
+        check(values: fftData, known: expectedBuckets)
+    }
 }
