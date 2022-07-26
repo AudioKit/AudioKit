@@ -150,7 +150,10 @@ class MultiSegmentPlayerTests: XCTestCase {
         let engine = AudioEngine()
         let player = MultiSegmentAudioPlayer()
         let segmentNormal = ExampleSegment(audioFile: file)
-        let segmentZeroFrames = ExampleSegment(audioFile: file, playbackStartTime: 1.0, fileStartTime: 1.0, fileEndTime: 1.0)
+        let segmentZeroFrames = ExampleSegment(audioFile: file,
+                                               playbackStartTime: 1.0,
+                                               fileStartTime: 1.0,
+                                               fileEndTime: 1.0)
         engine.output = player
 
         let audio = engine.startTest(totalDuration: 5.0)
@@ -199,8 +202,9 @@ private class ExampleSegment: StreamableAudioSegment {
         self.fileStartTime = fileStartTime
         self.fileEndTime = audioFile.duration
     }
-    
-    /// Segment starts some time into the file with an offset on the playback time (plays in future when reference time is 0) and completes playback before the end of file
+
+    /// Segment starts some time into the file with an offset on the playback time (plays in future when reference time is 0)
+    /// and completes playback before the end of file
     init(audioFile: AVAudioFile, playbackStartTime: TimeInterval, fileStartTime: TimeInterval, fileEndTime: TimeInterval) {
         self.audioFile = audioFile
         self.playbackStartTime = playbackStartTime
