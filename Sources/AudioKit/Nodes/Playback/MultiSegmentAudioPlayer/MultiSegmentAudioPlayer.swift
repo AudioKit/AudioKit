@@ -100,7 +100,7 @@ public class MultiSegmentAudioPlayer: Node {
             let endFrame = AVAudioFramePosition(segment.fileEndTime * sampleRate)
             let totalFrames = (fileLengthInSamples - startFrame) - (fileLengthInSamples - endFrame)
 
-            guard totalFrames > 0 else { continue } // skip if zero frames (prevents zero frames crash)
+            guard totalFrames > 0 else { continue } // skip if invalid number of frames (prevents crash)
 
             playerNode.scheduleSegment(segment.audioFile,
                                        startingFrame: startFrame,
