@@ -33,6 +33,7 @@ let validatedMD5s: [String: String] = [
     "-[CompressorTests testParameters]": "6b99deb194dd53e8ceb6428924d6666b",
     "-[CompressorTests testThreshold]": "e1133fc525a256a72db31453d293c47c",
     "-[MixerTests testSplitConnection]": "6b2d34e86130813c7e7d9f1cf7a2a87c",
+    "-[MultiSegmentPlayerTests testAttemptToPlayZeroFrames]": "feb1367cee8917a890088b8967b8d422",
     "-[MultiSegmentPlayerTests testPlaySegment]": "feb1367cee8917a890088b8967b8d422",
     "-[MultiSegmentPlayerTests testPlaySegmentInTheFuture]": "00545f274477d014dcc51822d97f1705",
     "-[MultiSegmentPlayerTests testPlayMultipleSegments]": "feb1367cee8917a890088b8967b8d422",
