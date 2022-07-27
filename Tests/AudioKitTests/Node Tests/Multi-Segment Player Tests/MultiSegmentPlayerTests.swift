@@ -137,6 +137,34 @@ class MultiSegmentPlayerTests: XCTestCase {
         
         testMD5(audio)
     }
+
+    // tests that we prevent this crash: required condition is false: numberFrames > 0 (com.apple.coreaudio.avfaudio)
+    func testAttemptToPlayZeroFrames() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let file = try? AVAudioFile(forReading: url)
+        else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = MultiSegmentAudioPlayer()
+        let segmentNormal = ExampleSegment(audioFile: file)
+        let segmentZeroFrames = ExampleSegment(audioFile: file,
+                                               playbackStartTime: 1.0,
+                                               fileStartTime: 1.0,
+                                               fileEndTime: 1.0)
+        engine.output = player
+
+        let audio = engine.startTest(totalDuration: 5.0)
+
+        player.playSegments(audioSegments: [segmentNormal, segmentZeroFrames], referenceTimeStamp: 0.0)
+
+        player.play()
+        audio.append(engine.render(duration: 5.0))
+
+        testMD5(audio)
+    }
 }
 
 /// NOT INTENDED FOR PRODUCTION - Test Class Adopting StreamableAudioSegment for MultiSegmentPlayerTests
@@ -173,5 +201,14 @@ private class ExampleSegment: StreamableAudioSegment {
         self.playbackStartTime = playbackStartTime
         self.fileStartTime = fileStartTime
         self.fileEndTime = audioFile.duration
+    }
+
+    /// Segment starts some time into the file with an offset on the playback time (plays in future when reference time is 0)
+    /// and completes playback before the end of file
+    init(audioFile: AVAudioFile, playbackStartTime: TimeInterval, fileStartTime: TimeInterval, fileEndTime: TimeInterval) {
+        self.audioFile = audioFile
+        self.playbackStartTime = playbackStartTime
+        self.fileStartTime = fileStartTime
+        self.fileEndTime = fileEndTime
     }
 }
