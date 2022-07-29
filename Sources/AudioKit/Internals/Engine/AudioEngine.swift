@@ -86,7 +86,7 @@ public class AudioEngine {
     /// can cause the AVAudioEngine to stop running.
     public var input: InputNode? {
         if #available(macOS 10.14, *) {
-            guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
+            guard avEngine.isInManualRenderingMode || Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
                 Log("To use the microphone, you must include the NSMicrophoneUsageDescription in your Info.plist", type: .error)
                 return nil
             }
