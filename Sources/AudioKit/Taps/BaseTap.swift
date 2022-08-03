@@ -86,7 +86,21 @@ open class BaseTap {
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
-        buffer.frameLength = bufferSize
+        var bufferWithCapacity: AVAudioPCMBuffer
+
+        if bufferSize > buffer.frameCapacity {
+            guard let newBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: bufferSize) else {
+                return
+            }
+
+            newBuffer.append(buffer)
+            bufferWithCapacity = newBuffer
+        } else {
+            bufferWithCapacity = buffer
+        }
+
+        bufferWithCapacity.frameLength = bufferSize
+
         // Create trackers as needed.
         self.lock()
         guard self.isStarted == true else {
