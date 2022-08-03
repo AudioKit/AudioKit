@@ -107,7 +107,7 @@ open class BaseTap {
             self.unlock()
             return
         }
-        self.doHandleTapBlock(buffer: buffer, at: time)
+        self.doHandleTapBlock(buffer: bufferWithCapacity, at: time)
         self.unlock()
     }
 
