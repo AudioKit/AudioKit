@@ -188,6 +188,9 @@ public class NodeParameter {
     }
 }
 
+/// So we can use NodeParameter with SwiftUI. See Cookbook.
+extension NodeParameter: Identifiable { }
+
 /// Base protocol for any type supported by @Parameter
 public protocol NodeParameterType {
     /// Get the float value
