@@ -107,6 +107,8 @@ public class MultiSegmentAudioPlayer: Node {
                                        frameCount: AVAudioFrameCount(totalFrames),
                                        at: whenToPlay,
                                        completionHandler: segment.completionHandler)
+
+            playerNode.prepare(withFrameCount: AVAudioFrameCount(totalFrames))
         }
     }
 }
