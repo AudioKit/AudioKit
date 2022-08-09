@@ -144,7 +144,8 @@ public final class MultiChannelInputNodeTap {
     /// How long the class was recording based on the startedAtTime and stoppedAtTime timestamps
     public var durationRecorded: TimeInterval? {
         guard let startedAtTime = startedAtTime,
-              let stoppedAtTime = stoppedAtTime else {
+              let stoppedAtTime = stoppedAtTime
+        else {
             return nil
         }
         return AVAudioTime.seconds(forHostTime: stoppedAtTime.hostTime) -
@@ -177,7 +178,8 @@ public final class MultiChannelInputNodeTap {
                                              kAudioUnitScope_Output,
                                              inputElement,
                                              newValue,
-                                             channelMapSize) {
+                                             channelMapSize)
+            {
                 Log("Failed setting channel map")
                 return
             }
@@ -284,7 +286,8 @@ public final class MultiChannelInputNodeTap {
         guard let directory = directory,
               let fileFormat = fileFormat,
               let recordFormat = recordFormat,
-              let fileChannels = fileChannels else {
+              let fileChannels = fileChannels
+        else {
             Log("File Format is nil")
             return
         }
@@ -361,7 +364,8 @@ public final class MultiChannelInputNodeTap {
         for channel in 0 ..< channelCount {
             // a temp buffer used to write this chunk to the file
             guard let channelBuffer = AVAudioPCMBuffer(pcmFormat: bufferFormat,
-                                                       frameCapacity: buffer.frameLength) else {
+                                                       frameCapacity: buffer.frameLength)
+            else {
                 Log("Failed creating channelBuffer")
                 return
             }

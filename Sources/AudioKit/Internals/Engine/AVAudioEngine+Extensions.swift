@@ -6,7 +6,7 @@ import Foundation
 
 // TODO: add unit test.
 
-extension AVAudioEngine {
+public extension AVAudioEngine {
     /// Render output to an AVAudioFile for a duration.
     ///     - Parameters
     ///         - audioFile: A file initialized for writing
@@ -18,13 +18,14 @@ extension AVAudioEngine {
     ///         - progress: Closure called while rendering, use this to fetch render progress
     ///
     @available(iOS 11.0, macOS 10.13, tvOS 11.0, *)
-    public func render(to audioFile: AVAudioFile,
-                       maximumFrameCount: AVAudioFrameCount = 4096,
-                       duration: Double,
-                       renderUntilSilent: Bool = false,
-                       silenceThreshold: Float = 0.00005,
-                       prerender: (() -> Void)? = nil,
-                       progress progressHandler: ((Double) -> Void)? = nil) throws {
+    func render(to audioFile: AVAudioFile,
+                maximumFrameCount: AVAudioFrameCount = 4096,
+                duration: Double,
+                renderUntilSilent: Bool = false,
+                silenceThreshold: Float = 0.00005,
+                prerender: (() -> Void)? = nil,
+                progress progressHandler: ((Double) -> Void)? = nil) throws
+    {
         guard duration >= 0 else {
             throw NSError(domain: "AVAudioEngine ext", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "Seconds needs to be a positive value"])
@@ -41,7 +42,8 @@ extension AVAudioEngine {
         try start()
 
         guard let buffer = AVAudioPCMBuffer(pcmFormat: manualRenderingFormat,
-                                            frameCapacity: manualRenderingMaximumFrameCount) else {
+                                            frameCapacity: manualRenderingMaximumFrameCount)
+        else {
             throw NSError(domain: "AVAudioEngine ext", code: 1,
                           userInfo: [NSLocalizedDescriptionKey: "Couldn't create buffer in renderToFile"])
         }
@@ -111,7 +113,7 @@ extension AVAudioEngine {
 }
 
 extension AVAudioEngine {
-    internal func mixerHasInputs(mixer: AVAudioMixerNode) -> Bool {
+    func mixerHasInputs(mixer: AVAudioMixerNode) -> Bool {
         return (0 ..< mixer.numberOfInputs).contains {
             self.inputConnectionPoint(for: mixer, inputBus: $0) != nil
         }
@@ -121,11 +123,12 @@ extension AVAudioEngine {
     /// on the mixer, subsequent connections made to the mixer will silently fail.  A workaround is to connect a dummy
     /// node to the mixer prior to making a connection, then removing the dummy node after the connection has been made.
     /// This is still a bug as of macOS 11.4 (2021). A place in ADD where this would happen is the Importer editor
-    internal func initializeMixer(_ node: AVAudioNode) -> AVAudioNode? {
+    func initializeMixer(_ node: AVAudioNode) -> AVAudioNode? {
         // Only an issue if engine is running, node is a mixer, and mixer has no inputs
         guard isRunning,
               let mixer = node as? AVAudioMixerNode,
-              !mixerHasInputs(mixer: mixer) else {
+              !mixerHasInputs(mixer: mixer)
+        else {
             return nil
         }
 

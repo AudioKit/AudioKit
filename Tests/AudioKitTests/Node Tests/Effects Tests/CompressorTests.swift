@@ -4,7 +4,6 @@ import AudioKit
 import XCTest
 
 class CompressorTests: XCTestCase {
-
     func testAttackTime() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
@@ -54,11 +53,11 @@ class CompressorTests: XCTestCase {
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
         engine.output = Compressor(player,
-                                     threshold: -25,
-                                     headRoom: 10,
-                                     attackTime: 0.1,
-                                     releaseTime: 0.1,
-                                     masterGain: 1)
+                                   threshold: -25,
+                                   headRoom: 10,
+                                   attackTime: 0.1,
+                                   releaseTime: 0.1,
+                                   masterGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
         player.play()
         audio.append(engine.render(duration: 1.0))
@@ -77,5 +76,4 @@ class CompressorTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
-
 }

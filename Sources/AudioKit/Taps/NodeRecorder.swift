@@ -39,7 +39,7 @@ open class NodeRecorder: NSObject {
     private var bus: Int = 0
 
     /// Used for fixing recordings being truncated
-    private var recordBufferDuration: Double = 16_384 / Settings.sampleRate
+    private var recordBufferDuration: Double = 16384 / Settings.sampleRate
 
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
@@ -88,7 +88,8 @@ open class NodeRecorder: NSObject {
                 fileDirectoryURL: URL? = nil,
                 bus: Int = 0,
                 shouldCleanupRecordings: Bool = true,
-                rawDataTapHandler: RawAudioDataHandler? = nil) throws {
+                rawDataTapHandler: RawAudioDataHandler? = nil) throws
+    {
         self.node = node
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
@@ -209,7 +210,7 @@ open class NodeRecorder: NSObject {
                 try internalAudioFile.write(from: buffer)
 
                 // allow an optional timed stop
-                if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {
+                if durationToRecord != 0, internalAudioFile.duration >= durationToRecord {
                     stop()
                 }
 
@@ -291,7 +292,7 @@ open class NodeRecorder: NSObject {
 
         // Creates a blank new file
         do {
-            self.internalAudioFile = try AVAudioFile(forWriting: url, settings: settings)
+            internalAudioFile = try AVAudioFile(forWriting: url, settings: settings)
             Log("File has been cleared")
         } catch let error as NSError {
             Log("Error: Can't record to" + url.lastPathComponent)
@@ -305,6 +306,6 @@ open class NodeRecorder: NSObject {
             stop()
         }
 
-        self.internalAudioFile = NodeRecorder.createAudioFile(fileDirectoryURL: self.fileDirectoryURL)
+        internalAudioFile = NodeRecorder.createAudioFile(fileDirectoryURL: fileDirectoryURL)
     }
 }

@@ -5,21 +5,20 @@ import AVFoundation
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
 public class TimePitch: Node {
-
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 
     let input: Node
 
     /// Connected nodes
     public var connections: [Node] { [input] }
-    
+
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
 
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
     public var rate: AUValue = 1.0 {
         didSet {
-            rate = rate.clamped(to: 0.031_25...32)
+            rate = rate.clamped(to: 0.031_25 ... 32)
             timePitchAU.rate = rate
         }
     }
@@ -27,7 +26,7 @@ public class TimePitch: Node {
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
     public var pitch: AUValue = 0.0 {
         didSet {
-            pitch = pitch.clamped(to: -2_400...2_400)
+            pitch = pitch.clamped(to: -2400 ... 2400)
             timePitchAU.pitch = pitch
         }
     }
@@ -35,7 +34,7 @@ public class TimePitch: Node {
     /// Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     public var overlap: AUValue = 8.0 {
         didSet {
-            overlap = overlap.clamped(to: 3...32)
+            overlap = overlap.clamped(to: 3 ... 32)
             timePitchAU.overlap = overlap
         }
     }
@@ -52,8 +51,8 @@ public class TimePitch: Node {
         _ input: Node,
         rate: AUValue = 1.0,
         pitch: AUValue = 0.0,
-        overlap: AUValue = 8.0) {
-
+        overlap: AUValue = 8.0
+    ) {
         self.input = input
         self.rate = rate
         self.pitch = pitch
@@ -62,5 +61,5 @@ public class TimePitch: Node {
         avAudioNode = timePitchAU
     }
 
-    // TODO This node is untested
+    // TODO: This node is untested
 }

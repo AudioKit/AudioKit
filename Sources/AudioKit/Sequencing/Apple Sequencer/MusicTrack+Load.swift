@@ -18,8 +18,8 @@ extension MusicTrackManager {
             Log("Sequencer has \(trackCount) tracks")
             var tempTrack: MusicTrack?
             MusicSequenceGetIndTrack(newSeq, 0, &tempTrack)
-            if let sourceTrack = tempTrack, let destTrack = self.internalMusicTrack {
-                MusicTrackCopyInsert(sourceTrack, 0, self.length, destTrack, 0)
+            if let sourceTrack = tempTrack, let destTrack = internalMusicTrack {
+                MusicTrackCopyInsert(sourceTrack, 0, length, destTrack, 0)
                 var tempIterator: MusicEventIterator?
                 NewMusicEventIterator(sourceTrack, &tempIterator)
                 if let iterator = tempIterator {
@@ -42,7 +42,6 @@ extension MusicTrackManager {
                 }
             }
         }
-        return
     }
 }
 

@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's Expander Audio Unit
 ///
 public class Expander: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     let input: Node
@@ -24,7 +23,8 @@ public class Expander: Node {
         address: AUParameterAddress(kDynamicsProcessorParam_ExpansionRatio),
         defaultValue: 2,
         range: 1 ... 50.0,
-        unit: .rate)
+        unit: .rate
+    )
 
     /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
     @Parameter(expansionRatioDef) public var expansionRatio: AUValue
@@ -36,7 +36,8 @@ public class Expander: Node {
         address: AUParameterAddress(kDynamicsProcessorParam_ExpansionThreshold),
         defaultValue: 2,
         range: 1 ... 50.0,
-        unit: .rate)
+        unit: .rate
+    )
 
     /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
     @Parameter(expansionThresholdDef) public var expansionThreshold: AUValue
@@ -48,7 +49,8 @@ public class Expander: Node {
         address: AUParameterAddress(kDynamicsProcessorParam_AttackTime),
         defaultValue: 0.001,
         range: 0.0001 ... 0.2,
-        unit: .seconds)
+        unit: .seconds
+    )
 
     /// Attack Time (seconds) ranges from 0.0001 to 0.2 (Default: 0.001)
     @Parameter(attackTimeDef) public var attackTime: AUValue
@@ -60,7 +62,8 @@ public class Expander: Node {
         address: AUParameterAddress(kDynamicsProcessorParam_ReleaseTime),
         defaultValue: 0.05,
         range: 0.01 ... 3,
-        unit: .seconds)
+        unit: .seconds
+    )
 
     /// Release Time (seconds) ranges from 0.01 to 3 (Default: 0.05)
     @Parameter(releaseTimeDef) public var releaseTime: AUValue
@@ -72,7 +75,8 @@ public class Expander: Node {
         address: AUParameterAddress(6),
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Master Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(masterGainDef) public var masterGain: AUValue
@@ -107,7 +111,8 @@ public class Expander: Node {
         expansionThreshold: AUValue = expansionThresholdDef.defaultValue,
         attackTime: AUValue = attackTimeDef.defaultValue,
         releaseTime: AUValue = releaseTimeDef.defaultValue,
-        masterGain: AUValue = masterGainDef.defaultValue) {
+        masterGain: AUValue = masterGainDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)

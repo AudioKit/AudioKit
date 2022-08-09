@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 import AVFoundation
+import XCTest
 
 // Commented out these tests due to intermittent failure on CI
 

@@ -174,8 +174,8 @@ public func CheckError(_ error: OSStatus) {
 
         case kMIDINotPermitted:
             Log("kMIDINotPermitted: Have you enabled the audio background mode in your ios app?",
-                  log: OSLog.midi,
-                  type: .error)
+                log: OSLog.midi,
+                type: .error)
 
         case kAudioToolboxErr_InvalidSequenceType:
             Log("kAudioToolboxErr_InvalidSequenceType", log: OSLog.general, type: .error)

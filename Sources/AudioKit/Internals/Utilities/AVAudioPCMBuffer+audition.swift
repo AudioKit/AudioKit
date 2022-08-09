@@ -2,10 +2,9 @@
 
 import AVFoundation
 
-extension AVAudioPCMBuffer {
-
+public extension AVAudioPCMBuffer {
     /// Audition the buffer. Especially useful in AudioKit testing
-    public func audition() {
+    func audition() {
         let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
@@ -17,7 +16,7 @@ extension AVAudioPCMBuffer {
         }
         player.buffer = self
         player.play()
-        sleep(self.frameCapacity / UInt32(self.format.sampleRate))
+        sleep(frameCapacity / UInt32(format.sampleRate))
         engine.stop()
     }
 }

@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
 public class HighShelfFilter: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighShelfFilter)
 
     let input: Node
@@ -24,7 +23,8 @@ public class HighShelfFilter: Node {
         address: AUParameterAddress(kHighShelfParam_CutOffFrequency),
         defaultValue: 10000,
         range: 10000 ... 22050,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Cut Off Frequency (Hertz) ranges from 10000 to 22050 (Default: 10000)
     @Parameter(cutOffFrequencyDef) public var cutOffFrequency: AUValue
@@ -36,7 +36,8 @@ public class HighShelfFilter: Node {
         address: AUParameterAddress(kHighShelfParam_Gain),
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(gainDef) public var gain: AUValue
@@ -50,7 +51,8 @@ public class HighShelfFilter: Node {
     public init(
         _ input: Node,
         cutOffFrequency: AUValue = cutOffFrequencyDef.defaultValue,
-        gain: AUValue = gainDef.defaultValue) {
+        gain: AUValue = gainDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)

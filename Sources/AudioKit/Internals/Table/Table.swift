@@ -63,7 +63,7 @@ public class Table: MutableCollection {
     /// Phase of the table
     public var phase: Float {
         didSet {
-            phase = phase.clamped(to: 0...1)
+            phase = phase.clamped(to: 0 ... 1)
         }
     }
 
@@ -116,10 +116,11 @@ public class Table: MutableCollection {
     ///
     public init(_ type: TableType = .sine,
                 phase: Float = 0,
-                count: IndexDistance = 4_096) {
+                count: IndexDistance = 4096)
+    {
         self.type = type
         self.phase = phase
-        self.content = [Element](zeros: count)
+        content = [Element](zeros: count)
 
         switch type {
         case .sine:
@@ -156,7 +157,7 @@ public class Table: MutableCollection {
     ///   - content: Array of elements
     ///   - phase: Offset
     public init(_ content: [Element], phase: Float = 0) {
-        self.type = .custom
+        type = .custom
         self.phase = phase
         self.content = content
     }
@@ -180,7 +181,7 @@ public class Table: MutableCollection {
     ///   - url: URL to the file
     public convenience init?(url: URL) throws {
         guard let sample = try AVAudioPCMBuffer(url: url),
-            let leftChannel = sample.floatChannelData?[0] else { return nil }
+              let leftChannel = sample.floatChannelData?[0] else { return nil }
         let length = Int(sample.frameLength)
         self.init(count: length)
 
@@ -252,12 +253,12 @@ public class Table: MutableCollection {
             sum = Float(sin(2 * 3.14_159_265 * Float(index + phaseOffset) / Float(count)))
 
             // Partials
-            for ampIndex in 0..<partialAmplitudes.count {
+            for ampIndex in 0 ..< partialAmplitudes.count {
                 let partial =
                     Float(
                         sin(2 * 3.14_159_265 *
-                                Float((index * (ampIndex + 2)) + phaseOffset)
-                                / Float(count))
+                            Float((index * (ampIndex + 2)) + phaseOffset)
+                            / Float(count))
                     )
                 sum += partial * partialAmplitudes[ampIndex]
             }

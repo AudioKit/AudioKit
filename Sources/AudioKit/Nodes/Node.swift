@@ -4,7 +4,6 @@ import AVFoundation
 
 /// Node in an audio graph.
 public protocol Node: AnyObject {
-
     /// Nodes providing audio input to this node.
     var connections: [Node] { get }
 
@@ -26,7 +25,6 @@ public protocol Node: AnyObject {
     /// Audio format to use when connecting this node.
     /// Defaults to `Settings.audioFormat`.
     var outputFormat: AVAudioFormat { get }
-
 }
 
 public extension Node {
@@ -64,7 +62,6 @@ public extension Node {
 
     /// All parameters on the Node
     var parameters: [NodeParameter] {
-
         let mirror = Mirror(reflecting: self)
         var params: [NodeParameter] = []
 
@@ -79,7 +76,6 @@ public extension Node {
 
     /// Set up node parameters using reflection
     func setupParameters() {
-
         let mirror = Mirror(reflecting: self)
         var params: [AUParameter] = []
 
@@ -102,7 +98,6 @@ public extension Node {
 }
 
 extension Node {
-
     func disconnectAndDetachIfLast(input: Node) {
         if let engine = avAudioNode.engine {
             let points = engine.outputConnectionPoints(for: input.avAudioNode, outputBus: 0)
@@ -209,7 +204,7 @@ public protocol DynamicWaveformNode: Node {
 
     /// Gets the floating point values stored in the wavetable
     func getWaveformValues() -> [Float]
-    
+
     /// Set the waveform change handler
     /// - Parameter handler: Closure with an array of floats as the argument
     func setWaveformUpdateHandler(_ handler: @escaping ([Float]) -> Void)

@@ -11,19 +11,19 @@ extension FormatConverter {
     }
 }
 
-extension FormatConverter {
+public extension FormatConverter {
     /// Is this file a PCM file?
     /// - Parameters:
     ///   - url: The URL to parse
     ///   - ignorePathExtension: Do a deep parse rather than rely on the path extension
     /// - Returns: Bool or nil if it couldn't be determined
-    public class func isPCM(url: URL, ignorePathExtension: Bool = false) -> Bool? {
+    class func isPCM(url: URL, ignorePathExtension _: Bool = false) -> Bool? {
         guard let value = isCompressed(url: url) else { return nil }
         return !value
     }
 
     /// Compressed format or not
-    public class func isCompressed(url: URL, ignorePathExtension: Bool = false) -> Bool? {
+    class func isCompressed(url: URL, ignorePathExtension: Bool = false) -> Bool? {
         guard !ignorePathExtension else {
             return isCompressedExt(url: url)
         }
@@ -61,7 +61,8 @@ extension FormatConverter {
         }
 
         if noErr != ExtAudioFileOpenURL(url as CFURL,
-                                        &inputFile) {
+                                        &inputFile)
+        {
             Log("Unable to open", url.lastPathComponent)
             return nil
         }
@@ -76,8 +77,7 @@ extension FormatConverter {
         if noErr != ExtAudioFileGetProperty(strongInputFile,
                                             kExtAudioFileProperty_FileDataFormat,
                                             &inputDescriptionSize,
-                                            &inputDescription) {
-        }
+                                            &inputDescription) {}
 
         let mFormatID = inputDescription.mFormatID
 
@@ -97,7 +97,7 @@ extension Comparable {
     // ie: "a".clamped(to: "b"..."h")
     /// **OTCore:**
     /// Returns the value clamped to the passed range.
-    @inlinable internal func clamped(to limits: ClosedRange<Self>) -> Self {
+    @inlinable func clamped(to limits: ClosedRange<Self>) -> Self {
         min(max(self, limits.lowerBound), limits.upperBound)
     }
 }

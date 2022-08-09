@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
 public class ParametricEQ: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_ParametricEQ)
 
     let input: Node
@@ -24,7 +23,8 @@ public class ParametricEQ: Node {
         address: AUParameterAddress(kParametricEQParam_CenterFreq),
         defaultValue: 2000,
         range: 20 ... 22050,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Center Freq (Hertz) ranges from 20 to 22050 (Default: 2000)
     @Parameter(centerFreqDef) public var centerFreq: AUValue
@@ -36,7 +36,8 @@ public class ParametricEQ: Node {
         address: AUParameterAddress(kParametricEQParam_Q),
         defaultValue: 1.0,
         range: 0.1 ... 20,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Q (Hertz) ranges from 0.1 to 20 (Default: 1.0)
     @Parameter(qDef) public var q: AUValue
@@ -48,7 +49,8 @@ public class ParametricEQ: Node {
         address: AUParameterAddress(kParametricEQParam_Gain),
         defaultValue: 0,
         range: -20 ... 20,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Gain (decibels) ranges from -20 to 20 (Default: 0)
     @Parameter(gainDef) public var gain: AUValue
@@ -64,7 +66,8 @@ public class ParametricEQ: Node {
         _ input: Node,
         centerFreq: AUValue = centerFreqDef.defaultValue,
         q: AUValue = qDef.defaultValue,
-        gain: AUValue = gainDef.defaultValue) {
+        gain: AUValue = gainDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)

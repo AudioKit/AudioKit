@@ -3,15 +3,15 @@
 import Accelerate
 import AVFoundation
 
-extension AVAudioPCMBuffer {
+public extension AVAudioPCMBuffer {
     /// Read the contents of the url into this buffer
-    public convenience init?(url: URL) throws {
+    convenience init?(url: URL) throws {
         guard let file = try? AVAudioFile(forReading: url) else { return nil }
         try self.init(file: file)
     }
 
     /// Read entire file and return a new AVAudioPCMBuffer with its contents
-    public convenience init?(file: AVAudioFile) throws {
+    convenience init?(file: AVAudioFile) throws {
         file.framePosition = 0
 
         self.init(pcmFormat: file.processingFormat,
@@ -21,13 +21,13 @@ extension AVAudioPCMBuffer {
     }
 }
 
-extension AVAudioPCMBuffer {
+public extension AVAudioPCMBuffer {
     /// Returns audio data as an `Array` of `Float` Arrays.
     ///
     /// If stereo:
     /// - `floatChannelData?[0]` will contain an Array of left channel samples as `Float`
     /// - `floatChannelData?[1]` will contains an Array of right channel samples as `Float`
-    public func toFloatChannelData() -> FloatChannelData? {
+    func toFloatChannelData() -> FloatChannelData? {
         // Do we have PCM channel data?
         guard let pcmFloatChannelData = floatChannelData else {
             return nil
@@ -52,12 +52,12 @@ extension AVAudioPCMBuffer {
     }
 }
 
-extension AVAudioPCMBuffer {
+public extension AVAudioPCMBuffer {
     /// Local maximum containing the time, frame position and  amplitude
-    public struct Peak {
+    struct Peak {
         /// Initialize the peak, to be able to use outside of AudioKit
         public init() {}
-        internal static let min: Float = -10_000.0
+        internal static let min: Float = -10000.0
         /// Time of the peak
         public var time: Double = 0
         /// Frame position of the peak
@@ -68,7 +68,7 @@ extension AVAudioPCMBuffer {
 
     /// Find peak in the buffer
     /// - Returns: A Peak struct containing the time, frame position and peak amplitude
-    public func peak() -> Peak? {
+    func peak() -> Peak? {
         guard frameLength > 0 else { return nil }
         guard let floatData = floatChannelData else { return nil }
 
@@ -122,7 +122,7 @@ extension AVAudioPCMBuffer {
     }
 
     /// - Returns: A normalized buffer
-    public func normalize() -> AVAudioPCMBuffer? {
+    func normalize() -> AVAudioPCMBuffer? {
         guard let floatData = floatChannelData else { return self }
 
         let normalizedBuffer = AVAudioPCMBuffer(pcmFormat: format,
@@ -152,11 +152,11 @@ extension AVAudioPCMBuffer {
     }
 
     /// - Returns: A reversed buffer
-    public func reverse() -> AVAudioPCMBuffer? {
+    func reverse() -> AVAudioPCMBuffer? {
         let reversedBuffer = AVAudioPCMBuffer(pcmFormat: format,
                                               frameCapacity: frameCapacity)
 
-        var j: Int = 0
+        var j = 0
         let length: AVAudioFrameCount = frameLength
         let channelCount = Int(format.channelCount)
 
@@ -175,9 +175,10 @@ extension AVAudioPCMBuffer {
 
     /// - Returns: A new buffer from this one that has fades applied to it. Pass 0 for either parameter
     /// if you only want one of them. The ramp is exponential by default.
-    public func fade(inTime: Double,
-                     outTime: Double,
-                     linearRamp: Bool = false) -> AVAudioPCMBuffer? {
+    func fade(inTime: Double,
+              outTime: Double,
+              linearRamp: Bool = false) -> AVAudioPCMBuffer?
+    {
         guard let floatData = floatChannelData, inTime > 0 || outTime > 0 else {
             Log("Error fading buffer, returning original...")
             return self
@@ -193,7 +194,7 @@ extension AVAudioPCMBuffer {
         // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
         var gain: Double = inTime > 0 ? 0.01 : 1
 
-        let sampleTime: Double = 1.0 / sampleRate
+        let sampleTime = 1.0 / sampleRate
 
         var fadeInPower: Double = 1
         var fadeOutPower: Double = 1
@@ -260,7 +261,7 @@ extension AVAudioPCMBuffer {
 
 extension AVAudioPCMBuffer {
     var rms: Float {
-        guard let data = floatChannelData  else { return 0 }
+        guard let data = floatChannelData else { return 0 }
 
         let channelCount = Int(format.channelCount)
         var rms: Float = 0.0

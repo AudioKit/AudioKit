@@ -10,10 +10,10 @@ let twoPi = 2 * Float.pi
 public class PlaygroundOscillator: Node {
     fileprivate lazy var sourceNode = AVAudioSourceNode { [self] _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
-        
+
         if self.isStarted {
             let phaseIncrement = (twoPi / Float(Settings.sampleRate)) * self.frequency
-            for frame in 0..<Int(frameCount) {
+            for frame in 0 ..< Int(frameCount) {
                 // Get signal value for this frame at time.
                 let index = Int(self.currentPhase / twoPi * Float(self.waveform!.count))
                 let value = self.waveform![index] * self.amplitude
@@ -29,7 +29,7 @@ public class PlaygroundOscillator: Node {
                 }
             }
         } else {
-            for frame in 0..<Int(frameCount) {
+            for frame in 0 ..< Int(frameCount) {
                 for buffer in ablPointer {
                     let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
                     buf[frame] = 0
@@ -38,23 +38,23 @@ public class PlaygroundOscillator: Node {
         }
         return noErr
     }
-    
+
     /// Connected nodes
     public var connections: [Node] { [] }
-    
+
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { sourceNode }
-    
+
     private var currentPhase: Float = 0
-    
+
     fileprivate var waveform: Table?
-    
+
     /// Pitch in Hz
     public var frequency: Float = 440
-    
+
     /// Volume usually 0-1
     public var amplitude: AUValue = 1
-    
+
     /// Initialize the pure Swift oscillator, suitable for Playgrounds
     /// - Parameters:
     ///   - waveform: Shape of the oscillator waveform
@@ -64,7 +64,7 @@ public class PlaygroundOscillator: Node {
         self.waveform = waveform
         self.frequency = frequency
         self.amplitude = amplitude
-        
+
         stop()
     }
 }

@@ -5,18 +5,18 @@ import os
 
 private let subsystem = "io.audiokit"
 
-extension OSLog {
+public extension OSLog {
     /// Generic AudioKit log
-    public static let general = OSLog(subsystem: subsystem, category: "general")
+    static let general = OSLog(subsystem: subsystem, category: "general")
 
     /// Settings-related log
-    public static let settings = OSLog(subsystem: subsystem, category: "settings")
+    static let settings = OSLog(subsystem: subsystem, category: "settings")
 
     /// MIDI related log
-    public static let midi = OSLog(subsystem: subsystem, category: "midi")
+    static let midi = OSLog(subsystem: subsystem, category: "midi")
 
     /// Log revolving around finding, reading, and writing files
-    public static let fileHandling = OSLog(subsystem: subsystem, category: "fileHandling")
+    static let fileHandling = OSLog(subsystem: subsystem, category: "fileHandling")
 }
 
 /// Wrapper for  os_log logging system. It currently shows filename,  function, and line number,
@@ -36,7 +36,8 @@ public func Log(_ items: Any?...,
                 type: OSLogType = .info,
                 file: String = #file,
                 function: String = #function,
-                line: Int = #line) {
+                line: Int = #line)
+{
     guard Settings.enableLogging else { return }
 
     let fileName = (file as NSString).lastPathComponent

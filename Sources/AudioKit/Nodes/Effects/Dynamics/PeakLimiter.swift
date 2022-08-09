@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
 public class PeakLimiter: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter)
 
     let input: Node
@@ -24,7 +23,8 @@ public class PeakLimiter: Node {
         address: AUParameterAddress(kLimiterParam_AttackTime),
         defaultValue: 0.012,
         range: 0.001 ... 0.03,
-        unit: .seconds)
+        unit: .seconds
+    )
 
     /// Attack Time (seconds) ranges from 0.001 to 0.03 (Default: 0.012)
     @Parameter(attackTimeDef) public var attackTime: AUValue
@@ -36,7 +36,8 @@ public class PeakLimiter: Node {
         address: AUParameterAddress(kLimiterParam_DecayTime),
         defaultValue: 0.024,
         range: 0.001 ... 0.06,
-        unit: .seconds)
+        unit: .seconds
+    )
 
     /// Decay Time (seconds) ranges from 0.001 to 0.06 (Default: 0.024)
     @Parameter(decayTimeDef) public var decayTime: AUValue
@@ -48,7 +49,8 @@ public class PeakLimiter: Node {
         address: AUParameterAddress(kLimiterParam_PreGain),
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Pre Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(preGainDef) public var preGain: AUValue
@@ -64,7 +66,8 @@ public class PeakLimiter: Node {
         _ input: Node,
         attackTime: AUValue = attackTimeDef.defaultValue,
         decayTime: AUValue = decayTimeDef.defaultValue,
-        preGain: AUValue = preGainDef.defaultValue) {
+        preGain: AUValue = preGainDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)

@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
 public class Distortion: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
@@ -24,7 +23,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_Delay),
         defaultValue: 0.1,
         range: 0.1 ... 500,
-        unit: .milliseconds)
+        unit: .milliseconds
+    )
 
     /// Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
     @Parameter(delayDef) public var delay: AUValue
@@ -36,7 +36,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_Decay),
         defaultValue: 1.0,
         range: 0.1 ... 50,
-        unit: .rate)
+        unit: .rate
+    )
 
     /// Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
     @Parameter(decayDef) public var decay: AUValue
@@ -48,7 +49,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_DelayMix),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Delay Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(delayMixDef) public var delayMix: AUValue
@@ -60,7 +62,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_RingModFreq1),
         defaultValue: 100,
         range: 0.5 ... 8000,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @Parameter(ringModFreq1Def) public var ringModFreq1: AUValue
@@ -72,7 +75,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_RingModFreq2),
         defaultValue: 100,
         range: 0.5 ... 8000,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @Parameter(ringModFreq2Def) public var ringModFreq2: AUValue
@@ -84,7 +88,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_RingModBalance),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(ringModBalanceDef) public var ringModBalance: AUValue
@@ -96,7 +101,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_RingModMix),
         defaultValue: 0,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0)
     @Parameter(ringModMixDef) public var ringModMix: AUValue
@@ -108,7 +114,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_Decimation),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(decimationDef) public var decimation: AUValue
@@ -120,7 +127,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_Rounding),
         defaultValue: 0,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
     @Parameter(roundingDef) public var rounding: AUValue
@@ -132,7 +140,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_DecimationMix),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Decimation Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(decimationMixDef) public var decimationMix: AUValue
@@ -144,7 +153,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_LinearTerm),
         defaultValue: 0.5,
         range: 0 ... 1,
-        unit: .linearGain)
+        unit: .linearGain
+    )
 
     /// Linear Term (Percent) ranges from 0 to 1 (Default: 0.5)
     @Parameter(linearTermDef) public var linearTerm: AUValue
@@ -156,7 +166,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_SquaredTerm),
         defaultValue: 10,
         range: 0 ... 20,
-        unit: .linearGain)
+        unit: .linearGain
+    )
 
     /// Squared Term (Percent) ranges from 0 to 20 (Default: 10)
     @Parameter(squaredTermDef) public var squaredTerm: AUValue
@@ -168,7 +179,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_CubicTerm),
         defaultValue: 10,
         range: 0 ... 20,
-        unit: .linearGain)
+        unit: .linearGain
+    )
 
     /// Cubic Term (Percent) ranges from 0 to 20 (Default: 10)
     @Parameter(cubicTermDef) public var cubicTerm: AUValue
@@ -180,7 +192,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_PolynomialMix),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(polynomialMixDef) public var polynomialMix: AUValue
@@ -192,7 +205,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_SoftClipGain),
         defaultValue: -6,
         range: -80 ... 20,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Soft Clip Gain (decibels) ranges from -80 to 20 (Default: -6)
     @Parameter(softClipGainDef) public var softClipGain: AUValue
@@ -204,7 +218,8 @@ public class Distortion: Node {
         address: AUParameterAddress(kDistortionParam_FinalMix),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue
@@ -246,7 +261,8 @@ public class Distortion: Node {
         cubicTerm: AUValue = cubicTermDef.defaultValue,
         polynomialMix: AUValue = polynomialMixDef.defaultValue,
         softClipGain: AUValue = softClipGainDef.defaultValue,
-        finalMix: AUValue = finalMixDef.defaultValue) {
+        finalMix: AUValue = finalMixDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)

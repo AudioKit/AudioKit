@@ -8,10 +8,10 @@ public class Reverb: Node {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     let input: Node
-    
+
     /// Connected nodes
     public var connections: [Node] { [input] }
-    
+
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
 
@@ -22,11 +22,13 @@ public class Reverb: Node {
         isStarted = true
         reverbAU.wetDryMix = dryWetMix * 100.0
     }
+
     /// Stop the node
     public func stop() {
         isStarted = false
         reverbAU.wetDryMix = 0.0
     }
+
     /// Play the node
     public func play() { start() }
 
@@ -36,7 +38,7 @@ public class Reverb: Node {
     /// Dry/Wet Mix (Default 0.5)
     public var dryWetMix: AUValue = 0.5 {
         didSet {
-            dryWetMix = dryWetMix.clamped(to: 0...1)
+            dryWetMix = dryWetMix.clamped(to: 0 ... 1)
             reverbAU.wetDryMix = dryWetMix * 100.0
         }
     }
@@ -63,22 +65,19 @@ public class Reverb: Node {
     public func loadFactoryPreset(_ preset: AVAudioUnitReverbPreset) {
         reverbAU.loadFactoryPreset(preset)
     }
-
 }
 
 public extension AVAudioUnitReverbPreset {
     static var allCases: [AVAudioUnitReverbPreset] =
-    [.smallRoom, .mediumRoom,
-     .largeRoom, .mediumHall, .largeHall,
-     .plate,
-     .mediumChamber, .largeChamber,
-     .cathedral,
-     .largeRoom2, .mediumHall2, .mediumHall3, .largeHall2]
-
+        [.smallRoom, .mediumRoom,
+         .largeRoom, .mediumHall, .largeHall,
+         .plate,
+         .mediumChamber, .largeChamber,
+         .cathedral,
+         .largeRoom2, .mediumHall2, .mediumHall3, .largeHall2]
 
     var name: String {
         switch self {
-
         case .smallRoom:
             return "Small Room"
         case .mediumRoom:

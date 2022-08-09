@@ -20,17 +20,18 @@ private let secondsToTicks: Double = {
     return timecon * 1_000_000_000
 }()
 
-extension AVAudioTime {
+public extension AVAudioTime {
     /// AVAudioTime.extrapolateTime fails for host time valid times, use
     /// extrapolateTimeShimmed instead. https://bugreport.apple.com/web/?problemID=34249528
     /// - Parameter anchorTime: AVAudioTIme
-    public func extrapolateTimeShimmed(fromAnchor anchorTime: AVAudioTime) -> AVAudioTime {
-        guard ((isSampleTimeValid && sampleRate == anchorTime.sampleRate) || isHostTimeValid) &&
-            !(isSampleTimeValid && isHostTimeValid) &&
-            anchorTime.isSampleTimeValid && anchorTime.isHostTimeValid else {
+    func extrapolateTimeShimmed(fromAnchor anchorTime: AVAudioTime) -> AVAudioTime {
+        guard (isSampleTimeValid && sampleRate == anchorTime.sampleRate) || isHostTimeValid,
+              !(isSampleTimeValid && isHostTimeValid),
+              anchorTime.isSampleTimeValid, anchorTime.isHostTimeValid
+        else {
             return self
         }
-        if isHostTimeValid && anchorTime.isHostTimeValid {
+        if isHostTimeValid, anchorTime.isHostTimeValid {
             let secondsDiff = Double(hostTime.safeSubtract(anchorTime.hostTime)) * ticksToSeconds
             let sampleTime = anchorTime.sampleTime + AVAudioFramePosition(round(secondsDiff * anchorTime.sampleRate))
             let audioTime = AVAudioTime(hostTime: hostTime, sampleTime: sampleTime, atRate: anchorTime.sampleRate)
@@ -43,13 +44,13 @@ extension AVAudioTime {
     }
 
     /// An AVAudioTime with a valid hostTime representing now.
-    public static func now() -> AVAudioTime {
+    static func now() -> AVAudioTime {
         return AVAudioTime(hostTime: mach_absolute_time())
     }
 
     /// Returns an AVAudioTime offset by seconds.
-    public func offset(seconds: Double) -> AVAudioTime {
-        if isSampleTimeValid && isHostTimeValid {
+    func offset(seconds: Double) -> AVAudioTime {
+        if isSampleTimeValid, isHostTimeValid {
             return AVAudioTime(hostTime: hostTime + seconds / ticksToSeconds,
                                sampleTime: sampleTime + AVAudioFramePosition(seconds * sampleRate),
                                atRate: sampleRate)
@@ -63,32 +64,32 @@ extension AVAudioTime {
     }
 
     /// The time in seconds between receiver and otherTime.
-    public func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
-        if isHostTimeValid && otherTime.isHostTimeValid {
+    func timeIntervalSince(otherTime: AVAudioTime) -> Double? {
+        if isHostTimeValid, otherTime.isHostTimeValid {
             return Double(hostTime.safeSubtract(otherTime.hostTime)) * ticksToSeconds
         }
-        if isSampleTimeValid && otherTime.isSampleTimeValid {
+        if isSampleTimeValid, otherTime.isSampleTimeValid {
             return Double(sampleTime - otherTime.sampleTime) / sampleRate
         }
-        if isSampleTimeValid && isHostTimeValid {
+        if isSampleTimeValid, isHostTimeValid {
             let completeTime = otherTime.extrapolateTimeShimmed(fromAnchor: self)
             return Double(sampleTime - completeTime.sampleTime) / sampleRate
         }
-        if otherTime.isHostTimeValid && otherTime.isSampleTimeValid {
-            let completeTime = self.extrapolateTimeShimmed(fromAnchor: otherTime)
+        if otherTime.isHostTimeValid, otherTime.isSampleTimeValid {
+            let completeTime = extrapolateTimeShimmed(fromAnchor: otherTime)
             return Double(completeTime.sampleTime - otherTime.sampleTime) / sampleRate
         }
         return nil
     }
 
     /// Convert an AVAudioTime object to seconds with a hostTime reference
-    public func toSeconds(hostTime time: UInt64) -> Double {
+    func toSeconds(hostTime time: UInt64) -> Double {
         guard isHostTimeValid else { return 0 }
-        return AVAudioTime.seconds(forHostTime: self.hostTime - time)
+        return AVAudioTime.seconds(forHostTime: hostTime - time)
     }
 
     /// Convert seconds to AVAudioTime with a hostTime reference -- time must be > 0
-    public class func secondsToAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
+    class func secondsToAudioTime(hostTime: UInt64, time: Double) -> AVAudioTime {
         // Find the conversion factor from host ticks to seconds
         var timebaseInfo = mach_timebase_info()
         mach_timebase_info(&timebaseInfo)

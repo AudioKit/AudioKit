@@ -8,9 +8,9 @@ import CoreAudio // for UnsafeMutableAudioBufferListPointer
 public class PlaygroundNoiseGenerator: Node {
     fileprivate lazy var sourceNode = AVAudioSourceNode { [self] _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
-        
+
         if self.isStarted {
-            for frame in 0..<Int(frameCount) {
+            for frame in 0 ..< Int(frameCount) {
                 // Get signal value for this frame at time.
                 let value = self.amplitude * Float.random(in: -1 ... 1)
 
@@ -19,10 +19,9 @@ public class PlaygroundNoiseGenerator: Node {
                     let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
                     buf[frame] = value
                 }
-
             }
         } else {
-            for frame in 0..<Int(frameCount) {
+            for frame in 0 ..< Int(frameCount) {
                 for buffer in ablPointer {
                     let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
                     buf[frame] = 0

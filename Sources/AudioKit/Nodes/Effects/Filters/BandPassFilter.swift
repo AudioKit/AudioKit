@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
 public class BandPassFilter: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     let input: Node
@@ -24,7 +23,8 @@ public class BandPassFilter: Node {
         address: AUParameterAddress(kBandpassParam_CenterFrequency),
         defaultValue: 5000,
         range: 20 ... 22050,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Center Frequency (Hertz) ranges from 20 to 22050 (Default: 5000)
     @Parameter(centerFrequencyDef) public var centerFrequency: AUValue
@@ -36,7 +36,8 @@ public class BandPassFilter: Node {
         address: AUParameterAddress(kBandpassParam_Bandwidth),
         defaultValue: 600,
         range: 100 ... 12000,
-        unit: .cents)
+        unit: .cents
+    )
 
     /// Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     @Parameter(bandwidthDef) public var bandwidth: AUValue
@@ -50,7 +51,8 @@ public class BandPassFilter: Node {
     public init(
         _ input: Node,
         centerFrequency: AUValue = centerFrequencyDef.defaultValue,
-        bandwidth: AUValue = bandwidthDef.defaultValue) {
+        bandwidth: AUValue = bandwidthDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)
