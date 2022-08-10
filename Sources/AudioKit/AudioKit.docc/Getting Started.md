@@ -6,7 +6,7 @@ AudioKit is an entire audio development ecosystem of code repositories, packages
 
 AudioKit has several underlying goals that motivate its development.
 
-1. First, we hope that learning to program with AudioKit is easy for anybody. In order to get people started we provide Swift Playgrounds, demonstration applications, and access to a supportive Slack group of AudioKit Professionals.
+1. First, we hope that learning to program with AudioKit is easy for anybody. In order to get people started we provide Swift Playgrounds, demonstration applications, and access to a supportive Discord group of AudioKit Professionals.
 
 2. Next, we want AudioKit to be extensible to allow more advanced developers to create their own custom apps and libraries built on top of AudioKit. Most of what used to be part of AudioKit has been moved to separate packages to ensure AudioKit is extensible and to give developers several examples of different approaches to extending AudioKit.
 
