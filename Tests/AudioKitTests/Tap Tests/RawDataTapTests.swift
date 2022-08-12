@@ -16,7 +16,7 @@ class RawDataTapTests: XCTestCase {
             dataExpectation.fulfill()
         }
 
-        install(tap: tap, on: osc, bufferSize: 1024)
+        osc.install(tap: tap, bufferSize: 1024)
 
         osc.amplitude = 0
         osc.start()
