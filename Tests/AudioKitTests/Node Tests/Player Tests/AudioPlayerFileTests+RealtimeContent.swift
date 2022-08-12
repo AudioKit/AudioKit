@@ -440,7 +440,7 @@ extension AudioPlayerFileTests {
             .appendingPathComponent("_io_audiokit_AudioPlayerFileTests_realtimeTestMixedSampleRates.wav")
         Self.tempFiles.append(countingURL48k)
 
-        let wav48k = FormatConverter.Options(pcmFormat: "wav",
+        let wav48k = FormatConverter.Options(pcmFormat: .wav,
                                              sampleRate: 48000,
                                              bitDepth: 16,
                                              channels: 1)
