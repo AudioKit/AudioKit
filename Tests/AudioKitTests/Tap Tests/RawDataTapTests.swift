@@ -5,20 +5,24 @@ import AudioKit
 
 class RawDataTapTests: XCTestCase {
 
-    func testRawDataTap() async throws {
+    func testRawDataTap() throws {
 
         let engine = AudioEngine()
         let osc = PlaygroundOscillator()
         engine.output = osc
 
-        let _ = await RawDataTap2(osc, bufferSize: 1024) { _ in
-            print("data!")
+        let dataExpectation = XCTestExpectation(description: "dataExpectation")
+        let tap = RawDataTap2(osc) { _ in
+            dataExpectation.fulfill()
         }
 
+        install(tap: tap, on: osc, bufferSize: 1024)
+
+        osc.amplitude = 0
         osc.start()
         try engine.start()
 
-        sleep(10)
+        wait(for: [dataExpectation], timeout: 1)
     }
 
 }

@@ -75,20 +75,13 @@ public func install(tap: Tap, on input: Node, bufferSize: UInt32) {
 
 public actor RawDataTap2: Tap {
 
-    var bufferSize: UInt32
-
     /// Callback type
     public typealias Handler = ([Float]) -> Void
 
     private var handler: Handler = { _ in }
 
-    public init(_ input: Node, bufferSize: UInt32 = 1_024, handler: @escaping Handler = { _ in }) async {
-
+    public init(_ input: Node, handler: @escaping Handler = { _ in }) {
         self.handler = handler
-        self.bufferSize = bufferSize
-
-        install(tap: self, on: input, bufferSize: bufferSize)
-
     }
 
     public func handleTap(buffer: AVAudioPCMBuffer, at time: AVAudioTime) async {
@@ -97,7 +90,8 @@ public actor RawDataTap2: Tap {
         let offset = Int(buffer.frameCapacity - buffer.frameLength)
         var data = [Float]()
         if let tail = buffer.floatChannelData?[0] {
-            for idx in 0 ..< bufferSize {
+            // XXX: fixme hard coded 1024
+            for idx in 0 ..< 1024 {
                 data.append(tail[offset + Int(idx)])
             }
         }
