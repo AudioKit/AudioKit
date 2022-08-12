@@ -1,10 +1,10 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 
 import PackageDescription
 
 let package = Package(
     name: "AudioKit",
-    platforms: [.macOS(.v11), .iOS(.v13), .tvOS(.v13)],
+    platforms: [.macOS(.v12), .iOS(.v13), .tvOS(.v13)],
     products: [.library(name: "AudioKit", targets: ["AudioKit"])],
     targets: [
         .target(name: "AudioKit"),
