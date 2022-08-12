@@ -78,7 +78,7 @@ public actor RawDataTap2: Tap {
     /// Callback type
     public typealias Handler = ([Float]) -> Void
 
-    private var handler: Handler = { _ in }
+    private let handler: Handler
 
     public init(_ input: Node, handler: @escaping Handler = { _ in }) {
         self.handler = handler
@@ -95,12 +95,7 @@ public actor RawDataTap2: Tap {
                 data.append(tail[offset + Int(idx)])
             }
         }
-
-        // Make things immutable to pass them across to the
-        // main actor.
-        let h = handler
-        let d = data
-
-        h(d)
+        
+        handler(data)
     }
 }
