@@ -15,7 +15,7 @@ class RawDataTapTests: XCTestCase {
         var allData: [Float] = []
         let tap = RawDataTap2(osc) { data in
             dataExpectation.fulfill()
-            allData = allData + data
+            allData += data
         }
 
         osc.install(tap: tap, bufferSize: 1024)
