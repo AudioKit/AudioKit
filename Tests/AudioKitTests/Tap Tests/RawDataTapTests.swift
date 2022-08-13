@@ -12,8 +12,10 @@ class RawDataTapTests: XCTestCase {
         engine.output = osc
 
         let dataExpectation = XCTestExpectation(description: "dataExpectation")
-        let tap = RawDataTap2(osc) { _ in
+        var allData: [Float] = []
+        let tap = RawDataTap2(osc) { data in
             dataExpectation.fulfill()
+            allData = allData + data
         }
 
         osc.install(tap: tap, bufferSize: 1024)
@@ -23,6 +25,8 @@ class RawDataTapTests: XCTestCase {
         try engine.start()
 
         wait(for: [dataExpectation], timeout: 1)
+
+        XCTAssertGreaterThan(allData.count, 0)
     }
 
 }
