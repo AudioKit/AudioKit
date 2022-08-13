@@ -56,7 +56,7 @@ class RawDataTapTests: XCTestCase {
         // thread.
         sleep(1)
 
-        // Expectation should have been immediately fulfilled by
+        // Expectation should have been already fulfilled by
         // the background Task.
         wait(for: [dataExpectation], timeout: 0)
 
