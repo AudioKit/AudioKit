@@ -48,3 +48,30 @@ open class RawDataTap: BaseTap {
         for i in 0 ..< data.count { data[i] = 0.0 }
     }
 }
+
+public actor RawDataTap2: Tap {
+
+    /// Callback type
+    public typealias Handler = ([Float]) -> Void
+
+    private let handler: Handler
+
+    public init(_ input: Node, handler: @escaping Handler = { _ in }) {
+        self.handler = handler
+    }
+
+    public func handleTap(buffer: AVAudioPCMBuffer, at time: AVAudioTime) async {
+        guard buffer.floatChannelData != nil else { return }
+
+        let offset = Int(buffer.frameCapacity - buffer.frameLength)
+        var data = [Float]()
+        if let tail = buffer.floatChannelData?[0] {
+            // XXX: fixme hard coded 1024
+            for idx in 0 ..< 1024 {
+                data.append(tail[offset + Int(idx)])
+            }
+        }
+
+        handler(data)
+    }
+}
