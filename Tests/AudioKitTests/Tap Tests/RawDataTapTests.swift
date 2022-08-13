@@ -39,13 +39,13 @@ class RawDataTapTests: XCTestCase {
         osc.start()
         try engine.start()
 
+        let dataExpectation = XCTestExpectation(description: "dataExpectation")
+
         Task {
-            let dataExpectation = XCTestExpectation(description: "dataExpectation")
             var allData: [Float] = []
             let tap = RawDataTap2(osc) { data in
                 dataExpectation.fulfill()
                 allData += data
-                print("Tap handler called!")
             }
 
             osc.install(tap: tap, bufferSize: 1024)
@@ -54,8 +54,11 @@ class RawDataTapTests: XCTestCase {
         // Lock up the main thread instead of servicing the runloop.
         // This demonstrates that we can use a Tap safely on a background
         // thread.
-        // XXX: I'm not sure how to assert that the tap was actually called.
         sleep(1)
+
+        // Expectation should have been immediately fulfilled by
+        // the background Task.
+        wait(for: [dataExpectation], timeout: 0)
 
     }
 
