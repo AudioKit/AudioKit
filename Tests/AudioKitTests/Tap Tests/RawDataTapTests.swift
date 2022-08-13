@@ -44,7 +44,7 @@ class RawDataTapTests: XCTestCase {
             var allData: [Float] = []
             let tap = RawDataTap2(osc) { data in
                 dataExpectation.fulfill()
-                allData = allData + data
+                allData += data
                 print("Tap handler called!")
             }
 
