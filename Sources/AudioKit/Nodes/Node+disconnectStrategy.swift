@@ -56,14 +56,11 @@ extension Node {
     }
 
     func detach() {
-        guard let engine = avAudioNode.engine else { return }
-        detach(from: engine)
-    }
-
-    func detach(from engine: AVAudioEngine) {
-        engine.detach(avAudioNode)
+        if let engine = avAudioNode.engine {
+            engine.detach(avAudioNode)
+        }
         for connection in connections {
-            connection.detach(from: engine)
+            connection.detach()
         }
     }
 }
