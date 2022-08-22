@@ -14,7 +14,7 @@ public enum DisconnectStrategy {
     /// When disconnecting Node1 from Mixer1, Mixer2's connection to Node1
     /// will be preserved
     case recursive
-    /// Recursively traverse node chain and deatach nodes
+    /// Recursively traverse node chain and detach nodes
     /// Audio engine will automatically disconnect detached nodes
     /// This strategy will not keep any connections from downstream nodes
     /// For example:
@@ -25,7 +25,7 @@ public enum DisconnectStrategy {
     /// will not be preserved
     /// Use only when you are sure that you have only one chain path to node
     /// that you are disconnecting
-    case deatach
+    case detach
 }
 
 extension Node {
@@ -33,7 +33,7 @@ extension Node {
     func disconnect(input: Node, strategy: DisconnectStrategy) {
         switch strategy {
         case .recursive: disconnectAndDetachIfLast(input: input)
-        case .deatach: input.detach()
+        case .detach: input.detach()
         }
     }
 

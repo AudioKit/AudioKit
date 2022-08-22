@@ -448,7 +448,7 @@ class NodeTests: XCTestCase {
     #endif
 
     func testAllNodesInChainDeallocatedOnRemove() {
-        for strategy in [DisconnectStrategy.recursive, .deatach] {
+        for strategy in [DisconnectStrategy.recursive, .detach] {
             let engine = AudioEngine()
             var chain: Node? = createChain()
             weak var weakPitch = chain?.avAudioNode
@@ -514,7 +514,7 @@ class NodeTests: XCTestCase {
 
     @available(iOS 13.0, *)
     func testInnerNodesThatHaveMultipleInnerConnectionsDeallocated() {
-        for strategy in [DisconnectStrategy.recursive, .deatach] {
+        for strategy in [DisconnectStrategy.recursive, .detach] {
             let engine = AudioEngine()
             var chain: Node? = createChain()
             weak var weakPitch = chain?.avAudioNode
