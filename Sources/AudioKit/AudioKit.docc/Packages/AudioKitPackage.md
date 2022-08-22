@@ -1,4 +1,4 @@
-# AudioKit
+# AudioKit Package
 
 ## Installation
 
@@ -16,41 +16,41 @@ AudioKit's inline comments are processed by [SwiftDoc](https://github.com/SwiftD
 | AudioKitEX  | Nodes, Parameters, Automation, Sequencing                        | Swift         |
 | CAudioKitEX | DSP and other low level code supporting AudioKitEX functionality | Objective-C++ |
 
-# Nodes
+## Nodes
 
 Nodes are interconnectable components that work with the audio stream. For a node to work, audio has to be pulled through it. For audio to be pulled through a node, the audio signal chain that includes the node has to eventually reach an output. 
 
 AudioKit has several kinds of nodes:
 
-## Analysis 
+### Analysis 
 
 These nodes do not change the audio at all.  They examine the audio stream and extract information about the stream.  For example, the two most common uses for this are determining the audio's pitch and loudness.
 
-## Effects
+### Effects
 
 These nodes do change the audio stream.  They require an input to process.
 
-## Generators
+### Generators
 
 Generators create audio signal from scratch and as such they do not require an input signal.
 
-## Input 
+### Input 
 
 Like generator nodes, input nodes create audio, but in this case the audio that is create is retrieved from an input like a microphone or another app's output.
 
-## Mixing
+### Mixing
 
 These nodes are about managing more than one sound simultaneously. Sounds can be combined, placed spatially, have their volumes changed, etc.
 
-## Offline Rendering
+### Offline Rendering
 
 This is for processing an audio quickly and saving it, rather than playing it in realtime through a speaker.
 
-## Playback
+### Playback
 
 Playback nodes are about playing and working with audio files.  We also include metronome nodes here.
 
-# Format Converter
+## Format Converter
 
 FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
 ```swift
@@ -66,7 +66,7 @@ converter.start { error in
 })
 ```
 
-# MIDI
+## MIDI
 
 AudioKit MIDI is an implementation of CoreMIDI meant to simplify creating and responding to MIDI signals. 
 
@@ -81,7 +81,7 @@ midi.addListener(someClass)
 You then implement the methods you need from `MIDIListener` and use the data how you need.
 
 
-# Tables
+## Tables
 
 Tables are just arrays of float data. They are most often used to store waveform data and they have some defaults for the most common cases:
 
@@ -98,21 +98,21 @@ Tables are just arrays of float data. They are most often used to store waveform
 
 Tables can also store audio or control data.
 
-# Sequencing
+## Sequencing
 
 The `AppleSequencer` is based on tried-and-true CoreAudio/MIDI sequencing.
 
-# Taps
+## Taps
 
 Taps are a way to get access to the audio stream at a given point in the signal chain without 
 inserting a node into the signal chain, but instead sort of syphoning off audio "tapping" it and using
 the data for some side purpose like plotting or running analysis of the stream at that point.
 
-# Samplers
+## Samplers
 
 The term "sampler" is a bit misleading. Originally, it referred to a hardware device capable of recording ("sampling") sound and then re-playing it from a keyboard. In practice, the playback aspect proved to be far more popular then the recording aspect, and today the two functions are nearly always completely separated. What we call a "sampler" today is simply a system for replaying previously-prepared sounds ("samples").
 
-## AppleSampler and MIDISampler
+### AppleSampler and MIDISampler
 
 **NOTE:** In earlier versions of AudioKit, **AppleSampler** was called **Sampler**.
 
@@ -128,9 +128,9 @@ Unfortunately, *AUSampler* has some fatal flaws, and indeed appears to be an unf
 
 The AudioKit class **AppleSampler** basically just wraps an instance of *AUsampler* and makes its Objective-C based API accessible from Swift. Most music apps use the higher-level **MIDISampler** class, whose `enableMIDI()` function connects it directly to the stream of incoming MIDI data.
 
-# Apple Sampler Notes
+## Apple Sampler Notes
 
-## Making AppleSampler not get corrupted by an audio route change 
+### Making AppleSampler not get corrupted by an audio route change 
 
 When the audio session route changes (the iOS device is plugged into an external sound interface, headphones are connected, you start capturing a video on a mac using Quicktime...) Samplers start producing distorted audio.
 

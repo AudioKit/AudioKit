@@ -16,7 +16,6 @@
 /// - SysReset: System Reset
 ///
 public enum MIDISystemCommand: MIDIByte, MIDIMessage {
-
     /// System Exclusive (SysEx)
     case sysEx = 0xF0
     /// MIDI Time Code Quarter Frame (System Common)

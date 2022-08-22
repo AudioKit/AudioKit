@@ -7,14 +7,16 @@ class AudioPlayerFileTests: AudioFileTestCase {
     var realtimeEnabled = false
 
     func createPlayer(duration: TimeInterval,
-                      buffered: Bool = false) -> AudioPlayer? {
+                      buffered: Bool = false) -> AudioPlayer?
+    {
         guard let url = Bundle.module.url(forResource: "chromaticScale-\(Int(duration))", withExtension: "aiff", subdirectory: "TestResources") else {
             Log("Failed to open file")
             return nil
         }
 
         guard let player = AudioPlayer(url: url,
-                                       buffered: buffered) else {
+                                       buffered: buffered)
+        else {
             return nil
         }
         player.volume = 0.1
@@ -78,8 +80,9 @@ extension AudioPlayerFileTests {
         try? engine.start()
         // load a buffer
         guard let url = Bundle.module.url(forResource: "twoNotes-1", withExtension: "aiff", subdirectory: "TestResources"),
-            let file = try? AVAudioFile(forReading: url),
-            let buffer = try? AVAudioPCMBuffer(url: url) else {
+              let file = try? AVAudioFile(forReading: url),
+              let buffer = try? AVAudioPCMBuffer(url: url)
+        else {
             XCTFail("Failed to create file or buffer")
             return
         }
@@ -92,7 +95,8 @@ extension AudioPlayerFileTests {
 
     func testAVDynamicConnection() {
         guard let url = Bundle.module.url(forResource: "twoNotes-2", withExtension: "aiff", subdirectory: "TestResources"),
-            let buffer = try? AVAudioPCMBuffer(url: url) else {
+              let buffer = try? AVAudioPCMBuffer(url: url)
+        else {
             XCTFail("Failed to create buffer")
             return
         }

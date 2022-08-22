@@ -4,7 +4,8 @@ import XCTest
 
 extension AudioPlayerFileTests {
     func realtimeTestReversed(from startTime: TimeInterval = 0,
-                              to endTime: TimeInterval = 0) {
+                              to endTime: TimeInterval = 0)
+    {
         guard let countingURL = countingURL else {
             XCTFail("Didn't find the 12345.wav")
             return
@@ -34,7 +35,8 @@ extension AudioPlayerFileTests {
         let duration = TimeInterval(chromaticScale.count)
 
         guard let player = createPlayer(duration: duration,
-                                        buffered: buffered) else {
+                                        buffered: buffered)
+        else {
             XCTFail("Failed to create AudioPlayer")
             return
         }
@@ -129,7 +131,7 @@ extension AudioPlayerFileTests {
 
         return // this should not play live but instead invoke a test
 
-        clipPlayer.play()
+            clipPlayer.play()
         wait(for: 2.0)
         stopAndStart(file: file2, clipPlayer: clipPlayer)
         wait(for: 2.0)
@@ -151,7 +153,7 @@ extension AudioPlayerFileTests {
 
         return // this should not play live but instead invoke a test
 
-        Log("▶️")
+            Log("▶️")
         player.play()
         wait(for: 2)
         duration -= 2
@@ -188,11 +190,11 @@ extension AudioPlayerFileTests {
 
         // Make sure player doesn't count time before file starts playing
         // Truncate time to one decimal for precision in comparison
-        var playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        var playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime()) / pow(10.0, Double(1)))
         XCTAssert(playerTime == player.editStartTime)
         wait(for: timeBeforePlay)
         // Truncate time to one decimal for precision in comparison
-        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime()) / pow(10.0, Double(1)))
         XCTAssert(playerTime == player.editStartTime)
 
         wait(for: player.duration)
@@ -203,11 +205,11 @@ extension AudioPlayerFileTests {
 
         // Make sure player doesn't count time before file starts playing
         // Truncate time to one decimal for precision in comparison
-        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime()) / pow(10.0, Double(1)))
         XCTAssert(playerTime == player.editStartTime)
         wait(for: timeBeforePlay)
         // Truncate time to one decimal for precision in comparison
-        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime())/pow(10.0, Double(1)))
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime()) / pow(10.0, Double(1)))
         XCTAssert(playerTime == player.editStartTime)
 
         wait(for: player.duration)
@@ -217,7 +219,8 @@ extension AudioPlayerFileTests {
 
     func realtimeLoop(buffered: Bool, duration: TimeInterval) {
         guard let player = createPlayer(duration: duration,
-                                        buffered: buffered) else {
+                                        buffered: buffered)
+        else {
             XCTFail("Failed to create AudioPlayer")
             return
         }
@@ -272,7 +275,7 @@ extension AudioPlayerFileTests {
 
         wait(for: 1.5)
 
-        guard let url3 = Bundle.module.url(forResource: "twoNotes-3", withExtension: "aiff", subdirectory: "TestResources")  else {
+        guard let url3 = Bundle.module.url(forResource: "twoNotes-3", withExtension: "aiff", subdirectory: "TestResources") else {
             XCTFail("Failed to create file")
             return
         }
@@ -291,7 +294,8 @@ extension AudioPlayerFileTests {
 
         // load a buffer
         guard let url4 = Bundle.module.url(forResource: "chromaticScale-2", withExtension: "aiff", subdirectory: "TestResources"),
-            let buffer = try? AVAudioPCMBuffer(url: url4) else {
+              let buffer = try? AVAudioPCMBuffer(url: url4)
+        else {
             XCTFail("Failed to create file or buffer")
             return
         }
@@ -304,7 +308,8 @@ extension AudioPlayerFileTests {
 
         // load a file after a buffer
         guard let url5 = Bundle.module.url(forResource: "chromaticScale-1", withExtension: "aiff", subdirectory: "TestResources"),
-            let file = try? AVAudioFile(forReading: url5) else {
+              let file = try? AVAudioFile(forReading: url5)
+        else {
             XCTFail("Failed to create file or buffer")
             return
         }
@@ -456,7 +461,8 @@ extension AudioPlayerFileTests {
 
     private func processMixedSampleRates(urls: [URL],
                                          audioFormat: AVAudioFormat,
-                                         buffered: Bool = false) {
+                                         buffered: Bool = false)
+    {
         Settings.audioFormat = audioFormat
 
         let engine = AudioEngine()

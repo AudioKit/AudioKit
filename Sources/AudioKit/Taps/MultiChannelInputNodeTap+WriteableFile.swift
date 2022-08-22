@@ -2,10 +2,9 @@
 
 import AVFoundation
 
-extension MultiChannelInputNodeTap {
+public extension MultiChannelInputNodeTap {
     /// An inner class to represent one channel of data to record to file
-    public class WriteableFile: CustomStringConvertible {
-
+    class WriteableFile: CustomStringConvertible {
         /// Simple description of the file
         public var description: String {
             "url: \(url.path), channel: \(channel), file is open: \(file != nil)"
@@ -41,7 +40,8 @@ extension MultiChannelInputNodeTap {
         public init(url: URL,
                     fileFormat: AVAudioFormat,
                     channel: Int32,
-                    ioLatency: AVAudioFrameCount = 0) {
+                    ioLatency: AVAudioFrameCount = 0)
+        {
             self.fileFormat = fileFormat
             self.channel = channel
             self.url = url
@@ -111,7 +111,8 @@ extension MultiChannelInputNodeTap {
 
                     // edit the first buffer to remove io latency samples length
                     if buffer.frameLength > latencyOffset,
-                       let offsetBuffer = buffer.copyFrom(startSample: startSample) {
+                       let offsetBuffer = buffer.copyFrom(startSample: startSample)
+                    {
                         buffer = offsetBuffer
 
                         Log("Writing partial buffer", offsetBuffer.frameLength, "frames, ioLatency is", ioLatency, "latencyOffset", latencyOffset)

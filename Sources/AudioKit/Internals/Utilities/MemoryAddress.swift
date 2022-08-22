@@ -3,7 +3,6 @@
 import Foundation
 
 struct MemoryAddress: CustomStringConvertible {
-
     let opaquePointerAddress: Int
 
     var description: String {

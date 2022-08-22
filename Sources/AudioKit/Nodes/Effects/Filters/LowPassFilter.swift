@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
 public class LowPassFilter: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowPassFilter)
 
     let input: Node
@@ -24,7 +23,8 @@ public class LowPassFilter: Node {
         address: AUParameterAddress(kLowPassParam_CutoffFrequency),
         defaultValue: 6900,
         range: 10 ... 22050,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Cutoff Frequency (Hertz) ranges from 10 to 22050 (Default: 6900)
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -36,7 +36,8 @@ public class LowPassFilter: Node {
         address: AUParameterAddress(kLowPassParam_Resonance),
         defaultValue: 0,
         range: -20 ... 40,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Resonance (decibels) ranges from -20 to 40 (Default: 0)
     @Parameter(resonanceDef) public var resonance: AUValue
@@ -50,7 +51,8 @@ public class LowPassFilter: Node {
     public init(
         _ input: Node,
         cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
-        resonance: AUValue = resonanceDef.defaultValue) {
+        resonance: AUValue = resonanceDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)

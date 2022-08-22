@@ -5,7 +5,6 @@ import Foundation
 let connectionTreeLinePrefix = "AudioKit | "
 
 extension Node {
-
     /// Nice printout of all the node connections
     public var connectionTreeDescription: String {
         return String(createConnectionTreeDescription().dropLast())
@@ -19,10 +18,9 @@ extension Node {
         }
 
         var connectionTreeDescription = "\(connectionTreeLinePrefix)\(indentation)↳\(nodeDescription)\n"
-        for connectionNode in self.connections {
-            connectionTreeDescription += connectionNode.createConnectionTreeDescription(paddedWith: " "+indentation)
+        for connectionNode in connections {
+            connectionTreeDescription += connectionNode.createConnectionTreeDescription(paddedWith: " " + indentation)
         }
         return connectionTreeDescription
     }
-
 }

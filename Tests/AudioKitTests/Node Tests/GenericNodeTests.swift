@@ -1,13 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 @testable import AudioKit
-import GameplayKit
 import AVFoundation
+import Foundation
+import GameplayKit
 import XCTest
 
 func setParams(node: Node, rng: GKRandomSource) {
-
     for param in node.parameters {
         let def = param.def
         let size = def.range.upperBound - def.range.lowerBound
@@ -15,13 +14,10 @@ func setParams(node: Node, rng: GKRandomSource) {
         print("setting parameter \(def.name) to \(value)")
         param.value = value
     }
-
 }
 
 class GenericNodeTests: XCTestCase {
-
-    func nodeRandomizedTest(md5: String, factory: ()->Node, audition: Bool = false) {
-
+    func nodeRandomizedTest(md5: String, factory: () -> Node, audition: Bool = false) {
         // We want determinism.
         let rng = GKMersenneTwisterRandomSource(seed: 0)
 
@@ -30,7 +26,6 @@ class GenericNodeTests: XCTestCase {
         var bigBuffer: AVAudioPCMBuffer?
 
         for _ in 0 ..< duration {
-
             let node = factory()
             engine.output = node
 
@@ -41,7 +36,7 @@ class GenericNodeTests: XCTestCase {
             audio.append(engine.render(duration: 1.0))
 
             if bigBuffer == nil {
-                bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength*UInt32(duration))
+                bigBuffer = AVAudioPCMBuffer(pcmFormat: audio.format, frameCapacity: audio.frameLength * UInt32(duration))
             }
 
             bigBuffer?.append(audio)
@@ -54,8 +49,7 @@ class GenericNodeTests: XCTestCase {
         XCTAssertEqual(bigBuffer!.md5, md5)
     }
 
-    func nodeParameterTest(md5: String, factory: (Node)->Node, m1MD5: String = "", audition: Bool = false) {
-
+    func nodeParameterTest(md5: String, factory: (Node) -> Node, m1MD5: String = "", audition: Bool = false) {
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
         let node = factory(player)
@@ -63,7 +57,7 @@ class GenericNodeTests: XCTestCase {
         let duration = node.parameters.count + 1
 
         let engine = AudioEngine()
-        var bigBuffer: AVAudioPCMBuffer? = nil
+        var bigBuffer: AVAudioPCMBuffer?
 
         engine.output = node
 
@@ -79,7 +73,6 @@ class GenericNodeTests: XCTestCase {
         }
 
         for i in 0 ..< node.parameters.count {
-
             let node = factory(player)
             engine.output = node
 
@@ -94,7 +87,6 @@ class GenericNodeTests: XCTestCase {
             audio.append(engine.render(duration: 1.0))
 
             bigBuffer?.append(audio)
-
         }
 
         XCTAssertFalse(bigBuffer!.isSilent)
@@ -105,14 +97,13 @@ class GenericNodeTests: XCTestCase {
         XCTAssertTrue([md5, m1MD5].contains(bigBuffer!.md5), "\(node)\nFAILEDMD5 \(bigBuffer!.md5)")
     }
 
-
     let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testGenerators() {
-        nodeParameterTest (md5: "0118dbf3e33bc3052f2e375f06793c5f", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.square)); osc.play(); return osc })
-        nodeParameterTest (md5: "789c1e77803a4f9d10063eb60ca03cea", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle)); osc.play(); return osc  })
-        nodeParameterTest (md5: "8d1ece9eb2417d9da48f5ae796a33ac2", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 0.1); osc.play(); return osc  })
+        nodeParameterTest(md5: "0118dbf3e33bc3052f2e375f06793c5f", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.square)); osc.play(); return osc })
+        nodeParameterTest(md5: "789c1e77803a4f9d10063eb60ca03cea", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle)); osc.play(); return osc })
+        nodeParameterTest(md5: "8d1ece9eb2417d9da48f5ae796a33ac2", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 0.1); osc.play(); return osc })
     }
 
     func testEffects() {
@@ -124,15 +115,14 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5: "b31ce15bb38716fd95070d1299679d3a", factory: { input in RingModulator(input) })
 
         #if os(iOS)
-        nodeParameterTest(md5: "28d2cb7a5c1e369ca66efa8931d31d4d", factory: { player in Reverb(player) })
+            nodeParameterTest(md5: "28d2cb7a5c1e369ca66efa8931d31d4d", factory: { player in Reverb(player) })
         #endif
-        
+
         #if os(macOS)
-        nodeParameterTest(md5: "bff0b5fa57e589f5192b17194d9a43cb", factory: { player in Reverb(player) })
+            nodeParameterTest(md5: "bff0b5fa57e589f5192b17194d9a43cb", factory: { player in Reverb(player) })
         #endif
-        
     }
-    
+
     func testFilters() {
         nodeParameterTest(md5: "03e7b02e4fceb5fe6a2174740eda7e36", factory: { input in HighPassFilter(input) })
         nodeParameterTest(md5: "af137ecbe57e669340686e9721a2d1f2", factory: { input in HighShelfFilter(input) })

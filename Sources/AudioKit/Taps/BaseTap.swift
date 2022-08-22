@@ -86,14 +86,28 @@ open class BaseTap {
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
-        buffer.frameLength = bufferSize
+        var bufferWithCapacity: AVAudioPCMBuffer
+
+        if bufferSize > buffer.frameCapacity {
+            guard let newBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: bufferSize) else {
+                return
+            }
+
+            newBuffer.append(buffer)
+            bufferWithCapacity = newBuffer
+        } else {
+            bufferWithCapacity = buffer
+        }
+
+        bufferWithCapacity.frameLength = bufferSize
+
         // Create trackers as needed.
         self.lock()
         guard self.isStarted == true else {
             self.unlock()
             return
         }
-        self.doHandleTapBlock(buffer: buffer, at: time)
+        self.doHandleTapBlock(buffer: bufferWithCapacity, at: time)
         self.unlock()
     }
 
@@ -102,6 +116,15 @@ open class BaseTap {
 
     /// Remove the tap on the input
     open func stop() {
+        // `removeTap` will internally call pending callbacks.
+        // This will call `handleBlock` from inside of the lock
+        // which will result in another lock and therefore deadlock.
+        // Since we are removing the tap,
+        // we are not interested in callbacks anymore.
+        // It is important to do this from the outside of the `lock()`.
+        // Once we are inside of the lock, the deadlock might occur,
+        // if `handleBlock` is called just after lock, but before `removeTap`.
+        handleBlock = nil
         lock()
         removeTap()
         isStarted = false
@@ -113,12 +136,6 @@ open class BaseTap {
             Log("The tapped node isn't attached to the engine")
             return
         }
-        // `removeTap` will internally call pending callbacks.
-        // This will call `handleBlock` from inside of the lock
-        // which will result in another lock and therefore deadlock.
-        // Since we are removing the tap,
-        // we are not interested in callbacks anymore.
-        handleBlock = nil
         input.avAudioNode.removeTap(onBus: bus)
     }
 

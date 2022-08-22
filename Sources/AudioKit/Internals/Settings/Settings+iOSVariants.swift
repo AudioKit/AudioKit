@@ -6,22 +6,22 @@
     import Foundation
     import os.log
 
-    extension Settings {
+    public extension Settings {
         /// Global audio format AudioKit will default to for new objects and connections
-        public static var audioFormat = defaultAudioFormat {
+        static var audioFormat = defaultAudioFormat {
             didSet {
                 do {
                     try AVAudioSession.sharedInstance().setPreferredSampleRate(audioFormat.sampleRate)
                 } catch {
                     Log("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription,
-                          log: OSLog.settings,
-                          type: .error)
+                        log: OSLog.settings,
+                        type: .error)
                 }
             }
         }
 
         /// Whether haptics and system sounds are played while a microphone is setup or recording is active
-        public static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
+        static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
             didSet {
                 if #available(iOS 13.0, tvOS 13.0, *) {
                     do {
@@ -36,20 +36,19 @@
         }
 
         /// Enable AudioKit AVAudioSession Category Management
-        public static var disableAVAudioSessionCategoryManagement: Bool = false
-
+        static var disableAVAudioSessionCategoryManagement: Bool = false
 
         /// The hardware ioBufferDuration. Setting this will request the new value, getting
         /// will query the hardware.
-        public static var ioBufferDuration: Double {
+        static var ioBufferDuration: Double {
             set {
                 do {
                     try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(newValue)
 
                 } catch {
                     Log("Could not set the preferred IO buffer duration to \(newValue): \(error)",
-                          log: OSLog.settings,
-                          type: .error)
+                        log: OSLog.settings,
+                        type: .error)
                 }
             }
             get {
@@ -62,20 +61,21 @@
         /// the app is in, or entering, a background state. This can help prevent a potential crash
         /// (AVAudioSessionErrorCodeCannotStartPlaying aka error code 561015905) when a route/category change causes
         /// AudioEngine to attempt to start while the app is not active and background audio is not supported.
-        public static let appSupportsBackgroundAudio = (
+        static let appSupportsBackgroundAudio = (
             Bundle.main.infoDictionary?["UIBackgroundModes"] as? [String])?.contains("audio") ?? false
 
         /// Shortcut for AVAudioSession.sharedInstance()
-        public static let session = AVAudioSession.sharedInstance()
+        static let session = AVAudioSession.sharedInstance()
 
         /// Convenience method accessible from Objective-C
-        public static func setSession(category: SessionCategory, options: UInt) throws {
+        static func setSession(category: SessionCategory, options: UInt) throws {
             try setSession(category: category, with: AVAudioSession.CategoryOptions(rawValue: options))
         }
 
         /// Set the audio session type
-        public static func setSession(category: SessionCategory,
-                                      with options: AVAudioSession.CategoryOptions = []) throws {
+        static func setSession(category: SessionCategory,
+                               with options: AVAudioSession.CategoryOptions = []) throws
+        {
             guard Settings.disableAVAudioSessionCategoryManagement == false else { return }
 
             try session.setCategory(category.avCategory, mode: .default, options: options)
@@ -97,7 +97,7 @@
 
         /// Checks if headphones are connected
         /// Returns true if headPhones are connected, otherwise return false
-        public static var headPhonesPlugged: Bool {
+        static var headPhonesPlugged: Bool {
             let headphonePortTypes: [AVAudioSession.Port] =
                 [.headphones, .bluetoothHFP, .bluetoothA2DP]
             return session.currentRoute.outputs.contains {
@@ -106,7 +106,7 @@
         }
 
         /// Enum of available AVAudioSession Categories
-        public enum SessionCategory: Int, CustomStringConvertible {
+        enum SessionCategory: Int, CustomStringConvertible {
             /// Audio silenced by silent switch and screen lock - audio is mixable
             case ambient
             /// Audio is silenced by silent switch and screen lock - audio is non mixable
@@ -119,8 +119,8 @@
             /// To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
             case playAndRecord
             #if !os(tvOS)
-            /// Disables playback and recording; deprecated in iOS 10, unavailable on tvOS
-            case audioProcessing
+                /// Disables playback and recording; deprecated in iOS 10, unavailable on tvOS
+                case audioProcessing
             #endif
             /// Use to multi-route audio. May be used on input, output, or both.
             case multiRoute
@@ -141,8 +141,8 @@
                 case .multiRoute:
                     return AVAudioSession.Category.multiRoute.rawValue
                 #if !os(tvOS)
-                default:
-                    return AVAudioSession.Category.soloAmbient.rawValue
+                    default:
+                        return AVAudioSession.Category.soloAmbient.rawValue
                 #endif
                 }
             }
@@ -163,8 +163,8 @@
                 case .multiRoute:
                     return .multiRoute
                 #if !os(tvOS)
-                default:
-                    return .soloAmbient
+                    default:
+                        return .soloAmbient
                 #endif
                 }
             }

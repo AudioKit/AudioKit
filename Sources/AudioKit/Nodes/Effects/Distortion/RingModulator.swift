@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's RingModulator Audio Unit
 ///
 public class RingModulator: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
@@ -24,7 +23,8 @@ public class RingModulator: Node {
         address: AUParameterAddress(kDistortionParam_RingModFreq1),
         defaultValue: 100,
         range: 0.5 ... 8000,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @Parameter(ringModFreq1Def) public var ringModFreq1: AUValue
@@ -36,7 +36,8 @@ public class RingModulator: Node {
         address: AUParameterAddress(kDistortionParam_RingModFreq2),
         defaultValue: 100,
         range: 0.5 ... 8000,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     @Parameter(ringModFreq2Def) public var ringModFreq2: AUValue
@@ -48,7 +49,8 @@ public class RingModulator: Node {
         address: AUParameterAddress(kDistortionParam_RingModBalance),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(ringModBalanceDef) public var ringModBalance: AUValue
@@ -60,7 +62,8 @@ public class RingModulator: Node {
         address: AUParameterAddress(kDistortionParam_FinalMix),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue
@@ -78,7 +81,8 @@ public class RingModulator: Node {
         ringModFreq1: AUValue = ringModFreq1Def.defaultValue,
         ringModFreq2: AUValue = ringModFreq2Def.defaultValue,
         ringModBalance: AUValue = ringModBalanceDef.defaultValue,
-        finalMix: AUValue = finalMixDef.defaultValue) {
+        finalMix: AUValue = finalMixDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)

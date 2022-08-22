@@ -32,7 +32,7 @@ public class Settings: NSObject {
 
         /// Longest: 4096 samples = 92.9 ms @ 44100 Hz
         case longest = 12
-        
+
         /// Initialize the buffer length with a specific size in samples
         public init?(bufferSizeInSamples: UInt) {
             guard let size = BufferLength.allCases.first(where: { $0.samplesCount == bufferSizeInSamples })

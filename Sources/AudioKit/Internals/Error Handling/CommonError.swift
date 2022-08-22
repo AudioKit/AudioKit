@@ -7,20 +7,20 @@ import Foundation
 // Please feel free to add any errors you need especially if they come up frequently
 
 enum CommonError: Error, LocalizedError {
-    case AudioKitNotRunning
-    case CouldNotOpenFile
-    case DeviceNotFound
-    case InvalidDSPObject
-    case Unexplained
+    case audioKitNotRunning
+    case couldNotOpenFile
+    case deviceNotFound
+    case invalidDSPObject
+    case unexplained
 
     /// Pretty printout
     public var errorDescription: String? {
         switch self {
-        case .AudioKitNotRunning:
+        case .audioKitNotRunning:
             return "AudioKit is not currently running"
-        case .CouldNotOpenFile:
+        case .couldNotOpenFile:
             return "Can't open file"
-        case .DeviceNotFound:
+        case .deviceNotFound:
             return "Could not find the requested device"
         default:
             return "I'm sorry Dave, I'm afraid I can't do that"

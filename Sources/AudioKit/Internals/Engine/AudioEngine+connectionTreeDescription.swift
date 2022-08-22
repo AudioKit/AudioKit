@@ -2,15 +2,13 @@
 
 import Foundation
 
-extension AudioEngine {
-
+public extension AudioEngine {
     /// Nice printout of all the node connections
-    public var connectionTreeDescription: String {
+    var connectionTreeDescription: String {
         if let rootNode = mainMixerNode {
             return rootNode.connectionTreeDescription
         } else {
             return "\(connectionTreeLinePrefix)mainMixerNode is nil"
         }
     }
-
 }

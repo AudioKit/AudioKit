@@ -29,13 +29,9 @@ class AudioFileTestCase: XCTestCase {
         return nil
     }()
 
-    lazy var countingURL: URL? = {
-        resourceURL?.appendingPathComponent("12345.wav")
-    }()
+    lazy var countingURL: URL? = resourceURL?.appendingPathComponent("12345.wav")
 
-    lazy var drumloopURL: URL? = {
-        resourceURL?.appendingPathComponent("drumloop.wav")
-    }()
+    lazy var drumloopURL: URL? = resourceURL?.appendingPathComponent("drumloop.wav")
 
     override func setUpWithError() throws {}
 
@@ -63,7 +59,7 @@ class AudioFileTestCase: XCTestCase {
     func cleanup() {
         for url in Self.tempFiles {
             Log("🗑 Removing", url.path)
-            //try? FileManager.default.removeItem(at: url)
+            // try? FileManager.default.removeItem(at: url)
         }
     }
 }

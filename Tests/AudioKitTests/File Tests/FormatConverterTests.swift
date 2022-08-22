@@ -73,9 +73,11 @@ class FormatConverterTests: AudioFileTestCase {
     // MARK: helpers
 
     private func convert(with options: FormatConverter.Options,
-                         input: URL? = nil) throws {
+                         input: URL? = nil) throws
+    {
         guard let format = options.format,
-              let sampleRate = options.sampleRate else {
+              let sampleRate = options.sampleRate
+        else {
             throw createError(message: "Invalid Options")
         }
 
@@ -130,6 +132,5 @@ class FormatConverterTests: AudioFileTestCase {
                 throw createError(message: "Incorrect bitDepth of \(streamDescription.mBitsPerChannel), should be \(bitDepth)")
             }
         }
-
     }
 }

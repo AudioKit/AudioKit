@@ -64,7 +64,7 @@ The effects' output is a mix of the input ("dry") signal and the delayed ("wet")
 
 Modulated-delay effects include **chorus**, **flanging**, and **vibrato**. These are all achieved by mixing an input signal with a delayed version of itself, and modulating the delay-time with a low-frequency oscillator (LFO).
 
-<img src="/images/ModDelay.svg" width=100%>
+![ModDelay Circuit Diagram](ModDelay.svg)
 
 The LFO's output (typically a sinusoid or triangle wave) sets the instantaneous delay-time (i.e., the position of the output tap along the  delay-line's length), which then varies cyclically between limits *min _delay* and *max_delay*, about a midpoint *mid_delay*.
 

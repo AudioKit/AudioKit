@@ -50,7 +50,7 @@ extension Node {
                 }
                 engine.detach(input.avAudioNode)
             } else {
-                avAudioNode.disconnect(input: input.avAudioNode)
+                avAudioNode.disconnect(input: input.avAudioNode, format: input.outputFormat)
             }
         }
     }

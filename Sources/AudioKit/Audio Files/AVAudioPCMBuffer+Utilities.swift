@@ -3,15 +3,14 @@
 import AVFoundation
 import CryptoKit
 
-extension AVAudioPCMBuffer {
+public extension AVAudioPCMBuffer {
     /// Hash useful for testing
-    public var md5: String {
-
+    var md5: String {
         var sampleData = Data()
 
-        if let floatChannelData = self.floatChannelData {
-            for frame in 0 ..< self.frameCapacity {
-                for channel in 0 ..< self.format.channelCount {
+        if let floatChannelData = floatChannelData {
+            for frame in 0 ..< frameCapacity {
+                for channel in 0 ..< format.channelCount {
                     let sample = floatChannelData[Int(channel)][Int(frame)]
 
                     withUnsafePointer(to: sample) { ptr in
@@ -28,14 +27,12 @@ extension AVAudioPCMBuffer {
             // Fallback on earlier versions
             return "Oh well, old version"
         }
-        
-
     }
 
-    public var isSilent: Bool {
-        if let floatChannelData = self.floatChannelData {
-            for channel in 0 ..< self.format.channelCount {
-                for frame in 0 ..< self.frameLength {
+    var isSilent: Bool {
+        if let floatChannelData = floatChannelData {
+            for channel in 0 ..< format.channelCount {
+                for frame in 0 ..< frameLength {
                     if floatChannelData[Int(channel)][Int(frame)] != 0.0 {
                         return false
                     }
@@ -48,8 +45,8 @@ extension AVAudioPCMBuffer {
     /// Add to an existing buffer
     ///
     /// - Parameter buffer: Buffer to append
-    public func append(_ buffer: AVAudioPCMBuffer) {
-        self.append(buffer, startingFrame: 0, frameCount: buffer.frameLength)
+    func append(_ buffer: AVAudioPCMBuffer) {
+        append(buffer, startingFrame: 0, frameCount: buffer.frameLength)
     }
 
     /// Add to an existing buffer with specific starting frame and size
@@ -57,9 +54,10 @@ extension AVAudioPCMBuffer {
     ///   - buffer: Buffer to append
     ///   - startingFrame: Starting frame location
     ///   - frameCount: Number of frames to append
-    public func append(_ buffer: AVAudioPCMBuffer,
-                       startingFrame: AVAudioFramePosition,
-                       frameCount: AVAudioFrameCount) {
+    func append(_ buffer: AVAudioPCMBuffer,
+                startingFrame: AVAudioFramePosition,
+                frameCount: AVAudioFrameCount)
+    {
         precondition(format == buffer.format,
                      "Format mismatch")
         precondition(startingFrame + AVAudioFramePosition(frameCount) <= AVAudioFramePosition(buffer.frameLength),
@@ -69,7 +67,7 @@ extension AVAudioPCMBuffer {
 
         let dst1 = floatChannelData![0]
         let src1 = buffer.floatChannelData![0]
-        
+
         memcpy(dst1.advanced(by: stride * Int(frameLength)),
                src1.advanced(by: stride * Int(startingFrame)),
                Int(frameCount) * stride * MemoryLayout<Float>.size)
@@ -91,9 +89,10 @@ extension AVAudioPCMBuffer {
     /// - Parameter readOffset: The offset into the source buffer to read from.
     /// - Parameter frames: The number of frames to copy from the source buffer.
     /// - Returns: The number of frames copied.
-    @discardableResult public func copy(from buffer: AVAudioPCMBuffer,
-                                        readOffset: AVAudioFrameCount = 0,
-                                        frames: AVAudioFrameCount = 0) -> AVAudioFrameCount {
+    @discardableResult func copy(from buffer: AVAudioPCMBuffer,
+                                 readOffset: AVAudioFrameCount = 0,
+                                 frames: AVAudioFrameCount = 0) -> AVAudioFrameCount
+    {
         let remainingCapacity = frameCapacity - frameLength
         if remainingCapacity == 0 {
             Log("AVAudioBuffer copy(from) - no capacity!")
@@ -115,17 +114,20 @@ extension AVAudioPCMBuffer {
 
         let frameSize = Int(format.streamDescription.pointee.mBytesPerFrame)
         if let src = buffer.floatChannelData,
-           let dst = floatChannelData {
+           let dst = floatChannelData
+        {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else if let src = buffer.int16ChannelData,
-                  let dst = int16ChannelData {
+                  let dst = int16ChannelData
+        {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
         } else if let src = buffer.int32ChannelData,
-                  let dst = int32ChannelData {
+                  let dst = int32ChannelData
+        {
             for channel in 0 ..< Int(format.channelCount) {
                 memcpy(dst[channel] + Int(frameLength), src[channel] + Int(readOffset), totalFrames * frameSize)
             }
@@ -139,9 +141,10 @@ extension AVAudioPCMBuffer {
     /// Copy from a certain point tp the end of the buffer
     /// - Parameter startSample: Point to start copy from
     /// - Returns: an AVAudioPCMBuffer copied from a sample offset to the end of the buffer.
-    public func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
+    func copyFrom(startSample: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard startSample < frameLength,
-              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample) else {
+              let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameLength - startSample)
+        else {
             return nil
         }
         let framesCopied = buffer.copy(from: self, readOffset: startSample)
@@ -151,7 +154,7 @@ extension AVAudioPCMBuffer {
     /// Copy from the beginner of a buffer to a certain number of frames
     /// - Parameter count: Length of frames to copy
     /// - Returns: an AVAudioPCMBuffer copied from the start of the buffer to the specified endSample.
-    public func copyTo(count: AVAudioFrameCount) -> AVAudioPCMBuffer? {
+    func copyTo(count: AVAudioFrameCount) -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: count) else {
             return nil
         }
@@ -160,12 +163,13 @@ extension AVAudioPCMBuffer {
     }
 
     /// Extract a portion of the buffer
-    /// 
+    ///
     /// - Parameter startTime: The time of the in point of the extraction
     /// - Parameter endTime: The time of the out point
     /// - Returns: A new edited AVAudioPCMBuffer
-    public func extract(from startTime: TimeInterval,
-                        to endTime: TimeInterval) -> AVAudioPCMBuffer? {
+    func extract(from startTime: TimeInterval,
+                 to endTime: TimeInterval) -> AVAudioPCMBuffer?
+    {
         let sampleRate = format.sampleRate
         let startSample = AVAudioFrameCount(startTime * sampleRate)
         var endSample = AVAudioFrameCount(endTime * sampleRate)

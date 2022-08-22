@@ -4,7 +4,6 @@ import AVFoundation
 
 /// Node in an audio graph.
 public protocol Node: AnyObject {
-
     /// Nodes providing audio input to this node.
     var connections: [Node] { get }
 
@@ -23,6 +22,9 @@ public protocol Node: AnyObject {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
 
+    /// Audio format to use when connecting this node.
+    /// Defaults to `Settings.audioFormat`.
+    var outputFormat: AVAudioFormat { get }
 }
 
 public extension Node {
@@ -56,10 +58,10 @@ public extension Node {
     func stop() { bypassed = true }
     func play() { bypassed = false }
     func bypass() { bypassed = true }
+    var outputFormat: AVAudioFormat { Settings.audioFormat }
 
     /// All parameters on the Node
     var parameters: [NodeParameter] {
-
         let mirror = Mirror(reflecting: self)
         var params: [NodeParameter] = []
 
@@ -74,7 +76,6 @@ public extension Node {
 
     /// Set up node parameters using reflection
     func setupParameters() {
-
         let mirror = Mirror(reflecting: self)
         var params: [AUParameter] = []
 
@@ -97,8 +98,6 @@ public extension Node {
 }
 
 extension Node {
-
-
 
     func disconnectAV() {
         if let engine = avAudioNode.engine {
@@ -150,9 +149,9 @@ extension Node {
 
                 // Mixers will decide which input bus to use.
                 if let mixer = avAudioNode as? AVAudioMixerNode {
-                    mixer.connectMixer(input: connection.avAudioNode)
+                    mixer.connectMixer(input: connection.avAudioNode, format: connection.outputFormat)
                 } else {
-                    avAudioNode.connect(input: connection.avAudioNode, bus: bus)
+                    avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
                 }
 
                 connection.makeAVConnections()
@@ -179,7 +178,7 @@ public protocol DynamicWaveformNode: Node {
 
     /// Gets the floating point values stored in the wavetable
     func getWaveformValues() -> [Float]
-    
+
     /// Set the waveform change handler
     /// - Parameter handler: Closure with an array of floats as the argument
     func setWaveformUpdateHandler(_ handler: @escaping ([Float]) -> Void)

@@ -43,7 +43,8 @@ public class FormatConverter {
     /// init with input, output and options - then start()
     public init(inputURL: URL,
                 outputURL: URL,
-                options: Options? = nil) {
+                options: Options? = nil)
+    {
         self.inputURL = inputURL
         self.outputURL = outputURL
         self.options = options ?? Options()
@@ -62,12 +63,12 @@ public class FormatConverter {
     /// The entry point for file conversion
     /// - Parameter completionHandler: the callback that will be triggered when process has completed.
     public func start(completionHandler: FormatConverterCallback? = nil) {
-        guard let inputURL = self.inputURL else {
+        guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
         }
 
-        guard let outputURL = self.outputURL else {
+        guard let outputURL = outputURL else {
             completionHandler?(Self.createError(message: "Output file can't be nil."))
             return
         }
@@ -103,12 +104,14 @@ public class FormatConverter {
 
             // PCM input, compressed output
         } else if Self.isPCM(url: inputURL) == true,
-                  Self.isCompressed(url: outputURL) == true {
+                  Self.isCompressed(url: outputURL) == true
+        {
             convertPCMToCompressed(completionHandler: completionHandler)
 
             // Compressed input and output, won't do sample rate
         } else if Self.isCompressed(url: inputURL) == true,
-                  Self.isCompressed(url: outputURL) == true {
+                  Self.isCompressed(url: outputURL) == true
+        {
             convertCompressed(completionHandler: completionHandler)
 
         } else {
@@ -119,18 +122,18 @@ public class FormatConverter {
 
 // MARK: - Definitions
 
-extension FormatConverter {
+public extension FormatConverter {
     /// FormatConverterCallback is the callback format for start()
     /// - Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
-    public typealias FormatConverterCallback = (_ error: Error?) -> Void
+    typealias FormatConverterCallback = (_ error: Error?) -> Void
 
     /// Formats that this class can write
-    public static let outputFormats = ["wav", "aif", "caf", "m4a"]
+    static let outputFormats = ["wav", "aif", "caf", "m4a"]
 
-    public static let defaultOutputFormat = "wav"
+    static let defaultOutputFormat = "wav"
 
     /// Formats that this class can read
-    public static let inputFormats = FormatConverter.outputFormats + [
+    static let inputFormats = FormatConverter.outputFormats + [
         "mp3", "snd", "au", "sd2",
         "aif", "aiff", "aifc", "aac",
         "mp4", "m4v", "mov", "ts",
@@ -139,7 +142,7 @@ extension FormatConverter {
 
     /// An option to block upsampling to a higher bit depth than the source.
     /// For example, converting to 24bit from 16 doesn't have much benefit
-    public enum BitDepthRule {
+    enum BitDepthRule {
         /// Don't allow upsampling to 24bit if the src is 16
         case lessThanOrEqual
 
@@ -149,7 +152,7 @@ extension FormatConverter {
 
     /// The conversion options, leave any property nil to adopt the value of the input file
     /// bitRate assumes a stereo bit rate and the converter will half it for mono
-    public struct Options {
+    struct Options {
         /// Audio Format as a string
         public var format: String?
         /// Sample Rate in Hertz
@@ -207,7 +210,8 @@ extension FormatConverter {
         public init?(pcmFormat: String,
                      sampleRate: Double? = nil,
                      bitDepth: UInt32? = nil,
-                     channels: UInt32? = nil) {
+                     channels: UInt32? = nil)
+        {
             format = pcmFormat
             self.sampleRate = sampleRate
             self.bitDepth = bitDepth
@@ -215,13 +219,15 @@ extension FormatConverter {
         }
     }
 
-    func completionProxy(error: Error?,
-                         deleteOutputOnError: Bool = true,
-                         completionHandler: FormatConverterCallback? = nil) {
+    internal func completionProxy(error: Error?,
+                                  deleteOutputOnError: Bool = true,
+                                  completionHandler: FormatConverterCallback? = nil)
+    {
         guard error != nil,
               deleteOutputOnError,
               let outputURL = outputURL,
-              FileManager.default.fileExists(atPath: outputURL.path) else {
+              FileManager.default.fileExists(atPath: outputURL.path)
+        else {
             completionHandler?(error)
             return
         }

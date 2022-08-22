@@ -69,7 +69,8 @@ extension AudioPlayer {
 
             guard let tmpBuffer = AVAudioPCMBuffer(pcmFormat: playerNode.outputFormat(forBus: 0),
                                                    frameCapacity: frameCount),
-                let monoData = pcmBuffer.floatChannelData else {
+                let monoData = pcmBuffer.floatChannelData
+            else {
                 Log("Failed to setup mono conversion buffer", type: .error)
                 return
             }
@@ -104,14 +105,14 @@ extension AudioPlayer {
 
     // Read the buffer in backwards
     fileprivate func reverseBuffer() {
-        guard isBuffered, let buffer = self.buffer else { return }
+        guard isBuffered, let buffer = buffer else { return }
         if let reversedBuffer = buffer.reverse() {
             self.buffer = reversedBuffer
         }
     }
 
     fileprivate func normalizeBuffer() {
-        guard isBuffered, let buffer = self.buffer else { return }
+        guard isBuffered, let buffer = buffer else { return }
         if let normalizedBuffer = buffer.normalize() {
             self.buffer = normalizedBuffer
         }
@@ -122,9 +123,10 @@ extension AudioPlayer {
     ///     - inTime specified in seconds, 0 if no fade
     ///     - outTime specified in seconds, 0 if no fade
     fileprivate func fadeBuffer(inTime: TimeInterval = 0, outTime: TimeInterval = 0) {
-        guard isBuffered, let buffer = self.buffer else { return }
+        guard isBuffered, let buffer = buffer else { return }
         if let fadedBuffer = buffer.fade(inTime: inTime,
-                                         outTime: outTime) {
+                                         outTime: outTime)
+        {
             self.buffer = fadedBuffer
         }
     }

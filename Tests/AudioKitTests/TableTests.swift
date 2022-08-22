@@ -4,7 +4,6 @@ import AudioKit
 import XCTest
 
 class TableTests: XCTestCase {
-
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testReverseSawtooth() {
         let engine = AudioEngine()

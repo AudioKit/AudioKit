@@ -54,7 +54,7 @@ public class AudioPlayer: Node {
 
             if status == .playing { stop() }
 
-            if newValue && !isBuffered {
+            if newValue, !isBuffered {
                 isBuffered = true
                 updateBuffer(force: true)
             }
@@ -89,7 +89,7 @@ public class AudioPlayer: Node {
             if wasPlaying { stop() }
 
             // Force the buffer to update with new file
-            if isBuffered && file != oldValue {
+            if isBuffered, file != oldValue {
                 updateBuffer(force: true)
             }
 
@@ -131,7 +131,7 @@ public class AudioPlayer: Node {
     public var editStartTime: TimeInterval {
         get { _editStartTime }
         set {
-            _editStartTime = newValue.clamped(to: 0...duration)
+            _editStartTime = newValue.clamped(to: 0 ... duration)
         }
     }
 
@@ -148,7 +148,7 @@ public class AudioPlayer: Node {
             if newValue == 0 {
                 newValue = duration
             }
-            _editEndTime = newValue.clamped(to: 0...duration)
+            _editEndTime = newValue.clamped(to: 0 ... duration)
         }
     }
 
@@ -184,11 +184,11 @@ public class AudioPlayer: Node {
 
     func internalCompletionHandler() {
         guard status == .playing,
-                engine?.isInManualRenderingMode == false else { return }
+              engine?.isInManualRenderingMode == false else { return }
 
         completionHandler?()
 
-        if isLooping && !isBuffered {
+        if isLooping, !isBuffered {
             status = .stopped
             play()
         }
@@ -249,11 +249,13 @@ public class AudioPlayer: Node {
     ///   - preserveEditTime: Boolean - keep the previous edit time region? (default: false)
     public func load(file: AVAudioFile,
                      buffered: Bool? = nil,
-                     preserveEditTime: Bool = false) throws {
+                     preserveEditTime: Bool = false) throws
+    {
         var formatHasChanged = false
 
         if let currentFile = self.file,
-           currentFile.fileFormat != file.fileFormat {
+           currentFile.fileFormat != file.fileFormat
+        {
             Log("Format has changed, player will be reconnected with format", file.fileFormat)
             engine?.disconnectNodeInput(playerNode)
             formatHasChanged = true
@@ -292,11 +294,12 @@ extension AudioPlayer: HasInternalConnections {
     /// Check if the playerNode is already connected to the mixerNode
     var isPlayerConnectedToMixerNode: Bool {
         var iBus = 0
-        let engine = self.playerNode.engine
+        let engine = playerNode.engine
         if let engine = engine {
             while iBus < playerNode.numberOfOutputs {
                 for playercp in engine.outputConnectionPoints(for: playerNode, outputBus: iBus)
-                where playercp.node == mixerNode {
+                    where playercp.node == mixerNode
+                {
                     return true
                 }
                 iBus += 1
