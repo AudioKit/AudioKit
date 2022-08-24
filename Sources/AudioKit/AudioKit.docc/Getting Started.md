@@ -33,15 +33,15 @@ Packages can depend on other packages, and this is shown in the example of Sport
 The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above are placeholders for the many different packages that extend AudioKit.
 
 
-| Package Name                                        | Description                                   |
-|-----------------------------------------------------|-----------------------------------------------|
-| [AudioKitUI](/Packages/AudioKitUI)                  | Waveform visualization and UI components      |
-| [Devoloop AudioKit](/Packages/DevoloopAudioKit)     | Guitar processors                             |
-| [Dunne AudioKit](/Packages/DunneAudioKit)           | Chorus, Flanger, Sampler, Stereo Delay, Synth |
-| [Microtonal AudioKit](/Packages/MicrotonalAudioKit) | Custom tuning tables                          |
-| [Soundpipe AudioKit](/Packages/SoundpipeAudioKit)   | Oscillators, Effects, Filters, and more       |
-| [Sporth AudioKit](/Packages/SporthAudioKit)         | Operations for complex DSP with simple syntax |
-| [STK AudioKit](/Packages/STKAudioKit)               | Stanford Synthesis Toolkit physical models    |
+| Package Name                                            | Description                                   |
+|---------------------------------------------------------|-----------------------------------------------|
+| [AudioKitUI](/Packages/AudioKitUI)                      | Waveform visualization and UI components      |
+| [Devoloop AudioKit](/Packages/DevoloopAudioKit)         | Guitar processors                             |
+| [Dunne AudioKit](/Packages/DunneAudioKit)               | Chorus, Flanger, Sampler, Stereo Delay, Synth |
+| [Microtonal AudioKit](/Packages/MicrotonalAudioKit)     | Custom tuning tables                          |
+| [Soundpipe AudioKit](/Packages/SoundpipeAudioKit)       | Oscillators, Effects, Filters, and more       |
+| [Sporth AudioKit](/Packages/SporthAudioKit)             | Operations for complex DSP with simple syntax |
+| [STK AudioKit](https://github.com/AudioKit/STKAudioKit/)| Stanford Synthesis Toolkit physical models    |
 
 ## AudioKit.io (this website)
 

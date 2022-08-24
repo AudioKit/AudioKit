@@ -82,12 +82,12 @@ Here is a list of types that moved into a new package, and where they live now.
 | ZitaReverb                         | SoundpipeAudioKit |
 | OperationEffect                    | SporthAudioKit    |
 | OperationGenerator                 | SporthAudioKit    |
-| Clarinet                           | STKAudioKit       |
-| Flute                              | STKAudioKit       |
-| MandolinString                     | STKAudioKit       |
-| RhodesPiano                        | STKAudioKit       |
-| Shaker                             | STKAudioKit       |
-| TubularBells                       | STKAudioKit       |
+| Clarinet                           | [STKAudioKit](https://github.com/AudioKit/STKAudioKit/) |
+| Flute                              | [STKAudioKit](https://github.com/AudioKit/STKAudioKit/) |
+| MandolinString                     | [STKAudioKit](https://github.com/AudioKit/STKAudioKit/) |
+| RhodesPiano                        | [STKAudioKit](https://github.com/AudioKit/STKAudioKit/) |
+| Shaker                             | [STKAudioKit](https://github.com/AudioKit/STKAudioKit/) |
+| TubularBells                       | [STKAudioKit](https://github.com/AudioKit/STKAudioKit/) |
 
 ## AudioKit 5.0 to 5.1
 
