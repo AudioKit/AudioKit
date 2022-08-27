@@ -6,26 +6,18 @@ Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit, by Shane Dunne.
 
 [https://github.com/AudioKit/DunneAudioKit/](https://github.com/AudioKit/DunneAudioKit/)
 
-## Installation in Xcode 13
+## Installation
 
-You can AudioKit and any of the other AudioKit libraries using Collections
-
-1. Select File -> Add Packages...
-2. Click the `+` icon on the bottom left of the Collections sidebar on the left.
-3. Choose `Add Swift Package Collection` from the pop-up menu.
-4. In the `Add Package Collection` dialog box, enter `https://swiftpackageindex.com/AudioKit/collection.json` as the URL and click the "Load" button.
-5. It will warn you that the collection is not signed, but it is fine, click "Add Unsigned Collection".
-6. Now you can add any of the AudioKit Swift Packages you need and read about what they do, right from within Xcode.
+Install with Swift Package Manager.
 
 ## API Reference
 
-* [Chorus](https://github.com/AudioKit/DunneAudioKit/wiki/Chorus)
-* [Flanger](https://github.com/AudioKit/DunneAudioKit/wiki/Flanger)
-* [Sampler](https://github.com/AudioKit/DunneAudioKit/wiki/Sampler)
-* [Stereo Delay](https://github.com/AudioKit/DunneAudioKit/wiki/StereoDelay)
-* [Synth](https://github.com/AudioKit/DunneAudioKit/wiki/Synth)
-* [Transient Shaper](https://github.com/AudioKit/DunneAudioKit/wiki/TransientShaper)
-
+* [Chorus](https://audiokit.io/DunneAudioKit/documentation/dunneaudiokit/chorus)
+* [Flanger](https://audiokit.io/DunneAudioKit/documentation/dunneaudiokit/flanger)
+* [Sampler](https://audiokit.io/DunneAudioKit/documentation/dunneaudiokit/sampler)
+* [Stereo Delay](https://audiokit.io/DunneAudioKit/documentation//dunneaudiokit/stereodelay)
+* [Synth](https://audiokit.io/DunneAudioKit/documentation/dunneaudiokit/synth)
+* [Transient Shaper](https://audiokit.io/DunneAudioKit/documentation/dunneaudiokit/transientshaper)
 ## Examples
 
 See the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook/) for examples.

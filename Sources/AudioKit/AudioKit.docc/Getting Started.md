@@ -33,15 +33,15 @@ Packages can depend on other packages, and this is shown in the example of Sport
 The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above are placeholders for the many different packages that extend AudioKit.
 
 
-| Package Name                                            | Description                                   |
-|---------------------------------------------------------|-----------------------------------------------|
-| [AudioKitUI](/Packages/AudioKitUI)                      | Waveform visualization and UI components      |
-| [Devoloop AudioKit](/Packages/DevoloopAudioKit)         | Guitar processors                             |
-| [Dunne AudioKit](/Packages/DunneAudioKit)               | Chorus, Flanger, Sampler, Stereo Delay, Synth |
-| [Microtonal AudioKit](/Packages/MicrotonalAudioKit)     | Custom tuning tables                          |
-| [Soundpipe AudioKit](/Packages/SoundpipeAudioKit)       | Oscillators, Effects, Filters, and more       |
-| [Sporth AudioKit](/Packages/SporthAudioKit)             | Operations for complex DSP with simple syntax |
-| [STK AudioKit](https://github.com/AudioKit/STKAudioKit/)| Stanford Synthesis Toolkit physical models    |
+| Package Name                                                        | Description                                   |
+|---------------------------------------------------------------------|-----------------------------------------------|
+| [AudioKitUI](https://github.com/AudioKit/AudioKitUI)                | Waveform visualization and UI components      |
+| [Devoloop AudioKit](https://github.com/AudioKit/DevoloopAudioKit)   | Guitar processors                             |
+| [Dunne AudioKit](https://github.com/AudioKit/DunneAudioKit)         | Chorus, Flanger, Sampler, Stereo Delay, Synth |
+| [Microtonality](https://github.com/AudioKit/Microtonality)          | Custom tuning tables                          |
+| [Soundpipe AudioKit](https://github.com/AudioKit/SoundpipeAudioKit) | Oscillators, Effects, Filters, and more       |
+| [Sporth AudioKit](https://github.com/AudioKit/SporthAudioKit)       | Operations for complex DSP with simple syntax |
+| [STK AudioKit](https://github.com/AudioKit/STKAudioKit/)            | Stanford Synthesis Toolkit physical models    |
 
 ## AudioKit.io (this website)
 
@@ -61,9 +61,7 @@ Larger examples have been moved to their own repositories:
 * [MIDI File Edit And Sync](https://github.com/AudioKit/MIDIFileEditAndSync)
 * [MIDI Sequencer](https://github.com/AudioKit/MIDISequencer)
 * [MIDI Track View](https://github.com/AudioKit/MIDITrackView)
-* [Nodality](https://github.com/AudioKit/Nodality)
 * [Output Splitter](https://github.com/AudioKit/OutputSplitter)
-* [Particles](http://github.com/AudioKit/Particles/)
 * [Player Demo](https://github.com/AudioKit/PlayerDemo)
 * [AUv3 Example App: ROM Player](https://github.com/AudioKit/AUv3-Example-App)
 * [Basic ROM Player](https://github.com/AudioKit/ROMPlayer)
