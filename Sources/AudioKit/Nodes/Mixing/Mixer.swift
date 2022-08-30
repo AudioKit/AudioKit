@@ -97,10 +97,10 @@ public class Mixer: Node, NamedNode {
     /// If this is last input's connection,
     /// input will be detached from the engine.
     /// - Parameter node: Node to remove
-    public func removeInput(_ node: Node) {
+    public func removeInput(_ node: Node, strategy: DisconnectStrategy = .recursive) {
         guard inputs.contains(where: { $0 === node }) else { return }
         inputs.removeAll(where: { $0 === node })
-        disconnectAndDetachIfLast(input: node)
+        disconnect(input: node, strategy: strategy)
     }
 
     /// Remove all inputs from the mixer
