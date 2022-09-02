@@ -1,0 +1,78 @@
+name: Bug report
+description: Create a bug report about a reproducible problem.
+labels: bug
+body:
+- type: markdown
+  attributes:
+    value: "# Demonstrate Your Bug in a Test"
+- type: markdown
+  attributes:
+    value: |
+      1. Make a fork of the repo,
+      2. Create a test in the repo's Tests folder,
+      3. Make a pull request showing the test failing to meet expectations.
+- type: markdown
+  attributes:
+    value: "## Source Answers from the Community"
+- type: markdown
+  attributes:
+    value: Creating a test is the only sure-fire way to get our attention, but if you feel like your problem is in implementing AudioKit or one of its repos in your own code, post your problem to [StackOverflow](https://stackoverflow.com/search?q=AudioKit) with the `#AudioKit` hashtag.
+- type: markdown
+  attributes:
+    value: "## Professional Assistance"
+- type: markdown
+  attributes:
+    value: You may [sponsor my work on this project](https://github.com/sponsors/aure).
+      
+      Certain tiers will allow you to reserve me for consulting time, and sponsors at any level get more attention than non-sponsors.
+- type: markdown
+  attributes:
+    value: "# Bug Report if Not Possible to Write a Failing Test"
+- type: dropdown
+  id: operating-system
+  attributes:
+    label: "macOS Version(s) Used to Build"
+    description: The operating system version being used to build (not the target runtime OS version).
+    multiple: true
+    options:
+      - "macOS 13 Ventura"
+      - "macOS 12 Monterey"
+      - "macOS 11 Big Sur"
+      - "macOS 10.15 Catalina"
+      - "macOS 10.14 Mojave"
+      - "macOS 10.13 High Sierra"
+      - "macOS 10.12 Sierra"
+      - "macOS 10.11 El Capitan"
+      - "macOS 10.10 Yosemite"
+      - "macOS 10.9 Mavericks"
+  validations:
+    required: true
+- type: dropdown
+  id: xcode-version
+  attributes:
+    label: "Xcode Version(s)"
+    multiple: true
+    options:
+      - "Xcode 14"
+      - "Xcode 13.4.1"
+      - "Xcode 13.4"
+      - "Xcode 13.3.1"
+      - "Xcode 13.3"
+      - "Xcode 13.2.1"
+      - "Xcode 13.2"
+      - "Xcode 13.1"
+      - "Xcode 13.0"
+  validations:
+    required: true
+- type: textarea
+  id: bug-description
+  attributes:
+    label: Description
+    description: "A clear and concise description of the bug and steps to reproduce."
+  validations:
+    required: true
+- type: textarea
+  id: crash-logs-and-screenshots
+  attributes:
+    label: Crash Logs, Screenshots or Other Attachments (if applicable)
+    description: "A clear and concise description of the bug and steps to reproduce."
