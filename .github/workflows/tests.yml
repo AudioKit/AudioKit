@@ -1,28 +1,17 @@
-# GitHub Actions for AudioKit: includes builds, tests and docs
-name: CI
+name: Tests
 
-on: [push, pull_request]
-env:
-  XCODE_VER: latest-stable
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        xcode_version: ['13.1']
-    runs-on: macos-12
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode_version }}.app
-    steps:
-      - name: Check out AudioKit
-        uses: actions/checkout@v2
-      - name: Build AudioKit
-        run: |
-          set -euo pipefail
-          swift package clean
-          swift build --sanitize="address"
-      - name: Run Tests (ASAN)
-        run: |
-          set -euo pipefail
-          xcodebuild -destination 'platform=OS X,arch=x86_64' -scheme AudioKit -enableAddressSanitizer YES test
-
+  swift_test:
+    name: Test
+    uses: AudioKit/ci/.github/workflows/swift_test.yml@main
+    with:
+      scheme: AudioKit
+      platforms: iOS macOS
+      swift-versions: 5.5 5.6
