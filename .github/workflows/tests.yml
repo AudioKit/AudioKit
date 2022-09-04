@@ -9,9 +9,29 @@ on:
 
 jobs:
   swift_test:
-    name: Test
-    uses: AudioKit/ci/.github/workflows/swift_test.yml@main
-    with:
-      scheme: AudioKit
-      platforms: iOS macOS
-      swift-versions: 5.5 5.6
+    strategy:
+      matrix:
+        xcode_version: ['13.1']
+    runs-on: macos-12
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode_version }}.app
+    steps:
+      - name: Check out AudioKit
+        uses: actions/checkout@v2
+      - name: Build AudioKit
+        run: |
+          set -euo pipefail
+          swift package clean
+          swift build --sanitize="address"
+      - name: Run Tests (ASAN)
+        run: |
+          set -euo pipefail
+          xcodebuild -destination 'platform=OS X,arch=x86_64' -scheme AudioKit -enableAddressSanitizer YES test
+
+  # Send notification to Discord on failure.
+  send_notification:
+    name: Send Notification
+    uses: AudioKit/ci/.github/workflows/send_notification.yml@main
+    needs: [swift_test]
+    if: ${{ failure() && github.ref == 'refs/heads/main' }}
+    secrets: inherit
