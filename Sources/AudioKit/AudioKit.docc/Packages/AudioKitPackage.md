@@ -4,10 +4,6 @@
 
 Use Swift Package Manager and point to the URL:  [https://github.com/AudioKit/AudioKit/](https://github.com/AudioKit/AudioKit/)
 
-## Github Wiki 
-
-AudioKit's inline comments are processed by [SwiftDoc](https://github.com/SwiftDocOrg/swift-doc) and automatically create documentation on [AudioKit's Github Wiki](https://github.com/AudioKit/AudioKit/wiki).
-
 ## Targets
 
 | Name        | Description                                                      | Language      |
