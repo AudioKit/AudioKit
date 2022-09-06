@@ -71,17 +71,6 @@ open class AppleSampler: Node {
         internalAU = samplerUnit.auAudioUnit
     }
 
-    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public init(file: String) {
-        internalAU = samplerUnit.auAudioUnit
-
-        do {
-            try loadWav(file)
-        } catch {
-            Log("Could not load \(file)")
-        }
-    }
-
     // Add URL based initializers
 
     // MARK: - Loaders
