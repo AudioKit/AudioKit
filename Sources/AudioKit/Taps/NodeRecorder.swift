@@ -279,19 +279,18 @@ open class NodeRecorder: NSObject {
         guard let audioFile = audioFile else { return }
 
         // Delete the physical recording file
-        let fileManager = FileManager.default
-        let settings = audioFile.fileFormat.settings
-        let url = audioFile.url
-
         do {
             let path = audioFile.url.path
+            let fileManager = FileManager.default
             try fileManager.removeItem(atPath: path)
         } catch let error as NSError {
             Log("Error: Can't delete" + (audioFile.url.lastPathComponent) + error.localizedDescription)
         }
 
         // Creates a blank new file
+        let url = audioFile.url
         do {
+            let settings = audioFile.fileFormat.settings
             internalAudioFile = try AVAudioFile(forWriting: url, settings: settings)
             Log("File has been cleared")
         } catch let error as NSError {
