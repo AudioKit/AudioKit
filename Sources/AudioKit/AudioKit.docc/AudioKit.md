@@ -40,7 +40,6 @@ The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above ar
 | [AudioKitUI](https://github.com/AudioKit/AudioKitUI)                | Waveform visualization and UI components      |
 | [Devoloop AudioKit](https://github.com/AudioKit/DevoloopAudioKit)   | Guitar processors                             |
 | [Dunne AudioKit](https://github.com/AudioKit/DunneAudioKit)         | Chorus, Flanger, Sampler, Stereo Delay, Synth |
-| [Microtonality](https://github.com/AudioKit/Microtonality)          | Custom tuning tables                          |
 | [Soundpipe AudioKit](https://github.com/AudioKit/SoundpipeAudioKit) | Oscillators, Effects, Filters, and more       |
 | [Sporth AudioKit](https://github.com/AudioKit/SporthAudioKit)       | Operations for complex DSP with simple syntax |
 | [STK AudioKit](https://github.com/AudioKit/STKAudioKit/)            | Stanford Synthesis Toolkit physical models    |
@@ -48,6 +47,18 @@ The <i>AAA</i>AudioKit...<i>ZZZ</i>AudioKit blocks in the layer diagram above ar
 ## AudioKit.io (this website)
 
 This web site is created from the main AudioKit Docc style content. 
+
+## Installation
+
+Use Swift Package Manager and point to the URL:  [https://github.com/AudioKit/AudioKit/](https://github.com/AudioKit/AudioKit/)
+
+## Targets
+
+| Name        | Description                                                      | Language      |
+|-------------|------------------------------------------------------------------|---------------|
+| AudioKit    | Wrappers for AVFoundation Effects                                | Swift         |
+| AudioKitEX  | Nodes, Parameters, Automation, Sequencing                        | Swift         |
+| CAudioKitEX | DSP and other low level code supporting AudioKitEX functionality | Objective-C++ |
 
 ## Examples
 
@@ -70,6 +81,64 @@ Larger examples have been moved to their own repositories:
 * [SamplerDemo](http://github.com/AudioKit/SamplerDemo/)
 * [Simple Audio Unit](https://github.com/AudioKit/SimpleAudioUnit)
 * [Song Processor](http://github.com/AudioKit/SongProcessor)
+
+## Format Converter
+
+FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
+```swift
+let options = FormatConverter.Options()
+// any options left nil will assume the value of the input file
+options.format = "wav"
+options.sampleRate = 48000
+options.bitDepth = 24
+
+let converter = FormatConverter(inputURL: oldURL, outputURL: newURL, options: options)
+converter.start { error in
+// check to see if error isn't nil, otherwise you're good
+})
+```
+
+## MIDI
+
+AudioKit MIDI is an implementation of CoreMIDI meant to simplify creating and responding to MIDI signals. 
+
+Add MIDI listeners like this:
+ ```
+var midi = MIDI()
+midi.openInput()
+midi.addListener(someClass)
+ ```
+ ...where `someClass` conforms to the `MIDIListener` protocol
+
+You then implement the methods you need from `MIDIListener` and use the data how you need.
+
+
+## Tables
+
+Tables are just arrays of float data. They are most often used to store waveform data and they have some defaults for the most common cases:
+
+* sine wave
+* triangle wave
+* square wave
+* sawtooth wave
+* reverse sawtooth wave
+* positive sine
+* positive triangle
+* positive square
+* positive sawtooth
+* positive reverse sawtooth
+
+Tables can also store audio or control data.
+
+## Sequencing
+
+The `AppleSequencer` is based on tried-and-true CoreAudio/MIDI sequencing.
+
+## Taps
+
+Taps are a way to get access to the audio stream at a given point in the signal chain without 
+inserting a node into the signal chain, but instead sort of syphoning off audio "tapping" it and using
+the data for some side purpose like plotting or running analysis of the stream at that point.
 
 
 ## Topics
