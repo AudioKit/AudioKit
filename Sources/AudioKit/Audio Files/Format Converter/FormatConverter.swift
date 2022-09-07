@@ -73,7 +73,7 @@ public class FormatConverter {
             return
         }
 
-        let inputFormat = inputURL.pathExtension.lowercased()
+        let inputFormat = AudioFileFormat(rawValue: inputURL.pathExtension.lowercased()) ?? .unknown
         // verify inputFormat, only allow files with path extensions for speed?
         guard FormatConverter.inputFormats.contains(inputFormat) else {
             completionHandler?(Self.createError(message: "The input file format is in an incompatible format: \(inputFormat)"))
@@ -92,7 +92,7 @@ public class FormatConverter {
         }
 
         if options?.format == nil {
-            options?.format = outputURL.pathExtension.lowercased()
+            options?.format = AudioFileFormat(rawValue: outputURL.pathExtension.lowercased()) ?? .unknown
         }
 
         // Format checks are necessary as AVAssetReader has opinions about compressed
@@ -122,22 +122,42 @@ public class FormatConverter {
 
 // MARK: - Definitions
 
+public enum AudioFileFormat: String {
+    case aac
+    case aif
+    case aifc
+    case aiff
+    case au
+    case caf
+    case m4a
+    case m4v
+    case mov
+    case mp3
+    case mp4
+    case sd2
+    case snd
+    case ts
+    case unknown
+    case wav
+}
+
 public extension FormatConverter {
+
     /// FormatConverterCallback is the callback format for start()
     /// - Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
     typealias FormatConverterCallback = (_ error: Error?) -> Void
 
     /// Formats that this class can write
-    static let outputFormats = ["wav", "aif", "caf", "m4a"]
+    static let outputFormats: [AudioFileFormat] = [.wav, .aif, .caf, .m4a]
 
-    static let defaultOutputFormat = "wav"
+    static let defaultOutputFormat: AudioFileFormat = .wav
 
     /// Formats that this class can read
-    static let inputFormats = FormatConverter.outputFormats + [
-        "mp3", "snd", "au", "sd2",
-        "aif", "aiff", "aifc", "aac",
-        "mp4", "m4v", "mov", "ts",
-        "", // allow files with no extension. convertToPCM can still read the type
+    static let inputFormats: [AudioFileFormat] = FormatConverter.outputFormats + [
+        .mp3, .snd, .au, .sd2,
+        .aif, .aiff, .aifc, .aac,
+        .mp4, .m4v, .mov, .ts,
+        .unknown, // allow files with no extension. convertToPCM can still read the type
     ]
 
     /// An option to block upsampling to a higher bit depth than the source.
@@ -153,8 +173,8 @@ public extension FormatConverter {
     /// The conversion options, leave any property nil to adopt the value of the input file
     /// bitRate assumes a stereo bit rate and the converter will half it for mono
     struct Options {
-        /// Audio Format as a string
-        public var format: String?
+        /// Audio Format
+        public var format: AudioFileFormat?
         /// Sample Rate in Hertz
         public var sampleRate: Double?
         /// used only with PCM data
@@ -194,7 +214,7 @@ public extension FormatConverter {
         public init?(audioFile: AVAudioFile) {
             let streamDescription = audioFile.fileFormat.streamDescription.pointee
 
-            format = audioFile.url.pathExtension
+            format = AudioFileFormat(rawValue: audioFile.url.pathExtension) ?? .unknown
             // FormatConverter.formatIDToString(streamDescription.mFormatID)
             sampleRate = streamDescription.mSampleRate
             bitDepth = streamDescription.mBitsPerChannel
@@ -207,7 +227,7 @@ public extension FormatConverter {
         ///   - sampleRate: Sample Rate
         ///   - bitDepth: Bit Depth, or bits per channel
         ///   - channels: How many channels
-        public init?(pcmFormat: String,
+        public init?(pcmFormat: AudioFileFormat,
                      sampleRate: Double? = nil,
                      bitDepth: UInt32? = nil,
                      channels: UInt32? = nil)

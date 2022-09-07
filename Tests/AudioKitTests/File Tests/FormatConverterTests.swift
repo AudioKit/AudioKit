@@ -19,7 +19,7 @@ class FormatConverterTests: AudioFileTestCase {
         var options = FormatConverter.Options()
         options.sampleRate = 48000
         options.bitDepth = UInt32(24)
-        options.format = "wav"
+        options.format = .wav
         options.eraseFile = true
         options.bitDepthRule = .lessThanOrEqual
 
@@ -30,7 +30,7 @@ class FormatConverterTests: AudioFileTestCase {
         var options = FormatConverter.Options()
         options.sampleRate = 44100
         options.bitDepth = UInt32(16)
-        options.format = "aif"
+        options.format = .aif
         options.eraseFile = true
         options.bitDepthRule = .any
 
@@ -41,7 +41,7 @@ class FormatConverterTests: AudioFileTestCase {
         var options = FormatConverter.Options()
         options.sampleRate = 96000
         options.bitDepth = UInt32(32)
-        options.format = "caf"
+        options.format = .caf
         options.eraseFile = true
         options.bitDepthRule = .any
 
@@ -52,7 +52,7 @@ class FormatConverterTests: AudioFileTestCase {
         var options = FormatConverter.Options()
         options.sampleRate = 44100
         options.bitRate = 256000
-        options.format = "m4a"
+        options.format = .m4a
         options.eraseFile = true
         options.bitDepthRule = .any
 
@@ -63,7 +63,7 @@ class FormatConverterTests: AudioFileTestCase {
         var options = FormatConverter.Options()
         options.sampleRate = 48000
         options.bitRate = 320000
-        options.format = "m4a"
+        options.format = .m4a
         options.eraseFile = true
         options.bitDepthRule = .any
 
@@ -93,7 +93,7 @@ class FormatConverterTests: AudioFileTestCase {
         }
 
         let name = inputFile.deletingPathExtension().lastPathComponent
-        let outputURL = tmp.appendingPathComponent(name).appendingPathExtension(format)
+        let outputURL = tmp.appendingPathComponent(name).appendingPathExtension(format.rawValue)
 
         defer {
             // Log("🗑 Deleting:", tmp.lastPathComponent)
@@ -123,7 +123,7 @@ class FormatConverterTests: AudioFileTestCase {
             throw createError(message: "Incorrect Sample Rate of \(avFile.fileFormat.sampleRate), should be \(sampleRate)")
         }
 
-        guard outputURL.pathExtension == format else {
+        guard outputURL.pathExtension == format.rawValue else {
             throw createError(message: "Incorrect format of \(outputURL.pathExtension), should be \(format)")
         }
 

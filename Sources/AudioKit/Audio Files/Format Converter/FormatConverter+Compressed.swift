@@ -74,7 +74,7 @@ extension FormatConverter {
         tempOptions.bitDepth = 24
         tempOptions.sampleRate = options.sampleRate
         tempOptions.channels = options.channels
-        tempOptions.format = "wav"
+        tempOptions.format = .wav
 
         let tempConverter = FormatConverter(inputURL: inputURL,
                                             outputURL: tempFile,
@@ -140,16 +140,16 @@ extension FormatConverter {
         var formatKey: AudioFormatID
 
         switch outputFormat {
-        case "m4a", "mp4":
+        case .m4a, .mp4:
             format = .m4a
             formatKey = kAudioFormatMPEG4AAC
-        case "aif":
+        case .aif:
             format = .aiff
             formatKey = kAudioFormatLinearPCM
-        case "caf":
+        case .caf:
             format = .caf
             formatKey = kAudioFormatLinearPCM
-        case "wav":
+        case .wav:
             format = .wav
             formatKey = kAudioFormatLinearPCM
         default:

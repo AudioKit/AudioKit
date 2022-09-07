@@ -22,11 +22,11 @@ extension FormatConverter {
         var format: AudioFileTypeID
 
         switch outputFormat {
-        case "aif":
+        case .aif:
             format = kAudioFileAIFFType
-        case "wav":
+        case .wav:
             format = kAudioFileWAVEType
-        case "caf":
+        case .caf:
             format = kAudioFileCAFType
         default:
             completionHandler?(Self.createError(message: "Output file must be caf, wav or aif."))
@@ -83,7 +83,7 @@ extension FormatConverter {
                                                         outputFormatID: format,
                                                         inputDescription: inputDescription)
 
-        let inputFormat = inputURL.pathExtension.lowercased()
+        let inputFormat = AudioFileFormat(rawValue: inputURL.pathExtension.lowercased()) ?? .unknown
 
         guard inputFormat != outputFormat ||
             outputDescription.mSampleRate != inputDescription.mSampleRate ||
