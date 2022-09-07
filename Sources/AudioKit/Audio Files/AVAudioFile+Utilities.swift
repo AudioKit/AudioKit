@@ -104,11 +104,11 @@ public extension AVAudioFile {
         // if options are nil, create them to match the input file
         let options = options ?? FormatConverter.Options(audioFile: self)
 
-        let format = options?.format ?? url.pathExtension
+        let format = options?.format ?? AudioFileFormat(rawValue: url.pathExtension) ?? .unknown
         let directory = url.deletingLastPathComponent()
         let filename = url.deletingPathExtension().lastPathComponent
         let tempFile = directory.appendingPathComponent(filename + "_temp").appendingPathExtension("caf")
-        let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format)
+        let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format.rawValue)
 
         // first print CAF file
         guard extract(to: tempFile,
