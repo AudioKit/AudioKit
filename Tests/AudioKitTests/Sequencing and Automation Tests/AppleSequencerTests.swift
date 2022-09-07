@@ -687,6 +687,7 @@ class AppleSequencerTests: XCTestCase {
         XCTAssert(round(beat) == 4)
     }
 
+    #if !os(tvOS)
     func testChords() {
         let url = Bundle.module.url(forResource: "chords", withExtension: "mid", subdirectory: "TestResources")!
         seq.loadMIDIFile(fromURL: url)
@@ -710,6 +711,7 @@ class AppleSequencerTests: XCTestCase {
 
         XCTAssertEqual(eventCount, expectedEvents)
     }
+    #endif
 
     // MARK: - helper functions
 

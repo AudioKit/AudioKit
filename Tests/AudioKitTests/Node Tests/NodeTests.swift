@@ -15,7 +15,8 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
     }
-    
+
+    #if !os(tvOS)
     func testNodeConnection() {
         let engine = AudioEngine()
         let player = AudioPlayer(testFile: "12345")
@@ -27,6 +28,7 @@ class NodeTests: XCTestCase {
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
+    #endif
 
     func testNodeOutputFormatRespected() {
         let outputFormat = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 2)!

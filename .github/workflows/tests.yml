@@ -9,24 +9,12 @@ on:
 
 jobs:
   swift_test:
-    runs-on: macos-12
-    steps:
-      - name: Check out AudioKit
-        uses: actions/checkout@v2
-      - name: Setup Xcode
-        # Documentation: https://github.com/marketplace/actions/setup-xcode-version
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '13.2'
-      - name: Build AudioKit
-        run: |
-          set -euo pipefail
-          swift package clean
-          swift build --sanitize="address"
-      - name: Run Tests (ASAN)
-        run: |
-          set -euo pipefail
-          xcodebuild -destination 'platform=OS X,arch=x86_64' -scheme AudioKit -enableAddressSanitizer YES test
+    name: Test
+    uses: AudioKit/ci/.github/workflows/swift_test.yml@main
+    with:
+      scheme: AudioKit
+      platforms: iOS macOS tvOS
+      swift-versions: 5.5 5.6
 
   # Send notification to Discord on failure.
   send_notification:
