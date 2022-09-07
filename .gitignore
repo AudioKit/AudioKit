@@ -25,3 +25,5 @@ profile
 /.build
 /Packages
 .swiftpm/
+
+Package.resolved
