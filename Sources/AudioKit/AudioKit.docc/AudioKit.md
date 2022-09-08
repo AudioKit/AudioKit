@@ -64,15 +64,6 @@ Use Swift Package Manager and point to the URL:  [https://github.com/AudioKit/Au
 
 The primary source for AudioKit examples is the [AudioKit Cookbook](https://github.com/AudioKit/Cookbook). This app contains all of the mini-examples that used to be included with AudioKit.
 
-Larger examples have been moved to their own repositories:
-
-* [AudioKit Synth One](https://github.com/AudioKit/AudioKitSynthOne)
-* [Audio Unit Manager](https://github.com/AudioKit/AudioUnitManager)
-* [File Converter](https://github.com/AudioKit/FileConverter) - Updated for AudioKit 5
-* [AUv3 Example App: ROM Player](https://github.com/AudioKit/AUv3-Example-App)
-* [Basic ROM Player](https://github.com/AudioKit/ROMPlayer)
-* [Song Processor](http://github.com/AudioKit/SongProcessor)
-
 ## Format Converter
 
 FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.
