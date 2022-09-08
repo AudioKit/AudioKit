@@ -414,3 +414,26 @@ public extension AVAudioTime {
         return AVAudioTime(sampleTime: sampleTime, atRate: sampleRate)
     }
 }
+
+// Protocols used in AudioKit demos
+
+/// Protocol prescribing that something has an audio "player"
+protocol ProcessesPlayerInput: HasAudioEngine {
+    var player: AudioPlayer { get }
+}
+
+/// Protocol prescribing that something ahs an audio "engine"
+protocol HasAudioEngine {
+    var engine: AudioEngine { get }
+}
+
+/// Basic start and stop functionality
+extension HasAudioEngine {
+    func start() {
+        do { try engine.start() } catch let err { Log(err) }
+    }
+
+    func stop() {
+        engine.stop()
+    }
+}
