@@ -418,12 +418,12 @@ public extension AVAudioTime {
 // Protocols used in AudioKit demos
 
 /// Protocol prescribing that something has an audio "player"
-protocol ProcessesPlayerInput: HasAudioEngine {
+public protocol ProcessesPlayerInput: HasAudioEngine {
     var player: AudioPlayer { get }
 }
 
 /// Protocol prescribing that something ahs an audio "engine"
-protocol HasAudioEngine {
+public protocol HasAudioEngine {
     var engine: AudioEngine { get }
 }
 
