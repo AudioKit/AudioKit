@@ -428,7 +428,7 @@ public protocol HasAudioEngine {
 }
 
 /// Basic start and stop functionality
-extension HasAudioEngine {
+public extension HasAudioEngine {
     func start() {
         do { try engine.start() } catch let err { Log(err) }
     }
