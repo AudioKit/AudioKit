@@ -22,10 +22,12 @@ extension MIDIPacketList: Sequence {
             guard idx < self.numPackets else {
                 return nil
             }
-            defer {
+
+            if idx != 0 {
                 p = MIDIPacketNext(&p).pointee
-                idx += 1
             }
+            idx += 1
+            
             return p
         }
     }
