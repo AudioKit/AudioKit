@@ -3,7 +3,6 @@
 import AVFoundation
 
 extension AVAudioUnitEffect {
-
     convenience init(appleEffect subType: OSType) {
         self.init(audioComponentDescription: AudioComponentDescription(appleEffect: subType))
     }

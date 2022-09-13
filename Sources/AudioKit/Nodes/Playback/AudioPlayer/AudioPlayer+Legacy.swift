@@ -2,16 +2,17 @@
 
 import AVFoundation
 
-extension AudioPlayer {
+public extension AudioPlayer {
     /// Schedule a buffer to play at a a specific time, with options
     /// - Parameters:
     ///   - buffer: Buffer to play
     ///   - when: Time to pay
     ///   - options: Buffer options
     @available(*, deprecated, renamed: "schedule(at:)")
-    public func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
-                               at when: AVAudioTime?,
-                               options: AVAudioPlayerNodeBufferOptions = []) {
+    func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
+                        at when: AVAudioTime?,
+                        options: AVAudioPlayerNodeBufferOptions = [])
+    {
         self.buffer = buffer
         isLooping = options == .loops
         schedule(at: when)
@@ -23,9 +24,10 @@ extension AudioPlayer {
     ///   - when: Time to pay
     ///   - options: Buffer options
     @available(*, deprecated, renamed: "schedule(at:)")
-    public func scheduleBuffer(url: URL,
-                               at when: AVAudioTime?,
-                               options: AVAudioPlayerNodeBufferOptions = []) {
+    func scheduleBuffer(url: URL,
+                        at when: AVAudioTime?,
+                        options: AVAudioPlayerNodeBufferOptions = [])
+    {
         guard let buffer = try? AVAudioPCMBuffer(url: url) else {
             Log("Failed to create buffer", type: .error)
             return
@@ -39,8 +41,9 @@ extension AudioPlayer {
     ///   - when: Time to play
     ///   - options: Buffer options
     @available(*, deprecated, renamed: "schedule(at:)")
-    public func scheduleFile(_ file: AVAudioFile,
-                             at when: AVAudioTime?) {
+    func scheduleFile(_ file: AVAudioFile,
+                      at when: AVAudioTime?)
+    {
         self.file = file
         schedule(at: when)
     }

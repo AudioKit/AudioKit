@@ -32,7 +32,7 @@ public class WaveformDataRequest {
     /// - Parameter url: URL of audio file
     /// - Throws: Error if URL doesn't point to an audio file
     public init(url: URL) throws {
-        self.audioFile = try AVAudioFile(forReading: url)
+        audioFile = try AVAudioFile(forReading: url)
     }
 
     deinit {
@@ -51,7 +51,8 @@ public class WaveformDataRequest {
                              offset: Int? = 0,
                              length: UInt? = nil,
                              queue: DispatchQueue = DispatchQueue.global(qos: .userInitiated),
-                             completionHandler: @escaping ((FloatChannelData?) -> Void)) {
+                             completionHandler: @escaping ((FloatChannelData?) -> Void))
+    {
         queue.async {
             completionHandler(self.getData(with: samplesPerPixel, offset: offset, length: length))
         }
@@ -65,7 +66,8 @@ public class WaveformDataRequest {
     /// - Returns: An array of array of floats, one for each channel
     public func getData(with samplesPerPixel: Int,
                         offset: Int? = 0,
-                        length: UInt? = nil) -> FloatChannelData? {
+                        length: UInt? = nil) -> FloatChannelData?
+    {
         guard let audioFile = audioFile else { return nil }
 
         // prevent division by zero, + minimum resolution
@@ -97,7 +99,7 @@ public class WaveformDataRequest {
                 start = 0
             }
         }
-        var startFrame: AVAudioFramePosition = offset == nil ? currentFrame : Int64(start*Int(framesPerBuffer))
+        var startFrame: AVAudioFramePosition = offset == nil ? currentFrame : Int64(start * Int(framesPerBuffer))
 
         var end = samplesPerPixel
         if let length = length {

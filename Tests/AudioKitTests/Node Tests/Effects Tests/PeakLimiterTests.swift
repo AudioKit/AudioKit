@@ -4,7 +4,6 @@ import AudioKit
 import XCTest
 
 class PeakLimiterTests: XCTestCase {
-
     func testAttackTime() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
@@ -77,7 +76,7 @@ class PeakLimiterTests: XCTestCase {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
-        let effect =  PeakLimiter(player, attackTime: 0.02, decayTime: 0.03, preGain: -20)
+        let effect = PeakLimiter(player, attackTime: 0.02, decayTime: 0.03, preGain: -20)
         engine.output = effect
         let audio = engine.startTest(totalDuration: 2.0)
         player.play()

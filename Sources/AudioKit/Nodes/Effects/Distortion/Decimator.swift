@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's Decimator Audio Unit
 ///
 public class Decimator: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
@@ -24,7 +23,8 @@ public class Decimator: Node {
         address: AUParameterAddress(kDistortionParam_Decimation),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(decimationDef) public var decimation: AUValue
@@ -36,7 +36,8 @@ public class Decimator: Node {
         address: AUParameterAddress(kDistortionParam_Rounding),
         defaultValue: 0,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
     @Parameter(roundingDef) public var rounding: AUValue
@@ -48,13 +49,11 @@ public class Decimator: Node {
         address: AUParameterAddress(kDistortionParam_FinalMix),
         defaultValue: 50,
         range: 0 ... 100,
-        unit: .percent)
+        unit: .percent
+    )
 
     /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     @Parameter(finalMixDef) public var finalMix: AUValue
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
 
     /// Initialize the decimator node
     ///
@@ -67,7 +66,8 @@ public class Decimator: Node {
         _ input: Node,
         decimation: AUValue = decimationDef.defaultValue,
         rounding: AUValue = roundingDef.defaultValue,
-        finalMix: AUValue = finalMixDef.defaultValue) {
+        finalMix: AUValue = finalMixDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)
@@ -87,17 +87,5 @@ public class Decimator: Node {
         zero(kDistortionParam_PolynomialMix)
         zero(kDistortionParam_RingModMix)
         zero(kDistortionParam_DelayMix)
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        effectAU.bypass = false
-        isStarted = true
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        effectAU.bypass = true
-        isStarted = false
     }
 }

@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
 public class LowShelfFilter: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowShelfFilter)
 
     let input: Node
@@ -24,7 +23,8 @@ public class LowShelfFilter: Node {
         address: AUParameterAddress(kAULowShelfParam_CutoffFrequency),
         defaultValue: 80,
         range: 10 ... 200,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Cutoff Frequency (Hertz) ranges from 10 to 200 (Default: 80)
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -36,13 +36,11 @@ public class LowShelfFilter: Node {
         address: AUParameterAddress(kAULowShelfParam_Gain),
         defaultValue: 0,
         range: -40 ... 40,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Gain (decibels) ranges from -40 to 40 (Default: 0)
     @Parameter(gainDef) public var gain: AUValue
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
 
     /// Initialize the low shelf filter node
     ///
@@ -53,24 +51,13 @@ public class LowShelfFilter: Node {
     public init(
         _ input: Node,
         cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
-        gain: AUValue = gainDef.defaultValue) {
+        gain: AUValue = gainDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)
 
         self.cutoffFrequency = cutoffFrequency
         self.gain = gain
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        effectAU.bypass = false
-        isStarted = true
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        effectAU.bypass = true
-        isStarted = false
     }
 }

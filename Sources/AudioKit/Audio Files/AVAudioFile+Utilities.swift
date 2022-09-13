@@ -3,19 +3,19 @@
 import Accelerate
 import AVFoundation
 
-extension AVAudioFile {
+public extension AVAudioFile {
     /// Duration in seconds
-    public var duration: TimeInterval {
+    var duration: TimeInterval {
         Double(length) / fileFormat.sampleRate
     }
 
     /// returns the max level in the file as a Peak struct
-    public var peak: AVAudioPCMBuffer.Peak? {
+    var peak: AVAudioPCMBuffer.Peak? {
         toAVAudioPCMBuffer()?.peak()
     }
 
     /// Convenience init to instantiate a file from an AVAudioPCMBuffer.
-    public convenience init(url: URL, fromBuffer buffer: AVAudioPCMBuffer) throws {
+    convenience init(url: URL, fromBuffer buffer: AVAudioPCMBuffer) throws {
         try self.init(forWriting: url, settings: buffer.format.settings)
 
         // Write the buffer in file
@@ -29,7 +29,7 @@ extension AVAudioFile {
     }
 
     /// converts to a 32 bit PCM buffer
-    public func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
+    func toAVAudioPCMBuffer() -> AVAudioPCMBuffer? {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: processingFormat,
                                             frameCapacity: AVAudioFrameCount(length)) else { return nil }
 
@@ -46,18 +46,19 @@ extension AVAudioFile {
     }
 
     /// converts to Swift friendly Float array
-    public func toFloatChannelData() -> FloatChannelData? {
+    func toFloatChannelData() -> FloatChannelData? {
         guard let pcmBuffer = toAVAudioPCMBuffer(),
               let data = pcmBuffer.toFloatChannelData() else { return nil }
         return data
     }
 
     /// Will return a 32bit CAF file with the format of this buffer
-    @discardableResult public func extract(to outputURL: URL,
-                                           from startTime: TimeInterval,
-                                           to endTime: TimeInterval,
-                                           fadeInTime: TimeInterval = 0,
-                                           fadeOutTime: TimeInterval = 0) -> AVAudioFile? {
+    @discardableResult func extract(to outputURL: URL,
+                                    from startTime: TimeInterval,
+                                    to endTime: TimeInterval,
+                                    fadeInTime: TimeInterval = 0,
+                                    fadeOutTime: TimeInterval = 0) -> AVAudioFile?
+    {
         guard let inputBuffer = toAVAudioPCMBuffer() else {
             Log("Error reading into input buffer", type: .error)
             return nil
@@ -69,7 +70,8 @@ extension AVAudioFile {
         }
 
         if fadeInTime != 0 || fadeOutTime != 0,
-           let fadedBuffer = editedBuffer.fade(inTime: fadeInTime, outTime: fadeOutTime) {
+           let fadedBuffer = editedBuffer.fade(inTime: fadeInTime, outTime: fadeOutTime)
+        {
             editedBuffer = fadedBuffer
         }
 
@@ -86,13 +88,14 @@ extension AVAudioFile {
     }
 
     /// - Returns: An extracted section of this file of the passed in conversion options
-    public func extract(to url: URL,
-                        from startTime: TimeInterval,
-                        to endTime: TimeInterval,
-                        fadeInTime: TimeInterval = 0,
-                        fadeOutTime: TimeInterval = 0,
-                        options: FormatConverter.Options? = nil,
-                        completionHandler: FormatConverter.FormatConverterCallback? = nil) {
+    func extract(to url: URL,
+                 from startTime: TimeInterval,
+                 to endTime: TimeInterval,
+                 fadeInTime: TimeInterval = 0,
+                 fadeOutTime: TimeInterval = 0,
+                 options: FormatConverter.Options? = nil,
+                 completionHandler: FormatConverter.FormatConverterCallback? = nil)
+    {
         func createError(message: String, code: Int = 1) -> NSError {
             let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
             return NSError(domain: "io.audiokit.FormatConverter.error", code: code, userInfo: userInfo)
@@ -101,18 +104,19 @@ extension AVAudioFile {
         // if options are nil, create them to match the input file
         let options = options ?? FormatConverter.Options(audioFile: self)
 
-        let format = options?.format ?? url.pathExtension
+        let format = options?.format ?? AudioFileFormat(rawValue: url.pathExtension) ?? .unknown
         let directory = url.deletingLastPathComponent()
         let filename = url.deletingPathExtension().lastPathComponent
         let tempFile = directory.appendingPathComponent(filename + "_temp").appendingPathExtension("caf")
-        let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format)
+        let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format.rawValue)
 
         // first print CAF file
         guard extract(to: tempFile,
                       from: startTime,
                       to: endTime,
                       fadeInTime: fadeInTime,
-                      fadeOutTime: fadeOutTime) != nil else {
+                      fadeOutTime: fadeOutTime) != nil
+        else {
             completionHandler?(createError(message: "Failed to create new file"))
             return
         }
@@ -142,9 +146,9 @@ extension AVAudioFile {
     }
 }
 
-extension AVURLAsset {
+public extension AVURLAsset {
     /// Audio format for  the file in the URL asset
-    public var audioFormat: AVAudioFormat? {
+    var audioFormat: AVAudioFormat? {
         // pull the input format out of the audio file...
         if let source = try? AVAudioFile(forReading: url) {
             return source.fileFormat
@@ -155,9 +159,9 @@ extension AVURLAsset {
 
             guard !audioTracks.isEmpty else { return nil }
 
-            let formatDescriptions = audioTracks.compactMap({
+            let formatDescriptions = audioTracks.compactMap {
                 $0.formatDescriptions as? [CMFormatDescription]
-            }).reduce([], +)
+            }.reduce([], +)
 
             let audioFormats: [AVAudioFormat] = formatDescriptions.compactMap {
                 AVAudioFormat(cmAudioFormatDescription: $0)

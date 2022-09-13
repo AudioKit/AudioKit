@@ -43,7 +43,8 @@ public class FormatConverter {
     /// init with input, output and options - then start()
     public init(inputURL: URL,
                 outputURL: URL,
-                options: Options? = nil) {
+                options: Options? = nil)
+    {
         self.inputURL = inputURL
         self.outputURL = outputURL
         self.options = options ?? Options()
@@ -62,17 +63,17 @@ public class FormatConverter {
     /// The entry point for file conversion
     /// - Parameter completionHandler: the callback that will be triggered when process has completed.
     public func start(completionHandler: FormatConverterCallback? = nil) {
-        guard let inputURL = self.inputURL else {
+        guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
         }
 
-        guard let outputURL = self.outputURL else {
+        guard let outputURL = outputURL else {
             completionHandler?(Self.createError(message: "Output file can't be nil."))
             return
         }
 
-        let inputFormat = inputURL.pathExtension.lowercased()
+        let inputFormat = AudioFileFormat(rawValue: inputURL.pathExtension.lowercased()) ?? .unknown
         // verify inputFormat, only allow files with path extensions for speed?
         guard FormatConverter.inputFormats.contains(inputFormat) else {
             completionHandler?(Self.createError(message: "The input file format is in an incompatible format: \(inputFormat)"))
@@ -91,7 +92,7 @@ public class FormatConverter {
         }
 
         if options?.format == nil {
-            options?.format = outputURL.pathExtension.lowercased()
+            options?.format = AudioFileFormat(rawValue: outputURL.pathExtension.lowercased()) ?? .unknown
         }
 
         // Format checks are necessary as AVAssetReader has opinions about compressed
@@ -103,12 +104,14 @@ public class FormatConverter {
 
             // PCM input, compressed output
         } else if Self.isPCM(url: inputURL) == true,
-                  Self.isCompressed(url: outputURL) == true {
+                  Self.isCompressed(url: outputURL) == true
+        {
             convertPCMToCompressed(completionHandler: completionHandler)
 
             // Compressed input and output, won't do sample rate
         } else if Self.isCompressed(url: inputURL) == true,
-                  Self.isCompressed(url: outputURL) == true {
+                  Self.isCompressed(url: outputURL) == true
+        {
             convertCompressed(completionHandler: completionHandler)
 
         } else {
@@ -119,27 +122,47 @@ public class FormatConverter {
 
 // MARK: - Definitions
 
-extension FormatConverter {
+public enum AudioFileFormat: String {
+    case aac
+    case aif
+    case aifc
+    case aiff
+    case au
+    case caf
+    case m4a
+    case m4v
+    case mov
+    case mp3
+    case mp4
+    case sd2
+    case snd
+    case ts
+    case unknown
+    case wav
+}
+
+public extension FormatConverter {
+
     /// FormatConverterCallback is the callback format for start()
     /// - Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
-    public typealias FormatConverterCallback = (_ error: Error?) -> Void
+    typealias FormatConverterCallback = (_ error: Error?) -> Void
 
     /// Formats that this class can write
-    public static let outputFormats = ["wav", "aif", "caf", "m4a"]
+    static let outputFormats: [AudioFileFormat] = [.wav, .aif, .caf, .m4a]
 
-    public static let defaultOutputFormat = "wav"
+    static let defaultOutputFormat: AudioFileFormat = .wav
 
     /// Formats that this class can read
-    public static let inputFormats = FormatConverter.outputFormats + [
-        "mp3", "snd", "au", "sd2",
-        "aif", "aiff", "aifc", "aac",
-        "mp4", "m4v", "mov", "ts",
-        "", // allow files with no extension. convertToPCM can still read the type
+    static let inputFormats: [AudioFileFormat] = FormatConverter.outputFormats + [
+        .mp3, .snd, .au, .sd2,
+        .aif, .aiff, .aifc, .aac,
+        .mp4, .m4v, .mov, .ts,
+        .unknown, // allow files with no extension. convertToPCM can still read the type
     ]
 
     /// An option to block upsampling to a higher bit depth than the source.
     /// For example, converting to 24bit from 16 doesn't have much benefit
-    public enum BitDepthRule {
+    enum BitDepthRule {
         /// Don't allow upsampling to 24bit if the src is 16
         case lessThanOrEqual
 
@@ -149,9 +172,9 @@ extension FormatConverter {
 
     /// The conversion options, leave any property nil to adopt the value of the input file
     /// bitRate assumes a stereo bit rate and the converter will half it for mono
-    public struct Options {
-        /// Audio Format as a string
-        public var format: String?
+    struct Options {
+        /// Audio Format
+        public var format: AudioFileFormat?
         /// Sample Rate in Hertz
         public var sampleRate: Double?
         /// used only with PCM data
@@ -191,7 +214,7 @@ extension FormatConverter {
         public init?(audioFile: AVAudioFile) {
             let streamDescription = audioFile.fileFormat.streamDescription.pointee
 
-            format = audioFile.url.pathExtension
+            format = AudioFileFormat(rawValue: audioFile.url.pathExtension) ?? .unknown
             // FormatConverter.formatIDToString(streamDescription.mFormatID)
             sampleRate = streamDescription.mSampleRate
             bitDepth = streamDescription.mBitsPerChannel
@@ -204,10 +227,11 @@ extension FormatConverter {
         ///   - sampleRate: Sample Rate
         ///   - bitDepth: Bit Depth, or bits per channel
         ///   - channels: How many channels
-        public init?(pcmFormat: String,
+        public init?(pcmFormat: AudioFileFormat,
                      sampleRate: Double? = nil,
                      bitDepth: UInt32? = nil,
-                     channels: UInt32? = nil) {
+                     channels: UInt32? = nil)
+        {
             format = pcmFormat
             self.sampleRate = sampleRate
             self.bitDepth = bitDepth
@@ -215,13 +239,15 @@ extension FormatConverter {
         }
     }
 
-    func completionProxy(error: Error?,
-                         deleteOutputOnError: Bool = true,
-                         completionHandler: FormatConverterCallback? = nil) {
+    internal func completionProxy(error: Error?,
+                                  deleteOutputOnError: Bool = true,
+                                  completionHandler: FormatConverterCallback? = nil)
+    {
         guard error != nil,
               deleteOutputOnError,
               let outputURL = outputURL,
-              FileManager.default.fileExists(atPath: outputURL.path) else {
+              FileManager.default.fileExists(atPath: outputURL.path)
+        else {
             completionHandler?(error)
             return
         }

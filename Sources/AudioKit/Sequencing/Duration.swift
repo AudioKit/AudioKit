@@ -61,7 +61,7 @@ public struct Duration: CustomStringConvertible, Comparable {
     ///   - sampleRate: Sample rate in samples per second
     ///
     public init(samples: Int, sampleRate: Double = Settings.sampleRate, tempo: BPM = 60) {
-        self.beats = tempo * (Double(samples) / sampleRate) / Double(Duration.secondsPerMinute)
+        beats = tempo * (Double(samples) / sampleRate) / Double(Duration.secondsPerMinute)
         self.sampleRate = sampleRate
         self.tempo = tempo
     }
@@ -86,7 +86,7 @@ public struct Duration: CustomStringConvertible, Comparable {
     public init(seconds: Double, sampleRate: Double = Settings.sampleRate, tempo: BPM = 60) {
         self.sampleRate = sampleRate
         self.tempo = tempo
-        self.beats = tempo * (seconds / Double(Duration.secondsPerMinute))
+        beats = tempo * (seconds / Double(Duration.secondsPerMinute))
     }
 
     /// Add to a duration

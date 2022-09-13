@@ -22,6 +22,7 @@ open class BaseTap {
     }
 
     private var _input: Node
+    private var handleBlock: AVAudioNodeTapBlock?
 
     /// Input node to analyze
     public var input: Node {
@@ -73,11 +74,11 @@ open class BaseTap {
             Log("The tapped node isn't attached to the engine")
             return
         }
-
+        handleBlock = { [weak self] in self?.handleTapBlock(buffer: $0, at: $1) }
         input.avAudioNode.installTap(onBus: bus,
                                      bufferSize: bufferSize,
                                      format: nil,
-                                     block: { [weak self] in self?.handleTapBlock(buffer: $0, at: $1) })
+                                     block: { [weak self] in self?.handleBlock?($0, $1) })
     }
 
     /// Override this method to handle Tap in derived class
@@ -85,19 +86,29 @@ open class BaseTap {
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
     private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
-        // Call on the main thread so the client doesn't have to worry
-        // about thread safety.
-        buffer.frameLength = bufferSize
-        DispatchQueue.main.async {
-            // Create trackers as needed.
-            self.lock()
-            guard self.isStarted == true else {
-                self.unlock()
+        var bufferWithCapacity: AVAudioPCMBuffer
+
+        if bufferSize > buffer.frameCapacity {
+            guard let newBuffer = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: bufferSize) else {
                 return
             }
-            self.doHandleTapBlock(buffer: buffer, at: time)
-            self.unlock()
+
+            newBuffer.append(buffer)
+            bufferWithCapacity = newBuffer
+        } else {
+            bufferWithCapacity = buffer
         }
+
+        bufferWithCapacity.frameLength = bufferSize
+
+        // Create trackers as needed.
+        self.lock()
+        guard self.isStarted == true else {
+            self.unlock()
+            return
+        }
+        self.doHandleTapBlock(buffer: bufferWithCapacity, at: time)
+        self.unlock()
     }
 
     /// Override this method to handle Tap in derived class
@@ -105,6 +116,15 @@ open class BaseTap {
 
     /// Remove the tap on the input
     open func stop() {
+        // `removeTap` will internally call pending callbacks.
+        // This will call `handleBlock` from inside of the lock
+        // which will result in another lock and therefore deadlock.
+        // Since we are removing the tap,
+        // we are not interested in callbacks anymore.
+        // It is important to do this from the outside of the `lock()`.
+        // Once we are inside of the lock, the deadlock might occur,
+        // if `handleBlock` is called just after lock, but before `removeTap`.
+        handleBlock = nil
         lock()
         removeTap()
         isStarted = false

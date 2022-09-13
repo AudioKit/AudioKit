@@ -3,25 +3,26 @@
 import AVFoundation
 import Foundation
 
-extension MusicTrackManager {
+public extension MusicTrackManager {
     /// Array of Apple MIDI Events
-    open var eventData: [AppleMIDIEvent]? {
+    var eventData: [AppleMIDIEvent]? {
         return getRawEventData()
     }
 
     /// Array of Apple MIDI Events
-    open var noteData: [AppleMIDIEvent]? {
+    var noteData: [AppleMIDIEvent]? {
         return getRawEventData(ofType: kMusicEventType_MIDINoteMessage)
     }
 
     /// Array of MIDI Program Change Events
-    open var programChangeEvents: [MIDIProgramChangeEvent] {
+    var programChangeEvents: [MIDIProgramChangeEvent] {
         var pgmEvents = [MIDIProgramChangeEvent]()
         if let events = eventData {
             for event in events where event.type == kMusicEventType_MIDIChannelMessage {
                 let data = event.data?.bindMemory(to: MIDIChannelMessage.self, capacity: 1)
                 guard let data1 = data?.pointee.data1,
-                    let statusData: MIDIByte = data?.pointee.status else {
+                      let statusData: MIDIByte = data?.pointee.status
+                else {
                     break
                 }
                 let statusType = MIDIStatusType(rawValue: Int(statusData.highBit))
@@ -36,7 +37,7 @@ extension MusicTrackManager {
     }
 
     /// Get debug information
-    public func debug() {
+    func debug() {
         guard let events = eventData else {
             return
         }
@@ -45,9 +46,10 @@ extension MusicTrackManager {
             case kMusicEventType_MIDINoteMessage:
                 let data = event.data?.bindMemory(to: MIDINoteMessage.self, capacity: 1)
                 guard let channel = data?.pointee.channel,
-                    let note = data?.pointee.note,
-                    let velocity = data?.pointee.velocity,
-                    let dur = data?.pointee.duration else {
+                      let note = data?.pointee.note,
+                      let velocity = data?.pointee.velocity,
+                      let dur = data?.pointee.duration
+                else {
                     Log("Problem with raw midi note message")
                     return
                 }
@@ -55,8 +57,9 @@ extension MusicTrackManager {
             case kMusicEventType_Meta:
                 let data = event.data?.bindMemory(to: MIDIMetaEvent.self, capacity: 1)
                 guard let midiData = data?.pointee.data,
-                    let length = data?.pointee.dataLength,
-                    let type = data?.pointee.metaEventType else {
+                      let length = data?.pointee.dataLength,
+                      let type = data?.pointee.metaEventType
+                else {
                     Log("Problem with raw midi meta message")
                     return
                 }
@@ -64,8 +67,9 @@ extension MusicTrackManager {
             case kMusicEventType_MIDIChannelMessage:
                 let data = event.data?.bindMemory(to: MIDIChannelMessage.self, capacity: 1)
                 guard let data1 = data?.pointee.data1,
-                    let data2 = data?.pointee.data2,
-                    let statusData = data?.pointee.status else {
+                      let data2 = data?.pointee.data2,
+                      let statusData = data?.pointee.status
+                else {
                     Log("Problem with raw midi channel message")
                     return
                 }
@@ -105,7 +109,8 @@ extension MusicTrackManager {
         while hasNextEvent.boolValue {
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
             if type == nil || type == eventType,
-                let data = eventData {
+               let data = eventData
+            {
                 events?.append(AppleMIDIEvent(time: eventTime, type: eventType, data: data, dataSize: eventDataSize))
             }
             MusicEventIteratorNextEvent(iterator)

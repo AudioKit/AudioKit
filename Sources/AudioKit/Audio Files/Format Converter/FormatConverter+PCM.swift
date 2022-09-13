@@ -6,11 +6,11 @@ import AVFoundation
 
 extension FormatConverter {
     func convertToPCM(completionHandler: FormatConverterCallback? = nil) {
-        guard let inputURL = self.inputURL else {
+        guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
         }
-        guard let outputURL = self.outputURL else {
+        guard let outputURL = outputURL else {
             completionHandler?(Self.createError(message: "Output file can't be nil."))
             return
         }
@@ -22,11 +22,11 @@ extension FormatConverter {
         var format: AudioFileTypeID
 
         switch outputFormat {
-        case "aif":
+        case .aif:
             format = kAudioFileAIFFType
-        case "wav":
+        case .wav:
             format = kAudioFileWAVEType
-        case "caf":
+        case .caf:
             format = kAudioFileCAFType
         default:
             completionHandler?(Self.createError(message: "Output file must be caf, wav or aif."))
@@ -73,7 +73,8 @@ extension FormatConverter {
         if noErr != ExtAudioFileGetProperty(strongInputFile,
                                             kExtAudioFileProperty_FileDataFormat,
                                             &inputDescriptionSize,
-                                            &inputDescription) {
+                                            &inputDescription)
+        {
             completionHandler?(Self.createError(message: "Unable to get the input file data format."))
             return
         }
@@ -82,12 +83,13 @@ extension FormatConverter {
                                                         outputFormatID: format,
                                                         inputDescription: inputDescription)
 
-        let inputFormat = inputURL.pathExtension.lowercased()
+        let inputFormat = AudioFileFormat(rawValue: inputURL.pathExtension.lowercased()) ?? .unknown
 
         guard inputFormat != outputFormat ||
             outputDescription.mSampleRate != inputDescription.mSampleRate ||
             outputDescription.mChannelsPerFrame != inputDescription.mChannelsPerFrame ||
-            outputDescription.mBitsPerChannel != inputDescription.mBitsPerChannel else {
+            outputDescription.mBitsPerChannel != inputDescription.mBitsPerChannel
+        else {
             Log("No conversion is needed, formats are the same. Copying to", outputURL)
             // just copy it?
             do {
@@ -105,10 +107,11 @@ extension FormatConverter {
                                               &outputDescription,
                                               nil,
                                               AudioFileFlags.eraseFile.rawValue, // overwrite old file if present
-                                              &outputFile) {
+                                              &outputFile)
+        {
             completionProxy(error: Self.createError(message: "Unable to create output file at \(outputURL.path). " +
-                                                        "dstFormat \(outputDescription)"),
-                            completionHandler: completionHandler)
+                                "dstFormat \(outputDescription)"),
+            completionHandler: completionHandler)
             return
         }
 
@@ -125,7 +128,8 @@ extension FormatConverter {
         if noErr != ExtAudioFileSetProperty(strongInputFile,
                                             kExtAudioFileProperty_ClientDataFormat,
                                             inputDescriptionSize,
-                                            &outputDescription) {
+                                            &outputDescription)
+        {
             completionProxy(error: Self.createError(message: "Unable to set data format on input file."),
                             completionHandler: completionHandler)
             return
@@ -134,7 +138,8 @@ extension FormatConverter {
         if noErr != ExtAudioFileSetProperty(strongOutputFile,
                                             kExtAudioFileProperty_ClientDataFormat,
                                             inputDescriptionSize,
-                                            &outputDescription) {
+                                            &outputDescription)
+        {
             completionProxy(error: Self.createError(message: "Unable to set the output file data format."),
                             completionHandler: completionHandler)
             return
@@ -159,7 +164,8 @@ extension FormatConverter {
 
                 if noErr != ExtAudioFileRead(strongInputFile,
                                              &frameCount,
-                                             &fillBufList) {
+                                             &fillBufList)
+                {
                     completionProxy(error: Self.createError(message: "Error reading from the input file."),
                                     completionHandler: completionHandler)
                     return
@@ -171,7 +177,8 @@ extension FormatConverter {
 
                 if noErr != ExtAudioFileWrite(strongOutputFile,
                                               frameCount,
-                                              &fillBufList) {
+                                              &fillBufList)
+                {
                     completionProxy(error: Self.createError(message: "Error reading from the output file."),
                                     completionHandler: completionHandler)
                     return
@@ -187,7 +194,8 @@ extension FormatConverter {
 
     func createOutputDescription(options: Options,
                                  outputFormatID: AudioFormatID,
-                                 inputDescription: AudioStreamBasicDescription) -> AudioStreamBasicDescription {
+                                 inputDescription: AudioStreamBasicDescription) -> AudioStreamBasicDescription
+    {
         let mFormatID: AudioFormatID = kAudioFormatLinearPCM
 
         let mSampleRate = options.sampleRate ?? inputDescription.mSampleRate
@@ -195,7 +203,7 @@ extension FormatConverter {
         var mBitsPerChannel = options.bitDepth ?? inputDescription.mBitsPerChannel
 
         // For example: don't allow upsampling to 24bit if the src is 16
-        if options.bitDepthRule == .lessThanOrEqual && mBitsPerChannel > inputDescription.mBitsPerChannel {
+        if options.bitDepthRule == .lessThanOrEqual, mBitsPerChannel > inputDescription.mBitsPerChannel {
             mBitsPerChannel = inputDescription.mBitsPerChannel
         }
 
@@ -213,7 +221,7 @@ extension FormatConverter {
             mFormatFlags = mFormatFlags | kLinearPCMFormatFlagIsBigEndian
         }
 
-        if outputFormatID == kAudioFileWAVEType && mBitsPerChannel == 8 {
+        if outputFormatID == kAudioFileWAVEType, mBitsPerChannel == 8 {
             // if is 8 BIT PER CHANNEL, remove kAudioFormatFlagIsSignedInteger
             mFormatFlags &= ~kAudioFormatFlagIsSignedInteger
         }

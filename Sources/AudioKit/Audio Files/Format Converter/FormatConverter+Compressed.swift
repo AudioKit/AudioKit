@@ -19,11 +19,11 @@ extension FormatConverter {
     /// This is no longer used in this class as it's not possible to convert sample rate or other
     /// required options. It will use the next function instead
     func convertCompressed(presetName: String, completionHandler: FormatConverterCallback? = nil) {
-        guard let inputURL = self.inputURL else {
+        guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
         }
-        guard let outputURL = self.outputURL else {
+        guard let outputURL = outputURL else {
             completionHandler?(Self.createError(message: "Output file can't be nil."))
             return
         }
@@ -52,11 +52,11 @@ extension FormatConverter {
     /// Convert to compressed first creating a tmp file to PCM to allow more flexible conversion
     /// options to work.
     func convertCompressed(completionHandler: FormatConverterCallback? = nil) {
-        guard let inputURL = self.inputURL else {
+        guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
         }
-        guard let outputURL = self.outputURL else {
+        guard let outputURL = outputURL else {
             completionHandler?(Self.createError(message: "Output file can't be nil."))
             return
         }
@@ -74,7 +74,7 @@ extension FormatConverter {
         tempOptions.bitDepth = 24
         tempOptions.sampleRate = options.sampleRate
         tempOptions.channels = options.channels
-        tempOptions.format = "wav"
+        tempOptions.format = .wav
 
         let tempConverter = FormatConverter(inputURL: inputURL,
                                             outputURL: tempFile,
@@ -97,11 +97,11 @@ extension FormatConverter {
 
     /// The AVFoundation way. *This doesn't currently handle compressed input - only compressed output.*
     func convertPCMToCompressed(completionHandler: FormatConverterCallback? = nil) {
-        guard let inputURL = self.inputURL else {
+        guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
         }
-        guard let outputURL = self.outputURL else {
+        guard let outputURL = outputURL else {
             completionHandler?(Self.createError(message: "Output file can't be nil."))
             return
         }
@@ -126,7 +126,7 @@ extension FormatConverter {
             return
         }
 
-        guard let reader = self.reader else {
+        guard let reader = reader else {
             completionHandler?(Self.createError(message: "Unable to setup the AVAssetReader."))
             return
         }
@@ -140,16 +140,16 @@ extension FormatConverter {
         var formatKey: AudioFormatID
 
         switch outputFormat {
-        case "m4a", "mp4":
+        case .m4a, .mp4:
             format = .m4a
             formatKey = kAudioFormatMPEG4AAC
-        case "aif":
+        case .aif:
             format = .aiff
             formatKey = kAudioFormatLinearPCM
-        case "caf":
+        case .caf:
             format = .caf
             formatKey = kAudioFormatLinearPCM
-        case "wav":
+        case .wav:
             format = .wav
             formatKey = kAudioFormatLinearPCM
         default:
@@ -164,7 +164,7 @@ extension FormatConverter {
             return
         }
 
-        guard let writer = self.writer else {
+        guard let writer = writer else {
             completionHandler?(Self.createError(message: "Unable to setup the AVAssetWriter."))
             return
         }
@@ -211,7 +211,7 @@ extension FormatConverter {
                 AVLinearPCMBitDepthKey: bitDepth,
                 AVLinearPCMIsFloatKey: isFloat,
                 AVLinearPCMIsBigEndianKey: format != .wav,
-                AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFormat.isInterleaved)
+                AVLinearPCMIsNonInterleaved: !(options.isInterleaved ?? inputFormat.isInterleaved),
             ]
         }
 
@@ -258,7 +258,8 @@ extension FormatConverter {
 
             while writerInput.isReadyForMoreMediaData, processing {
                 if reader.status == .reading,
-                   let buffer = readerOutput.copyNextSampleBuffer() {
+                   let buffer = readerOutput.copyNextSampleBuffer()
+                {
                     writerInput.append(buffer)
 
                 } else {

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 import AudioKit
-import XCTest
 import AVFoundation
+import XCTest
 
 class MusicTrackManagerTests: XCTestCase {
     var musicTrack: MusicTrackManager!
@@ -14,6 +14,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - add()
+
     func testAdd_addsANewNote() {
         musicTrack.addNote(withNumber: 60, atPosition: 0.75)
 
@@ -22,6 +23,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - clear()
+
     func testClear_clearsAllNotes() {
         musicTrack.addNote(withNumber: 60, atPosition: 1.0)
         musicTrack.addNote(withNumber: 61, atPosition: 2.0)
@@ -33,6 +35,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - clearRange()
+
     func testClearRange_doesNotRemoveNotesPriorToTheStartTime() {
         musicTrack.addNote(withNumber: 60, atPosition: 1.99)
         musicTrack.addNote(withNumber: 61, atPosition: 2.0)
@@ -82,6 +85,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - clearNote()
+
     func testClearNote_shouldClearAllMatchingNotes() {
         musicTrack.addNote(withNumber: 60, atPosition: 0.0)
         musicTrack.addNote(withNumber: 60, atPosition: 1.0)
@@ -105,6 +109,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - clearMetaEvent()
+
     func testClearMetaEvent_clearsAllMetaEvents() {
         let internalTrack = musicTrack.internalMusicTrack!
 
@@ -135,6 +140,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - clearSysExEvents
+
     func testClearSysExEvents_clearsAllSysExEvents() {
         for i in 0 ..< 4 {
             musicTrack.addSysEx([0], position: Duration(beats: Double(i)))
@@ -161,6 +167,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - clear()
+
     func testClear_shouldRemoveNotesMetaAndSysEx() {
         addSysExMetaEventAndNotes()
 
@@ -176,6 +183,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - getMIDINoteData
+
     func testGetMIDINoteData_emptyTrackYieldsEmptyArray() {
         // start with empty track
         XCTAssertEqual(musicTrack.getMIDINoteData().count, 0)
@@ -230,6 +238,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - replaceMIDINoteData
+
     // helper function
     func addFourNotesToTrack(_ track: MusicTrackManager) {
         for i in 0 ..< 4 {
@@ -311,6 +320,7 @@ class MusicTrackManagerTests: XCTestCase {
     }
 
     // MARK: - helper functions for reuse
+
     fileprivate func addSysExMetaEventAndNotes() {
         let internalTrack = musicTrack.internalMusicTrack!
 
@@ -369,13 +379,14 @@ extension MusicTrackManager {
     }
 
     func hasNote(atPosition position: MusicTimeStamp,
-                 withNoteNumber noteNumber: MIDINoteNumber) -> Bool {
+                 withNoteNumber noteNumber: MIDINoteNumber) -> Bool
+    {
         var noteFound = false
 
         iterateThroughEvents { eventTime, eventType, eventData in
             if eventType == kMusicEventType_MIDINoteMessage {
                 if let midiNoteMessage = eventData?.load(as: MIDINoteMessage.self) {
-                    if eventTime == position && midiNoteMessage.note == noteNumber {
+                    if eventTime == position, midiNoteMessage.note == noteNumber {
                         noteFound = true
                     }
                 }
@@ -386,13 +397,15 @@ extension MusicTrackManager {
     }
 
     func doesNotHaveNote(atPosition position: MusicTimeStamp,
-                         withNoteNumber noteNumber: MIDINoteNumber) -> Bool {
+                         withNoteNumber noteNumber: MIDINoteNumber) -> Bool
+    {
         return !hasNote(atPosition: position, withNoteNumber: noteNumber)
     }
 
     func addNote(withNumber noteNumber: MIDINoteNumber,
-                 atPosition position: MusicTimeStamp) {
-        self.add(
+                 atPosition position: MusicTimeStamp)
+    {
+        add(
             noteNumber: noteNumber,
             velocity: 127,
             position: Duration(beats: position),
@@ -404,7 +417,7 @@ extension MusicTrackManager {
         _ eventTime: MusicTimeStamp,
         _ eventType: MusicEventType,
         _ eventData: UnsafeRawPointer?
-        ) -> Void
+    ) -> Void
     private func iterateThroughEvents(_ processMIDIEvent: MIDIEventProcessor) {
         guard let track = internalMusicTrack else {
             XCTFail("internalMusicTrack does not exist")

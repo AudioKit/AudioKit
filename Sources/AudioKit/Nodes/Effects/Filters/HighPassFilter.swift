@@ -6,7 +6,6 @@ import AVFoundation
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
 public class HighPassFilter: Node {
-
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighPassFilter)
 
     let input: Node
@@ -24,7 +23,8 @@ public class HighPassFilter: Node {
         address: AUParameterAddress(kHipassParam_CutoffFrequency),
         defaultValue: 6900,
         range: 10 ... 22050,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Cutoff Frequency (Hertz) ranges from 10 to 22050 (Default: 6900)
     @Parameter(cutoffFrequencyDef) public var cutoffFrequency: AUValue
@@ -36,13 +36,11 @@ public class HighPassFilter: Node {
         address: AUParameterAddress(kHipassParam_Resonance),
         defaultValue: 0,
         range: -20 ... 40,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Resonance (decibels) ranges from -20 to 40 (Default: 0)
     @Parameter(resonanceDef) public var resonance: AUValue
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
 
     /// Initialize the high pass filter node
     ///
@@ -53,24 +51,13 @@ public class HighPassFilter: Node {
     public init(
         _ input: Node,
         cutoffFrequency: AUValue = cutoffFrequencyDef.defaultValue,
-        resonance: AUValue = resonanceDef.defaultValue) {
+        resonance: AUValue = resonanceDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: effectAU)
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        effectAU.bypass = false
-        isStarted = true
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        effectAU.bypass = true
-        isStarted = false
     }
 }

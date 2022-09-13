@@ -88,7 +88,7 @@ open class AppleSequencer: NSObject {
 
     /// Set loop functionality of entire sequence
     public func toggleLoop() {
-        (loopEnabled ? disableLooping() : enableLooping())
+        loopEnabled ? disableLooping() : enableLooping()
     }
 
     /// Enable looping for all tracks - loops entire sequence
@@ -231,7 +231,7 @@ open class AppleSequencer: NSObject {
     /// If the sequence is not started, it returns default 120
     /// A sequence may contain several tempo events.
     open var tempo: Double {
-        var tempoOut: Double = 120.0
+        var tempoOut = 120.0
 
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
@@ -296,7 +296,7 @@ open class AppleSequencer: NSObject {
     /// Will return default 120 if there is no tempo event at or before position
     public func getTempo(at position: MusicTimeStamp) -> Double {
         // MIDI file with no tempo events defaults to 120 bpm
-        var tempoAtPosition: Double = 120.0
+        var tempoAtPosition = 120.0
         for event in allTempoEvents {
             if event.0 <= position {
                 tempoAtPosition = event.1
@@ -349,7 +349,7 @@ open class AppleSequencer: NSObject {
                     return
                 }
                 let timeSigEvent = TimeSignature(topValue: rawTimeSig[0],
-                                                   bottomValue: bottomValue)
+                                                 bottomValue: bottomValue)
                 result.append((eventTime, timeSigEvent))
             }
         }
@@ -390,7 +390,8 @@ open class AppleSequencer: NSObject {
                                       timeSignature: TimeSignature,
                                       ticksPerMetronomeClick: MIDIByte = 24,
                                       thirtySecondNotesPerQuarter: MIDIByte = 8,
-                                      clearExistingEvents: Bool = true) {
+                                      clearExistingEvents: Bool = true)
+    {
         var tempoTrack: MusicTrack?
         if let existingSequence = sequence {
             MusicSequenceGetTempoTrack(existingSequence, &tempoTrack)
@@ -717,7 +718,8 @@ open class AppleSequencer: NSObject {
             return
         }
         guard trackIndex < tracks.count,
-            let internalTrack = tracks[trackIndex].internalMusicTrack else {
+              let internalTrack = tracks[trackIndex].internalMusicTrack
+        else {
             Log("Can't get track for index")
             return
         }
@@ -756,7 +758,7 @@ open class AppleSequencer: NSObject {
     /// Generate NSData from the sequence
     public func genData() -> Data? {
         var status = noErr
-        var ns: Data = Data()
+        var ns = Data()
         var data: Unmanaged<CFData>?
         if let existingSequence = sequence {
             status = MusicSequenceFileCreateData(existingSequence, .midiType, .eraseFile, 480, &data)
@@ -834,7 +836,7 @@ open class AppleSequencer: NSObject {
     /// Returns the host time that will be (or was) played at the specified beat.
     /// This function is valid only if the music player is playing.
     public func hostTime(forBeats inBeats: AVMusicTimeStamp) throws -> UInt64 {
-        guard let musicPlayer = self.musicPlayer, self.isPlaying else {
+        guard let musicPlayer = musicPlayer, isPlaying else {
             throw MusicPlayerTimeConversionError.musicPlayerIsNotPlaying
         }
         var hostTime: UInt64 = 0
@@ -848,7 +850,7 @@ open class AppleSequencer: NSObject {
     /// Returns the beat that will be (or was) played at the specified host time.
     /// This function is valid only if the music player is playing.
     public func beats(forHostTime inHostTime: UInt64) throws -> AVMusicTimeStamp {
-        guard let musicPlayer = self.musicPlayer, self.isPlaying else {
+        guard let musicPlayer = musicPlayer, isPlaying else {
             throw MusicPlayerTimeConversionError.musicPlayerIsNotPlaying
         }
         var beats: MusicTimeStamp = 0

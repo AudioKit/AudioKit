@@ -73,8 +73,8 @@ open class FFTTap: BaseTap {
             output.deallocate()
         }
 
-        let windowSize = bufferSizePOT
-        var transferBuffer = [Float](repeating: 0, count: windowSize)
+        let windowSize = Int(buffer.frameLength)
+        var transferBuffer = [Float](repeating: 0, count: bufferSizePOT)
         var window = [Float](repeating: 0, count: windowSize)
 
         // Hann windowing to reduce the frequency leakage

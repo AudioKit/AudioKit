@@ -4,8 +4,7 @@ import AVFoundation
 
 extension AppleSampler {
     static func getAUPresetXML() -> String {
-        var templateStr: String
-        templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        var templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         templateStr.append("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" " +
             "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
         templateStr.append("<plist version=\"1.0\">\n")
@@ -337,5 +336,4 @@ extension AppleSampler {
         templateStr.append("</plist>\n")
         return templateStr
     }
-
 }

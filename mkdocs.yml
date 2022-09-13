@@ -1,7 +1,0 @@
-site_name: AudioKit
-repo_url: https://github.com/AudioKit/AudioKit/
-edit_uri: edit/develop/docs/
-
-theme:
-    name: readthedocs
-

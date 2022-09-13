@@ -120,7 +120,8 @@ open class MusicTrackManager {
         MusicSequenceNewTrack(sequence, &initMusicTrack)
 
         if let initMusicTrack = initMusicTrack,
-            let internalMusicTrack = internalMusicTrack {
+           let internalMusicTrack = internalMusicTrack
+        {
             initTrackPointer = UnsafeMutablePointer(initMusicTrack)
             MusicTrackMerge(internalMusicTrack, 0.0, length, initMusicTrack, 0.0)
         }
@@ -142,7 +143,7 @@ open class MusicTrackManager {
     /// - parameter loopCount: how many times to loop. 0 is infinite
     ///
     public func setLoopInfo(_ duration: Duration, loopCount: Int) {
-        let size: UInt32 = UInt32(MemoryLayout<MusicTrackLoopInfo>.size)
+        let size = UInt32(MemoryLayout<MusicTrackLoopInfo>.size)
         let loopDuration = duration.musicTimeStamp
         var loopInfo = MusicTrackLoopInfo(loopDuration: loopDuration,
                                           numberOfLoops: Int32(loopCount))
@@ -171,7 +172,8 @@ open class MusicTrackManager {
 
         MusicSequenceNewTrack(newSequence, &tempTrack)
         guard let newTrack = tempTrack,
-            let track = internalMusicTrack else {
+              let track = internalMusicTrack
+        else {
             Log("internalMusicTrack does not exist")
             return
         }
@@ -215,9 +217,10 @@ open class MusicTrackManager {
                     let data = eventData?.bindMemory(to: MIDINoteMessage.self, capacity: 1)
 
                     guard let channel = data?.pointee.channel,
-                        let note = data?.pointee.note,
-                        let velocity = data?.pointee.velocity,
-                        let dur = data?.pointee.duration else {
+                          let note = data?.pointee.note,
+                          let velocity = data?.pointee.velocity,
+                          let dur = data?.pointee.duration
+                    else {
                         Log("Problem with raw midi note message")
                         return
                     }
@@ -423,7 +426,8 @@ open class MusicTrackManager {
                     velocity: MIDIVelocity,
                     position: Duration,
                     duration: Duration,
-                    channel: MIDIChannel = 0) {
+                    channel: MIDIChannel = 0)
+    {
         guard let track = internalMusicTrack else {
             Log("internalMusicTrack does not exist")
             return
@@ -471,12 +475,13 @@ open class MusicTrackManager {
     public func addController(_ controller: MIDIByte,
                               value: MIDIByte,
                               position: Duration,
-                              channel: MIDIChannel = 0) {
+                              channel: MIDIChannel = 0)
+    {
         guard let track = internalMusicTrack else {
             Log("internalMusicTrack does not exist")
             return
         }
-        var controlMessage = MIDIChannelMessage(status: MIDIByte(11 << 4) | MIDIByte(channel & 0xf),
+        var controlMessage = MIDIChannelMessage(status: MIDIByte(11 << 4) | MIDIByte(channel & 0xF),
                                                 data1: controller,
                                                 data2: value,
                                                 reserved: 0)
@@ -492,13 +497,14 @@ open class MusicTrackManager {
     ///   - channel: MIDI channel for this event
     public func addAftertouch(_ noteNumber: MIDINoteNumber,
                               pressure: MIDIByte,
-                              position: Duration, channel: MIDIChannel = 0) {
+                              position: Duration, channel: MIDIChannel = 0)
+    {
         guard let track = internalMusicTrack else {
             Log("internalMusicTrack does not exist")
             return
         }
 
-        var message = MIDIChannelMessage(status: MIDIByte(10 << 4) | MIDIByte(channel & 0xf),
+        var message = MIDIChannelMessage(status: MIDIByte(10 << 4) | MIDIByte(channel & 0xF),
                                          data1: noteNumber,
                                          data2: pressure,
                                          reserved: 0)
@@ -513,13 +519,14 @@ open class MusicTrackManager {
     ///   - channel: MIDI channel for this event
     public func addChannelAftertouch(pressure: MIDIByte,
                                      position: Duration,
-                                     channel: MIDIChannel = 0) {
+                                     channel: MIDIChannel = 0)
+    {
         guard let track = internalMusicTrack else {
             Log("internalMusicTrack does not exist")
             return
         }
 
-        var message = MIDIChannelMessage(status: MIDIByte(13 << 4) | MIDIByte(channel & 0xf),
+        var message = MIDIChannelMessage(status: MIDIByte(13 << 4) | MIDIByte(channel & 0xF),
                                          data1: pressure,
                                          data2: 0,
                                          reserved: 0)
@@ -560,17 +567,18 @@ open class MusicTrackManager {
     ///   - position: Where in the sequence to insert pitchbend info (expressed in beats)
     ///   - channel: MIDI channel to insert pitch bend on
     ///
-    public func addPitchBend(_ value: Int = 8_192,
+    public func addPitchBend(_ value: Int = 8192,
                              position: Duration,
-                             channel: MIDIChannel = 0) {
+                             channel: MIDIChannel = 0)
+    {
         guard let track = internalMusicTrack else {
             Log("internalMusicTrack does not exist")
             return
         }
         // Find least and most significant bytes, remembering they are 7 bit numbers.
-        let lsb = value & 0x7f
-        let msb = (value >> 7) & 0x7f
-        var pitchBendMessage = MIDIChannelMessage(status: MIDIByte(14 << 4) | MIDIByte(channel & 0xf),
+        let lsb = value & 0x7F
+        let msb = (value >> 7) & 0x7F
+        var pitchBendMessage = MIDIChannelMessage(status: MIDIByte(14 << 4) | MIDIByte(channel & 0xF),
                                                   data1: MIDIByte(lsb),
                                                   data2: MIDIByte(msb),
                                                   reserved: 0)
@@ -584,7 +592,7 @@ open class MusicTrackManager {
     ///   - channel: MIDI channel to insert pitch bend reset on
     ///
     public func resetPitchBend(position: Duration, channel: MIDIChannel = 0) {
-        addPitchBend(8_192, position: position, channel: channel)
+        addPitchBend(8192, position: position, channel: channel)
     }
 
     // MARK: Getting data from MusicTrack
@@ -607,17 +615,18 @@ open class MusicTrackManager {
             let data = eventData?.bindMemory(to: MIDINoteMessage.self, capacity: 1)
 
             guard let channel = data?.pointee.channel,
-                let note = data?.pointee.note,
-                let velocity = data?.pointee.velocity,
-                let dur = data?.pointee.duration else {
+                  let note = data?.pointee.note,
+                  let velocity = data?.pointee.velocity,
+                  let dur = data?.pointee.duration
+            else {
                 Log("Problem with raw midi note message")
                 return
             }
             let noteDetails = MIDINoteData(noteNumber: note,
-                                             velocity: velocity,
-                                             channel: channel,
-                                             duration: Duration(beats: Double(dur)),
-                                             position: Duration(beats: eventTime))
+                                           velocity: velocity,
+                                           channel: channel,
+                                           duration: Duration(beats: Double(dur)),
+                                           position: Duration(beats: eventTime))
 
             noteData.append(noteDetails)
         }
@@ -631,7 +640,8 @@ open class MusicTrackManager {
     ///
     public func copyAndMergeTo(musicTrack: MusicTrackManager) {
         guard let track = internalMusicTrack,
-            let mergedToTrack = musicTrack.internalMusicTrack else {
+              let mergedToTrack = musicTrack.internalMusicTrack
+        else {
             Log("internalMusicTrack does not exist")
             return
         }
@@ -646,7 +656,8 @@ open class MusicTrackManager {
         let copiedTrack = MusicTrackManager()
 
         guard let internalMusicTrack = internalMusicTrack,
-            let copiedInternalTrack = copiedTrack.internalMusicTrack else {
+              let copiedInternalTrack = copiedTrack.internalMusicTrack
+        else {
             return nil
         }
         MusicTrackMerge(internalMusicTrack, 0.0, length, copiedInternalTrack, 0.0)
@@ -680,7 +691,8 @@ open class MusicTrackManager {
                                                     MusicEventType,
                                                     UnsafeRawPointer?,
                                                     UInt32,
-                                                    inout Bool) -> Void) {
+                                                    inout Bool) -> Void)
+    {
         var tempIterator: MusicEventIterator?
         NewMusicEventIterator(track, &tempIterator)
         guard let iterator = tempIterator else {

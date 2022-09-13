@@ -4,7 +4,6 @@ import AudioKit
 import XCTest
 
 class DynamicsProcessorTests: XCTestCase {
-
     func testDefault() throws {
         try XCTSkipIf(true, "TODO This test gives different results on local machines from what CI does")
         let engine = AudioEngine()
@@ -16,5 +15,4 @@ class DynamicsProcessorTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
-
 }

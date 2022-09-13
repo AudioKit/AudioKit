@@ -12,7 +12,5 @@ public enum NodeStatus {
         case paused
         /// The player node is scheduling.
         case scheduling
-        /// The player node completed playback.
-        case completed
     }
 }

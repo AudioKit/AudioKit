@@ -10,7 +10,6 @@ import AVFoundation
 /// 4. start the engine engine.start()
 ///
 open class AppleSampler: Node {
-
     // MARK: - Properties
 
     /// Internal audio unit
@@ -39,7 +38,7 @@ open class AppleSampler: Node {
 
     /// Connected nodes
     public var connections: [Node] { [] }
-    
+
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { samplerUnit }
 
@@ -68,17 +67,8 @@ open class AppleSampler: Node {
     // MARK: - Initializers
 
     /// Initialize the sampler node
-    @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public init(file: String? = nil) {
+    public init() {
         internalAU = samplerUnit.auAudioUnit
-
-        if let newFile = file {
-            do {
-                try loadWav(newFile)
-            } catch {
-                Log("Could not load \(newFile)")
-            }
-        }
     }
 
     // Add URL based initializers
@@ -92,7 +82,6 @@ open class AppleSampler: Node {
     public func loadInstrument(at url: URL) throws {
         try samplerUnit.loadInstrument(at: url)
     }
-
 
     /// Load an AVAudioFile
     ///
@@ -111,7 +100,7 @@ open class AppleSampler: Node {
     /// If a file name ends with a note name (ex: "violinC3.wav")
     /// The file will be set to this note
     /// Handy to set multi-sampled instruments or a drum kit...
-    public func loadAudioFiles(_ files: [AVAudioFile] ) throws {
+    public func loadAudioFiles(_ files: [AVAudioFile]) throws {
         _audioFiles = files
         let urls = files.map { $0.url }
         try samplerUnit.loadAudioFiles(at: urls)
@@ -143,9 +132,11 @@ open class AppleSampler: Node {
     /// half speed (1 octave lower) and so on
     open func play(noteNumber: MIDINoteNumber = 60,
                    velocity: MIDIVelocity = 127,
-                   channel: MIDIChannel = 0) {
-        self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+                   channel: MIDIChannel = 0)
+    {
+        samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
+
     /// Stop a MIDI Note
     ///
     /// - Parameters:
@@ -171,10 +162,11 @@ open class AppleSampler: Node {
 }
 
 // MARK: - Deprecatable junk
-extension AppleSampler {
+
+public extension AppleSampler {
     /// Utility method to find a file either in the main bundle or at an absolute path
     internal func findFileURL(_ path: String, withExtension ext: String, in bundle: Bundle = .main) -> URL? {
-        if path.hasPrefix("/") && FileManager.default.fileExists(atPath: path + "." + ext) {
+        if path.hasPrefix("/"), FileManager.default.fileExists(atPath: path + "." + ext) {
             return URL(fileURLWithPath: path + "." + ext)
         } else if let url = bundle.url(forResource: path, withExtension: ext) {
             return url
@@ -194,7 +186,7 @@ extension AppleSampler {
     }
 
     internal func loadInstrument(_ file: String, type: String, in bundle: Bundle = .main) throws {
-        //Log("filename is \(file)")
+        // Log("filename is \(file)")
         guard let url = findFileURL(file, withExtension: type, in: bundle) else {
             Log("File not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
@@ -208,7 +200,7 @@ extension AppleSampler {
     /// - parameter file: Name of the AUPreset file without the .aupreset extension
     ///
     @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public func loadAUPreset(_ file: String) throws {
+    func loadAUPreset(_ file: String) throws {
         try loadInstrument(file, type: "aupreset")
     }
 
@@ -217,7 +209,7 @@ extension AppleSampler {
     /// - parameter file: Name of the EXS24 file without the .exs extension
     ///
     @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public func loadEXS24(_ file: String) throws {
+    func loadEXS24(_ file: String) throws {
         try loadInstrument(file, type: "exs")
     }
 
@@ -229,7 +221,7 @@ extension AppleSampler {
     ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
     @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public func loadMelodicSoundFont(_ file: String, preset: Int, in bundle: Bundle = .main) throws {
+    func loadMelodicSoundFont(_ file: String, preset: Int, in bundle: Bundle = .main) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
     }
 
@@ -240,7 +232,7 @@ extension AppleSampler {
     /// - parameter filePath: Name of the file with the extension
     ///
     @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public func loadPath(_ filePath: String) throws {
+    func loadPath(_ filePath: String) throws {
         try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
         samplerUnit.reset()
     }
@@ -253,7 +245,7 @@ extension AppleSampler {
     ///
     ///
     @available(*, deprecated, message: "Start using URLs since files can come from various places.")
-    public func loadWav(_ file: String, in bundle: Bundle = .main) throws {
+    func loadWav(_ file: String, in bundle: Bundle = .main) throws {
         guard let url = findFileURL(file, withExtension: "wav", in: bundle) else {
             Log("WAV file not found.")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
@@ -261,5 +253,4 @@ extension AppleSampler {
         try samplerUnit.loadAudioFiles(at: [url])
         samplerUnit.reset()
     }
-
 }

@@ -4,7 +4,7 @@ import XCTest
 extension XCTestCase {
     func testMD5(_ buffer: AVAudioPCMBuffer) {
         let localMD5 = buffer.md5
-        let name = self.description
+        let name = description
         XCTAssertFalse(buffer.isSilent)
         XCTAssert(validatedMD5s[name] == buffer.md5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
     }
@@ -33,10 +33,13 @@ let validatedMD5s: [String: String] = [
     "-[CompressorTests testParameters]": "6b99deb194dd53e8ceb6428924d6666b",
     "-[CompressorTests testThreshold]": "e1133fc525a256a72db31453d293c47c",
     "-[MixerTests testSplitConnection]": "6b2d34e86130813c7e7d9f1cf7a2a87c",
+    "-[MultiSegmentPlayerTests testAttemptToPlayZeroFrames]": "feb1367cee8917a890088b8967b8d422",
     "-[MultiSegmentPlayerTests testPlaySegment]": "feb1367cee8917a890088b8967b8d422",
-    "-[MultiSegmentPlayerTests testPlaySegmentInTheFuture]": "feb1367cee8917a890088b8967b8d422",
+    "-[MultiSegmentPlayerTests testPlaySegmentInTheFuture]": "00545f274477d014dcc51822d97f1705",
     "-[MultiSegmentPlayerTests testPlayMultipleSegments]": "feb1367cee8917a890088b8967b8d422",
+    "-[MultiSegmentPlayerTests testPlayMultiplePlayersInSync]": "d405ff00ef9dd3c890486163b7499a52",
     "-[MultiSegmentPlayerTests testPlayWithinSegment]": "adc3d1fef36f68e1f12dbb471eb4069b",
+    "-[NodeRecorderTests testBasicRecord]": "f98d952748c408b1e38325f2bfe2ce81",
     "-[NodeTests testDisconnect]": "8c5c55d9f59f471ca1abb53672e3ffbf",
     "-[NodeTests testDynamicConnection]": "c61c69779df208d80f371881346635ce",
     "-[NodeTests testDynamicConnection2]": "8c5c55d9f59f471ca1abb53672e3ffbf",

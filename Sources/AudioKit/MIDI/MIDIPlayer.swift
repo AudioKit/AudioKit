@@ -4,7 +4,7 @@
 
 import AVFoundation
 
-extension AVAudioSequencer: Collection {
+extension MIDIPlayer: Collection {
     /// This is a collection of AVMusicTracks, so we define element as such
     public typealias Element = AVMusicTrack
 

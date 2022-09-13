@@ -23,7 +23,7 @@ extension AudioPlayerFileTests {
 
     func testFileLooping() {
         guard realtimeEnabled else { return }
-        realtimeLoop(buffered: false, duration: 2)
+        realtimeLoop(buffered: false, duration: 5)
     }
 
     func testBufferLooping() {
@@ -70,5 +70,10 @@ extension AudioPlayerFileTests {
     func testReversed() {
         guard realtimeEnabled else { return }
         realtimeTestReversed(from: 1, to: 3)
+    }
+
+    func testPlayerStatus() {
+        guard realtimeEnabled else { return }
+        realtimeTestPlayerStatus()
     }
 }

@@ -1,6 +1,6 @@
-import Foundation
-import AVFoundation
 import AudioKit
+import AVFoundation
+import Foundation
 import XCTest
 
 class AVAudioPCMBufferTests: XCTestCase {
@@ -16,25 +16,29 @@ class AVAudioPCMBufferTests: XCTestCase {
     }
 
     func doTestM4A(url: URL) {
-
         var settings = Settings.audioFormat.settings
         settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
-        let outFile = try! AVAudioFile(
+        var outFile = try? AVAudioFile(
             forWriting: url,
-            settings: settings)
+            settings: settings
+        )
 
         let engine = AudioEngine()
         if #available(iOS 13.0, *) {
             let osc = PlaygroundOscillator()
             osc.start()
-            let recorder = try! NodeRecorder(node: osc, file: outFile)
-            engine.output = osc
-            try! recorder.record()
+            let recorder = try? NodeRecorder(node: osc)
+            recorder?.openFile(file: &outFile)
+            let mixer = Mixer(osc)
+            engine.output = mixer
+            mixer.volume = 0
+            try? recorder?.record()
             try! engine.start()
             sleep(2)
-            recorder.stop()
+            recorder?.stop()
+            osc.stop()
             engine.stop()
         } else {
             // Fallback on earlier versions
@@ -42,7 +46,6 @@ class AVAudioPCMBufferTests: XCTestCase {
     }
 
     func testM4A() {
-
         let fm = FileManager.default
 
         let filename = UUID().uuidString + ".m4a"
@@ -54,6 +57,5 @@ class AVAudioPCMBufferTests: XCTestCase {
 
         let inFile = try! AVAudioFile(forReading: fileUrl)
         XCTAssertTrue(inFile.length > 0)
-
     }
 }

@@ -18,7 +18,7 @@ public struct NodeParameterDef {
     public var unit: AudioUnitParameterUnit
     /// Options
     public var flags: AudioUnitParameterOptions
-    
+
     /// Initialize node parameter definition with all data
     /// - Parameters:
     ///   - identifier: Unique ID
@@ -34,7 +34,8 @@ public struct NodeParameterDef {
                 defaultValue: AUValue,
                 range: ClosedRange<AUValue>,
                 unit: AudioUnitParameterUnit,
-                flags: AudioUnitParameterOptions = .default) {
+                flags: AudioUnitParameterOptions = .default)
+    {
         self.identifier = identifier
         self.name = name
         self.address = address
@@ -89,9 +90,9 @@ public class NodeParameter {
 
     /// Value range
     public var range: ClosedRange<AUValue> {
-        (parameter.minValue ... parameter.maxValue)
+        parameter.minValue ... parameter.maxValue
     }
-    
+
     /// Initial with definition
     /// - Parameter def: Node parameter definition
     public init(_ def: NodeParameterDef) {
@@ -148,7 +149,7 @@ public class NodeParameter {
     }
 
     // MARK: Lifecycle
-    
+
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
     ///   - avAudioNode: AVAudioUnit to associate with
@@ -160,7 +161,7 @@ public class NodeParameter {
         parameter = tree.parameter(withAddress: def.address)
         assert(parameter != nil)
     }
-    
+
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
     ///   - avAudioNode: AVAudioUnit to associate with
@@ -187,6 +188,9 @@ public class NodeParameter {
         parameter?.setValue(value, originator: nil, atHostTime: 0, eventType: .release)
     }
 }
+
+/// So we can use NodeParameter with SwiftUI. See Cookbook.
+extension NodeParameter: Identifiable { }
 
 /// Base protocol for any type supported by @Parameter
 public protocol NodeParameterType {

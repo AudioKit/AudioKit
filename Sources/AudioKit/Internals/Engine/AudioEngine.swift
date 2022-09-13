@@ -3,12 +3,9 @@
 import AVFoundation
 
 extension AVAudioNode {
-
     /// Disconnect without breaking other connections.
-    func disconnect(input: AVAudioNode) {
-
+    func disconnect(input: AVAudioNode, format: AVAudioFormat) {
         if let engine = engine {
-
             var newConnections: [AVAudioNode: [AVAudioConnectionPoint]] = [:]
             for bus in 0 ..< inputCount {
                 if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
@@ -23,14 +20,14 @@ extension AVAudioNode {
                 if connections.isEmpty {
                     engine.disconnectNodeOutput(node)
                 } else {
-                    engine.connect(node, to: connections, fromBus: 0, format: Settings.audioFormat)
+                    engine.connect(node, to: connections, fromBus: 0, format: format)
                 }
             }
         }
     }
 
     /// Make a connection without breaking other connections.
-    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat? = Settings.audioFormat) {
+    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: {
@@ -42,9 +39,9 @@ extension AVAudioNode {
     }
 }
 
-extension AVAudioMixerNode {
+public extension AVAudioMixerNode {
     /// Make a connection without breaking other connections.
-    public func connectMixer(input: AVAudioNode, format: AVAudioFormat? = Settings.audioFormat) {
+    func connectMixer(input: AVAudioNode, format: AVAudioFormat) {
         if let engine = engine {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
             if points.contains(where: { $0.node === self }) { return }
@@ -60,7 +57,7 @@ public class AudioEngine {
     public let avEngine = AVAudioEngine()
 
     // maximum number of frames the engine will be asked to render in any single render call
-    let maximumFrameCount: AVAudioFrameCount = 1_024
+    let maximumFrameCount: AVAudioFrameCount = 1024
 
     /// Main mixer at the end of the signal chain
     public private(set) var mainMixerNode: Mixer?
@@ -71,8 +68,8 @@ public class AudioEngine {
 
         func connect(to engine: AudioEngine) {
             Settings.audioFormat = AVAudioFormat(standardFormatWithSampleRate:
-                                                    engine.avEngine.inputNode.inputFormat(forBus: 0)
-                                                    .sampleRate, channels: 2) ?? AVAudioFormat()
+                engine.avEngine.inputNode.inputFormat(forBus: 0)
+                    .sampleRate, channels: 2) ?? AVAudioFormat()
             engine.avEngine.attach(avAudioNode)
             engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
         }
@@ -86,7 +83,7 @@ public class AudioEngine {
     /// can cause the AVAudioEngine to stop running.
     public var input: InputNode? {
         if #available(macOS 10.14, *) {
-            guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
+            guard avEngine.isInManualRenderingMode || Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
                 Log("To use the microphone, you must include the NSMicrophoneUsageDescription in your Info.plist", type: .error)
                 return nil
             }
@@ -112,7 +109,7 @@ public class AudioEngine {
             if let node = oldValue {
                 mainMixerNode?.removeInput(node)
                 node.detach()
-                avEngine.outputNode.disconnect(input: node.avAudioNode)
+                avEngine.outputNode.disconnect(input: node.avAudioNode, format: node.outputFormat)
             }
 
             // if non nil, set the main output now
@@ -121,7 +118,8 @@ public class AudioEngine {
 
                 // has the sample rate changed?
                 if let currentSampleRate = mainMixerNode?.avAudioNode.outputFormat(forBus: 0).sampleRate,
-                    currentSampleRate != Settings.sampleRate {
+                   currentSampleRate != Settings.sampleRate
+                {
                     Log("Sample Rate has changed, creating new mainMixerNode at", Settings.sampleRate)
                     removeEngineMixer()
                 }
@@ -149,21 +147,21 @@ public class AudioEngine {
 
     private func removeEngineMixer() {
         guard let mixer = mainMixerNode else { return }
-        avEngine.outputNode.disconnect(input: mixer.avAudioNode)
+        avEngine.outputNode.disconnect(input: mixer.avAudioNode, format: mixer.outputFormat)
         mixer.removeAllInputs()
         mixer.detach()
         mainMixerNode = nil
     }
-    
+
     /// Disconnect and reconnect every node
     /// Use this for instance after you change AK sample rate
     public func rebuildGraph() {
         // save the old output
         let out = output
-        
+
         // disconnect everything
         out?.disconnectAV()
-        
+
         // reset the output to the saved one, triggering the re-connect functions
         output = out
     }
@@ -208,7 +206,8 @@ public class AudioEngine {
 
         return AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
-            frameCapacity: AVAudioFrameCount(samples))!
+            frameCapacity: AVAudioFrameCount(samples)
+        )!
     }
 
     /// Render audio for a specific duration
@@ -220,11 +219,13 @@ public class AudioEngine {
 
         let buffer = AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
-            frameCapacity: AVAudioFrameCount(sampleCount))!
+            frameCapacity: AVAudioFrameCount(sampleCount)
+        )!
 
         let tempBuffer = AVAudioPCMBuffer(
             pcmFormat: avEngine.manualRenderingFormat,
-            frameCapacity: AVAudioFrameCount(maximumFrameCount))!
+            frameCapacity: AVAudioFrameCount(maximumFrameCount)
+        )!
 
         do {
             while avEngine.manualRenderingSampleTime < sampleCount + startSampleCount {
@@ -239,47 +240,67 @@ public class AudioEngine {
         return buffer
     }
 
+    /// Find an Audio Unit on the system by name and load it.
+    /// Make sure to do this before the engine is running to avoid blocking.
+    /// - Parameter named: Display name of the Audio Unit
+    /// - Returns: The Audio Unit's AVAudioUnit
+    public func findAudioUnit(named: String) -> AVAudioUnit? {
+        var foundAU: AVAudioUnit?
+        let allComponents = AVAudioUnitComponentManager().components(matching: AudioComponentDescription())
+        for component in allComponents where component.name == named {
+            AVAudioUnit.instantiate(with: component.audioComponentDescription) { theAudioUnit, _ in
+                if let newAU = theAudioUnit {
+                    foundAU = newAU
+                } else {
+                    Log("🛑 Failed to load Audio Unit named: \(named)")
+                }
+            }
+        }
+        if foundAU == nil { Log("🛑 Failed to find Audio Unit named: \(named)") }
+        return foundAU
+    }
+
     /// Enumerate the list of available input devices.
     public static var inputDevices: [Device] {
         #if os(macOS)
-        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
-            if AudioDeviceUtils.inputChannels(id) > 0 {
-                return Device(deviceID: id)
+            return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
+                if AudioDeviceUtils.inputChannels(id) > 0 {
+                    return Device(deviceID: id)
+                }
+                return nil
             }
-            return nil
-        }
         #else
-        var returnDevices = [Device]()
-        if let devices = AVAudioSession.sharedInstance().availableInputs {
-            for device in devices {
-                if device.dataSources == nil || device.dataSources?.isEmpty == true {
-                    returnDevices.append(Device(portDescription: device))
+            var returnDevices = [Device]()
+            if let devices = AVAudioSession.sharedInstance().availableInputs {
+                for device in devices {
+                    if device.dataSources == nil || device.dataSources?.isEmpty == true {
+                        returnDevices.append(Device(portDescription: device))
 
-                } else if let dataSources = device.dataSources {
-                    for dataSource in dataSources {
-                        returnDevices.append(Device(name: device.portName,
-                                                    deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
+                    } else if let dataSources = device.dataSources {
+                        for dataSource in dataSources {
+                            returnDevices.append(Device(name: device.portName,
+                                                        deviceID: "\(device.uid) \(dataSource.dataSourceName)"))
+                        }
                     }
                 }
+                return returnDevices
             }
-            return returnDevices
-        }
-        return []
+            return []
         #endif
     }
 
     /// Enumerate the list of available output devices.
     public static var outputDevices: [Device] {
         #if os(macOS)
-        return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
-            if AudioDeviceUtils.outputChannels(id) > 0 {
-                return Device(deviceID: id)
+            return AudioDeviceUtils.devices().compactMap { (id: AudioDeviceID) -> Device? in
+                if AudioDeviceUtils.outputChannels(id) > 0 {
+                    return Device(deviceID: id)
+                }
+                return nil
             }
-            return nil
-        }
         #else
-        let devs = AVAudioSession.sharedInstance().currentRoute.outputs
-        return devs.map { Device(name: $0.portName, deviceID: $0.uid) }
+            let devs = AVAudioSession.sharedInstance().currentRoute.outputs
+            return devs.map { Device(name: $0.portName, deviceID: $0.uid) }
         #endif
     }
 
@@ -308,7 +329,7 @@ public class AudioEngine {
     public static func setInputDevice(_ input: Device) throws {
         // Set the port description first eg iPhone Microphone / Headset Microphone etc
         guard let portDescription = input.portDescription else {
-            throw CommonError.DeviceNotFound
+            throw CommonError.deviceNotFound
         }
         try AVAudioSession.sharedInstance().setPreferredInput(portDescription)
 
@@ -349,10 +370,11 @@ public class AudioEngine {
     /// - Throws: Error if render failed
     @available(iOS 11, macOS 10.13, tvOS 11, *)
     public func renderToFile(_ audioFile: AVAudioFile,
-                             maximumFrameCount: AVAudioFrameCount = 4_096,
+                             maximumFrameCount: AVAudioFrameCount = 4096,
                              duration: Double,
                              prerender: (() -> Void)? = nil,
-                             progress: ((Double) -> Void)? = nil) throws {
+                             progress: ((Double) -> Void)? = nil) throws
+    {
         try avEngine.render(to: audioFile,
                             maximumFrameCount: maximumFrameCount,
                             duration: duration,

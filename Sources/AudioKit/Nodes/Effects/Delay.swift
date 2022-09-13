@@ -8,10 +8,10 @@ public class Delay: Node {
     let delayAU = AVAudioUnitDelay()
 
     let input: Node
-    
+
     /// Connected nodes
     public var connections: [Node] { [input] }
-    
+
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { return delayAU }
 
@@ -22,11 +22,12 @@ public class Delay: Node {
         address: 0,
         defaultValue: 100,
         range: 0.0 ... 100.0,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Dry/wet mix. Should be a value between 0-100.
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
-    
+
     /// Specification details for time
     public static let timeDef = NodeParameterDef(
         identifier: "time",
@@ -34,7 +35,8 @@ public class Delay: Node {
         address: 1,
         defaultValue: 1,
         range: 0 ... 2.0,
-        unit: .seconds)
+        unit: .seconds
+    )
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter(timeDef) public var time: AUValue
@@ -46,7 +48,8 @@ public class Delay: Node {
         address: 2,
         defaultValue: 50,
         range: -100 ... 100,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Feedback amount. Should be a value between 0-1.
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -58,13 +61,11 @@ public class Delay: Node {
         address: 3,
         defaultValue: 15000,
         range: 10 ... 22050,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Low-pass cutoff frequency Cutoff Frequency (Hertz) ranges from 10 to 200 (Default: 80)
     @Parameter(lowPassCutoffDef) public var lowPassCutoff: AUValue
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
 
     /// Initialize the delay node
     ///
@@ -80,8 +81,8 @@ public class Delay: Node {
         time: AUValue = timeDef.defaultValue,
         feedback: AUValue = feedbackDef.defaultValue,
         lowPassCutoff: AUValue = lowPassCutoffDef.defaultValue,
-        dryWetMix: AUValue = dryWetMixDef.defaultValue) {
-
+        dryWetMix: AUValue = dryWetMixDef.defaultValue
+    ) {
         self.input = input
 
         associateParams(with: delayAU)
@@ -90,17 +91,5 @@ public class Delay: Node {
         self.time = time
         self.feedback = feedback
         self.lowPassCutoff = lowPassCutoff
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
-        isStarted = true
-        delayAU.bypass = false
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
-        isStarted = false
-        delayAU.bypass = true
     }
 }

@@ -1,8 +1,7 @@
 import AVFoundation
 
 // SoundFont Support
-extension AppleSampler {
-
+public extension AppleSampler {
     internal func loadSoundFont(_ file: String, preset: Int, type: Int, in bundle: Bundle = .main) throws {
         guard let url = findFileURL(file, withExtension: ["sf2", "dls"], in: bundle) else {
             Log("SoundFont file not found: \(file)")
@@ -13,7 +12,8 @@ extension AppleSampler {
                 at: url,
                 program: MIDIByte(preset),
                 bankMSB: MIDIByte(type),
-                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
+                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB)
+            )
             samplerUnit.reset()
         } catch let error as NSError {
             Log("Error loading SoundFont \(file)")
@@ -27,7 +27,8 @@ extension AppleSampler {
                 at: url,
                 program: MIDIByte(preset),
                 bankMSB: MIDIByte(type),
-                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB))
+                bankLSB: MIDIByte(kAUSampler_DefaultBankLSB)
+            )
             samplerUnit.reset()
         } catch let error as NSError {
             Log("Error loading SoundFont \(url)")
@@ -43,7 +44,7 @@ extension AppleSampler {
     ///   - bank: Number of the bank to use
     ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
-    public func loadSoundFont(_ file: String, preset: Int, bank: Int, in bundle: Bundle = .main) throws {
+    func loadSoundFont(_ file: String, preset: Int, bank: Int, in bundle: Bundle = .main) throws {
         guard let url = findFileURL(file, withExtension: ["sf2", "dls"], in: bundle) else {
             Log("Soundfont file not found: \(file)")
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
@@ -60,7 +61,8 @@ extension AppleSampler {
                 at: url,
                 program: MIDIByte(preset),
                 bankMSB: MIDIByte(bMSB),
-                bankLSB: MIDIByte(bLSB))
+                bankLSB: MIDIByte(bLSB)
+            )
             samplerUnit.reset()
         } catch let error as NSError {
             Log("Error loading SoundFont \(file)")
@@ -73,7 +75,7 @@ extension AppleSampler {
     ///   - url: Location of the file
     ///   - preset: Number of the program to use
     ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
-    public func loadMelodicSoundFont(url: URL, preset: Int, in bundle: Bundle = .main) throws {
+    func loadMelodicSoundFont(url: URL, preset: Int, in bundle: Bundle = .main) throws {
         try loadSoundFont(url: url, preset: preset, type: kAUSampler_DefaultMelodicBankMSB, in: bundle)
     }
 
@@ -84,7 +86,7 @@ extension AppleSampler {
     ///   - preset: Number of the program to use
     ///   - bundle: The bundle from which to load the file. Defaults to main bundle.
     ///
-    public func loadPercussiveSoundFont(_ file: String, preset: Int = 0, in bundle: Bundle = .main) throws {
+    func loadPercussiveSoundFont(_ file: String, preset: Int = 0, in bundle: Bundle = .main) throws {
         try loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB, in: bundle)
     }
 }
