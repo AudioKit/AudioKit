@@ -241,6 +241,13 @@ public extension Double {
     func mapped(from source: ClosedRange<Double> = 0 ... 1.0, to target: ClosedRange<Double> = 0 ... 1.0) -> Double {
         return ((self - source.lowerBound) / (source.upperBound - source.lowerBound)) * (target.upperBound - target.lowerBound) + target.lowerBound
     }
+
+    /// Returns false if the value is not positive
+    var isValidSampleRate: Bool {
+        // Could expand on this to check the valid sample rate range for the device
+        // (typically from 8000 through 48000 hertz.)
+        return self > 0
+    }
 }
 
 public extension CGFloat {
@@ -295,6 +302,7 @@ public extension CGFloat {
         return exp(logStart2 + scale * (self - source.lowerBound))
     }
 }
+
 
 public extension Int {
     /// Map the value to a new range
