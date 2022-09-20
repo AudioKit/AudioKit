@@ -67,9 +67,13 @@ public class AudioEngine {
         var isNotConnected = true
 
         func connect(to engine: AudioEngine) {
-            Settings.audioFormat = AVAudioFormat(standardFormatWithSampleRate:
-                engine.avEngine.inputNode.inputFormat(forBus: 0)
-                    .sampleRate, channels: 2) ?? AVAudioFormat()
+            let sampleRate = engine.avEngine.inputNode.inputFormat(forBus: 0).sampleRate
+            
+            // Avoids fatal crash inside AudioKit when setting the output with a problematic audio configuration (known AirPlay issue)
+            if sampleRate.isValidSampleRate {
+                Settings.audioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2) ?? AVAudioFormat()
+            }
+            
             engine.avEngine.attach(avAudioNode)
             engine.avEngine.connect(engine.avEngine.inputNode, to: avAudioNode, format: nil)
         }
