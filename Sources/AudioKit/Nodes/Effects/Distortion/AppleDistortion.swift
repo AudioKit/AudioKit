@@ -4,6 +4,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
+@available(iOS 8.0, *)
 public class AppleDistortion: Node {
     fileprivate let distAU = AVAudioUnitDistortion()
 
@@ -53,6 +54,7 @@ public class AppleDistortion: Node {
     }
 }
 
+@available(iOS 8.0, *)
 public extension AVAudioUnitDistortionPreset {
     static var allCases: [AVAudioUnitDistortionPreset] =
         [.drumsBitBrush, .drumsBufferBeats,
