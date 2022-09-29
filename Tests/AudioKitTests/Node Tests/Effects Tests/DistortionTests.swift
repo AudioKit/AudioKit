@@ -6,7 +6,7 @@ import AVFAudio
 
 class DistortionTests: XCTestCase {
     #if os(iOS)
-    func testDefault() {
+    func testDefaultDistortion() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let input = AudioPlayer(url: url)!
