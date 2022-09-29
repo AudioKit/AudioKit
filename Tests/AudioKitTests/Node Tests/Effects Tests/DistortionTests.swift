@@ -5,7 +5,6 @@ import XCTest
 import AVFAudio
 
 class DistortionTests: XCTestCase {
-
     #if os(iOS)
     func testDefault() {
         let engine = AudioEngine()
@@ -17,19 +16,5 @@ class DistortionTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
-
-    func testMultiDistortedCubed() {
-        let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let input = AudioPlayer(url: url)!
-        let effect = AppleDistortion(input)
-        engine.output = effect
-        effect.loadFactoryPreset(.multiDistortedCubed)
-        let audio = engine.startTest(totalDuration: 1.0)
-        input.start()
-        audio.append(engine.render(duration: 1.0))
-        testMD5(audio)
-    }
     #endif
-
 }
