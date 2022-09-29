@@ -40,9 +40,9 @@ public class AppleDistortion: Node {
                 preGain: AUValue = -6) {
         self.input = input
         self.dryWetMix = dryWetMix
-    
+
         avAudioNode = distAU
-    
+
         distAU.preGain = preGain
         distAU.wetDryMix = dryWetMix
     }
