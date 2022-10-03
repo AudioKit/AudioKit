@@ -3,7 +3,7 @@
 import AVFoundation
 
 /// Get the raw buffer from any node
-final public class RawBufferTap: BaseTap {
+open class RawBufferTap: BaseTap {
     /// Callback type
     public typealias Handler = (AVAudioPCMBuffer, AVAudioTime) -> Void
 
