@@ -90,7 +90,6 @@ open class AppleSampler: Node {
     public func loadAudioFile(_ file: AVAudioFile) throws {
         _audioFiles = [file]
         try samplerUnit.loadAudioFiles(at: [file.url])
-        samplerUnit.reset()
     }
 
     /// Load an array of AVAudioFiles
@@ -104,7 +103,6 @@ open class AppleSampler: Node {
         _audioFiles = files
         let urls = files.map { $0.url }
         try samplerUnit.loadAudioFiles(at: urls)
-        samplerUnit.reset()
     }
 
     /// Loads an instrument at a URL. The sampler can be configured by loading
@@ -115,7 +113,6 @@ open class AppleSampler: Node {
     ///
     public func loadInstrument(url: URL) throws {
         try samplerUnit.loadInstrument(at: url)
-        samplerUnit.reset()
     }
 
     // MARK: - Playback
@@ -192,7 +189,6 @@ public extension AppleSampler {
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         try samplerUnit.loadInstrument(at: url)
-        samplerUnit.reset()
     }
 
     /// Load an AUPreset file
@@ -234,7 +230,6 @@ public extension AppleSampler {
     @available(*, deprecated, message: "Start using URLs since files can come from various places.")
     func loadPath(_ filePath: String) throws {
         try samplerUnit.loadInstrument(at: URL(fileURLWithPath: filePath))
-        samplerUnit.reset()
     }
 
     /// Load a wav file
@@ -251,6 +246,5 @@ public extension AppleSampler {
             throw NSError(domain: NSURLErrorDomain, code: NSFileReadUnknownError, userInfo: nil)
         }
         try samplerUnit.loadAudioFiles(at: [url])
-        samplerUnit.reset()
     }
 }

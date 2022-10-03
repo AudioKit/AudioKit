@@ -14,7 +14,6 @@ public extension AppleSampler {
                 bankMSB: MIDIByte(type),
                 bankLSB: MIDIByte(kAUSampler_DefaultBankLSB)
             )
-            samplerUnit.reset()
         } catch let error as NSError {
             Log("Error loading SoundFont \(file)")
             throw error
@@ -29,7 +28,6 @@ public extension AppleSampler {
                 bankMSB: MIDIByte(type),
                 bankLSB: MIDIByte(kAUSampler_DefaultBankLSB)
             )
-            samplerUnit.reset()
         } catch let error as NSError {
             Log("Error loading SoundFont \(url)")
             throw error
@@ -63,7 +61,6 @@ public extension AppleSampler {
                 bankMSB: MIDIByte(bMSB),
                 bankLSB: MIDIByte(bLSB)
             )
-            samplerUnit.reset()
         } catch let error as NSError {
             Log("Error loading SoundFont \(file)")
             throw error
