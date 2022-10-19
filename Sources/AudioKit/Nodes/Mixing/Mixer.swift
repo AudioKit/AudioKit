@@ -43,6 +43,7 @@ public class Mixer: Node, NamedNode {
     public init(volume: AUValue = 1.0, name: String? = nil) {
         avAudioNode = mixerAU
         self.volume = volume
+        mixerAU.outputVolume = volume
         self.name = name ?? MemoryAddress(of: self).description
     }
 
