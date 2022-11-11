@@ -150,6 +150,9 @@ extension Node {
                 // Mixers will decide which input bus to use.
                 if let mixer = avAudioNode as? AVAudioMixerNode {
                     mixer.connectMixer(input: connection.avAudioNode, format: connection.outputFormat)
+                    if let akMixer = self as? Mixer {
+                        mixer.outputVolume = akMixer.volume
+                    }
                 } else {
                     avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
                 }
