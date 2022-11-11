@@ -14,11 +14,13 @@ class FFTTapTests: XCTestCase {
     }
 
     @available(iOS 13.0, *)
-    func testBasic() {
+    func panTest(pan: Float) {
         let engine = AudioEngine()
 
         let oscillator = PlaygroundOscillator()
-        engine.output = oscillator
+        let mixer = Mixer(oscillator)
+        mixer.pan = pan
+        engine.output = mixer
         oscillator.start()
 
         var fftData: [Int] = []
@@ -27,7 +29,7 @@ class FFTTapTests: XCTestCase {
         let targetFrequencies: [Float] = [88, 258, 433, 605, 777, 949, 1122, 1294, 1467, 1639]
         let expectedBuckets: [Int] = [8, 24, 40, 56, 72, 88, 104, 120, 136, 152]
 
-        let tap = FFTTap(oscillator) { fft in
+        let tap = FFTTap(mixer) { fft in
             let max: Float = fft.max() ?? 0.0
             let index = Int(fft.firstIndex(of: max) ?? 0)
             if !fftData.contains(index) {
@@ -49,6 +51,21 @@ class FFTTapTests: XCTestCase {
         tap.stop()
 
         check(values: fftData, known: expectedBuckets)
+    }
+
+    @available(iOS 13.0, *)
+    func testLeft() {
+        panTest(pan: -1)
+    }
+
+    @available(iOS 13.0, *)
+    func testCenter() {
+        panTest(pan: 0)
+    }
+
+    @available(iOS 13.0, *)
+    func testRight() {
+        panTest(pan: 1)
     }
 
     @available(iOS 13.0, *)
