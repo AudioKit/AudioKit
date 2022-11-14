@@ -193,6 +193,8 @@ public class AudioPlayer: Node {
         if isLooping, !isBuffered {
             status = .stopped
             play()
+        } else {
+            status = .stopped
         }
     }
 
