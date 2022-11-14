@@ -29,6 +29,8 @@ public class AudioPlayer: Node {
     /// Status of the player node (playing, paused, stopped, scheduling, or completed)
     public internal(set) var status = NodeStatus.Playback.stopped
 
+    public var isPlaying: Bool { status == .playing }
+
     private var _isBuffered: Bool = false
     /// If the player is currently using a buffer as an audio source
     public var isBuffered: Bool {

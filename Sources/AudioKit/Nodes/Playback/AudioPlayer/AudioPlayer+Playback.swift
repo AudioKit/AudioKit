@@ -50,7 +50,7 @@ public extension AudioPlayer {
         }
     }
 
-    /// Pauses audio player. Calling play() will resume from the paused time.
+    /// Pauses audio player. Calling play() will resume playback.
     func pause() {
         guard status == .playing else { return }
         pausedTime = getCurrentTime()
@@ -58,8 +58,9 @@ public extension AudioPlayer {
         status = .paused
     }
 
-    /// Resumes audio player from paused time
+    /// Resumes playback immediately if the player is paused.
     func resume() {
+        guard status == .paused else { return }
         playerNode.play()
         status = .playing
     }
@@ -112,7 +113,7 @@ public extension AudioPlayer {
 
 public extension AudioPlayer {
     /// Synonym for isPlaying
-    var isStarted: Bool { status == .playing }
+    var isStarted: Bool { isPlaying }
 
     /// Synonym for play()
     func start() {
@@ -121,7 +122,7 @@ public extension AudioPlayer {
 
     /// Stop audio player. This won't generate a callback event
     func stop() {
-        guard status == .playing else { return }
+        guard status != .stopped else { return }
         pausedTime = getCurrentTime()
         status = .stopped
         playerNode.stop()
