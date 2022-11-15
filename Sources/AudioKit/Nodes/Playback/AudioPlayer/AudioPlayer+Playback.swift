@@ -35,8 +35,10 @@ public extension AudioPlayer {
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
 
-        if let renderTime = playerNode.lastRenderTime, let whenTime = when {
-            timeBeforePlay = whenTime.timeIntervalSince(otherTime: renderTime) ?? 0.0
+        if let nodeTime = playerNode.lastRenderTime, let whenTime = when {
+            timeBeforePlay = whenTime.timeIntervalSince(otherTime: nodeTime)
+        } else {
+            timeBeforePlay = playerTime
         }
 
         schedule(at: when,completionCallbackType: completionCallbackType)
@@ -62,7 +64,6 @@ public extension AudioPlayer {
     /// Stop audio player. This won't generate a callback event
     func stop() {
         guard status != .stopped else { return }
-        pausedTime = getCurrentTime()
         status = .stopped
         playerNode.stop()
     }
@@ -85,30 +86,43 @@ public extension AudioPlayer {
         }
     }
 
-    /// Gets the accurate playhead time regardless of seeking and pausing
-    /// Can't be relied on if playerNode has its playstate modified directly
+    /// The current playback time, in seconds.
     func getCurrentTime() -> TimeInterval {
-        switch status {
-        case .playing:
-            if let nodeTime = playerNode.lastRenderTime,
-               nodeTime.isSampleTimeValid,
-               let playerTime = playerNode.playerTime(forNodeTime: nodeTime)
-            {
-                let currTime = Double(playerTime.sampleTime) / playerTime.sampleRate
+        var time = editStartTime
+        let timeBeforePlay = timeBeforePlay ?? 0
 
-                // Don't count time before file starts playing
-                if currTime < timeBeforePlay {
-                    return editStartTime
-                } else {
-                    return currTime + editStartTime - timeBeforePlay
+        if status == .playing {
+            if let playerTime = playerTime {
+                if playerTime > timeBeforePlay {
+                    time += playerTime - timeBeforePlay
                 }
-            } else {
-                return editStartTime
             }
-        case .paused:
-            return pausedTime
-        default:
-            return editStartTime
+        } else if status == .paused {
+            time = pausedTime
+        }
+
+        return time
+    }
+
+    /// The time the node has been playing,  in seconds. This is `nil`
+    /// when the node is paused or stopped. The node's "playerTime" is not
+    /// stopped when the file completes playback.
+    var playerTime: TimeInterval? {
+        guard let nodeTime = playerNode.lastRenderTime,
+              nodeTime.isSampleTimeValid,
+              let playerTime = playerNode.playerTime(forNodeTime: nodeTime)
+        else { return nil }
+
+        let sampleTime = Double(playerTime.sampleTime)
+        let sampleRate = playerTime.sampleRate
+
+        let time = sampleTime / sampleRate
+
+        if isLooping {
+            let duration = editEndTime - editStartTime
+            return time.truncatingRemainder(dividingBy: duration)
+        } else {
+            return time
         }
     }
 }
