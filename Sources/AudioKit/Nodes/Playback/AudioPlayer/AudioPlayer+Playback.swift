@@ -49,7 +49,7 @@ public extension AudioPlayer {
     /// Pauses audio player. Calling play() will resume playback.
     func pause() {
         guard status == .playing else { return }
-        pausedTime = getCurrentTime()
+        pausedTime = currentTime
         playerNode.pause()
         status = .paused
     }
@@ -87,7 +87,7 @@ public extension AudioPlayer {
     }
 
     /// The current playback time, in seconds.
-    func getCurrentTime() -> TimeInterval {
+    var currentTime: TimeInterval {
         var time = editStartTime
         let timeBeforePlay = timeBeforePlay ?? 0
 

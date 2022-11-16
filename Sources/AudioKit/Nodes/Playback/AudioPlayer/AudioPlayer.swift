@@ -162,6 +162,8 @@ public class AudioPlayer: Node {
     // Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
     var pausedTime: TimeInterval = 0.0
 
+    var seekingTime: TimeInterval = 0.0
+
     // saved edit times to load when user enables isEditTimeEnabled property
     var savedEditStartTime: TimeInterval?
     var savedEditEndTime: TimeInterval?

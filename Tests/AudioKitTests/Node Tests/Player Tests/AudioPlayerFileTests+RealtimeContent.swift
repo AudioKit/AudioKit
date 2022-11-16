@@ -190,11 +190,11 @@ extension AudioPlayerFileTests {
 
         // Make sure player doesn't count time before file starts playing
         // Truncate time to one decimal for precision in comparison
-        var playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime()) / pow(10.0, Double(1)))
+        var playerTime = Double(floor(pow(10.0, Double(1)) * player.currentTime) / pow(10.0, Double(1)))
         XCTAssert(playerTime == player.editStartTime)
         wait(for: timeBeforePlay)
         // Truncate time to one decimal for precision in comparison
-        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime()) / pow(10.0, Double(1)))
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.currentTime) / pow(10.0, Double(1)))
         XCTAssert(playerTime == player.editStartTime)
 
         wait(for: player.duration)
@@ -205,11 +205,11 @@ extension AudioPlayerFileTests {
 
         // Make sure player doesn't count time before file starts playing
         // Truncate time to one decimal for precision in comparison
-        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime()) / pow(10.0, Double(1)))
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.currentTime) / pow(10.0, Double(1)))
         XCTAssert(playerTime == player.editStartTime)
         wait(for: timeBeforePlay)
         // Truncate time to one decimal for precision in comparison
-        playerTime = Double(floor(pow(10.0, Double(1)) * player.getCurrentTime()) / pow(10.0, Double(1)))
+        playerTime = Double(floor(pow(10.0, Double(1)) * player.currentTime) / pow(10.0, Double(1)))
         XCTAssert(playerTime == player.editStartTime)
 
         wait(for: player.duration)

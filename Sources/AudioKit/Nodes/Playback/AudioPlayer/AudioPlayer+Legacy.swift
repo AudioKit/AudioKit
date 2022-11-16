@@ -47,4 +47,10 @@ public extension AudioPlayer {
         self.file = file
         schedule(at: when)
     }
+
+    /// The current playback time, in seconds.
+    @available(*, deprecated, message: "use 'currentTime' instead.")
+    func getCurrentTime() -> TimeInterval {
+        currentTime
+    }
 }

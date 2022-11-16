@@ -170,7 +170,7 @@ class AudioPlayerTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testGetCurrentTime() {
+    func testCurrentTime() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
             XCTFail("Didn't get test file")
             return
@@ -193,7 +193,7 @@ class AudioPlayerTests: XCTestCase {
 
         audio.append(engine.render(duration: 2.0))
 
-        let currentTime = player.getCurrentTime()
+        let currentTime = player.currentTime
         XCTAssertEqual(currentTime, 2.5)
 
         testMD5(audio)
