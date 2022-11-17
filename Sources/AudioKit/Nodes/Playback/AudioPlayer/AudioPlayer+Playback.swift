@@ -27,23 +27,22 @@ public extension AudioPlayer {
 
         guard status != .playing else { return }
 
-        guard status != .paused else {
-            resume()
-            return
-        }
-
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
 
         if let nodeTime = playerNode.lastRenderTime, let whenTime = when {
-            timeBeforePlay = whenTime.timeIntervalSince(otherTime: nodeTime)
-        } else {
+            timeBeforePlay = whenTime.timeIntervalSince(otherTime: nodeTime) ?? 0
+        } else if let playerTime = playerTime {
             timeBeforePlay = playerTime
         }
 
-        schedule(at: when,completionCallbackType: completionCallbackType)
-        playerNode.play()
-        status = .playing
+        if status == .paused {
+            resume()
+        } else {
+            schedule(at: when, completionCallbackType: completionCallbackType)
+            playerNode.play()
+            status = .playing
+        }
     }
 
     /// Pauses audio player. Calling play() will resume playback.
@@ -88,20 +87,19 @@ public extension AudioPlayer {
 
     /// The current playback time, in seconds.
     var currentTime: TimeInterval {
-        var time = editStartTime
-        let timeBeforePlay = timeBeforePlay ?? 0
+        guard status != .paused else { return pausedTime }
+        guard status != .stopped else { return editStartTime }
 
-        if status == .playing {
-            if let playerTime = playerTime {
-                if playerTime > timeBeforePlay {
-                    time += playerTime - timeBeforePlay
-                }
-            }
-        } else if status == .paused {
-            time = pausedTime
+        let startTime = editStartTime
+        let duration = editEndTime - startTime
+
+        guard let playerTime = playerTime else { return startTime }
+
+        if isBuffered {
+            return startTime + playerTime.truncatingRemainder(dividingBy: duration)
+        } else {
+            return startTime + playerTime - timeBeforePlay
         }
-
-        return time
     }
 
     /// The time the node has been playing,  in seconds. This is `nil`
@@ -116,14 +114,7 @@ public extension AudioPlayer {
         let sampleTime = Double(playerTime.sampleTime)
         let sampleRate = playerTime.sampleRate
 
-        let time = sampleTime / sampleRate
-
-        if isLooping {
-            let duration = editEndTime - editStartTime
-            return time.truncatingRemainder(dividingBy: duration)
-        } else {
-            return time
-        }
+        return sampleTime / sampleRate
     }
 }
 

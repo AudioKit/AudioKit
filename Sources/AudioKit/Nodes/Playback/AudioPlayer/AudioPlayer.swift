@@ -155,7 +155,7 @@ public class AudioPlayer: Node {
     }
 
     // Internal variable to keep track of how much time before the player is scheduled to play
-    var timeBeforePlay: TimeInterval?
+    var timeBeforePlay: TimeInterval = 0.0
 
     // MARK: - Internal properties
 
