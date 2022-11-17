@@ -4,7 +4,7 @@ import XCTest
 
 // Real time development tests
 // These simulate a user interacting with the player via an UI
-// Thse are organized like this so they're easy to bypass for CI tests
+// These are organized like this so they're easy to bypass for CI tests
 extension AudioPlayerFileTests {
     func testFindResources() {
         guard realtimeEnabled else { return }
