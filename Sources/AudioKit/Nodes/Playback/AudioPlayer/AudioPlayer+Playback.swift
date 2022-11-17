@@ -65,6 +65,7 @@ public extension AudioPlayer {
         guard status != .stopped else { return }
         status = .stopped
         playerNode.stop()
+        timeBeforePlay = 0
     }
 
     /// Seeks through the player's audio file by the given time (in seconds).
@@ -77,19 +78,23 @@ public extension AudioPlayer {
         guard let file = file else { return }
         let sampleRate = file.fileFormat.sampleRate
 
-        seekingTime += currentTime + time
+        let startTime = currentTime + time
+        let endTime = editEndTime
 
-        guard seekingTime > 0 && seekingTime < file.duration else {
+        guard startTime > 0 && startTime < endTime else {
             stop()
-            seekingTime = 0
+            if isLooping { play() }
             return
         }
 
-        let startingFrame = AVAudioFramePosition(seekingTime * sampleRate)
-        let frameCount = AVAudioFrameCount(file.length)
+        let startFrame = AVAudioFramePosition(startTime * sampleRate)
+        let endFrame = AVAudioFramePosition(endTime * sampleRate)
+
+        let frameCount = AVAudioFrameCount(endFrame - startFrame)
 
         guard frameCount > 0 else {
-            playerNode.stop()
+            stop()
+            if isLooping { play() }
             return
         }
 
@@ -98,16 +103,18 @@ public extension AudioPlayer {
 
         playerNode.scheduleSegment(
             file,
-            startingFrame: startingFrame,
+            startingFrame: startFrame,
             frameCount: frameCount,
             at: nil,
-            completionCallbackType: .dataPlayedBack) { _ in
+            completionCallbackType: .dataPlayedBack
+        ) { _ in
             self.internalCompletionHandler()
         }
 
         playerNode.play()
         isSeeking = false
         status = .playing
+        timeBeforePlay = -startTime
     }
 
     /// The current playback time, in seconds.
@@ -119,6 +126,7 @@ public extension AudioPlayer {
         let duration = editEndTime - startTime
 
         guard let playerTime = playerTime else { return startTime }
+        guard playerTime > timeBeforePlay else { return startTime + playerTime }
 
         if isBuffered {
             return startTime + playerTime.truncatingRemainder(dividingBy: duration)

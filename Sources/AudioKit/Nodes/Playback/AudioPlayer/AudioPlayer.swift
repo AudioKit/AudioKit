@@ -58,7 +58,7 @@ public class AudioPlayer: Node {
 
             if newValue, !isBuffered {
                 isBuffered = true
-                updateBuffer(force: true)
+                updateBuffer()
             }
         }
     }
@@ -90,9 +90,8 @@ public class AudioPlayer: Node {
             let wasPlaying = status == .playing
             if wasPlaying { stop() }
 
-            // Force the buffer to update with new file
             if isBuffered, file != oldValue {
-                updateBuffer(force: true)
+                updateBuffer()
             }
 
             if wasPlaying { play() }
@@ -162,8 +161,6 @@ public class AudioPlayer: Node {
     // Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
     var pausedTime: TimeInterval = 0.0
 
-    var seekingTime: TimeInterval = 0.0
-
     // saved edit times to load when user enables isEditTimeEnabled property
     var savedEditStartTime: TimeInterval?
     var savedEditEndTime: TimeInterval?
@@ -192,7 +189,6 @@ public class AudioPlayer: Node {
               engine?.isInManualRenderingMode == false else { return }
 
         completionHandler?()
-        seekingTime = 0
 
         if isLooping, !isBuffered {
             status = .stopped
