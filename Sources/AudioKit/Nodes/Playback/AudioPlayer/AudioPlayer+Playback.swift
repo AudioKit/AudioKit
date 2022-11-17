@@ -67,22 +67,47 @@ public extension AudioPlayer {
         playerNode.stop()
     }
 
-    /// Sets the player's audio file to a certain time in the track (in seconds)
-    /// and respects the players current play state
+    /// Seeks through the player's audio file by the given time (in seconds).
+    /// Positive and negative times seek forwards and backwards, respectively.
     /// - Parameters:
-    ///   - time seconds into the audio file to set playhead
+    ///   - time seconds, relative to current playback, to seek by
     func seek(time: TimeInterval) {
-        let time = time.clamped(to: 0 ... duration)
+        guard time != 0 else { return }
 
-        if status == .playing {
-            isSeeking = true
+        guard let file = file else { return }
+        let sampleRate = file.fileFormat.sampleRate
+
+        seekingTime += currentTime + time
+
+        guard seekingTime > 0 && seekingTime < file.duration else {
             stop()
-            play(from: time, to: duration)
-            isSeeking = false
-        } else {
-            editStartTime = time
-            editEndTime = duration
+            seekingTime = 0
+            return
         }
+
+        let startingFrame = AVAudioFramePosition(seekingTime * sampleRate)
+        let frameCount = AVAudioFrameCount(file.length)
+
+        guard frameCount > 0 else {
+            playerNode.stop()
+            return
+        }
+
+        isSeeking = true
+        playerNode.stop()
+
+        playerNode.scheduleSegment(
+            file,
+            startingFrame: startingFrame,
+            frameCount: frameCount,
+            at: nil,
+            completionCallbackType: .dataPlayedBack) { _ in
+            self.internalCompletionHandler()
+        }
+
+        playerNode.play()
+        isSeeking = false
+        status = .playing
     }
 
     /// The current playback time, in seconds.
