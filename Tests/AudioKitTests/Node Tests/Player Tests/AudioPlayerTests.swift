@@ -108,7 +108,6 @@ class AudioPlayerTests: XCTestCase {
         let player = AudioPlayer()
         player.volume = 0.1
         engine.output = player
-        player.isLooping = true
 
         let audio = engine.startTest(totalDuration: 5.0)
 
@@ -154,7 +153,6 @@ class AudioPlayerTests: XCTestCase {
         let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
-        player.isLooping = true
 
         let audio = engine.startTest(totalDuration: 4.0)
 
@@ -178,7 +176,6 @@ class AudioPlayerTests: XCTestCase {
         let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
-        player.isLooping = true
 
         let audio = engine.startTest(totalDuration: 2.0)
 
@@ -207,7 +204,6 @@ class AudioPlayerTests: XCTestCase {
         let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
-        player.isLooping = true
 
         let audio = engine.startTest(totalDuration: 1.0)
 
@@ -256,7 +252,6 @@ class AudioPlayerTests: XCTestCase {
         let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
-        player.isLooping = true
 
         let audio = engine.startTest(totalDuration: 3.0)
         do {
