@@ -69,16 +69,16 @@ public extension AudioPlayer {
     }
 
     /// Seeks through the player's audio file by the given time (in seconds).
-    /// Positive and negative times seek forwards and backwards, respectively.
+    /// Positive time seeks forwards, negative time seeks backwards.
     /// - Parameters:
     ///   - time seconds, relative to current playback, to seek by
-    func seek(time: TimeInterval) {
-        guard time != 0 else { return }
+    func seek(time seekTime: TimeInterval) {
+        guard seekTime != 0 else { return }
 
         guard let file = file else { return }
         let sampleRate = file.fileFormat.sampleRate
 
-        let startTime = currentTime + time
+        let startTime = currentTime + seekTime
         let endTime = editEndTime
 
         guard startTime > 0 && startTime < endTime else {
@@ -113,8 +113,7 @@ public extension AudioPlayer {
 
         playerNode.play()
         isSeeking = false
-        status = .playing
-        timeBeforePlay = -startTime
+        timeBeforePlay = editStartTime - startTime
     }
 
     /// The current playback time, in seconds.
@@ -160,3 +159,4 @@ public extension AudioPlayer {
         play()
     }
 }
+
