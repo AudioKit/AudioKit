@@ -125,14 +125,14 @@ public extension AudioPlayer {
         let startTime = editStartTime
         let duration = editEndTime - startTime
 
-        guard let playerTime = playerTime else { return startTime }
+        guard let playerTime = isBuffered
+                ? playerTime?.truncatingRemainder(dividingBy: duration)
+                : playerTime
+        else { return startTime }
+
         guard playerTime > timeBeforePlay else { return startTime + playerTime }
 
-        if isBuffered {
-            return startTime + playerTime.truncatingRemainder(dividingBy: duration)
-        } else {
-            return startTime + playerTime - timeBeforePlay
-        }
+        return startTime + playerTime - timeBeforePlay
     }
 
     /// The time the node has been playing,  in seconds. This is `nil`
