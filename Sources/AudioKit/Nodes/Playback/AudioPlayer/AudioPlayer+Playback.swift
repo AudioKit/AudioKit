@@ -112,8 +112,16 @@ public extension AudioPlayer {
         }
 
         playerNode.play()
+        status = .playing
         isSeeking = false
         timeBeforePlay = editStartTime - startTime
+    }
+
+    /// The current playback position, in range [0, 1].
+    /// The start and end positions are 0 and 1, respectively.
+    var currentPosition: Double {
+        let duration = editEndTime - editStartTime
+        return (currentTime / duration).clamped(to: 0...1)
     }
 
     /// The current playback time, in seconds.
