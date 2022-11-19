@@ -56,7 +56,7 @@ extension AudioPlayer {
                                    startingFrame: startFrame,
                                    frameCount: frameCount,
                                    at: audioTime,
-                                   completionCallbackType: completionCallbackType) { callbackType in
+                                   completionCallbackType: completionCallbackType) { _ in
             if self.isSeeking { return }
             DispatchQueue.main.async {
                 self.internalCompletionHandler()
@@ -73,7 +73,7 @@ extension AudioPlayer {
         if playerNode.outputFormat(forBus: 0) != buffer?.format {
             Log("Format of the buffer doesn't match the player")
             Log("Player", playerNode.outputFormat(forBus: 0), "Buffer", buffer?.format)
-            updateBuffer(force: true)
+            updateBuffer()
         }
 
         guard let buffer = buffer else {
@@ -90,7 +90,7 @@ extension AudioPlayer {
         playerNode.scheduleBuffer(buffer,
                                   at: audioTime,
                                   options: bufferOptions,
-                                  completionCallbackType: completionCallbackType) { callbackType in
+                                  completionCallbackType: completionCallbackType) { _ in
             if self.isSeeking { return }
             DispatchQueue.main.async {
                 self.internalCompletionHandler()

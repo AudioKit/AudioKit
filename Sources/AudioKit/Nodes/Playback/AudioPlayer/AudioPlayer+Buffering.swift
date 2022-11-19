@@ -5,7 +5,7 @@ import AVFoundation
 /// Functions specific to buffering audio
 extension AudioPlayer {
     // Fills the buffer with data read from the linked audio file
-    func updateBuffer(force: Bool = false) {
+    func updateBuffer() {
         guard let file = file else {
             // don't print this error if there is a buffer already set, just return
             if buffer == nil {

@@ -29,6 +29,8 @@ public class AudioPlayer: Node {
     /// Status of the player node (playing, paused, stopped, scheduling, or completed)
     public internal(set) var status = NodeStatus.Playback.stopped
 
+    public var isPlaying: Bool { status == .playing }
+
     private var _isBuffered: Bool = false
     /// If the player is currently using a buffer as an audio source
     public var isBuffered: Bool {
@@ -56,7 +58,7 @@ public class AudioPlayer: Node {
 
             if newValue, !isBuffered {
                 isBuffered = true
-                updateBuffer(force: true)
+                updateBuffer()
             }
         }
     }
@@ -88,9 +90,8 @@ public class AudioPlayer: Node {
             let wasPlaying = status == .playing
             if wasPlaying { stop() }
 
-            // Force the buffer to update with new file
             if isBuffered, file != oldValue {
-                updateBuffer(force: true)
+                updateBuffer()
             }
 
             if wasPlaying { play() }
@@ -153,7 +154,7 @@ public class AudioPlayer: Node {
     }
 
     // Internal variable to keep track of how much time before the player is scheduled to play
-    var timeBeforePlay = 0.0
+    var timeBeforePlay: TimeInterval = 0.0
 
     // MARK: - Internal properties
 
@@ -184,6 +185,7 @@ public class AudioPlayer: Node {
 
     func internalCompletionHandler() {
         guard status == .playing,
+              !isSeeking,
               engine?.isInManualRenderingMode == false else { return }
 
         completionHandler?()
@@ -191,6 +193,8 @@ public class AudioPlayer: Node {
         if isLooping, !isBuffered {
             status = .stopped
             play()
+        } else {
+            status = .stopped
         }
     }
 

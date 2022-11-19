@@ -15,9 +15,6 @@ public extension AudioPlayer {
               at when: AVAudioTime? = nil,
               completionCallbackType: AVAudioPlayerNodeCompletionCallbackType = .dataPlayedBack)
     {
-        editStartTime = startTime ?? editStartTime
-        editEndTime = endTime ?? editEndTime
-
         guard let engine = playerNode.engine else {
             Log("🛑 Error: AudioPlayer must be attached before playback.", type: .error)
             return
@@ -28,102 +25,145 @@ public extension AudioPlayer {
             return
         }
 
-        if let renderTime = playerNode.lastRenderTime, let whenTime = when {
-            timeBeforePlay = whenTime.timeIntervalSince(otherTime: renderTime) ?? 0.0
+        guard status != .playing else { return }
+
+        editStartTime = startTime ?? editStartTime
+        editEndTime = endTime ?? editEndTime
+
+        if let nodeTime = playerNode.lastRenderTime, let whenTime = when {
+            timeBeforePlay = whenTime.timeIntervalSince(otherTime: nodeTime) ?? 0
+        } else if let playerTime = playerTime {
+            timeBeforePlay = playerTime
         }
 
-        switch status {
-        case .stopped:
-            schedule(at: when,
-                     completionCallbackType: completionCallbackType)
-
+        if status == .paused {
+            resume()
+        } else {
+            schedule(at: when, completionCallbackType: completionCallbackType)
             playerNode.play()
             status = .playing
-        case .playing:
-            // player is already playing
-            return
-        case .paused:
-            resume()
-        case .scheduling:
-            // player is already scheduling
-            return
         }
     }
 
-    /// Pauses audio player. Calling play() will resume from the paused time.
+    /// Pauses audio player. Calling play() will resume playback.
     func pause() {
         guard status == .playing else { return }
-        pausedTime = getCurrentTime()
+        pausedTime = currentTime
         playerNode.pause()
         status = .paused
     }
 
-    /// Resumes audio player from paused time
+    /// Resumes playback immediately if the player is paused.
     func resume() {
+        guard status == .paused else { return }
         playerNode.play()
         status = .playing
     }
 
-    /// Gets the accurate playhead time regardless of seeking and pausing
-    /// Can't be relied on if playerNode has its playstate modified directly
-    func getCurrentTime() -> TimeInterval {
-        switch status {
-        case .playing:
-            if let nodeTime = playerNode.lastRenderTime,
-               nodeTime.isSampleTimeValid,
-               let playerTime = playerNode.playerTime(forNodeTime: nodeTime)
-            {
-                let currTime = Double(playerTime.sampleTime) / playerTime.sampleRate
-
-                // Don't count time before file starts playing
-                if currTime < timeBeforePlay {
-                    return editStartTime
-                } else {
-                    return currTime + editStartTime - timeBeforePlay
-                }
-            } else {
-                return editStartTime
-            }
-        case .paused:
-            return pausedTime
-        default:
-            return editStartTime
-        }
+    /// Stop audio player. This won't generate a callback event
+    func stop() {
+        guard status != .stopped else { return }
+        status = .stopped
+        playerNode.stop()
+        timeBeforePlay = 0
     }
 
-    /// Sets the player's audio file to a certain time in the track (in seconds)
-    /// and respects the players current play state
+    /// Seeks through the player's audio file by the given time (in seconds).
+    /// Positive time seeks forwards, negative time seeks backwards.
     /// - Parameters:
-    ///   - time seconds into the audio file to set playhead
-    func seek(time: TimeInterval) {
-        let time = time.clamped(to: 0 ... duration)
+    ///   - time seconds, relative to current playback, to seek by
+    func seek(time seekTime: TimeInterval) {
+        guard seekTime != 0 else { return }
 
-        if status == .playing {
-            isSeeking = true
+        guard let file = file else { return }
+        let sampleRate = file.fileFormat.sampleRate
+
+        let startTime = currentTime + seekTime
+        let endTime = editEndTime
+
+        guard startTime > 0 && startTime < endTime else {
             stop()
-            play(from: time, to: duration)
-            isSeeking = false
-        } else {
-            editStartTime = time
-            editEndTime = duration
+            if isLooping { play() }
+            return
         }
+
+        let startFrame = AVAudioFramePosition(startTime * sampleRate)
+        let endFrame = AVAudioFramePosition(endTime * sampleRate)
+
+        let frameCount = AVAudioFrameCount(endFrame - startFrame)
+
+        guard frameCount > 0 else {
+            stop()
+            if isLooping { play() }
+            return
+        }
+
+        isSeeking = true
+        playerNode.stop()
+
+        playerNode.scheduleSegment(
+            file,
+            startingFrame: startFrame,
+            frameCount: frameCount,
+            at: nil,
+            completionCallbackType: .dataPlayedBack
+        ) { _ in
+            self.internalCompletionHandler()
+        }
+
+        playerNode.play()
+        status = .playing
+        isSeeking = false
+        timeBeforePlay = editStartTime - startTime
+    }
+
+    /// The current playback position, in range [0, 1].
+    /// The start and end positions are 0 and 1, respectively.
+    var currentPosition: Double {
+        let duration = editEndTime - editStartTime
+        return (currentTime / duration).clamped(to: 0...1)
+    }
+
+    /// The current playback time, in seconds.
+    var currentTime: TimeInterval {
+        guard status != .paused else { return pausedTime }
+        guard status != .stopped else { return editStartTime }
+
+        let startTime = editStartTime
+        let duration = editEndTime - startTime
+
+        guard let playerTime = isBuffered
+                ? playerTime?.truncatingRemainder(dividingBy: duration)
+                : playerTime
+        else { return startTime }
+
+        guard playerTime > timeBeforePlay else { return startTime + playerTime }
+
+        return startTime + playerTime - timeBeforePlay
+    }
+
+    /// The time the node has been playing,  in seconds. This is `nil`
+    /// when the node is paused or stopped. The node's "playerTime" is not
+    /// stopped when the file completes playback.
+    var playerTime: TimeInterval? {
+        guard let nodeTime = playerNode.lastRenderTime,
+              nodeTime.isSampleTimeValid,
+              let playerTime = playerNode.playerTime(forNodeTime: nodeTime)
+        else { return nil }
+
+        let sampleTime = Double(playerTime.sampleTime)
+        let sampleRate = playerTime.sampleRate
+
+        return sampleTime / sampleRate
     }
 }
 
 public extension AudioPlayer {
     /// Synonym for isPlaying
-    var isStarted: Bool { status == .playing }
+    var isStarted: Bool { isPlaying }
 
     /// Synonym for play()
     func start() {
         play()
-    }
-
-    /// Stop audio player. This won't generate a callback event
-    func stop() {
-        guard status == .playing else { return }
-        pausedTime = getCurrentTime()
-        status = .stopped
-        playerNode.stop()
     }
 }
