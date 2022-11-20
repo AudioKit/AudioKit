@@ -337,7 +337,7 @@ class AudioPlayerTests: XCTestCase {
         let player = AudioPlayer()
         engine.output = player
 
-        let audio = engine.startTest(totalDuration: 3.0)
+        let audio = engine.startTest(totalDuration: 2.0)
 
         do {
             try player.load(url: url)
@@ -349,9 +349,6 @@ class AudioPlayerTests: XCTestCase {
         player.play()
         player.seek(time: 1.0)
         audio.append(engine.render(duration: 1.0))
-
-        player.seek(time: 1.0)
-        audio.append(engine.render(duration: 1.0))
         XCTAssertEqual(player.status, .playing)
 
         player.pause()
@@ -361,7 +358,7 @@ class AudioPlayerTests: XCTestCase {
         player.seek(time: 1.0)
         audio.append(engine.render(duration: 1.0))
         let currentTime = player.currentTime
-        XCTAssertEqual(currentTime, 6.0)
+        XCTAssertEqual(currentTime, 4.0)
         testMD5(audio)
     }
 
@@ -496,6 +493,33 @@ class AudioPlayerTests: XCTestCase {
         player.seek(time: 6) // player.duration < 5.5
         audio.append(engine.render(duration: 2.0))
         XCTAssert(player.status == .playing)
+        testMD5(audio)
+    }
+
+    func testPlaybackWillStopWhenSettingLoopingForBuffer() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let buffer = try? AVAudioPCMBuffer(url: url)
+        else {
+            XCTFail("Couldn't create buffer")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.buffer = buffer
+        player.isLooping = false
+
+        let audio = engine.startTest(totalDuration: 4.0)
+        player.play()
+
+        player.play()
+        audio.append(engine.render(duration: 2.0))
+        XCTAssert(player.status == .playing)
+
+        player.isLooping = false
+        audio.append(engine.render(duration: 2.0))
+        XCTAssert(player.status == .stopped)
         testMD5(audio)
     }
 }
