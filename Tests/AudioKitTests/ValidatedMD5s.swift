@@ -33,6 +33,7 @@ let validatedMD5s: [String: String] = [
     "-[AudioPlayerTests testSeekForwardsAndBackwards]": "31d6c565efa462738ac32e9438ccfed0",
     "-[AudioPlayerTests testSeekWillStop]": "84b026cbdf45d9c5f5659f1106fdee6a",
     "-[AudioPlayerTests testSeekWillContinueLooping]": "5becbd9530850f217f95ee1142a8db30",
+    "-[AudioPlayerTests testPlaybackWillStopWhenSettingLoopingForBuffer]": "5becbd9530850f217f95ee1142a8db30",
     "-[CompressorTests testAttackTime]": "f2da585c3e9838c1a41f1a5f34c467d0",
     "-[CompressorTests testDefault]": "3064ef82b30c512b2f426562a2ef3448",
     "-[CompressorTests testHeadRoom]": "98ac5f20a433ba5a858c461aa090d81f",
