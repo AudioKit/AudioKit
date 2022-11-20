@@ -68,6 +68,19 @@ public class AudioPlayer: Node {
     public var isLooping: Bool = false {
         didSet {
             bufferOptions = isLooping ? .loops : .interrupts
+
+            if isBuffered {
+                // The playerNode needs to be stopped for the buffer options to
+                // take effect. The playerNode does not stop once a buffer has
+                // completed playback (even though the player is 'stopped' as it
+                // is no longer playing the file).
+                if status == .stopped { playerNode.stop() }
+
+                if isPlaying {
+                    Log("For buffers, 'isLooping' should only be set when the player is stopped.", type: .debug)
+                    stop()
+                }
+            }
         }
     }
 
