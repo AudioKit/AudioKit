@@ -28,7 +28,7 @@ let validatedMD5s: [String: String] = [
     "-[AudioPlayerTests testSwitchFilesDuringPlayback]": "5bd0d50c56837bfdac4d9881734d0f8e",
     "-[AudioPlayerTests testCanStopPausedPlayback]": "7076f63dc5c70f6bd006a7d4ff891aa3",
     "-[AudioPlayerTests testCurrentPosition]": "8c5c55d9f59f471ca1abb53672e3ffbf",
-    "-[AudioPlayerTests testSeekAfterPause]": "01fcf60fa30105e062c00db97de501e7",
+    "-[AudioPlayerTests testSeekAfterPause]": "271add78c1dc38d54b261d240dab100f",
     "-[AudioPlayerTests testSeekAfterStop]": "90a31285a6ce11a3609a2c52f0b3ec66",
     "-[AudioPlayerTests testSeekForwardsAndBackwards]": "31d6c565efa462738ac32e9438ccfed0",
     "-[AudioPlayerTests testSeekWillStop]": "84b026cbdf45d9c5f5659f1106fdee6a",
