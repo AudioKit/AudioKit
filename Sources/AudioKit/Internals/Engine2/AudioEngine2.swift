@@ -13,7 +13,21 @@ public class AudioEngine2 {
         }
     }
     
-    var engineAU: EngineAudioUnit!
+    var engineAU: EngineAudioUnit
+    var avAudioUnit: AVAudioUnit
+    
+    init() {
+        
+        let componentDescription = AudioComponentDescription(effect: "akau")
+        
+        AUAudioUnit.registerSubclass(EngineAudioUnit.self,
+                                     as: componentDescription,
+                                     name: "engine AU",
+                                     version: .max)
+        
+        avAudioUnit = instantiate(componentDescription: componentDescription)
+        engineAU = avAudioUnit.auAudioUnit as! EngineAudioUnit
+    }
     
     func compile() {
         // Traverse the node graph to schedule
