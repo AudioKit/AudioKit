@@ -98,6 +98,13 @@ public extension Node {
 }
 
 extension Node {
+    
+    /// The underlying AudioUnit for the node.
+    ///
+    /// NOTE: hopefully we can continue to use AVAudioNodes without AVAudioEngine.
+    var au: AUAudioUnit {
+        avAudioNode.auAudioUnit
+    }
 
     func disconnectAV() {
         if let engine = avAudioNode.engine {
