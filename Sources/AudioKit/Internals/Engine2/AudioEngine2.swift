@@ -27,6 +27,25 @@ public class AudioEngine2 {
         
         avAudioUnit = instantiate(componentDescription: componentDescription)
         engineAU = avAudioUnit.auAudioUnit as! EngineAudioUnit
+        
+        avEngine.attach(avAudioUnit)
+        avEngine.connect(avEngine.inputNode, to: avAudioUnit, format: nil)
+        avEngine.connect(avAudioUnit, to: avEngine.mainMixerNode, format: nil)
+    }
+    
+    /// Start the engine
+    public func start() throws {
+        try avEngine.start()
+    }
+    
+    /// Stop the engine
+    public func stop() {
+        avEngine.stop()
+    }
+
+    /// Pause the engine
+    public func pause() {
+        avEngine.pause()
     }
     
     func compile() {
