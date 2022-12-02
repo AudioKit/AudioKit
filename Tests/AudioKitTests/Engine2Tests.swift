@@ -23,7 +23,6 @@ class Engine2Tests: XCTestCase {
         engine.stop()
     }
     
-    // Getting kAudioUnitErr_NoConnection
     func testEffect() throws {
         
         let engine = AudioEngine2()
