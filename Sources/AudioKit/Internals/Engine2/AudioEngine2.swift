@@ -78,6 +78,13 @@ public class AudioEngine2 {
             
             for node in list {
                 
+                // Activate input buses.
+                for busIndex in 0..<node.au.inputBusses.count {
+                    let bus = node.au.inputBusses[busIndex]
+                    try! bus.setFormat(format)
+                    bus.isEnabled = true
+                }
+                
                 if !activeNodes.contains(ObjectIdentifier(node)) {
                     try! node.au.allocateRenderResources()
                     activeNodes.insert(ObjectIdentifier(node))
