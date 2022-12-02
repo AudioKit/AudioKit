@@ -3,6 +3,7 @@
 import Foundation
 import AudioUnit
 import AVFoundation
+import Atomics
 
 struct ExecInfo {
     var outputBuffer: UnsafeMutablePointer<AudioBufferList>
@@ -13,14 +14,18 @@ struct ExecInfo {
 
 struct ExecSchedule {
     var schedule: [ExecInfo] = []
+
+    /// Are we done using this schedule?
+    var done: Bool = false
 }
 
 /// Our single audio unit which will evaluate all audio units.
 class EngineAudioUnit: AUAudioUnit {
     
     // The list of things to execute.
-    // XXX: ultimately we'll need to update this using a lock-free queue.
-    var execList = ExecSchedule()
+    var execList = ManagedAtomic<UnsafeMutablePointer<ExecSchedule>>(UnsafeMutablePointer<ExecSchedule>.allocate(capacity: 1))
+
+    var dspList: UnsafeMutablePointer<ExecSchedule>?
     
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
@@ -72,32 +77,41 @@ class EngineAudioUnit: AUAudioUnit {
            outputBusNumber: Int,
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            inputBlock: AURenderPullInputBlock?) in
-            
-            var i = 0
-            for exec in self.execList.schedule {
-                
-                let out = i == self.execList.schedule.count-1 ? outputBufferList : exec.outputBuffer
-                let status = exec.renderBlock(actionFlags,
-                                              timeStamp,
-                                              frameCount,
-                                              0,
-                                              out,
-                                              exec.inputBlock)
-                
-                // Propagate errors.
-                if status != noErr {
-                    switch status {
-                    case kAudioUnitErr_NoConnection:
-                        print("got kAudioUnitErr_NoConnection")
-                    case kAudioUnitErr_TooManyFramesToProcess:
-                        print("got kAudioUnitErr_TooManyFramesToProcess")
-                    default:
-                        print("rendering error \(status)")
+
+            let nextList = self.execList.load(ordering: .relaxed)
+
+            if nextList != self.dspList {
+                self.dspList?.pointee.done = true
+                self.dspList = nextList
+            }
+
+            if let dspList = self.dspList {
+                var i = 0
+                for exec in dspList.pointee.schedule {
+
+                    let out = i == dspList.pointee.schedule.count-1 ? outputBufferList : exec.outputBuffer
+                    let status = exec.renderBlock(actionFlags,
+                                                  timeStamp,
+                                                  frameCount,
+                                                  0,
+                                                  out,
+                                                  exec.inputBlock)
+
+                    // Propagate errors.
+                    if status != noErr {
+                        switch status {
+                        case kAudioUnitErr_NoConnection:
+                            print("got kAudioUnitErr_NoConnection")
+                        case kAudioUnitErr_TooManyFramesToProcess:
+                            print("got kAudioUnitErr_TooManyFramesToProcess")
+                        default:
+                            print("rendering error \(status)")
+                        }
+                        return status
                     }
-                    return status
+
+                    i += 1
                 }
-                
-                i += 1
             }
             
             return noErr

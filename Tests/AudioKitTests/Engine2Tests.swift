@@ -10,11 +10,11 @@ class Engine2Tests: XCTestCase {
         
         let osc = TestOsc()
         
-        XCTAssertTrue(engine.engineAU.execList.schedule.isEmpty)
+        XCTAssertTrue(engine.schedule.schedule.isEmpty)
         
         engine.output = osc
         
-        XCTAssertEqual(engine.engineAU.execList.schedule.count, 1)
+        XCTAssertEqual(engine.schedule.schedule.count, 1)
         
         try engine.start()
         
@@ -30,11 +30,11 @@ class Engine2Tests: XCTestCase {
         let osc = TestOsc()
         let fx = AppleDistortion(osc)
         
-        XCTAssertTrue(engine.engineAU.execList.schedule.isEmpty)
+        XCTAssertTrue(engine.schedule.schedule.isEmpty)
         
         engine.output = fx
         
-        XCTAssertEqual(engine.engineAU.execList.schedule.count, 2)
+        XCTAssertEqual(engine.schedule.schedule.count, 2)
         
         try engine.start()
         
@@ -51,11 +51,11 @@ class Engine2Tests: XCTestCase {
         let dist = AppleDistortion(osc)
         let rev = Reverb(dist)
         
-        XCTAssertTrue(engine.engineAU.execList.schedule.isEmpty)
+        XCTAssertTrue(engine.schedule.schedule.isEmpty)
         
         engine.output = rev
         
-        XCTAssertEqual(engine.engineAU.execList.schedule.count, 3)
+        XCTAssertEqual(engine.schedule.schedule.count, 3)
         
         try engine.start()
         
@@ -65,9 +65,6 @@ class Engine2Tests: XCTestCase {
     }
     
     /// Test changing the output chain on the fly.
-    ///
-    /// XXX: Note that we haven't yet implemented the correct thread safety mechanism,
-    /// so this may crash, but the basic idea works. Thread sanitizer reports an error.
     func testDynamicChange() throws {
         
         let engine = AudioEngine2()

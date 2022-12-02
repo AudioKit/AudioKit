@@ -100,6 +100,8 @@ public class AudioEngine2 {
             return noErr
         }
     }
+
+    var schedule = ExecSchedule()
     
     func compile() {
         // Traverse the node graph to schedule
@@ -179,9 +181,14 @@ public class AudioEngine2 {
                     
                 }
             }
+
+            // Save schedule.
+            schedule = ExecSchedule(schedule: execList)
             
             // Update engine exec list.
-            engineAU.execList = ExecSchedule(schedule: execList)
+            let ptr = UnsafeMutablePointer<ExecSchedule>.allocate(capacity: 1)
+            ptr.pointee = schedule
+            engineAU.execList.store(ptr, ordering: .relaxed)
             
         }
     }
