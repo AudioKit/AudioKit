@@ -69,18 +69,21 @@ class EngineAudioUnit: AUAudioUnit {
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            inputBlock: AURenderPullInputBlock?) in
             
+            var i = 0
             for exec in self.execList {
                 let status = exec.renderBlock(actionFlags,
                                               timeStamp,
                                               frameCount,
                                               0,
-                                              exec.outputBuffer,
+                                              i == self.execList.count-1 ? outputBufferList : exec.outputBuffer,
                                               exec.inputBlock)
                 
                 // Propagate errors.
                 if status != noErr {
                     return status
                 }
+                
+                i += 1
             }
             
             return noErr

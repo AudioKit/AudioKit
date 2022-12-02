@@ -5,7 +5,7 @@ import XCTest
 
 class Engine2Tests: XCTestCase {
     
-    func testBasic() {
+    func testBasic() throws {
         let engine = AudioEngine2()
         
         let osc = PlaygroundOscillator()
@@ -15,5 +15,11 @@ class Engine2Tests: XCTestCase {
         engine.output = osc
         
         XCTAssertEqual(engine.engineAU.execList.count, 1)
+        
+        try engine.start()
+        
+        sleep(2)
+        
+        engine.stop()
     }
 }

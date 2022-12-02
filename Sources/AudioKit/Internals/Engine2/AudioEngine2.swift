@@ -48,6 +48,8 @@ public class AudioEngine2 {
         avEngine.pause()
     }
     
+    var activeNodes = Set<ObjectIdentifier>()
+    
     func compile() {
         // Traverse the node graph to schedule
         // audio units.
@@ -74,26 +76,35 @@ public class AudioEngine2 {
             
             for node in list {
                 
+                if !activeNodes.contains(ObjectIdentifier(node)) {
+                    try! node.au.allocateRenderResources()
+                    activeNodes.insert(ObjectIdentifier(node))
+                }
+                
                 let nodeBuffer = buffers[ObjectIdentifier(node)]!
                 
                 let inputBuffers = node.connections.map { buffers[ObjectIdentifier($0)]! }
                 let inputBufferLists = inputBuffers.map { $0.mutableAudioBufferList }
                 
-                let block = {
-                    (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-                     timestamp: UnsafePointer<AudioTimeStamp>,
-                     frames: AUAudioFrameCount,
-                     bus: Int,
-                     outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
-                    
-                    // We'd like to avoid actually copying samples, so just copy the ABL.
-                    let buffer = inputBufferLists[bus]
-                    
-                    assert(buffer.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
-                    let ablSize = MemoryLayout<AudioBufferList>.size + Int(buffer.pointee.mNumberBuffers) * MemoryLayout<AudioBuffer>.size
-                    memcpy(outputBuffer, buffer, ablSize)
-                    
-                    return noErr
+                var block: AURenderPullInputBlock = { (_, _, _, _, _) in return noErr }
+                
+                if !inputBufferLists.isEmpty {
+                    block = {
+                        (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+                         timestamp: UnsafePointer<AudioTimeStamp>,
+                         frames: AUAudioFrameCount,
+                         bus: Int,
+                         outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
+                        
+                        // We'd like to avoid actually copying samples, so just copy the ABL.
+                        let buffer = inputBufferLists[bus]
+                        
+                        assert(buffer.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
+                        let ablSize = MemoryLayout<AudioBufferList>.size + Int(buffer.pointee.mNumberBuffers) * MemoryLayout<AudioBuffer>.size
+                        memcpy(outputBuffer, buffer, ablSize)
+                        
+                        return noErr
+                    }
                 }
                 
                 let info = EngineAudioUnit.AUExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
