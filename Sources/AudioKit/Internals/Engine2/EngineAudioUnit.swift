@@ -71,11 +71,13 @@ class EngineAudioUnit: AUAudioUnit {
             
             var i = 0
             for exec in self.execList {
+                
+                let out = i == self.execList.count-1 ? outputBufferList : exec.outputBuffer
                 let status = exec.renderBlock(actionFlags,
                                               timeStamp,
                                               frameCount,
                                               0,
-                                              i == self.execList.count-1 ? outputBufferList : exec.outputBuffer,
+                                              out,
                                               exec.inputBlock)
                 
                 // Propagate errors.
