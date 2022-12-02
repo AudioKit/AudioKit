@@ -87,4 +87,23 @@ class Engine2Tests: XCTestCase {
         
         engine.stop()
     }
+    
+    func testMixer() throws {
+        
+        let engine = AudioEngine2()
+        
+        let osc1 = TestOsc()
+        let osc2 = TestOsc()
+        osc2.frequency = 466.16 // dissonance, so we can really hear it
+        
+        let mix = Mixer([osc1, osc2])
+        
+        engine.output = mix
+        
+        try engine.start()
+        
+        sleep(2)
+        
+        engine.stop()
+    }
 }

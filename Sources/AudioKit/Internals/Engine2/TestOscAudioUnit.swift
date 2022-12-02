@@ -93,6 +93,11 @@ class TestOsc: Node {
     
     let avAudioNode: AVAudioNode
     
+    let oscAU: TestOscAudioUnit
+    
+    // XXX: should be using parameters
+    var frequency: Float { get { oscAU.frequency } set { oscAU.frequency = newValue }}
+    
     init() {
         
         let componentDescription = AudioComponentDescription(generator: "tosc")
@@ -102,5 +107,6 @@ class TestOsc: Node {
                                      name: "osc AU",
                                      version: .max)
         avAudioNode = instantiate(componentDescription: componentDescription)
+        oscAU = avAudioNode.auAudioUnit as! TestOscAudioUnit
     }
 }
