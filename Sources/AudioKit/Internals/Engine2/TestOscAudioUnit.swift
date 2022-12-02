@@ -76,7 +76,8 @@ class TestOscAudioUnit: AUAudioUnit {
                 if self.currentPhase < 0.0 { self.currentPhase += twoPi }
                 // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
                 for buffer in ablPointer {
-                    let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
+                    let buf = UnsafeMutableBufferPointer<Float>(buffer)
+                    assert(frame < buf.count)
                     buf[frame] = value
                 }
             }
