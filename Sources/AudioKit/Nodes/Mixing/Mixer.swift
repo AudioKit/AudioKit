@@ -85,6 +85,11 @@ public class Mixer: Node, NamedNode {
         }
 
         makeAVConnections()
+        
+        // New engine: recompile graph after adding an input.
+        if let engine = engine2 {
+            engine.compile()
+        }
     }
 
     /// Is this node already connected?
@@ -152,4 +157,7 @@ public class Mixer: Node, NamedNode {
         // current input busses array already matches or exceeds required size
         return requiredSize
     }
+    
+    /// This is so we can recompile when there's a change to the inputs.
+    public weak var engine2: AudioEngine2?
 }

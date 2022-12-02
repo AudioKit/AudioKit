@@ -149,7 +149,11 @@ public class AudioEngine2 {
                 
                 var inputBlock: AURenderPullInputBlock = { (_, _, _, _, _) in return noErr }
                 
-                if node as? Mixer != nil {
+                if let mixer = node as? Mixer {
+                    
+                    // Set the engine on the mixer so adding or removing mixer inputs
+                    // can trigger a recompile.
+                    mixer.engine2 = self
                     
                     let renderBlock = mixerRenderBlock(inputBufferLists: inputBufferLists)
                     
