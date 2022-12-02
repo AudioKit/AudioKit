@@ -82,6 +82,12 @@ class EngineAudioUnit: AUAudioUnit {
                 
                 // Propagate errors.
                 if status != noErr {
+                    switch status {
+                    case kAudioUnitErr_NoConnection:
+                        print("got kAudioUnitErr_NoConnection")
+                    default:
+                        print("rendering error \(status)")
+                    }
                     return status
                 }
                 
