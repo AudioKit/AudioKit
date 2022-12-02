@@ -10,11 +10,11 @@ class Engine2Tests: XCTestCase {
         
         let osc = TestOsc()
         
-        XCTAssertTrue(engine.engineAU.execList.isEmpty)
+        XCTAssertTrue(engine.engineAU.execList.schedule.isEmpty)
         
         engine.output = osc
         
-        XCTAssertEqual(engine.engineAU.execList.count, 1)
+        XCTAssertEqual(engine.engineAU.execList.schedule.count, 1)
         
         try engine.start()
         
@@ -30,11 +30,11 @@ class Engine2Tests: XCTestCase {
         let osc = TestOsc()
         let fx = AppleDistortion(osc)
         
-        XCTAssertTrue(engine.engineAU.execList.isEmpty)
+        XCTAssertTrue(engine.engineAU.execList.schedule.isEmpty)
         
         engine.output = fx
         
-        XCTAssertEqual(engine.engineAU.execList.count, 2)
+        XCTAssertEqual(engine.engineAU.execList.schedule.count, 2)
         
         try engine.start()
         
@@ -51,11 +51,11 @@ class Engine2Tests: XCTestCase {
         let dist = AppleDistortion(osc)
         let rev = Reverb(dist)
         
-        XCTAssertTrue(engine.engineAU.execList.isEmpty)
+        XCTAssertTrue(engine.engineAU.execList.schedule.isEmpty)
         
         engine.output = rev
         
-        XCTAssertEqual(engine.engineAU.execList.count, 3)
+        XCTAssertEqual(engine.engineAU.execList.schedule.count, 3)
         
         try engine.start()
         

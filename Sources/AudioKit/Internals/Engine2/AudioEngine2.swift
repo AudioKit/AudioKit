@@ -125,7 +125,7 @@ public class AudioEngine2 {
             }
             
             // Pass the schedule to the engineAU
-            var execList: [EngineAudioUnit.AUExecInfo] = []
+            var execList: [ExecInfo] = []
             
             for node in list {
                 
@@ -157,10 +157,10 @@ public class AudioEngine2 {
                     
                     let renderBlock = AudioEngine2.mixerRenderBlock(inputBufferLists: inputBufferLists)
                     
-                    let info = EngineAudioUnit.AUExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
-                                                          outputPCMBuffer: nodeBuffer,
-                                                          renderBlock: renderBlock,
-                                                          inputBlock: inputBlock)
+                    let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
+                                        outputPCMBuffer: nodeBuffer,
+                                        renderBlock: renderBlock,
+                                        inputBlock: inputBlock)
                     
                     execList.append(info)
                     
@@ -170,10 +170,10 @@ public class AudioEngine2 {
                         inputBlock = AudioEngine2.basicInputBlock(inputBufferLists: inputBufferLists)
                     }
                     
-                    let info = EngineAudioUnit.AUExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
-                                                          outputPCMBuffer: nodeBuffer,
-                                                          renderBlock: node.au.renderBlock,
-                                                          inputBlock: inputBlock)
+                    let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
+                                        outputPCMBuffer: nodeBuffer,
+                                        renderBlock: node.au.renderBlock,
+                                        inputBlock: inputBlock)
                     
                     execList.append(info)
                     
@@ -181,7 +181,7 @@ public class AudioEngine2 {
             }
             
             // Update engine exec list.
-            engineAU.execList = execList
+            engineAU.execList = ExecSchedule(schedule: execList)
             
         }
     }

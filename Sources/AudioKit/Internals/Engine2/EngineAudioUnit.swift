@@ -4,19 +4,23 @@ import Foundation
 import AudioUnit
 import AVFoundation
 
+struct ExecInfo {
+    var outputBuffer: UnsafeMutablePointer<AudioBufferList>
+    var outputPCMBuffer: AVAudioPCMBuffer
+    var renderBlock: AURenderBlock
+    var inputBlock: AURenderPullInputBlock
+}
+
+struct ExecSchedule {
+    var schedule: [ExecInfo] = []
+}
+
 /// Our single audio unit which will evaluate all audio units.
 class EngineAudioUnit: AUAudioUnit {
     
-    struct AUExecInfo {
-        var outputBuffer: UnsafeMutablePointer<AudioBufferList>
-        var outputPCMBuffer: AVAudioPCMBuffer
-        var renderBlock: AURenderBlock
-        var inputBlock: AURenderPullInputBlock
-    }
-    
     // The list of things to execute.
     // XXX: ultimately we'll need to update this using a lock-free queue.
-    var execList: [AUExecInfo] = []
+    var execList = ExecSchedule()
     
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
@@ -70,9 +74,9 @@ class EngineAudioUnit: AUAudioUnit {
            inputBlock: AURenderPullInputBlock?) in
             
             var i = 0
-            for exec in self.execList {
+            for exec in self.execList.schedule {
                 
-                let out = i == self.execList.count-1 ? outputBufferList : exec.outputBuffer
+                let out = i == self.execList.schedule.count-1 ? outputBufferList : exec.outputBuffer
                 let status = exec.renderBlock(actionFlags,
                                               timeStamp,
                                               frameCount,
