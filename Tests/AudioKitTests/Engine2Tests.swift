@@ -63,4 +63,28 @@ class Engine2Tests: XCTestCase {
         
         engine.stop()
     }
+    
+    /// Test changing the output chain on the fly.
+    ///
+    /// XXX: Note that we haven't yet implemented the correct thread safety mechanism,
+    /// so this may crash, but the basic idea works.
+    func testDynamicChange() throws {
+        
+        let engine = AudioEngine2()
+        
+        let osc = TestOsc()
+        let dist = AppleDistortion(osc)
+        
+        engine.output = osc
+        
+        try engine.start()
+        
+        sleep(2)
+        
+        engine.output = dist
+        
+        sleep(2)
+        
+        engine.stop()
+    }
 }
