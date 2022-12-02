@@ -86,3 +86,20 @@ class TestOscAudioUnit: AUAudioUnit {
     }
     
 }
+
+class TestOsc: Node {
+    let connections: [Node] = []
+    
+    let avAudioNode: AVAudioNode
+    
+    init() {
+        
+        let componentDescription = AudioComponentDescription(generator: "tosc")
+        
+        AUAudioUnit.registerSubclass(TestOscAudioUnit.self,
+                                     as: componentDescription,
+                                     name: "osc AU",
+                                     version: .max)
+        avAudioNode = instantiate(componentDescription: componentDescription)
+    }
+}
