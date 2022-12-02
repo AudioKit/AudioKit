@@ -42,4 +42,25 @@ class Engine2Tests: XCTestCase {
         
         engine.stop()
     }
+    
+    func testTwoEffects() throws {
+        
+        let engine = AudioEngine2()
+        
+        let osc = TestOsc()
+        let dist = AppleDistortion(osc)
+        let rev = Reverb(dist)
+        
+        XCTAssertTrue(engine.engineAU.execList.isEmpty)
+        
+        engine.output = rev
+        
+        XCTAssertEqual(engine.engineAU.execList.count, 3)
+        
+        try engine.start()
+        
+        sleep(2)
+        
+        engine.stop()
+    }
 }
