@@ -9,6 +9,7 @@ class Engine2Tests: XCTestCase {
         let engine = AudioEngine2()
         
         let osc = PlaygroundOscillator()
+        osc.start()
         
         XCTAssertTrue(engine.engineAU.execList.isEmpty)
         
