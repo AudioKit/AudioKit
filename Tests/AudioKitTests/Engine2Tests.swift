@@ -8,8 +8,7 @@ class Engine2Tests: XCTestCase {
     func testBasic() throws {
         let engine = AudioEngine2()
         
-        let osc = PlaygroundOscillator()
-        osc.start()
+        let osc = TestOsc()
         
         XCTAssertTrue(engine.engineAU.execList.isEmpty)
         
