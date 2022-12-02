@@ -32,6 +32,14 @@ public class AudioEngine2 {
         avEngine.connect(avEngine.inputNode, to: avAudioUnit, format: nil)
         avEngine.connect(avAudioUnit, to: avEngine.mainMixerNode, format: nil)
     }
+
+    deinit {
+        print("deleting \(previousSchedules.count) schedules")
+        for ptr in previousSchedules {
+            ptr.deinitialize(count: 1)
+            ptr.deallocate()
+        }
+    }
     
     /// Start the engine
     public func start() throws {
@@ -189,15 +197,30 @@ public class AudioEngine2 {
             
             // Update engine exec list.
             let ptr = UnsafeMutablePointer<ExecSchedule>.allocate(capacity: 1)
-            ptr.pointee = schedule
+            ptr.initialize(to: schedule)
             previousSchedules.append(ptr)
             engineAU.execList.store(ptr, ordering: .relaxed)
 
             // Cleanup old schedules.
-            while let ptr = previousSchedules.first, ptr.pointee.done {
-                ptr.deinitialize(count: 1)
-                ptr.deallocate()
-                previousSchedules.removeFirst()
+            // Start from the end. Once we find a finished
+            // data, delete all data before and including.
+            var i = previousSchedules.count-1
+            while i > 0 {
+                if previousSchedules[i].pointee.done {
+
+                    print("removing \(i) old schedules")
+
+                    for j in 0...i {
+                        let ptr = previousSchedules[j]
+                        ptr.deinitialize(count: 1)
+                        ptr.deallocate()
+                    }
+
+                    previousSchedules.removeFirst(i+1)
+
+                    break
+                }
+                i -= 1
             }
             
         }

@@ -126,4 +126,26 @@ class Engine2Tests: XCTestCase {
         
         engine.stop()
     }
+
+    /// Test some number of changes so schedules are released.
+    func testMultipleChanges() throws {
+
+        let engine = AudioEngine2()
+
+        let osc1 = TestOsc()
+        let osc2 = TestOsc()
+
+        osc1.frequency = 880
+
+        engine.output = osc1
+
+        try engine.start()
+
+        for i in 0..<10 {
+            sleep(1)
+            engine.output = (i % 2 == 1) ? osc1 : osc2
+        }
+
+        engine.stop()
+    }
 }
