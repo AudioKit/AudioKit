@@ -50,6 +50,38 @@ public class AudioEngine2 {
     
     var activeNodes = Set<ObjectIdentifier>()
     
+    func mixerRenderBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderBlock {
+        {
+            (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+               timeStamp: UnsafePointer<AudioTimeStamp>,
+               frameCount: AUAudioFrameCount,
+               outputBusNumber: Int,
+               outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+               inputBlock: AURenderPullInputBlock?) in
+            
+            let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
+            
+            for channel in 0..<ablPointer.count {
+                
+                let outBuf = UnsafeMutableBufferPointer<Float>(ablPointer[channel])
+                for frame in 0..<Int(frameCount) {
+                    outBuf[frame] = 0.0
+                }
+                
+                for inputBufferList in inputBufferLists {
+                    let inputPointer = UnsafeMutableAudioBufferListPointer(inputBufferList)
+                    let inBuf = UnsafeMutableBufferPointer<Float>(inputPointer[channel])
+                    
+                    for frame in 0..<Int(frameCount) {
+                        outBuf[frame] += inBuf[frame]
+                    }
+                }
+            }
+            
+            return noErr
+        }
+    }
+    
     func compile() {
         // Traverse the node graph to schedule
         // audio units.
@@ -96,52 +128,23 @@ public class AudioEngine2 {
                 let inputBuffers = node.connections.map { buffers[ObjectIdentifier($0)]! }
                 let inputBufferLists = inputBuffers.map { $0.mutableAudioBufferList }
                 
-                var block: AURenderPullInputBlock = { (_, _, _, _, _) in return noErr }
+                var inputBlock: AURenderPullInputBlock = { (_, _, _, _, _) in return noErr }
                 
                 if node as? Mixer != nil {
                     
-                    // Create a render block which will evaluate the mixer.
-                    let renderBlock: AURenderBlock = {
-                        (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-                           timeStamp: UnsafePointer<AudioTimeStamp>,
-                           frameCount: AUAudioFrameCount,
-                           outputBusNumber: Int,
-                           outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-                           inputBlock: AURenderPullInputBlock?) in
-                        
-                        let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
-                        
-                        for channel in 0..<ablPointer.count {
-                            
-                            let outBuf = UnsafeMutableBufferPointer<Float>(ablPointer[channel])
-                            for frame in 0..<Int(frameCount) {
-                                outBuf[frame] = 0.0
-                            }
-                            
-                            for inputBufferList in inputBufferLists {
-                                let inputPointer = UnsafeMutableAudioBufferListPointer(inputBufferList)
-                                let inBuf = UnsafeMutableBufferPointer<Float>(inputPointer[channel])
-                                
-                                for frame in 0..<Int(frameCount) {
-                                    outBuf[frame] += inBuf[frame]
-                                }
-                            }
-                        }
-                        
-                        return noErr
-                    }
+                    let renderBlock = mixerRenderBlock(inputBufferLists: inputBufferLists)
                     
                     let info = EngineAudioUnit.AUExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                                           outputPCMBuffer: nodeBuffer,
                                                           renderBlock: renderBlock,
-                                                          inputBlock: block)
+                                                          inputBlock: inputBlock)
                     
                     execList.append(info)
                     
                 } else {
                     
                     if !inputBufferLists.isEmpty {
-                        block = {
+                        inputBlock = {
                             (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                              timestamp: UnsafePointer<AudioTimeStamp>,
                              frames: AUAudioFrameCount,
@@ -162,7 +165,7 @@ public class AudioEngine2 {
                     let info = EngineAudioUnit.AUExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                                           outputPCMBuffer: nodeBuffer,
                                                           renderBlock: node.au.renderBlock,
-                                                          inputBlock: block)
+                                                          inputBlock: inputBlock)
                     
                     execList.append(info)
                     
