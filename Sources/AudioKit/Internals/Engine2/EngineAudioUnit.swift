@@ -85,6 +85,8 @@ class EngineAudioUnit: AUAudioUnit {
                     switch status {
                     case kAudioUnitErr_NoConnection:
                         print("got kAudioUnitErr_NoConnection")
+                    case kAudioUnitErr_TooManyFramesToProcess:
+                        print("got kAudioUnitErr_TooManyFramesToProcess")
                     default:
                         print("rendering error \(status)")
                     }
