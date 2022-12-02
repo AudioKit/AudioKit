@@ -67,7 +67,7 @@ class Engine2Tests: XCTestCase {
     /// Test changing the output chain on the fly.
     ///
     /// XXX: Note that we haven't yet implemented the correct thread safety mechanism,
-    /// so this may crash, but the basic idea works.
+    /// so this may crash, but the basic idea works. Thread sanitizer reports an error.
     func testDynamicChange() throws {
         
         let engine = AudioEngine2()
