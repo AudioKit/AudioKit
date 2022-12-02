@@ -68,7 +68,9 @@ public class AudioEngine2 {
             
             for node in list {
                 // What should the frame capacity be?
-                buffers[ObjectIdentifier(node)] = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1024)
+                let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1024)!
+                buf.frameLength = 512
+                buffers[ObjectIdentifier(node)] = buf
             }
             
             // Pass the schedule to the engineAU
@@ -82,6 +84,7 @@ public class AudioEngine2 {
                 }
                 
                 let nodeBuffer = buffers[ObjectIdentifier(node)]!
+                assert(nodeBuffer.frameCapacity == 1024)
                 
                 let inputBuffers = node.connections.map { buffers[ObjectIdentifier($0)]! }
                 let inputBufferLists = inputBuffers.map { $0.mutableAudioBufferList }
