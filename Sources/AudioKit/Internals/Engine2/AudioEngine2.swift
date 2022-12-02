@@ -102,6 +102,8 @@ public class AudioEngine2 {
     }
 
     var schedule = ExecSchedule()
+
+    var previousSchedules: [UnsafeMutablePointer<ExecSchedule>] = []
     
     func compile() {
         // Traverse the node graph to schedule
@@ -188,7 +190,15 @@ public class AudioEngine2 {
             // Update engine exec list.
             let ptr = UnsafeMutablePointer<ExecSchedule>.allocate(capacity: 1)
             ptr.pointee = schedule
+            previousSchedules.append(ptr)
             engineAU.execList.store(ptr, ordering: .relaxed)
+
+            // Cleanup old schedules.
+            while let ptr = previousSchedules.first, ptr.pointee.done {
+                ptr.deinitialize(count: 1)
+                ptr.deallocate()
+                previousSchedules.removeFirst()
+            }
             
         }
     }
