@@ -50,7 +50,7 @@ public class AudioEngine2 {
     
     var activeNodes = Set<ObjectIdentifier>()
     
-    func mixerRenderBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderBlock {
+    static func mixerRenderBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderBlock {
         {
             (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                timeStamp: UnsafePointer<AudioTimeStamp>,
@@ -82,7 +82,7 @@ public class AudioEngine2 {
         }
     }
     
-    func basicInputBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderPullInputBlock {
+    static func basicInputBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderPullInputBlock {
         {
             (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
              timestamp: UnsafePointer<AudioTimeStamp>,
@@ -155,7 +155,7 @@ public class AudioEngine2 {
                     // can trigger a recompile.
                     mixer.engine2 = self
                     
-                    let renderBlock = mixerRenderBlock(inputBufferLists: inputBufferLists)
+                    let renderBlock = AudioEngine2.mixerRenderBlock(inputBufferLists: inputBufferLists)
                     
                     let info = EngineAudioUnit.AUExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                                           outputPCMBuffer: nodeBuffer,
@@ -167,7 +167,7 @@ public class AudioEngine2 {
                 } else {
                     
                     if !inputBufferLists.isEmpty {
-                        inputBlock = basicInputBlock(inputBufferLists: inputBufferLists)
+                        inputBlock = AudioEngine2.basicInputBlock(inputBufferLists: inputBufferLists)
                     }
                     
                     let info = EngineAudioUnit.AUExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
