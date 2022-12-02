@@ -82,6 +82,25 @@ public class AudioEngine2 {
         }
     }
     
+    func basicInputBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderPullInputBlock {
+        {
+            (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+             timestamp: UnsafePointer<AudioTimeStamp>,
+             frames: AUAudioFrameCount,
+             bus: Int,
+             outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
+            
+            // We'd like to avoid actually copying samples, so just copy the ABL.
+            let buffer = inputBufferLists[bus]
+            
+            assert(buffer.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
+            let ablSize = MemoryLayout<AudioBufferList>.size + Int(buffer.pointee.mNumberBuffers) * MemoryLayout<AudioBuffer>.size
+            memcpy(outputBuffer, buffer, ablSize)
+            
+            return noErr
+        }
+    }
+    
     func compile() {
         // Traverse the node graph to schedule
         // audio units.
@@ -144,22 +163,7 @@ public class AudioEngine2 {
                 } else {
                     
                     if !inputBufferLists.isEmpty {
-                        inputBlock = {
-                            (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-                             timestamp: UnsafePointer<AudioTimeStamp>,
-                             frames: AUAudioFrameCount,
-                             bus: Int,
-                             outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
-                            
-                            // We'd like to avoid actually copying samples, so just copy the ABL.
-                            let buffer = inputBufferLists[bus]
-                            
-                            assert(buffer.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
-                            let ablSize = MemoryLayout<AudioBufferList>.size + Int(buffer.pointee.mNumberBuffers) * MemoryLayout<AudioBuffer>.size
-                            memcpy(outputBuffer, buffer, ablSize)
-                            
-                            return noErr
-                        }
+                        inputBlock = basicInputBlock(inputBufferLists: inputBufferLists)
                     }
                     
                     let info = EngineAudioUnit.AUExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
