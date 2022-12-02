@@ -54,12 +54,13 @@ class TestOscAudioUnit: AUAudioUnit {
     var frequency: Float = 440.0
     var amplitude: Float = 1.0
     
-    override var renderBlock: AURenderBlock {
+    override var internalRenderBlock: AUInternalRenderBlock {
         { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
            timeStamp: UnsafePointer<AudioTimeStamp>,
            frameCount: AUAudioFrameCount,
            outputBusNumber: Int,
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+           renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
             
             let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
