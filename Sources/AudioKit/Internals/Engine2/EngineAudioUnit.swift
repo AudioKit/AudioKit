@@ -146,6 +146,7 @@ class EngineAudioUnit: AUAudioUnit {
         }
     }
 
+    /// Recompiles our DAG of nodes into a list of render functions to be called on the audio thread.
     func compile() {
         // Traverse the node graph to schedule
         // audio units.
