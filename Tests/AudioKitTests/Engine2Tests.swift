@@ -71,7 +71,6 @@ class Engine2Tests: XCTestCase {
         
         engine.output = osc
         
-        try engine.start()
         let audio = engine.startTest(totalDuration: 2.0)
 
         audio.append(engine.render(duration: 1.0))
@@ -135,8 +134,6 @@ class Engine2Tests: XCTestCase {
         osc1.frequency = 880
 
         engine.output = osc1
-
-        try engine.start()
 
         let audio = engine.startTest(totalDuration: 10.0)
 
