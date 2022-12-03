@@ -87,8 +87,8 @@ public class Mixer: Node, NamedNode {
         makeAVConnections()
         
         // New engine: recompile graph after adding an input.
-        if let engine = engine2 {
-            engine.compile()
+        if let engineAU = engineAU {
+            engineAU.compile()
         }
     }
 
@@ -159,5 +159,5 @@ public class Mixer: Node, NamedNode {
     }
     
     /// This is so we can recompile when there's a change to the inputs.
-    public weak var engine2: AudioEngine2?
+    weak var engineAU: EngineAudioUnit?
 }
