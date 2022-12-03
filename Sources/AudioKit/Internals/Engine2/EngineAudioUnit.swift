@@ -150,9 +150,9 @@ class EngineAudioUnit: AUAudioUnit {
             var buffers: [ObjectIdentifier: AVAudioPCMBuffer] = [:]
 
             for node in list {
-                // What should the frame capacity be?
-                let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1024)!
-                buf.frameLength = 512
+                let length = maximumFramesToRender
+                let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: length)!
+                buf.frameLength = length
                 buffers[ObjectIdentifier(node)] = buf
             }
 
@@ -174,7 +174,7 @@ class EngineAudioUnit: AUAudioUnit {
                 }
 
                 let nodeBuffer = buffers[ObjectIdentifier(node)]!
-                assert(nodeBuffer.frameCapacity == 1024)
+                assert(nodeBuffer.frameCapacity == maximumFramesToRender)
 
                 let inputBuffers = node.connections.map { buffers[ObjectIdentifier($0)]! }
                 let inputBufferLists = inputBuffers.map { $0.mutableAudioBufferList }
@@ -264,7 +264,7 @@ class EngineAudioUnit: AUAudioUnit {
     }
     
     override func allocateRenderResources() throws {
-        
+        compile()
     }
     
     override func deallocateRenderResources() {
