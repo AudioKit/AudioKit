@@ -22,9 +22,10 @@ struct ExecSchedule {
 /// Our single audio unit which will evaluate all audio units.
 class EngineAudioUnit: AUAudioUnit {
     
-    // The list of things to execute.
+    /// The list of render functions to call.
     var execList = ManagedAtomic<UnsafeMutablePointer<ExecSchedule>>(UnsafeMutablePointer<ExecSchedule>.allocate(capacity: 1))
 
+    /// Audio thread ONLY. Reference to currently executing schedule.
     var dspList: UnsafeMutablePointer<ExecSchedule>?
     
     private var inputBusArray: AUAudioUnitBusArray!
@@ -70,6 +71,7 @@ class EngineAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
+    /// Returns a function that mixes together the contents of buffers.
     static func mixerRenderBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderBlock {
         {
             (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -102,6 +104,14 @@ class EngineAudioUnit: AUAudioUnit {
         }
     }
 
+    /// Returns a function which provides input from a buffer list.
+    ///
+    /// Typically, AUs are evaluated recursively. This is less than ideal for various reasons:
+    /// - Harder to parallelize.
+    /// - Stack trackes are too deep.
+    /// - Profiler results are hard to read.
+    ///
+    /// So instead we use a dummy input block that just copies over an ABL.
     static func basicInputBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderPullInputBlock {
         {
             (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
