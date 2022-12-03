@@ -2,7 +2,10 @@
 
 import AVFoundation
 
-public class AudioEngine2 {
+/// New audio engine to mostly replace AVAudioEngine. Eventually we will completely replace AVAudioEngine.
+///
+/// See https://github.com/AudioKit/AudioKit/issues/2804
+public class Engine {
     
     /// Internal AVAudioEngine
     public let avEngine = AVAudioEngine()

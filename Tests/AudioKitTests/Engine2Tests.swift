@@ -6,7 +6,7 @@ import XCTest
 class Engine2Tests: XCTestCase {
     
     func testBasic() throws {
-        let engine = AudioEngine2()
+        let engine = Engine()
         
         let osc = TestOsc()
         
@@ -24,7 +24,7 @@ class Engine2Tests: XCTestCase {
     
     func testEffect() throws {
         
-        let engine = AudioEngine2()
+        let engine = Engine()
         
         let osc = TestOsc()
         let fx = AppleDistortion(osc)
@@ -43,7 +43,7 @@ class Engine2Tests: XCTestCase {
     
     func testTwoEffects() throws {
         
-        let engine = AudioEngine2()
+        let engine = Engine()
         
         let osc = TestOsc()
         let dist = AppleDistortion(osc)
@@ -64,7 +64,7 @@ class Engine2Tests: XCTestCase {
     /// Test changing the output chain on the fly.
     func testDynamicChange() throws {
         
-        let engine = AudioEngine2()
+        let engine = Engine()
         
         let osc = TestOsc()
         let dist = AppleDistortion(osc)
@@ -84,7 +84,7 @@ class Engine2Tests: XCTestCase {
     
     func testMixer() throws {
         
-        let engine = AudioEngine2()
+        let engine = Engine()
         
         let osc1 = TestOsc()
         let osc2 = TestOsc()
@@ -102,7 +102,7 @@ class Engine2Tests: XCTestCase {
     
     func testMixerDynamic() throws {
         
-        let engine = AudioEngine2()
+        let engine = Engine()
         
         let osc1 = TestOsc()
         let osc2 = TestOsc()
@@ -126,7 +126,7 @@ class Engine2Tests: XCTestCase {
     /// Test some number of changes so schedules are released.
     func testMultipleChanges() throws {
 
-        let engine = AudioEngine2()
+        let engine = Engine()
 
         let osc1 = TestOsc()
         let osc2 = TestOsc()
