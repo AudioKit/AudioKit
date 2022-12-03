@@ -137,6 +137,8 @@ class EngineAudioUnit: AUAudioUnit {
 
     var previousSchedules: [UnsafeMutablePointer<ExecSchedule>] = []
 
+    let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
+
     public var output: Node? {
         didSet {
             // We will call compile from allocateRenderResources.
@@ -144,6 +146,21 @@ class EngineAudioUnit: AUAudioUnit {
                 compile()
             }
         }
+    }
+
+    /// Allocates an output buffer for reach node.
+    func makeBuffers(nodes: [Node]) -> [ObjectIdentifier: AVAudioPCMBuffer] {
+
+        var buffers: [ObjectIdentifier: AVAudioPCMBuffer] = [:]
+
+        for node in nodes {
+            let length = maximumFramesToRender
+            let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: length)!
+            buf.frameLength = length
+            buffers[ObjectIdentifier(node)] = buf
+        }
+
+        return buffers
     }
 
     /// Recompiles our DAG of nodes into a list of render functions to be called on the audio thread.
@@ -160,15 +177,7 @@ class EngineAudioUnit: AUAudioUnit {
             schedule(node: output, scheduled: &scheduled, list: &list)
 
             // Generate output buffers for each AU.
-            let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
-            var buffers: [ObjectIdentifier: AVAudioPCMBuffer] = [:]
-
-            for node in list {
-                let length = maximumFramesToRender
-                let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: length)!
-                buf.frameLength = length
-                buffers[ObjectIdentifier(node)] = buf
-            }
+            let buffers = makeBuffers(nodes: list)
 
             // Pass the schedule to the engineAU
             var execList: [ExecInfo] = []
