@@ -13,7 +13,7 @@ struct ExecInfo {
 }
 
 struct ExecSchedule {
-    var schedule: [ExecInfo] = []
+    var infos: [ExecInfo] = []
 
     /// Are we done using this schedule?
     var done: Bool = false
@@ -87,9 +87,9 @@ class EngineAudioUnit: AUAudioUnit {
 
             if let dspList = self.dspList {
                 var i = 0
-                for exec in dspList.pointee.schedule {
+                for exec in dspList.pointee.infos {
 
-                    let out = i == dspList.pointee.schedule.count-1 ? outputBufferList : exec.outputBuffer
+                    let out = i == dspList.pointee.infos.count-1 ? outputBufferList : exec.outputBuffer
                     let status = exec.renderBlock(actionFlags,
                                                   timeStamp,
                                                   frameCount,
