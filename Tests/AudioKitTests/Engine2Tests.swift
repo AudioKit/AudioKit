@@ -144,4 +144,20 @@ class Engine2Tests: XCTestCase {
 
         audio.audition()
     }
+
+    /// Lists all AUs on the system so we can identify which Apple ones are available.
+    func testListAUs() throws {
+
+        let auManager = AVAudioUnitComponentManager.shared()
+
+        // Get an array of all available Audio Units
+        let audioUnits = auManager.components(passingTest: { _, _ in true })
+
+        for audioUnit in audioUnits {
+            // Get the audio unit's name
+            let name = audioUnit.name
+
+            print("Audio Unit: \(name)")
+        }
+    }
 }
