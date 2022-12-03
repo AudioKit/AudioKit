@@ -25,6 +25,9 @@ public protocol Node: AnyObject {
     /// Audio format to use when connecting this node.
     /// Defaults to `Settings.audioFormat`.
     var outputFormat: AVAudioFormat { get }
+
+    /// The underlying audio unit for the new engine.
+    var au: AUAudioUnit { get }
 }
 
 public extension Node {
@@ -101,8 +104,9 @@ extension Node {
     
     /// The underlying AudioUnit for the node.
     ///
-    /// NOTE: hopefully we can continue to use AVAudioNodes without AVAudioEngine.
-    var au: AUAudioUnit {
+    /// NOTE: some AVAudioNodes (e.g.  AVAudioPlayerNode) can't be used without AVAudioEngine.
+    /// For those we'll need to use AUAudioUnit directly and override this.
+    public var au: AUAudioUnit {
         avAudioNode.auAudioUnit
     }
 
