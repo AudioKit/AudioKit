@@ -13,11 +13,11 @@ class Engine2Tests: XCTestCase {
         XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
         
         engine.output = osc
-        
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 1)
-        
+
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
+
+        XCTAssertEqual(engine.engineAU.schedule.infos.count, 1)
         
         audio.audition()
     }
@@ -33,10 +33,10 @@ class Engine2Tests: XCTestCase {
         
         engine.output = fx
         
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 2)
-        
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
+
+        XCTAssertEqual(engine.engineAU.schedule.infos.count, 2)
 
         audio.audition()
     }
@@ -53,10 +53,10 @@ class Engine2Tests: XCTestCase {
         
         engine.output = rev
         
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 3)
-        
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
+
+        XCTAssertEqual(engine.engineAU.schedule.infos.count, 3)
 
         audio.audition()
     }

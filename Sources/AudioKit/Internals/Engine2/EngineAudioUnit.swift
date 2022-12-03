@@ -129,7 +129,10 @@ class EngineAudioUnit: AUAudioUnit {
 
     public var output: Node? {
         didSet {
-            compile()
+            // We will call compile from allocateRenderResources.
+            if renderResourcesAllocated {
+                compile()
+            }
         }
     }
 
@@ -264,11 +267,12 @@ class EngineAudioUnit: AUAudioUnit {
     }
     
     override func allocateRenderResources() throws {
+        try super.allocateRenderResources()
         compile()
     }
     
     override func deallocateRenderResources() {
-        
+        super.deallocateRenderResources()
     }
     
     override var renderBlock: AURenderBlock {
