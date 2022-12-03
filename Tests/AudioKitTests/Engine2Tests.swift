@@ -16,11 +16,10 @@ class Engine2Tests: XCTestCase {
         
         XCTAssertEqual(engine.schedule.infos.count, 1)
         
-        try engine.start()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
         
-        sleep(2)
-        
-        engine.stop()
+        audio.audition()
     }
     
     func testEffect() throws {
@@ -30,19 +29,16 @@ class Engine2Tests: XCTestCase {
         let osc = TestOsc()
         let fx = AppleDistortion(osc)
         
-        XCTAssertTrue(engine.schedule.schedule.isEmpty)
         XCTAssertTrue(engine.schedule.infos.isEmpty)
         
         engine.output = fx
         
-        XCTAssertEqual(engine.schedule.schedule.count, 2)
-        
-        try engine.start()
         XCTAssertEqual(engine.schedule.infos.count, 2)
         
-        sleep(2)
-        
-        engine.stop()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+
+        audio.audition()
     }
     
     func testTwoEffects() throws {
@@ -53,19 +49,16 @@ class Engine2Tests: XCTestCase {
         let dist = AppleDistortion(osc)
         let rev = Reverb(dist)
         
-        XCTAssertTrue(engine.schedule.schedule.isEmpty)
         XCTAssertTrue(engine.schedule.infos.isEmpty)
         
         engine.output = rev
         
-        XCTAssertEqual(engine.schedule.schedule.count, 3)
         XCTAssertEqual(engine.schedule.infos.count, 3)
         
-        try engine.start()
-        
-        sleep(2)
-        
-        engine.stop()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+
+        audio.audition()
     }
     
     /// Test changing the output chain on the fly.
@@ -79,14 +72,15 @@ class Engine2Tests: XCTestCase {
         engine.output = osc
         
         try engine.start()
-        
-        sleep(2)
-        
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        audio.append(engine.render(duration: 1.0))
+
         engine.output = dist
         
-        sleep(2)
-        
-        engine.stop()
+        audio.append(engine.render(duration: 1.0))
+
+        audio.audition()
     }
     
     func testMixer() throws {
@@ -101,11 +95,10 @@ class Engine2Tests: XCTestCase {
         
         engine.output = mix
         
-        try engine.start()
-        
-        sleep(2)
-        
-        engine.stop()
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+
+        audio.audition()
     }
     
     func testMixerDynamic() throws {
@@ -120,15 +113,15 @@ class Engine2Tests: XCTestCase {
         
         engine.output = mix
         
-        try engine.start()
-        
-        sleep(2)
-        
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        audio.append(engine.render(duration: 1.0))
+
         mix.addInput(osc2)
         
-        sleep(2)
-        
-        engine.stop()
+        audio.append(engine.render(duration: 1.0))
+
+        audio.audition()
     }
 
     /// Test some number of changes so schedules are released.
@@ -145,11 +138,13 @@ class Engine2Tests: XCTestCase {
 
         try engine.start()
 
+        let audio = engine.startTest(totalDuration: 10.0)
+
         for i in 0..<10 {
-            sleep(1)
+            audio.append(engine.render(duration: 1.0))
             engine.output = (i % 2 == 1) ? osc1 : osc2
         }
 
-        engine.stop()
+        audio.audition()
     }
 }
