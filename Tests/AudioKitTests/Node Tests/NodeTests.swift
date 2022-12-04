@@ -448,6 +448,18 @@ class NodeTests: XCTestCase {
         """)
     }
     #endif
+    
+    func testGraphviz() {
+        let player = AudioPlayer(testFile: "12345")
+        
+        let verb = Reverb(player)
+        let mixer = Mixer(player, verb)
+        
+        let dot = mixer.graphviz
+        
+        // Note that output depends on memory addresses.
+        print(dot)
+    }
 
     func testAllNodesInChainDeallocatedOnRemove() {
         for strategy in [DisconnectStrategy.recursive, .detach] {
