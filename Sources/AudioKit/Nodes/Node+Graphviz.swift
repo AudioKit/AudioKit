@@ -40,11 +40,12 @@ extension Node {
         seen.insert(id)
         
         // Print connections.
-        for c in connections {
+        for connection in connections {
             
-            str += "  \(type(of:c))_\(ObjectIdentifier(c).addressString) -> \(type(of: self))_\(id.addressString);\n"
+            let connectionAddress = ObjectIdentifier(connection).addressString
+            str += "  \(type(of:connection))_\(connectionAddress) -> \(type(of: self))_\(id.addressString);\n"
             
-            c.printDotAux(seen: &seen, str: &str)
+            connection.printDotAux(seen: &seen, str: &str)
         }
     }
     
