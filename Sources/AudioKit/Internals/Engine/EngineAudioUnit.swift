@@ -131,8 +131,6 @@ class EngineAudioUnit: AUAudioUnit {
         }
     }
 
-    var activeNodes = Set<ObjectIdentifier>()
-
     var schedule = ExecSchedule()
 
     var previousSchedules: [UnsafeMutablePointer<ExecSchedule>] = []
@@ -184,16 +182,15 @@ class EngineAudioUnit: AUAudioUnit {
 
             for node in list {
 
-                // Activate input buses.
+                // Activate input busses.
                 for busIndex in 0..<node.au.inputBusses.count {
                     let bus = node.au.inputBusses[busIndex]
                     try! bus.setFormat(format)
                     bus.isEnabled = true
                 }
 
-                if !activeNodes.contains(ObjectIdentifier(node)) {
+                if !node.au.renderResourcesAllocated {
                     try! node.au.allocateRenderResources()
-                    activeNodes.insert(ObjectIdentifier(node))
                 }
 
                 let nodeBuffer = buffers[ObjectIdentifier(node)]!
