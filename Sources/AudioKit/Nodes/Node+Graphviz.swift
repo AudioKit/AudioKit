@@ -19,14 +19,14 @@ extension Node {
     /// 2. `dot -Tpdf effects.dot > effects.pdf`
     var graphviz: String {
         
-        var s = "digraph patch {\n"
-        s += "  graph [rankdir = \"LR\"];\n"
+        var str = "digraph patch {\n"
+        str += "  graph [rankdir = \"LR\"];\n"
         
         var seen = Set<ObjectIdentifier>()
-        printDotAux(seen: &seen, str: &s)
+        printDotAux(seen: &seen, str: &str)
         
-        s += "}"
-        return s
+        str += "}"
+        return str
     }
     
     /// Auxiliary function to print out the graph of AudioKit nodes.
