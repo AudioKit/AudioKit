@@ -311,4 +311,16 @@ class Engine2Tests: XCTestCase {
         sleep(2)
     }
 
+    func testCompressorWithPlayer() {
+        let engine = AudioEngine()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let file = try! AVAudioFile(forReading: url)
+        let player = TestPlayer(file: file)
+        engine.output = Compressor(player, attackTime: 0.1)
+        let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
 }
