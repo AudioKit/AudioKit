@@ -4,6 +4,26 @@ import Foundation
 import AudioUnit
 import AVFoundation
 
+/// Voice struct used by the audio thread.
+struct SamplerVoice {
+
+    // Is the voice in use?
+    var inUse: Bool
+
+    // Sample data we're playing
+    var data: UnsafeMutableAudioBufferListPointer
+
+    // Current sample we're playing
+    var playhead: Int
+
+    // Envelope state, etc. would go here.
+}
+
+/// Set of samples per MIDI note.
+struct SamplerInstrument {
+    var samples: [AVAudioPCMBuffer]
+}
+
 /// Renders contents of a file
 class SamplerAudioUnit: AUAudioUnit {
 
@@ -24,6 +44,8 @@ class SamplerAudioUnit: AUAudioUnit {
             }
         }
     }
+
+    var voices = UnsafeMutablePointer<SamplerVoice>.allocate(capacity: 1024)
 
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
