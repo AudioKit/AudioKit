@@ -40,11 +40,21 @@ class SamplerAudioUnit: AUAudioUnit {
         }
     }
 
+    /// Associate a midi note with a sample.
+    func setSample(_ sample: AVAudioPCMBuffer, midiNote: Int8) {
+
+    }
+
+    /// Play a sample immediately.
+    func playSample(_ sample: AVAudioPCMBuffer) {
+
+    }
+
     /// A potential sample for every MIDI note.
-    var samples = [AVAudioPCMBuffer?](repeating: nil, count: 128)
+    private var samples = [AVAudioPCMBuffer?](repeating: nil, count: 128)
 
     /// Voices for playing back samples.
-    var voices = UnsafeMutablePointer<SamplerVoice>.allocate(capacity: 1024)
+    private var voices = UnsafeMutablePointer<SamplerVoice>.allocate(capacity: 1024)
 
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
