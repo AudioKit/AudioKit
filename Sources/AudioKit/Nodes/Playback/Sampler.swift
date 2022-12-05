@@ -19,11 +19,6 @@ struct SamplerVoice {
     // Envelope state, etc. would go here.
 }
 
-/// Set of samples per MIDI note.
-struct SamplerInstrument {
-    var samples: [AVAudioPCMBuffer]
-}
-
 /// Renders contents of a file
 class SamplerAudioUnit: AUAudioUnit {
 
@@ -45,6 +40,10 @@ class SamplerAudioUnit: AUAudioUnit {
         }
     }
 
+    /// A potential sample for every MIDI note.
+    var samples = [AVAudioPCMBuffer?](repeating: nil, count: 128)
+
+    /// Voices for playing back samples.
     var voices = UnsafeMutablePointer<SamplerVoice>.allocate(capacity: 1024)
 
     override public var channelCapabilities: [NSNumber]? {
