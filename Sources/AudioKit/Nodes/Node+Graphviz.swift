@@ -14,7 +14,7 @@ extension Node {
     ///
     /// Instructions for use:
     ///
-    /// 1. `brew install graphviz` (if not already isntalled)
+    /// 1. `brew install graphviz` (if not already installed)
     /// 2. Save output to `.dot` file (e.g. `effects.dot`)
     /// 2. `dot -Tpdf effects.dot > effects.pdf`
     var graphviz: String {
