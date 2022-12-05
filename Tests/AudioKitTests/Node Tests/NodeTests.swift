@@ -451,7 +451,8 @@ class NodeTests: XCTestCase {
     
     func testGraphviz() {
         let player = AudioPlayer(testFile: "12345")
-        
+        player.label = "MyAwesomePlayer"
+
         let verb = Reverb(player)
         let mixer = Mixer(player, verb)
         
