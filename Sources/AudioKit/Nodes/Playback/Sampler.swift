@@ -7,13 +7,18 @@ import AVFoundation
 /// Voice struct used by the audio thread.
 struct SamplerVoice {
 
-    // Is the voice in use?
+    /// Is the voice in use?
     var inUse: Bool = false
 
-    // Sample data we're playing
-    var data: UnsafeMutableAudioBufferListPointer?
+    /// Hopefully we can keep the PCMBuffer alive from the audio thread while
+    /// still being rt-safe.
+    var pcmBuffer: AVAudioPCMBuffer?
 
-    // Current sample we're playing
+    /// Sample data we're playing. Use AudioBufferList directly because we don't know if
+    /// accessing an AVAudioPCMBuffer from the audio thread is rt-safe.
+    var data: UnsafePointer<AudioBufferList>?
+
+    /// Current sample we're playing
     var playhead: Int = 0
 
     // Envelope state, etc. would go here.
@@ -40,6 +45,15 @@ class SamplerAudioUnit: AUAudioUnit {
         }
     }
 
+    /// Returns an available voice
+    func allocVoice() -> Int? {
+        if let index = voices.firstIndex(where: { !$0.inUse }) {
+            voices[index].inUse = true
+            return index
+        }
+        return nil
+    }
+
     /// Associate a midi note with a sample.
     func setSample(_ sample: AVAudioPCMBuffer, midiNote: Int8) {
 
@@ -50,6 +64,11 @@ class SamplerAudioUnit: AUAudioUnit {
     /// Play a sample immediately.
     func playSample(_ sample: AVAudioPCMBuffer) {
 
+        // XXX: not thread safe.
+        if let voiceIndex = allocVoice() {
+            voices[voiceIndex].pcmBuffer = sample
+            voices[voiceIndex].data = sample.audioBufferList
+        }
     }
 
     /// A potential sample for every MIDI note.
