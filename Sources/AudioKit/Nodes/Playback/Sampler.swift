@@ -8,13 +8,13 @@ import AVFoundation
 struct SamplerVoice {
 
     // Is the voice in use?
-    var inUse: Bool
+    var inUse: Bool = false
 
     // Sample data we're playing
-    var data: UnsafeMutableAudioBufferListPointer
+    var data: UnsafeMutableAudioBufferListPointer?
 
     // Current sample we're playing
-    var playhead: Int
+    var playhead: Int = 0
 
     // Envelope state, etc. would go here.
 }
@@ -54,7 +54,7 @@ class SamplerAudioUnit: AUAudioUnit {
     private var samples = [AVAudioPCMBuffer?](repeating: nil, count: 128)
 
     /// Voices for playing back samples.
-    private var voices = UnsafeMutablePointer<SamplerVoice>.allocate(capacity: 1024)
+    private var voices = [SamplerVoice](repeating: SamplerVoice(), count: 1024)
 
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
