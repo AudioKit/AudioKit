@@ -18,7 +18,7 @@ struct SamplerVoice {
     /// accessing an AVAudioPCMBuffer from the audio thread is rt-safe.
     var data: UnsafePointer<AudioBufferList>?
 
-    /// Current sample we're playing
+    /// Current frame we're playing. Could be negative to indicate number of frames to wait before playing.
     var playhead: Int = 0
 
     // Envelope state, etc. would go here.
