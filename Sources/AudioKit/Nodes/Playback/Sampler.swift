@@ -43,6 +43,8 @@ class SamplerAudioUnit: AUAudioUnit {
     /// Associate a midi note with a sample.
     func setSample(_ sample: AVAudioPCMBuffer, midiNote: Int8) {
 
+        // XXX: not thread safe
+        samples[Int(midiNote)] = sample
     }
 
     /// Play a sample immediately.
