@@ -8,7 +8,7 @@ class EngineTests: XCTestCase {
     func testBasic() throws {
         let engine = Engine()
         
-        let osc = TestOsc()
+        let osc = TestOscillator()
         
         XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
         
@@ -25,7 +25,7 @@ class EngineTests: XCTestCase {
     func testBasicRealtime() throws {
         let engine = Engine()
 
-        let osc = TestOsc()
+        let osc = TestOscillator()
 
         XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
 
@@ -41,7 +41,7 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc = TestOsc()
+        let osc = TestOscillator()
         let fx = AppleDistortion(osc)
         
         XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
@@ -60,7 +60,7 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc = TestOsc()
+        let osc = TestOscillator()
         let fx = AppleDistortion(osc)
 
         XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
@@ -77,7 +77,7 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc = TestOsc()
+        let osc = TestOscillator()
         let dist = AppleDistortion(osc)
         let rev = Reverb(dist)
         
@@ -98,7 +98,7 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc = TestOsc()
+        let osc = TestOscillator()
         let dist = AppleDistortion(osc)
         let rev = Reverb(dist)
 
@@ -118,7 +118,7 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc = TestOsc()
+        let osc = TestOscillator()
         let dist = AppleDistortion(osc)
         
         engine.output = osc
@@ -139,7 +139,7 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc = TestOsc()
+        let osc = TestOscillator()
         let dist = AppleDistortion(osc)
 
         engine.output = osc
@@ -156,8 +156,8 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc1 = TestOsc()
-        let osc2 = TestOsc()
+        let osc1 = TestOscillator()
+        let osc2 = TestOscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
         
         let mix = Mixer([osc1, osc2])
@@ -174,8 +174,8 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOsc()
-        let osc2 = TestOsc()
+        let osc1 = TestOscillator()
+        let osc2 = TestOscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
 
         let mix = Mixer([osc1, osc2])
@@ -191,8 +191,8 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc1 = TestOsc()
-        let osc2 = TestOsc()
+        let osc1 = TestOscillator()
+        let osc2 = TestOscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
         
         let mix = Mixer([osc1])
@@ -214,8 +214,8 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOsc()
-        let osc2 = TestOsc()
+        let osc1 = TestOscillator()
+        let osc2 = TestOscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
 
         let mix = Mixer([osc1])
@@ -236,8 +236,8 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOsc()
-        let osc2 = TestOsc()
+        let osc1 = TestOscillator()
+        let osc2 = TestOscillator()
 
         osc1.frequency = 880
 
@@ -257,8 +257,8 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOsc()
-        let osc2 = TestOsc()
+        let osc1 = TestOscillator()
+        let osc2 = TestOscillator()
 
         osc1.frequency = 880
 
@@ -292,7 +292,7 @@ class EngineTests: XCTestCase {
         let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let file = try! AVAudioFile(forReading: url)
-        let player = TestPlayer(file: file)
+        let player = Sampler(file: file)
         engine.output = player
         let audio = engine.startTest(totalDuration: 2.0)
         player.play()
@@ -304,7 +304,7 @@ class EngineTests: XCTestCase {
         let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let file = try! AVAudioFile(forReading: url)
-        let player = TestPlayer(file: file)
+        let player = Sampler(file: file)
         engine.output = player
         try engine.start()
         player.play()
@@ -315,12 +315,12 @@ class EngineTests: XCTestCase {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let file = try! AVAudioFile(forReading: url)
-        let player = TestPlayer(file: file)
+        let player = Sampler(file: file)
         engine.output = Compressor(player, attackTime: 0.1)
         let audio = engine.startTest(totalDuration: 1.0)
         player.play()
         audio.append(engine.render(duration: 1.0))
-        testMD5(audio)
+        audio.audition()
     }
 
 }
