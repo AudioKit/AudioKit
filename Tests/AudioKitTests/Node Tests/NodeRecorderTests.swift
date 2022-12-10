@@ -44,7 +44,7 @@ class NodeRecorderTests: XCTestCase {
 
         // attach the callback handler
         var values = [Float]()
-        recorder.rawDataTapHandler = { audioData in
+        recorder.audioDataCallback = { audioData, timestamp in
             values.append(contentsOf: audioData)
         }
 
