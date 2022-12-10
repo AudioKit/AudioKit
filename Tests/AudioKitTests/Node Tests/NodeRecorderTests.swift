@@ -44,7 +44,7 @@ class NodeRecorderTests: XCTestCase {
 
         // attach the callback handler
         var values = [Float]()
-        recorder.audioDataCallback = { audioData, timestamp in
+        recorder.audioDataCallback = { audioData, _ in
             values.append(contentsOf: audioData)
         }
 
