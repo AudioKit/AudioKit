@@ -288,37 +288,37 @@ class EngineTests: XCTestCase {
         }
     }
 
-    func testPlayer() {
+    func testSampler() {
         let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let file = try! AVAudioFile(forReading: url)
-        let player = Sampler(file: file)
-        engine.output = player
+        let sampler = Sampler(file: file)
+        engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
-        player.play()
+        sampler.play()
         audio.append(engine.render(duration: 2.0))
         audio.audition()
     }
 
-    func testPlayerRealtime() throws {
+    func testSamplerRealtime() throws {
         let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let file = try! AVAudioFile(forReading: url)
-        let player = Sampler(file: file)
-        engine.output = player
+        let sampler = Sampler(file: file)
+        engine.output = sampler
         try engine.start()
-        player.play()
+        sampler.play()
         sleep(2)
     }
 
-    func testCompressorWithPlayer() {
+    func testCompressorWithSampler() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let file = try! AVAudioFile(forReading: url)
-        let player = Sampler(file: file)
-        engine.output = Compressor(player, attackTime: 0.1)
+        let sampler = Sampler(file: file)
+        engine.output = Compressor(sampler, attackTime: 0.1)
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play()
         audio.append(engine.render(duration: 1.0))
         audio.audition()
     }
