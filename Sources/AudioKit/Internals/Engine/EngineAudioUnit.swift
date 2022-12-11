@@ -104,6 +104,22 @@ class EngineAudioUnit: AUAudioUnit {
         }
     }
 
+    static func avRenderBlock(block: @escaping AVAudioEngineManualRenderingBlock) -> AURenderBlock {
+        {
+            (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+             timeStamp: UnsafePointer<AudioTimeStamp>,
+             frameCount: AUAudioFrameCount,
+             outputBusNumber: Int,
+             outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+             inputBlock: AURenderPullInputBlock?) in
+
+            var status = noErr
+            _ = block(frameCount, outputBufferList, &status)
+
+            return status
+        }
+    }
+
     /// Returns a function which provides input from a buffer list.
     ///
     /// Typically, AUs are evaluated recursively. This is less than ideal for various reasons:
@@ -216,7 +232,10 @@ class EngineAudioUnit: AUAudioUnit {
 
                     execList.append(info)
 
-                } else {
+                } else if node.avAudioNode as? AVAudioUnit != nil {
+
+                    // We've just got a wrapped AU, so we can grab the render
+                    // block.
 
                     if !inputBufferLists.isEmpty {
                         inputBlock = EngineAudioUnit.basicInputBlock(inputBufferLists: inputBufferLists)
@@ -225,6 +244,35 @@ class EngineAudioUnit: AUAudioUnit {
                     let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                         outputPCMBuffer: nodeBuffer,
                                         renderBlock: node.au.renderBlock,
+                                        inputBlock: inputBlock)
+
+                    execList.append(info)
+
+                } else {
+
+                    // Other AVAudioNodes seem to need an AVAudioEngine, so make one!
+                    let avEngine = AVAudioEngine()
+                    try! avEngine.enableManualRenderingMode(.realtime, format: format, maximumFrameCount: maximumFramesToRender)
+                    avEngine.attach(node.avAudioNode)
+
+                    assert(node.connections.count <= 1)
+
+                    if node.connections.count > 0 {
+                        avEngine.connect(avEngine.inputNode, to: node.avAudioNode, format: nil)
+
+                        let bufferList = inputBufferLists.first!
+                        avEngine.inputNode.setManualRenderingInputPCMFormat(format) { frames in
+                            UnsafePointer(bufferList)
+                        }
+                    }
+
+                    avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: nil)
+
+                    let renderBlock = Self.avRenderBlock(block: avEngine.manualRenderingBlock)
+
+                    let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
+                                        outputPCMBuffer: nodeBuffer,
+                                        renderBlock: renderBlock,
                                         inputBlock: inputBlock)
 
                     execList.append(info)
