@@ -271,6 +271,8 @@ class EngineAudioUnit: AUAudioUnit {
 
                     let renderBlock = Self.avRenderBlock(block: avEngine.manualRenderingBlock)
 
+                    try! avEngine.start()
+
                     let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                         outputPCMBuffer: nodeBuffer,
                                         renderBlock: renderBlock,
@@ -376,8 +378,10 @@ class EngineAudioUnit: AUAudioUnit {
                             print("got kAudioUnitErr_NoConnection")
                         case kAudioUnitErr_TooManyFramesToProcess:
                             print("got kAudioUnitErr_TooManyFramesToProcess")
+                        case -80802:
+                            print("got AVAudioEngineManualRenderingErrorNotRunning")
                         default:
-                            print("rendering error \(status)")
+                            print("unknown rendering error \(status)")
                         }
                         return status
                     }
