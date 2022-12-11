@@ -3,12 +3,13 @@
 import Foundation
 import AudioUnit
 import AVFoundation
+import Atomics
 
 /// Voice struct used by the audio thread.
 struct SamplerVoice {
 
     /// Is the voice in use?
-    var inUse: Bool = false
+    var inUse: ManagedAtomic<Bool> = .init(false)
 
     /// Hopefully we can keep the PCMBuffer alive from the audio thread while
     /// still being rt-safe.
@@ -31,7 +32,7 @@ struct SamplerVoice {
 extension SamplerVoice {
     mutating func render(to outputPtr: UnsafeMutableAudioBufferListPointer,
                          frameCount: AVAudioFrameCount) {
-        if inUse, let data = self.data {
+        if inUse.load(ordering: .relaxed), let data = self.data {
             for frame in 0..<Int(frameCount) {
 
                 // Our playhead must be in range.
@@ -55,7 +56,7 @@ extension SamplerVoice {
 
                 // Are we done playing?
                 if playhead >= sampleFrames {
-                    inUse = false
+                    inUse.store(false, ordering: .relaxed)
                     break
                 }
             }
@@ -79,11 +80,16 @@ class SamplerAudioUnit: AUAudioUnit {
     let outputChannelCount: NSNumber = 2
 
     /// Returns an available voice
-    func allocVoice() -> Int? {
-        if let index = voices.firstIndex(where: { !$0.inUse }) {
-            voices[index].inUse = true
-            return index
+    func getVoice() -> Int? {
+
+        // Compare and swap until we find a voice.
+        for index in 0..<voices.count {
+            if !voices[index].inUse.load(ordering: .relaxed) {
+                return index
+            }
         }
+
+        // No voices available.
         return nil
     }
 
@@ -97,11 +103,11 @@ class SamplerAudioUnit: AUAudioUnit {
     /// Play a sample immediately.
     func play(_ sample: AVAudioPCMBuffer) {
 
-        // XXX: not thread safe.
-        if let voiceIndex = allocVoice() {
+        if let voiceIndex = getVoice() {
             voices[voiceIndex].pcmBuffer = sample
             voices[voiceIndex].data = .init(sample.mutableAudioBufferList)
             voices[voiceIndex].sampleFrames = Int(sample.frameLength)
+            voices[voiceIndex].inUse.store(true, ordering: .relaxed)
         }
     }
 

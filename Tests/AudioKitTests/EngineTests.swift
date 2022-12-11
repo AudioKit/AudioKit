@@ -301,17 +301,19 @@ class EngineTests: XCTestCase {
         audio.audition()
     }
 
-    // XXX: not yet rt-safe.
-//    func testSamplerRealtime() throws {
-//        let engine = Engine()
-//        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-//        let file = try! AVAudioFile(forReading: url)
-//        let sampler = Sampler()
-//        engine.output = sampler
-//        try engine.start()
-//        sampler.play()
-//        sleep(2)
-//    }
+    func testSamplerRealtime() throws {
+        let engine = Engine()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let buffer = try! AVAudioPCMBuffer(url: url)!
+        let sampler = Sampler()
+
+        engine.output = sampler
+        try engine.start()
+        sampler.play()
+        sleep(1)
+        sampler.play(buffer)
+        sleep(2)
+    }
 
     func testCompressorWithSampler() {
         let engine = AudioEngine()
