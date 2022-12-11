@@ -10,6 +10,7 @@ struct ExecInfo {
     var outputPCMBuffer: AVAudioPCMBuffer
     var renderBlock: AURenderBlock
     var inputBlock: AURenderPullInputBlock
+    var avAudioEngine: AVAudioEngine?
 }
 
 struct ExecSchedule {
@@ -273,7 +274,8 @@ class EngineAudioUnit: AUAudioUnit {
                     let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                         outputPCMBuffer: nodeBuffer,
                                         renderBlock: renderBlock,
-                                        inputBlock: inputBlock)
+                                        inputBlock: inputBlock,
+                                        avAudioEngine: avEngine)
 
                     execList.append(info)
 
