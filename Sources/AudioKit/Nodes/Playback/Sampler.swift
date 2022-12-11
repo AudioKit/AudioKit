@@ -14,14 +14,59 @@ struct SamplerVoice {
     /// still being rt-safe.
     var pcmBuffer: AVAudioPCMBuffer?
 
-    /// Sample data we're playing. Use AudioBufferList directly because we don't know if
-    /// accessing an AVAudioPCMBuffer from the audio thread is rt-safe.
-    var data: UnsafePointer<AudioBufferList>?
+    /// Sample data we're playing. Use AudioBufferList directly because we AVAudioPCMBuffer isn't rt-safe.
+    ///
+    /// Note that we shouldn't actually be mutating this, but the type is more convenient.
+    var data: UnsafeMutableAudioBufferListPointer?
+
+    /// Number of frames in the buffer for sake of convenience.
+    var sampleFrames: Int = 0
 
     /// Current frame we're playing. Could be negative to indicate number of frames to wait before playing.
     var playhead: Int = 0
 
     // Envelope state, etc. would go here.
+}
+
+extension SamplerVoice {
+    mutating func render(to outputPtr: UnsafeMutableAudioBufferListPointer,
+                         frameCount: AVAudioFrameCount) {
+        if inUse, let data = self.data {
+            for frame in 0..<Int(frameCount) {
+
+                // Our playhead must be in range.
+                if playhead >= 0 && playhead < sampleFrames {
+
+                    for channel in 0 ..< data.count where channel < outputPtr.count {
+
+                        let outP = outputPtr[channel].mData!.bindMemory(to: Float.self,
+                                                                        capacity: Int(frameCount))
+
+                        let inP = data[channel].mData!.bindMemory(to: Float.self,
+                                                                  capacity: Int(self.sampleFrames))
+
+                        outP[frame] += inP[playhead]
+                    }
+
+                }
+
+                // Advance playhead by a frame.
+                playhead += 1
+
+                // Are we done playing?
+                if playhead >= sampleFrames {
+                    inUse = false
+                    break
+                }
+            }
+        }
+    }
+}
+
+extension AudioBuffer {
+    func clear() {
+        bzero(mData, Int(mDataByteSize))
+    }
 }
 
 /// Renders contents of a file
@@ -32,18 +77,6 @@ class SamplerAudioUnit: AUAudioUnit {
 
     let inputChannelCount: NSNumber = 2
     let outputChannelCount: NSNumber = 2
-
-    var floatChannelDatas: [FloatChannelData] = []
-    var files: [AVAudioFile] = [] {
-        didSet {
-            floatChannelDatas.removeAll()
-            for file in files {
-                if let data = file.toFloatChannelData() {
-                    floatChannelDatas.append(data)
-                }
-            }
-        }
-    }
 
     /// Returns an available voice
     func allocVoice() -> Int? {
@@ -62,12 +95,13 @@ class SamplerAudioUnit: AUAudioUnit {
     }
 
     /// Play a sample immediately.
-    func playSample(_ sample: AVAudioPCMBuffer) {
+    func play(_ sample: AVAudioPCMBuffer) {
 
         // XXX: not thread safe.
         if let voiceIndex = allocVoice() {
             voices[voiceIndex].pcmBuffer = sample
-            voices[voiceIndex].data = sample.audioBufferList
+            voices[voiceIndex].data = .init(sample.mutableAudioBufferList)
+            voices[voiceIndex].sampleFrames = Int(sample.frameLength)
         }
     }
 
@@ -114,9 +148,6 @@ class SamplerAudioUnit: AUAudioUnit {
 
     }
 
-    var playheadInSamples: Int = 0
-    var isPlaying: Bool = false
-
     override var internalRenderBlock: AUInternalRenderBlock {
         { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
            timeStamp: UnsafePointer<AudioTimeStamp>,
@@ -126,22 +157,16 @@ class SamplerAudioUnit: AUAudioUnit {
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
 
-            let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
+            let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
-            for frame in 0 ..< Int(frameCount) {
-                var value: Float = 0.0
-                let sample = self.playheadInSamples + frame
-                if sample < self.floatChannelDatas[0][0].count {
-                    value = self.floatChannelDatas[0][0][sample]
-                }
-                for buffer in ablPointer {
-                    let buf = UnsafeMutableBufferPointer<Float>(buffer)
-                    assert(frame < buf.count)
-                    buf[frame] = self.isPlaying ? value : 0.0
-                }
+            // Clear output.
+            for channel in 0 ..< outputBufferListPointer.count {
+                outputBufferListPointer[channel].clear()
             }
-            if self.isPlaying {
-                self.playheadInSamples += Int(frameCount)
+
+            // Render all active voices to output.
+            for voiceIndex in self.voices.indices {
+                self.voices[voiceIndex].render(to: outputBufferListPointer, frameCount: frameCount)
             }
 
             return noErr
@@ -156,28 +181,7 @@ class Sampler: Node {
     let avAudioNode: AVAudioNode
     let samplerAU: SamplerAudioUnit
 
-    /// Position of playback in seconds
-    var playheadPosition: Double = 0.0
-
-    func movePlayhead(to position: Double) {
-        samplerAU.playheadInSamples = Int(position * 44100)
-    }
-
-    func rewind() {
-        movePlayhead(to: 0)
-    }
-
-    func play() {
-        samplerAU.isPlaying = true
-    }
-
-    func stop() {
-        samplerAU.isPlaying = false
-    }
-
-
-    init(file: AVAudioFile) {
-
+    init() {
         let componentDescription = AudioComponentDescription(generator: "tpla")
 
         AUAudioUnit.registerSubclass(SamplerAudioUnit.self,
@@ -186,6 +190,9 @@ class Sampler: Node {
                                      version: .max)
         avAudioNode = instantiate(componentDescription: componentDescription)
         samplerAU = avAudioNode.auAudioUnit as! SamplerAudioUnit
-        samplerAU.files.append(file)
+    }
+
+    func play(_ buffer: AVAudioPCMBuffer) {
+        samplerAU.play(buffer)
     }
 }
