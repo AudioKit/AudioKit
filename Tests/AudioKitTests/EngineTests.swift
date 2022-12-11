@@ -323,4 +323,14 @@ class EngineTests: XCTestCase {
         audio.audition()
     }
 
+    func testPlaygroundOscillator() {
+        let engine = Engine()
+        let osc = PlaygroundOscillator()
+        engine.output = osc
+        let audio = engine.startTest(totalDuration: 2.0)
+        osc.play()
+        audio.append(engine.render(duration: 2.0))
+        audio.audition()
+    }
+
 }
