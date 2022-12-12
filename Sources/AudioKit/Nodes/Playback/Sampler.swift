@@ -48,7 +48,21 @@ class SamplerAudioUnit: AUAudioUnit {
             voices[voiceIndex].pcmBuffer = sample
             voices[voiceIndex].data = .init(sample.mutableAudioBufferList)
             voices[voiceIndex].sampleFrames = Int(sample.frameLength)
+            voices[voiceIndex].playhead = 0
             voices[voiceIndex].inUse.store(true, ordering: .relaxed)
+        }
+
+        collect()
+    }
+
+    /// Free buffers which have been played.
+    func collect() {
+        for index in 0..<voices.count {
+            if !voices[index].inUse.load(ordering: .relaxed) {
+                voices[index].pcmBuffer = nil
+                voices[index].data = nil
+                voices[index].playhead = 0
+            }
         }
     }
 
