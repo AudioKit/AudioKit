@@ -7,8 +7,23 @@ import Atomics
 /// Voice struct used by the audio thread.
 struct SamplerVoice {
 
+    /// Three usage states allow us to allocate voices on multiple threads.
+    ///
+    /// Typically the main thread (immediate playback) and the render thread (midi).
+    enum State: Int, AtomicValue {
+
+        /// Not in use.
+        case free
+
+        /// Being set up for rendering.
+        case allocated
+
+        /// Available for rendering.
+        case active
+    }
+
     /// Is the voice in use?
-    var inUse: ManagedAtomic<Bool> = .init(false)
+    var state: ManagedAtomic<State> = .init(.free)
 
     /// Hopefully we can keep the PCMBuffer alive from the audio thread while
     /// still being rt-safe.
@@ -31,7 +46,7 @@ struct SamplerVoice {
 extension SamplerVoice {
     mutating func render(to outputPtr: UnsafeMutableAudioBufferListPointer,
                          frameCount: AVAudioFrameCount) {
-        if inUse.load(ordering: .relaxed), let data = self.data {
+        if state.load(ordering: .relaxed) == .active, let data = self.data {
             for frame in 0..<Int(frameCount) {
 
                 // Our playhead must be in range.
@@ -55,7 +70,7 @@ extension SamplerVoice {
 
                 // Are we done playing?
                 if playhead >= sampleFrames {
-                    inUse.store(false, ordering: .relaxed)
+                    state.store(.free, ordering: .relaxed)
                     break
                 }
             }

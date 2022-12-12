@@ -25,7 +25,10 @@ class SamplerAudioUnit: AUAudioUnit {
 
         // Compare and swap until we find a voice.
         for index in 0..<voices.count {
-            if !voices[index].inUse.load(ordering: .relaxed) {
+
+            // Using CAS here prevents a race where multiple threads
+            // are trying to allocate a voice.
+            if voices[index].state.compareExchange(expected: .free, desired: .allocated, ordering: .relaxed).exchanged {
                 return index
             }
         }
@@ -49,7 +52,10 @@ class SamplerAudioUnit: AUAudioUnit {
             voices[voiceIndex].data = .init(sample.mutableAudioBufferList)
             voices[voiceIndex].sampleFrames = Int(sample.frameLength)
             voices[voiceIndex].playhead = 0
-            voices[voiceIndex].inUse.store(true, ordering: .relaxed)
+
+            // Once we're doing setting up the voice, mark it as
+            // active so the render thread may use it.
+            voices[voiceIndex].state.store(.active, ordering: .relaxed)
         }
 
         collect()
@@ -58,7 +64,7 @@ class SamplerAudioUnit: AUAudioUnit {
     /// Free buffers which have been played.
     func collect() {
         for index in 0..<voices.count {
-            if !voices[index].inUse.load(ordering: .relaxed) {
+            if voices[index].state.load(ordering: .relaxed) == .free {
                 voices[index].pcmBuffer = nil
                 voices[index].data = nil
                 voices[index].playhead = 0
@@ -117,6 +123,12 @@ class SamplerAudioUnit: AUAudioUnit {
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
+
+            if let event = renderEvents {
+                if event.pointee.head.eventType == .MIDI {
+
+                }
+            }
 
             let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
