@@ -94,8 +94,10 @@ public class MultiSegmentAudioPlayer: Node {
                 fileStartTime = segment.fileStartTime + referenceTimeStamp - segment.playbackStartTime
             }
             
+            // skip if invalid sample rate or fileStartTime (prevents crash)
             let sampleRate = segment.audioFile.fileFormat.sampleRate
-            guard sampleRate.isFinite else { continue } // skip if invalid sample rate (prevents crash)
+            guard sampleRate.isFinite else { continue }
+            guard fileStartTime.isFinite else { continue }
 
             let fileLengthInSamples = segment.audioFile.length
             let startFrame = AVAudioFramePosition(fileStartTime * sampleRate)
