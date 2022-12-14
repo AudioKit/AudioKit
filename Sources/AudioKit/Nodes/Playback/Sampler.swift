@@ -58,7 +58,6 @@ class SamplerAudioUnit: AUAudioUnit {
             voices[voiceIndex].state.store(.active, ordering: .relaxed)
         }
 
-        collect()
     }
 
     /// Free buffers which have been played.
@@ -127,7 +126,16 @@ class SamplerAudioUnit: AUAudioUnit {
 
             if let event = renderEvents {
                 if event.pointee.head.eventType == .MIDI {
-
+                    let data = event.pointee.MIDI.data
+                    let command = data.0 & 0xF0
+                    let noteNumber = data.1
+                    if command == noteOnByte {
+                        if let buf = self.samples[Int(noteNumber)] {
+                            self.play(buf)
+                        }
+                    } else if command == noteOffByte {
+                        // XXX: ignore for now
+                    }
                 }
             }
 
