@@ -75,4 +75,15 @@ let validatedMD5s: [String: String] = [
     "-[TableTests testReverseSawtooth]": "b3188781c2e696f065629e2a86ef57a6",
     "-[TableTests testSawtooth]": "6f37a4d0df529995d7ff783053ff18fe",
     "-[TableTests testTriangle]": "789c1e77803a4f9d10063eb60ca03cea",
+    "-[EngineTests testBasic]": "f5b785dcc74759b4a0492aef430bfc2e",
+    "-[EngineTests testCompressorWithSampler]": "f2da585c3e9838c1a41f1a5f34c467d0",
+    "-[EngineTests testDynamicChange]": "27bfee745a1ff33f8705f0c0746f61a4",
+    "-[EngineTests testEffect]": "87001076267eccfdeb864cfdef2aaed8",
+    "-[EngineTests testMixer]": "3080c286b6a0afb4a236f9081b71305f",
+    "-[EngineTests testMixerDynamic]": "b769c079b3de2646072cdc1226278527",
+    "-[EngineTests testMultipleChanges]": "6a7c75f86ded225279473587866eb454",
+    "-[EngineTests testPlaygroundOscillator]": "552a631244dc6985428184073fcfb1af",
+    "-[EngineTests testSampler]": "f44518ab94a8bab9a3ef8acfe1a4d45b",
+    "-[EngineTests testTwoEffects]": "646e8387347deb4f5fbe3e24753b4543",
+
 ]
