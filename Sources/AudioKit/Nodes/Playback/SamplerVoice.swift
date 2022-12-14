@@ -43,6 +43,17 @@ struct SamplerVoice {
     // Envelope state, etc. would go here.
 }
 
+extension AudioBuffer {
+    subscript(index:Int) -> Float {
+        get {
+            return mData!.bindMemory(to: Float.self, capacity: Int(mDataByteSize) / MemoryLayout<Float>.size)[index]
+        }
+        set(newElm) {
+            mData!.bindMemory(to: Float.self, capacity: Int(mDataByteSize) / MemoryLayout<Float>.size)[index] = newElm
+        }
+    }
+}
+
 extension SamplerVoice {
     mutating func render(to outputPtr: UnsafeMutableAudioBufferListPointer,
                          frameCount: AVAudioFrameCount) {
@@ -53,14 +64,7 @@ extension SamplerVoice {
                 if playhead >= 0 && playhead < sampleFrames {
 
                     for channel in 0 ..< data.count where channel < outputPtr.count {
-
-                        let outP = outputPtr[channel].mData!.bindMemory(to: Float.self,
-                                                                        capacity: Int(frameCount))
-
-                        let inP = data[channel].mData!.bindMemory(to: Float.self,
-                                                                  capacity: Int(self.sampleFrames))
-
-                        outP[frame] += inP[playhead]
+                        outputPtr[channel][frame] += data[channel][playhead]
                     }
 
                 }
