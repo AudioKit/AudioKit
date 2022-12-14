@@ -176,5 +176,6 @@ class Sampler: Node {
 
     func play(_ buffer: AVAudioPCMBuffer) {
         samplerAU.play(buffer)
+        samplerAU.collect()
     }
 }
