@@ -64,10 +64,11 @@ class SamplerAudioUnit: AUAudioUnit {
     /// Free buffers which have been played.
     func collect() {
         for index in 0..<voices.count {
-            if voices[index].state.load(ordering: .relaxed) == .free {
+            if voices[index].state.load(ordering: .relaxed) == .done {
                 voices[index].pcmBuffer = nil
                 voices[index].data = nil
                 voices[index].playhead = 0
+                voices[index].state.store(.free, ordering: .relaxed)
             }
         }
     }

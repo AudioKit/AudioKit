@@ -20,6 +20,9 @@ struct SamplerVoice {
 
         /// Available for rendering.
         case active
+
+        /// Finished rendering.
+        case done
     }
 
     /// Is the voice in use?
@@ -74,7 +77,7 @@ extension SamplerVoice {
 
                 // Are we done playing?
                 if playhead >= sampleFrames {
-                    state.store(.free, ordering: .relaxed)
+                    state.store(.done, ordering: .relaxed)
                     break
                 }
             }
