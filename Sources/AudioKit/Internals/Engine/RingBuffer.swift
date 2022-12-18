@@ -21,7 +21,7 @@ class RingBuffer<T> {
         if Int32(buffer.count) - fillCount > 0 {
             buffer[Int(head)] = value
             head = (head + 1) % Int32(buffer.count)
-            OSAtomicAdd32(1, &fillCount)
+            OSAtomicIncrement32(&fillCount)
             return true
         }
         return false
@@ -30,7 +30,7 @@ class RingBuffer<T> {
     func pop() -> T? {
         if fillCount > 0 {
             tail = (tail + 1) % Int32(buffer.count)
-            OSAtomicAdd32(-1, &fillCount)
+            OSAtomicDecrement32(&fillCount)
             return buffer[Int(tail)]
         }
         return nil
