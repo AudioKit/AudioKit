@@ -35,7 +35,7 @@ class RingBuffer<T> {
     /// - Parameter ptr: Buffer from which to read elements.
     /// - Returns: whether the elements could be pushed
     func push(from ptr: UnsafeBufferPointer<T>) -> Bool {
-        if Int32(buffer.count) - fillCount > ptr.count {
+        if Int32(buffer.count) - fillCount >= ptr.count {
             for i in 0..<ptr.count {
                 buffer[Int(head)] = ptr[i]
                 head = (head + 1) % Int32(buffer.count)
