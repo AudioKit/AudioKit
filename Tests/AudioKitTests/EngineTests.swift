@@ -197,4 +197,20 @@ class EngineTests: XCTestCase {
         testMD5(audio)
     }
 
+    func testRingBuffer() {
+        let buffer = RingBuffer<Float>()
+
+        let pushResult = buffer.push(1.666)
+
+        XCTAssertTrue(pushResult)
+        XCTAssertEqual(buffer.fillCount, 1)
+
+        let popResult = buffer.pop()
+
+        XCTAssertEqual(buffer.fillCount, 0)
+        XCTAssertEqual(popResult, 1.666)
+
+
+    }
+
 }
