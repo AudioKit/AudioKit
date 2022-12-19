@@ -210,6 +210,23 @@ class EngineTests: XCTestCase {
         XCTAssertEqual(buffer.fillCount, 0)
         XCTAssertEqual(popResult, 1.666)
 
+        var floats: [Float] = [1, 2, 3, 4, 5]
+
+        _ = floats.withUnsafeBufferPointer { ptr in
+            buffer.push(from: ptr)
+        }
+
+
+        XCTAssertEqual(Int(buffer.fillCount), floats.count)
+
+        floats = [0, 0, 0, 0, 0]
+
+        _ = floats.withUnsafeMutableBufferPointer { ptr in
+            buffer.pop(to: ptr)
+        }
+
+        XCTAssertEqual(floats, [1, 2, 3, 4, 5])
+
 
     }
 
