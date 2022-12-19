@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// Lock-free FIFO based on TPCircularBuffer without the fancy VM mirroring stuff.
 class RingBuffer<T> {
 
     var head: Int32 = 0
@@ -17,6 +18,9 @@ class RingBuffer<T> {
         buffer.deallocate()
     }
 
+    /// Push a single element
+    /// - Parameter value: value to be pushed
+    /// - Returns: whether the value could be pushed (or not enough space)
     func push(_ value: T) -> Bool {
         if Int32(buffer.count) - fillCount > 0 {
             buffer[Int(head)] = value
@@ -27,7 +31,10 @@ class RingBuffer<T> {
         return false
     }
 
-    func push(_ ptr: UnsafeBufferPointer<T>) -> Bool {
+    /// Push elements from a buffer.
+    /// - Parameter ptr: Buffer from which to read elements.
+    /// - Returns: whether the elements could be pushed
+    func push(from ptr: UnsafeBufferPointer<T>) -> Bool {
         if Int32(buffer.count) - fillCount > ptr.count {
             for i in 0..<ptr.count {
                 buffer[Int(head)] = ptr[i]
@@ -39,6 +46,8 @@ class RingBuffer<T> {
         return false
     }
 
+    /// Pop off a single element
+    /// - Returns: The element or nil if no elements were available.
     func pop() -> T? {
         if fillCount > 0 {
             let index = Int32(tail)
@@ -49,7 +58,10 @@ class RingBuffer<T> {
         return nil
     }
 
-    func pop(_ ptr: UnsafeMutableBufferPointer<T>) -> Bool {
+    /// Pop elements into a buffer.
+    /// - Parameter ptr: Buffer to store elements.
+    /// - Returns: whether the elements could be popped
+    func pop(to ptr: UnsafeMutableBufferPointer<T>) -> Bool {
         if fillCount >= ptr.count {
             for i in 0..<ptr.count {
                 ptr[i] = buffer[Int(tail)]
