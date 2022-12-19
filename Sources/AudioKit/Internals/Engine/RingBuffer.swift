@@ -27,12 +27,37 @@ class RingBuffer<T> {
         return false
     }
 
+    func push(_ ptr: UnsafeBufferPointer<T>) -> Bool {
+        if Int32(buffer.count) - fillCount > ptr.count {
+            for i in 0..<ptr.count {
+                buffer[Int(head)] = ptr[i]
+                head = (head + 1) % Int32(buffer.count)
+            }
+            OSAtomicAdd32(Int32(ptr.count), &fillCount)
+            return true
+        }
+        return false
+    }
+
     func pop() -> T? {
         if fillCount > 0 {
+            let index = Int32(tail)
             tail = (tail + 1) % Int32(buffer.count)
             OSAtomicDecrement32(&fillCount)
-            return buffer[Int(tail)]
+            return buffer[Int(index)]
         }
         return nil
+    }
+
+    func pop(_ ptr: UnsafeMutableBufferPointer<T>) -> Bool {
+        if fillCount >= ptr.count {
+            for i in 0..<ptr.count {
+                ptr[i] = buffer[Int(tail)]
+                tail = (tail + 1) % Int32(buffer.count)
+            }
+            OSAtomicAdd32(-Int32(ptr.count), &fillCount)
+            return true
+        }
+        return false
     }
 }
