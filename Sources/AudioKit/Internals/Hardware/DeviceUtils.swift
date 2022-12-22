@@ -11,7 +11,7 @@ struct AudioDeviceUtils {
         var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioHardwarePropertyDevices),
             mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
-            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMaster))
+            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain))
 
         var result = AudioObjectGetPropertyDataSize(AudioObjectID(kAudioObjectSystemObject),
                                                     &address,
@@ -55,7 +55,7 @@ struct AudioDeviceUtils {
         var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyDeviceNameCFString),
             mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
-            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMaster))
+            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain))
 
         var name: CFString?
         var propsize: UInt32 = UInt32(MemoryLayout<CFString?>.size)
@@ -129,7 +129,7 @@ struct AudioDeviceUtils {
         var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyDeviceUID),
             mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
-            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMaster))
+            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain))
 
         var name: CFString?
         var propsize: UInt32 = UInt32(MemoryLayout<CFString?>.size)

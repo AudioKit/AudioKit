@@ -43,13 +43,13 @@ open class AppleSampler: Node {
     public var avAudioNode: AVAudioNode { samplerUnit }
 
     /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
-    public var amplitude: AUValue = 0 { didSet { samplerUnit.masterGain = Float(amplitude) } }
+    public var amplitude: AUValue = 0 { didSet { samplerUnit.overallGain = Float(amplitude) } }
 
     /// Normalized Output Volume. Range: 0 -> 1, Default: 1
     public var volume: AUValue = 1 {
         didSet {
             let newGain = volume.denormalized(to: -90.0 ... 0.0)
-            samplerUnit.masterGain = Float(newGain)
+            samplerUnit.overallGain = Float(newGain)
         }
     }
 
