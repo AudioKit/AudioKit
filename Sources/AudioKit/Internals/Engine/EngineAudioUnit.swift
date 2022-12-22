@@ -344,12 +344,13 @@ class EngineAudioUnit: AUAudioUnit {
         super.deallocateRenderResources()
     }
     
-    override var renderBlock: AURenderBlock {
+    override var internalRenderBlock: AUInternalRenderBlock {
         { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
            timeStamp: UnsafePointer<AudioTimeStamp>,
            frameCount: AUAudioFrameCount,
            outputBusNumber: Int,
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+           renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
 
             let nextList = self.execList.load(ordering: .relaxed)
