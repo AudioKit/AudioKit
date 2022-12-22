@@ -203,11 +203,11 @@ class EngineTests: XCTestCase {
         let pushResult = buffer.push(1.666)
 
         XCTAssertTrue(pushResult)
-        XCTAssertEqual(buffer.fillCount, 1)
+        XCTAssertEqual(buffer.fillCount.load(ordering: .relaxed), 1)
 
         let popResult = buffer.pop()
 
-        XCTAssertEqual(buffer.fillCount, 0)
+        XCTAssertEqual(buffer.fillCount.load(ordering: .relaxed), 0)
         XCTAssertEqual(popResult, 1.666)
 
         var floats: [Float] = [1, 2, 3, 4, 5]
@@ -217,7 +217,7 @@ class EngineTests: XCTestCase {
         }
 
 
-        XCTAssertEqual(Int(buffer.fillCount), floats.count)
+        XCTAssertEqual(Int(buffer.fillCount.load(ordering: .relaxed)), floats.count)
 
         floats = [0, 0, 0, 0, 0]
 
