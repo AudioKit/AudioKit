@@ -35,6 +35,8 @@ class EngineAudioUnit: AUAudioUnit {
     let inputChannelCount: NSNumber = 2
     let outputChannelCount: NSNumber = 2
 
+    var cachedMIDIBlock: AUScheduleMIDIEventBlock?
+
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
     }
@@ -178,10 +180,23 @@ class EngineAudioUnit: AUAudioUnit {
         return buffers
     }
 
+    func encodeNibbles(bytes: [UInt8]) -> [UInt8] {
+        var result: [UInt8] = []
+        for byte in bytes {
+            result.append(byte >> 4)
+            result.append(byte & 0x0F)
+        }
+        return result
+    }
+
     /// Recompiles our DAG of nodes into a list of render functions to be called on the audio thread.
     func compile() {
         // Traverse the node graph to schedule
         // audio units.
+
+        if cachedMIDIBlock == nil {
+            cachedMIDIBlock = scheduleMIDIEventBlock
+        }
 
         if let output = output {
 
@@ -293,6 +308,18 @@ class EngineAudioUnit: AUAudioUnit {
             previousSchedules.append(ptr)
             self.execList.store(ptr, ordering: .relaxed)
 
+            // Build a MIDI sysex event encoding our pointer.
+            let bits = Int(bitPattern: ptr)
+            var array = encodeNibbles(bytes: withUnsafeBytes(of: bits) { bitsPtr in Array(bitsPtr) })
+            array.insert(0x00, at: 0)
+            array.insert(0xF0, at: 0)
+            array.append(0xF7)
+            print("array: \(array)")
+
+            if let block = cachedMIDIBlock {
+                block(.zero, 0, array.count, array)
+            }
+
             // Cleanup old schedules.
             // Start from the end. Once we find a finished
             // data, delete all data before and including.
@@ -352,6 +379,25 @@ class EngineAudioUnit: AUAudioUnit {
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
+
+            if let events = renderEvents {
+
+                if events.pointee.head.eventType == .midiSysEx {
+                    let length = events.pointee.MIDI.length
+                    print("length: \(length)")
+                    var array = [UInt8](repeating: 0, count: Int(length))
+
+                    if let offset = MemoryLayout.offset(of: \AUMIDIEvent.data) {
+                        let raw = UnsafeRawPointer(renderEvents)! + offset
+
+                        array.withUnsafeMutableBytes { arrayPtr in
+                            _  = memcpy(arrayPtr.baseAddress, raw, Int(length))
+                        }
+                    }
+
+                    print("received: \(array)")
+                }
+            }
 
             let nextList = self.execList.load(ordering: .relaxed)
 
