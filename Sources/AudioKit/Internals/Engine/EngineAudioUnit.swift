@@ -3,7 +3,6 @@
 import Foundation
 import AudioUnit
 import AVFoundation
-import Atomics
 
 struct ExecInfo {
     var outputBuffer: UnsafeMutablePointer<AudioBufferList>
