@@ -180,11 +180,10 @@ class EngineAudioUnit: AUAudioUnit {
         return buffers
     }
 
-    func encodeNibbles(bytes: [UInt8]) -> [UInt8] {
+    func encodeNibbles(int: Int) -> [UInt8] {
         var result: [UInt8] = []
-        for byte in bytes {
-            result.append(byte & 0x0F)
-            result.append(byte >> 4)
+        for i in 0..<16 {
+            result.append( UInt8( (int >> (4*i)) & 0x0F ) )
         }
         return result
     }
@@ -320,10 +319,7 @@ class EngineAudioUnit: AUAudioUnit {
             let bits = Int(bitPattern: ptr)
             print("bits: \(bits)")
 
-            let data = withUnsafeBytes(of: bits) { bitsPtr in Array(bitsPtr) }
-            print("data: \(data)")
-
-            var array = encodeNibbles(bytes: data)
+            var array = encodeNibbles(int: bits)
             array.insert(0x00, at: 0)
             array.insert(0xF0, at: 0)
             array.append(0xF7)
