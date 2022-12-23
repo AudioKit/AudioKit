@@ -22,9 +22,6 @@ struct ExecSchedule {
 
 /// Our single audio unit which will evaluate all audio units.
 class EngineAudioUnit: AUAudioUnit {
-    
-    /// The list of render functions to call.
-    var execList = ManagedAtomic<UnsafeMutablePointer<ExecSchedule>>(UnsafeMutablePointer<ExecSchedule>.allocate(capacity: 1))
 
     /// Audio thread ONLY. Reference to currently executing schedule.
     var dspList: UnsafeMutablePointer<ExecSchedule>?
@@ -188,10 +185,10 @@ class EngineAudioUnit: AUAudioUnit {
         return result
     }
 
-    static func nibblesToInt(nibbles: UnsafePointer<UInt8>) -> Int {
-        var result = 0
+    static func nibblesToInt(nibbles: UnsafePointer<UInt8>) -> UInt {
+        var result: UInt = 0
         for i in 0..<16 {
-            result |= Int(nibbles[i]) << (i*4)
+            result |= UInt(nibbles[i]) << (i*4)
         }
         return result
     }
@@ -313,7 +310,6 @@ class EngineAudioUnit: AUAudioUnit {
             let ptr = UnsafeMutablePointer<ExecSchedule>.allocate(capacity: 1)
             ptr.initialize(to: schedule)
             previousSchedules.append(ptr)
-            self.execList.store(ptr, ordering: .relaxed)
 
             // Build a MIDI sysex event encoding our pointer.
             let bits = Int(bitPattern: ptr)
@@ -404,16 +400,15 @@ class EngineAudioUnit: AUAudioUnit {
                         }
 
                         print("value: \(value)")
+
+                        if let oldList = self.dspList {
+                            oldList.pointee.done = true
+                        }
+
+                        self.dspList = UnsafeMutablePointer<ExecSchedule>(bitPattern: value)
                     }
 
                 }
-            }
-
-            let nextList = self.execList.load(ordering: .relaxed)
-
-            if nextList != self.dspList {
-                self.dspList?.pointee.done = true
-                self.dspList = nextList
             }
 
             if let dspList = self.dspList {
