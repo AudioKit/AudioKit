@@ -312,13 +312,11 @@ class EngineAudioUnit: AUAudioUnit {
 
             // Build a MIDI sysex event encoding our pointer.
             let bits = Int(bitPattern: ptr)
-            print("bits: \(bits)")
 
             var array = encodeNibbles(int: bits)
             array.insert(0x00, at: 0)
             array.insert(0xF0, at: 0)
             array.append(0xF7)
-            print("nibbles: \(array)")
 
             if let block = cachedMIDIBlock {
                 block(.zero, 0, array.count, array)
@@ -388,7 +386,6 @@ class EngineAudioUnit: AUAudioUnit {
 
                 if events.pointee.head.eventType == .midiSysEx {
                     let length = events.pointee.MIDI.length
-                    print("length: \(length)")
                     if let offset = MemoryLayout.offset(of: \AUMIDIEvent.data) {
 
                         // Skip sysex header.
@@ -397,8 +394,6 @@ class EngineAudioUnit: AUAudioUnit {
                         let value = raw.withMemoryRebound(to: UInt8.self, capacity: Int(length-2)) { pointer in
                             EngineAudioUnit.nibblesToInt(nibbles: pointer)
                         }
-
-                        print("value: \(value)")
 
                         if let oldList = self.dspList {
                             oldList.pointee.done = true
