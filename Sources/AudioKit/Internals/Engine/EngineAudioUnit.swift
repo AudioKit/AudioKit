@@ -183,33 +183,17 @@ class EngineAudioUnit: AUAudioUnit {
     func encodeNibbles(bytes: [UInt8]) -> [UInt8] {
         var result: [UInt8] = []
         for byte in bytes {
-            result.append(byte >> 4)
             result.append(byte & 0x0F)
+            result.append(byte >> 4)
         }
         return result
     }
 
-    static func decodeNibbles(nibbles: [UInt8]) -> [UInt8] {
-        var result: [UInt8] = []
-        var even = true
-        for nibble in nibbles {
-            if even {
-                result.append(nibble << 4)
-            } else {
-                result[result.count-1] |= nibble
-            }
-            even = !even
-        }
-        return result
-    }
-
-    static func bytesToInt(bytes: [UInt8]) -> Int {
+    static func nibblesToInt(nibbles: UnsafePointer<UInt8>) -> Int {
         var result = 0
-
-        for (i, byte) in bytes.enumerated() {
-            result |= Int(byte) << (i*8)
+        for i in 0..<16 {
+            result |= Int(nibbles[i]) << (i*4)
         }
-
         return result
     }
 
@@ -414,25 +398,18 @@ class EngineAudioUnit: AUAudioUnit {
                 if events.pointee.head.eventType == .midiSysEx {
                     let length = events.pointee.MIDI.length
                     print("length: \(length)")
-                    var array = [UInt8](repeating: 0, count: Int(length))
-
                     if let offset = MemoryLayout.offset(of: \AUMIDIEvent.data) {
-                        let raw = UnsafeRawPointer(renderEvents)! + offset
 
-                        array.withUnsafeMutableBytes { arrayPtr in
-                            _  = memcpy(arrayPtr.baseAddress, raw, Int(length))
+                        // Skip sysex header.
+                        let raw = UnsafeRawPointer(renderEvents)! + offset + 2
+
+                        let value = raw.withMemoryRebound(to: UInt8.self, capacity: Int(length-2)) { pointer in
+                            EngineAudioUnit.nibblesToInt(nibbles: pointer)
                         }
+
+                        print("value: \(value)")
                     }
 
-                    print("received: \(array)")
-
-                    let data = EngineAudioUnit.decodeNibbles(nibbles: Array(array[2...17]))
-
-                    print("data: \(data)")
-
-                    assert(data.count == 8)
-
-                    print("bits: \(EngineAudioUnit.bytesToInt(bytes: data))")
                 }
             }
 
