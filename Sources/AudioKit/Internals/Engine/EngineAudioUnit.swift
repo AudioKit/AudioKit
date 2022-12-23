@@ -372,6 +372,29 @@ class EngineAudioUnit: AUAudioUnit {
     override func deallocateRenderResources() {
         super.deallocateRenderResources()
     }
+
+    /// Decode a MIDI sysex message containing a pointer to a new ExecSchedule.
+    func updateDSPList(events: UnsafePointer<AURenderEvent>) {
+        if events.pointee.head.eventType == .midiSysEx {
+            let length = events.pointee.MIDI.length
+            if let offset = MemoryLayout.offset(of: \AUMIDIEvent.data) {
+
+                // Skip sysex header.
+                let raw = UnsafeRawPointer(events)! + offset + 2
+
+                let value = raw.withMemoryRebound(to: UInt8.self, capacity: Int(length-2)) { pointer in
+                    EngineAudioUnit.nibblesToInt(nibbles: pointer)
+                }
+
+                if let oldList = self.dspList {
+                    oldList.pointee.done = true
+                }
+
+                self.dspList = UnsafeMutablePointer<ExecSchedule>(bitPattern: value)
+            }
+
+        }
+    }
     
     override var internalRenderBlock: AUInternalRenderBlock {
         { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -383,26 +406,7 @@ class EngineAudioUnit: AUAudioUnit {
            inputBlock: AURenderPullInputBlock?) in
 
             if let events = renderEvents {
-
-                if events.pointee.head.eventType == .midiSysEx {
-                    let length = events.pointee.MIDI.length
-                    if let offset = MemoryLayout.offset(of: \AUMIDIEvent.data) {
-
-                        // Skip sysex header.
-                        let raw = UnsafeRawPointer(renderEvents)! + offset + 2
-
-                        let value = raw.withMemoryRebound(to: UInt8.self, capacity: Int(length-2)) { pointer in
-                            EngineAudioUnit.nibblesToInt(nibbles: pointer)
-                        }
-
-                        if let oldList = self.dspList {
-                            oldList.pointee.done = true
-                        }
-
-                        self.dspList = UnsafeMutablePointer<ExecSchedule>(bitPattern: value)
-                    }
-
-                }
+                self.updateDSPList(events: events)
             }
 
             if let dspList = self.dspList {
