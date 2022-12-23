@@ -189,6 +189,30 @@ class EngineAudioUnit: AUAudioUnit {
         return result
     }
 
+    static func decodeNibbles(nibbles: [UInt8]) -> [UInt8] {
+        var result: [UInt8] = []
+        var even = true
+        for nibble in nibbles {
+            if even {
+                result.append(nibble << 4)
+            } else {
+                result[result.count-1] |= nibble
+            }
+            even = !even
+        }
+        return result
+    }
+
+    static func bytesToInt(bytes: [UInt8]) -> Int {
+        var result = 0
+
+        for (i, byte) in bytes.enumerated() {
+            result |= Int(byte) << (i*8)
+        }
+
+        return result
+    }
+
     /// Recompiles our DAG of nodes into a list of render functions to be called on the audio thread.
     func compile() {
         // Traverse the node graph to schedule
@@ -310,11 +334,16 @@ class EngineAudioUnit: AUAudioUnit {
 
             // Build a MIDI sysex event encoding our pointer.
             let bits = Int(bitPattern: ptr)
-            var array = encodeNibbles(bytes: withUnsafeBytes(of: bits) { bitsPtr in Array(bitsPtr) })
+            print("bits: \(bits)")
+
+            let data = withUnsafeBytes(of: bits) { bitsPtr in Array(bitsPtr) }
+            print("data: \(data)")
+
+            var array = encodeNibbles(bytes: data)
             array.insert(0x00, at: 0)
             array.insert(0xF0, at: 0)
             array.append(0xF7)
-            print("array: \(array)")
+            print("nibbles: \(array)")
 
             if let block = cachedMIDIBlock {
                 block(.zero, 0, array.count, array)
@@ -396,6 +425,14 @@ class EngineAudioUnit: AUAudioUnit {
                     }
 
                     print("received: \(array)")
+
+                    let data = EngineAudioUnit.decodeNibbles(nibbles: Array(array[2...17]))
+
+                    print("data: \(data)")
+
+                    assert(data.count == 8)
+
+                    print("bits: \(EngineAudioUnit.bytesToInt(bytes: data))")
                 }
             }
 
