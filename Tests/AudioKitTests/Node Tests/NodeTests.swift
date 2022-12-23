@@ -555,6 +555,31 @@ class NodeTests: XCTestCase {
             // XCTAssertFalse(engine.avEngine.description.contains("other nodes"))
         }
     }
+
+    // This is a test for workaround for:
+    // http://openradar.appspot.com/radar?id=5490575180562432
+    // Connection format is not correctly applied when adding a node to paused engine
+    // This is only happening when using destination point API with one point
+    func testConnectionFormatAppliedWhenAddingNode() throws {
+        let engine = AudioEngine()
+        let previousFormat = Settings.audioFormat
+
+        var settings = Settings.audioFormat.settings
+        settings[AVSampleRateKey] = 48000
+        Settings.audioFormat = AVAudioFormat(settings: settings)!
+
+        let mixer = Mixer(MIDISampler())
+        engine.output = mixer
+        try engine.start()
+        engine.pause()
+
+        let sampler = MIDISampler()
+        mixer.addInput(sampler)
+
+        XCTAssertEqual(sampler.avAudioNode.outputFormat(forBus: 0).sampleRate, 48000)
+
+        Settings.audioFormat = previousFormat
+    }
 }
 
 private extension NodeTests {
