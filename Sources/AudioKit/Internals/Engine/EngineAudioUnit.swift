@@ -355,12 +355,8 @@ class EngineAudioUnit: AUAudioUnit {
     func updateDSPList(events: UnsafePointer<AURenderEvent>) {
         if events.pointee.head.eventType == .midiSysEx {
 
-            let length = events.pointee.MIDI.length
             var ptr = UnsafeMutablePointer<ExecSchedule>.init(bitPattern: 0)
-
-            withMidiData(events) { midiDataPtr in
-                decodeSysex(midiDataPtr, count: Int(length), &ptr)
-            }
+            decodeSysex(events, &ptr)
 
             if let oldList = self.dspList {
                 oldList.pointee.done = true

@@ -72,3 +72,22 @@ func withMidiData(_ event: UnsafePointer<AURenderEvent>, _ f: (UnsafePointer<UIn
         }
     }
 }
+
+/// Decode a value from a sysex AURenderEvent.
+///
+/// We can't return a value because we can't assume the value can be
+/// default constructed.
+///
+/// - Parameters:
+///   - event: pointer to the AURenderEvent
+///   - value: where we will store the value
+func decodeSysex<T>(_ event: UnsafePointer<AURenderEvent>, _ value: inout T) {
+
+    let type = event.pointee.head.eventType
+    assert(type == .midiSysEx)
+
+    let length = event.pointee.MIDI.length
+    withMidiData(event) { ptr in
+        decodeSysex(ptr, count: Int(length), &value)
+    }
+}
