@@ -352,18 +352,22 @@ class EngineAudioUnit: AUAudioUnit {
     }
 
     /// Decode a MIDI sysex message containing a pointer to a new ExecSchedule.
-    func updateDSPList(events: UnsafePointer<AURenderEvent>) {
-        if events.pointee.head.eventType == .midiSysEx {
+    func updateDSPList(events: UnsafePointer<AURenderEvent>?) {
+        var events = events
+        while let event = events {
 
-            var ptr = UnsafeMutablePointer<ExecSchedule>.init(bitPattern: 0)
-            decodeSysex(events, &ptr)
+            if event.pointee.head.eventType == .midiSysEx {
+                var ptr = UnsafeMutablePointer<ExecSchedule>.init(bitPattern: 0)
+                decodeSysex(event, &ptr)
 
-            if let oldList = self.dspList {
-                oldList.pointee.done = true
+                if let oldList = self.dspList {
+                    oldList.pointee.done = true
+                }
+
+                self.dspList = ptr
             }
 
-            self.dspList = ptr
-
+            events = .init(event.pointee.head.next)
         }
     }
     
@@ -376,9 +380,7 @@ class EngineAudioUnit: AUAudioUnit {
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
 
-            if let events = renderEvents {
-                self.updateDSPList(events: events)
-            }
+            self.updateDSPList(events: renderEvents)
 
             if let dspList = self.dspList {
                 var i = 0
