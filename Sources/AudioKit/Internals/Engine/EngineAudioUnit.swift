@@ -357,6 +357,9 @@ class EngineAudioUnit: AUAudioUnit {
         while let event = events {
 
             if event.pointee.head.eventType == .midiSysEx {
+
+                // Maybe a little sketchy to init this to 0, but didn't
+                // see something better.
                 var ptr = UnsafeMutablePointer<ExecSchedule>.init(bitPattern: 0)
                 decodeSysex(event, &ptr)
 
