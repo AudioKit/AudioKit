@@ -310,13 +310,7 @@ class EngineAudioUnit: AUAudioUnit {
             ptr.initialize(to: schedule)
             previousSchedules.append(ptr)
 
-            // Build a MIDI sysex event encoding our pointer.
-            let bits = Int(bitPattern: ptr)
-
-            var array = encodeNibbles(int: bits)
-            array.insert(0x00, at: 0)
-            array.insert(0xF0, at: 0)
-            array.append(0xF7)
+            let array = encodeSysex(ptr)
 
             if let block = cachedMIDIBlock {
                 block(.zero, 0, array.count, array)
@@ -379,18 +373,19 @@ class EngineAudioUnit: AUAudioUnit {
             let length = events.pointee.MIDI.length
             if let offset = MemoryLayout.offset(of: \AUMIDIEvent.data) {
 
-                // Skip sysex header.
-                let raw = UnsafeRawPointer(events)! + offset + 2
+                var ptr = UnsafeMutablePointer<ExecSchedule>.init(bitPattern: 0)
 
-                let value = raw.withMemoryRebound(to: UInt8.self, capacity: Int(length-2)) { pointer in
-                    EngineAudioUnit.nibblesToInt(nibbles: pointer)
+                let raw = UnsafeRawPointer(events)! + offset
+
+                raw.withMemoryRebound(to: UInt8.self, capacity: Int(length)) { pointer in
+                    decodeSysex(pointer, count: Int(length), &ptr)
                 }
 
                 if let oldList = self.dspList {
                     oldList.pointee.done = true
                 }
 
-                self.dspList = UnsafeMutablePointer<ExecSchedule>(bitPattern: value)
+                self.dspList = ptr
             }
 
         }
