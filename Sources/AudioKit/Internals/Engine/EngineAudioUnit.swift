@@ -176,22 +176,6 @@ class EngineAudioUnit: AUAudioUnit {
         return buffers
     }
 
-    func encodeNibbles(int: Int) -> [UInt8] {
-        var result: [UInt8] = []
-        for i in 0..<16 {
-            result.append( UInt8( (int >> (4*i)) & 0x0F ) )
-        }
-        return result
-    }
-
-    static func nibblesToInt(nibbles: UnsafePointer<UInt8>) -> UInt {
-        var result: UInt = 0
-        for i in 0..<16 {
-            result |= UInt(nibbles[i]) << (i*4)
-        }
-        return result
-    }
-
     /// Recompiles our DAG of nodes into a list of render functions to be called on the audio thread.
     func compile() {
         // Traverse the node graph to schedule
