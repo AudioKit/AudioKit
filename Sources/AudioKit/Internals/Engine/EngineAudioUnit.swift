@@ -399,7 +399,7 @@ class EngineAudioUnit: AUAudioUnit {
                             print("got kAudioUnitErr_NoConnection")
                         case kAudioUnitErr_TooManyFramesToProcess:
                             print("got kAudioUnitErr_TooManyFramesToProcess")
-                        case -80802:
+                        case AVAudioEngineManualRenderingError.notRunning.rawValue:
                             print("got AVAudioEngineManualRenderingErrorNotRunning")
                         default:
                             print("unknown rendering error \(status)")
