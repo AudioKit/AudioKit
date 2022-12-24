@@ -230,4 +230,17 @@ class EngineTests: XCTestCase {
 
     }
 
+    func testSysexEncoding() {
+
+        let value = 42
+        let sysex = encodeSysex(value)
+
+        XCTAssertEqual(sysex.count, 19)
+
+        var decoded = 0
+        decodeSysex(sysex, count: 19, &decoded)
+
+        XCTAssertEqual(decoded, 42)
+    }
+
 }
