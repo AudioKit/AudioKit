@@ -417,6 +417,17 @@ class EngineAudioUnit: AUAudioUnit {
 
                     i += 1
                 }
+            } else {
+
+                // If we start processing before setting an output node,
+                // we won't have a execution schedule, so just clear the
+                // output.
+                let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
+
+                // Clear output.
+                for channel in 0 ..< outputBufferListPointer.count {
+                    outputBufferListPointer[channel].clear()
+                }
             }
             
             return noErr
