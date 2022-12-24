@@ -389,7 +389,10 @@ class EngineAudioUnit: AUAudioUnit {
                 var i = 0
                 for exec in dspList.pointee.infos {
 
+                    // Use the outputBufferList for the last AU in the schedule.
                     let out = i == dspList.pointee.infos.count-1 ? outputBufferList : exec.outputBuffer
+
+                    // Do the actual DSP.
                     let status = exec.renderBlock(actionFlags,
                                                   timeStamp,
                                                   frameCount,
