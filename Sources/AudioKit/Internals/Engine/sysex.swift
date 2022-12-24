@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
+import AudioUnit
 
 func encodeSysex<T>(_ value: T) -> [UInt8] {
 
@@ -26,6 +27,19 @@ func decodeSysex<T>(_ bytes: UnsafePointer<UInt8>, count: Int, _ value: inout T)
     withUnsafeMutableBytes(of: &value) { ptr in
         for i in 0..<ptr.count {
             ptr[i] = (bytes[2*i+2] << 4) | (bytes[2*i+3])
+        }
+    }
+}
+
+func withMidiData(_ event: UnsafePointer<AURenderEvent>, _ f: (UnsafePointer<UInt8>) -> ()) {
+
+    let length = event.pointee.MIDI.length
+    if let offset = MemoryLayout.offset(of: \AUMIDIEvent.data) {
+
+        let raw = UnsafeRawPointer(event)! + offset
+
+        raw.withMemoryRebound(to: UInt8.self, capacity: Int(length)) { pointer in
+            f(pointer)
         }
     }
 }
