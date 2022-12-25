@@ -20,9 +20,7 @@ class MixerTests: XCTestCase {
         mixer2.addInput(sampler)
         testMD5(audio)
     }
-}
 
-extension MixerTests {
     func testWiringAfterEngineStart() {
         let engine = AudioEngine()
         let engineMixer = Mixer()
