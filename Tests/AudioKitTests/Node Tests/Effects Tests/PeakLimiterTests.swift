@@ -5,7 +5,7 @@ import XCTest
 
 class PeakLimiterTests: XCTestCase {
     func testAttackTime() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, attackTime: 0.02)
@@ -42,7 +42,7 @@ class PeakLimiterTests: XCTestCase {
     }
 
     func testDefault() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler)
@@ -53,7 +53,7 @@ class PeakLimiterTests: XCTestCase {
     }
 
     func testParameters() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, attackTime: 0.02, decayTime: 0.03, preGain: 1)
@@ -64,7 +64,7 @@ class PeakLimiterTests: XCTestCase {
     }
 
     func testPreGain() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, preGain: 1)
