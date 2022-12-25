@@ -176,7 +176,7 @@ class EngineTests: XCTestCase {
     }
 
     func testCompressorWithSampler() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let buffer = try! AVAudioPCMBuffer(url: url)!
         let sampler = Sampler()
