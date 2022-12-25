@@ -6,18 +6,18 @@ import XCTest
 
 class MixerTests: XCTestCase {
     func testSplitConnection() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        let mixer1 = Mixer(player)
+        let sampler = Sampler()
+        let mixer1 = Mixer(sampler)
         let mixer2 = Mixer()
         engine.output = Mixer(mixer1, mixer2)
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: url)
         audio.append(engine.render(duration: 1.0))
-        mixer2.addInput(player)
-        mixer2.removeInput(player)
-        mixer2.addInput(player)
+        mixer2.addInput(sampler)
+        mixer2.removeInput(sampler)
+        mixer2.addInput(sampler)
         testMD5(audio)
     }
 }
@@ -34,11 +34,11 @@ extension MixerTests {
         engineMixer.addInput(subtreeMixer)
 
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        subtreeMixer.addInput(player)
+        let sampler = Sampler()
+        subtreeMixer.addInput(sampler)
 
         print(engine.connectionTreeDescription)
-        player.play()
+        sampler.play(url: url)
 
         // only for auditioning
         // wait(for: player.duration)
@@ -60,13 +60,13 @@ extension MixerTests {
         engine.output = engineMixer
 
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
+        let sampler = Sampler()
 
         let mixerA = Mixer(volume: 0.5, name: "mixerA")
-        mixerA.addInput(player)
+        mixerA.addInput(sampler)
         engineMixer.addInput(mixerA)
 
-        let mixerB = Mixer(player, name: "mixerB")
+        let mixerB = Mixer(sampler, name: "mixerB")
         mixerB.volume = 0.5
         engineMixer.addInput(mixerB)
 

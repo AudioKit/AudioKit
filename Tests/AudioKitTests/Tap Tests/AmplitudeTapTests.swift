@@ -7,11 +7,10 @@ import AVFAudio
 class AmplitudeTapTests: XCTestCase {
 
     func testTapDoesntDeadlockOnStop() throws {
-        let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        engine.output = player
-        let tap = AmplitudeTap(player)
+        let engine = Engine()
+        let sampler = Sampler()
+        engine.output = sampler
+        let tap = AmplitudeTap(sampler)
 
         _ = engine.startTest(totalDuration: 1)
         tap.start()
