@@ -7,10 +7,10 @@ class PeakLimiterTests: XCTestCase {
     func testAttackTime() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        engine.output = PeakLimiter(player, attackTime: 0.02)
+        let sampler = Sampler()
+        engine.output = PeakLimiter(sampler, attackTime: 0.02)
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: url)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -18,11 +18,12 @@ class PeakLimiterTests: XCTestCase {
     func testDecayTime() throws {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        player.volume = 5 // Had to be loud to allow for decay time to affected the sound
-        engine.output = PeakLimiter(player, decayTime: 0.02)
+        let sampler = Sampler()
+        let mixer = Mixer(sampler)
+        mixer.volume = 5 // Had to be loud to allow for decay time to affected the sound
+        engine.output = PeakLimiter(mixer, decayTime: 0.02)
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: url)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -30,11 +31,12 @@ class PeakLimiterTests: XCTestCase {
     func testDecayTime2() throws {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        player.volume = 5 // Had to be loud to allow for decay time to affected the sound
-        engine.output = PeakLimiter(player, decayTime: 0.03)
+        let sampler = Sampler()
+        let mixer = Mixer(sampler)
+        mixer.volume = 5 // Had to be loud to allow for decay time to affected the sound
+        engine.output = PeakLimiter(mixer, decayTime: 0.03)
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: url)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -42,10 +44,10 @@ class PeakLimiterTests: XCTestCase {
     func testDefault() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        engine.output = PeakLimiter(player)
+        let sampler = Sampler()
+        engine.output = PeakLimiter(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: url)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -53,10 +55,10 @@ class PeakLimiterTests: XCTestCase {
     func testParameters() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        engine.output = PeakLimiter(player, attackTime: 0.02, decayTime: 0.03, preGain: 1)
+        let sampler = Sampler()
+        engine.output = PeakLimiter(sampler, attackTime: 0.02, decayTime: 0.03, preGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: url)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -64,10 +66,10 @@ class PeakLimiterTests: XCTestCase {
     func testPreGain() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        engine.output = PeakLimiter(player, preGain: 1)
+        let sampler = Sampler()
+        engine.output = PeakLimiter(sampler, preGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: url)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
