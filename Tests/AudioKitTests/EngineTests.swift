@@ -171,7 +171,6 @@ class EngineTests: XCTestCase {
         sampler.play()
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
-        audio.audition()
     }
 
     func testSamplerMIDINote() {
@@ -184,7 +183,6 @@ class EngineTests: XCTestCase {
         sampler.playMIDINote(60)
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
-        audio.audition()
     }
 
     func testCompressorWithSampler() {
