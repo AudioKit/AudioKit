@@ -84,6 +84,7 @@ let validatedMD5s: [String: String] = [
     "-[EngineTests testMultipleChanges]": "2fd4428074d3bee04f04eddd5bcfb389",
     "-[EngineTests testPlaygroundOscillator]": "809676f7208be208aad4839236e32f8a",
     "-[EngineTests testSampler]": "f44518ab94a8bab9a3ef8acfe1a4d45b",
+    "-[EngineTests testSamplerMIDINote]": "f44518ab94a8bab9a3ef8acfe1a4d45b",
     "-[EngineTests testTwoEffects]": "4caf3fa63900e5091c8bbb8c2f40089f",
 
 ]

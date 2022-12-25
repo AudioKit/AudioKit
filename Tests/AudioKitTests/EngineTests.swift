@@ -164,12 +164,24 @@ class EngineTests: XCTestCase {
     func testSampler() {
         let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let buffer = try! AVAudioPCMBuffer(url: url)!
         let sampler = Sampler()
-        sampler.play(buffer)
+        sampler.play(url: url)
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
         sampler.play()
+        audio.append(engine.render(duration: 2.0))
+        testMD5(audio)
+        audio.audition()
+    }
+
+    func testSamplerMIDINote() {
+        let engine = Engine()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let sampler = Sampler()
+        sampler.assign(url: url, to: 60)
+        engine.output = sampler
+        let audio = engine.startTest(totalDuration: 2.0)
+        sampler.playMIDINote(60)
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
         audio.audition()

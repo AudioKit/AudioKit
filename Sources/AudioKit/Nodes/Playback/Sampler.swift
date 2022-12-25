@@ -89,6 +89,17 @@ class SamplerAudioUnit: AUAudioUnit {
 
     }
 
+    func playMIDINote(_ noteNumber: UInt8) {
+        if cachedMIDIBlock == nil {
+            cachedMIDIBlock = scheduleMIDIEventBlock
+            assert(cachedMIDIBlock != nil)
+        }
+
+        if let block = cachedMIDIBlock {
+            block(.zero, 0, 3, [0x90, noteNumber, 127])
+        }
+    }
+
     /// Free buffers which have been played.
     func collect() {
 //        for index in 0..<voices.count {
@@ -247,6 +258,10 @@ public class Sampler: Node {
         if let buffer = try? AVAudioPCMBuffer(url: url) {
             assign(buffer, to: midiNote)
         }
+    }
+
+    public func playMIDINote(_ noteNumber: UInt8) {
+        samplerAU.playMIDINote(noteNumber)
     }
 
 }
