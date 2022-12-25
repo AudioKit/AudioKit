@@ -1,6 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
+
+// Just in case we can't figure out how to send things to the audio
+// thread over MIDI.
+#if false
 import Atomics
 
 /// Lock-free FIFO based on TPCircularBuffer without the fancy VM mirroring stuff.
@@ -74,3 +78,5 @@ class RingBuffer<T> {
         return false
     }
 }
+
+#endif

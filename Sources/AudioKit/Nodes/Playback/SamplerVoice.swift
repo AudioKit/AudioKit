@@ -2,7 +2,6 @@
 
 import Foundation
 import AVFoundation
-import Atomics
 
 struct SampleHolder {
 

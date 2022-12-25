@@ -198,6 +198,7 @@ class EngineTests: XCTestCase {
         testMD5(audio)
     }
 
+    #if false
     func testRingBuffer() {
         let buffer = RingBuffer<Float>()
 
@@ -228,8 +229,8 @@ class EngineTests: XCTestCase {
 
         XCTAssertEqual(floats, [1, 2, 3, 4, 5])
 
-
     }
+    #endif
 
     func testSysexEncoding() {
 

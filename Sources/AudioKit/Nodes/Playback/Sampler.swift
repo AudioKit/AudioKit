@@ -3,7 +3,6 @@
 import Foundation
 import AudioUnit
 import AVFoundation
-import Atomics
 
 extension AudioBuffer {
     func clear() {
