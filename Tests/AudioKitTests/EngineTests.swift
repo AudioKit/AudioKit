@@ -172,6 +172,7 @@ class EngineTests: XCTestCase {
         sampler.play()
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
+        audio.audition()
     }
 
     func testCompressorWithSampler() {

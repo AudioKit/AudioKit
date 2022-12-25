@@ -4,38 +4,26 @@ import Foundation
 import AVFoundation
 import Atomics
 
+struct SampleHolder {
+
+    /// To keep the buffer alive.
+    var pcmBuffer: AVAudioPCMBuffer
+
+    /// Buffer to play.
+    var bufferList: UnsafeMutableAudioBufferListPointer
+
+    /// Are we done using this sample?
+    var done: Bool = false
+}
+
 /// Voice struct used by the audio thread.
 struct SamplerVoice {
 
-    /// Three usage states allow us to allocate voices on multiple threads.
-    ///
-    /// Typically the main thread (immediate playback) and the render thread (midi).
-    enum State: Int, AtomicValue {
-
-        /// Not in use.
-        case free
-
-        /// Being set up for rendering.
-        case allocated
-
-        /// Available for rendering.
-        case active
-
-        /// Finished rendering.
-        case done
-    }
-
     /// Is the voice in use?
-    var state: ManagedAtomic<State> = .init(.free)
+    var inUse: Bool = false
 
-    /// Hopefully we can keep the PCMBuffer alive from the audio thread while
-    /// still being rt-safe.
-    var pcmBuffer: AVAudioPCMBuffer?
-
-    /// Sample data we're playing. Use AudioBufferList directly because we AVAudioPCMBuffer isn't rt-safe.
-    ///
-    /// Note that we shouldn't actually be mutating this, but the type is more convenient.
-    var data: UnsafeMutableAudioBufferListPointer?
+    /// Sample we're playing.
+    var sample: UnsafeMutablePointer<SampleHolder>?
 
     /// Number of frames in the buffer for sake of convenience.
     var sampleFrames: Int = 0
@@ -60,11 +48,13 @@ extension AudioBuffer {
 extension SamplerVoice {
     mutating func render(to outputPtr: UnsafeMutableAudioBufferListPointer,
                          frameCount: AVAudioFrameCount) {
-        if state.load(ordering: .relaxed) == .active, let data = self.data {
+        if inUse, let sample = self.sample {
             for frame in 0..<Int(frameCount) {
 
                 // Our playhead must be in range.
                 if playhead >= 0 && playhead < sampleFrames {
+
+                    let data = sample.pointee.bufferList
 
                     for channel in 0 ..< data.count where channel < outputPtr.count {
                         outputPtr[channel][frame] += data[channel][playhead]
@@ -77,7 +67,9 @@ extension SamplerVoice {
 
                 // Are we done playing?
                 if playhead >= sampleFrames {
-                    state.store(.done, ordering: .relaxed)
+                    inUse = false
+                    sample.pointee.done = true
+                    self.sample = nil
                     break
                 }
             }

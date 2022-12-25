@@ -11,6 +11,15 @@ extension AudioBuffer {
     }
 }
 
+enum SamplerCommand {
+
+    /// Play a sample immediately
+    case playSample(UnsafeMutablePointer<SampleHolder>?)
+
+    /// Assign a sample to a midi note number.
+    case assignSample(UnsafeMutablePointer<SampleHolder>?, UInt8)
+}
+
 /// Renders contents of a file
 class SamplerAudioUnit: AUAudioUnit {
 
@@ -20,15 +29,16 @@ class SamplerAudioUnit: AUAudioUnit {
     let inputChannelCount: NSNumber = 2
     let outputChannelCount: NSNumber = 2
 
-    /// Returns an available voice
+    var cachedMIDIBlock: AUScheduleMIDIEventBlock?
+
+    /// Returns an available voice. Audio thread ONLY.
     func getVoice() -> Int? {
 
-        // Compare and swap until we find a voice.
+        // Linear search to find a voice. This could be better
+        // using a free list but we're lazy.
         for index in 0..<voices.count {
-
-            // Using CAS here prevents a race where multiple threads
-            // are trying to allocate a voice.
-            if voices[index].state.compareExchange(expected: .free, desired: .allocated, ordering: .relaxed).exchanged {
+            if !voices[index].inUse {
+                voices[index].inUse = true
                 return index
             }
         }
@@ -39,37 +49,52 @@ class SamplerAudioUnit: AUAudioUnit {
 
     /// Associate a midi note with a sample.
     func setSample(_ sample: AVAudioPCMBuffer, midiNote: Int8) {
-
-        // XXX: not thread safe
-        samples[Int(midiNote)] = sample
+        // TODO
     }
 
     /// Play a sample immediately.
     func play(_ sample: AVAudioPCMBuffer) {
 
-        if let voiceIndex = getVoice() {
-            voices[voiceIndex].pcmBuffer = sample
-            voices[voiceIndex].data = .init(sample.mutableAudioBufferList)
-            voices[voiceIndex].sampleFrames = Int(sample.frameLength)
-            voices[voiceIndex].playhead = 0
+        let holder = UnsafeMutablePointer<SampleHolder>.allocate(capacity: 1)
 
-            // Once we're doing setting up the voice, mark it as
-            // active so the render thread may use it.
-            voices[voiceIndex].state.store(.active, ordering: .relaxed)
+        holder.initialize(to: SampleHolder(pcmBuffer: sample,
+                                           bufferList: .init(sample.mutableAudioBufferList)))
+
+        let command: SamplerCommand = .playSample(holder)
+        let sysex = encodeSysex(command)
+
+        if cachedMIDIBlock == nil {
+            cachedMIDIBlock = scheduleMIDIEventBlock
+            assert(cachedMIDIBlock != nil)
         }
+
+        if let block = cachedMIDIBlock {
+            block(.zero, 0, sysex.count, sysex)
+        }
+
+//        if let voiceIndex = getVoice() {
+//            voices[voiceIndex].pcmBuffer = sample
+//            voices[voiceIndex].data = .init(sample.mutableAudioBufferList)
+//            voices[voiceIndex].sampleFrames = Int(sample.frameLength)
+//            voices[voiceIndex].playhead = 0
+//
+//            // Once we're doing setting up the voice, mark it as
+//            // active so the render thread may use it.
+//            voices[voiceIndex].state.store(.active, ordering: .relaxed)
+//        }
 
     }
 
     /// Free buffers which have been played.
     func collect() {
-        for index in 0..<voices.count {
-            if voices[index].state.load(ordering: .relaxed) == .done {
-                voices[index].pcmBuffer = nil
-                voices[index].data = nil
-                voices[index].playhead = 0
-                voices[index].state.store(.free, ordering: .relaxed)
-            }
-        }
+//        for index in 0..<voices.count {
+//            if voices[index].state.load(ordering: .relaxed) == .done {
+//                voices[index].pcmBuffer = nil
+//                voices[index].data = nil
+//                voices[index].playhead = 0
+//                voices[index].state.store(.free, ordering: .relaxed)
+//            }
+//        }
     }
 
     /// A potential sample for every MIDI note.
@@ -124,19 +149,45 @@ class SamplerAudioUnit: AUAudioUnit {
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
 
-            if let event = renderEvents {
-                if event.pointee.head.eventType == .MIDI {
-                    let data = event.pointee.MIDI.data
-                    let command = data.0 & 0xF0
-                    let noteNumber = data.1
-                    if command == noteOnByte {
-                        if let buf = self.samples[Int(noteNumber)] {
-                            self.play(buf)
+            var events = renderEvents
+            while let event = events {
+
+                switch event.pointee.head.eventType {
+                case .MIDI:
+//                    let data = event.pointee.MIDI.data
+//                    let command = data.0 & 0xF0
+//                    let noteNumber = data.1
+//                    if command == noteOnByte {
+//                        if let buf = self.samples[Int(noteNumber)] {
+//                            self.play(buf)
+//                        }
+//                    } else if command == noteOffByte {
+//                        // XXX: ignore for now
+//                    }
+                    break // TODO
+                case .midiSysEx:
+                    var command: SamplerCommand = SamplerCommand.playSample(nil)
+                    decodeSysex(event, &command)
+
+                    switch command {
+                    case .playSample(let ptr):
+                        if let voiceIndex = self.getVoice() {
+                            self.voices[voiceIndex].sample = ptr
+
+                            // XXX: shoudn't be calling frameLength here (ObjC call)
+                            self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.pcmBuffer.frameLength)
+                            self.voices[voiceIndex].playhead = 0
                         }
-                    } else if command == noteOffByte {
-                        // XXX: ignore for now
+
+                    case .assignSample(let ptr, let noteNumber):
+                        // TODO
+                        break
                     }
+                default:
+                    break
                 }
+
+                events = .init(event.pointee.head.next)
             }
 
             let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
@@ -164,7 +215,7 @@ class Sampler: Node {
     let samplerAU: SamplerAudioUnit
 
     init() {
-        let componentDescription = AudioComponentDescription(generator: "tpla")
+        let componentDescription = AudioComponentDescription(instrument: "tpla")
 
         AUAudioUnit.registerSubclass(SamplerAudioUnit.self,
                                      as: componentDescription,
