@@ -71,17 +71,6 @@ class SamplerAudioUnit: AUAudioUnit {
             block(.zero, 0, sysex.count, sysex)
         }
 
-//        if let voiceIndex = getVoice() {
-//            voices[voiceIndex].pcmBuffer = sample
-//            voices[voiceIndex].data = .init(sample.mutableAudioBufferList)
-//            voices[voiceIndex].sampleFrames = Int(sample.frameLength)
-//            voices[voiceIndex].playhead = 0
-//
-//            // Once we're doing setting up the voice, mark it as
-//            // active so the render thread may use it.
-//            voices[voiceIndex].state.store(.active, ordering: .relaxed)
-//        }
-
     }
 
     /// Free buffers which have been played.
