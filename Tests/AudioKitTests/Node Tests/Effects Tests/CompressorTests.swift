@@ -2,12 +2,14 @@
 
 import AudioKit
 import XCTest
+import AVFoundation
 
 class CompressorTests: XCTestCase {
     func testAttackTime() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
+        let player = Sampler()
+        player.play(url: url)
         engine.output = Compressor(player, attackTime: 0.1)
         let audio = engine.startTest(totalDuration: 1.0)
         player.play()
