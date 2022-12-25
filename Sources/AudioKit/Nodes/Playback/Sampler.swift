@@ -196,13 +196,13 @@ class SamplerAudioUnit: AUAudioUnit {
 
 }
 
-class Sampler: Node {
-    let connections: [Node] = []
+public class Sampler: Node {
+    public let connections: [Node] = []
 
-    let avAudioNode: AVAudioNode
+    public let avAudioNode: AVAudioNode
     let samplerAU: SamplerAudioUnit
 
-    init() {
+    public init() {
         let componentDescription = AudioComponentDescription(instrument: "tpla")
 
         AUAudioUnit.registerSubclass(SamplerAudioUnit.self,
@@ -213,8 +213,14 @@ class Sampler: Node {
         samplerAU = avAudioNode.auAudioUnit as! SamplerAudioUnit
     }
 
-    func play(_ buffer: AVAudioPCMBuffer) {
+    public func play(_ buffer: AVAudioPCMBuffer) {
         samplerAU.play(buffer)
         samplerAU.collect()
+    }
+
+    public func play(url: URL) {
+        if let buffer = try? AVAudioPCMBuffer(url: url) {
+            play(buffer)
+        }
     }
 }
