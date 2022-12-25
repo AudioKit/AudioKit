@@ -47,8 +47,24 @@ class SamplerAudioUnit: AUAudioUnit {
     }
 
     /// Associate a midi note with a sample.
-    func setSample(_ sample: AVAudioPCMBuffer, midiNote: Int8) {
-        // TODO
+    func setSample(_ sample: AVAudioPCMBuffer, midiNote: UInt8) {
+        let holder = UnsafeMutablePointer<SampleHolder>.allocate(capacity: 1)
+
+        holder.initialize(to: SampleHolder(pcmBuffer: sample,
+                                           bufferList: .init(sample.mutableAudioBufferList)))
+
+        let command: SamplerCommand = .assignSample(holder, midiNote)
+        let sysex = encodeSysex(command)
+
+        if cachedMIDIBlock == nil {
+            cachedMIDIBlock = scheduleMIDIEventBlock
+            assert(cachedMIDIBlock != nil)
+        }
+
+        if let block = cachedMIDIBlock {
+            block(.zero, 0, sysex.count, sysex)
+        }
+
     }
 
     /// Play a sample immediately.
@@ -142,16 +158,16 @@ class SamplerAudioUnit: AUAudioUnit {
 
                 switch event.pointee.head.eventType {
                 case .MIDI:
-//                    let data = event.pointee.MIDI.data
-//                    let command = data.0 & 0xF0
-//                    let noteNumber = data.1
-//                    if command == noteOnByte {
-//                        if let buf = self.samples[Int(noteNumber)] {
-//                            self.play(buf)
-//                        }
-//                    } else if command == noteOffByte {
-//                        // XXX: ignore for now
-//                    }
+                    let data = event.pointee.MIDI.data
+                    let command = data.0 & 0xF0
+                    let noteNumber = data.1
+                    if command == noteOnByte {
+                        if let buf = self.samples[Int(noteNumber)] {
+                            self.play(buf)
+                        }
+                    } else if command == noteOffByte {
+                        // XXX: ignore for now
+                    }
                     break // TODO
                 case .midiSysEx:
                     var command: SamplerCommand = SamplerCommand.playSample(nil)
@@ -168,8 +184,7 @@ class SamplerAudioUnit: AUAudioUnit {
                         }
 
                     case .assignSample(let ptr, let noteNumber):
-                        // TODO
-                        break
+                        self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
                     }
                 default:
                     break
@@ -223,4 +238,15 @@ public class Sampler: Node {
             play(buffer)
         }
     }
+
+    public func assign(_ buffer: AVAudioPCMBuffer, to midiNote: UInt8) {
+        samplerAU.setSample(buffer, midiNote: midiNote)
+    }
+
+    public func assign(url: URL, to midiNote: UInt8) {
+        if let buffer = try? AVAudioPCMBuffer(url: url) {
+            assign(buffer, to: midiNote)
+        }
+    }
+
 }
