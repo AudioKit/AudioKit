@@ -34,6 +34,9 @@ public class Mixer: Node, NamedNode {
         didSet {
             pan = pan.clamped(to: -1 ... 1)
             mixerAU.pan = pan
+
+            // XXX: need to use a parameter.
+            volumeAU.pan = pan
         }
     }
 

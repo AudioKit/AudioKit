@@ -168,6 +168,44 @@ class EngineTests: XCTestCase {
         }
     }
 
+    func testMixerPan() throws {
+        let duration = 1.0
+
+        /// XXX: For some reason hard pans don't pass ie. -1.0, 1.0 but they sound right
+        for pan in [-0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75] {
+            let audioEngine = AudioEngine()
+            let oscL = TestOscillator()
+            let oscR = TestOscillator()
+            oscR.frequency = 500
+            let mixL = Mixer(oscL)
+            let mixR = Mixer(oscR)
+            mixL.pan = -1.0
+            mixR.pan = 1.0
+            let mixer = Mixer(mixL, mixR)
+            mixer.pan = AUValue(pan)
+            audioEngine.output = mixer
+            let audio = audioEngine.startTest(totalDuration: duration)
+            audio.append(audioEngine.render(duration: duration))
+
+            let engine = Engine()
+            let oscL2 = TestOscillator()
+            let oscR2 = TestOscillator()
+            oscR2.frequency = 500
+            let mixL2 = Mixer(oscL2)
+            let mixR2 = Mixer(oscR2)
+            mixL2.pan = -1.0
+            mixR2.pan = 1.0
+            let mixer2 = Mixer(mixL2, mixR2)
+            mixer2.pan = AUValue(pan)
+            engine.output = mixer2
+            let audio2 = engine.startTest(totalDuration: duration)
+            audio2.append(engine.render(duration: duration))
+
+            XCTAssertEqual(audio.md5, audio2.md5, "for pan \(pan)")
+        }
+    }
+
+
     /// Test some number of changes so schedules are released.
     func testMultipleChanges() throws {
 

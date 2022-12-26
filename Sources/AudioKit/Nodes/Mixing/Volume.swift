@@ -13,6 +13,7 @@ public class Volume: Node {
 
     // XXX: should be using parameters
     public var volume: Float { get { volumeAU.volume } set { volumeAU.volume = newValue }}
+    public var pan: Float { get { volumeAU.pan } set { volumeAU.pan = newValue }}
 
     public init() {
 
@@ -71,6 +72,7 @@ class VolumeAudioUnit: AUAudioUnit {
     override func deallocateRenderResources() {}
     
     var volume: AUValue = 1.0
+    var pan: AUValue = 0.0
 
     override var internalRenderBlock: AUInternalRenderBlock {
         { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -86,15 +88,19 @@ class VolumeAudioUnit: AUAudioUnit {
             var inputFlags: AudioUnitRenderActionFlags = []
             _ = inputBlock?(&inputFlags, timeStamp, frameCount, 0, outputBufferList)
 
-            for channel in 0..<ablPointer.count {
+            let outBufL = UnsafeMutableBufferPointer<Float>(ablPointer[0])
+            let outBufR = UnsafeMutableBufferPointer<Float>(ablPointer[1])
+            for frame in 0..<Int(frameCount) {
 
-                let outBuf = UnsafeMutableBufferPointer<Float>(ablPointer[channel])
-                for frame in 0..<Int(frameCount) {
-                    outBuf[frame] *= self.volume
+                if self.pan > 0 {
+                    outBufL[frame] *= powf(1.0 - self.pan, 1)
+                } else if self.pan < 0 {
+                    outBufR[frame] *= powf(1.0 + self.pan, 1)
                 }
+                outBufL[frame] *= self.volume
+                outBufR[frame] *= self.volume
 
             }
-            
             return noErr
         }
     }
