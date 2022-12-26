@@ -120,28 +120,52 @@ class EngineTests: XCTestCase {
 
         testMD5(audio)
     }
-    
+
     func testMixerDynamic() throws {
-        
+
         let engine = Engine()
-        
+
         let osc1 = TestOscillator()
         let osc2 = TestOscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
-        
+
         let mix = Mixer([osc1])
-        
+
         engine.output = mix
-        
+
         let audio = engine.startTest(totalDuration: 2.0)
 
         audio.append(engine.render(duration: 1.0))
 
         mix.addInput(osc2)
-        
+
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
+    }
+
+    func testMixerVolume2() throws {
+
+        ///  XXX: Volume of zero produces silence in both cases but not the same md5!
+        for volume in [0.1, 0.5, 0.8, 1.0, 2.0] {
+            let audioEngine = AudioEngine()
+            let osc = TestOscillator()
+            let mix = Mixer(osc)
+            mix.volume = AUValue(volume)
+            audioEngine.output = mix
+            let audio = audioEngine.startTest(totalDuration: 1.0)
+            audio.append(audioEngine.render(duration: 1.0))
+
+            let engine = Engine()
+            let osc2 = TestOscillator()
+            let mix2 = Mixer(osc2)
+            mix2.volume = AUValue(volume)
+            engine.output = mix2
+            let audio2 = engine.startTest(totalDuration: 1.0)
+            audio2.append(engine.render(duration: 1.0))
+
+            XCTAssertEqual(audio.md5, audio2.md5, "for volume \(volume)")
+        }
     }
 
     /// Test some number of changes so schedules are released.
