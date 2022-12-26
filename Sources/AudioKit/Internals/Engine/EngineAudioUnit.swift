@@ -70,39 +70,6 @@ class EngineAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
-    /// Returns a function that mixes together the contents of buffers.
-    static func mixerRenderBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderBlock {
-        {
-            (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-               timeStamp: UnsafePointer<AudioTimeStamp>,
-               frameCount: AUAudioFrameCount,
-               outputBusNumber: Int,
-               outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-               inputBlock: AURenderPullInputBlock?) in
-
-            let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
-
-            for channel in 0..<ablPointer.count {
-
-                let outBuf = UnsafeMutableBufferPointer<Float>(ablPointer[channel])
-                for frame in 0..<Int(frameCount) {
-                    outBuf[frame] = 0.0
-                }
-
-                for inputBufferList in inputBufferLists {
-                    let inputPointer = UnsafeMutableAudioBufferListPointer(inputBufferList)
-                    let inBuf = UnsafeMutableBufferPointer<Float>(inputPointer[channel])
-
-                    for frame in 0..<Int(frameCount) {
-                        outBuf[frame] += inBuf[frame]
-                    }
-                }
-            }
-
-            return noErr
-        }
-    }
-
     static func avRenderBlock(block: @escaping AVAudioEngineManualRenderingBlock) -> AURenderBlock {
         {
             (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -141,6 +108,38 @@ class EngineAudioUnit: AUAudioUnit {
             assert(buffer.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
             let ablSize = MemoryLayout<AudioBufferList>.size + Int(buffer.pointee.mNumberBuffers) * MemoryLayout<AudioBuffer>.size
             memcpy(outputBuffer, buffer, ablSize)
+
+            return noErr
+        }
+    }
+
+    /// Returns an input block which mixes buffer lists.
+    static func mixerInputBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderPullInputBlock {
+        {
+            (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+             timestamp: UnsafePointer<AudioTimeStamp>,
+             frameCount: AUAudioFrameCount,
+             bus: Int,
+             outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
+
+            let ablPointer = UnsafeMutableAudioBufferListPointer(outputBuffer)
+
+            for channel in 0..<ablPointer.count {
+
+                let outBuf = UnsafeMutableBufferPointer<Float>(ablPointer[channel])
+                for frame in 0..<Int(frameCount) {
+                    outBuf[frame] = 0.0
+                }
+
+                for inputBufferList in inputBufferLists {
+                    let inputPointer = UnsafeMutableAudioBufferListPointer(inputBufferList)
+                    let inBuf = UnsafeMutableBufferPointer<Float>(inputPointer[channel])
+
+                    for frame in 0..<Int(frameCount) {
+                        outBuf[frame] += inBuf[frame]
+                    }
+                }
+            }
 
             return noErr
         }
@@ -226,11 +225,17 @@ class EngineAudioUnit: AUAudioUnit {
                     // can trigger a recompile.
                     mixer.engineAU = self
 
-                    let renderBlock = EngineAudioUnit.mixerRenderBlock(inputBufferLists: inputBufferLists)
+                    inputBlock = EngineAudioUnit.mixerInputBlock(inputBufferLists: inputBufferLists)
+
+                    let volumeAU = mixer.volumeAU
+
+                    if !volumeAU.renderResourcesAllocated {
+                        try! volumeAU.allocateRenderResources()
+                    }
 
                     let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                         outputPCMBuffer: nodeBuffer,
-                                        renderBlock: renderBlock,
+                                        renderBlock: volumeAU.renderBlock,
                                         inputBlock: inputBlock)
 
                     execList.append(info)
