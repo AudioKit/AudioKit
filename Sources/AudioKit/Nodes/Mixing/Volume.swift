@@ -97,9 +97,9 @@ class VolumeAudioUnit: AUAudioUnit {
             for frame in 0..<Int(frameCount) {
 
                 if self.pan > 0 {
-                    outBufL[frame] *= powf(1.0 - self.pan, 1)
+                    outBufL[frame] *= 1.0 - self.pan
                 } else if self.pan < 0 {
-                    outBufR[frame] *= powf(1.0 + self.pan, 1)
+                    outBufR[frame] *= 1.0 + self.pan
                 }
                 outBufL[frame] *= self.volume
                 outBufR[frame] *= self.volume
