@@ -3,6 +3,7 @@
 import Foundation
 import AudioUnit
 import AVFoundation
+import Accelerate
 
 public class Volume: Node {
     public let connections: [Node] = []
@@ -89,9 +90,14 @@ class VolumeAudioUnit: AUAudioUnit {
             for channel in 0..<ablPointer.count {
 
                 let outBuf = UnsafeMutableBufferPointer<Float>(ablPointer[channel])
-                for frame in 0..<Int(frameCount) {
-                    outBuf[frame] *= self.volume
-                }
+
+                let stride = vDSP_Stride(1)
+                vDSP_vsmul(outBuf.baseAddress!,
+                           stride,
+                           &self.volume,
+                           outBuf.baseAddress!,
+                           stride,
+                           vDSP_Length(frameCount))
 
             }
             

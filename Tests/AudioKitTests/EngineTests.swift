@@ -146,8 +146,7 @@ class EngineTests: XCTestCase {
 
     func testMixerVolume2() throws {
 
-        ///  XXX: Volume of zero produces silence in both cases but not the same md5!
-        for volume in [0.1, 0.5, 0.8, 1.0, 2.0] {
+        for volume in [0.0, 0.1, 0.5, 0.8, 1.0, 2.0] {
             let audioEngine = AudioEngine()
             let osc = TestOscillator()
             let mix = Mixer(osc)
@@ -169,6 +168,8 @@ class EngineTests: XCTestCase {
                 let s1 = audio2.floatChannelData![0][i]
                 XCTAssertEqual(s0, s1)
             }
+
+            // XCTAssertEqual(audio.md5, audio2.md5, "for volume \(volume)")
         }
     }
 
