@@ -164,7 +164,11 @@ class EngineTests: XCTestCase {
             let audio2 = engine.startTest(totalDuration: 1.0)
             audio2.append(engine.render(duration: 1.0))
 
-            XCTAssertEqual(audio.md5, audio2.md5, "for volume \(volume)")
+            for i in 0..<Int(audio.frameLength) {
+                let s0 = audio.floatChannelData![0][i]
+                let s1 = audio2.floatChannelData![0][i]
+                XCTAssertEqual(s0, s1)
+            }
         }
     }
 
