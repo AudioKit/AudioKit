@@ -43,6 +43,15 @@ public class Mixer: Node, NamedNode {
     public init(volume: AUValue = 1.0, name: String? = nil) {
         avAudioNode = mixerAU
         self.volume = volume
+
+        let componentDescription = AudioComponentDescription(effect: "volu")
+
+        AUAudioUnit.registerSubclass(VolumeAudioUnit.self,
+                                     as: componentDescription,
+                                     name: "Volume AU",
+                                     version: .max)
+
+        self.volumeAU = instantiateAU(componentDescription: componentDescription) as! VolumeAudioUnit
         self.name = name ?? MemoryAddress(of: self).description
     }
 
@@ -160,4 +169,7 @@ public class Mixer: Node, NamedNode {
     
     /// This is so we can recompile when there's a change to the inputs.
     weak var engineAU: EngineAudioUnit?
+
+    /// For the new engine, this does the volume.
+    var volumeAU: VolumeAudioUnit
 }
