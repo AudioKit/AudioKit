@@ -86,6 +86,9 @@ class VolumeAudioUnit: AUAudioUnit {
             
             let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
+            // Better be stereo.
+            assert(ablPointer.count == 2)
+
             var inputFlags: AudioUnitRenderActionFlags = []
             _ = inputBlock?(&inputFlags, timeStamp, frameCount, 0, outputBufferList)
 
