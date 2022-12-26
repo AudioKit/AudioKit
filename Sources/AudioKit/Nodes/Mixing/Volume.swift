@@ -3,6 +3,7 @@
 import Foundation
 import AudioUnit
 import AVFoundation
+import Accelerate
 
 public class Volume: Node {
     public let connections: [Node] = []
