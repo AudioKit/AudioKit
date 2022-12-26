@@ -22,7 +22,7 @@ class MixerTests: XCTestCase {
     }
 
     func testWiringAfterEngineStart() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let engineMixer = Mixer()
 
         engine.output = engineMixer
@@ -35,11 +35,10 @@ class MixerTests: XCTestCase {
         let sampler = Sampler()
         subtreeMixer.addInput(sampler)
 
-        print(engine.connectionTreeDescription)
         sampler.play(url: url)
 
         // only for auditioning
-        // wait(for: player.duration)
+        // wait(for: 2.0)
         engine.stop()
     }
 
