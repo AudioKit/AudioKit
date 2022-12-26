@@ -99,6 +99,27 @@ class EngineTests: XCTestCase {
 
         testMD5(audio)
     }
+
+    func testMixerVolume() throws {
+
+        let engine = Engine()
+
+        let osc1 = TestOscillator()
+        let osc2 = TestOscillator()
+        osc2.frequency = 466.16 // dissonance, so we can really hear it
+
+        let mix = Mixer([osc1, osc2])
+
+        // XXX: ensure we get the same output using AVAudioEngine
+        mix.volume = 0.02
+
+        engine.output = mix
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+
+        testMD5(audio)
+    }
     
     func testMixerDynamic() throws {
         

@@ -80,6 +80,7 @@ let validatedMD5s: [String: String] = [
     "-[EngineTests testDynamicChange]": "7844ad59f69ddb82bb3c929878e41691",
     "-[EngineTests testEffect]": "4a6c20066720f76eb7298b5e2c3de487",
     "-[EngineTests testMixer]": "3e5a8031aa91b780628c04c596f02a72",
+    "-[EngineTests testMixerVolume]": "9ceefd8024a0b3f68afa6cd185931b86",
     "-[EngineTests testMixerDynamic]": "3bec0f12d12bb148a76abc9a783638b8",
     "-[EngineTests testMultipleChanges]": "2fd4428074d3bee04f04eddd5bcfb389",
     "-[EngineTests testPlaygroundOscillator]": "809676f7208be208aad4839236e32f8a",

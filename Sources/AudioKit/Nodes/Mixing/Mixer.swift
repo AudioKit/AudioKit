@@ -23,6 +23,9 @@ public class Mixer: Node, NamedNode {
         didSet {
             volume = max(volume, 0)
             mixerAU.outputVolume = volume
+
+            // XXX: need to use a parameter.
+            volumeAU.volume = volume
         }
     }
 
