@@ -49,7 +49,14 @@ public struct NodeParameterDef {
 /// NodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
 public class NodeParameter {
-    public private(set) var avAudioNode: AVAudioNode!
+
+    /// Due to Apple bugs, we need to set parameters using the V2 API.
+    ///
+    /// See https://github.com/AudioKit/AudioKit/issues/2528
+    public private(set) var au: AudioUnit?
+
+    /// For automating parameters.
+    public private(set) var auAudioUnit: AUAudioUnit?
 
     /// AU Parameter that this wraps
     public private(set) var parameter: AUParameter!
@@ -63,8 +70,10 @@ public class NodeParameter {
     public var value: AUValue {
         get { parameter.value }
         set {
-            if let avAudioUnit = avAudioNode as? AVAudioUnit {
-                AudioUnitSetParameter(avAudioUnit.audioUnit,
+            if let au = au {
+                // Due to Apple bugs, we need to set parameters using the V2 API.
+                // See https://github.com/AudioKit/AudioKit/issues/2528
+                AudioUnitSetParameter(au,
                                       param: AudioUnitParameterID(def.address),
                                       to: newValue.clamped(to: range))
             }
@@ -115,11 +124,13 @@ public class NodeParameter {
             return
         }
         assert(delaySamples < 4096)
-        let paramBlock = avAudioNode.auAudioUnit.scheduleParameterBlock
-        paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
-                   AUAudioFrameCount(duration * Float(Settings.sampleRate)),
-                   parameter.address,
-                   value.clamped(to: range))
+        if let paramBlock = auAudioUnit?.scheduleParameterBlock {
+            paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
+                       AUAudioFrameCount(duration * Float(Settings.sampleRate)),
+                       parameter.address,
+                       value.clamped(to: range))
+        }
+
     }
 
     private var parameterObserverToken: AUParameterObserverToken?
@@ -154,7 +165,8 @@ public class NodeParameter {
     /// - Parameters:
     ///   - avAudioNode: AVAudioUnit to associate with
     public func associate(with avAudioNode: AVAudioNode) {
-        self.avAudioNode = avAudioNode
+        self.au = (avAudioNode as? AVAudioUnit)?.audioUnit
+        self.auAudioUnit = avAudioNode.auAudioUnit
         guard let tree = avAudioNode.auAudioUnit.parameterTree else {
             fatalError("No parameter tree.")
         }
@@ -167,7 +179,8 @@ public class NodeParameter {
     ///   - avAudioNode: AVAudioUnit to associate with
     ///   - parameter: Parameter to associate
     public func associate(with avAudioNode: AVAudioNode, parameter: AUParameter) {
-        self.avAudioNode = avAudioNode
+        self.au = (avAudioNode as? AVAudioUnit)?.audioUnit
+        self.auAudioUnit = avAudioNode.auAudioUnit
         self.parameter = parameter
     }
 
