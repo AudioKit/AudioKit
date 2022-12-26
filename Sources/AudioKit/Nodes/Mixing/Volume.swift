@@ -28,7 +28,7 @@ public class Volume: Node {
 }
 
 
-/// Renders a sine wave.
+/// Changes the volume of input.
 class VolumeAudioUnit: AUAudioUnit {
 
     private var inputBusArray: AUAudioUnitBusArray!
