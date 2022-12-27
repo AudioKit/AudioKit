@@ -403,6 +403,9 @@ class EngineAudioUnit: AUAudioUnit {
                     outputBufferListPointer[0].mDataByteSize = frameCount * UInt32(MemoryLayout<Float>.size)
                     outputBufferListPointer[1].mDataByteSize = frameCount * UInt32(MemoryLayout<Float>.size)
 
+                    let data0Before = outputBufferListPointer[0].mData
+                    let data1Before = outputBufferListPointer[1].mData
+
                     // Do the actual DSP.
                     let status = exec.renderBlock(actionFlags,
                                                   timeStamp,
@@ -410,6 +413,10 @@ class EngineAudioUnit: AUAudioUnit {
                                                   0,
                                                   out,
                                                   exec.inputBlock)
+
+                    // Make sure the AU doesn't change the buffer pointers!
+                    assert(outputBufferListPointer[0].mData == data0Before)
+                    assert(outputBufferListPointer[1].mData == data1Before)
 
                     // Propagate errors.
                     if status != noErr {
