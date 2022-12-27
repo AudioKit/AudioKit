@@ -64,7 +64,7 @@ class VolumeAudioUnit: AUAudioUnit {
 
         let paramBlock = self.scheduleParameterBlock
 
-        parameterTree?.implementorValueObserver = { [unowned self] parameter, value in
+        parameterTree?.implementorValueObserver = { parameter, value in
             paramBlock(.zero, 0, parameter.address, parameter.value)
         }
     }
