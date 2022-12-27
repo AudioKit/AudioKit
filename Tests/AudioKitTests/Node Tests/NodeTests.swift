@@ -547,5 +547,5 @@ class NodeTests: XCTestCase {
 }
 
 private extension NodeTests {
-    func createChain() -> Node { TimePitch(Delay(AudioPlayer())) }
+    func createChain() -> Node { TimePitch(Delay(Sampler())) }
 }
