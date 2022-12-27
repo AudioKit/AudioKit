@@ -83,8 +83,7 @@ class RecordingTests: AudioFileTestCase {
     }
 
     func testOpenCloseFile() {
-        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
-              let file = try? AVAudioFile(forReading: url) else {
+        guard let file = try? AVAudioFile(forReading: URL.testAudio) else {
             XCTFail("Didn't get test file")
             return
         }
@@ -136,8 +135,7 @@ class RecordingTests: AudioFileTestCase {
     }
 
     func testPauseRecording() {
-        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
-              let file = try? AVAudioFile(forReading: url) else {
+        guard let file = try? AVAudioFile(forReading: URL.testAudio) else {
             XCTFail("Didn't get test file")
             return
         }
@@ -196,8 +194,7 @@ class RecordingTests: AudioFileTestCase {
     }
 
     func testReset() {
-        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
-              let file = try? AVAudioFile(forReading: url) else {
+        guard let file = try? AVAudioFile(forReading: URL.testAudio) else {
             XCTFail("Didn't get test file")
             return
         }

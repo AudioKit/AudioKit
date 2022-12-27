@@ -25,7 +25,7 @@ class AVAudioPCMBufferTests: XCTestCase {
             settings: settings
         )
 
-        let engine = AudioEngine()
+        let engine = Engine()
         if #available(iOS 13.0, *) {
             let osc = PlaygroundOscillator()
             osc.start()

@@ -46,7 +46,6 @@ public class Mixer: Node, NamedNode {
     /// Initialize the mixer node with no inputs, to be connected later
     public init(volume: AUValue = 1.0, name: String? = nil) {
         avAudioNode = mixerAU
-        self.volume = volume
 
         let componentDescription = AudioComponentDescription(effect: "volu")
 
@@ -56,6 +55,8 @@ public class Mixer: Node, NamedNode {
                                      version: .max)
 
         self.volumeAU = instantiateAU(componentDescription: componentDescription) as! VolumeAudioUnit
+        self.volumeAU.volumeParam.value = volume
+        self.volume = volume
         self.name = name ?? MemoryAddress(of: self).description
     }
 

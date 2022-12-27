@@ -7,11 +7,11 @@ import AVFAudio
 class DistortionTests: XCTestCase {
     #if os(iOS)
     func testDefaultDistortion() {
-        let engine = AudioEngine()
-        let input = AudioPlayer(url: URL.testAudio)!
-        engine.output = AppleDistortion(input)
+        let engine = Engine()
+        let sampler = Sampler()
+        engine.output = AppleDistortion(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
-        input.start()
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))
 //        testMD5(audio)
     }
