@@ -7,9 +7,7 @@ class NodeTests: XCTestCase {
     func testNodeBasic() {
         let engine = Engine()
         let sampler = Sampler()
-        XCTAssertNil(sampler.avAudioNode.engine)
         engine.output = sampler
-        XCTAssertNotNil(sampler.avAudioNode.engine)
         let audio = engine.startTest(totalDuration: 0.1)
         sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 0.1))
@@ -50,19 +48,19 @@ class NodeTests: XCTestCase {
     }
     
     func testDynamicOutput() {
-        let engine = AudioEngine()
+        let engine = Engine()
 
-        let player1 = AudioPlayer(testFile: "12345")
-        engine.output = player1
+        let sampler1 = Sampler()
+        engine.output = sampler1
         
         let audio = engine.startTest(totalDuration: 2.0)
-        player1.play()
+        sampler1.play(url: URL.testAudio)
         let newAudio = engine.render(duration: 1.0)
         audio.append(newAudio)
 
-        let player2 = AudioPlayer(testFile: "drumloop")
-        engine.output = player2
-        player2.play()
+        let sampler2 = Sampler()
+        engine.output = sampler2
+        sampler2.play(url: URL.testAudioDrums)
         
         let newAudio2 = engine.render(duration: 1.0)
         audio.append(newAudio2)
@@ -102,21 +100,21 @@ class NodeTests: XCTestCase {
     func testDynamicConnection2() throws {
         try XCTSkipIf(true, "TODO Skipped test")
 
-        let engine = AudioEngine()
+        let engine = Engine()
 
-        let player1 = AudioPlayer(testFile: "12345")
-        let mixer = Mixer(player1)
+        let sampler1 = Sampler()
+        let mixer = Mixer(sampler1)
 
         engine.output = mixer
 
         let audio = engine.startTest(totalDuration: 2.0)
-        player1.play()
+        sampler1.play(url: URL.testAudio)
 
         audio.append(engine.render(duration: 1.0))
 
-        let player2 = AudioPlayer(testFile: "drumloop")
-        let verb = Reverb(player2)
-        player2.play()
+        let sampler2 = Sampler()
+        let verb = Reverb(sampler2)
+        sampler2.play(url: URL.testAudioDrums)
         mixer.addInput(verb)
 
         audio.append(engine.render(duration: 1.0))
@@ -127,25 +125,25 @@ class NodeTests: XCTestCase {
     func testDynamicConnection3() throws {
         try XCTSkipIf(true, "TODO Skipped test")
 
-        let engine = AudioEngine()
+        let engine = Engine()
 
-        let player1 = AudioPlayer(testFile: "12345")
-        let mixer = Mixer(player1)
+        let sampler1 = Sampler()
+        let mixer = Mixer(sampler1)
         engine.output = mixer
 
         let audio = engine.startTest(totalDuration: 3.0)
-        player1.play()
+        sampler1.play(url: URL.testAudio)
         
         audio.append(engine.render(duration: 1.0))
 
-        let player2 = AudioPlayer(testFile: "drumloop")
-        mixer.addInput(player2)
+        let sampler2 = Sampler()
+        mixer.addInput(sampler2)
 
-        player2.play()
+        sampler2.play(url: URL.testAudioDrums)
 
         audio.append(engine.render(duration: 1.0))
 
-        mixer.removeInput(player2)
+        mixer.removeInput(sampler2)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -154,24 +152,24 @@ class NodeTests: XCTestCase {
 
     func testDynamicConnection4() throws {
         try XCTSkipIf(true, "TODO Skipped test")
-        let engine = AudioEngine()
+        let engine = Engine()
         let outputMixer = Mixer()
-        let player1 = AudioPlayer(testFile: "12345")
+        let player1 = Sampler()
         outputMixer.addInput(player1)
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 2.0)
 
-        player1.play()
+        player1.play(url: URL.testAudio)
         
         audio.append(engine.render(duration: 1.0))
 
-        let player2 = AudioPlayer(testFile: "drumloop")
+        let player2 = Sampler()
 
         let localMixer = Mixer()
         localMixer.addInput(player2)
         outputMixer.addInput(localMixer)
 
-        player2.play()
+        player2.play(url: URL.testAudioDrums)
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
@@ -179,19 +177,19 @@ class NodeTests: XCTestCase {
 
     func testDynamicConnection5() throws {
         try XCTSkipIf(true, "TODO Skipped test")
-        let engine = AudioEngine()
+        let engine = Engine()
         let outputMixer = Mixer()
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 1.0)
 
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         
         let mixer = Mixer()
         mixer.addInput(player)
 
         outputMixer.addInput(mixer) // change mixer to osc and this will play
 
-        player.play()
+        player.play(url: URL.testAudio)
         
         audio.append(engine.render(duration: 1.0))
 
@@ -201,14 +199,14 @@ class NodeTests: XCTestCase {
     func testDisconnect() {
         let engine = AudioEngine()
 
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         
         let mixer = Mixer(player)
         engine.output = mixer
         
         let audio = engine.startTest(totalDuration: 2.0)
         
-        player.play()
+        player.play(url: URL.testAudio)
         
         audio.append(engine.render(duration: 1.0))
         
@@ -222,14 +220,14 @@ class NodeTests: XCTestCase {
     func testNodeDetach() {
         let engine = AudioEngine()
         
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         
         let mixer = Mixer(player)
         engine.output = mixer
         
         let audio = engine.startTest(totalDuration: 2.0)
         
-        player.play()
+        player.play(url: URL.testAudio)
         
         audio.append(engine.render(duration: 1.0))
         
@@ -269,15 +267,15 @@ class NodeTests: XCTestCase {
         let engine = AudioEngine()
         let engine2 = AudioEngine()
         
-        let player = AudioPlayer(testFile: "12345")
+        let sampler = Sampler()
         
-        engine2.output = player
+        engine2.output = sampler
         
-        let verb = Reverb(player)
+        let verb = Reverb(sampler)
         engine.output = verb
         
         let audio = engine.startTest(totalDuration: 0.1)
-        player.play()
+        sampler.play(url: URL.testAudio)
         
         audio.append(engine.render(duration: 0.1))
         XCTAssert(audio.isSilent)
@@ -286,12 +284,12 @@ class NodeTests: XCTestCase {
     func testManyMixerConnections() {
         let engine = AudioEngine()
         
-        var players: [AudioPlayer] = []
+        var samplers: [Sampler] = []
         for _ in 0 ..< 16 {
-            players.append(AudioPlayer())
+            samplers.append(Sampler())
         }
         
-        let mixer = Mixer(players)
+        let mixer = Mixer(samplers)
         engine.output = mixer
         
         XCTAssertEqual(mixer.avAudioNode.inputCount, 16)
@@ -311,7 +309,7 @@ class NodeTests: XCTestCase {
     
     func testFanout() {
         let engine = AudioEngine()
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         
         let verb = Reverb(player)
         let mixer = Mixer(player, verb)
@@ -324,7 +322,7 @@ class NodeTests: XCTestCase {
     func testMixerRedundantUpstreamConnection() {
         let engine = AudioEngine()
 
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         
         let mixer1 = Mixer(player)
         let mixer2 = Mixer(mixer1)
@@ -342,11 +340,11 @@ class NodeTests: XCTestCase {
         try XCTSkipIf(true, "TODO Skipped test")
 
         let engine = AudioEngine()
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         func exampleStart() {
             engine.output = player
             try! engine.start()
-            player.play()
+            player.play(url: URL.testAudio)
             sleep(1)
         }
         func exampleStop() {
@@ -366,7 +364,7 @@ class NodeTests: XCTestCase {
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
         let engine = AudioEngine()
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         
         let rev = Reverb(player)
         
@@ -376,7 +374,7 @@ class NodeTests: XCTestCase {
         
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
-            player.play()
+            player.play(url: URL.testAudio)
             
             startMeasuring()
             let buf = engine.render(duration: 10.0)
@@ -389,7 +387,7 @@ class NodeTests: XCTestCase {
     // Measure the overhead of mixers.
     func testMixerPerformance() {
         let engine = AudioEngine()
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         
         let mix1 = Mixer(player)
         let rev = Reverb(mix1)
@@ -401,7 +399,7 @@ class NodeTests: XCTestCase {
         
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
-            player.play()
+            player.play(url: URL.testAudio)
             
             startMeasuring()
             let buf = engine.render(duration: 10.0)
@@ -412,23 +410,23 @@ class NodeTests: XCTestCase {
     }
     
     func testConnectionTreeDescriptionForStandaloneNode() {
-        let player = AudioPlayer(testFile: "12345")
-        XCTAssertEqual(player.connectionTreeDescription, "\(connectionTreeLinePrefix)↳AudioPlayer")
+        let sampler = Sampler()
+        XCTAssertEqual(sampler.connectionTreeDescription, "\(connectionTreeLinePrefix)↳Sampler")
     }
     
     func testConnectionTreeDescriptionForConnectedNode() {
-        let player = AudioPlayer(testFile: "12345")
+        let sampler = Sampler()
         
-        let verb = Reverb(player)
-        let mixer = Mixer(player, verb)
+        let verb = Reverb(sampler)
+        let mixer = Mixer(sampler, verb)
         let mixerAddress = MemoryAddress(of: mixer).description
         
         XCTAssertEqual(mixer.connectionTreeDescription,
                        """
         \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
-        \(connectionTreeLinePrefix) ↳AudioPlayer
+        \(connectionTreeLinePrefix) ↳Sampler
         \(connectionTreeLinePrefix) ↳Reverb
-        \(connectionTreeLinePrefix)  ↳AudioPlayer
+        \(connectionTreeLinePrefix)  ↳Sampler
         """)
     }
     
@@ -450,10 +448,10 @@ class NodeTests: XCTestCase {
     #endif
     
     func testGraphviz() {
-        let player = AudioPlayer(testFile: "12345")
+        let sampler = Sampler()
         
-        let verb = Reverb(player)
-        let mixer = Mixer(player, verb)
+        let verb = Reverb(sampler)
+        let mixer = Mixer(sampler, verb)
         
         let dot = mixer.graphviz
         
@@ -558,11 +556,4 @@ class NodeTests: XCTestCase {
 
 private extension NodeTests {
     func createChain() -> Node { TimePitch(Delay(AudioPlayer())) }
-}
-
-extension AudioPlayer {
-    convenience init(testFile: String) {
-        let url = Bundle.module.url(forResource: testFile, withExtension: "wav", subdirectory: "TestResources")!
-        self.init(url: url)!
-    }
 }

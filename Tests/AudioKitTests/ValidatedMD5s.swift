@@ -5,6 +5,11 @@ extension URL {
     static var testAudio: URL {
         return Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
     }
+
+    static var testAudioDrums: URL {
+        return Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
+    }
+
 }
 
 extension XCTestCase {
