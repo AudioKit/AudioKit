@@ -362,8 +362,6 @@ class NodeTests: XCTestCase {
 
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
-    // Average 1.168 on old engine
-    // Average 1.190 on new engine
     func testChainPerformance() {
         let engine = Engine()
         let player = Sampler()
@@ -385,8 +383,6 @@ class NodeTests: XCTestCase {
     }
     
     // Measure the overhead of mixers.
-    // Average 1.165 on old engine
-    // Average 4.413 on new engine
     func testMixerPerformance() {
         let engine = Engine()
         let player = Sampler()
