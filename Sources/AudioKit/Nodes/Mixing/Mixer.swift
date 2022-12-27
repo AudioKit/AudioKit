@@ -24,8 +24,7 @@ public class Mixer: Node, NamedNode {
             volume = max(volume, 0)
             mixerAU.outputVolume = volume
 
-            // XXX: need to use a parameter.
-            volumeAU.volume = volume
+            volumeAU.volumeParam.value = volume
         }
     }
 
@@ -35,8 +34,7 @@ public class Mixer: Node, NamedNode {
             pan = pan.clamped(to: -1 ... 1)
             mixerAU.pan = pan
 
-            // XXX: need to use a parameter.
-            volumeAU.pan = pan
+            volumeAU.panParam.value = pan
         }
     }
 

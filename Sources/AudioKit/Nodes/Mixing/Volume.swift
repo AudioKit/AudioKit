@@ -12,9 +12,8 @@ public class Volume: Node {
 
     let volumeAU: VolumeAudioUnit
 
-    // XXX: should be using parameters
-    public var volume: Float { get { volumeAU.volume } set { volumeAU.volume = newValue }}
-    public var pan: Float { get { volumeAU.pan } set { volumeAU.pan = newValue }}
+    public var volume: Float { get { volumeAU.volumeParam.value } set { volumeAU.volumeParam.value = newValue }}
+    public var pan: Float { get { volumeAU.panParam.value } set { volumeAU.panParam.value = newValue }}
 
     public init() {
 
@@ -42,7 +41,11 @@ class VolumeAudioUnit: AUAudioUnit {
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
     }
-    
+
+    let volumeParam = AUParameterTree.createParameter(identifier: "volume", name: "volume", address: 0, range: 0...10, unit: .generic, flags: [])
+
+    let panParam = AUParameterTree.createParameter(identifier: "pan", name: "pan", address: 1, range: -1...1, unit: .generic, flags: [])
+
     /// Initialize with component description and options
     /// - Parameters:
     ///   - componentDescription: Audio Component Description
@@ -56,8 +59,14 @@ class VolumeAudioUnit: AUAudioUnit {
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         inputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [])
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
-        
-        parameterTree = AUParameterTree.createTree(withChildren: [])
+
+        parameterTree = AUParameterTree.createTree(withChildren: [volumeParam, panParam])
+
+        let paramBlock = self.scheduleParameterBlock
+
+        parameterTree?.implementorValueObserver = { [unowned self] parameter, value in
+            paramBlock(.zero, 0, parameter.address, parameter.value)
+        }
     }
     
     override var inputBusses: AUAudioUnitBusArray {
@@ -72,8 +81,29 @@ class VolumeAudioUnit: AUAudioUnit {
     
     override func deallocateRenderResources() {}
     
-    var volume: AUValue = 1.0
-    var pan: AUValue = 0.0
+    private var volume: AUValue = 1.0
+    private var pan: AUValue = 0.0
+
+    func processEvents(events: UnsafePointer<AURenderEvent>?) {
+
+        var events = events
+        while let event = events {
+
+            if event.pointee.head.eventType == .parameter {
+
+                let paramEvent = event.pointee.parameter
+
+                switch paramEvent.parameterAddress {
+                case 0: volume = paramEvent.value
+                case 1: pan = paramEvent.value
+                default: break
+                }
+            }
+
+            events = .init(event.pointee.head.next)
+        }
+
+    }
 
     override var internalRenderBlock: AUInternalRenderBlock {
         { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -83,6 +113,8 @@ class VolumeAudioUnit: AUAudioUnit {
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
+
+            self.processEvents(events: renderEvents)
             
             let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
