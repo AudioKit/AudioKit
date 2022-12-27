@@ -1,5 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-@testable import AudioKit
+import AudioKit
 import AVFoundation
 import XCTest
 
@@ -217,26 +217,26 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
     
-    func testNodeDetach() {
-        let engine = AudioEngine()
-        
-        let player = Sampler()
-        
-        let mixer = Mixer(player)
-        engine.output = mixer
-        
-        let audio = engine.startTest(totalDuration: 2.0)
-        
-        player.play(url: URL.testAudio)
-        
-        audio.append(engine.render(duration: 1.0))
-        
-        player.detach()
-        
-        audio.append(engine.render(duration: 1.0))
-        
-        testMD5(audio)
-    }
+//    func testNodeDetach() {
+//        let engine = AudioEngine()
+//
+//        let player = Sampler()
+//
+//        let mixer = Mixer(player)
+//        engine.output = mixer
+//
+//        let audio = engine.startTest(totalDuration: 2.0)
+//
+//        player.play(url: URL.testAudio)
+//
+//        audio.append(engine.render(duration: 1.0))
+//
+//        player.detach()
+//
+//        audio.append(engine.render(duration: 1.0))
+//
+//        testMD5(audio)
+//    }
 
     func testNodeStatus() {
         let url = Bundle.module.url(forResource: "chromaticScale-1",
@@ -281,19 +281,19 @@ class NodeTests: XCTestCase {
         XCTAssert(audio.isSilent)
     }
     
-    func testManyMixerConnections() {
-        let engine = AudioEngine()
-        
-        var samplers: [Sampler] = []
-        for _ in 0 ..< 16 {
-            samplers.append(Sampler())
-        }
-        
-        let mixer = Mixer(samplers)
-        engine.output = mixer
-        
-        XCTAssertEqual(mixer.avAudioNode.inputCount, 16)
-    }
+//    func testManyMixerConnections() {
+//        let engine = AudioEngine()
+//        
+//        var samplers: [Sampler] = []
+//        for _ in 0 ..< 16 {
+//            samplers.append(Sampler())
+//        }
+//        
+//        let mixer = Mixer(samplers)
+//        engine.output = mixer
+//        
+//        XCTAssertEqual(mixer.avAudioNode.inputCount, 16)
+//    }
     
     func connectionCount(node: AVAudioNode) -> Int {
         var count = 0
@@ -409,43 +409,43 @@ class NodeTests: XCTestCase {
         }
     }
     
-    func testConnectionTreeDescriptionForStandaloneNode() {
-        let sampler = Sampler()
-        XCTAssertEqual(sampler.connectionTreeDescription, "\(connectionTreeLinePrefix)↳Sampler")
-    }
+//    func testConnectionTreeDescriptionForStandaloneNode() {
+//        let sampler = Sampler()
+//        XCTAssertEqual(sampler.connectionTreeDescription, "\(connectionTreeLinePrefix)↳Sampler")
+//    }
+//
+//    func testConnectionTreeDescriptionForConnectedNode() {
+//        let sampler = Sampler()
+//
+//        let verb = Reverb(sampler)
+//        let mixer = Mixer(sampler, verb)
+//        let mixerAddress = MemoryAddress(of: mixer).description
+//
+//        XCTAssertEqual(mixer.connectionTreeDescription,
+//                       """
+//        \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
+//        \(connectionTreeLinePrefix) ↳Sampler
+//        \(connectionTreeLinePrefix) ↳Reverb
+//        \(connectionTreeLinePrefix)  ↳Sampler
+//        """)
+//    }
     
-    func testConnectionTreeDescriptionForConnectedNode() {
-        let sampler = Sampler()
-        
-        let verb = Reverb(sampler)
-        let mixer = Mixer(sampler, verb)
-        let mixerAddress = MemoryAddress(of: mixer).description
-        
-        XCTAssertEqual(mixer.connectionTreeDescription,
-                       """
-        \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
-        \(connectionTreeLinePrefix) ↳Sampler
-        \(connectionTreeLinePrefix) ↳Reverb
-        \(connectionTreeLinePrefix)  ↳Sampler
-        """)
-    }
-    
-    #if !os(tvOS)
-    func testConnectionTreeDescriptionForNamedNode() {
-        let nameString = "Customized Name"
-        let sampler = MIDISampler(name: nameString)
-        let compressor = Compressor(sampler)
-        let mixer = Mixer(compressor)
-        let mixerAddress = MemoryAddress(of: mixer).description
-        
-        XCTAssertEqual(mixer.connectionTreeDescription,
-                       """
-        \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
-        \(connectionTreeLinePrefix) ↳Compressor
-        \(connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
-        """)
-    }
-    #endif
+//    #if !os(tvOS)
+//    func testConnectionTreeDescriptionForNamedNode() {
+//        let nameString = "Customized Name"
+//        let sampler = MIDISampler(name: nameString)
+//        let compressor = Compressor(sampler)
+//        let mixer = Mixer(compressor)
+//        let mixerAddress = MemoryAddress(of: mixer).description
+//        
+//        XCTAssertEqual(mixer.connectionTreeDescription,
+//                       """
+//        \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
+//        \(connectionTreeLinePrefix) ↳Compressor
+//        \(connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
+//        """)
+//    }
+//    #endif
     
     func testGraphviz() {
         let sampler = Sampler()

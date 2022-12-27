@@ -12,7 +12,7 @@ public class TestOscillator: Node {
     let oscAU: TestOscillatorAudioUnit
 
     // XXX: should be using parameters
-    var frequency: Float { get { oscAU.frequency } set { oscAU.frequency = newValue }}
+    public var frequency: Float { get { oscAU.frequency } set { oscAU.frequency = newValue }}
 
     public init() {
 

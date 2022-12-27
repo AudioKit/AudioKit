@@ -8,7 +8,7 @@ extension ObjectIdentifier {
     }
 }
 
-extension Node {
+public extension Node {
     
     /// Generates Graphviz (.dot) format for a chain of AudioKit nodes.
     ///

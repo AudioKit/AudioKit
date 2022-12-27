@@ -4,7 +4,7 @@ import Foundation
 import AudioUnit
 import AVFoundation
 
-struct ExecInfo {
+public struct ExecInfo {
     var outputBuffer: UnsafeMutablePointer<AudioBufferList>
     var outputPCMBuffer: AVAudioPCMBuffer
     var renderBlock: AURenderBlock
@@ -12,15 +12,15 @@ struct ExecInfo {
     var avAudioEngine: AVAudioEngine?
 }
 
-struct ExecSchedule {
-    var infos: [ExecInfo] = []
+public struct ExecSchedule {
+    public var infos: [ExecInfo] = []
 
     /// Are we done using this schedule?
     var done: Bool = false
 }
 
 /// Our single audio unit which will evaluate all audio units.
-class EngineAudioUnit: AUAudioUnit {
+public class EngineAudioUnit: AUAudioUnit {
 
     /// Audio thread ONLY. Reference to currently executing schedule.
     var dspList: UnsafeMutablePointer<ExecSchedule>?
@@ -62,11 +62,11 @@ class EngineAudioUnit: AUAudioUnit {
         }
     }
     
-    override var inputBusses: AUAudioUnitBusArray {
+    override public var inputBusses: AUAudioUnitBusArray {
         inputBusArray
     }
     
-    override var outputBusses: AUAudioUnitBusArray {
+    override public var outputBusses: AUAudioUnitBusArray {
         outputBusArray
     }
 
@@ -145,7 +145,7 @@ class EngineAudioUnit: AUAudioUnit {
         }
     }
 
-    var schedule = ExecSchedule()
+    public var schedule = ExecSchedule()
 
     var previousSchedules: [UnsafeMutablePointer<ExecSchedule>] = []
 
@@ -347,12 +347,12 @@ class EngineAudioUnit: AUAudioUnit {
         list.append(node)
     }
     
-    override func allocateRenderResources() throws {
+    override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
         compile()
     }
     
-    override func deallocateRenderResources() {
+    override public func deallocateRenderResources() {
         super.deallocateRenderResources()
     }
 
@@ -379,7 +379,7 @@ class EngineAudioUnit: AUAudioUnit {
         }
     }
     
-    override var internalRenderBlock: AUInternalRenderBlock {
+    override public var internalRenderBlock: AUInternalRenderBlock {
         { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
            timeStamp: UnsafePointer<AudioTimeStamp>,
            frameCount: AUAudioFrameCount,

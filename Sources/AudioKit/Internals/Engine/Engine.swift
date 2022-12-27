@@ -16,7 +16,7 @@ public class Engine {
         }
     }
     
-    var engineAU: EngineAudioUnit
+    public var engineAU: EngineAudioUnit
     var avAudioUnit: AVAudioUnit
 
     // maximum number of frames the engine will be asked to render in any single render call

@@ -4,7 +4,7 @@ import Foundation
 import AudioUnit
 
 /// Encode a value in a MIDI sysex message. Value must be plain-old-data.
-func encodeSysex<T>(_ value: T) -> [UInt8] {
+public func encodeSysex<T>(_ value: T) -> [UInt8] {
 
     // Start with a sysex header.
     var result: [UInt8] = [0xF0, 0x00]
@@ -36,7 +36,7 @@ func encodeSysex<T>(_ value: T) -> [UInt8] {
 ///   - count: number of bytes in message
 ///   - value: the value we're writing to
 ///
-func decodeSysex<T>(_ bytes: UnsafePointer<UInt8>, count: Int, _ value: inout T) {
+public func decodeSysex<T>(_ bytes: UnsafePointer<UInt8>, count: Int, _ value: inout T) {
 
     // Number of bytes should include sysex header (0xF0, 0x00) and terminator (0xF7).
     assert(count == 2*MemoryLayout<T>.size + 3)

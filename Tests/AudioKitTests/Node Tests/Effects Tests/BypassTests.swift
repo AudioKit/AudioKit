@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import XCTest
-@testable import AudioKit
+import AudioKit
 import AVFAudio
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
