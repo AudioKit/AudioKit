@@ -121,6 +121,17 @@ class VolumeAudioUnit: AUAudioUnit {
             // Better be stereo.
             assert(ablPointer.count == 2)
 
+            // Check that buffers are the correct size.
+            if ablPointer[0].frameCapacity < frameCount {
+                print("output buffer 1 too small: \(ablPointer[0].frameCapacity), expecting: \(frameCount)")
+                return kAudio_ParamError
+            }
+
+            if ablPointer[1].frameCapacity < frameCount {
+                print("output buffer 2 too small: \(ablPointer[1].frameCapacity), expecting: \(frameCount)")
+                return kAudio_ParamError
+            }
+
             var inputFlags: AudioUnitRenderActionFlags = []
             _ = inputBlock?(&inputFlags, timeStamp, frameCount, 0, outputBufferList)
 
