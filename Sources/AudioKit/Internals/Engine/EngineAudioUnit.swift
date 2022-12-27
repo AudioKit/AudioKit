@@ -397,6 +397,13 @@ class EngineAudioUnit: AUAudioUnit {
                     // Use the outputBufferList for the last AU in the schedule.
                     let out = i == dspList.pointee.infos.count-1 ? outputBufferList : exec.outputBuffer
 
+                    let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(out)
+
+                    let capacity0 = outputBufferListPointer[0].frameCapacity
+                    let capacity1 = outputBufferListPointer[1].frameCapacity
+                    assert(frameCount <= capacity0)
+                    assert(frameCount <= capacity1)
+
                     // Do the actual DSP.
                     let status = exec.renderBlock(actionFlags,
                                                   timeStamp,
