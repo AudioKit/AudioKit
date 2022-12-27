@@ -362,15 +362,15 @@ class NodeTests: XCTestCase {
 
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
+    // Average 1.168 on old engine
+    // Average 1.190 on new engine
     func testChainPerformance() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let player = Sampler()
         
         let rev = Reverb(player)
         
-        XCTAssertNil(player.avAudioNode.engine)
         engine.output = rev
-        XCTAssertNotNil(player.avAudioNode.engine)
         
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
@@ -385,17 +385,17 @@ class NodeTests: XCTestCase {
     }
     
     // Measure the overhead of mixers.
+    // Average 1.165 on old engine
+    // Average 4.413 on new engine
     func testMixerPerformance() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let player = Sampler()
         
         let mix1 = Mixer(player)
         let rev = Reverb(mix1)
         let mix2 = Mixer(rev)
         
-        XCTAssertNil(player.avAudioNode.engine)
         engine.output = mix2
-        XCTAssertNotNil(player.avAudioNode.engine)
         
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
