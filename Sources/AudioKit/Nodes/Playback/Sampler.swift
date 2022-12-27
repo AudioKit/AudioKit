@@ -17,6 +17,9 @@ enum SamplerCommand {
 
     /// Assign a sample to a midi note number.
     case assignSample(UnsafeMutablePointer<SampleHolder>?, UInt8)
+
+    /// Stop all playback
+    case stop
 }
 
 /// Renders contents of a file
@@ -65,6 +68,21 @@ class SamplerAudioUnit: AUAudioUnit {
             block(.zero, 0, sysex.count, sysex)
         }
 
+    }
+
+    func stop() {
+
+        let command: SamplerCommand = .stop
+        let sysex = encodeSysex(command)
+
+        if cachedMIDIBlock == nil {
+            cachedMIDIBlock = scheduleMIDIEventBlock
+            assert(cachedMIDIBlock != nil)
+        }
+
+        if let block = cachedMIDIBlock {
+            block(.zero, 0, sysex.count, sysex)
+        }
     }
 
     /// Play a sample immediately.
@@ -196,6 +214,10 @@ class SamplerAudioUnit: AUAudioUnit {
 
                     case .assignSample(let ptr, let noteNumber):
                         self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
+                    case .stop:
+                        for index in 0..<self.voices.count {
+                            self.voices[index].inUse = false
+                        }
                     }
                 default:
                     break
@@ -237,6 +259,10 @@ public class Sampler: Node {
                                      version: .max)
         avAudioNode = instantiate(componentDescription: componentDescription)
         samplerAU = avAudioNode.auAudioUnit as! SamplerAudioUnit
+    }
+
+    public func stop() {
+        samplerAU.stop()
     }
 
     public func play(_ buffer: AVAudioPCMBuffer) {
