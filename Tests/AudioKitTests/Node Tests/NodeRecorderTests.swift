@@ -7,14 +7,14 @@ class NodeRecorderTests: XCTestCase {
     func testBasicRecord() throws {
         return // for now, tests are failing
 
-        let engine = AudioEngine()
-        let player = AudioPlayer(url: URL.testAudio)!
-        engine.output = player
-        let recorder = try NodeRecorder(node: player)
+        let engine = Engine()
+        let sampler = Sampler()
+        engine.output = sampler
+        let recorder = try NodeRecorder(node: sampler)
 
         // record a little audio
         try engine.start()
-        player.play()
+        sampler.play(url: URL.testAudio)
         try recorder.reset()
         try recorder.record()
         sleep(1)
@@ -23,22 +23,21 @@ class NodeRecorderTests: XCTestCase {
         recorder.stop()
         let audioFileURL = recorder.audioFile!.url
         engine.stop()
-        player.stop()
-        try player.load(url: audioFileURL)
+        sampler.stop()
 
         // test the result
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: audioFileURL)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testCallback() throws {
         return // for now, tests are failing
-        let engine = AudioEngine()
-        let player = AudioPlayer(url: URL.testAudio)!
-        engine.output = player
-        let recorder = try NodeRecorder(node: player)
+        let engine = Engine()
+        let sampler = Sampler()
+        engine.output = sampler
+        let recorder = try NodeRecorder(node: sampler)
 
         // attach the callback handler
         var values = [Float]()
@@ -48,7 +47,7 @@ class NodeRecorderTests: XCTestCase {
 
         // record a little audio
         try engine.start()
-        player.play()
+        sampler.play(url: URL.testAudio)
         try recorder.reset()
         try recorder.record()
         sleep(1)
@@ -57,12 +56,11 @@ class NodeRecorderTests: XCTestCase {
         recorder.stop()
         let audioFileURL = recorder.audioFile!.url
         engine.stop()
-        player.stop()
-        try player.load(url: audioFileURL)
+        sampler.stop()
 
         // test the result
         let audio = engine.startTest(totalDuration: 1.0)
-        player.play()
+        sampler.play(url: audioFileURL)
         audio.append(engine.render(duration: 1.0))
         XCTAssertEqual(values[5000], -0.027038574)
     }

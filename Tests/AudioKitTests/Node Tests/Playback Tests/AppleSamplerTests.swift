@@ -9,7 +9,7 @@ import XCTest
 /*
 class AppleSamplerTests: XCTestCase {
     let sampler = AppleSampler()
-    let engine = AudioEngine()
+    let engine = Engine()
 
     override func setUpWithError() throws {
         let sampleURL = Bundle.module.url(forResource: "TestResources/sinechirp", withExtension: "wav")!
