@@ -22,7 +22,7 @@ class GenericNodeTests: XCTestCase {
         let rng = GKMersenneTwisterRandomSource(seed: 0)
 
         let duration = 10
-        let engine = AudioEngine()
+        let engine = Engine()
         var bigBuffer: AVAudioPCMBuffer?
 
         for _ in 0 ..< duration {

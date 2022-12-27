@@ -5,25 +5,25 @@ import XCTest
 
 class NodeTests: XCTestCase {
     func testNodeBasic() {
-        let engine = AudioEngine()
-        let player = AudioPlayer(testFile: "12345")
-        XCTAssertNil(player.avAudioNode.engine)
-        engine.output = player
-        XCTAssertNotNil(player.avAudioNode.engine)
+        let engine = Engine()
+        let sampler = Sampler()
+        XCTAssertNil(sampler.avAudioNode.engine)
+        engine.output = sampler
+        XCTAssertNotNil(sampler.avAudioNode.engine)
         let audio = engine.startTest(totalDuration: 0.1)
-        player.play()
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
     }
 
     #if os(macOS) // For some reason failing on iOS and tvOS
     func testNodeConnection() {
-        let engine = AudioEngine()
-        let player = AudioPlayer(testFile: "12345")
-        let verb = Reverb(player)
+        let engine = Engine()
+        let sampler = Sampler()
+        let verb = Reverb(sampler)
         engine.output = verb
         let audio = engine.startTest(totalDuration: 0.1)
-        player.play()
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 0.1))
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
@@ -33,8 +33,8 @@ class NodeTests: XCTestCase {
     func testNodeOutputFormatRespected() {
         let outputFormat = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 2)!
         let engine = AudioEngine()
-        let player = AudioPlayer(testFile: "12345")
-        let verb = CustomFormatReverb(player, outputFormat: outputFormat)
+        let sampler = Sampler()
+        let verb = CustomFormatReverb(sampler, outputFormat: outputFormat)
         engine.output = verb
 
         XCTAssertEqual(engine.mainMixerNode!.avAudioNode.inputFormat(forBus: 0), outputFormat)
@@ -42,7 +42,7 @@ class NodeTests: XCTestCase {
     }
     
     func testRedundantConnection() {
-        let player = AudioPlayer(testFile: "12345")
+        let player = Sampler()
         let mixer = Mixer()
         mixer.addInput(player)
         mixer.addInput(player)

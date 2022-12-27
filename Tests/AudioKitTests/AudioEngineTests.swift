@@ -23,8 +23,7 @@ class AudioEngineTests: XCTestCase {
         }
 
         let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let input = AudioPlayer(url: url)!
+        let input = AudioPlayer(url: URL.testAudio)!
         let mixer = Mixer(input)
 
         // assign input and engine references
@@ -97,8 +96,7 @@ class AudioEngineTests: XCTestCase {
 
     func testEngineMainMixerCreated() {
         let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let input = AudioPlayer(url: url)!
+        let input = AudioPlayer(url: URL.testAudio)!
         engine.output = input
 
         guard let mainMixerNode = engine.mainMixerNode else {
@@ -152,8 +150,7 @@ class AudioEngineTests: XCTestCase {
 
     func testConnectionTreeDescriptionForSingleNodeAdded() {
         let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let input = AudioPlayer(url: url)!
+        let input = AudioPlayer(url: URL.testAudio)!
         engine.output = input
         XCTAssertEqual(engine.connectionTreeDescription,
                        """

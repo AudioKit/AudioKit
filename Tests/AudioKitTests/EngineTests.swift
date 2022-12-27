@@ -251,9 +251,8 @@ class EngineTests: XCTestCase {
 
     func testSampler() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
         sampler.play()
@@ -263,9 +262,8 @@ class EngineTests: XCTestCase {
 
     func testSamplerMIDINote() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
-        sampler.assign(url: url, to: 60)
+        sampler.assign(url: URL.testAudio, to: 60)
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
         sampler.playMIDINote(60)
@@ -275,8 +273,7 @@ class EngineTests: XCTestCase {
 
     func testCompressorWithSampler() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let buffer = try! AVAudioPCMBuffer(url: url)!
+        let buffer = try! AVAudioPCMBuffer(url: URL.testAudio)!
         let sampler = Sampler()
         sampler.play(buffer)
         engine.output = Compressor(sampler, attackTime: 0.1)

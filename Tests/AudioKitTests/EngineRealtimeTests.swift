@@ -134,7 +134,7 @@ class EngineRelatimeTests: XCTestCase {
 
     func testSamplerRealtime() throws {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let url = URL.testAudio
         let buffer = try! AVAudioPCMBuffer(url: url)!
         let sampler = Sampler()
         

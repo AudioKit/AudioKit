@@ -10,7 +10,9 @@ final class RawBufferTapTests: XCTestCase {
 
         let engine = AudioEngine()
         let osc = PlaygroundOscillator()
-        engine.output = osc
+        let mixer = Mixer(osc)
+        mixer.volume = 0
+        engine.output = mixer
 
         let dataExpectation = XCTestExpectation(description: "dataExpectation")
         var allBuffers: [(AVAudioPCMBuffer, AVAudioTime)] = []

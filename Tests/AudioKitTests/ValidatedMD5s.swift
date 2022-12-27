@@ -1,6 +1,12 @@
 import AVFoundation
 import XCTest
 
+extension URL {
+    static var testAudio: URL {
+        return Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+    }
+}
+
 extension XCTestCase {
     func testMD5(_ buffer: AVAudioPCMBuffer) {
         let localMD5 = buffer.md5

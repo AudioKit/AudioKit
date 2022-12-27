@@ -7,10 +7,9 @@ import AVFoundation
 class CompressorTests: XCTestCase {
     func testAttackTime() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = Compressor(sampler, attackTime: 0.1)
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -18,40 +17,36 @@ class CompressorTests: XCTestCase {
 
     func testDefault() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = Compressor(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testHeadRoom() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = Compressor(sampler, headRoom: 0)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testMasterGain() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = Compressor(sampler, masterGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testParameters() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = Compressor(sampler,
                                    threshold: -25,
@@ -60,7 +55,7 @@ class CompressorTests: XCTestCase {
                                    releaseTime: 0.1,
                                    masterGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -69,11 +64,10 @@ class CompressorTests: XCTestCase {
 
     func testThreshold() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         engine.output = Compressor(sampler, threshold: -25)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
