@@ -50,8 +50,7 @@ class GenericNodeTests: XCTestCase {
     }
 
     func nodeParameterTest(md5: String, factory: (Node) -> Node, m1MD5: String = "", audition: Bool = false) {
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
+        let player = AudioPlayer(url: URL.testAudio)!
         let node = factory(player)
 
         let duration = node.parameters.count + 1

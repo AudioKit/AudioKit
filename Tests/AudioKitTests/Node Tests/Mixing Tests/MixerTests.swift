@@ -7,13 +7,12 @@ import XCTest
 class MixerTests: XCTestCase {
     func testSplitConnection() {
         let engine = Engine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         let mixer1 = Mixer(sampler)
         let mixer2 = Mixer()
         engine.output = Mixer(mixer1, mixer2)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))
         mixer2.addInput(sampler)
         mixer2.removeInput(sampler)
@@ -31,11 +30,10 @@ class MixerTests: XCTestCase {
         let subtreeMixer = Mixer()
         engineMixer.addInput(subtreeMixer)
 
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         subtreeMixer.addInput(sampler)
 
-        sampler.play(url: url)
+        sampler.play(url: URL.testAudio)
 
         // only for auditioning
         // wait(for: 2.0)
@@ -56,7 +54,6 @@ class MixerTests: XCTestCase {
         let engineMixer = Mixer()
         engine.output = engineMixer
 
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
 
         let mixerA = Mixer(volume: 0.5, name: "mixerA")

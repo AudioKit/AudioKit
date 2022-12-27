@@ -6,8 +6,7 @@ import XCTest
 class BaseTapTests: XCTestCase {
     func testBaseTapDeallocated() throws {
         let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
+        let player = AudioPlayer(url: URL.testAudio)!
         engine.output = player
 
         var tap: BaseTap? = BaseTap(player, bufferSize: 1024)
@@ -21,8 +20,7 @@ class BaseTapTests: XCTestCase {
 
     func testBufferSizeExceedingFrameCapacity() {
         let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
+        let player = AudioPlayer(url: URL.testAudio)!
         engine.output = player
 
         let tap: BaseTap = BaseTap(player, bufferSize: 176400)

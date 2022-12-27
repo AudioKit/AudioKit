@@ -8,8 +8,7 @@ class DistortionTests: XCTestCase {
     #if os(iOS)
     func testDefaultDistortion() {
         let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let input = AudioPlayer(url: url)!
+        let input = AudioPlayer(url: URL.testAudio)!
         engine.output = AppleDistortion(input)
         let audio = engine.startTest(totalDuration: 1.0)
         input.start()

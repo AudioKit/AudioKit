@@ -8,8 +8,7 @@ class NodeRecorderTests: XCTestCase {
         return // for now, tests are failing
 
         let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
+        let player = AudioPlayer(url: URL.testAudio)!
         engine.output = player
         let recorder = try NodeRecorder(node: player)
 
@@ -37,8 +36,7 @@ class NodeRecorderTests: XCTestCase {
     func testCallback() throws {
         return // for now, tests are failing
         let engine = AudioEngine()
-        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
+        let player = AudioPlayer(url: URL.testAudio)!
         engine.output = player
         let recorder = try NodeRecorder(node: player)
 

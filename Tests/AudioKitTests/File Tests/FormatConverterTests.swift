@@ -12,7 +12,7 @@ class FormatConverterTests: AudioFileTestCase {
     }
 
     var stereoWAVE44k16Bit: URL? {
-        Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")
+        URL.testAudio
     }
 
     func testbitDepthRule() throws {
