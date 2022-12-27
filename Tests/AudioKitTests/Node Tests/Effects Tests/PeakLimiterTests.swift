@@ -16,7 +16,7 @@ class PeakLimiterTests: XCTestCase {
     }
 
     func testDecayTime() throws {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         let mixer = Mixer(sampler)
@@ -29,7 +29,7 @@ class PeakLimiterTests: XCTestCase {
     }
 
     func testDecayTime2() throws {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let sampler = Sampler()
         let mixer = Mixer(sampler)
@@ -75,16 +75,16 @@ class PeakLimiterTests: XCTestCase {
     }
 
     func testPreGainChangingAfterEngineStarted() throws {
-        let engine = AudioEngine()
+        let engine = Engine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-        let player = AudioPlayer(url: url)!
-        let effect = PeakLimiter(player, attackTime: 0.02, decayTime: 0.03, preGain: -20)
+        let sampler = Sampler()
+        let effect = PeakLimiter(sampler, attackTime: 0.02, decayTime: 0.03, preGain: -20)
         engine.output = effect
         let audio = engine.startTest(totalDuration: 2.0)
-        player.play()
+        sampler.play(url: url)
         audio.append(engine.render(duration: 1.0))
-        player.stop()
-        player.play()
+        sampler.stop()
+        sampler.play(url: url)
         effect.preGain = 40
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
