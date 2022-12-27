@@ -399,10 +399,9 @@ class EngineAudioUnit: AUAudioUnit {
 
                     let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(out)
 
-                    let capacity0 = outputBufferListPointer[0].frameCapacity
-                    let capacity1 = outputBufferListPointer[1].frameCapacity
-                    assert(frameCount <= capacity0)
-                    assert(frameCount <= capacity1)
+                    // AUs may change the output size, so reset it.
+                    outputBufferListPointer[0].mDataByteSize = frameCount * UInt32(MemoryLayout<Float>.size)
+                    outputBufferListPointer[1].mDataByteSize = frameCount * UInt32(MemoryLayout<Float>.size)
 
                     // Do the actual DSP.
                     let status = exec.renderBlock(actionFlags,
