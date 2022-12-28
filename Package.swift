@@ -8,7 +8,8 @@ let package = Package(
     products: [.library(name: "AudioKit", targets: ["AudioKit"])],
     dependencies: [],
     targets: [
-        .target(name: "AudioKit"),
+        .target(name: "AudioKit", dependencies: ["Utilities"]),
+        .target(name: "Utilities"),
         .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
     ]
 )

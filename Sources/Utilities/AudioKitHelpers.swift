@@ -143,19 +143,17 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
-@inline(__always)
-internal func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> AUValue {
+public func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> AUValue {
     var val: AudioUnitParameterValue = 0
     AudioUnitGetParameter(unit, param, kAudioUnitScope_Global, 0, &val)
     return val
 }
 
-@inline(__always)
-internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: AUValue) {
+public func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: AUValue) {
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
-extension AVAudioNode {
+public extension AVAudioNode {
     var inputCount: Int { numberOfInputs }
 
     func inputConnections() -> [AVAudioConnectionPoint] {
@@ -417,31 +415,8 @@ public extension DSPSplitComplex {
 
 public extension AVAudioTime {
     /// Returns an AVAudioTime set to sampleTime of zero at the default sample rate
-    static func sampleTimeZero(sampleRate: Double = Settings.sampleRate) -> AVAudioTime {
+    static func sampleTimeZero(sampleRate: Double = 44100) -> AVAudioTime {
         let sampleTime = AVAudioFramePosition(Double(0))
         return AVAudioTime(sampleTime: sampleTime, atRate: sampleRate)
-    }
-}
-
-// Protocols used in AudioKit demos
-
-/// Protocol prescribing that something has an audio "player"
-public protocol ProcessesPlayerInput: HasAudioEngine {
-    var player: AudioPlayer { get }
-}
-
-/// Protocol prescribing that something ahs an audio "engine"
-public protocol HasAudioEngine {
-    var engine: AudioEngine { get }
-}
-
-/// Basic start and stop functionality
-public extension HasAudioEngine {
-    func start() {
-        do { try engine.start() } catch let err { Log(err) }
-    }
-
-    func stop() {
-        engine.stop()
     }
 }
