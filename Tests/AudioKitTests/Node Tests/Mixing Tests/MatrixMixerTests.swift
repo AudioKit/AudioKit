@@ -4,6 +4,9 @@ import XCTest
 import AudioKit
 import AVFAudio
 
+// We're not supporting multichannel audio in the new v6 engine at first.
+#if false
+
 @available(iOS 13.0, *)
 class MatrixMixerTests: XCTestCase {
     let engine = AudioEngine()
@@ -81,3 +84,5 @@ class MatrixMixerTests: XCTestCase {
         XCTAssertTrue(output1.allSatisfy { $0 == 0 })
     }
 }
+
+#endif

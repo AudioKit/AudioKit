@@ -15,6 +15,9 @@
 /// correctly, upstream connections need to preserve source number of channels.
 /// This can be done using `Node.outputFormat`.
 
+// We're not supporting multichannel audio in the new v6 engine at first.
+#if false
+
 import AVFAudio
 
 public class MatrixMixer: Node {
@@ -183,3 +186,5 @@ public class MatrixMixer: Node {
         print("Output Volumes - \(last[0..<last.count - 1]), Master Volume \(last[last.count - 1])")
     }
 }
+
+#endif
