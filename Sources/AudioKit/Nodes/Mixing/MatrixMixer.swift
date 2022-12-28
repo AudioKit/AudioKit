@@ -1,6 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-/// Matrix Mixer allows you to map X input channels to Y output channels
+/// Matrix Mixer allows you to map X input channels to Y output channels.
 /// There is almost no documentation about how matrix mixer audio unit works.
 /// This implementation is a result of consolidating various online resources:
 /// - https://stackoverflow.com/questions/48059405/how-should-an-aumatrixmixer-be-configured-in-an-avaudioengine-graph
@@ -9,11 +9,21 @@
 /// - https://lists.apple.com/archives/coreaudio-api/2006/Jul/msg00047.html
 /// - https://lists.apple.com/archives/coreaudio-api/2008/Jun/msg00116.html
 ///
-/// In order to be able to use Matrix Mixer upstream connections will need to have
+/// In order to be able to use Matrix Mixer, upstream connections will need to have
 /// different format then downstream. Downstream connections are determined by
-/// output node's channel count. But for matrix mixer to be able to count input channels
+/// output node's channel count. But, for matrix mixer to be able to count input channels
 /// correctly, upstream connections need to preserve source number of channels.
 /// This can be done using `Node.outputFormat`.
+///
+/// Additionally, you might need to set audio format channel layout.
+/// Even though it seems like `kAudioChannelLayoutTag_DiscreteInOrder` should be used, you will likely need `kAudioChannelLayoutTag_Unknown`
+/// See:
+/// https://www.mail-archive.com/coreaudio-api@lists.apple.com/msg01143.html
+/// ```
+/// let multiChannelLayout = AVAudioChannelLayout(
+///     layoutTag: kAudioChannelLayoutTag_Unknown | outputFormat.channelCount
+/// )!
+/// ```
 
 import AVFAudio
 
