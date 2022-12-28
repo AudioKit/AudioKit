@@ -560,6 +560,7 @@ class NodeTests: XCTestCase {
     // http://openradar.appspot.com/radar?id=5490575180562432
     // Connection format is not correctly applied when adding a node to paused engine
     // This is only happening when using destination point API with one point
+    #if !os(tvOS)
     func testConnectionFormatAppliedWhenAddingNode() throws {
         let engine = AudioEngine()
         let previousFormat = Settings.audioFormat
@@ -580,6 +581,7 @@ class NodeTests: XCTestCase {
 
         Settings.audioFormat = previousFormat
     }
+    #endif
 }
 
 private extension NodeTests {
