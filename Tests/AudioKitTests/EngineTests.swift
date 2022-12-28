@@ -293,18 +293,15 @@ class EngineTests: XCTestCase {
         testMD5(audio)
     }
 
-    #if false
     func testRingBuffer() {
         let buffer = RingBuffer<Float>()
 
         let pushResult = buffer.push(1.666)
 
         XCTAssertTrue(pushResult)
-        XCTAssertEqual(buffer.fillCount.load(ordering: .relaxed), 1)
 
         let popResult = buffer.pop()
 
-        XCTAssertEqual(buffer.fillCount.load(ordering: .relaxed), 0)
         XCTAssertEqual(popResult, 1.666)
 
         var floats: [Float] = [1, 2, 3, 4, 5]
@@ -312,9 +309,6 @@ class EngineTests: XCTestCase {
         _ = floats.withUnsafeBufferPointer { ptr in
             buffer.push(from: ptr)
         }
-
-
-        XCTAssertEqual(Int(buffer.fillCount.load(ordering: .relaxed)), floats.count)
 
         floats = [0, 0, 0, 0, 0]
 
@@ -325,7 +319,6 @@ class EngineTests: XCTestCase {
         XCTAssertEqual(floats, [1, 2, 3, 4, 5])
 
     }
-    #endif
 
     func testSysexEncoding() {
 
