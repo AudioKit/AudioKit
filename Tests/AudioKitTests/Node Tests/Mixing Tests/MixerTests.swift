@@ -23,6 +23,9 @@ class MixerTests: XCTestCase {
 }
 
 extension MixerTests {
+
+    // Tests workaround for:
+    // http://openradar.appspot.com/radar?id=5588189343383552
     func testWiringAfterEngineStart() {
         let engine = AudioEngine()
         let engineMixer = Mixer()
@@ -45,6 +48,37 @@ extension MixerTests {
         engine.stop()
     }
 
+    @available(iOS 16.0, *)
+    // This is the same bug as the test above.
+    // However, there is no easy way to detect that engine is paused.
+    // There is currently no workaround for this in AudioKit.
+    // Apps will need to manually insert empty nodes
+    // http://openradar.appspot.com/radar?id=5588189343383552
+    func testWiringAfterEngineStartedAndPaused() async throws {
+        try XCTSkipIf(true, "Enable if we find a way to workaround this")
+        let engine = AudioEngine()
+        let engineMixer = Mixer()
+
+        engine.output = engineMixer
+        try engine.start()
+        try await Task.sleep(for: .milliseconds(1000))
+        engine.pause()
+
+        let subtreeMixer = Mixer()
+        engineMixer.addInput(subtreeMixer)
+
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        subtreeMixer.addInput(player)
+
+        try? engine.start()
+        print(engine.connectionTreeDescription)
+        player.play()
+
+        // only for auditioning
+        // wait(for: player.duration)
+        engine.stop()
+    }
     // for waiting in the background for realtime testing
     private func wait(for interval: TimeInterval) {
         let delayExpectation = XCTestExpectation(description: "delayExpectation")
