@@ -3,6 +3,7 @@
 import Foundation
 import AudioUnit
 import AVFoundation
+import AudioKit
 
 public class TestOscillator: Node {
     public let connections: [Node] = []
