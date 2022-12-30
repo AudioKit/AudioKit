@@ -86,7 +86,7 @@ class AmplitudeTapTests: XCTestCase {
         var detectedAmplitudes: [Float] = []
         let targetAmplitudes: [Float] = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
-        let noise = PlaygroundNoiseGenerator(amplitude: 0.0)
+        let noise = PlaygroundNoiseGenerator2(amplitude: 0.0)
         engine.output = noise
         noise.start()
 
