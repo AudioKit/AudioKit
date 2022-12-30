@@ -135,6 +135,8 @@ class PlaygroundOscillatorAudioUnit: AUAudioUnit {
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
 
+            self.processEvents(events: renderEvents)
+
             let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
             let twoPi: AUValue = AUValue(2 * Double.pi)
