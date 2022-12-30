@@ -37,7 +37,7 @@ class BypassTests: XCTestCase {
     }
 
     func testStopEffectDoesntPerformAnyTransformation() throws {
-        let engine = AudioEngine()
+        let engine = Engine()
         for effect in effects {
             engine.output = effect
 
@@ -51,7 +51,7 @@ class BypassTests: XCTestCase {
     }
 
     func testStartEffectPerformsTransformation() throws {
-        let engine = AudioEngine()
+        let engine = Engine()
         for effect in effects {
             engine.output = effect
 
