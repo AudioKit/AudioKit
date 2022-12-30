@@ -4,7 +4,6 @@ import XCTest
 import AudioKit
 import AVFAudio
 
-@available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
 class BypassTests: XCTestCase {
     let duration = 0.1
     let source = ConstantGenerator(constant: 1)
