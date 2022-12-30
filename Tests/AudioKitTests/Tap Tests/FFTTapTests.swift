@@ -17,7 +17,7 @@ class FFTTapTests: XCTestCase {
     func panTest(pan: Float) {
         let engine = AudioEngine()
 
-        let oscillator = PlaygroundOscillator()
+        let oscillator = PlaygroundOscillator2()
         let mixer = Mixer(oscillator)
         mixer.pan = pan
         engine.output = mixer
@@ -74,7 +74,7 @@ class FFTTapTests: XCTestCase {
 
         let engine = AudioEngine()
 
-        let oscillator = PlaygroundOscillator()
+        let oscillator = PlaygroundOscillator2()
         engine.output = oscillator
         oscillator.start()
 

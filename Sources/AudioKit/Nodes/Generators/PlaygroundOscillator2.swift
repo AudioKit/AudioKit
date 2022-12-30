@@ -10,6 +10,8 @@ public class PlaygroundOscillator2: Node {
 
     let oscAU: PlaygroundOscillatorAudioUnit
 
+    fileprivate var waveform: Table?
+    
     /// Output Volume (Default 1), values above 1 will have gain applied
     public var amplitude: AUValue = 1.0 {
         didSet {
@@ -26,7 +28,12 @@ public class PlaygroundOscillator2: Node {
         }
     }
 
-    public init(frequency: AUValue = 440, amplitude: AUValue = 1.0) {
+    /// Initialize the pure Swift oscillator, suitable for Playgrounds
+    /// - Parameters:
+    ///   - waveform: Shape of the oscillator waveform
+    ///   - frequency: Pitch in Hz
+    ///   - amplitude: Volume, usually 0-1
+    public init(waveform: Table = Table(.sine), frequency: AUValue = 440, amplitude: AUValue = 1.0) {
 
         let componentDescription = AudioComponentDescription(instrument: "pgos")
 
@@ -36,6 +43,7 @@ public class PlaygroundOscillator2: Node {
                                      version: .max)
         avAudioNode = instantiate(componentDescription: componentDescription)
         oscAU = avAudioNode.auAudioUnit as! PlaygroundOscillatorAudioUnit
+        self.waveform = waveform
         self.oscAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
         self.oscAU.frequencyParam.value = frequency

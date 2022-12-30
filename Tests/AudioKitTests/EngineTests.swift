@@ -285,12 +285,13 @@ class EngineTests: XCTestCase {
 
     func testPlaygroundOscillator() {
         let engine = Engine()
-        let osc = PlaygroundOscillator()
+        let osc = PlaygroundOscillator2()
         engine.output = osc
         let audio = engine.startTest(totalDuration: 2.0)
         osc.play()
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
+        audio.audition()
     }
 
     func testRingBuffer() {
