@@ -61,12 +61,12 @@ public func decodeSysex<T>(_ bytes: UnsafePointer<UInt8>, count: Int, _ value: i
 /// - Parameters:
 ///   - event: pointer to the AURenderEvent
 ///   - f: function to call
-func withMidiData(_ event: UnsafePointer<AURenderEvent>, _ f: (UnsafePointer<UInt8>) -> ()) {
+func withMidiData(_ event: UnsafePointer<AUMIDIEvent>, _ f: (UnsafePointer<UInt8>) -> ()) {
 
-    let type = event.pointee.head.eventType
+    let type = event.pointee.eventType
     assert(type == .midiSysEx || type == .MIDI)
 
-    let length = event.pointee.MIDI.length
+    let length = event.pointee.length
     if let offset = MemoryLayout.offset(of: \AUMIDIEvent.data) {
 
         let raw = UnsafeRawPointer(event)! + offset
@@ -85,14 +85,14 @@ func withMidiData(_ event: UnsafePointer<AURenderEvent>, _ f: (UnsafePointer<UIn
 /// - Parameters:
 ///   - event: pointer to the AURenderEvent
 ///   - value: where we will store the value
-func decodeSysex<T>(_ event: UnsafePointer<AURenderEvent>, _ value: inout T) {
+func decodeSysex<T>(_ event: UnsafePointer<AUMIDIEvent>, _ value: inout T) {
 
     assert(_isPOD(type(of: value)))
 
-    let type = event.pointee.head.eventType
+    let type = event.pointee.eventType
     assert(type == .midiSysEx)
 
-    let length = event.pointee.MIDI.length
+    let length = event.pointee.length
     withMidiData(event) { ptr in
         decodeSysex(ptr, count: Int(length), &value)
     }

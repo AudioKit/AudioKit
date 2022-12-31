@@ -477,21 +477,20 @@ public class EngineAudioUnit: AUAudioUnit {
         var events = events
         while let event = events {
 
-            if event.pointee.head.eventType == .midiSysEx {
-
+            event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1) { pointer in
                 // Maybe a little sketchy to init this to 0, but didn't
                 // see something better.
                 var ptr = UnsafeMutablePointer<AudioProgram>.init(bitPattern: 0)
-                decodeSysex(event, &ptr)
+                decodeSysex(pointer, &ptr)
 
                 if let oldList = self.dspList {
                     oldList.pointee.done = true
                 }
 
                 self.dspList = ptr
-            }
 
-            events = .init(event.pointee.head.next)
+                events = .init(pointer.pointee.next)
+            }
         }
     }
     

@@ -189,22 +189,33 @@ class SamplerAudioUnit: AUAudioUnit {
             var events = renderEvents
             while let event = events {
 
-                switch event.pointee.head.eventType {
+                // We know we at least have a header.
+                let eventType = event.withMemoryRebound(to: AURenderEventHeader.self, capacity: 1) { pointer in
+                    pointer.pointee.eventType
+                }
+
+                switch eventType {
                 case .MIDI:
-                    let data = event.pointee.MIDI.data
-                    let command = data.0 & 0xF0
-                    let noteNumber = data.1
-                    if command == noteOnByte {
-                        if let buf = self.samples[Int(noteNumber)] {
-                            self.play(buf)
+
+                    event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1) { pointer in
+                        let data = pointer.pointee.data
+                        let command = data.0 & 0xF0
+                        let noteNumber = data.1
+                        if command == noteOnByte {
+                            if let buf = self.samples[Int(noteNumber)] {
+                                self.play(buf)
+                            }
+                        } else if command == noteOffByte {
+                            // XXX: ignore for now
                         }
-                    } else if command == noteOffByte {
-                        // XXX: ignore for now
                     }
-                    break // TODO
+
                 case .midiSysEx:
                     var command: SamplerCommand = SamplerCommand.playSample(nil)
-                    decodeSysex(event, &command)
+
+                    event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1) { pointer in
+                        decodeSysex(pointer, &command)
+                    }
 
                     switch command {
                     case .playSample(let ptr):
