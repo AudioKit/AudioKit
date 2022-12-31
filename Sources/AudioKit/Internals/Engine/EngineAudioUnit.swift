@@ -507,6 +507,9 @@ public class EngineAudioUnit: AUAudioUnit {
 
             if let dspList = self.dspList {
 
+                // Clear our execution queue.
+                dspList.pointee.runQueue.clear()
+
                 // Wake our worker threads.
                 for worker in self.workers {
                     worker.wake.signal()
