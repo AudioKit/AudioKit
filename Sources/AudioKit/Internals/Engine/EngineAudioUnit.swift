@@ -409,6 +409,13 @@ public class EngineAudioUnit: AUAudioUnit {
 
     }
 
+    /// Get just the signal generating nodes.
+    func generators(nodes: [Node]) -> [Node] {
+        nodes.filter { node in
+            node.connections.isEmpty
+        }
+    }
+
     /// Recursively build a schedule of audio units to run.
     func schedule(node: Node,
                   scheduled: inout Set<ObjectIdentifier>,
