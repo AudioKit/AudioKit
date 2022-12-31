@@ -511,16 +511,17 @@ public class EngineAudioUnit: AUAudioUnit {
                 // Clear our execution queue and push the generators.
                 dspList.pointee.prepare()
 
+                // Use the outputBufferList for the last AU in the schedule.
+                dspList.pointee.infos[dspList.pointee.infos.count-1].outputBuffer = outputBufferList
+
                 // Wake our worker threads.
                 for worker in self.workers {
                     worker.wake.signal()
                 }
 
-                var i = 0
                 for info in dspList.pointee.infos {
 
-                    // Use the outputBufferList for the last AU in the schedule.
-                    let out = i == dspList.pointee.infos.count-1 ? outputBufferList : info.outputBuffer
+                    let out = info.outputBuffer
 
                     let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(out)
 
@@ -559,8 +560,6 @@ public class EngineAudioUnit: AUAudioUnit {
                         }
                         return status
                     }
-
-                    i += 1
                 }
             } else {
 
