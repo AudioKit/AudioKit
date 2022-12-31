@@ -379,29 +379,34 @@ public class EngineAudioUnit: AUAudioUnit {
                 block(.zero, 0, array.count, array)
             }
 
-            // Cleanup old schedules.
-            // Start from the end. Once we find a finished
-            // data, delete all data before and including.
-            var i = previousSchedules.count-1
-            while i > 0 {
-                if previousSchedules[i].pointee.done {
-
-                    print("removing \(i) old schedules")
-
-                    for j in 0...i {
-                        let ptr = previousSchedules[j]
-                        ptr.deinitialize(count: 1)
-                        ptr.deallocate()
-                    }
-
-                    previousSchedules.removeFirst(i+1)
-
-                    break
-                }
-                i -= 1
-            }
-
+            cleanupSchedules()
         }
+    }
+
+    func cleanupSchedules() {
+
+        // Cleanup old schedules.
+        // Start from the end. Once we find a finished
+        // data, delete all data before and including.
+        var i = previousSchedules.count-1
+        while i > 0 {
+            if previousSchedules[i].pointee.done {
+
+                print("removing \(i) old schedules")
+
+                for j in 0...i {
+                    let ptr = previousSchedules[j]
+                    ptr.deinitialize(count: 1)
+                    ptr.deallocate()
+                }
+
+                previousSchedules.removeFirst(i+1)
+
+                break
+            }
+            i -= 1
+        }
+
     }
 
     /// Recursively build a schedule of audio units to run.
