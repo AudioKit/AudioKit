@@ -9,9 +9,12 @@ class WorkerThread: Thread {
 
     var run = true
     var wake = DispatchSemaphore(value: 0)
+    var program: UnsafeMutablePointer<AudioProgram>?
+    var actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>!
+    var timeStamp: UnsafePointer<AudioTimeStamp>!
+    var frameCount: AUAudioFrameCount = 0
 
     override func main() {
-        print ("worker thread started")
 
         var tbinfo = mach_timebase_info_data_t()
         mach_timebase_info(&tbinfo)
@@ -30,8 +33,11 @@ class WorkerThread: Thread {
         while run {
             wake.wait()
 
-            // print ("worker thread awake")
-            // Do some work.
+            if let program = program {
+                program.pointee.run(actionFlags: actionFlags, timeStamp: timeStamp, frameCount: frameCount)
+            } else {
+                print("worker has no program!")
+            }
         }
     }
 }
@@ -516,6 +522,10 @@ public class EngineAudioUnit: AUAudioUnit {
 
                 // Wake our worker threads.
                 for worker in self.workers {
+                    worker.program = dspList
+                    worker.actionFlags = actionFlags
+                    worker.timeStamp = timeStamp
+                    worker.frameCount = frameCount
                     worker.wake.signal()
                 }
 
