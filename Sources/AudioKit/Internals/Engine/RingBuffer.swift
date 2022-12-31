@@ -22,6 +22,7 @@ public class RingBuffer<T> {
     /// - Parameter value: value to be pushed
     /// - Returns: whether the value could be pushed (or not enough space)
     public func push(_ value: T) -> Bool {
+        assert(_isPOD(type(of: value)))
         if Int32(buffer.count) - fillCount > 0 {
             buffer[Int(head)] = value
             head = (head + 1) % Int32(buffer.count)
