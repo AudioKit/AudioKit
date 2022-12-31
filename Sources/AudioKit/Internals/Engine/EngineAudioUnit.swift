@@ -47,8 +47,12 @@ func set_realtime(period: UInt32, computation: UInt32, constraint: UInt32) -> Bo
 }
 
 class WorkerThread: Thread {
+
+    var run = true
+    var wake = DispatchSemaphore(value: 0)
+
     override func main() {
-        print ("worker thread")
+        print ("worker thread started")
 
         var tbinfo = mach_timebase_info_data_t()
         mach_timebase_info(&tbinfo)
@@ -62,6 +66,13 @@ class WorkerThread: Thread {
 
         if !set_realtime(period: UInt32(period), computation: UInt32(comp), constraint: UInt32(constraint)) {
             print("failed to set worker thread to realtime priority")
+        }
+
+        while run {
+            wake.wait()
+
+            print ("worker thread awake")
+            // Do some work.
         }
     }
 }
@@ -109,12 +120,6 @@ public class EngineAudioUnit: AUAudioUnit {
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
         
         parameterTree = AUParameterTree.createTree(withChildren: [])
-
-        for _ in 0..<8 {
-            let worker = WorkerThread()
-            worker.start()
-            workers.append(worker)
-        }
 
         let oldSelector = Selector(("renderContextObserver"))
 
@@ -444,10 +449,26 @@ public class EngineAudioUnit: AUAudioUnit {
     
     override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
+
+        // Start workers.
+        for _ in 0..<8 {
+            let worker = WorkerThread()
+            worker.start()
+            workers.append(worker)
+        }
+
         compile()
     }
     
     override public func deallocateRenderResources() {
+
+        // Shut down workers.
+        for worker in workers {
+            worker.run = false
+        }
+
+        workers = []
+
         super.deallocateRenderResources()
     }
 
@@ -486,6 +507,12 @@ public class EngineAudioUnit: AUAudioUnit {
             self.updateDSPList(events: renderEvents)
 
             if let dspList = self.dspList {
+
+                // Wake our worker threads.
+                for worker in self.workers {
+                    worker.wake.signal()
+                }
+
                 var i = 0
                 for exec in dspList.pointee.infos {
 
