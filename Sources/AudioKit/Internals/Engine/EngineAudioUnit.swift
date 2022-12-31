@@ -75,8 +75,12 @@ public class EngineAudioUnit: AUAudioUnit {
         try super.init(componentDescription: componentDescription, options: options)
         
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
-        inputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [try AUAudioUnitBus(format: format)])
-        outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
+        inputBusArray = AUAudioUnitBusArray(audioUnit: self,
+                                            busType: .input,
+                                            busses: [try AUAudioUnitBus(format: format)])
+        outputBusArray = AUAudioUnitBusArray(audioUnit: self,
+                                             busType: .output,
+                                             busses: [try AUAudioUnitBus(format: format)])
         
         parameterTree = AUParameterTree.createTree(withChildren: [])
 
@@ -90,10 +94,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
         let imp = method_getImplementation(method)
 
-        class_replaceMethod(EngineAudioUnit.self,
-                            oldSelector,
-                            imp,
-                            newType)
+        class_replaceMethod(EngineAudioUnit.self, oldSelector, imp, newType)
 
     }
 
