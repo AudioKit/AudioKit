@@ -5,21 +5,6 @@ import AudioUnit
 import AVFoundation
 import AudioToolbox
 
-public struct ExecInfo {
-    var outputBuffer: UnsafeMutablePointer<AudioBufferList>
-    var outputPCMBuffer: AVAudioPCMBuffer
-    var renderBlock: AURenderBlock
-    var inputBlock: AURenderPullInputBlock
-    var avAudioEngine: AVAudioEngine?
-}
-
-public struct ExecSchedule {
-    public var infos: [ExecInfo] = []
-
-    /// Are we done using this schedule?
-    var done: Bool = false
-}
-
 class WorkerThread: Thread {
 
     var run = true
@@ -63,7 +48,7 @@ public typealias AKAURenderContextObserver = (UnsafeRawPointer?) -> Void
 public class EngineAudioUnit: AUAudioUnit {
 
     /// Audio thread ONLY. Reference to currently executing schedule.
-    var dspList: UnsafeMutablePointer<ExecSchedule>?
+    var dspList: UnsafeMutablePointer<AudioProgram>?
     
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
@@ -219,9 +204,9 @@ public class EngineAudioUnit: AUAudioUnit {
         }
     }
 
-    public var schedule = ExecSchedule()
+    public var schedule = AudioProgram()
 
-    var previousSchedules: [UnsafeMutablePointer<ExecSchedule>] = []
+    var previousSchedules: [UnsafeMutablePointer<AudioProgram>] = []
 
     let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
 
@@ -366,10 +351,10 @@ public class EngineAudioUnit: AUAudioUnit {
             }
 
             // Save schedule.
-            schedule = ExecSchedule(infos: execList)
+            schedule = AudioProgram(infos: execList)
 
             // Update engine exec list.
-            let ptr = UnsafeMutablePointer<ExecSchedule>.allocate(capacity: 1)
+            let ptr = UnsafeMutablePointer<AudioProgram>.allocate(capacity: 1)
             ptr.initialize(to: schedule)
             previousSchedules.append(ptr)
 
@@ -470,7 +455,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
                 // Maybe a little sketchy to init this to 0, but didn't
                 // see something better.
-                var ptr = UnsafeMutablePointer<ExecSchedule>.init(bitPattern: 0)
+                var ptr = UnsafeMutablePointer<AudioProgram>.init(bitPattern: 0)
                 decodeSysex(event, &ptr)
 
                 if let oldList = self.dspList {
