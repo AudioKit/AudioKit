@@ -517,10 +517,10 @@ public class EngineAudioUnit: AUAudioUnit {
                 }
 
                 var i = 0
-                for exec in dspList.pointee.infos {
+                for info in dspList.pointee.infos {
 
                     // Use the outputBufferList for the last AU in the schedule.
-                    let out = i == dspList.pointee.infos.count-1 ? outputBufferList : exec.outputBuffer
+                    let out = i == dspList.pointee.infos.count-1 ? outputBufferList : info.outputBuffer
 
                     let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(out)
 
@@ -532,12 +532,12 @@ public class EngineAudioUnit: AUAudioUnit {
                     let data1Before = outputBufferListPointer[1].mData
 
                     // Do the actual DSP.
-                    let status = exec.renderBlock(actionFlags,
+                    let status = info.renderBlock(actionFlags,
                                                   timeStamp,
                                                   frameCount,
                                                   0,
                                                   out,
-                                                  exec.inputBlock)
+                                                  info.inputBlock)
 
                     // Make sure the AU doesn't change the buffer pointers!
                     assert(outputBufferListPointer[0].mData == data0Before)
