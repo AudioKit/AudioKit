@@ -6,6 +6,8 @@ import AudioUnit
 /// Encode a value in a MIDI sysex message. Value must be plain-old-data.
 public func encodeSysex<T>(_ value: T) -> [UInt8] {
 
+    assert(_isPOD(type(of: value)))
+
     // Start with a sysex header.
     var result: [UInt8] = [0xF0, 0x00]
 
@@ -37,6 +39,8 @@ public func encodeSysex<T>(_ value: T) -> [UInt8] {
 ///   - value: the value we're writing to
 ///
 public func decodeSysex<T>(_ bytes: UnsafePointer<UInt8>, count: Int, _ value: inout T) {
+
+    assert(_isPOD(type(of: value)))
 
     // Number of bytes should include sysex header (0xF0, 0x00) and terminator (0xF7).
     assert(count == 2*MemoryLayout<T>.size + 3)
@@ -82,6 +86,8 @@ func withMidiData(_ event: UnsafePointer<AURenderEvent>, _ f: (UnsafePointer<UIn
 ///   - event: pointer to the AURenderEvent
 ///   - value: where we will store the value
 func decodeSysex<T>(_ event: UnsafePointer<AURenderEvent>, _ value: inout T) {
+
+    assert(_isPOD(type(of: value)))
 
     let type = event.pointee.head.eventType
     assert(type == .midiSysEx)
