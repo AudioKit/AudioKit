@@ -30,7 +30,7 @@ class WorkerThread: Thread {
         while run {
             wake.wait()
 
-            print ("worker thread awake")
+            // print ("worker thread awake")
             // Do some work.
         }
     }
