@@ -15,6 +15,13 @@ struct AtomicList {
         self.items = .init(repeating: -1, count: size)
     }
 
+    /// Clear the list. This is not thread safe.
+    mutating func clear() {
+        for i in 0..<items.count {
+            items[i] = -1
+        }
+    }
+
     /// Push an index.
     mutating func push(_ value: Int) {
         assert(value < items.count)
