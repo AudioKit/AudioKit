@@ -44,4 +44,12 @@ public struct AudioProgram {
         self.runQueue = AtomicList(size: infos.count)
         self.generatorIndices = generatorIndices
     }
+
+    /// Called before we wake the workers.
+    mutating func prepare() {
+        runQueue.clear()
+        for index in generatorIndices {
+            runQueue.push(index)
+        }
+    }
 }

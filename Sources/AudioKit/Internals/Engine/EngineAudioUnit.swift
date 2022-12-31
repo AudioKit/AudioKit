@@ -508,8 +508,8 @@ public class EngineAudioUnit: AUAudioUnit {
 
             if let dspList = self.dspList {
 
-                // Clear our execution queue.
-                dspList.pointee.runQueue.clear()
+                // Clear our execution queue and push the generators.
+                dspList.pointee.prepare()
 
                 // Wake our worker threads.
                 for worker in self.workers {
