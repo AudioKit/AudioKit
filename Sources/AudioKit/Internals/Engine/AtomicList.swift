@@ -33,15 +33,17 @@ struct AtomicList {
     /// Pop an index.
     mutating func pop() -> Int? {
 
-        if head == -1 {
+        var oldHead = head
+        if oldHead == -1 {
             return nil
         }
-
-        var oldHead = head
 
         // Spin until we successfullly pop.
         while !OSAtomicCompareAndSwapLong(oldHead, items[oldHead], &head) {
             oldHead = head
+            if oldHead == -1 {
+                return nil
+            }
         }
 
         return oldHead
