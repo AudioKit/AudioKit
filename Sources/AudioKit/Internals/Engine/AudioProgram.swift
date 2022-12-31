@@ -5,7 +5,7 @@ import AudioUnit
 import AVFoundation
 import AudioToolbox
 
-public struct ExecInfo {
+public struct RenderInfo {
     var outputBuffer: UnsafeMutablePointer<AudioBufferList>
     var outputPCMBuffer: AVAudioPCMBuffer
     var renderBlock: AURenderBlock
@@ -17,7 +17,7 @@ public struct ExecInfo {
 public struct AudioProgram {
 
     /// List of information about AudioUnits we're executing.
-    public var infos: [ExecInfo] = []
+    public var infos: [RenderInfo] = []
 
     /// Queue of AUs that are ready to be executed by worker threads.
     var runQueue: AtomicList
@@ -25,7 +25,7 @@ public struct AudioProgram {
     /// Are we done using this schedule?
     var done: Bool = false
 
-    init(infos: [ExecInfo]) {
+    init(infos: [RenderInfo]) {
         self.infos = infos
         self.runQueue = AtomicList(size: infos.count)
     }

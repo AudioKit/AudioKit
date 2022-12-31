@@ -255,7 +255,7 @@ public class EngineAudioUnit: AUAudioUnit {
             let buffers = makeBuffers(nodes: list)
 
             // Pass the schedule to the engineAU
-            var execList: [ExecInfo] = []
+            var execList: [RenderInfo] = []
 
             for node in list {
 
@@ -292,7 +292,7 @@ public class EngineAudioUnit: AUAudioUnit {
                         try! volumeAU.allocateRenderResources()
                     }
 
-                    let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
+                    let info = RenderInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                         outputPCMBuffer: nodeBuffer,
                                         renderBlock: volumeAU.renderBlock,
                                         inputBlock: inputBlock)
@@ -308,7 +308,7 @@ public class EngineAudioUnit: AUAudioUnit {
                         inputBlock = EngineAudioUnit.basicInputBlock(inputBufferLists: inputBufferLists)
                     }
 
-                    let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
+                    let info = RenderInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                         outputPCMBuffer: nodeBuffer,
                                         renderBlock: node.au.renderBlock,
                                         inputBlock: inputBlock)
@@ -339,7 +339,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
                     try! avEngine.start()
 
-                    let info = ExecInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
+                    let info = RenderInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
                                         outputPCMBuffer: nodeBuffer,
                                         renderBlock: renderBlock,
                                         inputBlock: inputBlock,
