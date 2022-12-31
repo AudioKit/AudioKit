@@ -274,7 +274,7 @@ public class EngineAudioUnit: AUAudioUnit {
             let buffers = makeBuffers(nodes: list)
 
             // Pass the schedule to the engineAU
-            var execList: [RenderInfo] = []
+            var renderList: [RenderInfo] = []
 
             for node in list {
 
@@ -318,7 +318,7 @@ public class EngineAudioUnit: AUAudioUnit {
                                           inputCount: node.connections.count,
                                           outputIndices: outputs[ObjectIdentifier(mixer)] ?? [])
 
-                    execList.append(info)
+                    renderList.append(info)
 
                 } else if node.avAudioNode as? AVAudioUnit != nil {
 
@@ -336,7 +336,7 @@ public class EngineAudioUnit: AUAudioUnit {
                                           inputCount: node.connections.count,
                                           outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
-                    execList.append(info)
+                    renderList.append(info)
 
                 } else {
 
@@ -370,13 +370,13 @@ public class EngineAudioUnit: AUAudioUnit {
                                           inputCount: node.connections.count,
                                           outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
-                    execList.append(info)
+                    renderList.append(info)
 
                 }
             }
 
             // Save schedule.
-            schedule = AudioProgram(infos: execList,
+            schedule = AudioProgram(infos: renderList,
                                     generatorIndices: generatorIndices(nodes: list))
 
             // Update engine exec list.
