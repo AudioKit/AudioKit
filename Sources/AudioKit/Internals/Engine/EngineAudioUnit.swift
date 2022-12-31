@@ -422,6 +422,7 @@ public class EngineAudioUnit: AUAudioUnit {
         // Shut down workers.
         for worker in workers {
             worker.run = false
+            worker.wake.signal()
         }
 
         workers = []
