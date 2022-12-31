@@ -165,7 +165,9 @@ public class EngineAudioUnit: AUAudioUnit {
             let buffer = inputBufferLists[bus]
 
             assert(buffer.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
-            let ablSize = MemoryLayout<AudioBufferList>.size + Int(buffer.pointee.mNumberBuffers) * MemoryLayout<AudioBuffer>.size
+
+            // Note that we already have one buffer in the AudioBufferList type, hence the -1
+            let ablSize = MemoryLayout<AudioBufferList>.size + Int(buffer.pointee.mNumberBuffers-1) * MemoryLayout<AudioBuffer>.size
             memcpy(outputBuffer, buffer, ablSize)
 
             return noErr
