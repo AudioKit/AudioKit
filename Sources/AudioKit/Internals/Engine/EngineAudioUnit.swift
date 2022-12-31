@@ -82,23 +82,14 @@ public class EngineAudioUnit: AUAudioUnit {
 
         let oldSelector = Selector(("renderContextObserver"))
 
-        guard let oldMethod = class_getInstanceMethod(EngineAudioUnit.self, oldSelector) else {
-            fatalError()
-        }
-
-        let oldType = method_getTypeEncoding(oldMethod)!
-        print("oldType: \(String(cString: oldType))")
-
         guard let method = class_getInstanceMethod(EngineAudioUnit.self, #selector(EngineAudioUnit.akRenderContextObserver)) else {
             fatalError()
         }
 
         let newType = method_getTypeEncoding(method)!
-        print("newType: \(String(cString: newType))")
 
         let imp = method_getImplementation(method)
 
-        // class_addMethod(EngineAudioUnit.self, #selector(akRenderContextObserver), imp, newType)
         class_replaceMethod(EngineAudioUnit.self,
                             oldSelector,
                             imp,
