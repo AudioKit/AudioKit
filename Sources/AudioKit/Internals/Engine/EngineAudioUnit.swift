@@ -293,9 +293,10 @@ public class EngineAudioUnit: AUAudioUnit {
                     }
 
                     let info = RenderInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
-                                        outputPCMBuffer: nodeBuffer,
-                                        renderBlock: volumeAU.renderBlock,
-                                        inputBlock: inputBlock)
+                                          outputPCMBuffer: nodeBuffer,
+                                          renderBlock: volumeAU.renderBlock,
+                                          inputBlock: inputBlock,
+                                          inputCount: node.connections.count)
 
                     execList.append(info)
 
@@ -309,9 +310,10 @@ public class EngineAudioUnit: AUAudioUnit {
                     }
 
                     let info = RenderInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
-                                        outputPCMBuffer: nodeBuffer,
-                                        renderBlock: node.au.renderBlock,
-                                        inputBlock: inputBlock)
+                                          outputPCMBuffer: nodeBuffer,
+                                          renderBlock: node.au.renderBlock,
+                                          inputBlock: inputBlock,
+                                          inputCount: node.connections.count)
 
                     execList.append(info)
 
@@ -340,10 +342,11 @@ public class EngineAudioUnit: AUAudioUnit {
                     try! avEngine.start()
 
                     let info = RenderInfo(outputBuffer: nodeBuffer.mutableAudioBufferList,
-                                        outputPCMBuffer: nodeBuffer,
-                                        renderBlock: renderBlock,
-                                        inputBlock: inputBlock,
-                                        avAudioEngine: avEngine)
+                                          outputPCMBuffer: nodeBuffer,
+                                          renderBlock: renderBlock,
+                                          inputBlock: inputBlock,
+                                          avAudioEngine: avEngine,
+                                          inputCount: node.connections.count)
 
                     execList.append(info)
 

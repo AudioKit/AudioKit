@@ -11,6 +11,14 @@ public struct RenderInfo {
     var renderBlock: AURenderBlock
     var inputBlock: AURenderPullInputBlock
     var avAudioEngine: AVAudioEngine?
+
+    /// Number of inputs feeding this AU.
+    var inputCount: Int
+
+    /// Number of inputs already executed during processing.
+    ///
+    /// When this reaches zero we are ready to go.
+    var finishedInputs: Int = 0
 }
 
 /// Information about what the engine needs to run on the audio thread.
