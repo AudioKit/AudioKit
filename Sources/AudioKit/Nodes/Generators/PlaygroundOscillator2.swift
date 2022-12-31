@@ -115,22 +115,18 @@ class PlaygroundOscillatorAudioUnit: AUAudioUnit {
 
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
 
-        var events = events
-        while let event = events {
+        process(events: events,
+                param: { event in
 
-            if event.pointee.head.eventType == .parameter {
+            let paramEvent = event.pointee
 
-                let paramEvent = event.pointee.parameter
-
-                switch paramEvent.parameterAddress {
-                case 0: frequency = paramEvent.value
-                case 1: amplitude = paramEvent.value
-                default: break
-                }
+            switch paramEvent.parameterAddress {
+            case 0: frequency = paramEvent.value
+            case 1: amplitude = paramEvent.value
+            default: break
             }
 
-            events = .init(event.pointee.head.next)
-        }
+        })
 
     }
 

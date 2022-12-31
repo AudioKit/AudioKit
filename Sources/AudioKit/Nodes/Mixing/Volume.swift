@@ -86,23 +86,15 @@ class VolumeAudioUnit: AUAudioUnit {
 
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
 
-        var events = events
-        while let event = events {
+        process(events: events, param: { event in
+            let paramEvent = event.pointee
 
-            if event.pointee.head.eventType == .parameter {
-
-                let paramEvent = event.pointee.parameter
-
-                switch paramEvent.parameterAddress {
-                case 0: volume = paramEvent.value
-                case 1: pan = paramEvent.value
-                default: break
-                }
+            switch paramEvent.parameterAddress {
+            case 0: volume = paramEvent.value
+            case 1: pan = paramEvent.value
+            default: break
             }
-
-            events = .init(event.pointee.head.next)
-        }
-
+        })
     }
 
     override var internalRenderBlock: AUInternalRenderBlock {

@@ -474,24 +474,18 @@ public class EngineAudioUnit: AUAudioUnit {
 
     /// Decode a MIDI sysex message containing a pointer to a new ExecSchedule.
     func updateDSPList(events: UnsafePointer<AURenderEvent>?) {
-        var events = events
-        while let event = events {
+        process(events: events, sysex: { pointer in
+            // Maybe a little sketchy to init this to 0, but didn't
+            // see something better.
+            var ptr = UnsafeMutablePointer<AudioProgram>.init(bitPattern: 0)
+            decodeSysex(pointer, &ptr)
 
-            event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1) { pointer in
-                // Maybe a little sketchy to init this to 0, but didn't
-                // see something better.
-                var ptr = UnsafeMutablePointer<AudioProgram>.init(bitPattern: 0)
-                decodeSysex(pointer, &ptr)
-
-                if let oldList = self.dspList {
-                    oldList.pointee.done = true
-                }
-
-                self.dspList = ptr
-
-                events = .init(pointer.pointee.next)
+            if let oldList = self.dspList {
+                oldList.pointee.done = true
             }
-        }
+
+            self.dspList = ptr
+        })
     }
     
     override public var internalRenderBlock: AUInternalRenderBlock {
