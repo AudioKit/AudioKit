@@ -436,8 +436,11 @@ public class EngineAudioUnit: AUAudioUnit {
     override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
 
+        // Initial guess for the number of worker threads.
+        let workerCount = 8
+
         // Start workers.
-        for _ in 0..<8 {
+        for _ in 0..<workerCount {
             let worker = WorkerThread()
             worker.start()
             workers.append(worker)
