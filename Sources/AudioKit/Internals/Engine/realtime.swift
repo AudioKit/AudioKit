@@ -2,6 +2,9 @@
 
 import Foundation
 
+/// Set the current thread to realtime priority.
+///
+/// Adapted from [here](https://developer.apple.com/library/archive/documentation/Darwin/Conceptual/KernelProgramming/scheduler/scheduler.html)
 func set_realtime(period: UInt32, computation: UInt32, constraint: UInt32) -> Bool {
     let TIME_CONSTRAINT_POLICY: UInt32 = 2
     let TIME_CONSTRAINT_POLICY_COUNT = UInt32(MemoryLayout<thread_time_constraint_policy_data_t>.size / MemoryLayout<integer_t>.size)
