@@ -3,6 +3,7 @@
 import Foundation
 import AudioUnit
 import AVFoundation
+import AudioToolbox
 
 public struct ExecInfo {
     var outputBuffer: UnsafeMutablePointer<AudioBufferList>
@@ -24,6 +25,14 @@ class WorkerThread: Thread {
         print ("worker thread")
     }
 }
+
+// Apple won't allow us to use this. Fuck them!
+public struct AKAudioUnitRenderContext {
+    var workgroup: os_workgroup_t
+    var reserved: (UInt32, UInt32, UInt32, UInt32, UInt32, UInt32)  // must be zero
+}
+
+public typealias AKAURenderContextObserver = (UnsafeRawPointer?) -> Void
 
 /// Our single audio unit which will evaluate all audio units.
 public class EngineAudioUnit: AUAudioUnit {
@@ -65,6 +74,38 @@ public class EngineAudioUnit: AUAudioUnit {
             let worker = WorkerThread()
             worker.start()
             workers.append(worker)
+        }
+
+        let oldSelector = Selector(("renderContextObserver"))
+
+        guard let oldMethod = class_getInstanceMethod(EngineAudioUnit.self, oldSelector) else {
+            fatalError()
+        }
+
+        let oldType = method_getTypeEncoding(oldMethod)!
+        print("oldType: \(String(cString: oldType))")
+
+        guard let method = class_getInstanceMethod(EngineAudioUnit.self, #selector(EngineAudioUnit.akRenderContextObserver)) else {
+            fatalError()
+        }
+
+        let newType = method_getTypeEncoding(method)!
+        print("newType: \(String(cString: newType))")
+
+        let imp = method_getImplementation(method)
+
+        // class_addMethod(EngineAudioUnit.self, #selector(akRenderContextObserver), imp, newType)
+        class_replaceMethod(EngineAudioUnit.self,
+                            oldSelector,
+                            imp,
+                            newType)
+
+    }
+
+    @objc dynamic public func akRenderContextObserver() -> AKAURenderContextObserver {
+        print("in akRenderContextObserver")
+        return { _ in
+            print("in render context observer")
         }
     }
 
