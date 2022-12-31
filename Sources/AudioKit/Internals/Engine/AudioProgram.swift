@@ -13,12 +13,12 @@ public struct RenderInfo {
     var avAudioEngine: AVAudioEngine?
 
     /// Number of inputs feeding this AU.
-    var inputCount: Int
+    var inputCount: Int32
 
     /// Number of inputs already executed during processing.
     ///
     /// When this reaches zero we are ready to go.
-    var finishedInputs: Int = 0
+    var finishedInputs: Int32 = 0
 
     /// Indices of AUs that this one feeds.
     var outputIndices: [Int]
@@ -39,6 +39,9 @@ public struct AudioProgram {
     /// Are we done using this schedule?
     var done: Bool = false
 
+    /// How many AUs are remain to be run?
+    var remaining: Int32 = 0
+
     init(infos: [RenderInfo], generatorIndices: [Int]) {
         self.infos = infos
         self.runQueue = AtomicList(size: infos.count)
@@ -50,6 +53,74 @@ public struct AudioProgram {
         runQueue.clear()
         for index in generatorIndices {
             runQueue.push(index)
+        }
+        for i in infos.indices {
+            infos[i].finishedInputs = 0
+        }
+        remaining = Int32(infos.count)
+    }
+
+    mutating func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+                      timeStamp: UnsafePointer<AudioTimeStamp>,
+                      frameCount: AUAudioFrameCount) {
+
+        while remaining > 0 {
+
+            // Pop an index off our queue.
+            if let index = runQueue.pop() {
+
+                // Execute index.
+
+                let info = infos[index]
+                let out = info.outputBuffer
+
+                let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(out)
+
+                // AUs may change the output size, so reset it.
+                outputBufferListPointer[0].mDataByteSize = frameCount * UInt32(MemoryLayout<Float>.size)
+                outputBufferListPointer[1].mDataByteSize = frameCount * UInt32(MemoryLayout<Float>.size)
+
+                let data0Before = outputBufferListPointer[0].mData
+                let data1Before = outputBufferListPointer[1].mData
+
+                // Do the actual DSP.
+                let status = info.renderBlock(actionFlags,
+                                              timeStamp,
+                                              frameCount,
+                                              0,
+                                              out,
+                                              info.inputBlock)
+
+                // Make sure the AU doesn't change the buffer pointers!
+                assert(outputBufferListPointer[0].mData == data0Before)
+                assert(outputBufferListPointer[1].mData == data1Before)
+
+                // Propagate errors.
+                if status != noErr {
+                    switch status {
+                    case kAudioUnitErr_NoConnection:
+                        print("got kAudioUnitErr_NoConnection")
+                    case kAudioUnitErr_TooManyFramesToProcess:
+                        print("got kAudioUnitErr_TooManyFramesToProcess")
+                    case AVAudioEngineManualRenderingError.notRunning.rawValue:
+                        print("got AVAudioEngineManualRenderingErrorNotRunning")
+                    case kAudio_ParamError:
+                        print("got kAudio_ParamError")
+                    default:
+                        print("unknown rendering error \(status)")
+                    }
+                }
+
+                // Increment outputs.
+                for outputIndex in infos[index].outputIndices {
+                    if OSAtomicIncrement32(&infos[outputIndex].finishedInputs) == infos[outputIndex].inputCount {
+
+                        runQueue.push(outputIndex)
+                    }
+                }
+
+                OSAtomicDecrement32(&remaining)
+            }
         }
     }
 }

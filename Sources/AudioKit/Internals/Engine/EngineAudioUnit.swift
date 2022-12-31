@@ -315,7 +315,7 @@ public class EngineAudioUnit: AUAudioUnit {
                                           outputPCMBuffer: nodeBuffer,
                                           renderBlock: volumeAU.renderBlock,
                                           inputBlock: inputBlock,
-                                          inputCount: node.connections.count,
+                                          inputCount: Int32(node.connections.count),
                                           outputIndices: outputs[ObjectIdentifier(mixer)] ?? [])
 
                     renderList.append(info)
@@ -333,7 +333,7 @@ public class EngineAudioUnit: AUAudioUnit {
                                           outputPCMBuffer: nodeBuffer,
                                           renderBlock: node.au.renderBlock,
                                           inputBlock: inputBlock,
-                                          inputCount: node.connections.count,
+                                          inputCount: Int32(node.connections.count),
                                           outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
                     renderList.append(info)
@@ -367,7 +367,7 @@ public class EngineAudioUnit: AUAudioUnit {
                                           renderBlock: renderBlock,
                                           inputBlock: inputBlock,
                                           avAudioEngine: avEngine,
-                                          inputCount: node.connections.count,
+                                          inputCount: Int32(node.connections.count),
                                           outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
                     renderList.append(info)
