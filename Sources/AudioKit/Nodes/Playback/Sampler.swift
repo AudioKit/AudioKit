@@ -186,19 +186,9 @@ class SamplerAudioUnit: AUAudioUnit {
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
 
-            var events = renderEvents
-            while let event = events {
-
-                // We know we at least have a header.
-                let eventType = event.withMemoryRebound(to: AURenderEventHeader.self, capacity: 1) { pointer in
-                    pointer.pointee.eventType
-                }
-
-                switch eventType {
-                case .MIDI:
-
-                    event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1) { pointer in
-                        let data = pointer.pointee.data
+            process(events: renderEvents,
+                    midi: { event in
+                        let data = event.pointee.data
                         let command = data.0 & 0xF0
                         let noteNumber = data.1
                         if command == noteOnByte {
@@ -208,38 +198,30 @@ class SamplerAudioUnit: AUAudioUnit {
                         } else if command == noteOffByte {
                             // XXX: ignore for now
                         }
-                    }
+                    },
+                    sysex: { event in
+                        var command: SamplerCommand = SamplerCommand.playSample(nil)
 
-                case .midiSysEx:
-                    var command: SamplerCommand = SamplerCommand.playSample(nil)
+                        decodeSysex(event, &command)
 
-                    event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1) { pointer in
-                        decodeSysex(pointer, &command)
-                    }
+                        switch command {
+                        case .playSample(let ptr):
+                            if let voiceIndex = self.getVoice() {
+                                self.voices[voiceIndex].sample = ptr
 
-                    switch command {
-                    case .playSample(let ptr):
-                        if let voiceIndex = self.getVoice() {
-                            self.voices[voiceIndex].sample = ptr
+                                // XXX: shoudn't be calling frameLength here (ObjC call)
+                                self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.pcmBuffer.frameLength)
+                                self.voices[voiceIndex].playhead = 0
+                            }
 
-                            // XXX: shoudn't be calling frameLength here (ObjC call)
-                            self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.pcmBuffer.frameLength)
-                            self.voices[voiceIndex].playhead = 0
+                        case .assignSample(let ptr, let noteNumber):
+                            self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
+                        case .stop:
+                            for index in 0..<self.voices.count {
+                                self.voices[index].inUse = false
+                            }
                         }
-
-                    case .assignSample(let ptr, let noteNumber):
-                        self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
-                    case .stop:
-                        for index in 0..<self.voices.count {
-                            self.voices[index].inUse = false
-                        }
-                    }
-                default:
-                    break
-                }
-
-                events = .init(event.pointee.head.next)
-            }
+                    })
 
             let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
