@@ -234,6 +234,22 @@ public class EngineAudioUnit: AUAudioUnit {
         return buffers
     }
 
+    func getOutputs(nodes: [Node]) -> [ObjectIdentifier: [Int]] {
+
+        var nodeOutputs: [ObjectIdentifier: [Int]] = [:]
+
+        for (index, node) in nodes.enumerated() {
+            for input in node.connections {
+                let inputId = ObjectIdentifier(input)
+                var outputs = nodeOutputs[inputId] ?? []
+                outputs.append(index)
+                nodeOutputs[inputId] = outputs
+            }
+        }
+
+        return nodeOutputs
+    }
+
     /// Recompiles our DAG of nodes into a list of render functions to be called on the audio thread.
     func compile() {
         // Traverse the node graph to schedule
@@ -250,6 +266,9 @@ public class EngineAudioUnit: AUAudioUnit {
             var list: [Node] = []
 
             schedule(node: output, scheduled: &scheduled, list: &list)
+
+            // So we can look up indices of outputs.
+            let outputs = getOutputs(nodes: list)
 
             // Generate output buffers for each AU.
             let buffers = makeBuffers(nodes: list)
@@ -296,7 +315,8 @@ public class EngineAudioUnit: AUAudioUnit {
                                           outputPCMBuffer: nodeBuffer,
                                           renderBlock: volumeAU.renderBlock,
                                           inputBlock: inputBlock,
-                                          inputCount: node.connections.count)
+                                          inputCount: node.connections.count,
+                                          outputIndices: outputs[ObjectIdentifier(mixer)] ?? [])
 
                     execList.append(info)
 
@@ -313,7 +333,8 @@ public class EngineAudioUnit: AUAudioUnit {
                                           outputPCMBuffer: nodeBuffer,
                                           renderBlock: node.au.renderBlock,
                                           inputBlock: inputBlock,
-                                          inputCount: node.connections.count)
+                                          inputCount: node.connections.count,
+                                          outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
                     execList.append(info)
 
@@ -346,7 +367,8 @@ public class EngineAudioUnit: AUAudioUnit {
                                           renderBlock: renderBlock,
                                           inputBlock: inputBlock,
                                           avAudioEngine: avEngine,
-                                          inputCount: node.connections.count)
+                                          inputCount: node.connections.count,
+                                          outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
                     execList.append(info)
 

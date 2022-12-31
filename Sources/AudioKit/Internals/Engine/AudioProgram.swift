@@ -19,6 +19,9 @@ public struct RenderInfo {
     ///
     /// When this reaches zero we are ready to go.
     var finishedInputs: Int = 0
+
+    /// Indices of AUs that this one feeds.
+    var outputIndices: [Int]
 }
 
 /// Information about what the engine needs to run on the audio thread.
@@ -29,6 +32,9 @@ public struct AudioProgram {
 
     /// Queue of AUs that are ready to be executed by worker threads.
     var runQueue: AtomicList
+
+    /// Nodes that we start processing first.
+    // var generatorIndices: [Int]
 
     /// Are we done using this schedule?
     var done: Bool = false
