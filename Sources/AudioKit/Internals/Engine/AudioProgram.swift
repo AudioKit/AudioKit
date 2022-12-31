@@ -34,13 +34,14 @@ public struct AudioProgram {
     var runQueue: AtomicList
 
     /// Nodes that we start processing first.
-    // var generatorIndices: [Int]
+    var generatorIndices: [Int]
 
     /// Are we done using this schedule?
     var done: Bool = false
 
-    init(infos: [RenderInfo]) {
+    init(infos: [RenderInfo], generatorIndices: [Int]) {
         self.infos = infos
         self.runQueue = AtomicList(size: infos.count)
+        self.generatorIndices = generatorIndices
     }
 }

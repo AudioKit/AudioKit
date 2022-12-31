@@ -204,7 +204,7 @@ public class EngineAudioUnit: AUAudioUnit {
         }
     }
 
-    public var schedule = AudioProgram(infos: [])
+    public var schedule = AudioProgram(infos: [], generatorIndices: [])
 
     var previousSchedules: [UnsafeMutablePointer<AudioProgram>] = []
 
@@ -376,7 +376,8 @@ public class EngineAudioUnit: AUAudioUnit {
             }
 
             // Save schedule.
-            schedule = AudioProgram(infos: execList)
+            schedule = AudioProgram(infos: execList,
+                                    generatorIndices: generatorIndices(nodes: list))
 
             // Update engine exec list.
             let ptr = UnsafeMutablePointer<AudioProgram>.allocate(capacity: 1)
@@ -420,9 +421,9 @@ public class EngineAudioUnit: AUAudioUnit {
     }
 
     /// Get just the signal generating nodes.
-    func generators(nodes: [Node]) -> [Node] {
-        nodes.filter { node in
-            node.connections.isEmpty
+    func generatorIndices(nodes: [Node]) -> [Int] {
+        nodes.enumerated().compactMap { (index, node) in
+            node.connections.isEmpty ? index : nil
         }
     }
 
