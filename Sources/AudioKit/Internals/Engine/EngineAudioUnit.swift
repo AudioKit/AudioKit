@@ -42,13 +42,7 @@ class WorkerThread: Thread {
     }
 }
 
-// Apple won't allow us to use this. Fuck them!
-public struct AKAudioUnitRenderContext {
-    var workgroup: os_workgroup_t
-    var reserved: (UInt32, UInt32, UInt32, UInt32, UInt32, UInt32)  // must be zero
-}
-
-public typealias AKAURenderContextObserver = (UnsafeRawPointer?) -> Void
+public typealias AKAURenderContextObserver = (UnsafePointer<os_workgroup_t>?) -> Void
 
 /// Our single audio unit which will evaluate all audio units.
 public class EngineAudioUnit: AUAudioUnit {
