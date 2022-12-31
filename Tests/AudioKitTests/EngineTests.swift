@@ -291,7 +291,6 @@ class EngineTests: XCTestCase {
         osc.play()
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
-        audio.audition()
     }
 
     func testRingBuffer() {
