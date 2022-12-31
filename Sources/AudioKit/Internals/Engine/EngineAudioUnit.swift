@@ -204,7 +204,7 @@ public class EngineAudioUnit: AUAudioUnit {
         }
     }
 
-    public var schedule = AudioProgram()
+    public var schedule = AudioProgram(infos: [])
 
     var previousSchedules: [UnsafeMutablePointer<AudioProgram>] = []
 
