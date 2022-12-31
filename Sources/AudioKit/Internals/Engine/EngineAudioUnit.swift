@@ -19,6 +19,12 @@ public struct ExecSchedule {
     var done: Bool = false
 }
 
+class WorkerThread: Thread {
+    override func main() {
+        print ("worker thread")
+    }
+}
+
 /// Our single audio unit which will evaluate all audio units.
 public class EngineAudioUnit: AUAudioUnit {
 
@@ -36,6 +42,8 @@ public class EngineAudioUnit: AUAudioUnit {
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
     }
+
+    var workers: [WorkerThread] = []
     
     /// Initialize with component description and options
     /// - Parameters:
@@ -52,6 +60,12 @@ public class EngineAudioUnit: AUAudioUnit {
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
         
         parameterTree = AUParameterTree.createTree(withChildren: [])
+
+        for _ in 0..<8 {
+            let worker = WorkerThread()
+            worker.start()
+            workers.append(worker)
+        }
     }
 
     deinit {
