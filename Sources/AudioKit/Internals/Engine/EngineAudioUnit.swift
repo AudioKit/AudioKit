@@ -429,8 +429,11 @@ public class EngineAudioUnit: AUAudioUnit {
     
     override public var internalRenderBlock: AUInternalRenderBlock {
 
-        /// Audio thread ONLY. Reference to currently executing schedule.
+        // Reference to currently executing schedule.
         var dspList: UnsafeMutablePointer<AudioProgram>?
+
+        // Worker threads. Create a variable here so self isn't captured.
+        let workers = self.workers
 
         return { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                   timeStamp: UnsafePointer<AudioTimeStamp>,
@@ -462,7 +465,7 @@ public class EngineAudioUnit: AUAudioUnit {
                 dspList.pointee.infos[dspList.pointee.infos.count-1].outputBuffer = outputBufferList
 
                 // Wake our worker threads.
-                for worker in self.workers {
+                for worker in workers {
                     worker.program = dspList
                     worker.actionFlags = actionFlags
                     worker.timeStamp = timeStamp
