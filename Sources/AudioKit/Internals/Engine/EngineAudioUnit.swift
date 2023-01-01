@@ -362,7 +362,7 @@ public class EngineAudioUnit: AUAudioUnit {
         try super.allocateRenderResources()
 
         // Initial guess for the number of worker threads.
-        let workerCount = 0 // XXX: disable worker threads for now
+        let workerCount = 4 // XXX: disable worker threads for now
 
         // Start workers.
         for _ in 0..<workerCount {
