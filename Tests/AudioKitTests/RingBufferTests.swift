@@ -76,6 +76,8 @@ final class RingBufferTests: XCTestCase {
 
         consumer.start()
         producer.start()
+
+        sleep(1)
     }
 
 }
