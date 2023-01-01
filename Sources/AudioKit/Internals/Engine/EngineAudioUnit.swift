@@ -442,8 +442,7 @@ public class EngineAudioUnit: AUAudioUnit {
                     runQueue.push(index)
                 }
 
-                finishedInputs.reset()
-                dspList.prepare()
+                finishedInputs.reset(count: Int32(dspList.infos.count))
 
                 // Wake our worker threads.
                 for worker in workers {
@@ -453,6 +452,7 @@ public class EngineAudioUnit: AUAudioUnit {
                     worker.frameCount = frameCount
                     worker.outputBufferList = outputBufferList
                     worker.finishedInputs = finishedInputs
+                    worker.runQueue = runQueue
                     worker.wake.signal()
                 }
 

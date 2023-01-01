@@ -22,10 +22,13 @@ public struct RenderInfo {
 public class FinishedInputs {
     public var finished = [Int32](repeating: 0, count: 1024)
 
-    public func reset() {
+    public var remaining: Int32 = 0
+
+    public func reset(count: Int32) {
         for i in finished.indices {
             finished[i] = 0
         }
+        remaining = count
     }
 }
 
@@ -38,17 +41,9 @@ public class AudioProgram {
     /// Nodes that we start processing first.
     var generatorIndices: [Int]
 
-    /// How many AUs are remain to be run?
-    var remaining: Int32 = 0
-
     init(infos: [RenderInfo], generatorIndices: [Int]) {
         self.infos = infos
         self.generatorIndices = generatorIndices
-    }
-
-    /// Called before we wake the workers.
-    func prepare() {
-        remaining = Int32(infos.count)
     }
 
     func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -58,7 +53,7 @@ public class AudioProgram {
              runQueue: AtomicList,
              finishedInputs: FinishedInputs) {
 
-        while remaining > 0 {
+        while finishedInputs.remaining > 0 {
 
             // Pop an index off our queue.
             if let index = runQueue.pop() {
@@ -113,7 +108,7 @@ public class AudioProgram {
                     }
                 }
 
-                OSAtomicDecrement32(&remaining)
+                OSAtomicDecrement32(&finishedInputs.remaining)
             }
         }
     }
