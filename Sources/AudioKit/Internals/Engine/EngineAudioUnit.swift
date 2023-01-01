@@ -9,9 +9,6 @@ public typealias AKAURenderContextObserver = (UnsafePointer<os_workgroup_t>?) ->
 
 /// Our single audio unit which will evaluate all audio units.
 public class EngineAudioUnit: AUAudioUnit {
-
-    /// Audio thread ONLY. Reference to currently executing schedule.
-    var dspList: UnsafeMutablePointer<AudioProgram>?
     
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
@@ -429,35 +426,34 @@ public class EngineAudioUnit: AUAudioUnit {
 
         super.deallocateRenderResources()
     }
-
-    /// Decode a MIDI sysex message containing a pointer to a new ExecSchedule.
-    func updateDSPList(events: UnsafePointer<AURenderEvent>?) {
-        process(events: events, sysex: { pointer in
-            // Maybe a little sketchy to init this to 0, but didn't
-            // see something better.
-            var ptr = UnsafeMutablePointer<AudioProgram>.init(bitPattern: 0)
-            decodeSysex(pointer, &ptr)
-
-            if let oldList = self.dspList {
-                oldList.pointee.setDone()
-            }
-
-            self.dspList = ptr
-        })
-    }
     
     override public var internalRenderBlock: AUInternalRenderBlock {
-        { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-           timeStamp: UnsafePointer<AudioTimeStamp>,
-           frameCount: AUAudioFrameCount,
-           outputBusNumber: Int,
-           outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-           renderEvents: UnsafePointer<AURenderEvent>?,
-           inputBlock: AURenderPullInputBlock?) in
 
-            self.updateDSPList(events: renderEvents)
+        /// Audio thread ONLY. Reference to currently executing schedule.
+        var dspList: UnsafeMutablePointer<AudioProgram>?
 
-            if let dspList = self.dspList {
+        return { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+                  timeStamp: UnsafePointer<AudioTimeStamp>,
+                  frameCount: AUAudioFrameCount,
+                  outputBusNumber: Int,
+                  outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+                  renderEvents: UnsafePointer<AURenderEvent>?,
+                  inputBlock: AURenderPullInputBlock?) in
+
+            process(events: renderEvents, sysex: { pointer in
+                // Maybe a little sketchy to init this to 0, but didn't
+                // see something better.
+                var ptr = UnsafeMutablePointer<AudioProgram>.init(bitPattern: 0)
+                decodeSysex(pointer, &ptr)
+
+                if let oldList = dspList {
+                    oldList.pointee.setDone()
+                }
+
+                dspList = ptr
+            })
+
+            if let dspList = dspList {
 
                 // Clear our execution queue and push the generators.
                 dspList.pointee.prepare()
