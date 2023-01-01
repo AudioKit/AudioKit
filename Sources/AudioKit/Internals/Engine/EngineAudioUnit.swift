@@ -322,13 +322,20 @@ public class EngineAudioUnit: AUAudioUnit {
             let schedule = AudioProgram(infos: renderList,
                                         generatorIndices: generatorIndices(nodes: list))
 
-            let array = encodeSysex(Unmanaged.passRetained(schedule))
-
-            if let block = cachedMIDIBlock {
-                block(.zero, 0, array.count, array)
+            programLock.withLock {
+                program = schedule
             }
+//            let array = encodeSysex(Unmanaged.passRetained(schedule))
+//
+//            if let block = cachedMIDIBlock {
+//                block(.zero, 0, array.count, array)
+//            }
         }
     }
+
+    // XXX: ignore rt-safety to satisfy tsan
+    let programLock = NSLock()
+    var program: AudioProgram?
 
     /// Get just the signal generating nodes.
     func generatorIndices(nodes: [Node]) -> [Int] {
@@ -386,7 +393,7 @@ public class EngineAudioUnit: AUAudioUnit {
     override public var internalRenderBlock: AUInternalRenderBlock {
 
         // Reference to currently executing schedule.
-        var dspList: AudioProgram?
+        // var dspList: AudioProgram?
 
         // Worker threads. Create a variable here so self isn't captured.
         let workers = self.workers
@@ -404,13 +411,18 @@ public class EngineAudioUnit: AUAudioUnit {
                   renderEvents: UnsafePointer<AURenderEvent>?,
                   inputBlock: AURenderPullInputBlock?) in
 
-            process(events: renderEvents, sysex: { pointer in
-                var program: Unmanaged<AudioProgram>?
-                decodeSysex(pointer, &program)
-                dspList = program?.takeRetainedValue()
-            })
+            // XXX: ignore rt-safety to satisfy TSAN.
+            let program = self.programLock.withLock {
+                self.program
+            }
 
-            if let dspList = dspList {
+//            process(events: renderEvents, sysex: { pointer in
+//                var program: Unmanaged<AudioProgram>?
+//                decodeSysex(pointer, &program)
+//                dspList = program?.takeRetainedValue()
+//            })
+
+            if let dspList = program {
 
                 runQueue.clear()
                 for index in dspList.generatorIndices {
