@@ -9,15 +9,11 @@ class EngineTests: XCTestCase {
         let engine = Engine()
         
         let osc = TestOscillator()
-        
-        XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
-        
+
         engine.output = osc
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
-
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 1)
 
         testMD5(audio)
     }
@@ -28,15 +24,11 @@ class EngineTests: XCTestCase {
         
         let osc = TestOscillator()
         let fx = AppleDistortion(osc)
-        
-        XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
-        
+
         engine.output = fx
         
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
-
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 2)
 
         testMD5(audio)
     }
@@ -48,15 +40,11 @@ class EngineTests: XCTestCase {
         let osc = TestOscillator()
         let dist = AppleDistortion(osc)
         let rev = Reverb(dist)
-        
-        XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
-        
+
         engine.output = rev
         
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
-
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 3)
 
         testMD5(audio)
     }

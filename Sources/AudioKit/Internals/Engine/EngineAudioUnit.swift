@@ -66,10 +66,6 @@ public class EngineAudioUnit: AUAudioUnit {
             print("in render context observer")
         }
     }
-
-    deinit {
-        print("deleting \(previousSchedules.count) schedules")
-    }
     
     override public var inputBusses: AUAudioUnitBusArray {
         inputBusArray
@@ -155,10 +151,6 @@ public class EngineAudioUnit: AUAudioUnit {
             return noErr
         }
     }
-
-    public var schedule = AudioProgram(infos: [], generatorIndices: [])
-
-    var previousSchedules: [AudioProgram] = []
 
     let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
 
@@ -327,32 +319,15 @@ public class EngineAudioUnit: AUAudioUnit {
                 }
             }
 
-            // Save schedule.
-            schedule = AudioProgram(infos: renderList,
-                                    generatorIndices: generatorIndices(nodes: list))
-
-            previousSchedules.append(schedule)
+            let schedule = AudioProgram(infos: renderList,
+                                        generatorIndices: generatorIndices(nodes: list))
 
             let array = encodeSysex(Unmanaged.passRetained(schedule))
 
             if let block = cachedMIDIBlock {
                 block(.zero, 0, array.count, array)
             }
-
-            cleanupSchedules()
         }
-    }
-
-    func cleanupSchedules() {
-
-        // Cleanup old schedules.
-        let oldCount = previousSchedules.count
-        previousSchedules = previousSchedules.filter { prog in
-            var prog = prog
-            return !isKnownUniquelyReferenced(&prog)
-        }
-        print("removed \(oldCount - previousSchedules.count) schedules")
-
     }
 
     /// Get just the signal generating nodes.
