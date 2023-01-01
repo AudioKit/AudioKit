@@ -393,7 +393,7 @@ public class EngineAudioUnit: AUAudioUnit {
     override public var internalRenderBlock: AUInternalRenderBlock {
 
         // Reference to currently executing schedule.
-        // var dspList: AudioProgram?
+        var dspList: AudioProgram?
 
         // Worker threads. Create a variable here so self isn't captured.
         let workers = self.workers
@@ -412,8 +412,9 @@ public class EngineAudioUnit: AUAudioUnit {
                   inputBlock: AURenderPullInputBlock?) in
 
             // XXX: ignore rt-safety to satisfy TSAN.
-            let program = self.programLock.withLock {
-                self.program
+            if self.programLock.try() {
+                dspList = self.program
+                self.programLock.unlock()
             }
 
 //            process(events: renderEvents, sysex: { pointer in
@@ -422,7 +423,7 @@ public class EngineAudioUnit: AUAudioUnit {
 //                dspList = program?.takeRetainedValue()
 //            })
 
-            if let dspList = program {
+            if let dspList = dspList {
 
                 runQueue.clear()
                 for index in dspList.generatorIndices {
