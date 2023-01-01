@@ -25,16 +25,13 @@ public struct RenderInfo {
 }
 
 /// Information about what the engine needs to run on the audio thread.
-public struct AudioProgram {
+public class AudioProgram {
 
     /// List of information about AudioUnits we're executing.
     public var infos: [RenderInfo] = []
 
     /// Nodes that we start processing first.
     var generatorIndices: [Int]
-
-    /// Are we done using this schedule?
-    private var done: UInt32 = 0
 
     /// How many AUs are remain to be run?
     var remaining: Int32 = 0
@@ -45,26 +42,18 @@ public struct AudioProgram {
     }
 
     /// Called before we wake the workers.
-    mutating func prepare() {
+    func prepare() {
         for i in infos.indices {
             infos[i].finishedInputs = 0
         }
         remaining = Int32(infos.count)
     }
 
-    mutating func setDone() {
-        OSAtomicOr32(1, &done)
-    }
-
-    mutating func isDone() -> Bool {
-        OSAtomicAdd32(0, &done) != 0
-    }
-
-    mutating func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-                      timeStamp: UnsafePointer<AudioTimeStamp>,
-                      frameCount: AUAudioFrameCount,
-                      outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-                      runQueue: AtomicList) {
+    func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+             timeStamp: UnsafePointer<AudioTimeStamp>,
+             frameCount: AUAudioFrameCount,
+             outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+             runQueue: AtomicList) {
 
         while remaining > 0 {
 

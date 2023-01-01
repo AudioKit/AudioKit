@@ -69,10 +69,6 @@ public class EngineAudioUnit: AUAudioUnit {
 
     deinit {
         print("deleting \(previousSchedules.count) schedules")
-        for ptr in previousSchedules {
-            ptr.deinitialize(count: 1)
-            ptr.deallocate()
-        }
     }
     
     override public var inputBusses: AUAudioUnitBusArray {
@@ -162,7 +158,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
     public var schedule = AudioProgram(infos: [], generatorIndices: [])
 
-    var previousSchedules: [UnsafeMutablePointer<AudioProgram>] = []
+    var previousSchedules: [AudioProgram] = []
 
     let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
 
@@ -335,12 +331,9 @@ public class EngineAudioUnit: AUAudioUnit {
             schedule = AudioProgram(infos: renderList,
                                     generatorIndices: generatorIndices(nodes: list))
 
-            // Update engine exec list.
-            let ptr = UnsafeMutablePointer<AudioProgram>.allocate(capacity: 1)
-            ptr.initialize(to: schedule)
-            previousSchedules.append(ptr)
+            previousSchedules.append(schedule)
 
-            let array = encodeSysex(ptr)
+            let array = encodeSysex(Unmanaged.passRetained(schedule))
 
             if let block = cachedMIDIBlock {
                 block(.zero, 0, array.count, array)
@@ -353,26 +346,12 @@ public class EngineAudioUnit: AUAudioUnit {
     func cleanupSchedules() {
 
         // Cleanup old schedules.
-        // Start from the end. Once we find a finished
-        // data, delete all data before and including.
-        var i = previousSchedules.count-1
-        while i > 0 {
-            if previousSchedules[i].pointee.isDone() {
-
-                print("removing \(i) old schedules")
-
-                for j in 0...i {
-                    let ptr = previousSchedules[j]
-                    ptr.deinitialize(count: 1)
-                    ptr.deallocate()
-                }
-
-                previousSchedules.removeFirst(i+1)
-
-                break
-            }
-            i -= 1
+        let oldCount = previousSchedules.count
+        previousSchedules = previousSchedules.filter { prog in
+            var prog = prog
+            return !isKnownUniquelyReferenced(&prog)
         }
+        print("removed \(oldCount - previousSchedules.count) schedules")
 
     }
 
@@ -432,7 +411,7 @@ public class EngineAudioUnit: AUAudioUnit {
     override public var internalRenderBlock: AUInternalRenderBlock {
 
         // Reference to currently executing schedule.
-        var dspList: UnsafeMutablePointer<AudioProgram>?
+        var dspList: AudioProgram?
 
         // Worker threads. Create a variable here so self isn't captured.
         let workers = self.workers
@@ -448,27 +427,20 @@ public class EngineAudioUnit: AUAudioUnit {
                   inputBlock: AURenderPullInputBlock?) in
 
             process(events: renderEvents, sysex: { pointer in
-                // Maybe a little sketchy to init this to 0, but didn't
-                // see something better.
-                var ptr = UnsafeMutablePointer<AudioProgram>.init(bitPattern: 0)
-                decodeSysex(pointer, &ptr)
-
-                if let oldList = dspList {
-                    oldList.pointee.setDone()
-                }
-
-                dspList = ptr
+                var program: Unmanaged<AudioProgram>?
+                decodeSysex(pointer, &program)
+                dspList = program?.takeRetainedValue()
             })
 
             if let dspList = dspList {
 
                 runQueue.clear()
-                for index in dspList.pointee.generatorIndices {
+                for index in dspList.generatorIndices {
                     runQueue.push(index)
                 }
 
                 // Clear our execution queue and push the generators.
-                dspList.pointee.prepare()
+                dspList.prepare()
 
                 // Wake our worker threads.
                 for worker in workers {
@@ -480,11 +452,11 @@ public class EngineAudioUnit: AUAudioUnit {
                     worker.wake.signal()
                 }
 
-                dspList.pointee.run(actionFlags: actionFlags,
-                                    timeStamp: timeStamp,
-                                    frameCount: frameCount,
-                                    outputBufferList: outputBufferList,
-                                    runQueue: runQueue)
+                dspList.run(actionFlags: actionFlags,
+                            timeStamp: timeStamp,
+                            frameCount: frameCount,
+                            outputBufferList: outputBufferList,
+                            runQueue: runQueue)
             } else {
 
                 // If we start processing before setting an output node,

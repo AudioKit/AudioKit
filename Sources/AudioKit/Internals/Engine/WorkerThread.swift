@@ -9,7 +9,7 @@ class WorkerThread: Thread {
 
     var run = true
     var wake = DispatchSemaphore(value: 0)
-    var program: UnsafeMutablePointer<AudioProgram>?
+    var program: AudioProgram?
     var actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>!
     var timeStamp: UnsafePointer<AudioTimeStamp>!
     var frameCount: AUAudioFrameCount = 0
@@ -40,11 +40,11 @@ class WorkerThread: Thread {
             wake.wait()
 
             if let program = program {
-                program.pointee.run(actionFlags: actionFlags,
-                                    timeStamp: timeStamp,
-                                    frameCount: frameCount,
-                                    outputBufferList: outputBufferList!,
-                                    runQueue: runQueue)
+                program.run(actionFlags: actionFlags,
+                            timeStamp: timeStamp,
+                            frameCount: frameCount,
+                            outputBufferList: outputBufferList!,
+                            runQueue: runQueue)
             } else {
                 print("worker has no program!")
             }
