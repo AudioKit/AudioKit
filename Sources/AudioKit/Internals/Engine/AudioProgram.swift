@@ -39,11 +39,20 @@ public class AudioProgram {
     public var infos: [RenderInfo] = []
 
     /// Nodes that we start processing first.
-    var generatorIndices: [Int]
+    var generatorIndices: UnsafeBufferPointer<Int>
 
     init(infos: [RenderInfo], generatorIndices: [Int]) {
-        self.infos = infos
-        self.generatorIndices = generatorIndices
+        self.infos = [RenderInfo](infos)
+
+        let ptr = UnsafeMutableBufferPointer<Int>.allocate(capacity: generatorIndices.count)
+        for i in generatorIndices.indices {
+            ptr[i] = generatorIndices[i]
+        }
+        self.generatorIndices = .init(ptr)
+    }
+
+    deinit {
+        generatorIndices.deallocate()
     }
 
     func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
