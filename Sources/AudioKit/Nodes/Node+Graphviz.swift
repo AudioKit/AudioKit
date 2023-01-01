@@ -8,7 +8,15 @@ extension ObjectIdentifier {
     }
 }
 
+fileprivate var labels: [ObjectIdentifier: String] = [:]
+
 public extension Node {
+
+    /// A label for to use when printing the dot.
+    var label: String {
+        get { labels[ObjectIdentifier(self)] ?? "" }
+        set { labels[ObjectIdentifier(self)] = newValue }
+    }
     
     /// Generates Graphviz (.dot) format for a chain of AudioKit nodes.
     ///
@@ -38,6 +46,10 @@ public extension Node {
         }
 
         seen.insert(id)
+
+        if label != "" {
+            str += "  \(type(of: self))_\(id.addressString) [label=\"\(label)\"];\n"
+        }
 
         // Print connections.
         for connection in connections {
