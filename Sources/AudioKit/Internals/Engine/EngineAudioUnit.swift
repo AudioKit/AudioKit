@@ -23,6 +23,8 @@ public class EngineAudioUnit: AUAudioUnit {
     }
 
     var workers: [WorkerThread] = []
+
+    var runQueue = AtomicList(size: 1024)
     
     /// Initialize with component description and options
     /// - Parameters:
@@ -406,7 +408,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
         // Start workers.
         for _ in 0..<workerCount {
-            let worker = WorkerThread()
+            let worker = WorkerThread(runQueue: runQueue)
             worker.start()
             workers.append(worker)
         }
@@ -435,6 +437,8 @@ public class EngineAudioUnit: AUAudioUnit {
         // Worker threads. Create a variable here so self isn't captured.
         let workers = self.workers
 
+        let runQueue = self.runQueue
+
         return { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                   timeStamp: UnsafePointer<AudioTimeStamp>,
                   frameCount: AUAudioFrameCount,
@@ -458,6 +462,11 @@ public class EngineAudioUnit: AUAudioUnit {
 
             if let dspList = dspList {
 
+                runQueue.clear()
+                for index in dspList.pointee.generatorIndices {
+                    runQueue.push(index)
+                }
+
                 // Clear our execution queue and push the generators.
                 dspList.pointee.prepare()
 
@@ -474,7 +483,8 @@ public class EngineAudioUnit: AUAudioUnit {
                 dspList.pointee.run(actionFlags: actionFlags,
                                     timeStamp: timeStamp,
                                     frameCount: frameCount,
-                                    outputBufferList: outputBufferList)
+                                    outputBufferList: outputBufferList,
+                                    runQueue: runQueue)
             } else {
 
                 // If we start processing before setting an output node,

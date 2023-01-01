@@ -14,6 +14,11 @@ class WorkerThread: Thread {
     var timeStamp: UnsafePointer<AudioTimeStamp>!
     var frameCount: AUAudioFrameCount = 0
     var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
+    var runQueue: AtomicList
+
+    init(runQueue: AtomicList) {
+        self.runQueue = runQueue
+    }
 
     override func main() {
 
@@ -38,7 +43,8 @@ class WorkerThread: Thread {
                 program.pointee.run(actionFlags: actionFlags,
                                     timeStamp: timeStamp,
                                     frameCount: frameCount,
-                                    outputBufferList: outputBufferList!)
+                                    outputBufferList: outputBufferList!,
+                                    runQueue: runQueue)
             } else {
                 print("worker has no program!")
             }

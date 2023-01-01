@@ -30,9 +30,6 @@ public struct AudioProgram {
     /// List of information about AudioUnits we're executing.
     public var infos: [RenderInfo] = []
 
-    /// Queue of AUs that are ready to be executed by worker threads.
-    var runQueue: AtomicList
-
     /// Nodes that we start processing first.
     var generatorIndices: [Int]
 
@@ -44,16 +41,11 @@ public struct AudioProgram {
 
     init(infos: [RenderInfo], generatorIndices: [Int]) {
         self.infos = infos
-        self.runQueue = AtomicList(size: infos.count)
         self.generatorIndices = generatorIndices
     }
 
     /// Called before we wake the workers.
     mutating func prepare() {
-        runQueue.clear()
-        for index in generatorIndices {
-            runQueue.push(index)
-        }
         for i in infos.indices {
             infos[i].finishedInputs = 0
         }
@@ -71,7 +63,8 @@ public struct AudioProgram {
     mutating func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                       timeStamp: UnsafePointer<AudioTimeStamp>,
                       frameCount: AUAudioFrameCount,
-                      outputBufferList: UnsafeMutablePointer<AudioBufferList>) {
+                      outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+                      runQueue: AtomicList) {
 
         while remaining > 0 {
 

@@ -6,7 +6,7 @@ import Foundation
 ///
 /// Note that item data is stored in a parallel array. Also, this list suffers from the ABA problem,
 /// but we will not be pushing a single item more than once.
-struct AtomicList {
+class AtomicList {
     var head: Int = -1
     var items: [Int]
 
@@ -16,14 +16,14 @@ struct AtomicList {
     }
 
     /// Clear the list. This is not thread safe.
-    mutating func clear() {
+    func clear() {
         for i in 0..<items.count {
             items[i] = -1
         }
     }
 
     /// Push an index.
-    mutating func push(_ value: Int) {
+    func push(_ value: Int) {
         assert(value < items.count)
 
         var oldHead = head
@@ -38,7 +38,7 @@ struct AtomicList {
     }
 
     /// Pop an index.
-    mutating func pop() -> Int? {
+    func pop() -> Int? {
 
         var oldHead = head
         if oldHead == -1 {
