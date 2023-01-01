@@ -8,7 +8,7 @@ public class RingBuffer<T> {
 
     var head: Int32 = 0
     var tail: Int32 = 0
-    var fillCount: Int32 = 0
+    var fillCount = ManagedAtomic<Int32>(0)
     var buffer: UnsafeMutableBufferPointer<T>
 
     public init() {
@@ -23,11 +23,10 @@ public class RingBuffer<T> {
     /// - Parameter value: value to be pushed
     /// - Returns: whether the value could be pushed (or not enough space)
     public func push(_ value: T) -> Bool {
-        assert(_isPOD(type(of: value)))
-        if Int32(buffer.count) - fillCount > 0 {
+        if Int32(buffer.count) - fillCount.load(ordering: .relaxed) > 0 {
             buffer[Int(head)] = value
             head = (head + 1) % Int32(buffer.count)
-            OSAtomicIncrement32(&fillCount)
+            fillCount.wrappingIncrement(ordering: .relaxed)
             return true
         }
         return false
@@ -37,12 +36,12 @@ public class RingBuffer<T> {
     /// - Parameter ptr: Buffer from which to read elements.
     /// - Returns: whether the elements could be pushed
     public func push(from ptr: UnsafeBufferPointer<T>) -> Bool {
-        if Int32(buffer.count) - fillCount >= ptr.count {
+        if Int32(buffer.count) - fillCount.load(ordering: .relaxed) >= ptr.count {
             for i in 0..<ptr.count {
                 buffer[Int(head)] = ptr[i]
                 head = (head + 1) % Int32(buffer.count)
             }
-            OSAtomicAdd32(Int32(ptr.count), &fillCount)
+            fillCount.wrappingIncrement(by: Int32(ptr.count), ordering: .relaxed)
             return true
         }
         return false
@@ -51,10 +50,10 @@ public class RingBuffer<T> {
     /// Pop off a single element
     /// - Returns: The element or nil if no elements were available.
     public func pop() -> T? {
-        if fillCount > 0 {
+        if fillCount.load(ordering: .relaxed) > 0 {
             let index = Int32(tail)
             tail = (tail + 1) % Int32(buffer.count)
-            OSAtomicDecrement32(&fillCount)
+            fillCount.wrappingDecrement(ordering: .relaxed)
             return buffer[Int(index)]
         }
         return nil
@@ -64,12 +63,12 @@ public class RingBuffer<T> {
     /// - Parameter ptr: Buffer to store elements.
     /// - Returns: whether the elements could be popped
     public func pop(to ptr: UnsafeMutableBufferPointer<T>) -> Bool {
-        if fillCount >= ptr.count {
+        if fillCount.load(ordering: .relaxed) >= ptr.count {
             for i in 0..<ptr.count {
                 ptr[i] = buffer[Int(tail)]
                 tail = (tail + 1) % Int32(buffer.count)
             }
-            OSAtomicAdd32(-Int32(ptr.count), &fillCount)
+            fillCount.wrappingDecrement(by: Int32(ptr.count), ordering: .relaxed)
             return true
         }
         return false
