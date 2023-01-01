@@ -146,4 +146,36 @@ class EngineRelatimeTests: XCTestCase {
         sleep(2)
     }
 
+    func testManyOscillators() throws {
+        let engine = Engine()
+
+        let mixer = Mixer()
+
+        for _ in 0..<100 {
+            mixer.addInput(TestOscillator())
+        }
+
+        mixer.volume = 0.001
+        engine.output = mixer
+
+        try engine.start()
+        sleep(2)
+    }
+
+    func testManyOscillatorsOld() throws {
+        let engine = AudioEngine()
+
+        let mixer = Mixer()
+
+        for _ in 0..<100 {
+            mixer.addInput(TestOscillator())
+        }
+
+        mixer.volume = 0.001
+        engine.output = mixer
+
+        try engine.start()
+        sleep(2)
+    }
+
 }
