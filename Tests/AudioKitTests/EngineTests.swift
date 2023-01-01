@@ -333,4 +333,40 @@ class EngineTests: XCTestCase {
         XCTAssertEqual(decoded, 42)
     }
 
+    func testManyOscillatorsPerf() throws {
+        let engine = Engine()
+
+        let mixer = Mixer()
+
+        for _ in 0..<100 {
+            mixer.addInput(TestOscillator())
+        }
+
+        mixer.volume = 0.001
+        engine.output = mixer
+
+        measure {
+            let audio = engine.startTest(totalDuration: 2.0)
+            audio.append(engine.render(duration: 2.0))
+        }
+    }
+
+    func testManyOscillatorsOldPerf() throws {
+        let engine = AudioEngine()
+
+        let mixer = Mixer()
+
+        for _ in 0..<100 {
+            mixer.addInput(TestOscillator())
+        }
+
+        mixer.volume = 0.001
+        engine.output = mixer
+
+        measure {
+            let audio = engine.startTest(totalDuration: 2.0)
+            audio.append(engine.render(duration: 2.0))
+        }
+    }
+
 }
