@@ -4,6 +4,7 @@ import Foundation
 import AudioUnit
 import AVFoundation
 import AudioToolbox
+import Atomics
 
 public struct RenderInfo {
     var outputBuffer: UnsafeMutablePointer<AudioBufferList>
@@ -33,7 +34,7 @@ public class FinishedInputs {
 }
 
 /// Information about what the engine needs to run on the audio thread.
-public class AudioProgram {
+public final class AudioProgram {
 
     /// List of information about AudioUnits we're executing.
     public var infos: [RenderInfo] = []
@@ -121,4 +122,8 @@ public class AudioProgram {
             }
         }
     }
+}
+
+extension AudioProgram: AtomicReference {
+
 }

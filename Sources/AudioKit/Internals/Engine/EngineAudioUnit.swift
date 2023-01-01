@@ -4,6 +4,7 @@ import Foundation
 import AudioUnit
 import AVFoundation
 import AudioToolbox
+import Atomics
 
 public typealias AKAURenderContextObserver = (UnsafePointer<os_workgroup_t>?) -> Void
 
@@ -322,9 +323,7 @@ public class EngineAudioUnit: AUAudioUnit {
             let schedule = AudioProgram(infos: renderList,
                                         generatorIndices: generatorIndices(nodes: list))
 
-            programLock.withLock {
-                program = schedule
-            }
+            program.store(schedule, ordering: .relaxed)
 //            let array = encodeSysex(Unmanaged.passRetained(schedule))
 //
 //            if let block = cachedMIDIBlock {
@@ -333,9 +332,7 @@ public class EngineAudioUnit: AUAudioUnit {
         }
     }
 
-    // XXX: ignore rt-safety to satisfy tsan
-    let programLock = NSLock()
-    var program: AudioProgram?
+    var program = ManagedAtomic<AudioProgram>(AudioProgram(infos: [], generatorIndices: []))
 
     /// Get just the signal generating nodes.
     func generatorIndices(nodes: [Node]) -> [Int] {
@@ -392,9 +389,6 @@ public class EngineAudioUnit: AUAudioUnit {
     
     override public var internalRenderBlock: AUInternalRenderBlock {
 
-        // Reference to currently executing schedule.
-        var dspList: AudioProgram?
-
         // Worker threads. Create a variable here so self isn't captured.
         let workers = self.workers
 
@@ -411,11 +405,7 @@ public class EngineAudioUnit: AUAudioUnit {
                   renderEvents: UnsafePointer<AURenderEvent>?,
                   inputBlock: AURenderPullInputBlock?) in
 
-            // XXX: ignore rt-safety to satisfy TSAN.
-            if self.programLock.try() {
-                dspList = self.program
-                self.programLock.unlock()
-            }
+            let dspList = self.program.load(ordering: .relaxed)
 
 //            process(events: renderEvents, sysex: { pointer in
 //                var program: Unmanaged<AudioProgram>?
@@ -423,46 +413,38 @@ public class EngineAudioUnit: AUAudioUnit {
 //                dspList = program?.takeRetainedValue()
 //            })
 
-            if let dspList = dspList {
-
-                runQueue.clear()
-                for index in dspList.generatorIndices {
-                    runQueue.push(index)
-                }
-
-                finishedInputs.reset(count: Int32(dspList.infos.count))
-
-                // Wake our worker threads.
-                for worker in workers {
-                    worker.program = dspList
-                    worker.actionFlags = actionFlags
-                    worker.timeStamp = timeStamp
-                    worker.frameCount = frameCount
-                    worker.outputBufferList = outputBufferList
-                    worker.finishedInputs = finishedInputs
-                    worker.runQueue = runQueue
-                    worker.wake.signal()
-                }
-
-                dspList.run(actionFlags: actionFlags,
-                            timeStamp: timeStamp,
-                            frameCount: frameCount,
-                            outputBufferList: outputBufferList,
-                            runQueue: runQueue,
-                            finishedInputs: finishedInputs)
-            } else {
-
-                // If we start processing before setting an output node,
-                // we won't have a execution schedule, so just clear the
-                // output.
-                let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
-
-                // Clear output.
-                for channel in 0 ..< outputBufferListPointer.count {
-                    outputBufferListPointer[channel].clear()
-                }
+            // Clear output.
+            let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
+            for channel in 0 ..< outputBufferListPointer.count {
+                outputBufferListPointer[channel].clear()
             }
-            
+
+            runQueue.clear()
+            for index in dspList.generatorIndices {
+                runQueue.push(index)
+            }
+
+            finishedInputs.reset(count: Int32(dspList.infos.count))
+
+            // Wake our worker threads.
+            for worker in workers {
+                worker.program = dspList
+                worker.actionFlags = actionFlags
+                worker.timeStamp = timeStamp
+                worker.frameCount = frameCount
+                worker.outputBufferList = outputBufferList
+                worker.finishedInputs = finishedInputs
+                worker.runQueue = runQueue
+                worker.wake.signal()
+            }
+
+            dspList.run(actionFlags: actionFlags,
+                        timeStamp: timeStamp,
+                        frameCount: frameCount,
+                        outputBufferList: outputBufferList,
+                        runQueue: runQueue,
+                        finishedInputs: finishedInputs)
+
             return noErr
         }
     }
