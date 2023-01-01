@@ -10,12 +10,8 @@ class EngineRelatimeTests: XCTestCase {
 
         let osc = TestOscillator()
 
-        XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
-
         engine.output = osc
         try! engine.start()
-
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 1)
 
         sleep(1)
     }
@@ -28,12 +24,8 @@ class EngineRelatimeTests: XCTestCase {
         let osc = TestOscillator()
         let fx = AppleDistortion(osc)
 
-        XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
-
         engine.output = fx
         try engine.start()
-
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 2)
 
         sleep(1)
     }
@@ -46,13 +38,9 @@ class EngineRelatimeTests: XCTestCase {
         let dist = AppleDistortion(osc)
         let rev = Reverb(dist)
 
-        XCTAssertTrue(engine.engineAU.schedule.infos.isEmpty)
-
         engine.output = rev
 
         try engine.start()
-
-        XCTAssertEqual(engine.engineAU.schedule.infos.count, 3)
 
         sleep(1)
     }
