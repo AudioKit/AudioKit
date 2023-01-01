@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
+import Atomics
 
 /// Lock-free FIFO based on TPCircularBuffer without the fancy VM mirroring stuff.
 public class RingBuffer<T> {
