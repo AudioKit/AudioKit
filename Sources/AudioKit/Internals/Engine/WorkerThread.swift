@@ -36,6 +36,7 @@ class WorkerThread: Thread {
         while run {
             wake.wait()
 
+            // Without this we get "worker has no program" on shutdown.
             if !run {
                 return
             }
