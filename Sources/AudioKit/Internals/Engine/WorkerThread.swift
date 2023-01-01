@@ -36,6 +36,10 @@ class WorkerThread: Thread {
         while run {
             wake.wait()
 
+            if !run {
+                return
+            }
+
             if let program = program {
                 program.run(actionFlags: actionFlags,
                             timeStamp: timeStamp,
