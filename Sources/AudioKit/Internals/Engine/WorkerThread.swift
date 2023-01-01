@@ -54,3 +54,30 @@ class WorkerThread: Thread {
         }
     }
 }
+
+class ThreadPool {
+
+    var workers: [WorkerThread] = []
+
+    init() {
+        // Initial guess for the number of worker threads.
+        let workerCount = 0 // XXX: disable worker threads for now
+
+        // Start workers.
+        for _ in 0..<workerCount {
+            let worker = WorkerThread()
+            worker.start()
+            workers.append(worker)
+        }
+    }
+
+    deinit {
+
+        // Shut down workers.
+        for worker in workers {
+            worker.run = false
+            worker.wake.signal()
+        }
+
+    }
+}

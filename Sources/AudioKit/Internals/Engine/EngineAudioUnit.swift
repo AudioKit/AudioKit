@@ -23,10 +23,6 @@ public class EngineAudioUnit: AUAudioUnit {
         return [inputChannelCount, outputChannelCount]
     }
 
-    var workers: [WorkerThread] = []
-
-
-    
     /// Initialize with component description and options
     /// - Parameters:
     ///   - componentDescription: Audio Component Description
@@ -361,28 +357,10 @@ public class EngineAudioUnit: AUAudioUnit {
     override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
 
-        // Initial guess for the number of worker threads.
-        let workerCount = 4 // XXX: disable worker threads for now
-
-        // Start workers.
-        for _ in 0..<workerCount {
-            let worker = WorkerThread()
-            worker.start()
-            workers.append(worker)
-        }
-
         compile()
     }
     
     override public func deallocateRenderResources() {
-
-        // Shut down workers.
-        for worker in workers {
-            worker.run = false
-            worker.wake.signal()
-        }
-
-        workers = []
 
         super.deallocateRenderResources()
     }
@@ -390,7 +368,7 @@ public class EngineAudioUnit: AUAudioUnit {
     override public var internalRenderBlock: AUInternalRenderBlock {
 
         // Worker threads. Create a variable here so self isn't captured.
-        let workers = self.workers
+        let pool = ThreadPool()
 
         let runQueue = AtomicList(size: 1024)
 
@@ -427,7 +405,7 @@ public class EngineAudioUnit: AUAudioUnit {
             finishedInputs.reset(count: Int32(dspList.infos.count))
 
             // Wake our worker threads.
-            for worker in workers {
+            for worker in pool.workers {
                 worker.program = dspList
                 worker.actionFlags = actionFlags
                 worker.timeStamp = timeStamp
