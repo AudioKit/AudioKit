@@ -358,7 +358,7 @@ public class EngineAudioUnit: AUAudioUnit {
         // data, delete all data before and including.
         var i = previousSchedules.count-1
         while i > 0 {
-            if previousSchedules[i].pointee.done {
+            if previousSchedules[i].pointee.isDone() {
 
                 print("removing \(i) old schedules")
 
@@ -405,7 +405,7 @@ public class EngineAudioUnit: AUAudioUnit {
         try super.allocateRenderResources()
 
         // Initial guess for the number of worker threads.
-        let workerCount = 8 // XXX: disable worker threads for now
+        let workerCount = 0 // XXX: disable worker threads for now
 
         // Start workers.
         for _ in 0..<workerCount {
@@ -439,7 +439,7 @@ public class EngineAudioUnit: AUAudioUnit {
             decodeSysex(pointer, &ptr)
 
             if let oldList = self.dspList {
-                oldList.pointee.done = true
+                oldList.pointee.setDone()
             }
 
             self.dspList = ptr

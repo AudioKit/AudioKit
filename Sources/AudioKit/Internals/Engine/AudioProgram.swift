@@ -37,7 +37,7 @@ public struct AudioProgram {
     var generatorIndices: [Int]
 
     /// Are we done using this schedule?
-    var done: Bool = false
+    private var done: UInt32 = 0
 
     /// How many AUs are remain to be run?
     var remaining: Int32 = 0
@@ -58,6 +58,14 @@ public struct AudioProgram {
             infos[i].finishedInputs = 0
         }
         remaining = Int32(infos.count)
+    }
+
+    mutating func setDone() {
+        OSAtomicOr32(1, &done)
+    }
+
+    mutating func isDone() -> Bool {
+        OSAtomicAdd32(0, &done) != 0
     }
 
     mutating func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
