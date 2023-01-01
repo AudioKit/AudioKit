@@ -26,9 +26,9 @@ class WorkerThread: Thread {
         let constraint = 0.5 * period
         let comp = 0.5 * constraint
 
-        if !set_realtime(period: UInt32(period), computation: UInt32(comp), constraint: UInt32(constraint)) {
-            print("failed to set worker thread to realtime priority")
-        }
+//        if !set_realtime(period: UInt32(period), computation: UInt32(comp), constraint: UInt32(constraint)) {
+//            print("failed to set worker thread to realtime priority")
+//        }
 
         while run {
             wake.wait()
