@@ -70,7 +70,8 @@ public struct AudioProgram {
 
     mutating func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                       timeStamp: UnsafePointer<AudioTimeStamp>,
-                      frameCount: AUAudioFrameCount) {
+                      frameCount: AUAudioFrameCount,
+                      outputBufferList: UnsafeMutablePointer<AudioBufferList>) {
 
         while remaining > 0 {
 
@@ -80,7 +81,7 @@ public struct AudioProgram {
                 // Execute index.
 
                 let info = infos[index]
-                let out = info.outputBuffer
+                let out = index == infos.count-1 ? outputBufferList : info.outputBuffer
 
                 let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(out)
 

@@ -13,6 +13,7 @@ class WorkerThread: Thread {
     var actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>!
     var timeStamp: UnsafePointer<AudioTimeStamp>!
     var frameCount: AUAudioFrameCount = 0
+    var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
 
     override func main() {
 
@@ -34,7 +35,10 @@ class WorkerThread: Thread {
             wake.wait()
 
             if let program = program {
-                program.pointee.run(actionFlags: actionFlags, timeStamp: timeStamp, frameCount: frameCount)
+                program.pointee.run(actionFlags: actionFlags,
+                                    timeStamp: timeStamp,
+                                    frameCount: frameCount,
+                                    outputBufferList: outputBufferList!)
             } else {
                 print("worker has no program!")
             }

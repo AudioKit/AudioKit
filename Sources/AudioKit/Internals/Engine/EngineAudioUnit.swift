@@ -461,21 +461,20 @@ public class EngineAudioUnit: AUAudioUnit {
                 // Clear our execution queue and push the generators.
                 dspList.pointee.prepare()
 
-                // Use the outputBufferList for the last AU in the schedule.
-                dspList.pointee.infos[dspList.pointee.infos.count-1].outputBuffer = outputBufferList
-
                 // Wake our worker threads.
                 for worker in workers {
                     worker.program = dspList
                     worker.actionFlags = actionFlags
                     worker.timeStamp = timeStamp
                     worker.frameCount = frameCount
+                    worker.outputBufferList = outputBufferList
                     worker.wake.signal()
                 }
 
                 dspList.pointee.run(actionFlags: actionFlags,
                                     timeStamp: timeStamp,
-                                    frameCount: frameCount)
+                                    frameCount: frameCount,
+                                    outputBufferList: outputBufferList)
             } else {
 
                 // If we start processing before setting an output node,
