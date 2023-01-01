@@ -32,4 +32,50 @@ final class RingBufferTests: XCTestCase {
 
     }
 
+    func testProducerConsumer() {
+
+        let buffer = RingBuffer<Int>()
+
+        class Producer: Thread {
+            var buffer: RingBuffer<Int>
+
+            init(buffer: RingBuffer<Int>) {
+                self.buffer = buffer
+            }
+
+            override func main() {
+                for i in 0 ..< 1000 {
+                    XCTAssertTrue(buffer.push(i))
+                }
+            }
+        }
+
+        class Consumer: Thread {
+            var buffer: RingBuffer<Int>
+
+            init(buffer: RingBuffer<Int>) {
+                self.buffer = buffer
+            }
+
+            override func main() {
+                for i in 0 ..< 1000 {
+
+                    while(true) {
+                        if let value = buffer.pop() {
+                            XCTAssertEqual(value, i)
+                            break
+                        }
+                    }
+
+                }
+            }
+        }
+
+        let producer = Producer(buffer: buffer)
+        let consumer = Consumer(buffer: buffer)
+
+        consumer.start()
+        producer.start()
+    }
+
 }
