@@ -15,13 +15,18 @@ public struct RenderInfo {
     /// Number of inputs feeding this AU.
     var inputCount: Int32
 
-    /// Number of inputs already executed during processing.
-    ///
-    /// When this reaches zero we are ready to go.
-    var finishedInputs: Int32 = 0
-
     /// Indices of AUs that this one feeds.
     var outputIndices: [Int]
+}
+
+public class FinishedInputs {
+    public var finished = [Int32](repeating: 0, count: 1024)
+
+    public func reset() {
+        for i in finished.indices {
+            finished[i] = 0
+        }
+    }
 }
 
 /// Information about what the engine needs to run on the audio thread.
@@ -43,9 +48,6 @@ public class AudioProgram {
 
     /// Called before we wake the workers.
     func prepare() {
-        for i in infos.indices {
-            infos[i].finishedInputs = 0
-        }
         remaining = Int32(infos.count)
     }
 
@@ -53,7 +55,8 @@ public class AudioProgram {
              timeStamp: UnsafePointer<AudioTimeStamp>,
              frameCount: AUAudioFrameCount,
              outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-             runQueue: AtomicList) {
+             runQueue: AtomicList,
+             finishedInputs: FinishedInputs) {
 
         while remaining > 0 {
 
@@ -104,7 +107,7 @@ public class AudioProgram {
 
                 // Increment outputs.
                 for outputIndex in infos[index].outputIndices {
-                    if OSAtomicIncrement32(&infos[outputIndex].finishedInputs) == infos[outputIndex].inputCount {
+                    if OSAtomicIncrement32(&finishedInputs.finished[outputIndex]) == infos[outputIndex].inputCount {
 
                         runQueue.push(outputIndex)
                     }

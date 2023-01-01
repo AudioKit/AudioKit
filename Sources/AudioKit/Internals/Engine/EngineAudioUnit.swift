@@ -24,7 +24,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
     var workers: [WorkerThread] = []
 
-    var runQueue = AtomicList(size: 1024)
+
     
     /// Initialize with component description and options
     /// - Parameters:
@@ -387,7 +387,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
         // Start workers.
         for _ in 0..<workerCount {
-            let worker = WorkerThread(runQueue: runQueue)
+            let worker = WorkerThread()
             worker.start()
             workers.append(worker)
         }
@@ -416,7 +416,10 @@ public class EngineAudioUnit: AUAudioUnit {
         // Worker threads. Create a variable here so self isn't captured.
         let workers = self.workers
 
-        let runQueue = self.runQueue
+        let runQueue = AtomicList(size: 1024)
+
+        // Number of inputs we've finished processing, by node.
+        let finishedInputs = FinishedInputs()
 
         return { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                   timeStamp: UnsafePointer<AudioTimeStamp>,
@@ -439,7 +442,7 @@ public class EngineAudioUnit: AUAudioUnit {
                     runQueue.push(index)
                 }
 
-                // Clear our execution queue and push the generators.
+                finishedInputs.reset()
                 dspList.prepare()
 
                 // Wake our worker threads.
@@ -449,6 +452,7 @@ public class EngineAudioUnit: AUAudioUnit {
                     worker.timeStamp = timeStamp
                     worker.frameCount = frameCount
                     worker.outputBufferList = outputBufferList
+                    worker.finishedInputs = finishedInputs
                     worker.wake.signal()
                 }
 
@@ -456,7 +460,8 @@ public class EngineAudioUnit: AUAudioUnit {
                             timeStamp: timeStamp,
                             frameCount: frameCount,
                             outputBufferList: outputBufferList,
-                            runQueue: runQueue)
+                            runQueue: runQueue,
+                            finishedInputs: finishedInputs)
             } else {
 
                 // If we start processing before setting an output node,

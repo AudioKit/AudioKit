@@ -14,11 +14,8 @@ class WorkerThread: Thread {
     var timeStamp: UnsafePointer<AudioTimeStamp>!
     var frameCount: AUAudioFrameCount = 0
     var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
-    var runQueue: AtomicList
-
-    init(runQueue: AtomicList) {
-        self.runQueue = runQueue
-    }
+    var runQueue = AtomicList(size: 0)
+    var finishedInputs = FinishedInputs()
 
     override func main() {
 
@@ -44,7 +41,8 @@ class WorkerThread: Thread {
                             timeStamp: timeStamp,
                             frameCount: frameCount,
                             outputBufferList: outputBufferList!,
-                            runQueue: runQueue)
+                            runQueue: runQueue,
+                            finishedInputs: finishedInputs)
             } else {
                 print("worker has no program!")
             }
