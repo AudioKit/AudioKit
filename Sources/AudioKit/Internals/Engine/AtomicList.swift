@@ -9,22 +9,19 @@ import Atomics
 /// but we will not be pushing a single item more than once.
 public class AtomicList {
     var head = ManagedAtomic<Int>(-1)
-    var items: UnsafeMutableBufferPointer<Int>
+    var items: [ManagedAtomic<Int>] = []
 
     /// Create an atomic list with a fixed number of potential items.
     public init(size: Int) {
-        self.items = UnsafeMutableBufferPointer.allocate(capacity: size)
-        clear()
-    }
-
-    deinit {
-        self.items.deallocate()
+        for i in 0..<size {
+            items.append(.init(-1))
+        }
     }
 
     /// Clear the list. This is not thread safe.
     public func clear() {
         for i in 0..<items.count {
-            items[i] = -1
+            items[i].store(-1, ordering: .relaxed)
         }
     }
 
@@ -33,7 +30,7 @@ public class AtomicList {
         assert(value < items.count)
 
         var oldHead = head.load(ordering: .relaxed)
-        items[value] = oldHead
+        items[value].store(oldHead, ordering: .relaxed)
 
         // Spin until we successfully push.
         while true {
@@ -44,7 +41,7 @@ public class AtomicList {
             }
 
             oldHead = original
-            items[value] = oldHead
+            items[value].store(oldHead, ordering: .relaxed)
         }
 
     }
@@ -59,7 +56,8 @@ public class AtomicList {
 
         // Spin until we successfullly pop.
         while true {
-            let (exchanged, original) = head.compareExchange(expected: oldHead, desired: items[oldHead], ordering: .relaxed)
+            let desired = items[oldHead].load(ordering: .relaxed)
+            let (exchanged, original) = head.compareExchange(expected: oldHead, desired: desired, ordering: .relaxed)
 
             if exchanged {
                 break
@@ -72,7 +70,7 @@ public class AtomicList {
         }
 
         // Clear the next item for the one we popped.
-        items[oldHead] = -1
+        items[oldHead].store(-1, ordering: .relaxed)
 
         return oldHead
     }
