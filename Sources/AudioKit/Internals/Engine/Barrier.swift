@@ -16,7 +16,11 @@ class Barrier {
     }
 
     func wait() {
-        while self.waiting.wrappingDecrementThenLoad(ordering: .relaxed) > 0 { }
+
+        waiting.wrappingDecrement(ordering: .relaxed)
+
+        // Spin until all threads have passed the barrier.
+        while waiting.load(ordering: .relaxed) > 0 { }
     }
 
 }
