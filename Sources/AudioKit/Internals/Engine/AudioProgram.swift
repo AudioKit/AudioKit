@@ -52,7 +52,7 @@ public final class AudioProgram {
              timeStamp: UnsafePointer<AudioTimeStamp>,
              frameCount: AUAudioFrameCount,
              outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-             runQueue: AtomicList,
+             runQueue: WorkStealingQueue<Int>,
              finishedInputs: FinishedInputs) {
 
         while finishedInputs.remaining.load(ordering: .relaxed) > 0 {

@@ -370,8 +370,6 @@ public class EngineAudioUnit: AUAudioUnit {
         // Worker threads. Create a variable here so self isn't captured.
         let pool = ThreadPool()
 
-        let runQueue = AtomicList(size: 1024)
-
         // Number of inputs we've finished processing, by node.
         let finishedInputs = FinishedInputs()
 
@@ -397,9 +395,10 @@ public class EngineAudioUnit: AUAudioUnit {
                 outputBufferListPointer[channel].clear()
             }
 
-            runQueue.clear()
-            for index in dspList.generatorIndices {
-                runQueue.push(index)
+            // Distribute the starting indices among workers.
+            // XXX: probably not safe to call push on the runQueue right here.
+            for (index, generatorIndex) in dspList.generatorIndices.enumerated() {
+                pool.workers[index % pool.workers.count].runQueue.push(generatorIndex)
             }
 
             finishedInputs.reset(count: Int32(dspList.infos.count))
@@ -412,18 +411,19 @@ public class EngineAudioUnit: AUAudioUnit {
                 worker.frameCount = frameCount
                 worker.outputBufferList = outputBufferList
                 worker.finishedInputs = finishedInputs
-                worker.runQueue = runQueue
             }
 
+            // Wake workers.
             pool.start()
 
-            dspList.run(actionFlags: actionFlags,
-                        timeStamp: timeStamp,
-                        frameCount: frameCount,
-                        outputBufferList: outputBufferList,
-                        runQueue: runQueue,
-                        finishedInputs: finishedInputs)
+//            dspList.run(actionFlags: actionFlags,
+//                        timeStamp: timeStamp,
+//                        frameCount: frameCount,
+//                        outputBufferList: outputBufferList,
+//                        runQueue: runQueue,
+//                        finishedInputs: finishedInputs)
 
+            // Wait for workers to finish.
             pool.wait()
 
             return noErr

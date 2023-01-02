@@ -5,6 +5,10 @@ import AudioUnit
 import AVFoundation
 import AudioToolbox
 
+extension Int: DefaultInit {
+    public init() { self = 0 }
+}
+
 class WorkerThread: Thread {
 
     var run = true
@@ -15,7 +19,7 @@ class WorkerThread: Thread {
     var timeStamp: UnsafePointer<AudioTimeStamp>!
     var frameCount: AUAudioFrameCount = 0
     var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
-    var runQueue = AtomicList(size: 0)
+    var runQueue = WorkStealingQueue<Int>()
     var finishedInputs = FinishedInputs()
 
     init(prod: DispatchSemaphore, done: DispatchSemaphore) {
