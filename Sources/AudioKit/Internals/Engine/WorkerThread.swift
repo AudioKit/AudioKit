@@ -81,7 +81,7 @@ class ThreadPool {
     init() {
 
         prod = DispatchSemaphore(value: 0)
-        done = DispatchSemaphore(value: workerCount)
+        done = DispatchSemaphore(value: 0)
 
         // Start workers.
         for _ in 0..<workerCount {
