@@ -6,7 +6,7 @@ import AVFoundation
 import AudioToolbox
 import Atomics
 
-public class RenderInfo {
+public class RenderJob {
     var outputBuffer: UnsafeMutablePointer<AudioBufferList>
     var outputPCMBuffer: AVAudioPCMBuffer
     var renderBlock: AURenderBlock
@@ -53,13 +53,13 @@ public class FinishedInputs {
 public final class AudioProgram {
 
     /// List of information about AudioUnits we're executing.
-    public var infos: [RenderInfo] = []
+    public var infos: [RenderJob] = []
 
     /// Nodes that we start processing first.
     var generatorIndices: UnsafeBufferPointer<Int>
 
-    init(infos: [RenderInfo], generatorIndices: [Int]) {
-        self.infos = [RenderInfo](infos)
+    init(infos: [RenderJob], generatorIndices: [Int]) {
+        self.infos = [RenderJob](infos)
 
         let ptr = UnsafeMutableBufferPointer<Int>.allocate(capacity: generatorIndices.count)
         for i in generatorIndices.indices {
