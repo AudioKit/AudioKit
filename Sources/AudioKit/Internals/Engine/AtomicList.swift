@@ -7,12 +7,12 @@ import Atomics
 ///
 /// Note that item data is stored in a parallel array. Also, this list suffers from the ABA problem,
 /// but we will not be pushing a single item more than once.
-class AtomicList {
+public class AtomicList {
     var head = ManagedAtomic<Int>(-1)
     var items: UnsafeMutableBufferPointer<Int>
 
     /// Create an atomic list with a fixed number of potential items.
-    init(size: Int) {
+    public init(size: Int) {
         self.items = UnsafeMutableBufferPointer.allocate(capacity: size)
         clear()
     }
@@ -22,14 +22,14 @@ class AtomicList {
     }
 
     /// Clear the list. This is not thread safe.
-    func clear() {
+    public func clear() {
         for i in 0..<items.count {
             items[i] = -1
         }
     }
 
     /// Push an index.
-    func push(_ value: Int) {
+    public func push(_ value: Int) {
         assert(value < items.count)
 
         var oldHead = head.load(ordering: .relaxed)
@@ -50,7 +50,7 @@ class AtomicList {
     }
 
     /// Pop an index.
-    func pop() -> Int? {
+    public func pop() -> Int? {
 
         var oldHead = head.load(ordering: .relaxed)
         if oldHead == -1 {
