@@ -6,7 +6,7 @@ import AVFoundation
 import AudioToolbox
 import Atomics
 
-public struct RenderInfo {
+public class RenderInfo {
     var outputBuffer: UnsafeMutablePointer<AudioBufferList>
     var outputPCMBuffer: AVAudioPCMBuffer
     var renderBlock: AURenderBlock
@@ -18,6 +18,16 @@ public struct RenderInfo {
 
     /// Indices of AUs that this one feeds.
     var outputIndices: [Int]
+
+    public init(outputBuffer: UnsafeMutablePointer<AudioBufferList>, outputPCMBuffer: AVAudioPCMBuffer, renderBlock: @escaping AURenderBlock, inputBlock: @escaping AURenderPullInputBlock, avAudioEngine: AVAudioEngine? = nil, inputCount: Int32, outputIndices: [Int]) {
+        self.outputBuffer = outputBuffer
+        self.outputPCMBuffer = outputPCMBuffer
+        self.renderBlock = renderBlock
+        self.inputBlock = inputBlock
+        self.avAudioEngine = avAudioEngine
+        self.inputCount = inputCount
+        self.outputIndices = outputIndices
+    }
 }
 
 public class FinishedInputs {
