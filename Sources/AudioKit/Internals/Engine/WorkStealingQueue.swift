@@ -16,7 +16,7 @@ protocol DefaultInit {
 /// Only the queue owner can perform pop and push operations,
 /// while others can steal data from the queue.
 /// Ported to swift from C++: https://github.com/taskflow/work-stealing-queue
-class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
+class WorkStealingQueue<T> where T: AtomicReference, T: DefaultInit {
 
     final class QueueArray: AtomicReference {
 
