@@ -155,6 +155,10 @@ class EngineTests: XCTestCase {
                 let s0 = audio.floatChannelData![0][i]
                 let s1 = audio2.floatChannelData![0][i]
                 XCTAssertEqual(s0, s1)
+                if s0 != s1 {
+                    break
+                }
+
             }
 
             // XCTAssertEqual(audio.md5, audio2.md5, "for volume \(volume)")
