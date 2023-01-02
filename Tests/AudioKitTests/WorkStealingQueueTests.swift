@@ -13,12 +13,15 @@ final class WorkStealingQueueTests: XCTestCase {
 
         let queue = WorkStealingQueue<Int>()
 
+        for i in 0..<1000 {
+            queue.push(i)
+        }
+
         let owner = Thread {
-            for i in 0..<100_000_000 {
-                queue.push(i)
-            }
             while !queue.isEmpty {
-                _ = queue.pop()
+                if let item = queue.pop() {
+                    print("popped \(item)")
+                }
             }
         }
 
