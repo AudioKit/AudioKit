@@ -27,6 +27,9 @@ final class AtomicListTests: XCTestCase {
                 while let index = list.pop() {
                     print("worker \(self.index) working on index \(index)")
                     usleep(100)
+                    if index < 10 {
+                        list.push(index+10)
+                    }
                 }
             }
         }
