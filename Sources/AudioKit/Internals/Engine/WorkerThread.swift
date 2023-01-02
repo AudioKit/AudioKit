@@ -8,7 +8,8 @@ import AudioToolbox
 class WorkerThread: Thread {
 
     var run = true
-    var wake = DispatchSemaphore(value: 0)
+    var prod: DispatchSemaphore
+    var done: DispatchSemaphore
     var program: AudioProgram?
     var actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>!
     var timeStamp: UnsafePointer<AudioTimeStamp>!
@@ -16,6 +17,11 @@ class WorkerThread: Thread {
     var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
     var runQueue = AtomicList(size: 0)
     var finishedInputs = FinishedInputs()
+
+    init(prod: DispatchSemaphore, done: DispatchSemaphore) {
+        self.prod = prod
+        self.done = done
+    }
 
     override func main() {
 
@@ -34,12 +40,14 @@ class WorkerThread: Thread {
 //        }
 
         while run {
-            wake.wait()
+            prod.wait()
 
             // Without this we get "worker has no program" on shutdown.
             if !run {
                 return
             }
+
+            // print("worker starting")
 
             if let program = program {
                 program.run(actionFlags: actionFlags,
@@ -51,23 +59,49 @@ class WorkerThread: Thread {
             } else {
                 print("worker has no program!")
             }
+
+            // print("worker done")
+            done.signal()
         }
     }
 }
 
+/// Pool of worker threads.
+///
+/// The CLAP host example uses two semaphores. See https://github.com/free-audio/clap-host/blob/56e5d267ac24593788ac1874e3643f670112cdaf/host/plugin-host.hh#L229
 class ThreadPool {
 
+    var prod: DispatchSemaphore
+    var done: DispatchSemaphore
     var workers: [WorkerThread] = []
 
+    // Initial guess for the number of worker threads.
+    let workerCount = 4 // XXX: disable worker threads for now
+
     init() {
-        // Initial guess for the number of worker threads.
-        let workerCount = 0 // XXX: disable worker threads for now
+
+        prod = DispatchSemaphore(value: 0)
+        done = DispatchSemaphore(value: workerCount)
 
         // Start workers.
         for _ in 0..<workerCount {
-            let worker = WorkerThread()
+            let worker = WorkerThread(prod: prod, done: done)
             worker.start()
             workers.append(worker)
+        }
+    }
+
+    /// Wake the threads.
+    func start() {
+        for _ in 0..<workerCount {
+            prod.signal()
+        }
+    }
+
+    /// Wait for threads to finish work.
+    func wait() {
+        for _ in 0..<workerCount {
+            done.wait()
         }
     }
 
@@ -76,7 +110,7 @@ class ThreadPool {
         // Shut down workers.
         for worker in workers {
             worker.run = false
-            worker.wake.signal()
+            worker.prod.signal()
         }
 
     }

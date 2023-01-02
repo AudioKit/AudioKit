@@ -413,8 +413,9 @@ public class EngineAudioUnit: AUAudioUnit {
                 worker.outputBufferList = outputBufferList
                 worker.finishedInputs = finishedInputs
                 worker.runQueue = runQueue
-                worker.wake.signal()
             }
+
+            pool.start()
 
             dspList.run(actionFlags: actionFlags,
                         timeStamp: timeStamp,
@@ -422,6 +423,8 @@ public class EngineAudioUnit: AUAudioUnit {
                         outputBufferList: outputBufferList,
                         runQueue: runQueue,
                         finishedInputs: finishedInputs)
+
+            pool.wait()
 
             return noErr
         }
