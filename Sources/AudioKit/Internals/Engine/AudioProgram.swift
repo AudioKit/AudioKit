@@ -23,13 +23,13 @@ public struct RenderInfo {
 public class FinishedInputs {
     public var finished = [Int32](repeating: 0, count: 1024)
 
-    public var remaining: Int32 = 0
+    public var remaining = ManagedAtomic<Int32>(0)
 
     public func reset(count: Int32) {
         for i in finished.indices {
             finished[i] = 0
         }
-        remaining = count
+        remaining.store(count, ordering: .relaxed)
     }
 }
 
@@ -63,7 +63,7 @@ public final class AudioProgram {
              runQueue: AtomicList,
              finishedInputs: FinishedInputs) {
 
-        while finishedInputs.remaining > 0 {
+        while finishedInputs.remaining.load(ordering: .relaxed) > 0 {
 
             // Pop an index off our queue.
             if let index = runQueue.pop() {
@@ -118,7 +118,7 @@ public final class AudioProgram {
                     }
                 }
 
-                OSAtomicDecrement32(&finishedInputs.remaining)
+                finishedInputs.remaining.wrappingDecrement(ordering: .relaxed)
             }
         }
     }
