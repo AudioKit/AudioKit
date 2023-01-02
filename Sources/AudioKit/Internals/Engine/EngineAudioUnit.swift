@@ -396,9 +396,10 @@ public class EngineAudioUnit: AUAudioUnit {
             }
 
             // Distribute the starting indices among workers.
-            // XXX: probably not safe to call push on the runQueue right here.
             for (index, generatorIndex) in dspList.generatorIndices.enumerated() {
-                pool.workers[index % pool.workers.count].runQueue.push(generatorIndex)
+
+                // XXX: This could fail under very heavy load.
+                _ = pool.workers[index % pool.workers.count].inputQueue.push(generatorIndex)
             }
 
             finishedInputs.reset(count: Int32(dspList.infos.count))
