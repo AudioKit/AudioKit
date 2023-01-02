@@ -9,11 +9,16 @@ import Atomics
 /// but we will not be pushing a single item more than once.
 class AtomicList {
     var head = ManagedAtomic<Int>(-1)
-    var items: [Int]
+    var items: UnsafeMutableBufferPointer<Int>
 
     /// Create an atomic list with a fixed number of potential items.
     init(size: Int) {
-        self.items = .init(repeating: -1, count: size)
+        self.items = UnsafeMutableBufferPointer.allocate(capacity: size)
+        clear()
+    }
+
+    deinit {
+        self.items.deallocate()
     }
 
     /// Clear the list. This is not thread safe.
