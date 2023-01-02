@@ -3,12 +3,6 @@
 import Foundation
 import AudioToolbox
 
-func eventType(event: UnsafePointer<AURenderEvent>) -> AURenderEventType {
-    event.withMemoryRebound(to: AURenderEventHeader.self, capacity: 1) { pointer in
-        pointer.pointee.eventType
-    }
-}
-
 /// Handles the ickyness of accessing AURenderEvents without reading off the end of the struct.
 ///
 /// - Parameters:
