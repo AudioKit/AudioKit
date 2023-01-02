@@ -7,11 +7,16 @@ import Foundation
 /// The CLAP host example uses two semaphores. See https://github.com/free-audio/clap-host/blob/56e5d267ac24593788ac1874e3643f670112cdaf/host/plugin-host.hh#L229
 class ThreadPool {
 
-    var prod: DispatchSemaphore
-    var done: DispatchSemaphore
+    /// For waking up the threads.
+    private var prod: DispatchSemaphore
+
+    /// For waiting for the workers to finish.
+    private var done: DispatchSemaphore
+
+    /// Worker threads.
     var workers: [WorkerThread] = []
 
-    // Initial guess for the number of worker threads.
+    /// Initial guess for the number of worker threads.
     let workerCount = 4 // XXX: disable worker threads for now
 
     init() {
