@@ -404,7 +404,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
             finishedInputs.reset(count: Int32(dspList.infos.count))
 
-            // Wake our worker threads.
+            // Setup worker threads.
             for worker in pool.workers {
                 worker.program = dspList
                 worker.actionFlags = actionFlags
