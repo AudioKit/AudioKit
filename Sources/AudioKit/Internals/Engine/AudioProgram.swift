@@ -21,13 +21,19 @@ public struct RenderInfo {
 }
 
 public class FinishedInputs {
-    public var finished = [Int32](repeating: 0, count: 1024)
+    public var finished: [ManagedAtomic<Int32>] = []
 
     public var remaining = ManagedAtomic<Int32>(0)
 
+    init() {
+        for _ in 0..<1024 {
+            finished.append(.init(0))
+        }
+    }
+
     public func reset(count: Int32) {
         for i in finished.indices {
-            finished[i] = 0
+            finished[i].store(0, ordering: .relaxed)
         }
         remaining.store(count, ordering: .relaxed)
     }
@@ -112,8 +118,7 @@ public final class AudioProgram {
 
                 // Increment outputs.
                 for outputIndex in infos[index].outputIndices {
-                    if OSAtomicIncrement32(&finishedInputs.finished[outputIndex]) == infos[outputIndex].inputCount {
-
+                    if finishedInputs.finished[outputIndex].wrappingIncrementThenLoad(ordering: .relaxed) == infos[outputIndex].inputCount {
                         runQueue.push(outputIndex)
                     }
                 }
