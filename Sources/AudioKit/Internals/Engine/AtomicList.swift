@@ -71,6 +71,9 @@ public class AtomicList {
             }
         }
 
+        // Clear the next item for the one we popped.
+        items[oldHead] = -1
+
         return oldHead
     }
 }
