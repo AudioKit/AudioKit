@@ -3,7 +3,7 @@
 import Foundation
 import Atomics
 
-protocol DefaultInit {
+public protocol DefaultInit {
     init()
 }
 
@@ -16,7 +16,7 @@ protocol DefaultInit {
 /// Only the queue owner can perform pop and push operations,
 /// while others can steal data from the queue.
 /// Ported to swift from C++: https://github.com/taskflow/work-stealing-queue
-class WorkStealingQueue<T> where T: AtomicReference, T: DefaultInit {
+public class WorkStealingQueue<T> where T: AtomicReference, T: DefaultInit {
 
     final class QueueArray: AtomicReference {
 
@@ -61,28 +61,28 @@ class WorkStealingQueue<T> where T: AtomicReference, T: DefaultInit {
     /// constructs the queue with a given capacity
     ///
     /// capacity the capacity of the queue (must be power of 2)
-    init(capacity c: Int = 1024) {
+    public init(capacity c: Int = 1024) {
         // assert(c && (!(c & (c-1))))
         _array = .init(QueueArray(c))
         _garbage.reserveCapacity(32)
     }
 
     /// queries if the queue is empty at the time of this call
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         let b = _bottom.load(ordering: .relaxed)
         let t = _top.load(ordering: .relaxed)
         return b <= t
     }
 
     /// queries the number of items at the time of this call
-    var count: Int {
+    public var count: Int {
         let b = _bottom.load(ordering: .relaxed)
         let t = _top.load(ordering: .relaxed)
         return b >= t ? b - t : 0
     }
 
     /// queries the capacity of the queue
-    var capacity: Int {
+    public var capacity: Int {
         _array.load(ordering: .relaxed).capacity
     }
 
@@ -91,7 +91,7 @@ class WorkStealingQueue<T> where T: AtomicReference, T: DefaultInit {
     /// Only the owner thread can insert an item to the queue.
     /// The operation can trigger the queue to resize its capacity
     /// if more space is required.
-    func push(_ o: T) {
+    public func push(_ o: T) {
         let b = _bottom.load(ordering: .relaxed)
         let t = _top.load(ordering: .acquiring)
         var a = _array.load(ordering: .relaxed)
@@ -113,7 +113,7 @@ class WorkStealingQueue<T> where T: AtomicReference, T: DefaultInit {
     ///
     /// Only the owner thread can pop out an item from the queue.
     /// The return can be a @std_nullopt if this operation failed (empty queue).
-    func pop() -> T? {
+    public func pop() -> T? {
         let b = _bottom.load(ordering: .relaxed) - 1
         let a = _array.load(ordering: .relaxed)
         _bottom.store(b, ordering: .relaxed)
@@ -146,7 +146,7 @@ class WorkStealingQueue<T> where T: AtomicReference, T: DefaultInit {
     ///
     /// Any threads can try to steal an item from the queue.
     /// The return can be nil if this operation failed (not necessary empty).
-    func steal() -> T? {
+    public func steal() -> T? {
         let t = _top.load(ordering: .acquiring)
         atomicMemoryFence(ordering: .sequentiallyConsistent)
         let b = _bottom.load(ordering: .acquiring)
