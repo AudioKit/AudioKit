@@ -9,6 +9,13 @@ func eventType(event: UnsafePointer<AURenderEvent>) -> AURenderEventType {
     }
 }
 
+/// Handles the ickyness of accessing AURenderEvents without reading off the end of the struct.
+///
+/// - Parameters:
+///   - events: render event list
+///   - midi: callback for midi events
+///   - sysex: callback for sysex events
+///   - param: callback for param events
 func process(events: UnsafePointer<AURenderEvent>?,
              midi: (UnsafePointer<AUMIDIEvent>) -> () = { _ in },
              sysex: (UnsafePointer<AUMIDIEvent>) -> () = { _ in },
