@@ -8,16 +8,16 @@ import Atomics
 
 /// Information to render a single AudioUnit
 public class RenderJob {
-    var outputBuffer: SynchronizedAudioBufferList
-    var renderBlock: AURenderBlock
-    var inputBlock: AURenderPullInputBlock
-    var avAudioEngine: AVAudioEngine?
+    let outputBuffer: SynchronizedAudioBufferList
+    let renderBlock: AURenderBlock
+    let inputBlock: AURenderPullInputBlock
+    let avAudioEngine: AVAudioEngine?
 
     /// Number of inputs feeding this AU.
-    var inputCount: Int32
+    let inputCount: Int32
 
     /// Indices of AUs that this one feeds.
-    var outputIndices: [Int]
+    let outputIndices: [Int]
 
     public init(outputBuffer: SynchronizedAudioBufferList,
                 renderBlock: @escaping AURenderBlock,
