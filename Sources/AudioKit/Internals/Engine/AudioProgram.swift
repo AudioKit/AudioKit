@@ -15,9 +15,9 @@ final class AudioProgram {
     /// Nodes that we start processing first.
     let generatorIndices: UnsafeBufferPointer<Int>
 
-    var finished = Vec<ManagedAtomic<Int32>>(count: 1024, { .init(0) })
+    private var finished = Vec<ManagedAtomic<Int32>>(count: 1024, { .init(0) })
 
-    var remaining = ManagedAtomic<Int32>(0)
+    private var remaining = ManagedAtomic<Int32>(0)
 
     init(infos: [RenderJob], generatorIndices: [Int]) {
         self.jobs = Vec(infos)
