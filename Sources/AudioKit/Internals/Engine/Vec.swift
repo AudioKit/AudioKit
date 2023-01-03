@@ -7,13 +7,13 @@ public protocol DefaultInit {
 }
 
 /// Fixed size vector.
-class Vec<T> where T: DefaultInit {
+class Vec<T> {
 
     private var storage: UnsafeMutableBufferPointer<T>
 
-    init(count: Int) {
+    init(count: Int, _ f: () -> T) {
         storage = UnsafeMutableBufferPointer<T>.allocate(capacity: count)
-        _ = storage.initialize(from: (0..<count).map { _ in T() })
+        _ = storage.initialize(from: (0..<count).map { _ in f() })
     }
 
     deinit {
@@ -30,5 +30,12 @@ class Vec<T> where T: DefaultInit {
         set(newElm) {
             storage[index] = newElm
         }
+    }
+}
+
+extension Vec : Sequence {
+
+    func makeIterator() -> UnsafeMutableBufferPointer<T>.Iterator {
+        return storage.makeIterator()
     }
 }
