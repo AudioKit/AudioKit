@@ -26,16 +26,16 @@ public class FinishedInputs {
 }
 
 /// Information about what the engine needs to run on the audio thread.
-public final class AudioProgram {
+final class AudioProgram {
 
     /// List of information about AudioUnits we're executing.
-    public var infos: [RenderJob] = []
+    var infos: Vec<RenderJob>
 
     /// Nodes that we start processing first.
     var generatorIndices: UnsafeBufferPointer<Int>
 
     init(infos: [RenderJob], generatorIndices: [Int]) {
-        self.infos = [RenderJob](infos)
+        self.infos = Vec(infos)
 
         let ptr = UnsafeMutableBufferPointer<Int>.allocate(capacity: generatorIndices.count)
         for i in generatorIndices.indices {
