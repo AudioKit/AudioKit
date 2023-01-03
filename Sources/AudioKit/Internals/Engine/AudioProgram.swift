@@ -15,12 +15,13 @@ final class AudioProgram {
     /// Nodes that we start processing first.
     let generatorIndices: UnsafeBufferPointer<Int>
 
-    private var finished = Vec<ManagedAtomic<Int32>>(count: 1024, { .init(0) })
+    private var finished: Vec<ManagedAtomic<Int32>>
 
     private var remaining = ManagedAtomic<Int32>(0)
 
-    init(infos: [RenderJob], generatorIndices: [Int]) {
-        self.jobs = Vec(infos)
+    init(jobs: [RenderJob], generatorIndices: [Int]) {
+        self.jobs = Vec(jobs)
+        self.finished = Vec<ManagedAtomic<Int32>>(count: jobs.count, { .init(0) })
 
         let ptr = UnsafeMutableBufferPointer<Int>.allocate(capacity: generatorIndices.count)
         for i in generatorIndices.indices {

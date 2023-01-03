@@ -279,7 +279,7 @@ public class EngineAudioUnit: AUAudioUnit {
                 } 
             }
 
-            program.store(AudioProgram(infos: renderList,
+            program.store(AudioProgram(jobs: renderList,
                                        generatorIndices: generatorIndices(nodes: list)),
                           ordering: .relaxed)
 //            let array = encodeSysex(Unmanaged.passRetained(schedule))
@@ -290,7 +290,7 @@ public class EngineAudioUnit: AUAudioUnit {
         }
     }
 
-    var program = ManagedAtomic<AudioProgram>(AudioProgram(infos: [], generatorIndices: []))
+    var program = ManagedAtomic<AudioProgram>(AudioProgram(jobs: [], generatorIndices: []))
 
     /// Get just the signal generating nodes.
     func generatorIndices(nodes: [Node]) -> [Int] {
