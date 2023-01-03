@@ -3,6 +3,10 @@
 import AudioUnit
 import AVFoundation
 
+enum PlaygroundOscillatorCommand {
+    case table(UnsafeMutablePointer<Table>?)
+}
+
 public class PlaygroundOscillator2: Node {
     public let connections: [Node] = []
 
@@ -10,7 +14,13 @@ public class PlaygroundOscillator2: Node {
 
     let oscAU: PlaygroundOscillatorAudioUnit
 
-    fileprivate var waveform: Table?
+    public var waveform: Table? {
+        didSet {
+            if let waveform = waveform {
+                oscAU.setWaveform(waveform)
+            }
+        }
+    }
     
     /// Output Volume (Default 1), values above 1 will have gain applied
     public var amplitude: AUValue = 1.0 {
@@ -48,6 +58,8 @@ public class PlaygroundOscillator2: Node {
         self.amplitude = amplitude
         self.oscAU.frequencyParam.value = frequency
         self.frequency = frequency
+        self.oscAU.setWaveform(waveform)
+        self.waveform = waveform
         self.stop()
     }
 }
@@ -66,9 +78,29 @@ class PlaygroundOscillatorAudioUnit: AUAudioUnit {
         return [inputChannelCount, outputChannelCount]
     }
 
+    var cachedMIDIBlock: AUScheduleMIDIEventBlock?
+
     let frequencyParam = AUParameterTree.createParameter(identifier: "frequency", name: "frequency", address: 0, range: 0...22050, unit: .hertz, flags: [])
 
     let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 1, range: 0...10, unit: .generic, flags: [])
+
+    func setWaveform(_ waveform: Table) {
+        let holder = UnsafeMutablePointer<Table>.allocate(capacity: 1)
+
+        holder.initialize(to: waveform)
+
+        let command: PlaygroundOscillatorCommand = .table(holder)
+        let sysex = encodeSysex(command)
+
+        if cachedMIDIBlock == nil {
+            cachedMIDIBlock = scheduleMIDIEventBlock
+            assert(cachedMIDIBlock != nil)
+        }
+
+        if let block = cachedMIDIBlock {
+            block(.zero, 0, sysex.count, sysex)
+        }
+    }
 
     /// Initialize with component description and options
     /// - Parameters:
@@ -113,21 +145,27 @@ class PlaygroundOscillatorAudioUnit: AUAudioUnit {
     /// Volume usually 0-1
     var amplitude: AUValue = 1
 
+    private var table = Table()
+
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
-
         process(events: events,
-                param: { event in
+                sysex: { event in
+            var command: PlaygroundOscillatorCommand = .table(nil)
 
+            decodeSysex(event, &command)
+            switch command {
+            case .table(let ptr):
+                table = ptr?.pointee ?? Table()
+            }
+        }, param: { event in
             let paramEvent = event.pointee
-
             switch paramEvent.parameterAddress {
             case 0: frequency = paramEvent.value
             case 1: amplitude = paramEvent.value
             default: break
             }
-
-        })
-
+        }
+            )
     }
 
     override var internalRenderBlock: AUInternalRenderBlock {
@@ -147,7 +185,8 @@ class PlaygroundOscillatorAudioUnit: AUAudioUnit {
             let phaseIncrement = (twoPi / AUValue(Settings.sampleRate)) * self.frequency
             for frame in 0 ..< Int(frameCount) {
                 // Get signal value for this frame at time.
-                let value = sin(self.currentPhase) * self.amplitude
+                let index = Int(self.currentPhase / twoPi * Float(self.table.count))
+                let value = self.table[index] * self.amplitude
 
                 // Advance the phase for the next frame.
                 self.currentPhase += phaseIncrement
