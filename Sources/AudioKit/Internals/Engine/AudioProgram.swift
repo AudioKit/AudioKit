@@ -10,7 +10,7 @@ import Atomics
 final class AudioProgram {
 
     /// List of information about AudioUnits we're executing.
-    let infos: Vec<RenderJob>
+    private let jobs: Vec<RenderJob>
 
     /// Nodes that we start processing first.
     let generatorIndices: UnsafeBufferPointer<Int>
@@ -20,7 +20,7 @@ final class AudioProgram {
     var remaining = ManagedAtomic<Int32>(0)
 
     init(infos: [RenderJob], generatorIndices: [Int]) {
-        self.infos = Vec(infos)
+        self.jobs = Vec(infos)
 
         let ptr = UnsafeMutableBufferPointer<Int>.allocate(capacity: generatorIndices.count)
         for i in generatorIndices.indices {
@@ -37,7 +37,7 @@ final class AudioProgram {
         for i in 0..<finished.count {
             finished[i].store(0, ordering: .relaxed)
         }
-        remaining.store(Int32(infos.count), ordering: .relaxed)
+        remaining.store(Int32(jobs.count), ordering: .relaxed)
     }
 
     func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -51,16 +51,16 @@ final class AudioProgram {
             // Pop an index off our queue.
             if let index = runQueue.pop() {
 
-                let info = infos[index]
+                let info = jobs[index]
 
                 info.render(actionFlags: actionFlags,
                             timeStamp: timeStamp,
                             frameCount: frameCount,
-                            outputBufferList: (index == infos.count-1) ? outputBufferList : nil)
+                            outputBufferList: (index == jobs.count-1) ? outputBufferList : nil)
 
                 // Increment outputs.
-                for outputIndex in infos[index].outputIndices {
-                    if finished[outputIndex].wrappingIncrementThenLoad(ordering: .relaxed) == infos[outputIndex].inputCount {
+                for outputIndex in jobs[index].outputIndices {
+                    if finished[outputIndex].wrappingIncrementThenLoad(ordering: .relaxed) == jobs[outputIndex].inputCount {
                         runQueue.push(outputIndex)
                     }
                 }
