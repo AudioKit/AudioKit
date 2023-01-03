@@ -2,10 +2,6 @@
 
 import Foundation
 
-public protocol DefaultInit {
-    init()
-}
-
 /// Fixed size vector.
 class Vec<T> {
 

@@ -3,6 +3,10 @@
 import Foundation
 import Atomics
 
+public protocol DefaultInit {
+    init()
+}
+
 /// Lock-free unbounded single-producer multiple-consumer queue.
 ///
 /// This class implements the work stealing queue described in the paper,
@@ -19,13 +23,12 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
         var C: Int
         var M: Int
 
-        var S: UnsafeMutableBufferPointer<ManagedAtomic<T>>
+        var S: Vec<ManagedAtomic<T>>
 
         init(_ c: Int) {
             C = c
             M = c-1
-            S = UnsafeMutableBufferPointer<ManagedAtomic<T>>.allocate(capacity: c)
-            _ = S.initialize(from: (0..<c).map { _ in ManagedAtomic(T()) })
+            S = Vec(count: c, { ManagedAtomic(T()) })
         }
 
         var capacity: Int { C }
