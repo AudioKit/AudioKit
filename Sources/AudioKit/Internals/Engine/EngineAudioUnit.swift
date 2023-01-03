@@ -234,7 +234,6 @@ public class EngineAudioUnit: AUAudioUnit {
                 let nodeBuffer = buffers[ObjectIdentifier(node)]!
 
                 let inputBuffers = node.connections.map { buffers[ObjectIdentifier($0)]! }
-                // let inputBufferLists = inputBuffers.map { $0.mutableAudioBufferList }
 
                 var inputBlock: AURenderPullInputBlock = { (_, _, _, _, _) in return noErr }
 
