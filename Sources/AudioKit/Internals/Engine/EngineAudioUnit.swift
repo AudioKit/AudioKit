@@ -277,43 +277,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
                     renderList.append(info)
 
-                } else {
-
-                    assert(false)
-
-                    // Other AVAudioNodes seem to need an AVAudioEngine, so make one!
-//                    let avEngine = AVAudioEngine()
-//                    try! avEngine.enableManualRenderingMode(.realtime, format: format, maximumFrameCount: maximumFramesToRender)
-//                    avEngine.attach(node.avAudioNode)
-//
-//                    assert(node.connections.count <= 1)
-//
-//                    if node.connections.count > 0 {
-//                        avEngine.connect(avEngine.inputNode, to: node.avAudioNode, format: nil)
-//
-//                        let bufferList = inputBufferLists.first!
-//                        avEngine.inputNode.setManualRenderingInputPCMFormat(format) { frames in
-//                            UnsafePointer(bufferList)
-//                        }
-//                    }
-//
-//                    avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: nil)
-//
-//                    let renderBlock = Self.avRenderBlock(block: avEngine.manualRenderingBlock)
-//
-//                    try! avEngine.start()
-//
-//                    let info = RenderJob(outputBuffer: nodeBuffer.mutableAudioBufferList,
-//                                         outputPCMBuffer: nodeBuffer,
-//                                         renderBlock: renderBlock,
-//                                         inputBlock: inputBlock,
-//                                         avAudioEngine: avEngine,
-//                                         inputCount: Int32(node.connections.count),
-//                                         outputIndices: outputs[ObjectIdentifier(node)] ?? [])
-//
-//                    renderList.append(info)
-
-                }
+                } 
             }
 
             let schedule = AudioProgram(infos: renderList,
