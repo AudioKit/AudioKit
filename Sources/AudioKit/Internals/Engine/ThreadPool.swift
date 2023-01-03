@@ -14,18 +14,15 @@ class ThreadPool {
     private var done = DispatchSemaphore(value: 0)
 
     /// Worker threads.
-    var workers: [WorkerThread] = []
+    var workers: Vec<WorkerThread>
 
     /// Initial guess for the number of worker threads.
     let workerCount = 4 // XXX: Need to query for actual worker count.
 
     init() {
-
-        // Start workers.
-        for _ in 0..<workerCount {
-            let worker = WorkerThread(prod: prod, done: done)
+        workers = .init(count: workerCount, { [prod, done] in WorkerThread(prod: prod, done: done) })
+        for worker in workers {
             worker.start()
-            workers.append(worker)
         }
     }
 
