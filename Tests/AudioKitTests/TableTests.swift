@@ -6,10 +6,10 @@ import XCTest
 class TableTests: XCTestCase {
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testReverseSawtooth() {
-        let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.reverseSawtooth))
-        engine.output = input
-        input.start()
+        let engine = Engine()
+        let osc = PlaygroundOscillator2(waveform: Table(.reverseSawtooth))
+        engine.output = osc
+        osc.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -17,8 +17,8 @@ class TableTests: XCTestCase {
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testSawtooth() {
-        let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.sawtooth))
+        let engine = Engine()
+        let input = PlaygroundOscillator2(waveform: Table(.sawtooth))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -26,23 +26,19 @@ class TableTests: XCTestCase {
         testMD5(audio)
     }
 
-    /* Can't test due to sine differences on M1 chip
     func testSine() {
-        let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.sine))
+        let engine = Engine()
+        let input = PlaygroundOscillator2(waveform: Table(.sine))
         engine.output = input
-        // This is just the usual tested sine wave
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
- */
 
-    @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testTriangle() {
-        let engine = AudioEngine()
-        let input = PlaygroundOscillator(waveform: Table(.triangle))
+        let engine = Engine()
+        let input = PlaygroundOscillator2(waveform: Table(.triangle))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
@@ -50,16 +46,14 @@ class TableTests: XCTestCase {
         testMD5(audio)
     }
 
-    /* Can't test due to sine differences on M1 chip
     func testHarmonicWithPartialAmplitudes() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let partialAmplitudes: [Float] = [0.8, 0.2, 0.3, 0.06, 0.12, 0.0015]
-        let input = PlaygroundOscillator(waveform: Table(.harmonic(partialAmplitudes)))
+        let input = PlaygroundOscillator2(waveform: Table(.harmonic(partialAmplitudes)))
         engine.output = input
         input.start()
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
- */
 }
