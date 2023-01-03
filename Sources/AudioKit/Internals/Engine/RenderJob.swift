@@ -8,10 +8,15 @@ import Atomics
 
 /// Information to render a single AudioUnit
 public class RenderJob {
-    let outputBuffer: SynchronizedAudioBufferList
-    let renderBlock: AURenderBlock
-    let inputBlock: AURenderPullInputBlock
-    let avAudioEngine: AVAudioEngine?
+
+    /// Buffer we're writing to, unless overridden by buffer passed to render.
+    private let outputBuffer: SynchronizedAudioBufferList
+
+    /// Block called to render.
+    private let renderBlock: AURenderBlock
+
+    /// Input block passed to the renderBlock. We don't chain AUs recursively.
+    private let inputBlock: AURenderPullInputBlock
 
     /// Number of inputs feeding this AU.
     let inputCount: Int32
@@ -22,13 +27,11 @@ public class RenderJob {
     public init(outputBuffer: SynchronizedAudioBufferList,
                 renderBlock: @escaping AURenderBlock,
                 inputBlock: @escaping AURenderPullInputBlock,
-                avAudioEngine: AVAudioEngine? = nil,
                 inputCount: Int32,
                 outputIndices: [Int]) {
         self.outputBuffer = outputBuffer
         self.renderBlock = renderBlock
         self.inputBlock = inputBlock
-        self.avAudioEngine = avAudioEngine
         self.inputCount = inputCount
         self.outputIndices = outputIndices
     }
