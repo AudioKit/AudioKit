@@ -23,14 +23,13 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
         var C: Int
         var M: Int
 
-        var S: [ManagedAtomic<T>] = []
+        var S: UnsafeMutableBufferPointer<ManagedAtomic<T>>
 
         init(_ c: Int) {
             C = c
             M = c-1
-            for _ in 0..<C {
-                S.append(ManagedAtomic(T()))
-            }
+            S = UnsafeMutableBufferPointer<ManagedAtomic<T>>.allocate(capacity: c)
+            _ = S.initialize(from: (0..<c).map { _ in ManagedAtomic(T()) })
         }
 
         var capacity: Int { C }
