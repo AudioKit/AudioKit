@@ -3,20 +3,26 @@
 import Foundation
 import Atomics
 import CoreAudioTypes
+import AVFoundation
 
-class SynchronizedAudioBufferList {
+public class SynchronizedAudioBufferList {
+
+    /// Just to keep the buffer alive.
+    private var pcmBuffer: AVAudioPCMBuffer
+
     var abl: UnsafeMutablePointer<AudioBufferList>
-    var atomic = ManagedAtomic<Int32>(0)
+    private var atomic = ManagedAtomic<Int32>(0)
 
-    init(_ abl: UnsafeMutablePointer<AudioBufferList>) {
-        self.abl = abl
+    public init(_ pcmBuffer: AVAudioPCMBuffer) {
+        self.pcmBuffer = pcmBuffer
+        self.abl = pcmBuffer.mutableAudioBufferList
     }
 
     func endWriting() {
-        atomic.wrappingIncrement(ordering: .acquiring)
+        atomic.wrappingIncrement(ordering: .releasing)
     }
 
     func beginReading() {
-        atomic.wrappingIncrement(ordering: .releasing)
+        atomic.wrappingIncrement(ordering: .acquiring)
     }
 }

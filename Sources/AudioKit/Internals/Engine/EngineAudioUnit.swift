@@ -96,7 +96,7 @@ public class EngineAudioUnit: AUAudioUnit {
     /// - Profiler results are hard to read.
     ///
     /// So instead we use a dummy input block that just copies over an ABL.
-    static func basicInputBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderPullInputBlock {
+    static func basicInputBlock(inputBufferLists: [SynchronizedAudioBufferList]) -> AURenderPullInputBlock {
         {
             (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
              timestamp: UnsafePointer<AudioTimeStamp>,
@@ -105,20 +105,20 @@ public class EngineAudioUnit: AUAudioUnit {
              outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
 
             // We'd like to avoid actually copying samples, so just copy the ABL.
-            let buffer = inputBufferLists[bus]
+            let inputBuffer = inputBufferLists[bus]
 
-            assert(buffer.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
+            assert(inputBuffer.abl.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
 
             // Note that we already have one buffer in the AudioBufferList type, hence the -1
-            let ablSize = MemoryLayout<AudioBufferList>.size + Int(buffer.pointee.mNumberBuffers-1) * MemoryLayout<AudioBuffer>.size
-            memcpy(outputBuffer, buffer, ablSize)
+            let ablSize = MemoryLayout<AudioBufferList>.size + Int(inputBuffer.abl.pointee.mNumberBuffers-1) * MemoryLayout<AudioBuffer>.size
+            memcpy(outputBuffer, inputBuffer.abl, ablSize)
 
             return noErr
         }
     }
 
     /// Returns an input block which mixes buffer lists.
-    static func mixerInputBlock(inputBufferLists: [UnsafeMutablePointer<AudioBufferList>]) -> AURenderPullInputBlock {
+    static func mixerInputBlock(inputBufferLists: [SynchronizedAudioBufferList]) -> AURenderPullInputBlock {
         {
             (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
              timestamp: UnsafePointer<AudioTimeStamp>,
@@ -136,7 +136,8 @@ public class EngineAudioUnit: AUAudioUnit {
                 }
 
                 for inputBufferList in inputBufferLists {
-                    let inputPointer = UnsafeMutableAudioBufferListPointer(inputBufferList)
+                    inputBufferList.beginReading()
+                    let inputPointer = UnsafeMutableAudioBufferListPointer(inputBufferList.abl)
                     let inBuf = UnsafeMutableBufferPointer<Float>(inputPointer[channel])
 
                     for frame in 0..<Int(frameCount) {
@@ -161,15 +162,15 @@ public class EngineAudioUnit: AUAudioUnit {
     }
 
     /// Allocates an output buffer for reach node.
-    func makeBuffers(nodes: [Node]) -> [ObjectIdentifier: AVAudioPCMBuffer] {
+    func makeBuffers(nodes: [Node]) -> [ObjectIdentifier: SynchronizedAudioBufferList] {
 
-        var buffers: [ObjectIdentifier: AVAudioPCMBuffer] = [:]
+        var buffers: [ObjectIdentifier: SynchronizedAudioBufferList] = [:]
 
         for node in nodes {
             let length = maximumFramesToRender
             let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: length)!
             buf.frameLength = length
-            buffers[ObjectIdentifier(node)] = buf
+            buffers[ObjectIdentifier(node)] = SynchronizedAudioBufferList(buf)
         }
 
         return buffers
@@ -231,10 +232,9 @@ public class EngineAudioUnit: AUAudioUnit {
                 }
 
                 let nodeBuffer = buffers[ObjectIdentifier(node)]!
-                assert(nodeBuffer.frameCapacity == maximumFramesToRender)
 
                 let inputBuffers = node.connections.map { buffers[ObjectIdentifier($0)]! }
-                let inputBufferLists = inputBuffers.map { $0.mutableAudioBufferList }
+                // let inputBufferLists = inputBuffers.map { $0.mutableAudioBufferList }
 
                 var inputBlock: AURenderPullInputBlock = { (_, _, _, _, _) in return noErr }
 
@@ -244,7 +244,7 @@ public class EngineAudioUnit: AUAudioUnit {
                     // can trigger a recompile.
                     mixer.engineAU = self
 
-                    inputBlock = EngineAudioUnit.mixerInputBlock(inputBufferLists: inputBufferLists)
+                    inputBlock = EngineAudioUnit.mixerInputBlock(inputBufferLists: inputBuffers)
 
                     let volumeAU = mixer.volumeAU
 
@@ -252,12 +252,11 @@ public class EngineAudioUnit: AUAudioUnit {
                         try! volumeAU.allocateRenderResources()
                     }
 
-                    let info = RenderJob(outputBuffer: nodeBuffer.mutableAudioBufferList,
-                                          outputPCMBuffer: nodeBuffer,
-                                          renderBlock: volumeAU.renderBlock,
-                                          inputBlock: inputBlock,
-                                          inputCount: Int32(node.connections.count),
-                                          outputIndices: outputs[ObjectIdentifier(mixer)] ?? [])
+                    let info = RenderJob(outputBuffer: nodeBuffer,
+                                         renderBlock: volumeAU.renderBlock,
+                                         inputBlock: inputBlock,
+                                         inputCount: Int32(node.connections.count),
+                                         outputIndices: outputs[ObjectIdentifier(mixer)] ?? [])
 
                     renderList.append(info)
 
@@ -266,52 +265,51 @@ public class EngineAudioUnit: AUAudioUnit {
                     // We've just got a wrapped AU, so we can grab the render
                     // block.
 
-                    if !inputBufferLists.isEmpty {
-                        inputBlock = EngineAudioUnit.basicInputBlock(inputBufferLists: inputBufferLists)
+                    if !inputBuffers.isEmpty {
+                        inputBlock = EngineAudioUnit.basicInputBlock(inputBufferLists: inputBuffers)
                     }
 
-                    let info = RenderJob(outputBuffer: nodeBuffer.mutableAudioBufferList,
-                                          outputPCMBuffer: nodeBuffer,
-                                          renderBlock: node.au.renderBlock,
-                                          inputBlock: inputBlock,
-                                          inputCount: Int32(node.connections.count),
-                                          outputIndices: outputs[ObjectIdentifier(node)] ?? [])
+                    let info = RenderJob(outputBuffer: nodeBuffer,
+                                         renderBlock: node.au.renderBlock,
+                                         inputBlock: inputBlock,
+                                         inputCount: Int32(node.connections.count),
+                                         outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
                     renderList.append(info)
 
                 } else {
 
                     // Other AVAudioNodes seem to need an AVAudioEngine, so make one!
-                    let avEngine = AVAudioEngine()
-                    try! avEngine.enableManualRenderingMode(.realtime, format: format, maximumFrameCount: maximumFramesToRender)
-                    avEngine.attach(node.avAudioNode)
-
-                    assert(node.connections.count <= 1)
-
-                    if node.connections.count > 0 {
-                        avEngine.connect(avEngine.inputNode, to: node.avAudioNode, format: nil)
-
-                        let bufferList = inputBufferLists.first!
-                        avEngine.inputNode.setManualRenderingInputPCMFormat(format) { frames in
-                            UnsafePointer(bufferList)
-                        }
-                    }
-
-                    avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: nil)
-
-                    let renderBlock = Self.avRenderBlock(block: avEngine.manualRenderingBlock)
-
-                    try! avEngine.start()
-
-                    let info = RenderJob(outputBuffer: nodeBuffer.mutableAudioBufferList,
-                                          outputPCMBuffer: nodeBuffer,
-                                          renderBlock: renderBlock,
-                                          inputBlock: inputBlock,
-                                          avAudioEngine: avEngine,
-                                          inputCount: Int32(node.connections.count),
-                                          outputIndices: outputs[ObjectIdentifier(node)] ?? [])
-
-                    renderList.append(info)
+//                    let avEngine = AVAudioEngine()
+//                    try! avEngine.enableManualRenderingMode(.realtime, format: format, maximumFrameCount: maximumFramesToRender)
+//                    avEngine.attach(node.avAudioNode)
+//
+//                    assert(node.connections.count <= 1)
+//
+//                    if node.connections.count > 0 {
+//                        avEngine.connect(avEngine.inputNode, to: node.avAudioNode, format: nil)
+//
+//                        let bufferList = inputBufferLists.first!
+//                        avEngine.inputNode.setManualRenderingInputPCMFormat(format) { frames in
+//                            UnsafePointer(bufferList)
+//                        }
+//                    }
+//
+//                    avEngine.connect(node.avAudioNode, to: avEngine.outputNode, format: nil)
+//
+//                    let renderBlock = Self.avRenderBlock(block: avEngine.manualRenderingBlock)
+//
+//                    try! avEngine.start()
+//
+//                    let info = RenderJob(outputBuffer: nodeBuffer.mutableAudioBufferList,
+//                                         outputPCMBuffer: nodeBuffer,
+//                                         renderBlock: renderBlock,
+//                                         inputBlock: inputBlock,
+//                                         avAudioEngine: avEngine,
+//                                         inputCount: Int32(node.connections.count),
+//                                         outputIndices: outputs[ObjectIdentifier(node)] ?? [])
+//
+//                    renderList.append(info)
 
                 }
             }

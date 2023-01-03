@@ -8,8 +8,7 @@ import Atomics
 
 /// Information to render a single AudioUnit
 public class RenderJob {
-    var outputBuffer: UnsafeMutablePointer<AudioBufferList>
-    var outputPCMBuffer: AVAudioPCMBuffer
+    var outputBuffer: SynchronizedAudioBufferList
     var renderBlock: AURenderBlock
     var inputBlock: AURenderPullInputBlock
     var avAudioEngine: AVAudioEngine?
@@ -20,15 +19,13 @@ public class RenderJob {
     /// Indices of AUs that this one feeds.
     var outputIndices: [Int]
 
-    public init(outputBuffer: UnsafeMutablePointer<AudioBufferList>,
-                outputPCMBuffer: AVAudioPCMBuffer,
+    public init(outputBuffer: SynchronizedAudioBufferList,
                 renderBlock: @escaping AURenderBlock,
                 inputBlock: @escaping AURenderPullInputBlock,
                 avAudioEngine: AVAudioEngine? = nil,
                 inputCount: Int32,
                 outputIndices: [Int]) {
         self.outputBuffer = outputBuffer
-        self.outputPCMBuffer = outputPCMBuffer
         self.renderBlock = renderBlock
         self.inputBlock = inputBlock
         self.avAudioEngine = avAudioEngine
@@ -41,7 +38,7 @@ public class RenderJob {
                 frameCount: AUAudioFrameCount,
                 outputBufferList: UnsafeMutablePointer<AudioBufferList>?) {
 
-        let out = outputBufferList ?? outputBuffer
+        let out = outputBufferList ?? outputBuffer.abl
         let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(out)
 
         // AUs may change the output size, so reset it.
@@ -78,5 +75,8 @@ public class RenderJob {
                 print("unknown rendering error \(status)")
             }
         }
+
+        // Indicate that we're done writing to the output.
+        outputBuffer.endWriting()
     }
 }
