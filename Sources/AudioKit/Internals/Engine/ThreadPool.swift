@@ -17,7 +17,7 @@ class ThreadPool {
     var workers: [WorkerThread] = []
 
     /// Initial guess for the number of worker threads.
-    let workerCount = 8 // XXX: Need to query for actual worker count.
+    let workerCount = 4 // XXX: Need to query for actual worker count.
 
     init() {
 
