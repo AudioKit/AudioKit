@@ -280,10 +280,9 @@ public class EngineAudioUnit: AUAudioUnit {
                 } 
             }
 
-            let schedule = AudioProgram(infos: renderList,
-                                        generatorIndices: generatorIndices(nodes: list))
-
-            program.store(schedule, ordering: .relaxed)
+            program.store(AudioProgram(infos: renderList,
+                                       generatorIndices: generatorIndices(nodes: list)),
+                          ordering: .relaxed)
 //            let array = encodeSysex(Unmanaged.passRetained(schedule))
 //
 //            if let block = cachedMIDIBlock {
