@@ -11,13 +11,28 @@ extension Int: DefaultInit {
 
 class WorkerThread: Thread {
 
+    /// Used to exit the worker thread.
     var run = true
+
+    /// Used to wake the worker.
     var prod: DispatchSemaphore
+
+    /// Used to wait for the worker to finish a cycle.
     var done: DispatchSemaphore
+
+    /// Information about rendering jobs.
     var program: AudioProgram?
+
+    /// AU stuff.
     var actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>!
+
+    /// AU stuff.
     var timeStamp: UnsafePointer<AudioTimeStamp>!
+
+    /// Number of audio frames to render.
     var frameCount: AUAudioFrameCount = 0
+
+    /// Our main output buffer.
     var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
 
     /// Queue for submitting jobs to the worker.
