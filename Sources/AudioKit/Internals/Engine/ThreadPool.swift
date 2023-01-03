@@ -17,7 +17,7 @@ class ThreadPool {
     var workers: [WorkerThread] = []
 
     /// Initial guess for the number of worker threads.
-    let workerCount = 4 // XXX: disable worker threads for now
+    let workerCount = 8 // XXX: Need to query for actual worker count.
 
     init() {
 
