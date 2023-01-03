@@ -48,7 +48,7 @@ public class PlaygroundOscillator2: Node {
         self.amplitude = amplitude
         self.oscAU.frequencyParam.value = frequency
         self.frequency = frequency
-
+        self.stop()
     }
 }
 
@@ -157,7 +157,11 @@ class PlaygroundOscillatorAudioUnit: AUAudioUnit {
                 for buffer in ablPointer {
                     let buf = UnsafeMutableBufferPointer<Float>(buffer)
                     assert(frame < buf.count)
-                    buf[frame] = value
+                    if self.shouldBypassEffect {
+                        buf[frame] = 0
+                    } else {
+                        buf[frame] = value
+                    }
                 }
             }
 
