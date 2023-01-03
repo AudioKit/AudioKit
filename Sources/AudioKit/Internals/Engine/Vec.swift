@@ -12,6 +12,11 @@ class Vec<T> {
         _ = storage.initialize(from: (0..<count).map { _ in f() })
     }
 
+    init(_ array: [T]) {
+        storage = UnsafeMutableBufferPointer<T>.allocate(capacity: array.count)
+        _ = storage.initialize(from: array)
+    }
+
     deinit {
         storage.baseAddress?.deinitialize(count: count)
         storage.deallocate()
