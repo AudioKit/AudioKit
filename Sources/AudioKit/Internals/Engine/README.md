@@ -22,4 +22,5 @@ We create a few worker threads which are woken by then audio thread. Those threa
 ## References
 
 [Meet Audio Workgroups](https://developer.apple.com/videos/play/wwdc2020/10224/)
+
 [Lock-Free Work Stealing](https://blog.molecular-matters.com/2015/08/24/job-system-2-0-lock-free-work-stealing-part-1-basics/)
