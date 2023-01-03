@@ -6,19 +6,13 @@ import AVFoundation
 import AudioToolbox
 import Atomics
 
-public class FinishedInputs {
-    public var finished: [ManagedAtomic<Int32>] = []
+class FinishedInputs {
+    var finished = Vec<ManagedAtomic<Int32>>(count: 1024, { .init(0) })
 
-    public var remaining = ManagedAtomic<Int32>(0)
-
-    init() {
-        for _ in 0..<1024 {
-            finished.append(.init(0))
-        }
-    }
+    var remaining = ManagedAtomic<Int32>(0)
 
     public func reset(count: Int32) {
-        for i in finished.indices {
+        for i in 0..<finished.count {
             finished[i].store(0, ordering: .relaxed)
         }
         remaining.store(count, ordering: .relaxed)
