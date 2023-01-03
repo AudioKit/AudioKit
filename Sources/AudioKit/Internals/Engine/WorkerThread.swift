@@ -12,13 +12,13 @@ extension Int: DefaultInit {
 class WorkerThread: Thread {
 
     /// Used to exit the worker thread.
-    var run = true
+    private var run = true
 
     /// Used to wake the worker.
-    var prod: DispatchSemaphore
+    private var prod: DispatchSemaphore
 
     /// Used to wait for the worker to finish a cycle.
-    var done: DispatchSemaphore
+    private var done: DispatchSemaphore
 
     /// Information about rendering jobs.
     var program: AudioProgram?
@@ -64,12 +64,11 @@ class WorkerThread: Thread {
 //            print("failed to set worker thread to realtime priority")
 //        }
 
-        while run {
+        while true {
             prod.wait()
 
-            // Without this we get "worker has no program" on shutdown.
             if !run {
-                return
+                break
             }
 
             while let index = inputQueue.pop() {
@@ -92,5 +91,10 @@ class WorkerThread: Thread {
             // print("worker done")
             done.signal()
         }
+    }
+
+    func exit() {
+        run = false
+        prod.signal()
     }
 }

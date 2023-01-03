@@ -8,10 +8,10 @@ import Foundation
 class ThreadPool {
 
     /// For waking up the threads.
-    private var prod: DispatchSemaphore
+    private var prod = DispatchSemaphore(value: 0)
 
     /// For waiting for the workers to finish.
-    private var done: DispatchSemaphore
+    private var done = DispatchSemaphore(value: 0)
 
     /// Worker threads.
     var workers: [WorkerThread] = []
@@ -20,9 +20,6 @@ class ThreadPool {
     let workerCount = 4 // XXX: Need to query for actual worker count.
 
     init() {
-
-        prod = DispatchSemaphore(value: 0)
-        done = DispatchSemaphore(value: 0)
 
         // Start workers.
         for _ in 0..<workerCount {
@@ -50,8 +47,7 @@ class ThreadPool {
 
         // Shut down workers.
         for worker in workers {
-            worker.run = false
-            worker.prod.signal()
+            worker.exit()
         }
 
     }
