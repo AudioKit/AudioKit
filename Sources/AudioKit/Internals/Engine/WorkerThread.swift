@@ -21,6 +21,8 @@ class WorkerThread: Thread {
     var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
 
     /// Queue for submitting jobs to the worker.
+    ///
+    /// Once we implement stealing, we could simply have workers steal from a main queue.
     var inputQueue = RingBuffer<Int>()
 
     private var runQueue = WorkStealingQueue<Int>()
