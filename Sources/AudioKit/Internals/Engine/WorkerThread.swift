@@ -5,17 +5,31 @@ import AudioUnit
 import AVFoundation
 import AudioToolbox
 
+extension Int: DefaultInit {
+    public init() { self = 0 }
+}
+
 class WorkerThread: Thread {
 
     var run = true
-    var wake = DispatchSemaphore(value: 0)
+    var prod: DispatchSemaphore
+    var done: DispatchSemaphore
     var program: AudioProgram?
     var actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>!
     var timeStamp: UnsafePointer<AudioTimeStamp>!
     var frameCount: AUAudioFrameCount = 0
     var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
-    var runQueue = AtomicList(size: 0)
+
+    /// Queue for submitting jobs to the worker.
+    var inputQueue = RingBuffer<Int>()
+
+    private var runQueue = WorkStealingQueue<Int>()
     var finishedInputs = FinishedInputs()
+
+    init(prod: DispatchSemaphore, done: DispatchSemaphore) {
+        self.prod = prod
+        self.done = done
+    }
 
     override func main() {
 
@@ -34,7 +48,18 @@ class WorkerThread: Thread {
 //        }
 
         while run {
-            wake.wait()
+            prod.wait()
+
+            // Without this we get "worker has no program" on shutdown.
+            if !run {
+                return
+            }
+
+            while let index = inputQueue.pop() {
+                runQueue.push(index)
+            }
+
+            // print("worker starting")
 
             if let program = program {
                 program.run(actionFlags: actionFlags,
@@ -46,6 +71,9 @@ class WorkerThread: Thread {
             } else {
                 print("worker has no program!")
             }
+
+            // print("worker done")
+            done.signal()
         }
     }
 }
