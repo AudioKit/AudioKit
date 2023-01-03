@@ -3,10 +3,6 @@
 import Foundation
 import Atomics
 
-public protocol DefaultInit {
-    init()
-}
-
 /// Lock-free unbounded single-producer multiple-consumer queue.
 ///
 /// This class implements the work stealing queue described in the paper,
