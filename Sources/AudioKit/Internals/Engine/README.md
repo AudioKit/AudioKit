@@ -17,7 +17,7 @@ After years of fighting with AVAudioEngine, we've decided to mostly eliminate it
 
 We decided to be ambitious and do parallel audio rendering using a work-stealing approach. So far we've gotten nearly a 4x speedup over the old AVAudioEngine based graph.
 
-We create a few worker threads which are woken by then audio thread. Those threads process RenderJobs and push the indices of subsequent jobs into their work queues. Each RenderJob renders an AudioUnit.
+We create a few worker threads which are woken by the audio thread. Those threads process RenderJobs and push the indices of subsequent jobs into their work queues. Each RenderJob renders an AudioUnit.
 
 ## References
 
