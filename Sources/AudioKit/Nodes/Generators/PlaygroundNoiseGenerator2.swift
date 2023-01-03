@@ -15,6 +15,7 @@ public class PlaygroundNoiseGenerator2: Node {
         didSet {
             amplitude = max(amplitude, 0)
             noiseAU.amplitudeParam.value = amplitude
+            self.start()
         }
     }
 
@@ -33,7 +34,7 @@ public class PlaygroundNoiseGenerator2: Node {
         noiseAU = avAudioNode.auAudioUnit as! PlaygroundNoiseGeneratorAudioUnit
         self.noiseAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
-
+        self.stop()
     }
 }
 
@@ -128,7 +129,11 @@ class PlaygroundNoiseGeneratorAudioUnit: AUAudioUnit {
                 // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
                 for buffer in ablPointer {
                     let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
-                    buf[frame] = value
+                    if self.shouldBypassEffect {
+                        buf[frame] = 0
+                    } else {
+                        buf[frame] = value
+                    }
                 }
             }
 

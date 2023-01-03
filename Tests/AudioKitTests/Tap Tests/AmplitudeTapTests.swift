@@ -88,7 +88,6 @@ class AmplitudeTapTests: XCTestCase {
 
         let noise = PlaygroundNoiseGenerator2(amplitude: 0.0)
         engine.output = noise
-        noise.start()
 
         let expect = expectation(description: "wait for amplitudes")
 
