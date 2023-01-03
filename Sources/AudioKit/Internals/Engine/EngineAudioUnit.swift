@@ -58,9 +58,9 @@ public class EngineAudioUnit: AUAudioUnit {
     }
 
     @objc dynamic public func akRenderContextObserver() -> AKAURenderContextObserver {
-        print("in akRenderContextObserver")
+        print("setting up render context observer")
         return { _ in
-            print("in render context observer")
+            print("actually in render context observer")
         }
     }
     
