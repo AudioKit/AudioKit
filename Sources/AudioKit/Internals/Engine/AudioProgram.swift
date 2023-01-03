@@ -6,19 +6,6 @@ import AVFoundation
 import AudioToolbox
 import Atomics
 
-class FinishedInputs {
-    var finished = Vec<ManagedAtomic<Int32>>(count: 1024, { .init(0) })
-
-    var remaining = ManagedAtomic<Int32>(0)
-
-    public func reset(count: Int32) {
-        for i in 0..<finished.count {
-            finished[i].store(0, ordering: .relaxed)
-        }
-        remaining.store(count, ordering: .relaxed)
-    }
-}
-
 /// Information about what the engine needs to run on the audio thread.
 final class AudioProgram {
 
@@ -27,6 +14,10 @@ final class AudioProgram {
 
     /// Nodes that we start processing first.
     let generatorIndices: UnsafeBufferPointer<Int>
+
+    var finished = Vec<ManagedAtomic<Int32>>(count: 1024, { .init(0) })
+
+    var remaining = ManagedAtomic<Int32>(0)
 
     init(infos: [RenderJob], generatorIndices: [Int]) {
         self.infos = Vec(infos)
@@ -42,14 +33,20 @@ final class AudioProgram {
         generatorIndices.deallocate()
     }
 
+    func reset() {
+        for i in 0..<finished.count {
+            finished[i].store(0, ordering: .relaxed)
+        }
+        remaining.store(Int32(infos.count), ordering: .relaxed)
+    }
+
     func run(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
              timeStamp: UnsafePointer<AudioTimeStamp>,
              frameCount: AUAudioFrameCount,
              outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-             runQueue: WorkStealingQueue<Int>,
-             finishedInputs: FinishedInputs) {
+             runQueue: WorkStealingQueue<Int>) {
 
-        while finishedInputs.remaining.load(ordering: .relaxed) > 0 {
+        while remaining.load(ordering: .relaxed) > 0 {
 
             // Pop an index off our queue.
             if let index = runQueue.pop() {
@@ -63,12 +60,12 @@ final class AudioProgram {
 
                 // Increment outputs.
                 for outputIndex in infos[index].outputIndices {
-                    if finishedInputs.finished[outputIndex].wrappingIncrementThenLoad(ordering: .relaxed) == infos[outputIndex].inputCount {
+                    if finished[outputIndex].wrappingIncrementThenLoad(ordering: .relaxed) == infos[outputIndex].inputCount {
                         runQueue.push(outputIndex)
                     }
                 }
 
-                finishedInputs.remaining.wrappingDecrement(ordering: .relaxed)
+                remaining.wrappingDecrement(ordering: .relaxed)
             }
         }
     }

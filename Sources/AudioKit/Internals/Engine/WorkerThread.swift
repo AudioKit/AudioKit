@@ -41,7 +41,6 @@ class WorkerThread: Thread {
     var inputQueue = RingBuffer<Int>()
 
     private var runQueue = WorkStealingQueue<Int>()
-    var finishedInputs = FinishedInputs()
 
     init(prod: DispatchSemaphore, done: DispatchSemaphore) {
         self.prod = prod
@@ -82,8 +81,7 @@ class WorkerThread: Thread {
                             timeStamp: timeStamp,
                             frameCount: frameCount,
                             outputBufferList: outputBufferList!,
-                            runQueue: runQueue,
-                            finishedInputs: finishedInputs)
+                            runQueue: runQueue)
             } else {
                 print("worker has no program!")
             }
