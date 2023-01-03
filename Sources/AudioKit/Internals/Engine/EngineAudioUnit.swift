@@ -279,6 +279,8 @@ public class EngineAudioUnit: AUAudioUnit {
 
                 } else {
 
+                    assert(false)
+
                     // Other AVAudioNodes seem to need an AVAudioEngine, so make one!
 //                    let avEngine = AVAudioEngine()
 //                    try! avEngine.enableManualRenderingMode(.realtime, format: format, maximumFrameCount: maximumFramesToRender)
