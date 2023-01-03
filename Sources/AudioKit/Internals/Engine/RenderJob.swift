@@ -53,11 +53,11 @@ public class RenderJob {
 
         // Do the actual DSP.
         let status = renderBlock(actionFlags,
-                                      timeStamp,
-                                      frameCount,
-                                      0,
-                                      out,
-                                      inputBlock)
+                                 timeStamp,
+                                 frameCount,
+                                 0,
+                                 out,
+                                 inputBlock)
 
         // Make sure the AU doesn't change the buffer pointers!
         assert(outputBufferListPointer[0].mData == data0Before)
