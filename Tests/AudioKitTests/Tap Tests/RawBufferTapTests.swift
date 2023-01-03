@@ -9,7 +9,7 @@ final class RawBufferTapTests: XCTestCase {
     func testRawBufferTap() throws {
 
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator2()
+        let osc = PlaygroundOscillator()
         let mixer = Mixer(osc)
         mixer.volume = 0
         engine.output = mixer

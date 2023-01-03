@@ -27,7 +27,7 @@ class AVAudioPCMBufferTests: XCTestCase {
 
         let engine = AudioEngine()
         if #available(iOS 13.0, *) {
-            let osc = PlaygroundOscillator2()
+            let osc = PlaygroundOscillator()
             osc.start()
             let recorder = try? NodeRecorder(node: osc)
             recorder?.openFile(file: &outFile)

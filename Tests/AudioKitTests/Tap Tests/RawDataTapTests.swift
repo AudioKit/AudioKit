@@ -8,7 +8,7 @@ class RawDataTapTests: XCTestCase {
     func testRawDataTap() throws {
 
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator2()
+        let osc = PlaygroundOscillator()
         engine.output = osc
 
         let dataExpectation = XCTestExpectation(description: "dataExpectation")
@@ -32,7 +32,7 @@ class RawDataTapTests: XCTestCase {
     func testRawDataTapTask() throws {
 
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator2()
+        let osc = PlaygroundOscillator()
         engine.output = osc
 
         osc.amplitude = 0

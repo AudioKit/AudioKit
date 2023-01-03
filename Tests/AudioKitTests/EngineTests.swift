@@ -277,7 +277,7 @@ class EngineTests: XCTestCase {
 
     func testPlaygroundOscillator() {
         let engine = Engine()
-        let osc = PlaygroundOscillator2()
+        let osc = PlaygroundOscillator()
         engine.output = osc
         let audio = engine.startTest(totalDuration: 2.0)
         osc.play()

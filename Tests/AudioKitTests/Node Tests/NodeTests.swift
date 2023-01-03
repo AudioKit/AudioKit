@@ -72,7 +72,7 @@ class NodeTests: XCTestCase {
     func testDynamicConnection() {
         let engine = AudioEngine()
         
-        let osc1 = PlaygroundOscillator2(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
+        let osc1 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
         let mixer = Mixer(osc1)
         
         XCTAssertNil(osc1.avAudioNode.engine)
@@ -88,7 +88,7 @@ class NodeTests: XCTestCase {
         
         audio.append(engine.render(duration: 1.0))
         
-        let osc2 = PlaygroundOscillator2(waveform: Table(.triangle), frequency: 880, amplitude: 0.1)
+        let osc2 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 880, amplitude: 0.1)
         mixer.addInput(osc2)
         osc2.play()
         audio.append(engine.render(duration: 1.0))

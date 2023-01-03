@@ -99,9 +99,9 @@ class GenericNodeTests: XCTestCase {
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testGenerators() {
-        nodeParameterTest(md5: "1395270f613ccd7adc6a14eca3c5267b", factory: { _ in let osc = PlaygroundOscillator2(waveform: Table(.square)); osc.play(); return osc })
-        nodeParameterTest(md5: "9c1146981e940074bbbf63f1c2dd3896", factory: { _ in let osc = PlaygroundOscillator2(waveform: Table(.triangle)); osc.play(); return osc })
-        nodeParameterTest(md5: "870d5e9ea9133b43b8bbb91ca460c4ed", factory: { _ in let osc = PlaygroundOscillator2(waveform: Table(.triangle), amplitude: 0.1); osc.play(); return osc })
+        nodeParameterTest(md5: "1395270f613ccd7adc6a14eca3c5267b", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.square)); osc.play(); return osc })
+        nodeParameterTest(md5: "9c1146981e940074bbbf63f1c2dd3896", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle)); osc.play(); return osc })
+        nodeParameterTest(md5: "870d5e9ea9133b43b8bbb91ca460c4ed", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 0.1); osc.play(); return osc })
     }
 
     func testEffects() {
