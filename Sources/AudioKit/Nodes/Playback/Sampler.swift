@@ -200,7 +200,7 @@ class SamplerAudioUnit: AUAudioUnit {
                         }
                     },
                     sysex: { event in
-                        var command: SamplerCommand = SamplerCommand.playSample(nil)
+                        var command: SamplerCommand = .playSample(nil)
 
                         decodeSysex(event, &command)
 
