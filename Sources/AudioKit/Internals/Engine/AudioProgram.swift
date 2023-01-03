@@ -23,10 +23,10 @@ class FinishedInputs {
 final class AudioProgram {
 
     /// List of information about AudioUnits we're executing.
-    var infos: Vec<RenderJob>
+    let infos: Vec<RenderJob>
 
     /// Nodes that we start processing first.
-    var generatorIndices: UnsafeBufferPointer<Int>
+    let generatorIndices: UnsafeBufferPointer<Int>
 
     init(infos: [RenderJob], generatorIndices: [Int]) {
         self.infos = Vec(infos)
