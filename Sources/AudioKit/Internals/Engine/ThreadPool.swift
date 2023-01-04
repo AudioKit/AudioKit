@@ -5,7 +5,7 @@ import Foundation
 /// Pool of worker threads.
 ///
 /// The CLAP host example uses two semaphores. See https://github.com/free-audio/clap-host/blob/56e5d267ac24593788ac1874e3643f670112cdaf/host/plugin-host.hh#L229
-class ThreadPool {
+final class ThreadPool {
 
     /// For waking up the threads.
     private var prod = DispatchSemaphore(value: 0)
@@ -19,8 +19,12 @@ class ThreadPool {
     /// Initial guess for the number of worker threads.
     let workerCount = 4 // XXX: Need to query for actual worker count.
 
+    /// Queues for each worker.
+    var runQueues: Vec<WorkStealingQueue<RenderJobIndex>>
+
     init() {
-        workers = .init(count: workerCount, { [prod, done] in WorkerThread(prod: prod, done: done) })
+        runQueues = .init(count: workerCount, { _ in .init() })
+        workers = .init(count: workerCount, { [prod, done, runQueues] index in WorkerThread(index: index, runQueues: runQueues, prod: prod, done: done) })
         for worker in workers {
             worker.start()
         }
@@ -37,6 +41,27 @@ class ThreadPool {
     func wait() {
         for _ in 0..<workerCount {
             done.wait()
+        }
+    }
+
+    func join(workgroup: WorkGroup?) {
+
+        // Shut down workers.
+        for worker in workers {
+            worker.exit()
+        }
+
+        // Create new workers in the specified workgroup.
+        workers = .init(count: workerCount, { [prod, done, runQueues] index in
+            WorkerThread(index: index,
+                         runQueues: runQueues,
+                         prod: prod,
+                         done: done,
+                         workgroup: workgroup)
+        })
+
+        for worker in workers {
+            worker.start()
         }
     }
 

@@ -6,8 +6,10 @@ import AVFoundation
 import AudioToolbox
 import Atomics
 
+typealias RenderJobIndex = Int
+
 /// Information to render a single AudioUnit
-public class RenderJob {
+final class RenderJob {
 
     /// Buffer we're writing to, unless overridden by buffer passed to render.
     private let outputBuffer: SynchronizedAudioBufferList
