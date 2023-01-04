@@ -5,7 +5,7 @@ import Foundation
 /// Pool of worker threads.
 ///
 /// The CLAP host example uses two semaphores. See https://github.com/free-audio/clap-host/blob/56e5d267ac24593788ac1874e3643f670112cdaf/host/plugin-host.hh#L229
-class ThreadPool {
+final class ThreadPool {
 
     /// For waking up the threads.
     private var prod = DispatchSemaphore(value: 0)

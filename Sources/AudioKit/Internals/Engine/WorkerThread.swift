@@ -9,7 +9,7 @@ extension Int: DefaultInit {
     public init() { self = 0 }
 }
 
-class WorkerThread: Thread {
+final class WorkerThread: Thread {
 
     /// Used to exit the worker thread.
     private var run = true

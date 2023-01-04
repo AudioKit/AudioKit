@@ -7,7 +7,7 @@ import AudioToolbox
 import Atomics
 
 /// Information to render a single AudioUnit
-public class RenderJob {
+final class RenderJob {
 
     /// Buffer we're writing to, unless overridden by buffer passed to render.
     private let outputBuffer: SynchronizedAudioBufferList
