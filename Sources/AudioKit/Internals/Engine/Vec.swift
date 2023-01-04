@@ -2,10 +2,6 @@
 
 import Foundation
 
-public protocol DefaultInit {
-    init()
-}
-
 /// Fixed size vector.
 class Vec<T> {
 
@@ -14,6 +10,11 @@ class Vec<T> {
     init(count: Int, _ f: () -> T) {
         storage = UnsafeMutableBufferPointer<T>.allocate(capacity: count)
         _ = storage.initialize(from: (0..<count).map { _ in f() })
+    }
+
+    init(_ array: [T]) {
+        storage = UnsafeMutableBufferPointer<T>.allocate(capacity: array.count)
+        _ = storage.initialize(from: array)
     }
 
     deinit {

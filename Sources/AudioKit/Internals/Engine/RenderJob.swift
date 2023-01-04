@@ -22,7 +22,7 @@ public class RenderJob {
     let inputCount: Int32
 
     /// Indices of AUs that this one feeds.
-    let outputIndices: [Int]
+    let outputIndices: Vec<Int>
 
     public init(outputBuffer: SynchronizedAudioBufferList,
                 renderBlock: @escaping AURenderBlock,
@@ -33,7 +33,7 @@ public class RenderJob {
         self.renderBlock = renderBlock
         self.inputBlock = inputBlock
         self.inputCount = inputCount
-        self.outputIndices = outputIndices
+        self.outputIndices = Vec(outputIndices)
     }
 
     func render(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -53,11 +53,11 @@ public class RenderJob {
 
         // Do the actual DSP.
         let status = renderBlock(actionFlags,
-                                      timeStamp,
-                                      frameCount,
-                                      0,
-                                      out,
-                                      inputBlock)
+                                 timeStamp,
+                                 frameCount,
+                                 0,
+                                 out,
+                                 inputBlock)
 
         // Make sure the AU doesn't change the buffer pointers!
         assert(outputBufferListPointer[0].mData == data0Before)

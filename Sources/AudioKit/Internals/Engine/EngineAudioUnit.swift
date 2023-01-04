@@ -279,7 +279,7 @@ public class EngineAudioUnit: AUAudioUnit {
                 } 
             }
 
-            program.store(AudioProgram(infos: renderList,
+            program.store(AudioProgram(jobs: renderList,
                                        generatorIndices: generatorIndices(nodes: list)),
                           ordering: .relaxed)
 //            let array = encodeSysex(Unmanaged.passRetained(schedule))
@@ -290,7 +290,7 @@ public class EngineAudioUnit: AUAudioUnit {
         }
     }
 
-    var program = ManagedAtomic<AudioProgram>(AudioProgram(infos: [], generatorIndices: []))
+    var program = ManagedAtomic<AudioProgram>(AudioProgram(jobs: [], generatorIndices: []))
 
     /// Get just the signal generating nodes.
     func generatorIndices(nodes: [Node]) -> [Int] {
@@ -332,9 +332,6 @@ public class EngineAudioUnit: AUAudioUnit {
         // Worker threads. Create a variable here so self isn't captured.
         let pool = ThreadPool()
 
-        // Number of inputs we've finished processing, by node.
-        let finishedInputs = FinishedInputs()
-
         return { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                   timeStamp: UnsafePointer<AudioTimeStamp>,
                   frameCount: AUAudioFrameCount,
@@ -364,7 +361,8 @@ public class EngineAudioUnit: AUAudioUnit {
                 _ = pool.workers[index % pool.workers.count].inputQueue.push(generatorIndex)
             }
 
-            finishedInputs.reset(count: Int32(dspList.infos.count))
+            // Reset counters.
+            dspList.reset()
 
             // Setup worker threads.
             for worker in pool.workers {
@@ -373,7 +371,6 @@ public class EngineAudioUnit: AUAudioUnit {
                 worker.timeStamp = timeStamp
                 worker.frameCount = frameCount
                 worker.outputBufferList = outputBufferList
-                worker.finishedInputs = finishedInputs
             }
 
             // Wake workers.
