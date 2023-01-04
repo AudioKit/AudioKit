@@ -66,10 +66,10 @@ open class NodeRecorder: NSObject {
     private static var recordedFiles = [URL]()
 
     /// Callback type
-    public typealias RawAudioDataHandler = ([Float]) -> Void
+    public typealias AudioDataCallback = ([Float], AVAudioTime) -> Void
 
-    /// Callback of incoming audio floating point values for monitoring purposes
-    public var rawDataTapHandler: RawAudioDataHandler?
+    /// Callback of incoming audio floating point values and time stamp for monitoring purposes
+    public var audioDataCallback: AudioDataCallback?
 
     // MARK: - Initialization
 
@@ -82,18 +82,18 @@ open class NodeRecorder: NSObject {
     ///   - fileDirectoryPath: Directory to write audio files to
     ///   - bus: Integer index of the bus to use
     ///   - shouldCleanupRecordings: Determines if recorded files are deleted upon deinit (default = true)
-    ///   - rawDataTapHandler: Raw audio data callback
+    ///   - audioDataCallback: Callback after each buffer processing with raw audio data and time stamp
     ///
     public init(node: Node,
                 fileDirectoryURL: URL? = nil,
                 bus: Int = 0,
                 shouldCleanupRecordings: Bool = true,
-                rawDataTapHandler: RawAudioDataHandler? = nil) throws
+                audioDataCallback: AudioDataCallback? = nil) throws
     {
         self.node = node
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
-        self.rawDataTapHandler = rawDataTapHandler
+        self.audioDataCallback = audioDataCallback
         super.init()
 
         createNewFile()
@@ -214,8 +214,8 @@ open class NodeRecorder: NSObject {
                     stop()
                 }
 
-                if rawDataTapHandler != nil {
-                    doHandleTapBlock(buffer: buffer)
+                if audioDataCallback != nil {
+                    doHandleTapBlock(buffer: buffer, time: time)
                 }
             }
         } catch let error as NSError {
@@ -224,7 +224,7 @@ open class NodeRecorder: NSObject {
     }
 
     /// When a raw data tap handler is provided, we call it back with the recorded float values
-    private func doHandleTapBlock(buffer: AVAudioPCMBuffer) {
+    private func doHandleTapBlock(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
         let offset = Int(buffer.frameCapacity - buffer.frameLength)
@@ -234,7 +234,7 @@ open class NodeRecorder: NSObject {
                 data.append(channelData[offset + Int(index)])
             }
         }
-        rawDataTapHandler?(data)
+        audioDataCallback?(data, time)
     }
 
     /// Stop recording
