@@ -41,12 +41,16 @@ final class WorkerThread: Thread {
     var inputQueue = RingBuffer<Int>()
 
     /// Index of this worker.
-    var index: Int
+    var workerIndex: Int
 
-    private var runQueue = WorkStealingQueue<Int>()
+    private var runQueues: Vec<WorkStealingQueue<Int>>
 
-    init(index: Int, prod: DispatchSemaphore, done: DispatchSemaphore) {
-        self.index = index
+    init(index: Int,
+         runQueues: Vec<WorkStealingQueue<Int>>,
+         prod: DispatchSemaphore,
+         done: DispatchSemaphore) {
+        self.workerIndex = index
+        self.runQueues = runQueues
         self.prod = prod
         self.done = done
     }
@@ -75,7 +79,7 @@ final class WorkerThread: Thread {
             }
 
             while let index = inputQueue.pop() {
-                runQueue.push(index)
+                runQueues[workerIndex].push(index)
             }
 
             // print("worker starting")
@@ -85,7 +89,7 @@ final class WorkerThread: Thread {
                             timeStamp: timeStamp,
                             frameCount: frameCount,
                             outputBufferList: outputBufferList!,
-                            runQueue: runQueue)
+                            runQueue: runQueues[workerIndex])
             } else {
                 print("worker has no program!")
             }

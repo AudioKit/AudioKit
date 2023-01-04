@@ -19,8 +19,12 @@ final class ThreadPool {
     /// Initial guess for the number of worker threads.
     let workerCount = 4 // XXX: Need to query for actual worker count.
 
+    /// Queues for each worker.
+    var runQueues: Vec<WorkStealingQueue<RenderJobIndex>>
+
     init() {
-        workers = .init(count: workerCount, { [prod, done] index in WorkerThread(index: index, prod: prod, done: done) })
+        runQueues = .init(count: workerCount, { _ in .init() })
+        workers = .init(count: workerCount, { [prod, done, runQueues] index in WorkerThread(index: index, runQueues: runQueues, prod: prod, done: done) })
         for worker in workers {
             worker.start()
         }

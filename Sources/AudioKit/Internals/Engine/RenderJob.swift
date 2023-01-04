@@ -6,6 +6,8 @@ import AVFoundation
 import AudioToolbox
 import Atomics
 
+typealias RenderJobIndex = Int
+
 /// Information to render a single AudioUnit
 final class RenderJob {
 
