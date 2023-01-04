@@ -45,28 +45,44 @@ final class AudioProgram {
              timeStamp: UnsafePointer<AudioTimeStamp>,
              frameCount: AUAudioFrameCount,
              outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-             runQueue: WorkStealingQueue<Int>) {
+             workerIndex: Int,
+             runQueues: Vec<WorkStealingQueue<RenderJobIndex>>) {
+
+        let exec = { index in
+            let info = self.jobs[index]
+
+            info.render(actionFlags: actionFlags,
+                        timeStamp: timeStamp,
+                        frameCount: frameCount,
+                        outputBufferList: (index == self.jobs.count-1) ? outputBufferList : nil)
+
+            // Increment outputs.
+            for outputIndex in self.jobs[index].outputIndices {
+                if self.finished[outputIndex].wrappingIncrementThenLoad(ordering: .relaxed) == self.jobs[outputIndex].inputCount {
+                    runQueues[workerIndex].push(outputIndex)
+                }
+            }
+
+            self.remaining.wrappingDecrement(ordering: .relaxed)
+        }
 
         while remaining.load(ordering: .relaxed) > 0 {
 
             // Pop an index off our queue.
-            if let index = runQueue.pop() {
+            if let index = runQueues[workerIndex].pop() {
+                exec(index)
+            } else {
 
-                let info = jobs[index]
-
-                info.render(actionFlags: actionFlags,
-                            timeStamp: timeStamp,
-                            frameCount: frameCount,
-                            outputBufferList: (index == jobs.count-1) ? outputBufferList : nil)
-
-                // Increment outputs.
-                for outputIndex in jobs[index].outputIndices {
-                    if finished[outputIndex].wrappingIncrementThenLoad(ordering: .relaxed) == jobs[outputIndex].inputCount {
-                        runQueue.push(outputIndex)
+                // Try to steal an index. Start with the next worker and wrap around,
+                // but don't steal from ourselves.
+                for i in 0..<runQueues.count-1 {
+                    let victim = (workerIndex+i) % runQueues.count
+                    if let index = runQueues[victim].steal() {
+                        exec(index)
+                        break
                     }
                 }
 
-                remaining.wrappingDecrement(ordering: .relaxed)
             }
         }
     }

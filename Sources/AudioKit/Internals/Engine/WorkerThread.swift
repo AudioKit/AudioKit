@@ -89,7 +89,8 @@ final class WorkerThread: Thread {
                             timeStamp: timeStamp,
                             frameCount: frameCount,
                             outputBufferList: outputBufferList!,
-                            runQueue: runQueues[workerIndex])
+                            workerIndex: workerIndex,
+                            runQueues: runQueues)
             } else {
                 print("worker has no program!")
             }
