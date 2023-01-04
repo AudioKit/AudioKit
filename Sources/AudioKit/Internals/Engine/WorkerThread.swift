@@ -52,11 +52,13 @@ final class WorkerThread: Thread {
     init(index: Int,
          runQueues: Vec<WorkStealingQueue<Int>>,
          prod: DispatchSemaphore,
-         done: DispatchSemaphore) {
+         done: DispatchSemaphore,
+         workgroup: WorkGroup? = nil) {
         self.workerIndex = index
         self.runQueues = runQueues
         self.prod = prod
         self.done = done
+        self.workgroup = workgroup
     }
 
     override func main() {
