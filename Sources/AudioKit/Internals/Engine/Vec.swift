@@ -7,9 +7,9 @@ class Vec<T> {
 
     private var storage: UnsafeMutableBufferPointer<T>
 
-    init(count: Int, _ f: () -> T) {
+    init(count: Int, _ f: (Int) -> T) {
         storage = UnsafeMutableBufferPointer<T>.allocate(capacity: count)
-        _ = storage.initialize(from: (0..<count).map { _ in f() })
+        _ = storage.initialize(from: (0..<count).map { index in f(index) })
     }
 
     init(_ array: [T]) {

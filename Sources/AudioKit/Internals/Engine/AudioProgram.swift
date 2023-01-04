@@ -21,7 +21,7 @@ final class AudioProgram {
 
     init(jobs: [RenderJob], generatorIndices: [Int]) {
         self.jobs = Vec(jobs)
-        self.finished = Vec<ManagedAtomic<Int32>>(count: jobs.count, { .init(0) })
+        self.finished = Vec<ManagedAtomic<Int32>>(count: jobs.count, { _ in .init(0) })
 
         let ptr = UnsafeMutableBufferPointer<Int>.allocate(capacity: generatorIndices.count)
         for i in generatorIndices.indices {

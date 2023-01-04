@@ -20,7 +20,7 @@ final class ThreadPool {
     let workerCount = 4 // XXX: Need to query for actual worker count.
 
     init() {
-        workers = .init(count: workerCount, { [prod, done] in WorkerThread(prod: prod, done: done) })
+        workers = .init(count: workerCount, { [prod, done] index in WorkerThread(index: index, prod: prod, done: done) })
         for worker in workers {
             worker.start()
         }

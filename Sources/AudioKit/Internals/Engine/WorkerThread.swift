@@ -40,9 +40,13 @@ final class WorkerThread: Thread {
     /// Once we implement stealing, we could simply have workers steal from a main queue.
     var inputQueue = RingBuffer<Int>()
 
+    /// Index of this worker.
+    var index: Int
+
     private var runQueue = WorkStealingQueue<Int>()
 
-    init(prod: DispatchSemaphore, done: DispatchSemaphore) {
+    init(index: Int, prod: DispatchSemaphore, done: DispatchSemaphore) {
+        self.index = index
         self.prod = prod
         self.done = done
     }

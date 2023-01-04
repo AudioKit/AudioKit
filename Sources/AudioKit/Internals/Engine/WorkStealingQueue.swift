@@ -28,7 +28,7 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
         init(_ c: Int) {
             C = c
             M = c-1
-            S = Vec(count: c, { ManagedAtomic(T()) })
+            S = Vec(count: c, { _ in ManagedAtomic(T()) })
         }
 
         var capacity: Int { C }
