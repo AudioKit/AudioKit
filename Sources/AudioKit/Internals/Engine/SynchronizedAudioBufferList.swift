@@ -5,6 +5,8 @@ import Atomics
 import CoreAudioTypes
 import AVFoundation
 
+/// A buffer of audio with memory synchronization so we can
+/// share it between threads.
 public class SynchronizedAudioBufferList {
 
     /// Just to keep the buffer alive.
