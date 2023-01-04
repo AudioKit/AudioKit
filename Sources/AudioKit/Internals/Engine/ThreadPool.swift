@@ -44,6 +44,27 @@ final class ThreadPool {
         }
     }
 
+    func join(workgroup: WorkGroup?) {
+
+        // Shut down workers.
+        for worker in workers {
+            worker.exit()
+        }
+
+        // Create new workers in the specified workgroup.
+        workers = .init(count: workerCount, { [prod, done, runQueues] index in
+            WorkerThread(index: index,
+                         runQueues: runQueues,
+                         prod: prod,
+                         done: done,
+                         workgroup: workgroup)
+        })
+
+        for worker in workers {
+            worker.start()
+        }
+    }
+
     deinit {
 
         // Shut down workers.
