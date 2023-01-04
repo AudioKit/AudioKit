@@ -6,7 +6,7 @@ import AVFoundation
 import AudioToolbox
 import Atomics
 
-public typealias AKAURenderContextObserver = (UnsafePointer<os_workgroup_t>?) -> Void
+public typealias AKAURenderContextObserver = (UnsafePointer<WorkGroup>?) -> Void
 
 /// Our single audio unit which will evaluate all audio units.
 public class EngineAudioUnit: AUAudioUnit {
@@ -59,8 +59,16 @@ public class EngineAudioUnit: AUAudioUnit {
 
     @objc dynamic public func akRenderContextObserver() -> AKAURenderContextObserver {
         print("setting up render context observer")
-        return { _ in
+        return { [pool] workgroupPtr in
             print("actually in render context observer")
+
+            if let workgroupPtr = workgroupPtr {
+                print("joining workgroup")
+                pool.join(workgroup: workgroupPtr.pointee)
+            } else {
+                print("leaving workgroup")
+                pool.join(workgroup: nil)
+            }
         }
     }
     
@@ -326,13 +334,13 @@ public class EngineAudioUnit: AUAudioUnit {
 
         super.deallocateRenderResources()
     }
+
+    // Worker threads.
+    let pool = ThreadPool()
     
     override public var internalRenderBlock: AUInternalRenderBlock {
 
-        // Worker threads. Create a variable here so self isn't captured.
-        let pool = ThreadPool()
-
-        return { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+        return { [pool] (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                   timeStamp: UnsafePointer<AudioTimeStamp>,
                   frameCount: AUAudioFrameCount,
                   outputBusNumber: Int,
