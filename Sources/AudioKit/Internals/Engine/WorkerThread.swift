@@ -45,6 +45,10 @@ final class WorkerThread: Thread {
 
     private var runQueues: Vec<WorkStealingQueue<Int>>
 
+    var workgroup: WorkGroup?
+
+    var joinToken: WorkGroup.JoinToken?
+
     init(index: Int,
          runQueues: Vec<WorkStealingQueue<Int>>,
          prod: DispatchSemaphore,
@@ -57,19 +61,23 @@ final class WorkerThread: Thread {
 
     override func main() {
 
-        var tbinfo = mach_timebase_info_data_t()
-        mach_timebase_info(&tbinfo)
+        if let workgroup = workgroup {
+            var tbinfo = mach_timebase_info_data_t()
+            mach_timebase_info(&tbinfo)
 
-        let seconds = (Double(tbinfo.denom) / Double(tbinfo.numer)) * 1_000_000_000
+            let seconds = (Double(tbinfo.denom) / Double(tbinfo.numer)) * 1_000_000_000
 
-        // Guessing what the parameters would be for 128 frame buffer at 44.1kHz
-        let period = (128.0/44100.0) * seconds
-        let constraint = 0.5 * period
-        let comp = 0.5 * constraint
+            // Guessing what the parameters would be for 128 frame buffer at 44.1kHz
+            let period = (128.0/44100.0) * seconds
+            let constraint = 0.5 * period
+            let comp = 0.5 * constraint
 
-//        if !set_realtime(period: UInt32(period), computation: UInt32(comp), constraint: UInt32(constraint)) {
-//            print("failed to set worker thread to realtime priority")
-//        }
+            if !set_realtime(period: UInt32(period), computation: UInt32(comp), constraint: UInt32(constraint)) {
+                print("failed to set worker thread to realtime priority")
+            }
+
+            joinToken = workgroup.join()
+        }
 
         while true {
             prod.wait()
@@ -97,6 +105,10 @@ final class WorkerThread: Thread {
 
             // print("worker done")
             done.signal()
+        }
+
+        if let joinToken = joinToken {
+            workgroup?.leave(token: joinToken)
         }
     }
 
