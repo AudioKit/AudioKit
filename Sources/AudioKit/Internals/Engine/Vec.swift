@@ -3,7 +3,7 @@
 import Foundation
 
 /// Fixed size vector.
-class Vec<T> {
+final class Vec<T> {
 
     private var storage: UnsafeMutableBufferPointer<T>
 
