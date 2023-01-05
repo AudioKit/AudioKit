@@ -2,6 +2,7 @@
 
 import Accelerate
 import AVFoundation
+import Utilities
 
 public extension AVAudioPCMBuffer {
     /// Read the contents of the url into this buffer
@@ -260,7 +261,7 @@ public extension AVAudioPCMBuffer {
 }
 
 extension AVAudioPCMBuffer {
-    var rms: Float {
+    public var rms: Float {
         guard let data = floatChannelData else { return 0 }
 
         let channelCount = Int(format.channelCount)

@@ -2,6 +2,7 @@
 
 import Accelerate
 import AVFoundation
+import Utilities
 
 /// Request to get data out of an audio file
 public class WaveformDataRequest {

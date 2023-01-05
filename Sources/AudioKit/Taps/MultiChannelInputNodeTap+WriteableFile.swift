@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import AudioFiles
 
 public extension MultiChannelInputNodeTap {
     /// An inner class to represent one channel of data to record to file

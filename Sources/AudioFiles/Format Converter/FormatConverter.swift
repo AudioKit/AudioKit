@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import Utilities
 
 /**
  FormatConverter wraps the more complex AVFoundation and CoreAudio audio conversions in an easy to use format.

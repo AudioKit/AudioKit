@@ -2,6 +2,7 @@
 
 import Accelerate
 import AVFoundation
+import Utilities
 
 public extension AVAudioFile {
     /// Duration in seconds

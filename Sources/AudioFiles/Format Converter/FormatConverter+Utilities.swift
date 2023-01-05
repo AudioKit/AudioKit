@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import Utilities
 
 extension FormatConverter {
     class func createError(message: String, code: Int = 1) -> NSError {
@@ -88,16 +89,5 @@ public extension FormatConverter {
             // basically all other format IDs are compressed
             return true
         }
-    }
-}
-
-extension Comparable {
-    // ie: 5.clamped(to: 7...10)
-    // ie: 5.0.clamped(to: 7.0...10.0)
-    // ie: "a".clamped(to: "b"..."h")
-    /// **OTCore:**
-    /// Returns the value clamped to the passed range.
-    @inlinable func clamped(to limits: ClosedRange<Self>) -> Self {
-        min(max(self, limits.lowerBound), limits.upperBound)
     }
 }
