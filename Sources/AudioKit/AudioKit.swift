@@ -3,3 +3,5 @@
 @_exported import Utilities
 
 @_exported import AudioFiles
+
+@_exported import MIDI
