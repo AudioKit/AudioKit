@@ -4,6 +4,7 @@ import Foundation
 import AudioUnit
 import AVFoundation
 import Utilities
+import AudioFiles
 
 extension AudioBuffer {
     func clear() {

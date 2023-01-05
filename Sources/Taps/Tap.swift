@@ -3,6 +3,7 @@
 import Foundation
 import AVFAudio
 import Utilities
+import Audio
 
 public protocol Tap {
     func handleTap(buffer: AVAudioPCMBuffer, at time: AVAudioTime) async

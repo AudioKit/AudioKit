@@ -2,6 +2,7 @@
 
 import Accelerate
 import AVFoundation
+import Audio
 
 /// Tap to do amplitude analysis on any node.
 /// start() will add the tap, and stop() will remove it.

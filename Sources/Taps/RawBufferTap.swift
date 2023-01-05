@@ -1,6 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import Audio
 
 /// Get the raw buffer from any node
 open class RawBufferTap: BaseTap {

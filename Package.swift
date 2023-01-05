@@ -9,12 +9,13 @@ let package = Package(
     dependencies: [.package(url: "https://github.com/apple/swift-atomics", from: .init(1, 0, 3))],
     targets: [
         .target(name: "AudioKit",
-                dependencies: ["Audio", "AudioFiles", "Utilities", "MIDI"]),
+                dependencies: ["Audio", "AudioFiles", "Utilities", "MIDI", "Taps"]),
         .target(name: "Audio",
                 dependencies: ["MIDI", "Utilities", .product(name: "Atomics", package: "swift-atomics")]),
         .target(name: "AudioFiles", dependencies: ["Utilities"]),
         .target(name: "Utilities"),
         .target(name: "MIDI", dependencies: ["Utilities"]),
+        .target(name: "Taps", dependencies: ["Audio"]),
         .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
     ]
 )

@@ -7,3 +7,5 @@
 @_exported import MIDI
 
 @_exported import Audio
+
+@_exported import Taps

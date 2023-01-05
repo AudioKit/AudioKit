@@ -2,6 +2,7 @@
 
 import Accelerate
 import AVFoundation
+import Audio
 
 /// Get the raw data for any node
 open class RawDataTap: BaseTap {

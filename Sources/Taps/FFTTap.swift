@@ -2,6 +2,7 @@
 
 import Accelerate
 import AVFoundation
+import Audio
 
 /// FFT Calculation for any node
 open class FFTTap: BaseTap {

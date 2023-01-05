@@ -2,6 +2,7 @@
 
 import AVFoundation
 import Utilities
+import Audio
 
 /// MultiChannelInputNodeTap is a tap intended to process multiple channels of audio
 /// from AVAudioInputNode, or the AVAudioEngine's inputNode. In the case of the engine

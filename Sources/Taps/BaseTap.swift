@@ -3,6 +3,7 @@
 import AVFoundation
 import Foundation
 import Utilities
+import Audio
 
 /// Base class for AudioKit taps using AVAudioEngine installTap
 open class BaseTap {

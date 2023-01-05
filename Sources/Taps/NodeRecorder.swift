@@ -2,6 +2,7 @@
 
 import AVFoundation
 import Utilities
+import Audio
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
 open class NodeRecorder: NSObject {
