@@ -5,3 +5,5 @@
 @_exported import AudioFiles
 
 @_exported import MIDI
+
+@_exported import Audio
