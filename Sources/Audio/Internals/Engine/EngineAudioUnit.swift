@@ -364,9 +364,8 @@ public class EngineAudioUnit: AUAudioUnit {
 
             // Distribute the starting indices among workers.
             for (index, generatorIndex) in dspList.generatorIndices.enumerated() {
-
                 // XXX: This could fail under very heavy load.
-                _ = pool.workers[index % pool.workers.count].inputQueue.push(generatorIndex)
+                pool.workers[index % pool.workers.count].add(job: generatorIndex)
             }
 
             // Reset counters.

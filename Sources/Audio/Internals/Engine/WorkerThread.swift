@@ -36,9 +36,10 @@ final class WorkerThread: Thread {
     var outputBufferList: UnsafeMutablePointer<AudioBufferList>?
 
     /// Queue for submitting jobs to the worker.
-    ///
-    /// Once we implement stealing, we could simply have workers steal from a main queue.
-    var inputQueue = RingBuffer<Int>()
+    var initialJobs = Vec<RenderJobIndex>(count: 1024, { _ in 0 })
+
+    /// Number of initial jobs.
+    var initialJobCount = 0
 
     /// Index of this worker.
     var workerIndex: Int
@@ -59,6 +60,14 @@ final class WorkerThread: Thread {
         self.prod = prod
         self.done = done
         self.workgroup = workgroup
+    }
+
+    /// Add a job for the worker.
+    ///
+    /// MUST call this before the worker is awakened.
+    func add(job: RenderJobIndex) {
+        initialJobs[initialJobCount] = job
+        initialJobCount += 1
     }
 
     override func main() {
@@ -88,9 +97,10 @@ final class WorkerThread: Thread {
                 break
             }
 
-            while let index = inputQueue.pop() {
-                runQueues[workerIndex].push(index)
+            for i in 0..<initialJobCount {
+                runQueues[workerIndex].push(initialJobs[i])
             }
+            initialJobCount = 0
 
             // print("worker starting")
 
