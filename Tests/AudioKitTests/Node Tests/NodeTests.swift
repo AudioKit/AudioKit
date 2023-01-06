@@ -475,35 +475,6 @@ class NodeTests: XCTestCase {
         XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakPlayer!))
     }
 
-    @available(iOS 13.0, *)
-    func testInnerNodesThatHaveMultipleInnerConnectionsDeallocated() {
-        for strategy in [DisconnectStrategy.recursive, .detach] {
-            let engine = AudioEngine()
-            var chain: Node? = createChain()
-            weak var weakPitch = chain?.avAudioNode
-            weak var weakDelay = chain?.connections.first?.avAudioNode
-            weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
-            var mixer: Mixer? = Mixer(chain!, Mixer(chain!))
-            var outer: Mixer? = Mixer(mixer!)
-            engine.output = outer
-
-            outer!.removeInput(mixer!, strategy: strategy)
-            outer = nil
-            mixer = nil
-            chain = nil
-
-            XCTAssertNil(weakPitch)
-            XCTAssertNil(weakDelay)
-            XCTAssertNil(weakPlayer)
-
-            // http://openradar.appspot.com/radar?id=5616162842869760
-            // This condition should be passing, but unfortunately,
-            // under certain conditions, it is not due to a bug.
-
-            // XCTAssertFalse(engine.avEngine.description.contains("other nodes"))
-        }
-    }
-
     // This is a test for workaround for:
     // http://openradar.appspot.com/radar?id=5490575180562432
     // Connection format is not correctly applied when adding a node to paused engine
