@@ -405,44 +405,6 @@ class NodeTests: XCTestCase {
         }
     }
     
-//    func testConnectionTreeDescriptionForStandaloneNode() {
-//        let sampler = Sampler()
-//        XCTAssertEqual(sampler.connectionTreeDescription, "\(connectionTreeLinePrefix)↳Sampler")
-//    }
-//
-//    func testConnectionTreeDescriptionForConnectedNode() {
-//        let sampler = Sampler()
-//
-//        let verb = Reverb(sampler)
-//        let mixer = Mixer(sampler, verb)
-//        let mixerAddress = MemoryAddress(of: mixer).description
-//
-//        XCTAssertEqual(mixer.connectionTreeDescription,
-//                       """
-//        \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
-//        \(connectionTreeLinePrefix) ↳Sampler
-//        \(connectionTreeLinePrefix) ↳Reverb
-//        \(connectionTreeLinePrefix)  ↳Sampler
-//        """)
-//    }
-    
-//    #if !os(tvOS)
-//    func testConnectionTreeDescriptionForNamedNode() {
-//        let nameString = "Customized Name"
-//        let sampler = MIDISampler(name: nameString)
-//        let compressor = Compressor(sampler)
-//        let mixer = Mixer(compressor)
-//        let mixerAddress = MemoryAddress(of: mixer).description
-//        
-//        XCTAssertEqual(mixer.connectionTreeDescription,
-//                       """
-//        \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
-//        \(connectionTreeLinePrefix) ↳Compressor
-//        \(connectionTreeLinePrefix)  ↳MIDISampler("\(nameString)")
-//        """)
-//    }
-//    #endif
-    
     func testGraphviz() {
         let sampler = Sampler()
         
