@@ -148,8 +148,8 @@ extension Node {
     }
 
     var bypassed: Bool {
-        get { avAudioNode.auAudioUnit.shouldBypassEffect }
-        set { avAudioNode.auAudioUnit.shouldBypassEffect = newValue }
+        get { au.shouldBypassEffect }
+        set { au.shouldBypassEffect = newValue }
     }
 }
 
