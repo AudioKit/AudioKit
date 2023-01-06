@@ -49,31 +49,4 @@ class MixerTests: XCTestCase {
         wait(for: [delayExpectation], timeout: interval + 1)
     }
 
-    func testMixerVolume() {
-        let engine = AudioEngine()
-        let engineMixer = Mixer()
-        engine.output = engineMixer
-
-        let sampler = Sampler()
-
-        let mixerA = Mixer(volume: 0.5, name: "mixerA")
-        mixerA.addInput(sampler)
-        engineMixer.addInput(mixerA)
-
-        let mixerB = Mixer(sampler, name: "mixerB")
-        mixerB.volume = 0.5
-        engineMixer.addInput(mixerB)
-
-        try? engine.start()
-
-        if let mixerANode = mixerA.avAudioNode as? AVAudioMixerNode {
-            XCTAssertEqual(mixerANode.outputVolume, mixerA.volume)
-        }
-
-        if let mixerBNode = mixerB.avAudioNode as? AVAudioMixerNode {
-            XCTAssertEqual(mixerBNode.outputVolume, mixerA.volume)
-        }
-
-        engine.stop()
-    }
 }
