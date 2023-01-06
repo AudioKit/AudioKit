@@ -433,7 +433,7 @@ class NodeTests: XCTestCase {
 
     @available(iOS 13.0, *)
     func testNodesThatHaveOtherConnectionsNotDeallocated() {
-        let engine = AudioEngine()
+        let engine = Engine()
         var chain: Node? = createChain()
         weak var weakPitch = chain?.avAudioNode
         weak var weakDelay = chain?.connections.first?.avAudioNode
@@ -448,9 +448,6 @@ class NodeTests: XCTestCase {
         XCTAssertNotNil(weakPitch)
         XCTAssertNotNil(weakDelay)
         XCTAssertNotNil(weakPlayer)
-        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakPitch!))
-        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakDelay!))
-        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakPlayer!))
     }
 
     @available(iOS 13.0, *)
