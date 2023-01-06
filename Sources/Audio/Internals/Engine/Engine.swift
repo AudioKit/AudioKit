@@ -9,7 +9,7 @@ import Utilities
 public class Engine {
     
     /// Internal AVAudioEngine
-    public let avEngine = AVAudioEngine()
+    private let avEngine = AVAudioEngine()
     
     public var output: Node? {
         didSet {
