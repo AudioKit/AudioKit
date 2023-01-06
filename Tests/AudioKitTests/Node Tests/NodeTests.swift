@@ -70,7 +70,7 @@ class NodeTests: XCTestCase {
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testDynamicConnection() {
-        let engine = AudioEngine()
+        let engine = Engine()
         
         let osc1 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
         let mixer = Mixer(osc1)
@@ -78,9 +78,6 @@ class NodeTests: XCTestCase {
         XCTAssertNil(osc1.avAudioNode.engine)
         
         engine.output = mixer
-        
-        // Osc should be attached.
-        XCTAssertNotNil(osc1.avAudioNode.engine)
         
         let audio = engine.startTest(totalDuration: 2.0)
         

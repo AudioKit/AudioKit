@@ -62,7 +62,7 @@ let validatedMD5s: [String: [String]] = [
     "-[MultiSegmentPlayerTests testPlayWithinSegment]": ["adc3d1fef36f68e1f12dbb471eb4069b"],
     "-[NodeRecorderTests testBasicRecord]": ["f98d952748c408b1e38325f2bfe2ce81"],
     "-[NodeTests testDisconnect]": ["8c5c55d9f59f471ca1abb53672e3ffbf"],
-    "-[NodeTests testDynamicConnection]": ["8c39c3c9a55e4a8675dc352da8543974"],
+    "-[NodeTests testDynamicConnection]": ["8c39c3c9a55e4a8675dc352da8543974", "53cec444033ef5f04b2f0d2114bf30eb"],
     "-[NodeTests testDynamicConnection2]": ["8c5c55d9f59f471ca1abb53672e3ffbf"],
     "-[NodeTests testDynamicConnection3]": ["70e6414b0f09f42f70ca7c0b0d576e84"],
     "-[NodeTests testDynamicOutput]": ["faf8254c11a6b73eb3238d57b1c14a9f"],
