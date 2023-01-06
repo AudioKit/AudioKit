@@ -4,26 +4,32 @@ import AVFAudio
 
 /// Instantiate an AVAudioUnit.
 public func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit {
-    let semaphore = DispatchSemaphore(value: 0)
     var result: AVAudioUnit!
+    let runLoop = RunLoop.current
     AVAudioUnit.instantiate(with: componentDescription) { avAudioUnit, _ in
         guard let au = avAudioUnit else { fatalError("Unable to instantiate AVAudioUnit") }
-        result = au
-        semaphore.signal()
+        runLoop.perform {
+            result = au
+        }
     }
-    _ = semaphore.wait(wallTimeout: .distantFuture)
+    while result == nil {
+        runLoop.run(until: .now + 0.01)
+    }
     return result
 }
 
 /// Sometimes we don't want an AVAudioUnit.
 public func instantiateAU(componentDescription: AudioComponentDescription) -> AUAudioUnit {
-    let semaphore = DispatchSemaphore(value: 0)
     var result: AUAudioUnit!
+    let runLoop = RunLoop.current
     AUAudioUnit.instantiate(with: componentDescription) { auAudioUnit, _ in
         guard let au = auAudioUnit else { fatalError("Unable to instantiate AUAudioUnit") }
-        result = au
-        semaphore.signal()
+        runLoop.perform {
+            result = au
+        }
     }
-    _ = semaphore.wait(wallTimeout: .distantFuture)
+    while result == nil {
+        runLoop.run(until: .now + 0.01)
+    }
     return result
 }
