@@ -3,7 +3,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class EngineRelatimeTests: XCTestCase {
+class EngineRealtimeTests: XCTestCase {
 
     func testBasicRealtime() throws {
         let engine = Engine()
