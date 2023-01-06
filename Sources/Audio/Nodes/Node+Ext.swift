@@ -70,7 +70,7 @@ public extension Node {
             }
         }
 
-        avAudioNode.auAudioUnit.parameterTree = AUParameterTree.createTree(withChildren: params)
+        au.parameterTree = AUParameterTree.createTree(withChildren: params)
     }
 }
 
