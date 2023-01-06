@@ -267,7 +267,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
                     renderList.append(info)
 
-                } else if node.avAudioNode as? AVAudioUnit != nil {
+                } else {
 
                     // We've just got a wrapped AU, so we can grab the render
                     // block.
