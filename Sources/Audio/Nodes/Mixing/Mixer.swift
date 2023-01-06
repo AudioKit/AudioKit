@@ -102,9 +102,7 @@ public class Mixer: Node, NamedNode {
         makeAVConnections()
         
         // New engine: recompile graph after adding an input.
-        if let engineAU = engineAU {
-            engineAU.compile()
-        }
+        compile()
     }
 
     /// Is this node already connected?
@@ -121,6 +119,7 @@ public class Mixer: Node, NamedNode {
         guard inputs.contains(where: { $0 === node }) else { return }
         inputs.removeAll(where: { $0 === node })
         disconnect(input: node, strategy: strategy)
+        compile()
     }
 
     /// Remove all inputs from the mixer
@@ -133,6 +132,7 @@ public class Mixer: Node, NamedNode {
             disconnectAndDetachIfLast(input: input)
         }
         inputs.removeAll()
+        compile()
     }
 
     /// Resize underlying AVAudioMixerNode input busses array to accommodate for required count of inputs.
@@ -178,4 +178,11 @@ public class Mixer: Node, NamedNode {
 
     /// For the new engine, this does the volume.
     var volumeAU: VolumeAudioUnit
+
+    /// Recompile the AudioProgram.
+    private func compile() {
+        if let engineAU = engineAU {
+            engineAU.compile()
+        }
+    }
 }
