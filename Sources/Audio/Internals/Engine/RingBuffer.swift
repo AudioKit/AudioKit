@@ -73,6 +73,11 @@ public class RingBuffer<T> {
         return true
     }
 
+    /// Push elements from a pair of buffers, interleaving.
+    ///
+    /// This may be better expressed by having a version of push which takes an iterator.
+    ///
+    /// - Returns: Whether the buffers could be pushed.
     public func push(interleaving leftPtr: UnsafeBufferPointer<T>, and rightPtr: UnsafeBufferPointer<T>) -> Bool {
         assert(leftPtr.count == rightPtr.count)
 
