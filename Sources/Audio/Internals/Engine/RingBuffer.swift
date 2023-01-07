@@ -47,6 +47,21 @@ public class RingBuffer<T> {
         return false
     }
 
+    public func push(interleaving leftPtr: UnsafeBufferPointer<T>, and rightPtr: UnsafeBufferPointer<T>) -> Bool {
+        assert(leftPtr.count == rightPtr.count)
+        if Int32(buffer.count) - fillCount.load(ordering: .relaxed) >= (leftPtr.count * 2) {
+            for i in 0..<leftPtr.count {
+                buffer[Int(head)] = leftPtr[i]
+                head = (head + 1) % Int32(buffer.count)
+                buffer[Int(head)] = rightPtr[i]
+                head = (head + 1) % Int32(buffer.count)
+            }
+            fillCount.wrappingIncrement(by: Int32(leftPtr.count * 2), ordering: .relaxed)
+            return true
+        }
+        return false
+    }
+
     /// Pop off a single element
     /// - Returns: The element or nil if no elements were available.
     public func pop() -> T? {

@@ -10,7 +10,7 @@ class TapNodeTests: XCTestCase {
         let osc = PlaygroundOscillator()
         osc.amplitude = 0.1
         let tapNode = TapNode(osc) { left, right in
-            print(left, right)
+            print(left.count, right.count)
         }
         engine.output = tapNode
 
