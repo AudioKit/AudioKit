@@ -13,7 +13,7 @@ public class TapNode: Node {
 
     let tapAU: TapAudioUnit
 
-    public init() {
+    public init(_ tapBlock: @escaping ([[Float]]) async -> Void) {
 
         let componentDescription = AudioComponentDescription(effect: "tapn")
 
@@ -23,6 +23,7 @@ public class TapNode: Node {
                                      version: .max)
         avAudioNode = instantiate(componentDescription: componentDescription)
         tapAU = avAudioNode.auAudioUnit as! TapAudioUnit
+        tapAU.tapBlock = tapBlock
     }
 }
 
@@ -36,6 +37,8 @@ class TapAudioUnit: AUAudioUnit {
 
     let ringBufferL = RingBuffer<Float>()
     let ringBufferR = RingBuffer<Float>()
+
+    var tapBlock: ([[Float]]) async -> Void = { _ in }
 
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
