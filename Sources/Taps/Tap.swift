@@ -20,9 +20,9 @@ extension Node {
 
         let bus = 0 // Should be a ctor argument?
         avAudioNode.installTap(onBus: bus,
-                                     bufferSize: bufferSize,
-                                     format: nil,
-                                     block: { (buffer, time) in
+                               bufferSize: bufferSize,
+                               format: nil,
+                               block: { (buffer, time) in
             Task {
                 await tap.handleTap(buffer: buffer, at: time)
             }

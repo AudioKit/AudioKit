@@ -6,7 +6,7 @@ import AVFoundation
 import Utilities
 import AudioFiles
 
-extension AudioBuffer {
+public extension AudioBuffer {
     func clear() {
         bzero(mData, Int(mDataByteSize))
     }
