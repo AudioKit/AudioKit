@@ -6,6 +6,7 @@ import AVFoundation
 import Audio
 import Utilities
 
+/// Node which provides a callback that "taps" the audio data from the stream.
 public class TapNode: Node {
     public let connections: [Node]
 
@@ -13,6 +14,11 @@ public class TapNode: Node {
 
     let tapAU: TapAudioUnit
 
+    /// Create a TapNode.
+    ///
+    /// - Parameters:
+    ///   - input: Input to monitor.
+    ///   - tapBlock: Called with a stereo pair of channels. Note that this doesn't need to be realtime safe.
     public init(_ input: Node, tapBlock: @escaping ([Float], [Float]) async -> Void) {
 
         let componentDescription = AudioComponentDescription(effect: "tapn")
