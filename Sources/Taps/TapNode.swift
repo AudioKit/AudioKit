@@ -34,6 +34,9 @@ class TapAudioUnit: AUAudioUnit {
     let inputChannelCount: NSNumber = 2
     let outputChannelCount: NSNumber = 2
 
+    let ringBufferL = RingBuffer<Float>()
+    let ringBufferR = RingBuffer<Float>()
+
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
     }
@@ -92,6 +95,14 @@ class TapAudioUnit: AUAudioUnit {
 
             var inputFlags: AudioUnitRenderActionFlags = []
             _ = inputBlock?(&inputFlags, timeStamp, frameCount, 0, outputBufferList)
+
+            let outBufL = UnsafeBufferPointer<Float>(ablPointer[0])
+            let outBufR = UnsafeBufferPointer<Float>(ablPointer[1])
+
+            // We are assuming there is enough room in the ring buffer
+            // for the all the samples. If not there's nothing we can do.
+            _ = self.ringBufferL.push(from: outBufL)
+            _ = self.ringBufferR.push(from: outBufR)
 
             return noErr
         }
