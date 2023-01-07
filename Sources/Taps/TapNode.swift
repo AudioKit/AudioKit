@@ -13,7 +13,7 @@ public class TapNode: Node {
 
     let tapAU: TapAudioUnit
 
-    public init(_ tapBlock: @escaping ([[Float]]) async -> Void) {
+    public init(_ tapBlock: @escaping ([Float], [Float]) async -> Void) {
 
         let componentDescription = AudioComponentDescription(effect: "tapn")
 
@@ -38,7 +38,9 @@ class TapAudioUnit: AUAudioUnit {
     let ringBufferL = RingBuffer<Float>()
     let ringBufferR = RingBuffer<Float>()
 
-    var tapBlock: ([[Float]]) async -> Void = { _ in }
+    var tapBlock: ([Float], [Float]) async -> Void = { _,_  in }
+    var semaphore = DispatchSemaphore(value: 0)
+    var run = true
 
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
@@ -57,6 +59,37 @@ class TapAudioUnit: AUAudioUnit {
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         inputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [])
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
+
+        _ = Thread {
+            while true {
+                self.semaphore.wait()
+
+                if !self.run {
+                    return
+                }
+
+                var left = [Float](repeating: 0.0, count: 256)
+                var right = [Float](repeating: 0.0, count: 256)
+
+                left.withUnsafeMutableBufferPointer { ptr in
+                    _ = self.ringBufferL.pop(to: ptr)
+                }
+
+                right.withUnsafeMutableBufferPointer { ptr in
+                     _ = self.ringBufferR.pop(to: ptr)
+                }
+
+                // XXX: what if we can only pop one channel?
+                // gotta interleave
+
+                let left2 = left
+                let right2 = right
+
+                Task {
+                    await self.tapBlock(left2, right2)
+                }
+            }
+        }
     }
 
     override var inputBusses: AUAudioUnitBusArray {
@@ -72,7 +105,12 @@ class TapAudioUnit: AUAudioUnit {
     override func deallocateRenderResources() {}
 
     override var internalRenderBlock: AUInternalRenderBlock {
-        { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+
+        let ringBufferL = self.ringBufferL
+        let ringBufferR = self.ringBufferR
+        let semaphore = self.semaphore
+
+        return { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
            timeStamp: UnsafePointer<AudioTimeStamp>,
            frameCount: AUAudioFrameCount,
            outputBusNumber: Int,
@@ -104,8 +142,9 @@ class TapAudioUnit: AUAudioUnit {
 
             // We are assuming there is enough room in the ring buffer
             // for the all the samples. If not there's nothing we can do.
-            _ = self.ringBufferL.push(from: outBufL)
-            _ = self.ringBufferR.push(from: outBufR)
+            _ = ringBufferL.push(from: outBufL)
+            _ = ringBufferR.push(from: outBufR)
+            semaphore.signal()
 
             return noErr
         }
