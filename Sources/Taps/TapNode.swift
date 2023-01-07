@@ -7,13 +7,13 @@ import Audio
 import Utilities
 
 public class TapNode: Node {
-    public let connections: [Node] = []
+    public let connections: [Node]
 
     public let avAudioNode: AVAudioNode
 
     let tapAU: TapAudioUnit
 
-    public init(_ tapBlock: @escaping ([Float], [Float]) async -> Void) {
+    public init(_ input: Node, tapBlock: @escaping ([Float], [Float]) async -> Void) {
 
         let componentDescription = AudioComponentDescription(effect: "tapn")
 
@@ -24,6 +24,7 @@ public class TapNode: Node {
         avAudioNode = instantiate(componentDescription: componentDescription)
         tapAU = avAudioNode.auAudioUnit as! TapAudioUnit
         tapAU.tapBlock = tapBlock
+        self.connections = [input]
     }
 }
 
@@ -60,7 +61,7 @@ class TapAudioUnit: AUAudioUnit {
         inputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [])
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
 
-        _ = Thread {
+        let thread = Thread {
             while true {
                 self.semaphore.wait()
 
@@ -76,7 +77,7 @@ class TapAudioUnit: AUAudioUnit {
                 }
 
                 right.withUnsafeMutableBufferPointer { ptr in
-                     _ = self.ringBufferR.pop(to: ptr)
+                    _ = self.ringBufferR.pop(to: ptr)
                 }
 
                 // XXX: what if we can only pop one channel?
@@ -90,6 +91,8 @@ class TapAudioUnit: AUAudioUnit {
                 }
             }
         }
+        thread.start()
+
     }
 
     override var inputBusses: AUAudioUnitBusArray {

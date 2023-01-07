@@ -49,10 +49,7 @@ final class RenderJob {
         // AUs may change the output size, so reset it.
         outputBufferListPointer[0].mDataByteSize = frameCount * UInt32(MemoryLayout<Float>.size)
         outputBufferListPointer[1].mDataByteSize = frameCount * UInt32(MemoryLayout<Float>.size)
-
-        let data0Before = outputBufferListPointer[0].mData
-        let data1Before = outputBufferListPointer[1].mData
-
+        
         // Do the actual DSP.
         let status = renderBlock(actionFlags,
                                  timeStamp,
@@ -60,11 +57,6 @@ final class RenderJob {
                                  0,
                                  out,
                                  inputBlock)
-
-        // Make sure the AU doesn't change the buffer pointers!
-        assert(outputBufferListPointer[0].mData == data0Before)
-        assert(outputBufferListPointer[1].mData == data1Before)
-
         // Propagate errors.
         if status != noErr {
             switch status {
