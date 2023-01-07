@@ -49,7 +49,10 @@ class GenericNodeTests: XCTestCase {
         XCTAssertEqual(bigBuffer!.md5, md5)
     }
 
-    func nodeParameterTest(md5: String, factory: (Node) -> Node, m1MD5: String = "", audition: Bool = false) {
+    /// Test the parameters of a node.
+    ///
+    /// Because of platform differences we pass in an array of possible checksums.
+    func nodeParameterTest(md5s: [String], factory: (Node) -> Node, audition: Bool = false) {
         let sampler = Sampler()
         sampler.play(url: URL.testAudio)
         let node = factory(sampler)
@@ -92,39 +95,32 @@ class GenericNodeTests: XCTestCase {
         if audition {
             bigBuffer!.audition()
         }
-        XCTAssertTrue([md5, m1MD5].contains(bigBuffer!.md5), "\(node)\nFAILEDMD5 \(bigBuffer!.md5)")
+        XCTAssertTrue(md5s.contains(bigBuffer!.md5), "\(node)\nFAILEDMD5 \(bigBuffer!.md5)")
     }
 
     let waveforms = [Table(.square), Table(.triangle), Table(.sawtooth), Table(.square)]
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testGenerators() {
-        nodeParameterTest(md5: "1395270f613ccd7adc6a14eca3c5267b", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.square)); osc.play(); return osc })
-        nodeParameterTest(md5: "9c1146981e940074bbbf63f1c2dd3896", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle)); osc.play(); return osc })
-        nodeParameterTest(md5: "870d5e9ea9133b43b8bbb91ca460c4ed", factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 0.1); osc.play(); return osc })
+        nodeParameterTest(md5s: ["1395270f613ccd7adc6a14eca3c5267b"], factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.square)); osc.play(); return osc })
+        nodeParameterTest(md5s: ["9c1146981e940074bbbf63f1c2dd3896"], factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle)); osc.play(); return osc })
+        nodeParameterTest(md5s: ["870d5e9ea9133b43b8bbb91ca460c4ed"], factory: { _ in let osc = PlaygroundOscillator(waveform: Table(.triangle), amplitude: 0.1); osc.play(); return osc })
     }
 
     func testEffects() {
-        nodeParameterTest(md5: "d8f308e27f019492714aad5c6e2d4520", factory: { input in Compressor(input) })
-        nodeParameterTest(md5: "627d50441819d00c2fa4037e24807966", factory: { input in Decimator(input) })
-        nodeParameterTest(md5: "dec105c6e2e44556608c9f393e205c1e", factory: { input in Delay(input, time: 0.01) })
-        nodeParameterTest(md5: "3979c710eff8e12f0c3f535987624fde", factory: { input in Distortion(input) })
-        nodeParameterTest(md5: "d65f43bda68342d9a53a5e9eda7ad36d", factory: { input in PeakLimiter(input) })
-        nodeParameterTest(md5: "950411a6dcd15bb8bb424a7dc5b93dac", factory: { input in RingModulator(input) })
-
-        #if os(iOS)
-            nodeParameterTest(md5: "28d2cb7a5c1e369ca66efa8931d31d4d", factory: { player in Reverb(player) })
-        #endif
-
-        #if os(macOS)
-            nodeParameterTest(md5: "bff0b5fa57e589f5192b17194d9a43cb", factory: { player in Reverb(player) })
-        #endif
+        nodeParameterTest(md5s: ["d8f308e27f019492714aad5c6e2d4520"], factory: { input in Compressor(input) })
+        nodeParameterTest(md5s: ["627d50441819d00c2fa4037e24807966"], factory: { input in Decimator(input) })
+        nodeParameterTest(md5s: ["dec105c6e2e44556608c9f393e205c1e"], factory: { input in Delay(input, time: 0.01) })
+        nodeParameterTest(md5s: ["3979c710eff8e12f0c3f535987624fde", "2bca99c77cf6ed19cca0cd276e204fee"], factory: { input in Distortion(input) })
+        nodeParameterTest(md5s: ["d65f43bda68342d9a53a5e9eda7ad36d"], factory: { input in PeakLimiter(input) })
+        nodeParameterTest(md5s: ["950411a6dcd15bb8bb424a7dc5b93dac"], factory: { input in RingModulator(input) })
+        nodeParameterTest(md5s: ["28d2cb7a5c1e369ca66efa8931d31d4d", "bff0b5fa57e589f5192b17194d9a43cb"], factory: { player in Reverb(player) })
     }
 
     func testFilters() {
-        nodeParameterTest(md5: "befc21e17a65f32169c8b0efb15ea75c", factory: { input in HighPassFilter(input) })
-        nodeParameterTest(md5: "69926231aedb80c4bd9ad8c27e2738b8", factory: { input in HighShelfFilter(input) })
-        nodeParameterTest(md5: "aa3f867e12cf44b80d8142ebd0dc00a5", factory: { input in LowPassFilter(input) })
-        nodeParameterTest(md5: "8bcb9c497515412afae7ae3bd2cc7b62", factory: { input in LowShelfFilter(input) })
+        nodeParameterTest(md5s: ["befc21e17a65f32169c8b0efb15ea75c"], factory: { input in HighPassFilter(input) })
+        nodeParameterTest(md5s: ["69926231aedb80c4bd9ad8c27e2738b8"], factory: { input in HighShelfFilter(input) })
+        nodeParameterTest(md5s: ["aa3f867e12cf44b80d8142ebd0dc00a5"], factory: { input in LowPassFilter(input) })
+        nodeParameterTest(md5s: ["8bcb9c497515412afae7ae3bd2cc7b62"], factory: { input in LowShelfFilter(input) })
     }
 }
