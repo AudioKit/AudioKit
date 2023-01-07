@@ -6,7 +6,7 @@ import XCTest
 class BaseTapTests: XCTestCase {
     func testBaseTapDeallocated() throws {
         let engine = AudioEngine()
-        let player = AudioPlayer(url: URL.testAudio)!
+        let player = Sampler()
         engine.output = player
 
         var tap: BaseTap? = BaseTap(player, bufferSize: 1024)
@@ -20,7 +20,7 @@ class BaseTapTests: XCTestCase {
 
     func testBufferSizeExceedingFrameCapacity() {
         let engine = AudioEngine()
-        let player = AudioPlayer(url: URL.testAudio)!
+        let player = Sampler()
         engine.output = player
 
         let tap: BaseTap = BaseTap(player, bufferSize: 176400)

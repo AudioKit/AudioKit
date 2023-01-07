@@ -25,7 +25,7 @@ class AmplitudeTapTests: XCTestCase {
         let channelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_DiscreteInOrder | channelCount)!
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
 
-        let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
+        let reverb = CustomFormatReverb(Sampler(), outputFormat: format)
         let tap = AmplitudeTap(reverb)
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
@@ -40,7 +40,7 @@ class AmplitudeTapTests: XCTestCase {
         let channelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_DiscreteInOrder | channelCount)!
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
 
-        let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
+        let reverb = CustomFormatReverb(Sampler(), outputFormat: format)
         let tap = AmplitudeTap(reverb)
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
@@ -58,7 +58,7 @@ class AmplitudeTapTests: XCTestCase {
         let channelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_DiscreteInOrder | channelCount)!
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
 
-        let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
+        let reverb = CustomFormatReverb(Sampler(), outputFormat: format)
         let tap = AmplitudeTap(reverb)
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!

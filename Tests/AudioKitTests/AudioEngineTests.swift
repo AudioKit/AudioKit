@@ -23,7 +23,7 @@ class AudioEngineTests: XCTestCase {
         }
 
         let engine = AudioEngine()
-        let input = AudioPlayer(url: URL.testAudio)!
+        let input = Sampler()
         let mixer = Mixer(input)
 
         // assign input and engine references
@@ -96,7 +96,7 @@ class AudioEngineTests: XCTestCase {
 
     func testEngineMainMixerCreated() {
         let engine = AudioEngine()
-        let input = AudioPlayer(url: URL.testAudio)!
+        let input = Sampler()
         engine.output = input
 
         guard let mainMixerNode = engine.mainMixerNode else {

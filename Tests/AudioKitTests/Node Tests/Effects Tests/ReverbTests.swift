@@ -21,7 +21,7 @@ class ReverbTests: XCTestCase {
     }
 
     func testNotStartedWhenBypassed() {
-        let effect = Reverb(AudioPlayer())
+        let effect = Reverb(Sampler())
         effect.isStarted = true
         effect.bypass()
         XCTAssertFalse(effect.isStarted)
@@ -31,14 +31,14 @@ class ReverbTests: XCTestCase {
         // Node has its own extension of bypass
         // bypass() needs to be a part of protocol
         // for this to work properly
-        let effect = Reverb(AudioPlayer())
+        let effect = Reverb(Sampler())
         effect.isStarted = true
         (effect as Node).bypass()
         XCTAssertFalse(effect.isStarted)
     }
 
     func testStartedAfterStart() {
-        let effect = Reverb(AudioPlayer())
+        let effect = Reverb(Sampler())
         effect.isStarted = false
         effect.start()
         XCTAssertTrue(effect.isStarted)
