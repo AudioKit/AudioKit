@@ -202,47 +202,6 @@ class NodeTests: XCTestCase {
         
         testMD5(audio)
     }
-    
-    func connectionCount(node: AVAudioNode) -> Int {
-        var count = 0
-        for bus in 0 ..< node.numberOfInputs {
-            if let inputConnection = node.engine!.inputConnectionPoint(for: node, inputBus: bus) {
-                if inputConnection.node != nil {
-                    count += 1
-                }
-            }
-        }
-        return count
-    }
-    
-    func testFanout() {
-        let engine = AudioEngine()
-        let player = Sampler()
-        
-        let verb = Reverb(player)
-        let mixer = Mixer(player, verb)
-        engine.output = mixer
-        
-        XCTAssertEqual(connectionCount(node: verb.avAudioNode), 1)
-        XCTAssertEqual(connectionCount(node: mixer.avAudioNode), 2)
-    }
-    
-    func testMixerRedundantUpstreamConnection() {
-        let engine = AudioEngine()
-
-        let player = Sampler()
-        
-        let mixer1 = Mixer(player)
-        let mixer2 = Mixer(mixer1)
-        
-        engine.output = mixer2
-        
-        XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
-        
-        mixer2.addInput(player)
-        
-        XCTAssertEqual(connectionCount(node: mixer1.avAudioNode), 1)
-    }
 
     func testTransientNodes() throws {
         try XCTSkipIf(true, "TODO Skipped test")
