@@ -18,7 +18,8 @@ class TapNodeTests: XCTestCase {
         let engine = Engine()
         let noise = PlaygroundNoiseGenerator()
         noise.amplitude = 0.1
-        let tapNode = TapNode(noise) { left, right in
+        let tapNode = TapNode(noise, bufferSize: 256) { left, right in
+            print("left.count: \(left.count), right.count: \(right.count)")
             print(self.quickieAmplitudes(left: left, right: right))
         }
         engine.output = tapNode

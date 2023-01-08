@@ -19,7 +19,7 @@ public class TapNode: Node {
     /// - Parameters:
     ///   - input: Input to monitor.
     ///   - tapBlock: Called with a stereo pair of channels. Note that this doesn't need to be realtime safe.
-    public init(_ input: Node, tapBlock: @escaping ([Float], [Float]) async -> Void) {
+    public init(_ input: Node, bufferSize: Int, tapBlock: @escaping ([Float], [Float]) async -> Void) {
 
         let componentDescription = AudioComponentDescription(effect: "tapn")
 
@@ -30,6 +30,7 @@ public class TapNode: Node {
         avAudioNode = instantiate(componentDescription: componentDescription)
         tapAU = avAudioNode.auAudioUnit as! TapAudioUnit
         tapAU.tapBlock = tapBlock
+        tapAU.bufferSize = bufferSize
         self.connections = [input]
     }
 }
@@ -42,11 +43,12 @@ class TapAudioUnit: AUAudioUnit {
     let inputChannelCount: NSNumber = 2
     let outputChannelCount: NSNumber = 2
 
-    let ringBuffer = RingBuffer<Float>()
+    let ringBuffer = RingBuffer<Float>(capacity: 4096)
 
     var tapBlock: ([Float], [Float]) async -> Void = { _,_  in }
     var semaphore = DispatchSemaphore(value: 0)
     var run = true
+    var bufferSize = 1024
 
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
@@ -67,6 +69,10 @@ class TapAudioUnit: AUAudioUnit {
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
 
         let thread = Thread {
+
+            var left: [Float] = []
+            var right: [Float] = []
+
             while true {
                 self.semaphore.wait()
 
@@ -77,19 +83,31 @@ class TapAudioUnit: AUAudioUnit {
                 var interleaved = [Float](repeating: 0.0, count: 512)
 
                 interleaved.withUnsafeMutableBufferPointer { ptr in
-                    _ = self.ringBuffer.pop(to: ptr)
+                    if !self.ringBuffer.pop(to: ptr) {
+                        print("not enough data in RingBuffer")
+                    }
                 }
 
-                let left = interleaved.enumerated().compactMap { tuple in
+                left.append(contentsOf: interleaved.enumerated().compactMap { tuple in
                     tuple.offset.isMultiple(of: 2) ? nil : tuple.element
-                }
-                let right = interleaved.enumerated().compactMap { tuple in
+                })
+
+                right.append(contentsOf: interleaved.enumerated().compactMap { tuple in
                     tuple.offset.isMultiple(of: 2) ? tuple.element : nil
+                })
+
+                if left.count > self.bufferSize {
+                    let leftPrefix = Array(left.prefix(self.bufferSize))
+                    let rightPrefix = Array(right.prefix(self.bufferSize))
+
+                    left = Array(left.dropFirst(self.bufferSize))
+                    right = Array(right.dropFirst(self.bufferSize))
+
+                    Task {
+                        await self.tapBlock(leftPrefix, rightPrefix)
+                    }
                 }
 
-                Task {
-                    await self.tapBlock(left, right)
-                }
             }
         }
         thread.start()
