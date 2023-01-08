@@ -10,8 +10,8 @@ public class RingBuffer<T> {
     private var _tail = ManagedAtomic<Int32>(0)
     private var _buffer: UnsafeMutableBufferPointer<T>
 
-    public init() {
-        _buffer = .allocate(capacity: 1024)
+    public init(capacity: Int = 1024) {
+        _buffer = .allocate(capacity: capacity)
     }
 
     deinit {
