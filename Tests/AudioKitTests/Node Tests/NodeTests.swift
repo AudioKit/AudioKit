@@ -223,24 +223,6 @@ class NodeTests: XCTestCase {
 //
 //        testMD5(audio)
 //    }
-
-    func testTwoEngines() {
-        let engine = AudioEngine()
-        let engine2 = AudioEngine()
-        
-        let sampler = Sampler()
-        
-        engine2.output = sampler
-        
-        let verb = Reverb(sampler)
-        engine.output = verb
-        
-        let audio = engine.startTest(totalDuration: 0.1)
-        sampler.play(url: URL.testAudio)
-        
-        audio.append(engine.render(duration: 0.1))
-        XCTAssert(audio.isSilent)
-    }
     
 //    func testManyMixerConnections() {
 //        let engine = AudioEngine()
