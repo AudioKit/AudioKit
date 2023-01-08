@@ -194,7 +194,7 @@ class NodeTests: XCTestCase {
     }
 
     func testDisconnect() {
-        let engine = AudioEngine()
+        let engine = Engine()
 
         let player = Sampler()
         
