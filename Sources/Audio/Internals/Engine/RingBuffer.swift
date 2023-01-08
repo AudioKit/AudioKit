@@ -137,4 +137,22 @@ public class RingBuffer<T> {
         _tail.store(tail, ordering: .releasing)
         return true
     }
+
+    /// Drain the buffer
+    ///
+    /// - Parameter f: called for every element
+    public func popAll(_ f: (T) -> Void) {
+
+        let head = _head.load(ordering: .acquiring)
+        var tail = _tail.load(ordering: .relaxed)
+
+        let avail = read_available(head, tail)
+
+        for _ in 0..<avail {
+            f(_buffer[Int(tail)])
+            tail = (tail + 1) % Int32(_buffer.count)
+        }
+
+        _tail.store(tail, ordering: .releasing)
+    }
 }
