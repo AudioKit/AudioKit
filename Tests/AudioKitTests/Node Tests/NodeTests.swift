@@ -203,30 +203,6 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testTransientNodes() throws {
-        try XCTSkipIf(true, "TODO Skipped test")
-
-        let engine = AudioEngine()
-        let player = Sampler()
-        func exampleStart() {
-            engine.output = player
-            try! engine.start()
-            player.play(url: URL.testAudio)
-            sleep(1)
-        }
-        func exampleStop() {
-            player.stop()
-            engine.stop()
-            sleep(1)
-        }
-        exampleStart()
-        exampleStop()
-        exampleStart()
-        exampleStop()
-        exampleStart()
-        exampleStop()
-    }
-
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
