@@ -4,9 +4,8 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-// Commented out these tests due to intermittent failure on CI
+// Commented these out if still fail CI
 
-/*
 class AppleSamplerTests: XCTestCase {
     let sampler = AppleSampler()
     let engine = Engine()
@@ -62,6 +61,7 @@ class AppleSamplerTests: XCTestCase {
 
     // Repro case.
     func testLoadEXS24_bug() throws {
+        throw XCTSkip("Repro case")
         let engine = AVAudioEngine()
         let samplerUnit = AVAudioUnitSampler()
         engine.attach(samplerUnit)
@@ -69,4 +69,4 @@ class AppleSamplerTests: XCTestCase {
         try samplerUnit.loadInstrument(at: exsURL)
     }
 }
-*/
+

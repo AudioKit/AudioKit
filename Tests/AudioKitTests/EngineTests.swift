@@ -134,43 +134,44 @@ class EngineTests: XCTestCase {
 
     func testMixerVolume2() throws {
 
-        for volume in [0.0, 0.1, 0.5, 0.8, 1.0, 2.0] {
-            let audioEngine = AudioEngine()
+        let avAudioEngineMixerMD5s: [String] = [
+            "07a5ba764493617dcaa54d16e8cbec99",
+            "41be8ab2c3d61d3cb61bf5c7a1e06d42",
+            "66cc591ea1974ff7f0fef36d4faf1453",
+            "e2dadccf46c5bf77ec19232750150a99",
+            "f5b785dcc74759b4a0492aef430bfc2e",
+            "0e20255d8d106d37c95262f229aed527"
+        ]
+
+        for (index, volume) in [0.0, 0.1, 0.5, 0.8, 1.0, 2.0].enumerated() {
+            let engine = Engine()
             let osc = TestOscillator()
             let mix = Mixer(osc)
             mix.volume = AUValue(volume)
-            audioEngine.output = mix
-            let audio = audioEngine.startTest(totalDuration: 1.0)
-            audio.append(audioEngine.render(duration: 1.0))
+            engine.output = mix
+            let audio = engine.startTest(totalDuration: 1.0)
+            audio.append(engine.render(duration: 1.0))
 
-            let engine = Engine()
-            let osc2 = TestOscillator()
-            let mix2 = Mixer(osc2)
-            mix2.volume = AUValue(volume)
-            engine.output = mix2
-            let audio2 = engine.startTest(totalDuration: 1.0)
-            audio2.append(engine.render(duration: 1.0))
-
-            for i in 0..<Int(audio.frameLength) {
-                let s0 = audio.floatChannelData![0][i]
-                let s1 = audio2.floatChannelData![0][i]
-                XCTAssertEqual(s0, s1)
-                if s0 != s1 {
-                    break
-                }
-
-            }
-
-            // XCTAssertEqual(audio.md5, audio2.md5, "for volume \(volume)")
+            XCTAssertEqual(audio.md5, avAudioEngineMixerMD5s[index])
         }
     }
 
     func testMixerPan() throws {
         let duration = 1.0
 
+        let avAudioEngineMixerMD5s: [String] = [
+            "111472eeef40ef621e484fa7d164ce07",
+            "d908a41c25f1087cb4acfa40ba98192b",
+            "ab42b58d273e3fbd9d0bc2bf0406a6a2",
+            "ccfca4edd61c3f9ab8091b99d944d148",
+            "1bdd778d0a674c1b1d139066599c80b6",
+            "0bd0c266c681114276729d09bbc4178f",
+            "f9c92e3084ed6cabdc6934c51e6b730e"
+        ]
+
         /// XXX: For some reason hard pans don't pass ie. -1.0, 1.0 but they sound right
-        for pan in [-0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75] {
-            let audioEngine = AudioEngine()
+        for (index, pan) in [-0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75].enumerated() {
+            let engine = Engine()
             let oscL = TestOscillator()
             let oscR = TestOscillator()
             oscR.frequency = 500
@@ -180,25 +181,11 @@ class EngineTests: XCTestCase {
             mixR.pan = 1.0
             let mixer = Mixer(mixL, mixR)
             mixer.pan = AUValue(pan)
-            audioEngine.output = mixer
-            let audio = audioEngine.startTest(totalDuration: duration)
-            audio.append(audioEngine.render(duration: duration))
+            engine.output = mixer
+            let audio = engine.startTest(totalDuration: duration)
+            audio.append(engine.render(duration: duration))
 
-            let engine = Engine()
-            let oscL2 = TestOscillator()
-            let oscR2 = TestOscillator()
-            oscR2.frequency = 500
-            let mixL2 = Mixer(oscL2)
-            let mixR2 = Mixer(oscR2)
-            mixL2.pan = -1.0
-            mixR2.pan = 1.0
-            let mixer2 = Mixer(mixL2, mixR2)
-            mixer2.pan = AUValue(pan)
-            engine.output = mixer2
-            let audio2 = engine.startTest(totalDuration: duration)
-            audio2.append(engine.render(duration: duration))
-
-            XCTAssertEqual(audio.md5, audio2.md5, "for pan \(pan)")
+            XCTAssertEqual(avAudioEngineMixerMD5s[index], audio.md5)
         }
     }
 

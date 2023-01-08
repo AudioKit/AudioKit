@@ -24,11 +24,11 @@ extension XCTestCase {
 }
 
 let validatedMD5s: [String: [String]] = [
-    "-[AppleSamplerTests testAmplitude]": ["d0526514c48f769f48e237974a21a2e5"],
-    "-[AppleSamplerTests testPan]": ["6802732a1a3d132485509187fe476f9a"],
-    "-[AppleSamplerTests testSamplePlayback]": ["7e38e34c8d052d9730b24cddd160d328"],
+    "-[AppleSamplerTests testAmplitude]": ["f26a2c57c43896381b16d3c3afcf5976"],
+    "-[AppleSamplerTests testPan]": ["41ac3c9d92ecb63ecad5d7740be487a0"],
+    "-[AppleSamplerTests testSamplePlayback]": ["eeaea3cd4ff26b7d0df8f0002270c793"],
     "-[AppleSamplerTests testStop]": ["b42b86f6a7ff3a6fc85eb1760226cba0"],
-    "-[AppleSamplerTests testVolume]": ["0b71c337205812fb30c536a014af7765"],
+    "-[AppleSamplerTests testVolume]": ["3a4d7f01a664fd08f65ba79497c2a6b4"],
     "-[AudioPlayerTests testBasic]": ["feb1367cee8917a890088b8967b8d422"],
     "-[AudioPlayerTests testEngineRestart]": ["b0dd4297f40fd11a2b648f6cb3aad13f"],
     "-[AudioPlayerTests testCurrentTime]": ["af7c73c8c8c6f43a811401246c10cba4"],
