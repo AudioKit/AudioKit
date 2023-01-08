@@ -6,7 +6,7 @@ import Utilities
 public extension AVAudioPCMBuffer {
     /// Audition the buffer. Especially useful in AudioKit testing
     func audition() {
-        let engine = AudioEngine()
+        let engine = Engine()
         let sampler = Sampler()
         engine.output = sampler
         do {
