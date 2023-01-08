@@ -80,23 +80,17 @@ class TapAudioUnit: AUAudioUnit {
                     return
                 }
 
-                var interleaved = [Float](repeating: 0.0, count: 512)
-
-                interleaved.withUnsafeMutableBufferPointer { ptr in
-                    if !self.ringBuffer.pop(to: ptr) {
-                        print("not enough data in RingBuffer")
+                var i = 0
+                self.ringBuffer.popAll { sample in
+                    if i.isMultiple(of: 2) {
+                        left.append(sample)
+                    } else {
+                        right.append(sample)
                     }
+                    i += 1
                 }
 
-                left.append(contentsOf: interleaved.enumerated().compactMap { tuple in
-                    tuple.offset.isMultiple(of: 2) ? nil : tuple.element
-                })
-
-                right.append(contentsOf: interleaved.enumerated().compactMap { tuple in
-                    tuple.offset.isMultiple(of: 2) ? tuple.element : nil
-                })
-
-                if left.count > self.bufferSize {
+                while left.count > self.bufferSize {
                     let leftPrefix = Array(left.prefix(self.bufferSize))
                     let rightPrefix = Array(right.prefix(self.bufferSize))
 
