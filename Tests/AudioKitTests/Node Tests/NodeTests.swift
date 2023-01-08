@@ -203,41 +203,6 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
     
-//    func testNodeDetach() {
-//        let engine = AudioEngine()
-//
-//        let player = Sampler()
-//
-//        let mixer = Mixer(player)
-//        engine.output = mixer
-//
-//        let audio = engine.startTest(totalDuration: 2.0)
-//
-//        player.play(url: URL.testAudio)
-//
-//        audio.append(engine.render(duration: 1.0))
-//
-//        player.detach()
-//
-//        audio.append(engine.render(duration: 1.0))
-//
-//        testMD5(audio)
-//    }
-    
-//    func testManyMixerConnections() {
-//        let engine = AudioEngine()
-//        
-//        var samplers: [Sampler] = []
-//        for _ in 0 ..< 16 {
-//            samplers.append(Sampler())
-//        }
-//        
-//        let mixer = Mixer(samplers)
-//        engine.output = mixer
-//        
-//        XCTAssertEqual(mixer.avAudioNode.inputCount, 16)
-//    }
-    
     func connectionCount(node: AVAudioNode) -> Int {
         var count = 0
         for bus in 0 ..< node.numberOfInputs {
