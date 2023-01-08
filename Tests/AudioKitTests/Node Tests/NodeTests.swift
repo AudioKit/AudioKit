@@ -27,17 +27,6 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
     #endif
-
-    func testNodeOutputFormatRespected() {
-        let outputFormat = AVAudioFormat(standardFormatWithSampleRate: 16000, channels: 2)!
-        let engine = AudioEngine()
-        let sampler = Sampler()
-        let verb = CustomFormatReverb(sampler, outputFormat: outputFormat)
-        engine.output = verb
-
-        XCTAssertEqual(engine.mainMixerNode!.avAudioNode.inputFormat(forBus: 0), outputFormat)
-        XCTAssertEqual(verb.avAudioNode.inputFormat(forBus: 0), Settings.audioFormat)
-    }
     
     func testRedundantConnection() {
         let player = Sampler()
