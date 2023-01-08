@@ -26,7 +26,7 @@ Using Xcode, you can add AudioKit and any of the other AudioKit libraries using 
 
 ## Documentation
 
-Docs appear on the [AudioKit.io Web Site](https://audiokit.io/).  You can alo generate the documentation in Xcode by pulling down the Product menu and choosing "Build Documentation".
+Docs appear on the [AudioKit.io Web Site](https://audiokit.io/). You can also generate the documentation in Xcode by pulling down the Product menu and choosing "Build Documentation".
 
 ## Examples
 
