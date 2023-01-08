@@ -10,7 +10,7 @@ class BaseTapTests: XCTestCase {
         let player = AudioPlayer(url: url)!
         engine.output = player
 
-        var tap: BaseTap? = BaseTap(player, bufferSize: 1024)
+        var tap: BaseTap? = BaseTap(player, bufferSize: 1024, callbackQueue: .main)
         weak var weakTap = tap
         tap?.start()
 
@@ -25,7 +25,7 @@ class BaseTapTests: XCTestCase {
         let player = AudioPlayer(url: url)!
         engine.output = player
 
-        let tap: BaseTap = BaseTap(player, bufferSize: 176400)
+        let tap: BaseTap = BaseTap(player, bufferSize: 176400, callbackQueue: .main)
         tap.start()
         _ = engine.startTest(totalDuration: 1.0)
         _ = engine.render(duration: 1.0)
