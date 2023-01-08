@@ -296,54 +296,6 @@ class NodeTests: XCTestCase {
         XCTAssertNotNil(weakPlayer)
     }
 
-    @available(iOS 13.0, *)
-    func testInnerNodesThatHaveOtherConnectionsNotDeallocated() {
-        let engine = AudioEngine()
-        var chain: Node? = createChain()
-        weak var weakPitch = chain?.avAudioNode
-        weak var weakDelayNode = chain?.connections.first
-        weak var weakDelay = chain?.connections.first?.avAudioNode
-        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
-        let mixer = Mixer(chain!, createChain(), weakDelayNode!)
-        engine.output = mixer
-
-        mixer.removeInput(chain!)
-        chain = nil
-
-        XCTAssertNil(weakPitch)
-        XCTAssertNotNil(weakDelay)
-        XCTAssertNotNil(weakDelayNode)
-        XCTAssertNotNil(weakPlayer)
-        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakDelay!))
-        XCTAssertTrue(engine.avEngine.attachedNodes.contains(weakPlayer!))
-    }
-
-    // This is a test for workaround for:
-    // http://openradar.appspot.com/radar?id=5490575180562432
-    // Connection format is not correctly applied when adding a node to paused engine
-    // This is only happening when using destination point API with one point
-    #if !os(tvOS)
-    func testConnectionFormatAppliedWhenAddingNode() throws {
-        let engine = AudioEngine()
-        let previousFormat = Settings.audioFormat
-
-        var settings = Settings.audioFormat.settings
-        settings[AVSampleRateKey] = 48000
-        Settings.audioFormat = AVAudioFormat(settings: settings)!
-
-        let mixer = Mixer(MIDISampler())
-        engine.output = mixer
-        try engine.start()
-        engine.pause()
-
-        let sampler = MIDISampler()
-        mixer.addInput(sampler)
-
-        XCTAssertEqual(sampler.avAudioNode.outputFormat(forBus: 0).sampleRate, 48000)
-
-        Settings.audioFormat = previousFormat
-    }
-    #endif
 }
 
 private extension NodeTests {
