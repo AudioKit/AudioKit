@@ -34,9 +34,6 @@ final class Recorder {
     // The file to record to
     private var internalAudioFile: AVAudioFile?
 
-    /// The bus to install the recording tap on. Default is 0.
-    private var bus: Int = 0
-
     /// Used for fixing recordings being truncated
     private var recordBufferDuration: Double = 16384 / Settings.sampleRate
 
