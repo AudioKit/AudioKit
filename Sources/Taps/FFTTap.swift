@@ -51,18 +51,19 @@ open class FFTTap: BaseTap {
     override open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
-        fftData = FFTTap.performFFT(buffer: buffer,
+        fftData = FFTTap.performFFT(data: buffer.toFloatChannelData()![0],
                                     isNormalized: isNormalized,
                                     zeroPaddingFactor: zeroPaddingFactor,
                                     fftSetupForBinCount: fftSetupForBinCount)
         handler(fftData)
     }
 
-    static func performFFT(buffer: AVAudioPCMBuffer,
+    static func performFFT(data: [Float],
                            isNormalized: Bool = true,
                            zeroPaddingFactor: UInt32 = 0,
                            fftSetupForBinCount: FFTSetupForBinCount? = nil) -> [Float] {
-        let frameCount = buffer.frameLength + buffer.frameLength * zeroPaddingFactor
+        var data = data
+        let frameCount = UInt32(data.count) * (zeroPaddingFactor+1)
         let log2n = determineLog2n(frameCount: frameCount, fftSetupForBinCount: fftSetupForBinCount)
         let bufferSizePOT = Int(1 << log2n) // 1 << n = 2^n
         let binCount = bufferSizePOT / 2
@@ -74,13 +75,13 @@ open class FFTTap: BaseTap {
             output.deallocate()
         }
 
-        let windowSize = Int(buffer.frameLength)
+        let windowSize = data.count
         var transferBuffer = [Float](repeating: 0, count: bufferSizePOT)
         var window = [Float](repeating: 0, count: windowSize)
 
         // Hann windowing to reduce the frequency leakage
         vDSP_hann_window(&window, vDSP_Length(windowSize), Int32(vDSP_HANN_NORM))
-        vDSP_vmul((buffer.floatChannelData?.pointee)!, 1, window,
+        vDSP_vmul(&data, 1, window,
                   1, &transferBuffer, 1, vDSP_Length(windowSize))
 
         // Transforming the [Float] buffer into a UnsafePointer<Float> object for the vDSP_ctoz method
