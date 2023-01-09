@@ -3,6 +3,7 @@
 import AudioKit
 import XCTest
 
+// XXX: don't need to use Engine to test Table
 class TableTests: XCTestCase {
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testReverseSawtooth() {
