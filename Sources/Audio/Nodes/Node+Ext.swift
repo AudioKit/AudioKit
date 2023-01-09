@@ -84,16 +84,6 @@ extension Node {
         avAudioNode.auAudioUnit
     }
 
-    /// Work-around for an AVAudioEngine bug.
-    func initLastRenderTime() {
-        // We don't have a valid lastRenderTime until we query it.
-        _ = avAudioNode.lastRenderTime
-
-        for connection in connections {
-            connection.initLastRenderTime()
-        }
-    }
-
     /// Scan for all parameters and associate with the node.
     /// - Parameter node: AVAudioNode to associate
     func associateParams(with node: AVAudioNode) {
