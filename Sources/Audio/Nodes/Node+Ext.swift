@@ -84,15 +84,6 @@ extension Node {
         avAudioNode.auAudioUnit
     }
 
-    func disconnectAV() {
-        if let engine = avAudioNode.engine {
-            engine.disconnectNodeInput(avAudioNode)
-            for (_, connection) in connections.enumerated() {
-                connection.disconnectAV()
-            }
-        }
-    }
-
     /// Work-around for an AVAudioEngine bug.
     func initLastRenderTime() {
         // We don't have a valid lastRenderTime until we query it.
