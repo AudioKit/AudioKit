@@ -115,47 +115,10 @@ extension Node {
         }
     }
 
-    func makeAVConnections() {
-        if let node = self as? HasInternalConnections {
-            node.makeInternalConnections()
-        }
-
-        // Are we attached?
-        if let engine = avAudioNode.engine {
-            for (bus, connection) in connections.enumerated() {
-                if let sourceEngine = connection.avAudioNode.engine {
-                    if sourceEngine != avAudioNode.engine {
-                        Log("🛑 Error: Attempt to connect nodes from different engines.")
-                        return
-                    }
-                }
-
-                engine.attach(connection.avAudioNode)
-
-                // Mixers will decide which input bus to use.
-                if let mixer = avAudioNode as? AVAudioMixerNode {
-                    mixer.connectMixer(input: connection.avAudioNode, format: connection.outputFormat)
-                    if let akMixer = self as? Mixer {
-                        mixer.outputVolume = akMixer.volume
-                    }
-                } else {
-                    avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
-                }
-
-                connection.makeAVConnections()
-            }
-        }
-    }
-
     var bypassed: Bool {
         get { au.shouldBypassEffect }
         set { au.shouldBypassEffect = newValue }
     }
-}
-
-public protocol HasInternalConnections: AnyObject {
-    /// Override point for any connections internal to the node.
-    func makeInternalConnections()
 }
 
 /// Protocol mostly to support DynamicOscillator in SoundpipeAudioKit, but could be used elsewhere

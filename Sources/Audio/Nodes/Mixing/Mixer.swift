@@ -90,16 +90,7 @@ public class Mixer: Node, NamedNode {
             return
         }
 
-        // if this mixer is empty, must initialize
-        let mixerReset = mixerAU.engine?.initializeMixer(mixerAU)
-
         inputs.append(node)
-
-        if let mixerReset = mixerReset {
-            mixerAU.engine?.detach(mixerReset)
-        }
-
-        makeAVConnections()
         
         // New engine: recompile graph after adding an input.
         compile()
@@ -115,10 +106,9 @@ public class Mixer: Node, NamedNode {
     /// If this is last input's connection,
     /// input will be detached from the engine.
     /// - Parameter node: Node to remove
-    public func removeInput(_ node: Node, strategy: DisconnectStrategy = .recursive) {
+    public func removeInput(_ node: Node) {
         guard inputs.contains(where: { $0 === node }) else { return }
         inputs.removeAll(where: { $0 === node })
-        disconnect(input: node, strategy: strategy)
         compile()
     }
 
@@ -127,10 +117,6 @@ public class Mixer: Node, NamedNode {
     /// will be detached from the engine.
     public func removeAllInputs() {
         guard connections.isNotEmpty else { return }
-
-        for input in connections {
-            disconnectAndDetachIfLast(input: input)
-        }
         inputs.removeAll()
         compile()
     }
