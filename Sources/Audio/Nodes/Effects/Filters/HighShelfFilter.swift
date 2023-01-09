@@ -55,7 +55,7 @@ public class HighShelfFilter: Node {
     ) {
         self.input = input
 
-        associateParams(with: effectAU)
+        associateParams(with: effectAU.auAudioUnit)
 
         self.cutOffFrequency = cutOffFrequency
         self.gain = gain

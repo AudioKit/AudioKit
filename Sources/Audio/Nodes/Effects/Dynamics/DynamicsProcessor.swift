@@ -145,7 +145,7 @@ public class DynamicsProcessor: Node {
     ) {
         self.input = input
 
-        associateParams(with: effectAU)
+        associateParams(with: effectAU.auAudioUnit)
 
         self.threshold = threshold
         self.headRoom = headRoom

@@ -115,7 +115,7 @@ public class Expander: Node {
     ) {
         self.input = input
 
-        associateParams(with: effectAU)
+        associateParams(with: effectAU.auAudioUnit)
 
         self.expansionRatio = expansionRatio
         self.expansionThreshold = expansionThreshold

@@ -85,7 +85,7 @@ public class Delay: Node {
     ) {
         self.input = input
 
-        associateParams(with: delayAU)
+        associateParams(with: delayAU.auAudioUnit)
 
         self.dryWetMix = dryWetMix
         self.time = time

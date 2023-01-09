@@ -89,12 +89,12 @@ extension Node {
 
     /// Scan for all parameters and associate with the node.
     /// - Parameter node: AVAudioNode to associate
-    func associateParams(with node: AVAudioNode) {
+    func associateParams(with au: AUAudioUnit) {
         let mirror = Mirror(reflecting: self)
 
         for child in mirror.children {
             if let param = child.value as? ParameterBase {
-                param.projectedValue.associate(with: node.auAudioUnit)
+                param.projectedValue.associate(with: au)
             }
         }
     }

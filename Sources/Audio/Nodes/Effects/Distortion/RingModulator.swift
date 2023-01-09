@@ -85,7 +85,7 @@ public class RingModulator: Node {
     ) {
         self.input = input
 
-        associateParams(with: effectAU)
+        associateParams(with: effectAU.auAudioUnit)
 
         self.ringModFreq1 = ringModFreq1
         self.ringModFreq2 = ringModFreq2

@@ -265,7 +265,7 @@ public class Distortion: Node {
     ) {
         self.input = input
 
-        associateParams(with: effectAU)
+        associateParams(with: effectAU.auAudioUnit)
 
         self.delay = delay
         self.decay = decay

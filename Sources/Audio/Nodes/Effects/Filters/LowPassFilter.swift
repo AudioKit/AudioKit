@@ -55,7 +55,7 @@ public class LowPassFilter: Node {
     ) {
         self.input = input
 
-        associateParams(with: effectAU)
+        associateParams(with: effectAU.auAudioUnit)
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

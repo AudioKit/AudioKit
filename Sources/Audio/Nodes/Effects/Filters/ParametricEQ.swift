@@ -70,7 +70,7 @@ public class ParametricEQ: Node {
     ) {
         self.input = input
 
-        associateParams(with: effectAU)
+        associateParams(with: effectAU.auAudioUnit)
 
         self.centerFreq = centerFreq
         self.q = q
