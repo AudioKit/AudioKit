@@ -67,12 +67,6 @@ open class NodeRecorder {
 
     private static var recordedFiles = [URL]()
 
-    /// Callback type
-    public typealias AudioDataCallback = ([Float], AVAudioTime) -> Void
-
-    /// Callback of incoming audio floating point values and time stamp for monitoring purposes
-    public var audioDataCallback: AudioDataCallback?
-
     // MARK: - Initialization
 
     /// Initialize the node recorder
@@ -89,13 +83,11 @@ open class NodeRecorder {
     public init(node: Node,
                 fileDirectoryURL: URL? = nil,
                 bus: Int = 0,
-                shouldCleanupRecordings: Bool = true,
-                audioDataCallback: AudioDataCallback? = nil) throws
+                shouldCleanupRecordings: Bool = true) throws
     {
         self.node = node
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
-        self.audioDataCallback = audioDataCallback
 
         createNewFile()
 
@@ -214,28 +206,10 @@ open class NodeRecorder {
                 if durationToRecord != 0, internalAudioFile.duration >= durationToRecord {
                     stop()
                 }
-
-                if audioDataCallback != nil {
-                    doHandleTapBlock(buffer: buffer, time: time)
-                }
             }
         } catch let error as NSError {
             Log("Write failed: error -> \(error.localizedDescription)")
         }
-    }
-
-    /// When a raw data tap handler is provided, we call it back with the recorded float values
-    private func doHandleTapBlock(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
-        guard buffer.floatChannelData != nil else { return }
-
-        let offset = Int(buffer.frameCapacity - buffer.frameLength)
-        var data = [Float]()
-        if let channelData = buffer.floatChannelData?[0] {
-            for index in 0 ..< buffer.frameLength {
-                data.append(channelData[offset + Int(index)])
-            }
-        }
-        audioDataCallback?(data, time)
     }
 
     /// Stop recording
