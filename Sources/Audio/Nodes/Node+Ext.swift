@@ -5,12 +5,12 @@ import MIDI
 import Utilities
 
 public extension Node {
+
     /// Reset the internal state of the unit
-    /// Fixes issues such as https://github.com/AudioKit/AudioKit/issues/2046
+    ///
+    /// Note https://github.com/AudioKit/AudioKit/issues/2046
     func reset() {
-        if let avAudioUnit = avAudioNode as? AVAudioUnit {
-            AudioUnitReset(avAudioUnit.audioUnit, kAudioUnitScope_Global, 0)
-        }
+        au.reset()
     }
 
 #if !os(tvOS)
