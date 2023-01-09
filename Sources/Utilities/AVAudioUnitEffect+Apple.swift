@@ -2,7 +2,7 @@
 
 import AVFoundation
 
-extension AVAudioUnitEffect {
+public extension AVAudioUnitEffect {
     convenience init(appleEffect subType: OSType) {
         self.init(audioComponentDescription: AudioComponentDescription(appleEffect: subType))
     }
