@@ -32,6 +32,8 @@ class FFTTapTests: XCTestCase {
         let tap = FFTTap(mixer) { fft in
             let max: Float = fft.max() ?? 0.0
             let index = Int(fft.firstIndex(of: max) ?? 0)
+
+            // Only store when the max-amplitude frequency changes.
             if !fftData.contains(index) {
                 fftData.append(index)
                 if fftData.count == targetFrequencies.count {
