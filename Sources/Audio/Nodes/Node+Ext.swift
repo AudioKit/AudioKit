@@ -66,7 +66,7 @@ public extension Node {
                                                               unit: def.unit,
                                                               flags: def.flags)
                 params.append(auParam)
-                param.projectedValue.associate(with: avAudioNode, parameter: auParam)
+                param.projectedValue.associate(with: au, parameter: auParam)
             }
         }
 
@@ -101,7 +101,7 @@ extension Node {
 
         for child in mirror.children {
             if let param = child.value as? ParameterBase {
-                param.projectedValue.associate(with: node)
+                param.projectedValue.associate(with: node.auAudioUnit)
             }
         }
     }

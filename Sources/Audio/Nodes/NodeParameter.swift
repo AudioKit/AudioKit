@@ -54,7 +54,9 @@ public class NodeParameter {
     /// Due to Apple bugs, we need to set parameters using the V2 API.
     ///
     /// See https://github.com/AudioKit/AudioKit/issues/2528
-    public private(set) var au: AudioUnit?
+    public var au: AudioUnit? {
+        (auAudioUnit as? AUAudioUnitV2Bridge)?.audioUnit
+    }
 
     /// For automating parameters.
     public private(set) var auAudioUnit: AUAudioUnit?
@@ -164,11 +166,10 @@ public class NodeParameter {
 
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
-    ///   - avAudioNode: AVAudioUnit to associate with
-    public func associate(with avAudioNode: AVAudioNode) {
-        self.au = (avAudioNode as? AVAudioUnit)?.audioUnit
-        self.auAudioUnit = avAudioNode.auAudioUnit
-        guard let tree = avAudioNode.auAudioUnit.parameterTree else {
+    ///   - auAudioUnit: AUAudioUnit to associate with
+    public func associate(with auAudioUnit: AUAudioUnit) {
+        self.auAudioUnit = auAudioUnit
+        guard let tree = auAudioUnit.parameterTree else {
             fatalError("No parameter tree.")
         }
         parameter = tree.parameter(withAddress: def.address)
@@ -177,11 +178,10 @@ public class NodeParameter {
 
     /// Helper function to attach the parameter to the appropriate tree
     /// - Parameters:
-    ///   - avAudioNode: AVAudioUnit to associate with
+    ///   - auAudioUnit: AUAudioUnit  to associate with
     ///   - parameter: Parameter to associate
-    public func associate(with avAudioNode: AVAudioNode, parameter: AUParameter) {
-        self.au = (avAudioNode as? AVAudioUnit)?.audioUnit
-        self.auAudioUnit = avAudioNode.auAudioUnit
+    public func associate(with auAudioUnit: AUAudioUnit, parameter: AUParameter) {
+        self.auAudioUnit = auAudioUnit
         self.parameter = parameter
     }
 
