@@ -57,7 +57,7 @@ open class FFTTap: BaseTap {
     }
 
     static func performFFT(data: [Float],
-                           isNormalized: Bool = true,
+                           isNormalized: Bool,
                            zeroPaddingFactor: UInt32 = 0,
                            binCount: FFTValidBinCount? = nil) -> [Float] {
         var data = data
