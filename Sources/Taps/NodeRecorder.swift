@@ -8,9 +8,6 @@ import Audio
 open class NodeRecorder {
     // MARK: - Properties
 
-    /// The node we record from
-    public private(set) var node: Node
-
     /// True if we are recording.
     public private(set) var isRecording = false
 
@@ -71,27 +68,16 @@ open class NodeRecorder {
 
     /// Initialize the node recorder
     ///
-    /// Recording buffer size is Settings.recordingBufferLength
-    ///
     /// - Parameters:
-    ///   - node: Node to record from
     ///   - fileDirectoryPath: Directory to write audio files to
-    ///   - bus: Integer index of the bus to use
     ///   - shouldCleanupRecordings: Determines if recorded files are deleted upon deinit (default = true)
-    ///   - audioDataCallback: Callback after each buffer processing with raw audio data and time stamp
     ///
-    public init(node: Node,
-                fileDirectoryURL: URL? = nil,
-                bus: Int = 0,
+    public init(fileDirectoryURL: URL? = nil,
                 shouldCleanupRecordings: Bool = true) throws
     {
-        self.node = node
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
-
         createNewFile()
-
-        self.bus = bus
     }
 
     deinit {
@@ -205,7 +191,6 @@ open class NodeRecorder {
             let delay = UInt32(recordBufferDuration * 1_000_000)
             usleep(delay)
         }
-        node.avAudioNode.removeTap(onBus: bus)
 
         // Unpause if paused
         if isPaused {
