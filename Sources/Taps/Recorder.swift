@@ -5,7 +5,7 @@ import Utilities
 import Audio
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
-open class Recorder {
+final class Recorder {
     // MARK: - Properties
 
     /// True if we are recording.
@@ -15,10 +15,10 @@ open class Recorder {
     public private(set) var isPaused = false
 
     /// An optional duration for the recording to auto-stop when reached
-    open var durationToRecord: Double = 0
+    public var durationToRecord: Double = 0
 
     /// Duration of recording
-    open var recordedDuration: Double {
+    public var recordedDuration: Double {
         return internalAudioFile?.duration ?? 0
     }
 
@@ -29,7 +29,7 @@ open class Recorder {
     /// Otherwise, the latter operation will override any previously set format.
     ///
     /// Default is nil.
-    open var recordFormat: AVAudioFormat?
+    public var recordFormat: AVAudioFormat?
 
     // The file to record to
     private var internalAudioFile: AVAudioFile?
@@ -41,7 +41,7 @@ open class Recorder {
     private var recordBufferDuration: Double = 16384 / Settings.sampleRate
 
     /// return the AVAudioFile for reading
-    open var audioFile: AVAudioFile? {
+    public var audioFile: AVAudioFile? {
         do {
             if internalAudioFile != nil {
                 closeFile(file: &internalAudioFile)
