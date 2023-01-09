@@ -7,10 +7,13 @@ import Utilities
 public extension Node {
 
     /// Reset the internal state of the unit
-    ///
-    /// Note https://github.com/AudioKit/AudioKit/issues/2046
     func reset() {
         au.reset()
+
+        // Call AudioUnitReset due to https://github.com/AudioKit/AudioKit/issues/2046
+        if let v2au = (au as? AUAudioUnitV2Bridge)?.audioUnit {
+            AudioUnitReset(v2au, kAudioUnitScope_Global, 0)
+        }
     }
 
 #if !os(tvOS)
