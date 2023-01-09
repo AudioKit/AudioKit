@@ -26,7 +26,7 @@ class AmplitudeDectorTests: XCTestCase {
 
         let expect = expectation(description: "wait for amplitudes")
 
-        let tap = TapNode(noise) { left, right in
+        let tap = Tap(noise) { left, right in
             let amp = detectAmplitude(left, right)
             if abs(amp - (detectedAmplitudes.last ?? 0.0)) > 0.05 {
                 detectedAmplitudes.append(amp)

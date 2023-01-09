@@ -7,14 +7,14 @@ import Audio
 import Utilities
 
 /// Node which provides a callback that "taps" the audio data from the stream.
-public class TapNode: Node {
+public class Tap: Node {
     public let connections: [Node]
 
     public let avAudioNode: AVAudioNode
 
     let tapAU: TapAudioUnit
 
-    /// Create a TapNode.
+    /// Create a Tap.
     ///
     /// - Parameters:
     ///   - input: Input to monitor.
