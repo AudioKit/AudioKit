@@ -169,32 +169,11 @@ open class NodeRecorder {
             }
         }
 
-        let bufferLength: AVAudioFrameCount = Settings.recordingBufferLength.samplesCount
         isRecording = true
-
-        // Note: if you install a tap on a bus that already has a tap it will crash your application.
         Log("⏺ Recording using format", internalAudioFile?.processingFormat.debugDescription)
-
-        // note, format should be nil as per the documentation for installTap:
-        // "If non-nil, attempts to apply this as the format of the specified output bus. This should
-        // only be done when attaching to an output bus which is not connected to another node"
-        // In most cases AudioKit nodes will be attached to something else.
-
-        // Make sure the input node has an engine
-        // before recording
-        if node.avAudioNode.engine == nil {
-            Log("🛑 Error: Error recording. Input node '\(node)' has no engine.")
-            isRecording = false
-            return
-        }
-
-        node.avAudioNode.installTap(onBus: bus,
-                                    bufferSize: bufferLength,
-                                    format: recordFormat,
-                                    block: process(buffer:time:))
     }
 
-    private func process(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
+    func add(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
         guard let internalAudioFile = internalAudioFile else { return }
 
         do {
