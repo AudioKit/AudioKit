@@ -236,10 +236,13 @@ public class Table: MutableCollection {
         }
     }
 
+    /// Apparently Float.pi wasn't consistent on CI.
+    let pi: Float = 3.14_159_265
+
     /// Instantiate the table as a sine wave
     func standardSineWave() {
         for i in indices {
-            content[i] = Float(sin(2 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(sin(2 * pi * Float(i + phaseOffset) / Float(count)))
         }
     }
 
@@ -250,13 +253,13 @@ public class Table: MutableCollection {
             var sum: Float = 0
 
             // Root
-            sum = Float(sin(2 * 3.14_159_265 * Float(index + phaseOffset) / Float(count)))
+            sum = Float(sin(2 * pi * Float(index + phaseOffset) / Float(count)))
 
             // Partials
             for ampIndex in 0 ..< partialAmplitudes.count {
                 let partial =
                     Float(
-                        sin(2 * 3.14_159_265 *
+                        sin(2 * pi *
                             Float((index * (ampIndex + 2)) + phaseOffset)
                             / Float(count))
                     )
@@ -307,7 +310,7 @@ public class Table: MutableCollection {
     /// Instantiate the table as a sine wave
     func positiveSineWave() {
         for i in indices {
-            content[i] = Float(0.5 + 0.5 * sin(2 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+            content[i] = Float(0.5 + 0.5 * sin(2 * pi * Float(i + phaseOffset) / Float(count)))
         }
     }
 

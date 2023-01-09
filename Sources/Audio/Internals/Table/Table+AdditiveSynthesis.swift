@@ -122,7 +122,7 @@ public extension Table {
 
         for h in 1 ... harmonicCount {
             for i in indices {
-                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * pi * Float(i + phaseOffset) / Float(count)))
             }
         }
     }
@@ -146,7 +146,7 @@ public extension Table {
 
         for h in 1 ... harmonicCount {
             for i in indices {
-                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * pi * Float(i + phaseOffset) / Float(count)))
             }
         }
     }
@@ -180,7 +180,7 @@ public extension Table {
 
         for h in 1 ... harmonicCount {
             for i in indices {
-                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+                self[i] += Float(coefficient(h) * sin(Float(h) * 2.0 * pi * Float(i + phaseOffset) / Float(count)))
             }
         }
     }
@@ -204,7 +204,7 @@ public extension Table {
         }
 
         let coefficient = { (harmonic: Int) -> Float in
-            let c: Float = ((2.0 * a) / (Float(harmonic) * 3.14_159_265)) * sin(Float(Float(harmonic) * 3.14_159_265 * d))
+            let c: Float = ((2.0 * a) / (Float(harmonic) * self.pi)) * sin(Float(Float(harmonic) * self.pi * d))
             return c
         }
 
@@ -213,7 +213,7 @@ public extension Table {
 
         for h in 1 ... harmonicCount {
             for i in indices {
-                let x = Float(coefficient(h) * cos(Float(h) * 2.0 * 3.14_159_265 * Float(i + phaseOffset) / Float(count)))
+                let x = Float(coefficient(h) * cos(Float(h) * 2.0 * pi * Float(i + phaseOffset) / Float(count)))
                 let index = (i + sampleOffset) % count
                 self[index] += x
             }
