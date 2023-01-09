@@ -16,12 +16,12 @@ public func detectAmplitude(_ inputs: [Float]..., mode: AnalysisMode = .rms) -> 
         if mode == .rms {
             var rms: Float = 0
             vDSP_rmsqv(input, 1, &rms, UInt(length))
-            return rms
+            return partialResult + rms / Float(inputs.count)
         } else {
             var peak: Float = 0
             var index: vDSP_Length = 0
             vDSP_maxvi(input, 1, &peak, &index, UInt(length))
-            return peak
+            return partialResult + peak / Float(inputs.count)
         }
     }
 
