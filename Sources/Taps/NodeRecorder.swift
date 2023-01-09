@@ -5,7 +5,7 @@ import Utilities
 import Audio
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
-open class NodeRecorder: NSObject {
+open class NodeRecorder {
     // MARK: - Properties
 
     /// The node we record from
@@ -96,7 +96,6 @@ open class NodeRecorder: NSObject {
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
         self.audioDataCallback = audioDataCallback
-        super.init()
 
         createNewFile()
 
