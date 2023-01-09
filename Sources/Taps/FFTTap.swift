@@ -15,7 +15,7 @@ open class FFTTap: BaseTap {
     /// Determines the ratio of zeros padding the input of the FFT (default 0 = no padding)
     public var zeroPaddingFactor: UInt32 = 0
     /// Sets the number of fft bins return
-    private var fftSetupForBinCount: FFTSetupForBinCount?
+    private var binCount: FFTValidBinCount?
 
     private var handler: Handler = { _ in }
 
@@ -28,15 +28,13 @@ open class FFTTap: BaseTap {
     ///   - handler: Callback to call when FFT is calculated
     public init(_ input: Node,
                 bufferSize: UInt32 = 4096,
-                fftValidBinCount: FFTValidBinCount? = nil,
+                binCount: FFTValidBinCount? = nil,
                 handler: @escaping Handler) {
         self.handler = handler
-        if let fftBinCount = fftValidBinCount {
-            fftSetupForBinCount = FFTSetupForBinCount(binCount: fftBinCount)
-        }
+        self.binCount = binCount
 
-        if let binCount = fftSetupForBinCount?.binCount {
-            fftData = Array(repeating: 0.0, count: binCount)
+        if let binCount = binCount {
+            fftData = Array(repeating: 0.0, count: Int(binCount.binCount))
         } else {
             fftData = Array(repeating: 0.0, count: Int(bufferSize))
         }
@@ -54,17 +52,17 @@ open class FFTTap: BaseTap {
         fftData = FFTTap.performFFT(data: buffer.toFloatChannelData()![0],
                                     isNormalized: isNormalized,
                                     zeroPaddingFactor: zeroPaddingFactor,
-                                    fftSetupForBinCount: fftSetupForBinCount)
+                                    binCount: binCount)
         handler(fftData)
     }
 
     static func performFFT(data: [Float],
                            isNormalized: Bool = true,
                            zeroPaddingFactor: UInt32 = 0,
-                           fftSetupForBinCount: FFTSetupForBinCount? = nil) -> [Float] {
+                           binCount: FFTValidBinCount? = nil) -> [Float] {
         var data = data
         let frameCount = UInt32(data.count) * (zeroPaddingFactor+1)
-        let log2n = determineLog2n(frameCount: frameCount, fftSetupForBinCount: fftSetupForBinCount)
+        let log2n = determineLog2n(frameCount: frameCount, binCount: binCount)
         let bufferSizePOT = Int(1 << log2n) // 1 << n = 2^n
         let binCount = bufferSizePOT / 2
 
@@ -137,8 +135,8 @@ open class FFTTap: BaseTap {
     }
 
     /// Determines the value to use for log2n input to fft
-    static func determineLog2n(frameCount: UInt32, fftSetupForBinCount: FFTSetupForBinCount?) -> UInt {
-        if let setup = fftSetupForBinCount {
+    static func determineLog2n(frameCount: UInt32, binCount: FFTValidBinCount?) -> UInt {
+        if let setup = binCount {
             if frameCount >= setup.binCount { // guard against more bins than buffer size
                 return UInt(setup.log2n + 1) // +1 because we divide bufferSizePOT by two
             }
@@ -147,23 +145,6 @@ open class FFTTap: BaseTap {
         return UInt(round(log2(Double(frameCount))))
     }
 
-    /// Relevant values for setting the fft bin count
-    struct FFTSetupForBinCount {
-        /// Initialize FFTSetupForBinCount with a valid number of fft bins
-        ///
-        /// - Parameters:
-        ///   - binCount: enum representing a valid 2^n result where n is an integer
-        init(binCount: FFTValidBinCount) {
-            log2n = UInt(log2(binCount.rawValue))
-            self.binCount = Int(binCount.rawValue)
-        }
-
-        /// used to set log2n in fft
-        let log2n: UInt
-
-        /// number of returned fft bins
-        var binCount: Int
-    }
 }
 
 /// Valid results of 2^n where n is an integer
@@ -181,4 +162,12 @@ public enum FFTValidBinCount: Double {
          twoThousandAndFortyEight = 2048,
          fourThousandAndNintySix = 4096,
          eightThousandOneHundredAndNintyTwo = 8192
+
+    var binCount: UInt {
+        UInt(rawValue)
+    }
+
+    var log2n: UInt {
+        UInt(log2(rawValue))
+    }
 }
