@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import AVFAudio
 
-class AmplitudeTapTests: XCTestCase {
+class AmplitudeDectorTests: XCTestCase {
 
     func check(values: [Float], known: [Float]) {
         if values.count >= known.count {
@@ -23,20 +23,19 @@ class AmplitudeTapTests: XCTestCase {
         let targetAmplitudes: [Float] = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
 
         let noise = PlaygroundNoiseGenerator(amplitude: 0.0)
-        engine.output = noise
 
         let expect = expectation(description: "wait for amplitudes")
 
-        let tap = AmplitudeTap(noise) { amp in
+        let tap = TapNode(noise) { left, right in
+            let amp = detectAmplitude(left, right)
             if abs(amp - (detectedAmplitudes.last ?? 0.0)) > 0.05 {
                 detectedAmplitudes.append(amp)
                 if detectedAmplitudes.count == 10 {
                     expect.fulfill()
                 }
             }
-
         }
-        tap.start()
+        engine.output = tap
 
         let audio = engine.startTest(totalDuration: 10.0)
         for amplitude in targetAmplitudes {

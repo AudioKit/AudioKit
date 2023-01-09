@@ -19,7 +19,7 @@ public class TapNode: Node {
     /// - Parameters:
     ///   - input: Input to monitor.
     ///   - tapBlock: Called with a stereo pair of channels. Note that this doesn't need to be realtime safe. Called on the main thread.
-    public init(_ input: Node, bufferSize: Int, tapBlock: @escaping ([Float], [Float]) -> Void) {
+    public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) -> Void) {
 
         let componentDescription = AudioComponentDescription(effect: "tapn")
 

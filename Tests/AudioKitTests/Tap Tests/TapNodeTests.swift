@@ -4,15 +4,6 @@ import XCTest
 import AudioKit
 
 class TapNodeTests: XCTestCase {
-    func quickieAmplitudes(left: [Float], right: [Float]) -> (Float, Float) {
-        let leftAvg = left.reduce(0.0) { partialResult, current in
-            partialResult + abs(current) / Float(left.count)
-        }
-        let rightAvg = right.reduce(0.0) { partialResult, current in
-            partialResult + abs(current) / Float(left.count)
-        }
-        return (leftAvg, rightAvg)
-    }
 
     func testTapNode() async throws {
         let engine = Engine()
@@ -20,7 +11,7 @@ class TapNodeTests: XCTestCase {
         noise.amplitude = 0.1
         let tapNode = TapNode(noise, bufferSize: 256) { left, right in
             print("left.count: \(left.count), right.count: \(right.count)")
-            print(self.quickieAmplitudes(left: left, right: right))
+            print(detectAmplitudes([left, right]))
         }
         engine.output = tapNode
 
