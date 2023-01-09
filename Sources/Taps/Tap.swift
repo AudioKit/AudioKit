@@ -12,7 +12,7 @@ public class Tap: Node {
 
     public let avAudioNode: AVAudioNode
 
-    let tapAU: TapAudioUnit
+    private let tapAU: TapAudioUnit
 
     /// Create a Tap.
     ///
