@@ -5,7 +5,7 @@ import Utilities
 import Audio
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
-open class NodeRecorder {
+open class Recorder {
     // MARK: - Properties
 
     /// True if we are recording.
@@ -81,7 +81,7 @@ open class NodeRecorder {
     }
 
     deinit {
-        if shouldCleanupRecordings { NodeRecorder.removeRecordedFiles() }
+        if shouldCleanupRecordings { Recorder.removeRecordedFiles() }
     }
 
     // MARK: - Methods
@@ -129,11 +129,11 @@ open class NodeRecorder {
 
     /// When done with this class, remove any audio files that were created with createAudioFile()
     public static func removeRecordedFiles() {
-        for url in NodeRecorder.recordedFiles {
+        for url in Recorder.recordedFiles {
             try? FileManager.default.removeItem(at: url)
             Log("𝗫 Deleted tmp file at", url)
         }
-        NodeRecorder.recordedFiles.removeAll()
+        Recorder.recordedFiles.removeAll()
     }
 
     /// Start recording
@@ -149,7 +149,7 @@ open class NodeRecorder {
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
             // record to new audio file
-            if let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: fileDirectoryURL) {
+            if let audioFile = Recorder.createAudioFile(fileDirectoryURL: fileDirectoryURL) {
                 internalAudioFile = try AVAudioFile(forWriting: audioFile.url,
                                                     settings: audioFile.fileFormat.settings)
             }
@@ -244,6 +244,6 @@ open class NodeRecorder {
             stop()
         }
 
-        internalAudioFile = NodeRecorder.createAudioFile(fileDirectoryURL: fileDirectoryURL)
+        internalAudioFile = Recorder.createAudioFile(fileDirectoryURL: fileDirectoryURL)
     }
 }
