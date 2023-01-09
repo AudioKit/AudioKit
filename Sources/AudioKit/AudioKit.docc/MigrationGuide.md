@@ -4,7 +4,7 @@
 
 The major change with AudioKit 6 is wer eare using our own audio engine, `Engine` instead of using `AudioEngine` which used `AVAudioEngine` for all the node connections. In this change, a few things were deleted, and a few things were changed. 
 
-Taps are now done with a `TapNode` inserted into your signal chain as opposed to installing taps anywhere.  Now instead of tapping nodes with different kinds of taps, you just run functions on the data supplied by a given tap node to do whatever kind of analysis you need.
+Taps are now done with a `Tap` node inserted into your signal chain as opposed to installing taps anywhere.  Now instead of tapping nodes with different kinds of taps, you just run functions on the data supplied by a given tap node to do whatever kind of analysis you need.
 
 Deleted nodes: MatrixMixer
 
