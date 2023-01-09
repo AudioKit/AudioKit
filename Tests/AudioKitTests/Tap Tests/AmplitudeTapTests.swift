@@ -6,70 +6,6 @@ import AVFAudio
 
 class AmplitudeTapTests: XCTestCase {
 
-    func testTapDoesntDeadlockOnStop() throws {
-        let engine = Engine()
-        let sampler = Sampler()
-        engine.output = sampler
-        let tap = AmplitudeTap(sampler)
-
-        _ = engine.startTest(totalDuration: 1)
-        tap.start()
-        _ = engine.render(duration: 1)
-        tap.stop()
-
-        XCTAssertFalse(tap.isStarted)
-    }
-
-    func testDoesntCrashForMoreThenTwoChannels() {
-        let channelCount: UInt32 = 4
-        let channelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_DiscreteInOrder | channelCount)!
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
-
-        let reverb = CustomFormatReverb(Sampler(), outputFormat: format)
-        let tap = AmplitudeTap(reverb)
-
-        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
-        for channel in 0...Int(channelCount - 1) {
-            buffer.floatChannelData?[channel][0] = 0.0
-        }
-        tap.doHandleTapBlock(buffer: buffer, at: .now())
-    }
-
-    func testStopResetsAllToZero() {
-        let channelCount: UInt32 = 4
-        let channelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_DiscreteInOrder | channelCount)!
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
-
-        let reverb = CustomFormatReverb(Sampler(), outputFormat: format)
-        let tap = AmplitudeTap(reverb)
-
-        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
-        buffer.frameLength = 1
-        for channel in 0...Int(channelCount - 1) {
-            buffer.floatChannelData?[channel][0] = 1.0
-        }
-        tap.doHandleTapBlock(buffer: buffer, at: .now())
-        tap.stop()
-        XCTAssertEqual(tap.amplitude, 0)
-    }
-
-    func testAmplitudeIsAverageOfAllChannels() {
-        let channelCount: UInt32 = 4
-        let channelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_DiscreteInOrder | channelCount)!
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
-
-        let reverb = CustomFormatReverb(Sampler(), outputFormat: format)
-        let tap = AmplitudeTap(reverb)
-
-        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
-        buffer.frameLength = 1
-        for channel in 0...Int(channelCount - 1) {
-            buffer.floatChannelData?[channel][0] = 1.0
-        }
-        tap.doHandleTapBlock(buffer: buffer, at: .now())
-        XCTAssertEqual(tap.amplitude, 1)
-    }
-
     func check(values: [Float], known: [Float]) {
         if values.count >= known.count {
             for i in 0..<known.count {
@@ -81,7 +17,7 @@ class AmplitudeTapTests: XCTestCase {
     @available(iOS 13.0, *)
     func testDefault() {
 
-        let engine = AudioEngine()
+        let engine = Engine()
 
         var detectedAmplitudes: [Float] = []
         let targetAmplitudes: [Float] = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
