@@ -1,11 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import Utilities
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
 public class Delay: Node {
-    let delayAU = AVAudioUnitDelay()
+    let delayAU: AVAudioUnit
 
     let input: Node
 
@@ -85,6 +86,9 @@ public class Delay: Node {
     ) {
         self.input = input
 
+        // XXX: cleanup
+        let desc = AudioComponentDescription(componentType: 1635083896, componentSubType: 1684368505, componentManufacturer: 1634758764, componentFlags: 0, componentFlagsMask: 0)
+        delayAU = instantiate(componentDescription: desc)
         associateParams(with: delayAU.auAudioUnit)
 
         self.dryWetMix = dryWetMix
