@@ -24,3 +24,17 @@ We create a few worker threads which are woken by the audio thread. Those thread
 [Meet Audio Workgroups](https://developer.apple.com/videos/play/wwdc2020/10224/)
 
 [Lock-Free Work Stealing](https://blog.molecular-matters.com/2015/08/24/job-system-2-0-lock-free-work-stealing-part-1-basics/)
+
+## To Do before it is ready for beta testers
+
+* Continue the process of cleaning out AVAudioNode from Nodes
+* Minimize the volume and duration of realtime tests
+* Add all the parameters to reverb
+* Add factory presets loading to every au that has them
+* Explore other audio units available
+* Figure out the true valid range for DynamicsProcessor's Expansion Threshold
+* Search code for XXX: issues
+* Make node recorder functional and tested again
+* Test and update all the subAudioKits that depend on AK, especial AudioKitEX
+* Test and update other repos that depend on AK, like Cookbook, Waveform
+* Document changes in migration guide
