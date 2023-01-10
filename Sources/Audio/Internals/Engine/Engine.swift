@@ -13,12 +13,12 @@ public class Engine {
     
     public var output: Node? {
         didSet {
-            engineAU.output = output
+            engineAU?.output = output
         }
     }
     
-    public var engineAU: EngineAudioUnit
-    var avAudioUnit: AVAudioUnit
+    public var engineAU: EngineAudioUnit?
+    var avAudioUnit: AVAudioUnit?
 
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1024
@@ -31,13 +31,16 @@ public class Engine {
                                      as: componentDescription,
                                      name: "engine AU",
                                      version: .max)
-        
-        avAudioUnit = instantiate(componentDescription: componentDescription)
-        engineAU = avAudioUnit.auAudioUnit as! EngineAudioUnit
-        
-        avEngine.attach(avAudioUnit)
-        avEngine.connect(avEngine.inputNode, to: avAudioUnit, format: nil)
-        avEngine.connect(avAudioUnit, to: avEngine.mainMixerNode, format: nil)
+
+        AVAudioUnit.instantiate(with: componentDescription) { avAudioUnit, _ in
+            guard let au = avAudioUnit else { fatalError("Unable to instantiate EngineAudioUnit") }
+
+            self.engineAU = au.auAudioUnit as? EngineAudioUnit
+
+            self.avEngine.attach(au)
+            self.avEngine.connect(self.avEngine.inputNode, to: au, format: nil)
+            self.avEngine.connect(au, to: self.avEngine.mainMixerNode, format: nil)
+        }
     }
     
     /// Start the engine
