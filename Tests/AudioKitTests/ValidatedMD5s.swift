@@ -49,6 +49,8 @@ let validatedMD5s: [String: [String]] = [
     "-[AudioPlayerTests testSeekWillStop]": ["84b026cbdf45d9c5f5659f1106fdee6a"],
     "-[AudioPlayerTests testSeekWillContinueLooping]": ["5becbd9530850f217f95ee1142a8db30"],
     "-[AudioPlayerTests testPlaybackWillStopWhenSettingLoopingForBuffer]": ["5becbd9530850f217f95ee1142a8db30"],
+    "-[DistortionTests testDefault]": ["609e0a3e3606082a92de70f733f37809"],
+    "-[DistortionTests testPresetChange]": ["d54c5309e650d1e8291f3a8ee3423e61"],
     "-[DynamicsProcessorTests testAttackTime]": ["f2da585c3e9838c1a41f1a5f34c467d0"],
     "-[DynamicsProcessorTests testDefault]": ["3064ef82b30c512b2f426562a2ef3448"],
     "-[DynamicsProcessorTests testHeadRoom]": ["98ac5f20a433ba5a858c461aa090d81f"],

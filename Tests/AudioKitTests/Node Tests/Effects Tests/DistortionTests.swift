@@ -5,15 +5,26 @@ import XCTest
 import AVFAudio
 
 class DistortionTests: XCTestCase {
-    #if os(iOS)
-    func testDefaultDistortion() {
+
+    func testDefault() {
         let engine = Engine()
         let sampler = Sampler()
-        engine.output = AppleDistortion(sampler)
+        engine.output = Distortion(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
         sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))
-//        testMD5(audio)
+        testMD5(audio)
     }
-    #endif
+
+    func testPresetChange() {
+        let engine = Engine()
+        let sampler = Sampler()
+        let distortion = Distortion(sampler)
+        distortion.loadFactoryPreset(.drumsBitBrush)
+        engine.output = distortion
+        let audio = engine.startTest(totalDuration: 1.0)
+        sampler.play(url: URL.testAudio)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
 }
