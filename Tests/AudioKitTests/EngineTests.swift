@@ -23,7 +23,7 @@ class EngineTests: XCTestCase {
         let engine = Engine()
         
         let osc = TestOscillator()
-        let fx = AppleDistortion(osc)
+        let fx = Distortion(osc)
 
         engine.output = fx
         
@@ -38,7 +38,7 @@ class EngineTests: XCTestCase {
         let engine = Engine()
         
         let osc = TestOscillator()
-        let dist = AppleDistortion(osc)
+        let dist = Distortion(osc)
         let rev = Reverb(dist)
 
         engine.output = rev
@@ -55,7 +55,7 @@ class EngineTests: XCTestCase {
         let engine = Engine()
         
         let osc = TestOscillator()
-        let dist = AppleDistortion(osc)
+        let dist = Distortion(osc)
         
         engine.output = osc
 
@@ -260,7 +260,6 @@ class EngineTests: XCTestCase {
         sampler.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
-        audio.audition()
     }
 
     func testPlaygroundOscillator() {

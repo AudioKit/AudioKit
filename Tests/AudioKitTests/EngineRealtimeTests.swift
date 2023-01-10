@@ -22,7 +22,7 @@ class EngineRealtimeTests: XCTestCase {
         let engine = Engine()
 
         let osc = TestOscillator()
-        let fx = AppleDistortion(osc)
+        let fx = Distortion(osc)
 
         engine.output = fx
         try engine.start()
@@ -35,7 +35,7 @@ class EngineRealtimeTests: XCTestCase {
         let engine = Engine()
 
         let osc = TestOscillator()
-        let dist = AppleDistortion(osc)
+        let dist = Distortion(osc)
         let rev = Reverb(dist)
 
         engine.output = rev
@@ -51,7 +51,7 @@ class EngineRealtimeTests: XCTestCase {
         let engine = Engine()
 
         let osc = TestOscillator()
-        let dist = AppleDistortion(osc)
+        let dist = Distortion(osc)
 
         engine.output = osc
         try engine.start()
