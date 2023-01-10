@@ -39,9 +39,6 @@ public class Mixer: Node, NamedNode {
     /// Initialize the mixer node with no inputs, to be connected later
     public init(volume: AUValue = 1.0, name: String? = nil) {
 
-        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Reverb2)
-        au = instantiateAU(componentDescription: desc)
-
         let volumeCD = AudioComponentDescription(effect: "volu")
 
         AUAudioUnit.registerSubclass(VolumeAudioUnit.self,
@@ -49,8 +46,9 @@ public class Mixer: Node, NamedNode {
                                      name: "Volume AU",
                                      version: .max)
 
-        self.volumeAU = instantiateAU(componentDescription: volumeCD) as! VolumeAudioUnit
-        self.volumeAU.volumeParam.value = volume
+        au = instantiateAU(componentDescription: volumeCD)
+        volumeAU = au as! VolumeAudioUnit
+        volumeAU.volumeParam.value = volume
         self.volume = volume
         self.name = name ?? MemoryAddress(of: self).description
     }
