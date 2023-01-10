@@ -61,12 +61,12 @@ public class DynamicsProcessor: Node {
         identifier: "expansionThreshold",
         name: "Expansion Threshold",
         address: AUParameterAddress(kDynamicsProcessorParam_ExpansionThreshold),
-        defaultValue: 2,
-        range: 1 ... 50.0,
+        defaultValue: -1,
+        range: -40...20,
         unit: .decibels
     )
 
-    /// Expansion Threshold (decibels) ranges from 1 to 50.0 (Default: 2)
+    /// Expansion Threshold (decibels) ranges from 1 to 50.0 (Default: 3)
     @Parameter(expansionThresholdDef) public var expansionThreshold: AUValue
 
     /// Specification details for attackTime
