@@ -113,8 +113,6 @@ public enum ReverbPreset: Int, CaseIterable, CustomStringConvertible {
             return "Medium Hall 3"
         case .largeHall2:
             return "Large Hall 2"
-        @unknown default:
-            return "Unknown "
         }
     }
 
