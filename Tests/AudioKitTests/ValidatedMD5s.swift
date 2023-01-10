@@ -19,6 +19,8 @@ extension XCTestCase {
         XCTAssertFalse(buffer.isSilent)
         if let validMD5s = validatedMD5s[name] {
             XCTAssert(validMD5s.contains(localMD5), "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
+        } else {
+            XCTFail("No MD5 for this test.")
         }
     }
 }
@@ -87,7 +89,9 @@ let validatedMD5s: [String: [String]] = [
     "-[SequencerTrackTests testTempo]": ["1eb7efc6ea54eafbe616dfa8e1a3ef36"],
     "-[TableTests testReverseSawtooth]": ["3c40428e755926307bffd903346dd652"],
     "-[TableTests testSawtooth]": ["f31d4c79fd6822e9e457eaaa888378a2"],
+    "-[TableTests testSine]": ["87c195248adcd83ca41c50cf240504fb"],
     "-[TableTests testTriangle]": ["9c1146981e940074bbbf63f1c2dd3896"],
+    "-[TableTests testHarmonicWithPartialAmplitudes]": ["dfa0ab73fb4135456e8702c8652b9ead"],
     "-[EngineTests testBasic]": ["6869abdc57172524cae42e6dfe156717", "f5b785dcc74759b4a0492aef430bfc2e"],
     "-[EngineTests testDynamicsProcessorWithSampler]": ["3064ef82b30c512b2f426562a2ef3448"],
     "-[EngineTests testDynamicChange]": ["7844ad59f69ddb82bb3c929878e41691", "27bfee745a1ff33f8705f0c0746f61a4"],

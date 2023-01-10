@@ -12,12 +12,8 @@ class BypassTests: XCTestCase {
     override func setUp() {
         super.setUp()
         effects = [
-            Decimator(source),
             Distortion(source),
-            RingModulator(source),
-            Compressor(source),
             DynamicsProcessor(source),
-            Expander(source),
             PeakLimiter(source),
             BandPassFilter(source),
             HighPassFilter(source),

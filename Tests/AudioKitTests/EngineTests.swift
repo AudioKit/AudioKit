@@ -250,16 +250,17 @@ class EngineTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testCompressorWithSampler() {
+    func testDynamicsProcessorWithSampler() {
         let engine = Engine()
         let buffer = try! AVAudioPCMBuffer(url: URL.testAudio)!
         let sampler = Sampler()
         sampler.play(buffer)
-        engine.output = Compressor(sampler, attackTime: 0.1)
+        engine.output = DynamicsProcessor(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
         sampler.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
+        audio.audition()
     }
 
     func testPlaygroundOscillator() {
