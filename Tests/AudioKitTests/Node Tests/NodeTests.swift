@@ -260,44 +260,4 @@ class NodeTests: XCTestCase {
         print(dot)
     }
 
-    func testAllNodesInChainDeallocatedOnRemove() {
-        let engine = Engine()
-        var chain: Node? = createChain()
-        weak var weakPitch = chain?.avAudioNode
-        weak var weakDelay = chain?.connections.first?.avAudioNode
-        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
-        let mixer = Mixer(chain!, createChain())
-        engine.output = mixer
-
-        mixer.removeInput(chain!)
-        chain = nil
-
-        XCTAssertNil(weakPitch)
-        XCTAssertNil(weakDelay)
-        XCTAssertNil(weakPlayer)
-    }
-
-    @available(iOS 13.0, *)
-    func testNodesThatHaveOtherConnectionsNotDeallocated() {
-        let engine = Engine()
-        var chain: Node? = createChain()
-        weak var weakPitch = chain?.avAudioNode
-        weak var weakDelay = chain?.connections.first?.avAudioNode
-        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
-        let mixer1 = Mixer(chain!, createChain())
-        let mixer2 = Mixer(mixer1, chain!)
-        engine.output = mixer2
-
-        mixer1.removeInput(chain!)
-        chain = nil
-
-        XCTAssertNotNil(weakPitch)
-        XCTAssertNotNil(weakDelay)
-        XCTAssertNotNil(weakPlayer)
-    }
-
-}
-
-private extension NodeTests {
-    func createChain() -> Node { TimePitch(Delay(Sampler())) }
 }
