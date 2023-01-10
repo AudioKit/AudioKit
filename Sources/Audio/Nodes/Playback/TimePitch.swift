@@ -1,11 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import Utilities
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
 public class TimePitch: Node {
-    fileprivate let timePitchAU = AVAudioUnitTimePitch()
+    public var effectAU: AVAudioUnit
 
     let input: Node
 
@@ -13,31 +14,46 @@ public class TimePitch: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode
+    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
-    public var rate: AUValue = 1.0 {
-        didSet {
-            rate = rate.clamped(to: 0.031_25 ... 32)
-            timePitchAU.rate = rate
-        }
-    }
+    @Parameter(rateDef) public var rate: AUValue
+
+    /// Specification details for rate
+    public static let rateDef = NodeParameterDef(
+        identifier: "rate",
+        name: "Rate",
+        address: AUParameterAddress(kTimePitchParam_Rate),
+        defaultValue: 1,
+        range: 0.03125 ... 32,
+        unit: .rate
+    )
 
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 0.0)
-    public var pitch: AUValue = 0.0 {
-        didSet {
-            pitch = pitch.clamped(to: -2400 ... 2400)
-            timePitchAU.pitch = pitch
-        }
-    }
+    @Parameter(pitchDef) public var pitch: AUValue
+
+    /// Specification details for pitch
+    public static let pitchDef = NodeParameterDef(
+        identifier: "pitch",
+        name: "Pitch",
+        address: AUParameterAddress(kTimePitchParam_Pitch),
+        defaultValue: 0,
+        range: -2400 ... 2400,
+        unit: .cents
+    )
 
     /// Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
-    public var overlap: AUValue = 8.0 {
-        didSet {
-            overlap = overlap.clamped(to: 3 ... 32)
-            timePitchAU.overlap = overlap
-        }
-    }
+    @Parameter(overlapDef) public var overlap: AUValue
+
+    /// Specification details for overlap
+    public static let overlapDef = NodeParameterDef(
+        identifier: "overlap",
+        name: "Overlap",
+        address: AUParameterAddress(kNewTimePitchParam_Overlap),
+        defaultValue: 8,
+        range: 3 ... 32,
+        unit: .generic
+    )
 
     /// Initialize the time pitch node
     ///
@@ -54,11 +70,15 @@ public class TimePitch: Node {
         overlap: AUValue = 8.0
     ) {
         self.input = input
+
+        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_TimePitch)
+        effectAU = instantiate(componentDescription: desc)
+        associateParams(with: effectAU.auAudioUnit)
+
         self.rate = rate
         self.pitch = pitch
         self.overlap = overlap
 
-        avAudioNode = timePitchAU
     }
 
     // TODO: This node is untested

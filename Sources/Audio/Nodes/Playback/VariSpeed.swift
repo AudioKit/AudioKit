@@ -1,11 +1,12 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
+import Utilities
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///
 public class VariSpeed: Node {
-    fileprivate let variSpeedAU = AVAudioUnitVarispeed()
+    public var effectAU: AVAudioUnit
 
     let input: Node
 
@@ -13,15 +14,21 @@ public class VariSpeed: Node {
     public var connections: [Node] { [input] }
 
     /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode
+    public var avAudioNode: AVAudioNode { effectAU }
 
-    /// Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
-    public var rate: AUValue = 1.0 {
-        didSet {
-            rate = rate.clamped(to: 0.25 ... 4)
-            variSpeedAU.rate = rate
-        }
-    }
+
+    // Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
+    @Parameter(rateDef) public var rate: AUValue
+
+    /// Specification details for rate
+    public static let rateDef = NodeParameterDef(
+        identifier: "rate",
+        name: "Rate",
+        address: AUParameterAddress(kTimePitchParam_Rate),
+        defaultValue: 1,
+        range: 0.25 ... 4,
+        unit: .rate
+    )
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
@@ -38,10 +45,13 @@ public class VariSpeed: Node {
     ///
     public init(_ input: Node, rate: AUValue = 1.0) {
         self.input = input
+
+        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Varispeed)
+        effectAU = instantiate(componentDescription: desc)
+        associateParams(with: effectAU.auAudioUnit)
+
         self.rate = rate
         lastKnownRate = rate
-
-        avAudioNode = variSpeedAU
     }
 
     /// Function to start, play, or activate the node, all do the same thing
