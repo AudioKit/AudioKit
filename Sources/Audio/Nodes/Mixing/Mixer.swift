@@ -6,7 +6,7 @@ import Utilities
 /// AudioKit version of Apple's Mixer Node. Mixes a variadic list of Nodes.
 public class Mixer: Node, NamedNode {
     /// The internal mixer node
-    fileprivate let mixerAU = AVAudioMixerNode()
+    fileprivate let mixerAU: AVAudioUnit
 
     var inputs: [Node] = []
 
@@ -14,7 +14,7 @@ public class Mixer: Node, NamedNode {
     public var connections: [Node] { inputs }
 
     /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode
+    public var avAudioNode: AVAudioNode { mixerAU }
 
     /// Name of the node
     open var name = "(unset)"
@@ -23,7 +23,7 @@ public class Mixer: Node, NamedNode {
     public var volume: AUValue = 1.0 {
         didSet {
             volume = max(volume, 0)
-            mixerAU.outputVolume = volume
+//            mixerAU.outputVolume = volume
 
             volumeAU.volumeParam.value = volume
         }
@@ -33,7 +33,7 @@ public class Mixer: Node, NamedNode {
     public var pan: AUValue = 0 {
         didSet {
             pan = pan.clamped(to: -1 ... 1)
-            mixerAU.pan = pan
+//            mixerAU.pan = pan
 
             volumeAU.panParam.value = pan
         }
@@ -46,16 +46,18 @@ public class Mixer: Node, NamedNode {
 
     /// Initialize the mixer node with no inputs, to be connected later
     public init(volume: AUValue = 1.0, name: String? = nil) {
-        avAudioNode = mixerAU
 
-        let componentDescription = AudioComponentDescription(effect: "volu")
+        let desc = AudioComponentDescription(type: kAudioUnitType_Mixer, subType: kAudioUnitSubType_StereoMixer)
+        mixerAU = instantiate(componentDescription: desc)
+
+        let volumeCD = AudioComponentDescription(effect: "volu")
 
         AUAudioUnit.registerSubclass(VolumeAudioUnit.self,
-                                     as: componentDescription,
+                                     as: volumeCD,
                                      name: "Volume AU",
                                      version: .max)
 
-        self.volumeAU = instantiateAU(componentDescription: componentDescription) as! VolumeAudioUnit
+        self.volumeAU = instantiateAU(componentDescription: volumeCD) as! VolumeAudioUnit
         self.volumeAU.volumeParam.value = volume
         self.volume = volume
         self.name = name ?? MemoryAddress(of: self).description
