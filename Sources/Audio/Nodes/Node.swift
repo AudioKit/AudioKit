@@ -7,9 +7,6 @@ public protocol Node: AnyObject {
     /// Nodes providing audio input to this node.
     var connections: [Node] { get }
 
-    /// Internal AVAudioEngine node.
-    var avAudioNode: AVAudioNode { get }
-
     /// Start the node
     func start()
 

@@ -13,8 +13,7 @@ import Utilities
 open class AppleSampler: Node {
     // MARK: - Properties
 
-    /// Internal audio unit
-    public private(set) var internalAU: AUAudioUnit?
+    public var au: AUAudioUnit
 
     private var _audioFiles: [AVAudioFile] = []
 
@@ -39,9 +38,6 @@ open class AppleSampler: Node {
 
     /// Connected nodes
     public var connections: [Node] { [] }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { samplerUnit }
 
     /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
     public var amplitude: AUValue = 0 { didSet { samplerUnit.overallGain = Float(amplitude) } }
@@ -69,7 +65,7 @@ open class AppleSampler: Node {
 
     /// Initialize the sampler node
     public init() {
-        internalAU = samplerUnit.auAudioUnit
+        au = samplerUnit.auAudioUnit
     }
 
     // Add URL based initializers

@@ -10,7 +10,7 @@ import Utilities
 public class Tap: Node {
     public let connections: [Node]
 
-    public let avAudioNode: AVAudioNode
+    public let au: AUAudioUnit
 
     private let tapAU: TapAudioUnit
 
@@ -27,8 +27,8 @@ public class Tap: Node {
                                      as: componentDescription,
                                      name: "Tap AU",
                                      version: .max)
-        avAudioNode = instantiate(componentDescription: componentDescription)
-        tapAU = avAudioNode.auAudioUnit as! TapAudioUnit
+        au = instantiateAU(componentDescription: componentDescription)
+        tapAU = au as! TapAudioUnit
         tapAU.tapBlock = tapBlock
         tapAU.bufferSize = bufferSize
         self.connections = [input]

@@ -153,14 +153,6 @@ public func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID
     AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
 }
 
-public extension AVAudioNode {
-    var inputCount: Int { numberOfInputs }
-
-    func inputConnections() -> [AVAudioConnectionPoint] {
-        return (0 ..< inputCount).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
-    }
-}
-
 public extension AUParameterTree {
     class func createParameter(identifier: String,
                                name: String,

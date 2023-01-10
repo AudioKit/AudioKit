@@ -7,15 +7,12 @@ import Utilities
 /// AudioKit version of Apple's LowPassFilter Audio Unit
 ///
 public class LowPassFilter: Node {
-    fileprivate let effectAU: AVAudioUnit
+    public var au: AUAudioUnit
 
     let input: Node
 
     /// Connected nodes
     public var connections: [Node] { [input] }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(
@@ -57,8 +54,8 @@ public class LowPassFilter: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_LowPassFilter)
-        effectAU = instantiate(componentDescription: desc)
-        associateParams(with: effectAU.auAudioUnit)
+        au = instantiateAU(componentDescription: desc)
+        associateParams(with: au)
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance

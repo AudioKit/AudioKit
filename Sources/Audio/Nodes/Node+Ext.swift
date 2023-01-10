@@ -79,16 +79,8 @@ public extension Node {
 
 extension Node {
 
-    /// The underlying AudioUnit for the node.
-    ///
-    /// NOTE: some AVAudioNodes (e.g.  AVAudioPlayerNode) can't be used without AVAudioEngine.
-    /// For those we'll need to use AUAudioUnit directly and override this.
-    public var au: AUAudioUnit {
-        avAudioNode.auAudioUnit
-    }
-
     /// Scan for all parameters and associate with the node.
-    /// - Parameter node: AVAudioNode to associate
+    /// - Parameter au: AUAudioUnit to associate
     func associateParams(with au: AUAudioUnit) {
         let mirror = Mirror(reflecting: self)
 

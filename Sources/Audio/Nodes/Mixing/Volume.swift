@@ -9,8 +9,7 @@ import Utilities
 public class Volume: Node {
     public let connections: [Node] = []
 
-    public let avAudioNode: AVAudioNode
-
+    public var au: AUAudioUnit
     let volumeAU: VolumeAudioUnit
 
     public var volume: Float { get { volumeAU.volumeParam.value } set { volumeAU.volumeParam.value = newValue }}
@@ -24,8 +23,8 @@ public class Volume: Node {
                                      as: componentDescription,
                                      name: "Volume AU",
                                      version: .max)
-        avAudioNode = instantiate(componentDescription: componentDescription)
-        volumeAU = avAudioNode.auAudioUnit as! VolumeAudioUnit
+        au = instantiateAU(componentDescription: componentDescription)
+        volumeAU = au as! VolumeAudioUnit
     }
 }
 

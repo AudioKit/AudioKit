@@ -18,7 +18,7 @@ public func instantiate(componentDescription: AudioComponentDescription) -> AVAu
     return result
 }
 
-/// Sometimes we don't want an AVAudioUnit.
+/// Instantiate AUAudioUnit
 public func instantiateAU(componentDescription: AudioComponentDescription) -> AUAudioUnit {
     var result: AUAudioUnit!
     let runLoop = RunLoop.current

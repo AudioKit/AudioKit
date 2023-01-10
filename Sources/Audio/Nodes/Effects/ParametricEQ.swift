@@ -7,15 +7,12 @@ import Utilities
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
 public class ParametricEQ: Node {
-    fileprivate let effectAU: AVAudioUnit
+    public var au: AUAudioUnit
 
     let input: Node
 
     /// Connected nodes
     public var connections: [Node] { [input] }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for centerFreq
     public static let centerFreqDef = NodeParameterDef(
@@ -72,9 +69,8 @@ public class ParametricEQ: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_ParametricEQ)
-        effectAU = instantiate(componentDescription: desc)
-
-        associateParams(with: effectAU.auAudioUnit)
+        au = instantiateAU(componentDescription: desc)
+        associateParams(with: au)
 
         self.centerFreq = centerFreq
         self.q = q

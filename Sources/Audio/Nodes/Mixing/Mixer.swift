@@ -5,16 +5,12 @@ import Utilities
 
 /// AudioKit version of Apple's Mixer Node. Mixes a variadic list of Nodes.
 public class Mixer: Node, NamedNode {
-    /// The internal mixer node
-    fileprivate let mixerAU: AVAudioUnit
+    public let au: AUAudioUnit
 
     var inputs: [Node] = []
 
     /// Connected nodes
     public var connections: [Node] { inputs }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { mixerAU }
 
     /// Name of the node
     open var name = "(unset)"
@@ -23,8 +19,6 @@ public class Mixer: Node, NamedNode {
     public var volume: AUValue = 1.0 {
         didSet {
             volume = max(volume, 0)
-//            mixerAU.outputVolume = volume
-
             volumeAU.volumeParam.value = volume
         }
     }
@@ -33,8 +27,6 @@ public class Mixer: Node, NamedNode {
     public var pan: AUValue = 0 {
         didSet {
             pan = pan.clamped(to: -1 ... 1)
-//            mixerAU.pan = pan
-
             volumeAU.panParam.value = pan
         }
     }
@@ -47,8 +39,8 @@ public class Mixer: Node, NamedNode {
     /// Initialize the mixer node with no inputs, to be connected later
     public init(volume: AUValue = 1.0, name: String? = nil) {
 
-        let desc = AudioComponentDescription(type: kAudioUnitType_Mixer, subType: kAudioUnitSubType_StereoMixer)
-        mixerAU = instantiate(componentDescription: desc)
+        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Reverb2)
+        au = instantiateAU(componentDescription: desc)
 
         let volumeCD = AudioComponentDescription(effect: "volu")
 
@@ -143,7 +135,7 @@ public class Mixer: Node, NamedNode {
     /// - Returns: new input busses array size or its current size in case it's less than required
     ///  and resize failed, or can't be done.
     public func resizeInputBussesArray(requiredSize: Int) -> Int {
-        let busses = mixerAU.auAudioUnit.inputBusses
+        let busses = au.inputBusses
         guard busses.isCountChangeable else {
             // input busses array is not changeable
             return min(busses.count, requiredSize)

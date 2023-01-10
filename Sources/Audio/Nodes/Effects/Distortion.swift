@@ -7,15 +7,12 @@ import Utilities
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
 public class Distortion: Node {
-    fileprivate let effectAU: AVAudioUnit
+    public var au: AUAudioUnit
 
     let input: Node
 
     /// Connected nodes
     public var connections: [Node] { [input] }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for delay
     public static let delayDef = NodeParameterDef(
@@ -229,7 +226,7 @@ public class Distortion: Node {
     public func loadFactoryPreset(_ preset: DistortionPreset) {
         let auPreset = AUAudioUnitPreset()
         auPreset.number = preset.rawValue
-        effectAU.auAudioUnit.currentPreset = auPreset
+        au.currentPreset = auPreset
     }
 
     /// Initialize the distortion node
@@ -274,8 +271,8 @@ public class Distortion: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Distortion)
-        effectAU = instantiate(componentDescription: desc)
-        associateParams(with: effectAU.auAudioUnit)
+        au = instantiateAU(componentDescription: desc)
+        associateParams(with: au)
 
         self.delay = delay
         self.decay = decay

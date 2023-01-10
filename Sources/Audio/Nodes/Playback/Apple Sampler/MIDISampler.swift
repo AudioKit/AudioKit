@@ -42,7 +42,7 @@ open class MIDISampler: AppleSampler, NamedNode {
     public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
                            name: String? = nil) {
         let cfName = (name ?? self.name) as CFString
-        guard let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock else {
+        guard let midiBlock = au.scheduleMIDIEventBlock else {
             fatalError("Expected AU to respond to MIDI.")
         }
         CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in

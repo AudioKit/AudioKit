@@ -7,15 +7,12 @@ import Utilities
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
 public class DynamicsProcessor: Node {
-    fileprivate let effectAU: AVAudioUnit
+    public var au: AUAudioUnit
 
     let input: Node
 
     /// Connected nodes
     public var connections: [Node] { [input] }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(
@@ -110,17 +107,17 @@ public class DynamicsProcessor: Node {
 
     /// Compression Amount (dB) read only
     public var compressionAmount: AUValue {
-        return effectAU.auAudioUnit.parameterTree?.allParameters[7].value ?? 0
+        return au.parameterTree?.allParameters[7].value ?? 0
     }
 
     /// Input Amplitude (dB) read only
     public var inputAmplitude: AUValue {
-        return effectAU.auAudioUnit.parameterTree?.allParameters[8].value ?? 0
+        return au.parameterTree?.allParameters[8].value ?? 0
     }
 
     /// Output Amplitude (dB) read only
     public var outputAmplitude: AUValue {
-        return effectAU.auAudioUnit.parameterTree?.allParameters[9].value ?? 0
+        return au.parameterTree?.allParameters[9].value ?? 0
     }
 
     /// Initialize the dynamics processor node
@@ -147,9 +144,8 @@ public class DynamicsProcessor: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
-        effectAU = instantiate(componentDescription: desc)
-        
-        associateParams(with: effectAU.auAudioUnit)
+        au = instantiateAU(componentDescription: desc)
+        associateParams(with: au)
 
         self.threshold = threshold
         self.headRoom = headRoom

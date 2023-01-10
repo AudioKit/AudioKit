@@ -6,15 +6,12 @@ import Utilities
 /// AudioKit version of Apple's Delay Audio Unit
 ///
 public class Delay: Node {
-    let delayAU: AVAudioUnit
+    public var au: AUAudioUnit
 
     let input: Node
 
     /// Connected nodes
     public var connections: [Node] { [input] }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { return delayAU }
 
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(
@@ -87,8 +84,8 @@ public class Delay: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Delay)
-        delayAU = instantiate(componentDescription: desc)
-        associateParams(with: delayAU.auAudioUnit)
+        au = instantiateAU(componentDescription: desc)
+        associateParams(with: au)
 
         self.dryWetMix = dryWetMix
         self.time = time

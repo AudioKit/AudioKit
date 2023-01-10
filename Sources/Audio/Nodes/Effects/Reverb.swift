@@ -6,15 +6,12 @@ import Utilities
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
 public class Reverb: Node {
-    fileprivate let effectAU: AVAudioUnit
+    public var au: AUAudioUnit
 
     let input: Node
 
     /// Connected nodes
     public var connections: [Node] { [input] }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { effectAU }
 
     // Hacking start, stop, play, and bypass to use dryWetMix because reverbAU's bypass results in no sound
 
@@ -48,7 +45,7 @@ public class Reverb: Node {
     public func loadFactoryPreset(_ preset: ReverbPreset) {
         let auPreset = AUAudioUnitPreset()
         auPreset.number = preset.rawValue
-        effectAU.auAudioUnit.currentPreset = auPreset
+        au.currentPreset = auPreset
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -64,8 +61,8 @@ public class Reverb: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_MatrixReverb)
-        effectAU = instantiate(componentDescription: desc)
-        associateParams(with: effectAU.auAudioUnit)
+        au = instantiateAU(componentDescription: desc)
+        associateParams(with: au)
 
     }
 }

@@ -7,8 +7,7 @@ import Utilities
 public class PlaygroundNoiseGenerator: Node {
     public let connections: [Node] = []
 
-    public let au: AVAudioUnit
-    public var avAudioNode: AVAudioNode { au }
+    public let au: AUAudioUnit
 
     let noiseAU: PlaygroundNoiseGeneratorAudioUnit
 
@@ -32,8 +31,8 @@ public class PlaygroundNoiseGenerator: Node {
                                      as: componentDescription,
                                      name: "NoiseGenerator AU",
                                      version: .max)
-        au = instantiate(componentDescription: componentDescription)
-        noiseAU = au.auAudioUnit as! PlaygroundNoiseGeneratorAudioUnit
+        au = instantiateAU(componentDescription: componentDescription)
+        noiseAU = au as! PlaygroundNoiseGeneratorAudioUnit
         self.noiseAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
         self.stop()

@@ -6,9 +6,9 @@ import AVFoundation
 import AudioKit
 
 public class TestOscillator: Node {
-    public let connections: [Node] = []
+    public var au: AUAudioUnit
 
-    public let avAudioNode: AVAudioNode
+    public let connections: [Node] = []
 
     let oscAU: TestOscillatorAudioUnit
 
@@ -23,8 +23,8 @@ public class TestOscillator: Node {
                                      as: componentDescription,
                                      name: "osc AU",
                                      version: .max)
-        avAudioNode = instantiate(componentDescription: componentDescription)
-        oscAU = avAudioNode.auAudioUnit as! TestOscillatorAudioUnit
+        au = instantiateAU(componentDescription: componentDescription)
+        oscAU = au as! TestOscillatorAudioUnit
     }
 }
 

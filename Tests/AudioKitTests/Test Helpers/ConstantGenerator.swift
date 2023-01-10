@@ -6,9 +6,9 @@ import AVFoundation
 import AudioKit
 
 public class ConstantGenerator: Node {
+    public var au: AUAudioUnit
+    
     public let connections: [Node] = []
-
-    public let avAudioNode: AVAudioNode
 
     let oscAU: ConstantGeneratorAudioUnit
 
@@ -23,8 +23,8 @@ public class ConstantGenerator: Node {
                                      as: componentDescription,
                                      name: "constant generator AU",
                                      version: .max)
-        avAudioNode = instantiate(componentDescription: componentDescription)
-        oscAU = avAudioNode.auAudioUnit as! ConstantGeneratorAudioUnit
+        au = instantiateAU(componentDescription: componentDescription)
+        oscAU = au as! ConstantGeneratorAudioUnit
         self.constant = constant
     }
 }
@@ -97,22 +97,3 @@ class ConstantGeneratorAudioUnit: AUAudioUnit {
     }
 
 }
-
-//@available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-//public class ConstantGenerator: Node {
-//    public var connections: [Node] { [] }
-//    public private(set) var avAudioNode: AVAudioNode
-//
-//    init(constant: Float) {
-//        avAudioNode = AVAudioSourceNode { _, _, frameCount, audioBufferList in
-//            let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
-//            for frame in 0..<Int(frameCount) {
-//                for buffer in ablPointer {
-//                    let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
-//                    buf[frame] = constant
-//                }
-//            }
-//            return noErr
-//        }
-//    }
-//}

@@ -64,8 +64,6 @@ class NodeTests: XCTestCase {
         let osc1 = PlaygroundOscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
         let mixer = Mixer(osc1)
         
-        XCTAssertNil(osc1.avAudioNode.engine)
-        
         engine.output = mixer
         
         let audio = engine.startTest(totalDuration: 2.0)

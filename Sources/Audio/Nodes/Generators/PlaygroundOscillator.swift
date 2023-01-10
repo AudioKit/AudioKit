@@ -11,8 +11,7 @@ enum PlaygroundOscillatorCommand {
 public class PlaygroundOscillator: Node {
     public let connections: [Node] = []
 
-    public let au: AVAudioUnit
-    public var avAudioNode: AVAudioNode { au }
+    public let au: AUAudioUnit
 
     let oscAU: PlaygroundOscillatorAudioUnit
 
@@ -53,8 +52,8 @@ public class PlaygroundOscillator: Node {
                                      as: componentDescription,
                                      name: "Oscillator AU",
                                      version: .max)
-        au = instantiate(componentDescription: componentDescription)
-        oscAU = au.auAudioUnit as! PlaygroundOscillatorAudioUnit
+        au = instantiateAU(componentDescription: componentDescription)
+        oscAU = au as! PlaygroundOscillatorAudioUnit
         self.waveform = waveform
         self.oscAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude

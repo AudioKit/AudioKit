@@ -7,15 +7,12 @@ import Utilities
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
 public class PeakLimiter: Node {
-    fileprivate let effectAU: AVAudioUnit
+    public var au: AUAudioUnit
 
     let input: Node
 
     /// Connected nodes
     public var connections: [Node] { [input] }
-
-    /// Underlying AVAudioNode
-    public var avAudioNode: AVAudioNode { effectAU }
 
     /// Specification details for attackTime
     public static let attackTimeDef = NodeParameterDef(
@@ -72,9 +69,8 @@ public class PeakLimiter: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
-        effectAU = instantiate(componentDescription: desc)
-
-        associateParams(with: effectAU.auAudioUnit)
+        au = instantiateAU(componentDescription: desc)
+        associateParams(with: au)
 
         self.attackTime = attackTime
         self.decayTime = decayTime
