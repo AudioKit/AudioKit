@@ -86,8 +86,7 @@ public class Delay: Node {
     ) {
         self.input = input
 
-        // XXX: cleanup
-        let desc = AudioComponentDescription(componentType: 1635083896, componentSubType: 1684368505, componentManufacturer: 1634758764, componentFlags: 0, componentFlagsMask: 0)
+        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Delay)
         delayAU = instantiate(componentDescription: desc)
         associateParams(with: delayAU.auAudioUnit)
 
