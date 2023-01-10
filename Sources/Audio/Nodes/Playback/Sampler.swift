@@ -246,7 +246,8 @@ class SamplerAudioUnit: AUAudioUnit {
 public class Sampler: Node {
     public let connections: [Node] = []
 
-    public let avAudioNode: AVAudioNode
+    public let au: AVAudioUnit
+    public var avAudioNode: AVAudioNode { au }
     let samplerAU: SamplerAudioUnit
 
     public init() {
@@ -256,8 +257,8 @@ public class Sampler: Node {
                                      as: componentDescription,
                                      name: "Player AU",
                                      version: .max)
-        avAudioNode = instantiate(componentDescription: componentDescription)
-        samplerAU = avAudioNode.auAudioUnit as! SamplerAudioUnit
+        au = instantiate(componentDescription: componentDescription)
+        samplerAU = au.auAudioUnit as! SamplerAudioUnit
     }
 
     public func stop() {
