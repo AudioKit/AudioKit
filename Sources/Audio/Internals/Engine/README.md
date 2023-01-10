@@ -27,7 +27,6 @@ We create a few worker threads which are woken by the audio thread. Those thread
 
 ## To Do before it is ready for beta testers
 
-* Continue the process of cleaning out AVAudioNode from Nodes
 * Minimize the volume and duration of realtime tests
 * Add all the parameters to reverb
 * Add factory presets loading to every au that has them
