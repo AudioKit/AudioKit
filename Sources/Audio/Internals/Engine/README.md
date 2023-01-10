@@ -32,6 +32,8 @@ We create a few worker threads which are woken by the audio thread. Those thread
 * Add all the parameters to reverb
 * Add factory presets loading to every au that has them
 * Explore other audio units available
+* Make Sampler have the abilities of AudioPlayer
+* Embed time/pitch into Sampler
 * Figure out the true valid range for DynamicsProcessor's Expansion Threshold
 * Search code for XXX: issues
 * Make node recorder functional and tested again
