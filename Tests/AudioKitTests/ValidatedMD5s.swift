@@ -58,9 +58,9 @@ let validatedMD5s: [String: [String]] = [
     "-[PeakLimiterTests testPreGain]": ["2f1b0dd9020be6b1fa5b8799741baa5f"],
     "-[PeakLimiterTests testPreGainChangingAfterEngineStarted]": ["ed14bc85f1732bd77feaa417c0c20cae"],
     "-[ReverbTests testBypass]": ["6b2d34e86130813c7e7d9f1cf7a2a87c"],
-    "-[ReverbTests testCathedral]": ["7f1a07c82349bcd989a7838fd3f5ca9d"],
-    "-[ReverbTests testDefault]": ["28d2cb7a5c1e369ca66efa8931d31d4d"],
-    "-[ReverbTests testSmallRoom]": ["747641220002d1c968d62acb7bea552c"],
+    "-[ReverbTests testCathedral]": ["3f8c5a1ada6a17b924ace7ba1268a20a"],
+    "-[ReverbTests testDefault]": ["0b9059b2b45be5b68a68e1636d860dcd"],
+    "-[ReverbTests testSmallRoom]": ["c205a155458107f22affd9ce1ec84c82"],
     "-[TableTests testReverseSawtooth]": ["3c40428e755926307bffd903346dd652"],
     "-[TableTests testSawtooth]": ["f31d4c79fd6822e9e457eaaa888378a2"],
     "-[TableTests testSine]": ["87c195248adcd83ca41c50cf240504fb"],
@@ -77,6 +77,6 @@ let validatedMD5s: [String: [String]] = [
     "-[EngineTests testPlaygroundOscillator]": ["6854112b8fcdcde5604ba57c69e685ec", "15eb052f9415e0f90e447340bd609589"],
     "-[EngineTests testSampler]": ["f44518ab94a8bab9a3ef8acfe1a4d45b"],
     "-[EngineTests testSamplerMIDINote]": ["38f84463320c0824422b4105b771b67c"],
-    "-[EngineTests testTwoEffects]": ["d2b8608a993c00c57c06824302c9a833", "646e8387347deb4f5fbe3e24753b4543"],
+    "-[EngineTests testTwoEffects]": ["c8bcf2f092b88b8deb61d42db9e95327", "646e8387347deb4f5fbe3e24753b4543"],
 
 ]

@@ -5,9 +5,6 @@ import XCTest
 import AVFAudio
 
 class ReverbTests: XCTestCase {
-
-    #if os(iOS)
-
     func testBypass() {
         let engine = Engine()
         let input = Sampler()
@@ -77,6 +74,5 @@ class ReverbTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
-    #endif
 
 }
