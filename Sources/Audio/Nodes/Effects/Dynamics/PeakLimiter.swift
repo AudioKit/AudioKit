@@ -71,7 +71,7 @@ public class PeakLimiter: Node {
     ) {
         self.input = input
 
-        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_DynamicsProcessor)
+        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_PeakLimiter)
         effectAU = instantiate(componentDescription: desc)
 
         associateParams(with: effectAU.auAudioUnit)
