@@ -10,10 +10,10 @@ public class ConstantGenerator: Node {
     
     public let connections: [Node] = []
 
-    let oscAU: ConstantGeneratorAudioUnit
+    let constantGenerator: ConstantGeneratorAudioUnit
 
     // XXX: should be using parameters
-    public var constant: Float { get { oscAU.constant } set { oscAU.constant = newValue }}
+    public var constant: Float { get { constantGenerator.constant } set { constantGenerator.constant = newValue }}
 
     public init(constant: Float) {
 
@@ -24,7 +24,7 @@ public class ConstantGenerator: Node {
                                      name: "constant generator AU",
                                      version: .max)
         au = instantiateAU(componentDescription: componentDescription)
-        oscAU = au as! ConstantGeneratorAudioUnit
+        constantGenerator = au as! ConstantGeneratorAudioUnit
         self.constant = constant
     }
 }

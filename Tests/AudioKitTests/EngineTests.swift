@@ -98,7 +98,6 @@ class EngineTests: XCTestCase {
 
         let mix = Mixer([osc1, osc2])
 
-        // XXX: ensure we get the same output using AVAudioEngine
         mix.volume = 0.02
 
         engine.output = mix
@@ -169,7 +168,6 @@ class EngineTests: XCTestCase {
             "f9c92e3084ed6cabdc6934c51e6b730e"
         ]
 
-        /// XXX: For some reason hard pans don't pass ie. -1.0, 1.0 but they sound right
         for (index, pan) in [-0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75].enumerated() {
             let engine = Engine()
             let oscL = Oscillator()
