@@ -8,7 +8,7 @@ class EngineTests: XCTestCase {
     func testBasic() throws {
         let engine = Engine()
         
-        let osc = TestOscillator()
+        let osc = Oscillator()
 
         engine.output = osc
 
@@ -22,7 +22,7 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc = TestOscillator()
+        let osc = Oscillator()
         let fx = Distortion(osc)
 
         engine.output = fx
@@ -37,7 +37,7 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc = TestOscillator()
+        let osc = Oscillator()
         let dist = Distortion(osc)
         let rev = Reverb(dist)
 
@@ -54,7 +54,7 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc = TestOscillator()
+        let osc = Oscillator()
         let dist = Distortion(osc)
         
         engine.output = osc
@@ -74,8 +74,8 @@ class EngineTests: XCTestCase {
         
         let engine = Engine()
         
-        let osc1 = TestOscillator()
-        let osc2 = TestOscillator()
+        let osc1 = Oscillator()
+        let osc2 = Oscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
         
         let mix = Mixer([osc1, osc2])
@@ -92,8 +92,8 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOscillator()
-        let osc2 = TestOscillator()
+        let osc1 = Oscillator()
+        let osc2 = Oscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
 
         let mix = Mixer([osc1, osc2])
@@ -113,8 +113,8 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOscillator()
-        let osc2 = TestOscillator()
+        let osc1 = Oscillator()
+        let osc2 = Oscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
 
         let mix = Mixer([osc1])
@@ -145,7 +145,7 @@ class EngineTests: XCTestCase {
 
         for (index, volume) in [0.0, 0.1, 0.5, 0.8, 1.0, 2.0].enumerated() {
             let engine = Engine()
-            let osc = TestOscillator()
+            let osc = Oscillator()
             let mix = Mixer(osc)
             mix.volume = AUValue(volume)
             engine.output = mix
@@ -172,8 +172,8 @@ class EngineTests: XCTestCase {
         /// XXX: For some reason hard pans don't pass ie. -1.0, 1.0 but they sound right
         for (index, pan) in [-0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75].enumerated() {
             let engine = Engine()
-            let oscL = TestOscillator()
-            let oscR = TestOscillator()
+            let oscL = Oscillator()
+            let oscR = Oscillator()
             oscR.frequency = 500
             let mixL = Mixer(oscL)
             let mixR = Mixer(oscR)
@@ -195,8 +195,8 @@ class EngineTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOscillator()
-        let osc2 = TestOscillator()
+        let osc1 = Oscillator()
+        let osc2 = Oscillator()
 
         osc1.frequency = 880
 
@@ -262,9 +262,9 @@ class EngineTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testPlaygroundOscillator() {
+    func testOscillator() {
         let engine = Engine()
-        let osc = PlaygroundOscillator()
+        let osc = Oscillator()
         engine.output = osc
         let audio = engine.startTest(totalDuration: 2.0)
         osc.play()
@@ -291,7 +291,7 @@ class EngineTests: XCTestCase {
         let mixer = Mixer()
 
         for _ in 0..<100 {
-            mixer.addInput(TestOscillator())
+            mixer.addInput(Oscillator())
         }
 
         mixer.volume = 0.001

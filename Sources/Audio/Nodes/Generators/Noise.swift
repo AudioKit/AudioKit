@@ -1,36 +1,48 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import AudioUnit
 import AVFoundation
-import AudioKit
+import Utilities
 
-public class TestOscillator: Node {
-    public var au: AUAudioUnit
-
+/// Pure Swift Noise Generator
+public class Noise: Node {
     public let connections: [Node] = []
 
-    let oscAU: TestOscillatorAudioUnit
+    public let au: AUAudioUnit
 
-    // XXX: should be using parameters
-    public var frequency: Float { get { oscAU.frequency } set { oscAU.frequency = newValue }}
+    let noiseAU: NoiseAudioUnit
 
-    public init() {
+    /// Output Volume (Default 1), values above 1 will have gain applied
+    public var amplitude: AUValue = 1.0 {
+        didSet {
+            amplitude = max(amplitude, 0)
+            noiseAU.amplitudeParam.value = amplitude
+            self.start()
+        }
+    }
 
-        let componentDescription = AudioComponentDescription(generator: "tosc")
+    /// Initialize the pure Swift Noise Generator
+    /// - Parameters:
+    ///   - amplitude: Volume, usually 0-1
+    public init(amplitude: AUValue = 1.0) {
 
-        AUAudioUnit.registerSubclass(TestOscillatorAudioUnit.self,
+        let componentDescription = AudioComponentDescription(instrument: "pgns")
+
+        AUAudioUnit.registerSubclass(NoiseAudioUnit.self,
                                      as: componentDescription,
-                                     name: "osc AU",
+                                     name: "NoiseGenerator AU",
                                      version: .max)
         au = instantiateAU(componentDescription: componentDescription)
-        oscAU = au as! TestOscillatorAudioUnit
+        noiseAU = au as! NoiseAudioUnit
+        self.noiseAU.amplitudeParam.value = amplitude
+        self.amplitude = amplitude
+        self.stop()
     }
 }
 
 
-/// Renders a sine wave.
-class TestOscillatorAudioUnit: AUAudioUnit {
+/// Renders an NoiseGenerator
+class NoiseAudioUnit: AUAudioUnit {
 
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
@@ -41,7 +53,9 @@ class TestOscillatorAudioUnit: AUAudioUnit {
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
     }
-    
+
+    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 0, range: 0...10, unit: .generic, flags: [])
+
     /// Initialize with component description and options
     /// - Parameters:
     ///   - componentDescription: Audio Component Description
@@ -49,32 +63,54 @@ class TestOscillatorAudioUnit: AUAudioUnit {
     /// - Throws: error
     override public init(componentDescription: AudioComponentDescription,
                          options: AudioComponentInstantiationOptions = []) throws {
-        
+
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         inputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [])
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
-        
-        parameterTree = AUParameterTree.createTree(withChildren: [])
+
+        parameterTree = AUParameterTree.createTree(withChildren: [amplitudeParam])
+
+        let paramBlock = self.scheduleParameterBlock
+
+        parameterTree?.implementorValueObserver = { parameter, value in
+            paramBlock(.zero, 0, parameter.address, parameter.value)
+        }
     }
-    
+
     override var inputBusses: AUAudioUnitBusArray {
         inputBusArray
     }
-    
+
     override var outputBusses: AUAudioUnitBusArray {
         outputBusArray
     }
-    
+
     override func allocateRenderResources() throws {}
-    
+
     override func deallocateRenderResources() {}
-    
-    var currentPhase: Double = 0.0
-    var frequency: Float = 440.0
-    var amplitude: Float = 1.0
-    
+
+
+    /// Volume usually 0-1
+    var amplitude: AUValue = 1
+
+    func processEvents(events: UnsafePointer<AURenderEvent>?) {
+
+        process(events: events,
+                param: { event in
+
+            let paramEvent = event.pointee
+
+            switch paramEvent.parameterAddress {
+            case 0: amplitude = paramEvent.value
+            default: break
+            }
+
+        })
+
+    }
+
     override var internalRenderBlock: AUInternalRenderBlock {
         { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
            timeStamp: UnsafePointer<AudioTimeStamp>,
@@ -83,30 +119,29 @@ class TestOscillatorAudioUnit: AUAudioUnit {
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            renderEvents: UnsafePointer<AURenderEvent>?,
            inputBlock: AURenderPullInputBlock?) in
-            
+
+            self.processEvents(events: renderEvents)
+
             let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
-            
-            let twoPi = 2 * Double.pi
-            let phaseIncrement = (twoPi / Double(Settings.sampleRate)) * Double(self.frequency)
+
             for frame in 0 ..< Int(frameCount) {
                 // Get signal value for this frame at time.
-                let value = sin(Float(self.currentPhase)) * self.amplitude
-                
-                // Advance the phase for the next frame.
-                self.currentPhase += phaseIncrement
-                if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
-                if self.currentPhase < 0.0 { self.currentPhase += twoPi }
+                let value = self.amplitude * Float.random(in: -1 ... 1)
+
                 // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
                 for buffer in ablPointer {
-                    let buf = UnsafeMutableBufferPointer<Float>(buffer)
-                    assert(frame < buf.count)
-                    buf[frame] = value
+                    let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
+                    if self.shouldBypassEffect {
+                        buf[frame] = 0
+                    } else {
+                        buf[frame] = value
+                    }
                 }
             }
-            
+
             return noErr
         }
     }
-    
+
 }
 

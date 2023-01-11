@@ -4,44 +4,70 @@ import AudioUnit
 import AVFoundation
 import Utilities
 
-public class PlaygroundNoiseGenerator: Node {
+enum OscillatorCommand {
+    case table(UnsafeMutablePointer<Table>?)
+}
+
+public class Oscillator: Node {
     public let connections: [Node] = []
 
     public let au: AUAudioUnit
 
-    let noiseAU: PlaygroundNoiseGeneratorAudioUnit
+    let oscAU: OscillatorAudioUnit
 
+    public var waveform: Table? {
+        didSet {
+            if let waveform = waveform {
+                oscAU.setWaveform(waveform)
+            }
+        }
+    }
+    
     /// Output Volume (Default 1), values above 1 will have gain applied
     public var amplitude: AUValue = 1.0 {
         didSet {
             amplitude = max(amplitude, 0)
-            noiseAU.amplitudeParam.value = amplitude
-            self.start()
+            oscAU.amplitudeParam.value = amplitude
         }
     }
 
-    /// Initialize the pure Swift NoiseGenerator, suitable for Playgrounds
+    // Frequency in Hz
+    public var frequency: AUValue = 440 {
+        didSet {
+            frequency = max(frequency, 0)
+            oscAU.frequencyParam.value = frequency
+        }
+    }
+
+    /// Initialize the pure Swift oscillator
     /// - Parameters:
+    ///   - waveform: Shape of the oscillator waveform
+    ///   - frequency: Pitch in Hz
     ///   - amplitude: Volume, usually 0-1
-    public init(amplitude: AUValue = 1.0) {
+    public init(waveform: Table = Table(.sine), frequency: AUValue = 440, amplitude: AUValue = 1.0) {
 
-        let componentDescription = AudioComponentDescription(instrument: "pgns")
+        let componentDescription = AudioComponentDescription(instrument: "pgos")
 
-        AUAudioUnit.registerSubclass(PlaygroundNoiseGeneratorAudioUnit.self,
+        AUAudioUnit.registerSubclass(OscillatorAudioUnit.self,
                                      as: componentDescription,
-                                     name: "NoiseGenerator AU",
+                                     name: "Oscillator AU",
                                      version: .max)
         au = instantiateAU(componentDescription: componentDescription)
-        noiseAU = au as! PlaygroundNoiseGeneratorAudioUnit
-        self.noiseAU.amplitudeParam.value = amplitude
+        oscAU = au as! OscillatorAudioUnit
+        self.waveform = waveform
+        self.oscAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
+        self.oscAU.frequencyParam.value = frequency
+        self.frequency = frequency
+        self.oscAU.setWaveform(waveform)
+        self.waveform = waveform
         self.stop()
     }
 }
 
 
-/// Renders an NoiseGenerator
-class PlaygroundNoiseGeneratorAudioUnit: AUAudioUnit {
+/// Renders an oscillator
+class OscillatorAudioUnit: AUAudioUnit {
 
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
@@ -53,7 +79,29 @@ class PlaygroundNoiseGeneratorAudioUnit: AUAudioUnit {
         return [inputChannelCount, outputChannelCount]
     }
 
-    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 0, range: 0...10, unit: .generic, flags: [])
+    var cachedMIDIBlock: AUScheduleMIDIEventBlock?
+
+    let frequencyParam = AUParameterTree.createParameter(identifier: "frequency", name: "frequency", address: 0, range: 0...22050, unit: .hertz, flags: [])
+
+    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 1, range: 0...10, unit: .generic, flags: [])
+
+    func setWaveform(_ waveform: Table) {
+        let holder = UnsafeMutablePointer<Table>.allocate(capacity: 1)
+
+        holder.initialize(to: waveform)
+
+        let command: OscillatorCommand = .table(holder)
+        let sysex = encodeSysex(command)
+
+        if cachedMIDIBlock == nil {
+            cachedMIDIBlock = scheduleMIDIEventBlock
+            assert(cachedMIDIBlock != nil)
+        }
+
+        if let block = cachedMIDIBlock {
+            block(.zero, 0, sysex.count, sysex)
+        }
+    }
 
     /// Initialize with component description and options
     /// - Parameters:
@@ -69,7 +117,7 @@ class PlaygroundNoiseGeneratorAudioUnit: AUAudioUnit {
         inputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [])
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
 
-        parameterTree = AUParameterTree.createTree(withChildren: [amplitudeParam])
+        parameterTree = AUParameterTree.createTree(withChildren: [frequencyParam, amplitudeParam])
 
         let paramBlock = self.scheduleParameterBlock
 
@@ -90,24 +138,35 @@ class PlaygroundNoiseGeneratorAudioUnit: AUAudioUnit {
 
     override func deallocateRenderResources() {}
 
+    var currentPhase: AUValue = 0.0
+
+    /// Pitch in Hz
+    var frequency: AUValue = 440
 
     /// Volume usually 0-1
     var amplitude: AUValue = 1
 
+    private var table = Table()
+
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
-
         process(events: events,
-                param: { event in
+                sysex: { event in
+            var command: OscillatorCommand = .table(nil)
 
+            decodeSysex(event, &command)
+            switch command {
+            case .table(let ptr):
+                table = ptr?.pointee ?? Table()
+            }
+        }, param: { event in
             let paramEvent = event.pointee
-
             switch paramEvent.parameterAddress {
-            case 0: amplitude = paramEvent.value
+            case 0: frequency = paramEvent.value
+            case 1: amplitude = paramEvent.value
             default: break
             }
-
-        })
-
+        }
+            )
     }
 
     override var internalRenderBlock: AUInternalRenderBlock {
@@ -123,13 +182,21 @@ class PlaygroundNoiseGeneratorAudioUnit: AUAudioUnit {
 
             let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
+            let twoPi: AUValue = AUValue(2 * Double.pi)
+            let phaseIncrement = (twoPi / AUValue(Settings.sampleRate)) * self.frequency
             for frame in 0 ..< Int(frameCount) {
                 // Get signal value for this frame at time.
-                let value = self.amplitude * Float.random(in: -1 ... 1)
+                let index = Int(self.currentPhase / twoPi * Float(self.table.count))
+                let value = self.table[index] * self.amplitude
 
+                // Advance the phase for the next frame.
+                self.currentPhase += phaseIncrement
+                if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
+                if self.currentPhase < 0.0 { self.currentPhase += twoPi }
                 // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
                 for buffer in ablPointer {
-                    let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
+                    let buf = UnsafeMutableBufferPointer<Float>(buffer)
+                    assert(frame < buf.count)
                     if self.shouldBypassEffect {
                         buf[frame] = 0
                     } else {

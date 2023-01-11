@@ -16,7 +16,7 @@ class FFTTapTests: XCTestCase {
     func testFFT() {
         let engine = Engine()
 
-        let oscillator = PlaygroundOscillator()
+        let oscillator = Oscillator()
         let mixer = Mixer(oscillator)
 
         var fftData: [Int] = []
@@ -62,7 +62,7 @@ class FFTTapTests: XCTestCase {
 
         let engine = Engine()
 
-        let oscillator = PlaygroundOscillator()
+        let oscillator = Oscillator()
         oscillator.start()
 
         var fftData: [Int] = []

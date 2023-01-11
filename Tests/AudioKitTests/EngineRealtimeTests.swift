@@ -8,7 +8,7 @@ class EngineRealtimeTests: XCTestCase {
     func testBasicRealtime() throws {
         let engine = Engine()
 
-        let osc = TestOscillator()
+        let osc = Oscillator()
 
         engine.output = osc
         try! engine.start()
@@ -21,7 +21,7 @@ class EngineRealtimeTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc = TestOscillator()
+        let osc = Oscillator()
         let fx = Distortion(osc)
 
         engine.output = fx
@@ -34,7 +34,7 @@ class EngineRealtimeTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc = TestOscillator()
+        let osc = Oscillator()
         let dist = Distortion(osc)
         let rev = Reverb(dist)
 
@@ -50,7 +50,7 @@ class EngineRealtimeTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc = TestOscillator()
+        let osc = Oscillator()
         let dist = Distortion(osc)
 
         engine.output = osc
@@ -67,8 +67,8 @@ class EngineRealtimeTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOscillator()
-        let osc2 = TestOscillator()
+        let osc1 = Oscillator()
+        let osc2 = Oscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
 
         let mix = Mixer([osc1, osc2])
@@ -84,8 +84,8 @@ class EngineRealtimeTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOscillator()
-        let osc2 = TestOscillator()
+        let osc1 = Oscillator()
+        let osc2 = Oscillator()
         osc2.frequency = 466.16 // dissonance, so we can really hear it
 
         let mix = Mixer([osc1])
@@ -105,8 +105,8 @@ class EngineRealtimeTests: XCTestCase {
 
         let engine = Engine()
 
-        let osc1 = TestOscillator()
-        let osc2 = TestOscillator()
+        let osc1 = Oscillator()
+        let osc2 = Oscillator()
 
         osc1.frequency = 880
 
@@ -140,7 +140,7 @@ class EngineRealtimeTests: XCTestCase {
         let mixer = Mixer()
 
         for _ in 0..<100 {
-            mixer.addInput(TestOscillator())
+            mixer.addInput(Oscillator())
         }
 
         mixer.volume = 0.001
