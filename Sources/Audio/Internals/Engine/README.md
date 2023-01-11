@@ -33,7 +33,6 @@ We create a few worker threads which are woken by the audio thread. Those thread
 * Explore other audio units available
 * Make Sampler have the abilities of AudioPlayer
 * Embed time/pitch into Sampler
-* Figure out the true valid range for DynamicsProcessor's Expansion Threshold
 * Search code for XXX: issues
 * Make node recorder functional and tested again
 * Test and update all the subAudioKits that depend on AK, especial AudioKitEX
