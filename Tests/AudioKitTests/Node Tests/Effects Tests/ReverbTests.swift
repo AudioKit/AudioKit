@@ -4,6 +4,8 @@ import AudioKit
 import XCTest
 import AVFAudio
 
+#if os(macOS)
+
 class ReverbTests: XCTestCase {
     func testBypass() {
         let engine = Engine()
@@ -76,3 +78,5 @@ class ReverbTests: XCTestCase {
     }
 
 }
+
+#endif

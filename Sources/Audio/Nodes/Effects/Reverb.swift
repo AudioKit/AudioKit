@@ -3,6 +3,8 @@
 import AVFoundation
 import Utilities
 
+#if os(macOS)
+
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
 public class Reverb: Node {
@@ -117,3 +119,5 @@ public enum ReverbPreset: Int, CaseIterable, CustomStringConvertible {
         return name
     }
 }
+
+#endif // os(macOS)

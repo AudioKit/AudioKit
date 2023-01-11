@@ -97,7 +97,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         let sampler2 = Sampler()
-        let verb = Reverb(sampler2)
+        let verb = Distortion(sampler2)
         sampler2.play(url: URL.testAudioDrums)
         mixer.addInput(verb)
 
@@ -207,7 +207,7 @@ class NodeTests: XCTestCase {
         let engine = Engine()
         let player = Sampler()
         
-        let rev = Reverb(player)
+        let rev = Distortion(player)
         
         engine.output = rev
         
@@ -229,7 +229,7 @@ class NodeTests: XCTestCase {
         let player = Sampler()
         
         let mix1 = Mixer(player)
-        let rev = Reverb(mix1)
+        let rev = Distortion(mix1)
         let mix2 = Mixer(rev)
         
         engine.output = mix2
@@ -249,7 +249,7 @@ class NodeTests: XCTestCase {
     func testGraphviz() {
         let sampler = Sampler()
         
-        let verb = Reverb(sampler)
+        let verb = Distortion(sampler)
         let mixer = Mixer(sampler, verb)
         
         let dot = mixer.graphviz

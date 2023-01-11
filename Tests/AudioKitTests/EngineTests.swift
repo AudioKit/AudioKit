@@ -39,7 +39,7 @@ class EngineTests: XCTestCase {
         
         let osc = Oscillator()
         let dist = Distortion(osc)
-        let rev = Reverb(dist)
+        let rev = Delay(dist)
 
         engine.output = rev
         

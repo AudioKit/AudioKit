@@ -21,7 +21,7 @@ class BypassTests: XCTestCase {
             LowPassFilter(source),
             LowShelfFilter(source, cutoffFrequency: 100, gain: 3),
             ParametricEQ(source, centerFreq: 100, q: 100, gain: 3),
-            Reverb(source),
+            // Reverb(source),
             Delay(source)
         ]
     }

@@ -36,7 +36,7 @@ class EngineRealtimeTests: XCTestCase {
 
         let osc = Oscillator()
         let dist = Distortion(osc)
-        let rev = Reverb(dist)
+        let rev = Distortion(dist)
 
         engine.output = rev
 
