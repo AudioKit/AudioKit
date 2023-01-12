@@ -25,7 +25,7 @@ class FFTTapTests: XCTestCase {
         let targetFrequencies: [Float] = [88, 258, 433, 605, 777, 949, 1122, 1294, 1467, 1639]
         let expectedBuckets: [Int] = [8, 24, 40, 56, 72, 88, 104, 120, 136, 152]
 
-        let tap = Tap(mixer, bufferSize: 4096) { leftData, rightData in
+        let tap = Tap(mixer, bufferSize: 4096) { leftData, _ in
 
             let fft = performFFT(data: leftData,
                                  isNormalized: true,
@@ -71,7 +71,7 @@ class FFTTapTests: XCTestCase {
         let targetFrequencies: [Float] = [88, 258, 433, 605, 777, 949, 1122, 1294, 1467, 1639]
         let expectedBuckets: [Int] = [8, 23, 24, 40, 56, 72, 88, 104, 120, 136, 152]
 
-        let tap = Tap(oscillator, bufferSize: 4096) { leftData, rightData in
+        let tap = Tap(oscillator, bufferSize: 4096) { leftData, _ in
 
             let fft = performFFT(data: leftData,
                                  isNormalized: true,

@@ -6,7 +6,6 @@ import Foundation
 ///
 /// The CLAP host example uses two semaphores. See https://github.com/free-audio/clap-host/blob/56e5d267ac24593788ac1874e3643f670112cdaf/host/plugin-host.hh#L229
 final class ThreadPool {
-
     /// For waking up the threads.
     private var prod = DispatchSemaphore(value: 0)
 
@@ -23,8 +22,8 @@ final class ThreadPool {
     var runQueues: Vec<WorkStealingQueue<RenderJobIndex>>
 
     init() {
-        runQueues = .init(count: workerCount, { _ in .init() })
-        workers = .init(count: workerCount, { [prod, done, runQueues] index in WorkerThread(index: index, runQueues: runQueues, prod: prod, done: done) })
+        runQueues = .init(count: workerCount) { _ in .init() }
+        workers = .init(count: workerCount) { [prod, done, runQueues] index in WorkerThread(index: index, runQueues: runQueues, prod: prod, done: done) }
         for worker in workers {
             worker.start()
         }
@@ -32,33 +31,32 @@ final class ThreadPool {
 
     /// Wake the threads.
     func start() {
-        for _ in 0..<workerCount {
+        for _ in 0 ..< workerCount {
             prod.signal()
         }
     }
 
     /// Wait for threads to finish work.
     func wait() {
-        for _ in 0..<workerCount {
+        for _ in 0 ..< workerCount {
             done.wait()
         }
     }
 
     func join(workgroup: WorkGroup?) {
-
         // Shut down workers.
         for worker in workers {
             worker.exit()
         }
 
         // Create new workers in the specified workgroup.
-        workers = .init(count: workerCount, { [prod, done, runQueues] index in
+        workers = .init(count: workerCount) { [prod, done, runQueues] index in
             WorkerThread(index: index,
                          runQueues: runQueues,
                          prod: prod,
                          done: done,
                          workgroup: workgroup)
-        })
+        }
 
         for worker in workers {
             worker.start()
@@ -66,11 +64,9 @@ final class ThreadPool {
     }
 
     deinit {
-
         // Shut down workers.
         for worker in workers {
             worker.exit()
         }
-
     }
 }

@@ -48,11 +48,11 @@ class DynamicsProcessorTests: XCTestCase {
         let engine = Engine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler,
-                                   threshold: -25,
-                                   headRoom: 10,
-                                   attackTime: 0.1,
-                                   releaseTime: 0.1,
-                                   masterGain: 1)
+                                          threshold: -25,
+                                          headRoom: 10,
+                                          attackTime: 0.1,
+                                          releaseTime: 0.1,
+                                          masterGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
         sampler.play(url: URL.testAudio)
         audio.append(engine.render(duration: 1.0))

@@ -9,7 +9,6 @@ extension URL {
     static var testAudioDrums: URL {
         return Bundle.module.url(forResource: "drumloop", withExtension: "wav", subdirectory: "TestResources")!
     }
-
 }
 
 extension XCTestCase {
@@ -80,6 +79,4 @@ let validatedMD5s: [String: [String]] = [
     "-[SamplerTests testSampler]": ["f44518ab94a8bab9a3ef8acfe1a4d45b"],
     "-[SamplerTests testSamplerMIDINote]": ["38f84463320c0824422b4105b771b67c"],
     "-[SamplerTests testDynamicsProcessorWithSampler]": ["3064ef82b30c512b2f426562a2ef3448"],
-
-
 ]

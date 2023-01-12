@@ -1,11 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import Atomics
+import Foundation
 
 /// Lock-free FIFO.
 public class RingBuffer<T> {
-
     private var _head = ManagedAtomic<Int32>(0)
     private var _tail = ManagedAtomic<Int32>(0)
     private var _buffer: UnsafeMutableBufferPointer<T>
@@ -19,7 +18,7 @@ public class RingBuffer<T> {
     }
 
     private func next(_ current: Int32) -> Int32 {
-        (current+1) % Int32(_buffer.count)
+        (current + 1) % Int32(_buffer.count)
     }
 
     /// Push a single element
@@ -37,7 +36,7 @@ public class RingBuffer<T> {
     }
 
     private func write_available(_ head: Int32, _ tail: Int32) -> Int32 {
-        var ret = tail - head - 1;
+        var ret = tail - head - 1
         if head >= tail {
             ret += Int32(_buffer.count)
         }
@@ -55,7 +54,6 @@ public class RingBuffer<T> {
     /// - Parameter ptr: Buffer from which to read elements.
     /// - Returns: whether the elements could be pushed
     public func push(from ptr: UnsafeBufferPointer<T>) -> Bool {
-
         let head = _head.load(ordering: .relaxed)
         let tail = _tail.load(ordering: .acquiring)
         let avail = write_available(head, tail)
@@ -64,12 +62,12 @@ public class RingBuffer<T> {
             return false
         }
 
-        for i in 0..<ptr.count {
+        for i in 0 ..< ptr.count {
             _buffer[(Int(head) + i) % _buffer.count] = ptr[i]
         }
 
-        let next_head = (Int(head) + ptr.count) % _buffer.count;
-        _head.store(Int32(next_head), ordering: .releasing);
+        let next_head = (Int(head) + ptr.count) % _buffer.count
+        _head.store(Int32(next_head), ordering: .releasing)
         return true
     }
 
@@ -89,7 +87,7 @@ public class RingBuffer<T> {
             return false
         }
 
-        for i in 0..<leftPtr.count {
+        for i in 0 ..< leftPtr.count {
             _buffer[Int(head)] = leftPtr[i]
             head = (head + 1) % Int32(_buffer.count)
             _buffer[Int(head)] = rightPtr[i]
@@ -103,8 +101,7 @@ public class RingBuffer<T> {
     /// Pop off a single element
     /// - Returns: The element or nil if no elements were available.
     public func pop() -> T? {
-
-        let tail = _tail.load(ordering: .relaxed);
+        let tail = _tail.load(ordering: .relaxed)
         if tail == _head.load(ordering: .acquiring) {
             return nil
         }
@@ -119,7 +116,6 @@ public class RingBuffer<T> {
     /// - Parameter ptr: Buffer to store elements.
     /// - Returns: whether the elements could be popped
     public func pop(to ptr: UnsafeMutableBufferPointer<T>) -> Bool {
-
         let head = _head.load(ordering: .acquiring)
         var tail = _tail.load(ordering: .relaxed)
 
@@ -129,7 +125,7 @@ public class RingBuffer<T> {
             return false
         }
 
-        for i in 0..<ptr.count {
+        for i in 0 ..< ptr.count {
             ptr[i] = _buffer[Int(tail)]
             tail = (tail + 1) % Int32(_buffer.count)
         }
@@ -142,13 +138,12 @@ public class RingBuffer<T> {
     ///
     /// - Parameter f: called for every element
     public func popAll(_ f: (T) -> Void) {
-
         let head = _head.load(ordering: .acquiring)
         var tail = _tail.load(ordering: .relaxed)
 
         let avail = read_available(head, tail)
 
-        for _ in 0..<avail {
+        for _ in 0 ..< avail {
             f(_buffer[Int(tail)])
             tail = (tail + 1) % Int32(_buffer.count)
         }

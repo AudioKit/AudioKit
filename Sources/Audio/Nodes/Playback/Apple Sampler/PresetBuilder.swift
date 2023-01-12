@@ -32,14 +32,15 @@ public class PresetBuilder {
          filter: String = "***FILTER***\n",
          lfos: String = "***LFOS***\n",
          zones: String = "***ZONES***\n",
-         filerefs: String = "***FILEREFS***\n") {
+         filerefs: String = "***FILEREFS***\n")
+    {
         presetXML = PresetBuilder.buildInstrument(name: name,
-                                                      connections: connections,
-                                                      envelopes: envelopes,
-                                                      filter: filter,
-                                                      lfos: lfos,
-                                                      zones: zones,
-                                                      filerefs: filerefs)
+                                                  connections: connections,
+                                                  envelopes: envelopes,
+                                                  filter: filter,
+                                                  lfos: lfos,
+                                                  zones: zones,
+                                                  filerefs: filerefs)
     }
 
     /// Create an AUPreset from a collection of dictionaries.
@@ -61,7 +62,8 @@ public class PresetBuilder {
                                       path: String,
                                       instrumentName: String,
                                       attack: Double? = 0,
-                                      release: Double? = 0) {
+                                      release: Double? = 0)
+    {
         let rootNoteKey = "rootnote"
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
@@ -85,7 +87,8 @@ public class PresetBuilder {
             // check if this sample is already loaded
             for loadedSoundDict in loadSoundsArr {
                 guard let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as? String,
-                    let newLoadingSound: String = soundDict.object(forKey: filenameKey) as? String else {
+                      let newLoadingSound: String = soundDict.object(forKey: filenameKey) as? String
+                else {
                     Log("Unable to load new sound in PresetBuilder")
                     return
                 }
@@ -100,7 +103,8 @@ public class PresetBuilder {
             }
 
             if sound.object(forKey: startNoteKey) == nil ||
-                sound.object(forKey: endNoteKey) == nil {
+                sound.object(forKey: endNoteKey) == nil
+            {
                 if let soundObject = sound.object(forKey: rootNoteKey) {
                     soundDict.setObject(soundObject, forKey: startNoteKey as NSCopying)
                     soundDict.setObject(soundObject, forKey: endNoteKey as NSCopying)
@@ -139,12 +143,12 @@ public class PresetBuilder {
             }
 
             let envelopesXML = PresetBuilder.generateEnvelope(id: 0,
-                                                                  delay: 0,
-                                                                  attack: existingAttack,
-                                                                  hold: 0,
-                                                                  decay: 0,
-                                                                  sustain: 1,
-                                                                  release: existingRelease)
+                                                              delay: 0,
+                                                              attack: existingAttack,
+                                                              hold: 0,
+                                                              decay: 0,
+                                                              sustain: 1,
+                                                              release: existingRelease)
 
             switch triggerModeStr {
             case SampleTriggerMode.Loop.rawValue?:
@@ -162,36 +166,38 @@ public class PresetBuilder {
             case .Hold:
                 if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
                     sampleZoneXML = PresetBuilder.generateZone(id: i,
-                                                                   rootNote: existingRootNote,
-                                                                   startNote: existingStartNote,
-                                                                   endNote: existingEndNote,
-                                                                   wavRef: sampleNum,
-                                                                   loopEnabled: false)
+                                                               rootNote: existingRootNote,
+                                                               startNote: existingStartNote,
+                                                               endNote: existingEndNote,
+                                                               wavRef: sampleNum,
+                                                               loopEnabled: false)
                     let tempLayerXML = PresetBuilder.generateLayer(
                         connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
                         envelopes: envelopesXML,
                         zones: sampleZoneXML,
                         layer: i + 1,
                         numVoices: 1,
-                        ignoreNoteOff: false)
+                        ignoreNoteOff: false
+                    )
                     layerXML.append(tempLayerXML)
                 }
 
             case .Loop:
                 if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
                     sampleZoneXML = PresetBuilder.generateZone(id: i,
-                                                                   rootNote: existingRootNote,
-                                                                   startNote: existingStartNote,
-                                                                   endNote: existingEndNote,
-                                                                   wavRef: sampleNum,
-                                                                   loopEnabled: true)
+                                                               rootNote: existingRootNote,
+                                                               startNote: existingStartNote,
+                                                               endNote: existingEndNote,
+                                                               wavRef: sampleNum,
+                                                               loopEnabled: true)
                     let tempLayerXML = PresetBuilder.generateLayer(
                         connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
                         envelopes: envelopesXML,
                         zones: sampleZoneXML,
                         layer: i + 1,
                         numVoices: 1,
-                        ignoreNoteOff: false)
+                        ignoreNoteOff: false
+                    )
                     layerXML.append(tempLayerXML)
                 }
 
@@ -200,18 +206,19 @@ public class PresetBuilder {
                 // otherwise is just the same as Trig mode)
                 if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
                     sampleZoneXML = PresetBuilder.generateZone(id: i,
-                                                                   rootNote: existingRootNote,
-                                                                   startNote: existingStartNote,
-                                                                   endNote: existingEndNote,
-                                                                   wavRef: sampleNum,
-                                                                   loopEnabled: false)
+                                                               rootNote: existingRootNote,
+                                                               startNote: existingStartNote,
+                                                               endNote: existingEndNote,
+                                                               wavRef: sampleNum,
+                                                               loopEnabled: false)
                     let tempLayerXML = PresetBuilder.generateLayer(
                         connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
                         envelopes: envelopesXML,
                         zones: sampleZoneXML,
                         layer: i + 1,
                         numVoices: 1,
-                        ignoreNoteOff: true)
+                        ignoreNoteOff: true
+                    )
                     layerXML.append(tempLayerXML)
                 }
             }
@@ -242,7 +249,8 @@ public class PresetBuilder {
         rootNote: Int,
         filename: String,
         startNote: Int,
-        endNote: Int) -> NSMutableDictionary {
+        endNote: Int
+    ) -> NSMutableDictionary {
         let rootNoteKey = "rootnote"
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
@@ -278,7 +286,8 @@ public class PresetBuilder {
                                        lfos: String = "",
                                        zones: String = "***ZONES***\n",
                                        filerefs: String = "***FILEREFS***\n",
-                                       layers: String = "") -> String {
+                                       layers: String = "") -> String
+    {
         var presetXML = openPreset()
         presetXML.append(openInstrument())
         presetXML.append(openLayers())
@@ -325,7 +334,7 @@ public class PresetBuilder {
     }
 
     static func openPreset() -> String {
-        var str: String = ""
+        var str = ""
         str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         str.append("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" " +
             "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
@@ -337,14 +346,14 @@ public class PresetBuilder {
     }
 
     static func openInstrument() -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>Instrument</key>\n")
         str.append("        <dict>\n")
         return str
     }
 
     static func openLayers() -> String {
-        var str: String = ""
+        var str = ""
         str.append("            <key>Layers</key>\n")
         str.append("            <array>\n")
         return str
@@ -374,8 +383,9 @@ public class PresetBuilder {
                                        source: Int,
                                        destination: Int,
                                        scale: Int,
-                                       transform: Int = 1,
-                                       invert: Bool = false) -> String {
+                                       transform _: Int = 1,
+                                       invert: Bool = false) -> String
+    {
         var str = ""
         str.append("\(spaces(34))<dict>\n")
         str.append("\(spaces(34))    <key>ID</key>\n")
@@ -417,7 +427,8 @@ public class PresetBuilder {
                                  hold: Double = 0.0,
                                  decay: Double = 0.0,
                                  sustain: Double = 1.0,
-                                 release: Double = 0.0) -> String {
+                                 release: Double = 0.0) -> String
+    {
         var str = ""
         str.append("\(spaces(34))<dict>\n")
         str.append("\(spaces(34))    <key>ID</key>\n")
@@ -491,7 +502,7 @@ public class PresetBuilder {
         return str
     }
 
-    static func generateFilter(cutoffHz: Double = 20_000.0, resonanceDb: Double = 0.0) -> String {
+    static func generateFilter(cutoffHz: Double = 20000.0, resonanceDb: Double = 0.0) -> String {
         var str = ""
         str.append("                    <key>Filters</key>\n")
         str.append("                    <dict>\n")
@@ -526,7 +537,8 @@ public class PresetBuilder {
     static func generateLFO(id: Int = 0,
                             delay: Double = 0.0,
                             rate: Double = 3.0,
-                            waveform: Int = 0) -> String {
+                            waveform: Int = 0) -> String
+    {
         // 0 = triangle, 29 = reverseSaw, 26 = saw, 28 = square, 25 = sine, 75 = sample/hold, 76 = randomInterpolated
         var str = ""
         str.append("                        <dict>\n")
@@ -577,7 +589,8 @@ public class PresetBuilder {
                              endNote: MIDINoteNumber,
                              wavRef: Int = 268_435_457,
                              offset: Int = 0,
-                             loopEnabled: Bool = false) -> String {
+                             loopEnabled: Bool = false) -> String
+    {
         let wavRefNum = wavRef + offset
         var str = ""
         str.append("                    <dict>\n")
@@ -628,13 +641,13 @@ public class PresetBuilder {
     }
 
     static func closeLayers() -> String {
-        var str: String = ""
+        var str = ""
         str.append("            </array>\n")
         return str
     }
 
     static func closeInstrument(name: String = "Code Generated Instrument") -> String {
-        var str: String = ""
+        var str = ""
         str.append("            <key>name</key>\n")
         str.append("            <string>\(name)</string>\n")
         str.append("        </dict>\n")
@@ -642,14 +655,14 @@ public class PresetBuilder {
     }
 
     static func genCoarseTune(_ tune: Int = 0) -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>coarse tune</key>\n")
         str.append("        <integer>\(tune)</integer>\n")
         return str
     }
 
     static func genDataBlob() -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>data</key>\n")
         str.append("        <data>\n")
         str.append("            AAAAAAAAAAAAAAAEAAADhAAAAAAAAAOFAAAAAAAAA4YAAAAAAAADhwAAAAA=\n")
@@ -658,69 +671,69 @@ public class PresetBuilder {
     }
 
     static func openFileRefs() -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>file-references</key>\n")
         str.append("        <dict>\n")
         return str
     }
 
     static func generateFileRef(wavRef: Int = 268_435_457, samplePath: String) -> String {
-        var str: String = ""
+        var str = ""
         str.append("            <key>Sample:\(wavRef)</key>\n")
         str.append("            <string>\(samplePath)</string>\n")
         return str
     }
 
     static func closeFileRefs() -> String {
-        var str: String = ""
+        var str = ""
         str.append("        </dict>\n")
         return str
     }
 
     static func generateFineTune(_ tune: Double = 0.0) -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>fine tune</key>\n")
         str.append("        <real>\(tune)</real>\n")
         return str
     }
 
     static func generateGain(_ gain: Double = 0.0) -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>gain</key>\n")
         str.append("        <real>\(gain)</real>\n")
         return str
     }
 
     static func generateManufacturer(_ manufacturer: Int = 1_634_758_764) -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>manufacturer</key>\n")
         str.append("        <integer>\(manufacturer)</integer>\n")
         return str
     }
 
     static func generateInstrument(name: String = "Coded Instrument Name") -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>name</key>\n")
         str.append("        <string>\(name)</string>\n")
         return str
     }
 
     static func generateOutput(_ output: Int = 0) -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>output</key>\n")
         str.append("        <integer>\(output)</integer>\n")
         return str
     }
 
     static func generatePan(_ pan: Double = 0.0) -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>pan</key>\n")
         str.append("        <real>\(pan)</real>\n")
         return str
     }
 
     static func generateTypeAndSubType() -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>subtype</key>\n")
         str.append("        <integer>1935764848</integer>\n")
         str.append("        <key>type</key>\n")
@@ -731,14 +744,14 @@ public class PresetBuilder {
     }
 
     static func generateVoiceCount(_ count: Int = 16) -> String {
-        var str: String = ""
+        var str = ""
         str.append("        <key>voice count</key>\n")
         str.append("        <integer>\(count)</integer>\n")
         return str
     }
 
     static func closePreset() -> String {
-        var str: String = ""
+        var str = ""
         str.append("    </dict>\n")
         str.append("</plist>\n")
         return str
@@ -751,7 +764,8 @@ public class PresetBuilder {
                               zones: String = "",
                               layer: Int = 0,
                               numVoices: Int = 16,
-                              ignoreNoteOff: Bool = false) -> String {
+                              ignoreNoteOff: Bool = false) -> String
+    {
         var str = ""
         str.append(openLayer())
         str.append(openConnections())
@@ -779,30 +793,31 @@ public class PresetBuilder {
                                envelopes: [String],
                                filters: [String],
                                lfos: [String],
-                               zones: [String]) -> String {
+                               zones: [String]) -> String
+    {
         // make sure all arrays are same size
         var str = ""
         for i in 0 ..< connections.count {
             str.append(PresetBuilder.generateLayer(connections: connections[i],
-                                                       envelopes: envelopes[i],
-                                                       filter: filters[i],
-                                                       lfos: lfos[i],
-                                                       zones: zones[i],
-                                                       layer: i))
+                                                   envelopes: envelopes[i],
+                                                   filter: filters[i],
+                                                   lfos: lfos[i],
+                                                   zones: zones[i],
+                                                   layer: i))
         }
         return str
     }
 
     static func generateMinimalConnections(layer: Int = 0) -> String {
-        let layerOffset: Int = 256 * layer
-        let pitchDest: Int = 816_840_704 + layerOffset
-        let envelopeSource: Int = 536_870_912 + layerOffset
-        let gainDest: Int = 1_343_225_856 + layerOffset
+        let layerOffset = 256 * layer
+        let pitchDest = 816_840_704 + layerOffset
+        let envelopeSource = 536_870_912 + layerOffset
+        let gainDest = 1_343_225_856 + layerOffset
         var str = ""
         str.append(generateConnectionDict(id: 0,
                                           source: 300,
                                           destination: pitchDest,
-                                          scale: 12_800,
+                                          scale: 12800,
                                           transform: 1,
                                           invert: false)) // keynum->pitch
         str.append(generateConnectionDict(id: 1,
@@ -978,8 +993,7 @@ public class PresetBuilder {
     }
 
     static func genFULLXML() -> String {
-        var str: String
-        str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        var str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         str.append("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" " +
             "\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
         str.append("<plist version=\"1.0\">\n")

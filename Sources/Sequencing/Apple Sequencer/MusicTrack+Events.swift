@@ -2,8 +2,8 @@
 
 import AVFoundation
 import Foundation
-import Utilities
 import MIDI
+import Utilities
 
 public extension MusicTrackManager {
     /// Array of Apple MIDI Events

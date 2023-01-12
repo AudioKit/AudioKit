@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import Audio
 import AVFoundation
 import Utilities
-import Audio
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
 final class Recorder {
@@ -156,7 +156,7 @@ final class Recorder {
         Log("⏺ Recording using format", internalAudioFile?.processingFormat.debugDescription)
     }
 
-    func add(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
+    func add(buffer: AVAudioPCMBuffer, time _: AVAudioTime) {
         guard let internalAudioFile = internalAudioFile else { return }
 
         do {

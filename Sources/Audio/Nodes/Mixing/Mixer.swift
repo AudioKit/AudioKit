@@ -38,7 +38,6 @@ public class Mixer: Node, NamedNode {
 
     /// Initialize the mixer node with no inputs, to be connected later
     public init(volume: AUValue = 1.0, name: String? = nil) {
-
         let volumeCD = AudioComponentDescription(effect: "volu")
 
         AUAudioUnit.registerSubclass(VolumeAudioUnit.self,
@@ -83,7 +82,7 @@ public class Mixer: Node, NamedNode {
         }
 
         inputs.append(node)
-        
+
         // New engine: recompile graph after adding an input.
         compile()
     }
@@ -150,7 +149,7 @@ public class Mixer: Node, NamedNode {
         // current input busses array already matches or exceeds required size
         return requiredSize
     }
-    
+
     /// This is so we can recompile when there's a change to the inputs.
     weak var engineAU: EngineAudioUnit?
 

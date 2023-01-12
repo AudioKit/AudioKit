@@ -4,7 +4,6 @@ import Utilities
 
 /// MIDI Status Message
 public struct MIDIStatus: MIDIMessage {
-
     /// Status message data
     public var data: [MIDIByte] {
         return [byte]
@@ -49,7 +48,7 @@ public struct MIDIStatus: MIDIMessage {
 
     /// Printable string
     public var description: String {
-        if let type = self.type {
+        if let type = type {
             return "\(type.description) channel \(channel)"
         } else if let command = MIDISystemCommand(rawValue: byte) {
             return "Command: \(command.description)"

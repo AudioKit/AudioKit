@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Accelerate
-import AVFoundation
 import Audio
+import AVFoundation
 
 /// Determines the value to use for log2n input to fft
 func determineLog2n(frameCount: UInt32, binCount: FFTValidBinCount?) -> UInt {
@@ -18,9 +18,10 @@ func determineLog2n(frameCount: UInt32, binCount: FFTValidBinCount?) -> UInt {
 public func performFFT(data: [Float],
                        isNormalized: Bool,
                        zeroPaddingFactor: UInt32 = 0,
-                       binCount: FFTValidBinCount? = nil) -> [Float] {
+                       binCount: FFTValidBinCount? = nil) -> [Float]
+{
     var data = data
-    let frameCount = UInt32(data.count) * (zeroPaddingFactor+1)
+    let frameCount = UInt32(data.count) * (zeroPaddingFactor + 1)
     let log2n = determineLog2n(frameCount: frameCount, binCount: binCount)
     let bufferSizePOT = Int(1 << log2n) // 1 << n = 2^n
     let binCount = bufferSizePOT / 2

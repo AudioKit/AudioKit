@@ -260,8 +260,8 @@ public extension AVAudioPCMBuffer {
     }
 }
 
-extension AVAudioPCMBuffer {
-    public var rms: Float {
+public extension AVAudioPCMBuffer {
+    var rms: Float {
         guard let data = floatChannelData else { return 0 }
 
         let channelCount = Int(format.channelCount)

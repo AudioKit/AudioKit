@@ -4,12 +4,11 @@ import Foundation
 
 /// Fixed size vector.
 final class Vec<T> {
-
     private var storage: UnsafeMutableBufferPointer<T>
 
     init(count: Int, _ f: (Int) -> T) {
         storage = UnsafeMutableBufferPointer<T>.allocate(capacity: count)
-        _ = storage.initialize(from: (0..<count).map { index in f(index) })
+        _ = storage.initialize(from: (0 ..< count).map { index in f(index) })
     }
 
     init(_ array: [T]) {
@@ -24,7 +23,7 @@ final class Vec<T> {
 
     var count: Int { storage.count }
 
-    subscript(index:Int) -> T {
+    subscript(index: Int) -> T {
         get {
             return storage[index]
         }
@@ -34,8 +33,7 @@ final class Vec<T> {
     }
 }
 
-extension Vec : Sequence {
-
+extension Vec: Sequence {
     func makeIterator() -> UnsafeMutableBufferPointer<T>.Iterator {
         return storage.makeIterator()
     }

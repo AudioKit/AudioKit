@@ -22,7 +22,7 @@ public class Oscillator: Node {
             }
         }
     }
-    
+
     /// Output Volume (Default 1), values above 1 will have gain applied
     public var amplitude: AUValue = 1.0 {
         didSet {
@@ -45,7 +45,6 @@ public class Oscillator: Node {
     ///   - frequency: Pitch in Hz
     ///   - amplitude: Volume, usually 0-1
     public init(waveform: Table = Table(.sine), frequency: AUValue = 440, amplitude: AUValue = 1.0) {
-
         let componentDescription = AudioComponentDescription(instrument: "pgos")
 
         AUAudioUnit.registerSubclass(OscillatorAudioUnit.self,
@@ -55,20 +54,18 @@ public class Oscillator: Node {
         au = instantiateAU(componentDescription: componentDescription)
         oscAU = au as! OscillatorAudioUnit
         self.waveform = waveform
-        self.oscAU.amplitudeParam.value = amplitude
+        oscAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
-        self.oscAU.frequencyParam.value = frequency
+        oscAU.frequencyParam.value = frequency
         self.frequency = frequency
-        self.oscAU.setWaveform(waveform)
+        oscAU.setWaveform(waveform)
         self.waveform = waveform
-        self.stop()
+        stop()
     }
 }
 
-
 /// Renders an oscillator
 class OscillatorAudioUnit: AUAudioUnit {
-
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
 
@@ -81,9 +78,9 @@ class OscillatorAudioUnit: AUAudioUnit {
 
     var cachedMIDIBlock: AUScheduleMIDIEventBlock?
 
-    let frequencyParam = AUParameterTree.createParameter(identifier: "frequency", name: "frequency", address: 0, range: 0...22050, unit: .hertz, flags: [])
+    let frequencyParam = AUParameterTree.createParameter(identifier: "frequency", name: "frequency", address: 0, range: 0 ... 22050, unit: .hertz, flags: [])
 
-    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 1, range: 0...10, unit: .generic, flags: [])
+    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 1, range: 0 ... 10, unit: .generic, flags: [])
 
     func setWaveform(_ waveform: Table) {
         let holder = UnsafeMutablePointer<Table>.allocate(capacity: 1)
@@ -109,8 +106,8 @@ class OscillatorAudioUnit: AUAudioUnit {
     ///   - options: Audio Component Instantiation Options
     /// - Throws: error
     override public init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
-
+                         options: AudioComponentInstantiationOptions = []) throws
+    {
         try super.init(componentDescription: componentDescription, options: options)
 
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
@@ -119,9 +116,9 @@ class OscillatorAudioUnit: AUAudioUnit {
 
         parameterTree = AUParameterTree.createTree(withChildren: [frequencyParam, amplitudeParam])
 
-        let paramBlock = self.scheduleParameterBlock
+        let paramBlock = scheduleParameterBlock
 
-        parameterTree?.implementorValueObserver = { parameter, value in
+        parameterTree?.implementorValueObserver = { parameter, _ in
             paramBlock(.zero, 0, parameter.address, parameter.value)
         }
     }
@@ -151,63 +148,60 @@ class OscillatorAudioUnit: AUAudioUnit {
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
         process(events: events,
                 sysex: { event in
-            var command: OscillatorCommand = .table(nil)
+                    var command: OscillatorCommand = .table(nil)
 
-            decodeSysex(event, &command)
-            switch command {
-            case .table(let ptr):
-                table = ptr?.pointee ?? Table()
-            }
-        }, param: { event in
-            let paramEvent = event.pointee
-            switch paramEvent.parameterAddress {
-            case 0: frequency = paramEvent.value
-            case 1: amplitude = paramEvent.value
-            default: break
-            }
-        }
-            )
+                    decodeSysex(event, &command)
+                    switch command {
+                    case let .table(ptr):
+                        table = ptr?.pointee ?? Table()
+                    }
+                }, param: { event in
+                    let paramEvent = event.pointee
+                    switch paramEvent.parameterAddress {
+                    case 0: frequency = paramEvent.value
+                    case 1: amplitude = paramEvent.value
+                    default: break
+                    }
+                })
     }
 
     override var internalRenderBlock: AUInternalRenderBlock {
-        { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-           timeStamp: UnsafePointer<AudioTimeStamp>,
+        { (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+           _: UnsafePointer<AudioTimeStamp>,
            frameCount: AUAudioFrameCount,
-           outputBusNumber: Int,
+           _: Int,
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            renderEvents: UnsafePointer<AURenderEvent>?,
-           inputBlock: AURenderPullInputBlock?) in
+           _: AURenderPullInputBlock?) in
 
-            self.processEvents(events: renderEvents)
+                self.processEvents(events: renderEvents)
 
-            let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
+                let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
-            let twoPi: AUValue = AUValue(2 * Double.pi)
-            let phaseIncrement = (twoPi / AUValue(Settings.sampleRate)) * self.frequency
-            for frame in 0 ..< Int(frameCount) {
-                // Get signal value for this frame at time.
-                let index = Int(self.currentPhase / twoPi * Float(self.table.count))
-                let value = self.table[index] * self.amplitude
+                let twoPi: AUValue = .init(2 * Double.pi)
+                let phaseIncrement = (twoPi / AUValue(Settings.sampleRate)) * self.frequency
+                for frame in 0 ..< Int(frameCount) {
+                    // Get signal value for this frame at time.
+                    let index = Int(self.currentPhase / twoPi * Float(self.table.count))
+                    let value = self.table[index] * self.amplitude
 
-                // Advance the phase for the next frame.
-                self.currentPhase += phaseIncrement
-                if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
-                if self.currentPhase < 0.0 { self.currentPhase += twoPi }
-                // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
-                for buffer in ablPointer {
-                    let buf = UnsafeMutableBufferPointer<Float>(buffer)
-                    assert(frame < buf.count)
-                    if self.shouldBypassEffect {
-                        buf[frame] = 0
-                    } else {
-                        buf[frame] = value
+                    // Advance the phase for the next frame.
+                    self.currentPhase += phaseIncrement
+                    if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
+                    if self.currentPhase < 0.0 { self.currentPhase += twoPi }
+                    // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
+                    for buffer in ablPointer {
+                        let buf = UnsafeMutableBufferPointer<Float>(buffer)
+                        assert(frame < buf.count)
+                        if self.shouldBypassEffect {
+                            buf[frame] = 0
+                        } else {
+                            buf[frame] = value
+                        }
                     }
                 }
-            }
 
-            return noErr
+                return noErr
         }
     }
-
 }
-

@@ -1,14 +1,13 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import Atomics
-import CoreAudioTypes
 import AVFoundation
+import CoreAudioTypes
+import Foundation
 
 /// A buffer of audio with memory synchronization so we can
 /// share it between threads.
 public class SynchronizedAudioBufferList {
-
     /// Just to keep the buffer alive.
     private var pcmBuffer: AVAudioPCMBuffer
 
@@ -20,7 +19,7 @@ public class SynchronizedAudioBufferList {
 
     public init(_ pcmBuffer: AVAudioPCMBuffer) {
         self.pcmBuffer = pcmBuffer
-        self.abl = pcmBuffer.mutableAudioBufferList
+        abl = pcmBuffer.mutableAudioBufferList
     }
 
     /// Indicate that we're done writing to the buffer.

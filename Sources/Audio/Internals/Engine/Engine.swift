@@ -7,26 +7,24 @@ import Utilities
 ///
 /// See https://github.com/AudioKit/AudioKit/issues/2804
 public class Engine {
-    
     /// Internal AVAudioEngine
     private let avEngine = AVAudioEngine()
-    
+
     public var output: Node? {
         didSet {
             engineAU?.output = output
         }
     }
-    
+
     public var engineAU: EngineAudioUnit?
     var avAudioUnit: AVAudioUnit?
 
     // maximum number of frames the engine will be asked to render in any single render call
     let maximumFrameCount: AVAudioFrameCount = 1024
-    
+
     public init() {
-        
         let componentDescription = AudioComponentDescription(effect: "akau")
-        
+
         AUAudioUnit.registerSubclass(EngineAudioUnit.self,
                                      as: componentDescription,
                                      name: "engine AU",
@@ -42,12 +40,12 @@ public class Engine {
             self.avEngine.connect(au, to: self.avEngine.mainMixerNode, format: nil)
         }
     }
-    
+
     /// Start the engine
     public func start() throws {
         try avEngine.start()
     }
-    
+
     /// Stop the engine
     public func stop() {
         avEngine.stop()
@@ -109,5 +107,4 @@ public class Engine {
         }
         return buffer
     }
-
 }

@@ -1,10 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import XCTest
 import AudioKit
+import XCTest
 
 class TapNodeTests: XCTestCase {
-
     func testTapNode() async throws {
         let engine = Engine()
         let noise = Noise()

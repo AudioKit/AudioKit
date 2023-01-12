@@ -21,7 +21,7 @@ public extension AppleSampler {
         }
     }
 
-    internal func loadSoundFont(url: URL, preset: Int, type: Int, in bundle: Bundle = .main) throws {
+    internal func loadSoundFont(url: URL, preset: Int, type: Int, in _: Bundle = .main) throws {
         do {
             try samplerUnit.loadSoundBankInstrument(
                 at: url,

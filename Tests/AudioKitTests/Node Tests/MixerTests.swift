@@ -48,5 +48,4 @@ class MixerTests: XCTestCase {
         }
         wait(for: [delayExpectation], timeout: interval + 1)
     }
-
 }

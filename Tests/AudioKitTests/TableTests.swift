@@ -1,11 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 import CryptoKit
+import XCTest
 
 class TableTests: XCTestCase {
-
     func MD5(_ string: String) -> String {
         let digest = Insecure.MD5.hash(data: string.data(using: .utf8) ?? Data())
         return digest.map { String(format: "%02hhx", $0) }.joined()
@@ -22,7 +21,6 @@ class TableTests: XCTestCase {
     func testPositiveSquare() {
         XCTAssertEqual(MD5("\(Table(.positiveSquare).content)"), "6b2a5e42d97b4472190d8d88a5078e08")
     }
-
 
     func testPositiveTriangle() {
         XCTAssertEqual(MD5("\(Table(.positiveTriangle).content)"), "b8176e769d36f84e53bfa8c77875fac8")

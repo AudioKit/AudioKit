@@ -365,6 +365,7 @@ public enum DistortionPreset: Int, CaseIterable, CustomStringConvertible {
             return "Speech Waves"
         }
     }
+
     public var description: String {
         return name
     }

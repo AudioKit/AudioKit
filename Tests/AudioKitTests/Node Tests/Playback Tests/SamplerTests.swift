@@ -4,7 +4,6 @@ import AVFoundation
 import XCTest
 
 class SamplerTests: XCTestCase {
-
     func testSampler() {
         let engine = Engine()
         let sampler = Sampler()

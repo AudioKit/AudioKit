@@ -1,19 +1,17 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import XCTest
 import AudioKit
+import XCTest
 
 extension Int: DefaultInit {
     public init() { self = 0 }
 }
 
 final class WorkStealingQueueTests: XCTestCase {
-
     func testBasic() throws {
-
         let queue = WorkStealingQueue<Int>()
 
-        for i in 0..<1000 {
+        for i in 0 ..< 1000 {
             queue.push(i)
         }
 
@@ -37,7 +35,5 @@ final class WorkStealingQueueTests: XCTestCase {
         thief.start()
 
         sleep(2)
-
     }
-
 }

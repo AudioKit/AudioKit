@@ -46,7 +46,7 @@ public enum MIDICustomMetaEventType: MIDIByte {
     /// Sequencer Specific Meta Event
     case sequencerSpecificMetaEvent = 0x7F
 
-    var length: Int? { //length can be variable for certain metaevents, so returns nil for the type length
+    var length: Int? { // length can be variable for certain metaevents, so returns nil for the type length
         switch self {
         case .endOfTrack:
             return 0
@@ -114,7 +114,6 @@ public enum MIDICustomMetaEventType: MIDIByte {
 
 /// MIDI Custom Meta Event
 public struct MIDICustomMetaEvent: MIDIMessage {
-
     /// Position data - used for events parsed from a MIDI file
     public var positionInBeats: Double?
 
@@ -122,11 +121,12 @@ public struct MIDICustomMetaEvent: MIDIMessage {
     /// - Parameter data: Array of MIDI bytes
     public init?(data: [MIDIByte]) {
         if data.count > 2,
-            data[0] == 0xFF,
-            let type = MIDICustomMetaEventType(rawValue: data[1]),
-            let vlqLength = MIDIVariableLengthQuantity(fromBytes: Array(data.suffix(from: 2))) {
-            self.length = Int(vlqLength.quantity)
-            self.data = Array(data.prefix(3 + length)) //drop excess data
+           data[0] == 0xFF,
+           let type = MIDICustomMetaEventType(rawValue: data[1]),
+           let vlqLength = MIDIVariableLengthQuantity(fromBytes: Array(data.suffix(from: 2)))
+        {
+            length = Int(vlqLength.quantity)
+            self.data = Array(data.prefix(3 + length)) // drop excess data
             self.type = type
         } else {
             return nil
@@ -155,15 +155,16 @@ public struct MIDICustomMetaEvent: MIDIMessage {
     public let length: Int
     /// Printable string
     public var description: String {
-        var nameStr: String = ""
+        var nameStr = ""
 
-        if let name = name, (
-            type == .trackName ||
-            type == .instrumentName ||
-            type == .programName ||
-            type == .devicePortName ||
-            type == .metaEvent10 ||
-            type == .metaEvent12) {
+        if let name = name,
+           type == .trackName ||
+           type == .instrumentName ||
+           type == .programName ||
+           type == .devicePortName ||
+           type == .metaEvent10 ||
+           type == .metaEvent12
+        {
             nameStr = "- \(name)"
         }
 
@@ -174,5 +175,4 @@ public struct MIDICustomMetaEvent: MIDIMessage {
     public var name: String? {
         return String(bytes: data.suffix(length), encoding: .utf8)
     }
-
 }

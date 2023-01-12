@@ -1,10 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import XCTest
 import AudioKit
+import XCTest
 
 final class RingBufferTests: XCTestCase {
-
     func testRingBuffer() {
         let buffer = RingBuffer<Float>()
 
@@ -29,11 +28,9 @@ final class RingBufferTests: XCTestCase {
         }
 
         XCTAssertEqual(floats, [1, 2, 3, 4, 5])
-
     }
 
     func testProducerConsumer() {
-
         let buffer = RingBuffer<Int>()
 
         class Producer: Thread {
@@ -59,14 +56,12 @@ final class RingBufferTests: XCTestCase {
 
             override func main() {
                 for i in 0 ..< 1000 {
-
-                    while(true) {
+                    while true {
                         if let value = buffer.pop() {
                             XCTAssertEqual(value, i)
                             break
                         }
                     }
-
                 }
             }
         }
@@ -79,5 +74,4 @@ final class RingBufferTests: XCTestCase {
 
         sleep(1)
     }
-
 }

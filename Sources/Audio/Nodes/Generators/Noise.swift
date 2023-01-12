@@ -17,7 +17,7 @@ public class Noise: Node {
         didSet {
             amplitude = max(amplitude, 0)
             noiseAU.amplitudeParam.value = amplitude
-            self.start()
+            start()
         }
     }
 
@@ -25,7 +25,6 @@ public class Noise: Node {
     /// - Parameters:
     ///   - amplitude: Volume, usually 0-1
     public init(amplitude: AUValue = 1.0) {
-
         let componentDescription = AudioComponentDescription(instrument: "pgns")
 
         AUAudioUnit.registerSubclass(NoiseAudioUnit.self,
@@ -34,16 +33,14 @@ public class Noise: Node {
                                      version: .max)
         au = instantiateAU(componentDescription: componentDescription)
         noiseAU = au as! NoiseAudioUnit
-        self.noiseAU.amplitudeParam.value = amplitude
+        noiseAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
-        self.stop()
+        stop()
     }
 }
 
-
 /// Renders an NoiseGenerator
 class NoiseAudioUnit: AUAudioUnit {
-
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
 
@@ -54,7 +51,7 @@ class NoiseAudioUnit: AUAudioUnit {
         return [inputChannelCount, outputChannelCount]
     }
 
-    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 0, range: 0...10, unit: .generic, flags: [])
+    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 0, range: 0 ... 10, unit: .generic, flags: [])
 
     /// Initialize with component description and options
     /// - Parameters:
@@ -62,8 +59,8 @@ class NoiseAudioUnit: AUAudioUnit {
     ///   - options: Audio Component Instantiation Options
     /// - Throws: error
     override public init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
-
+                         options: AudioComponentInstantiationOptions = []) throws
+    {
         try super.init(componentDescription: componentDescription, options: options)
 
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
@@ -72,9 +69,9 @@ class NoiseAudioUnit: AUAudioUnit {
 
         parameterTree = AUParameterTree.createTree(withChildren: [amplitudeParam])
 
-        let paramBlock = self.scheduleParameterBlock
+        let paramBlock = scheduleParameterBlock
 
-        parameterTree?.implementorValueObserver = { parameter, value in
+        parameterTree?.implementorValueObserver = { parameter, _ in
             paramBlock(.zero, 0, parameter.address, parameter.value)
         }
     }
@@ -91,57 +88,52 @@ class NoiseAudioUnit: AUAudioUnit {
 
     override func deallocateRenderResources() {}
 
-
     /// Volume usually 0-1
     var amplitude: AUValue = 1
 
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
-
         process(events: events,
                 param: { event in
 
-            let paramEvent = event.pointee
+                    let paramEvent = event.pointee
 
-            switch paramEvent.parameterAddress {
-            case 0: amplitude = paramEvent.value
-            default: break
-            }
+                    switch paramEvent.parameterAddress {
+                    case 0: amplitude = paramEvent.value
+                    default: break
+                    }
 
-        })
-
+                })
     }
 
     override var internalRenderBlock: AUInternalRenderBlock {
-        { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-           timeStamp: UnsafePointer<AudioTimeStamp>,
+        { (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+           _: UnsafePointer<AudioTimeStamp>,
            frameCount: AUAudioFrameCount,
-           outputBusNumber: Int,
+           _: Int,
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            renderEvents: UnsafePointer<AURenderEvent>?,
-           inputBlock: AURenderPullInputBlock?) in
+           _: AURenderPullInputBlock?) in
 
-            self.processEvents(events: renderEvents)
+                self.processEvents(events: renderEvents)
 
-            let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
+                let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
-            for frame in 0 ..< Int(frameCount) {
-                // Get signal value for this frame at time.
-                let value = self.amplitude * Float.random(in: -1 ... 1)
+                for frame in 0 ..< Int(frameCount) {
+                    // Get signal value for this frame at time.
+                    let value = self.amplitude * Float.random(in: -1 ... 1)
 
-                // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
-                for buffer in ablPointer {
-                    let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
-                    if self.shouldBypassEffect {
-                        buf[frame] = 0
-                    } else {
-                        buf[frame] = value
+                    // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
+                    for buffer in ablPointer {
+                        let buf: UnsafeMutableBufferPointer<Float> = UnsafeMutableBufferPointer(buffer)
+                        if self.shouldBypassEffect {
+                            buf[frame] = 0
+                        } else {
+                            buf[frame] = value
+                        }
                     }
                 }
-            }
 
-            return noErr
+                return noErr
         }
     }
-
 }
-

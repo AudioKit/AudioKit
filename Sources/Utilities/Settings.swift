@@ -52,7 +52,7 @@ public class Settings: NSObject {
     }
 
     /// Default audio format
-    public static let defaultAudioFormat = AVAudioFormat(standardFormatWithSampleRate: 44_100,
+    public static let defaultAudioFormat = AVAudioFormat(standardFormatWithSampleRate: 44100,
                                                          channels: 2) ?? AVAudioFormat()
 
     /// The sample rate in Hertz, default is 44100 kHz. Set a new audioFormat if you want to change this value.

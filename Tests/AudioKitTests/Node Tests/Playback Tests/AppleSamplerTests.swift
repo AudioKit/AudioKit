@@ -69,4 +69,3 @@ class AppleSamplerTests: XCTestCase {
         try samplerUnit.loadInstrument(at: exsURL)
     }
 }
-

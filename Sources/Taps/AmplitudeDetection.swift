@@ -24,10 +24,8 @@ public func detectAmplitude(_ inputs: [Float]..., mode: AnalysisMode = .rms) -> 
             return partialResult + peak / Float(inputs.count)
         }
     }
-
 }
 
-public func detectAmplitudes(_ inputs: [[Float]], mode: AnalysisMode = .rms) -> [Float] {
+public func detectAmplitudes(_ inputs: [[Float]], mode _: AnalysisMode = .rms) -> [Float] {
     inputs.map { detectAmplitude($0) }
 }
-

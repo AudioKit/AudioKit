@@ -143,7 +143,6 @@ public enum AudioFileFormat: String {
 }
 
 public extension FormatConverter {
-
     /// FormatConverterCallback is the callback format for start()
     /// - Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
     typealias FormatConverterCallback = (_ error: Error?) -> Void
@@ -181,9 +180,9 @@ public extension FormatConverter {
         /// used only with PCM data
         public var bitDepth: UInt32?
         /// used only when outputting compressed audio
-        public var bitRate: UInt32 = 128000 {
+        public var bitRate: UInt32 = 128_000 {
             didSet {
-                bitRate = bitRate.clamped(to: 64000 ... 320000)
+                bitRate = bitRate.clamped(to: 64000 ... 320_000)
             }
         }
 

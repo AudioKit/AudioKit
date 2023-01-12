@@ -5,7 +5,6 @@ import MIDI
 import Utilities
 
 public extension Node {
-
     /// Reset the internal state of the unit
     func reset() {
         au.reset()
@@ -78,7 +77,6 @@ public extension Node {
 }
 
 extension Node {
-
     /// Scan for all parameters and associate with the node.
     /// - Parameter au: AUAudioUnit to associate
     func associateParams(with au: AUAudioUnit) {

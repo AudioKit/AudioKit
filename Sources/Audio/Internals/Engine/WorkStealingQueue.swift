@@ -1,7 +1,7 @@
 
 
-import Foundation
 import Atomics
+import Foundation
 
 public protocol DefaultInit {
     init()
@@ -17,9 +17,7 @@ public protocol DefaultInit {
 /// while others can steal data from the queue.
 /// Ported to swift from C++: https://github.com/taskflow/work-stealing-queue
 public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
-
     final class QueueArray: AtomicReference {
-
         var C: Int
         var M: Int
 
@@ -27,8 +25,8 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
 
         init(_ c: Int) {
             C = c
-            M = c-1
-            S = Vec(count: c, { _ in ManagedAtomic(T()) })
+            M = c - 1
+            S = Vec(count: c) { _ in ManagedAtomic(T()) }
         }
 
         var capacity: Int { C }
@@ -42,13 +40,12 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
         }
 
         func resize(_ b: Int, _ t: Int) -> QueueArray {
-            let new = QueueArray(2*C)
+            let new = QueueArray(2 * C)
             for i in t ..< b {
                 new.push(i, pop(i))
             }
             return new
         }
-
     }
 
     var _top: ManagedAtomic<Int> = .init(0)
@@ -125,7 +122,7 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
             if t == b {
                 // the last item just got stolen
                 let (exchanged, _) = _top.compareExchange(expected: t,
-                                                          desired: t+1,
+                                                          desired: t + 1,
                                                           successOrdering: .sequentiallyConsistent,
                                                           failureOrdering: .relaxed)
                 if !exchanged {
@@ -151,12 +148,12 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
 
         var item: T?
 
-        if(t < b) {
+        if t < b {
             let a = _array.load(ordering: .acquiring)
             item = a.pop(t)
 
             let (exchanged, _) = _top.compareExchange(expected: t,
-                                                      desired: t+1,
+                                                      desired: t + 1,
                                                       successOrdering: .sequentiallyConsistent,
                                                       failureOrdering: .relaxed)
 

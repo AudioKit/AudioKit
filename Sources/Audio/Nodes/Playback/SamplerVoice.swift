@@ -1,10 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import AVFoundation
+import Foundation
 
 struct SampleHolder {
-
     /// To keep the buffer alive.
     var pcmBuffer: AVAudioPCMBuffer
 
@@ -17,7 +16,6 @@ struct SampleHolder {
 
 /// Voice struct used by the audio thread.
 struct SamplerVoice {
-
     /// Is the voice in use?
     var inUse: Bool = false
 
@@ -34,7 +32,7 @@ struct SamplerVoice {
 }
 
 extension AudioBuffer {
-    subscript(index:Int) -> Float {
+    subscript(index: Int) -> Float {
         get {
             return mData!.bindMemory(to: Float.self, capacity: Int(mDataByteSize) / MemoryLayout<Float>.size)[index]
         }
@@ -46,19 +44,17 @@ extension AudioBuffer {
 
 extension SamplerVoice {
     mutating func render(to outputPtr: UnsafeMutableAudioBufferListPointer,
-                         frameCount: AVAudioFrameCount) {
-        if inUse, let sample = self.sample {
-            for frame in 0..<Int(frameCount) {
-
+                         frameCount: AVAudioFrameCount)
+    {
+        if inUse, let sample = sample {
+            for frame in 0 ..< Int(frameCount) {
                 // Our playhead must be in range.
-                if playhead >= 0 && playhead < sampleFrames {
-
+                if playhead >= 0, playhead < sampleFrames {
                     let data = sample.pointee.bufferList
 
                     for channel in 0 ..< data.count where channel < outputPtr.count {
                         outputPtr[channel][frame] += data[channel][playhead]
                     }
-
                 }
 
                 // Advance playhead by a frame.

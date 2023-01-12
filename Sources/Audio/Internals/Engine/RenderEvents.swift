@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import AudioToolbox
+import Foundation
 
 /// Handles the ickyness of accessing AURenderEvents without reading off the end of the struct.
 ///
@@ -11,13 +11,12 @@ import AudioToolbox
 ///   - sysex: callback for sysex events
 ///   - param: callback for param events
 func process(events: UnsafePointer<AURenderEvent>?,
-             midi: (UnsafePointer<AUMIDIEvent>) -> () = { _ in },
-             sysex: (UnsafePointer<AUMIDIEvent>) -> () = { _ in },
-             param: (UnsafePointer<AUParameterEvent>) -> () = { _ in }) {
-
+             midi: (UnsafePointer<AUMIDIEvent>) -> Void = { _ in },
+             sysex: (UnsafePointer<AUMIDIEvent>) -> Void = { _ in },
+             param: (UnsafePointer<AUParameterEvent>) -> Void = { _ in })
+{
     var events = events
     while let event = events {
-
         event.withMemoryRebound(to: AURenderEventHeader.self, capacity: 1) { pointer in
 
             switch pointer.pointee.eventType {
@@ -32,8 +31,6 @@ func process(events: UnsafePointer<AURenderEvent>?,
             }
 
             events = .init(pointer.pointee.next)
-
         }
-
     }
 }

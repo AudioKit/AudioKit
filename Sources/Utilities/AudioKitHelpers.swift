@@ -293,7 +293,6 @@ public extension CGFloat {
     }
 }
 
-
 public extension Int {
     /// Map the value to a new range
     /// Return a value on [from.lowerBound,from.upperBound] to a [to.lowerBound, to.upperBound] range

@@ -4,9 +4,11 @@ private extension UInt8 {
     init(highNibble: UInt8, lowNibble: UInt8) {
         self = highNibble << 4 + lowNibble & 0x0F
     }
+
     var highNibble: UInt8 {
         self >> 4
     }
+
     var lowNibble: UInt8 {
         self & 0x0F
     }
@@ -46,30 +48,32 @@ struct UMPSysex {
         case `continue` = 2
         case end = 3
     }
+
     struct UMP64 {
         var word0: UInt32 = 0
         var word1: UInt32 = 0
     }
+
     let umpBigEndian: UMP64
 
     init(group: UInt8 = 0, type: UMPSysexType, data: [UInt8]) {
         var ump = UMP64()
 
         let byteCount = min(data.count, 6)
-        let dataRange = 2..<2+byteCount
+        let dataRange = 2 ..< 2 + byteCount
 
         withUnsafeMutableBytes(of: &ump) {
             $0[0] = .init(highNibble: UMPType.sysex.rawValue, lowNibble: group)
             $0[1] = .init(highNibble: type.rawValue, lowNibble: UInt8(byteCount))
             let buffer = UnsafeMutableRawBufferPointer(rebasing: $0[dataRange])
-            buffer.copyBytes(from: data[0..<byteCount])
+            buffer.copyBytes(from: data[0 ..< byteCount])
         }
-        self.umpBigEndian = ump
+        umpBigEndian = ump
     }
 
     init(word0: UInt32, word1: UInt32) {
-        umpBigEndian = .init(word0: .init(bigEndian:word0),
-                             word1: .init(bigEndian:word1))
+        umpBigEndian = .init(word0: .init(bigEndian: word0),
+                             word1: .init(bigEndian: word1))
     }
 
     var umpType: UMPType {

@@ -4,7 +4,6 @@ import AVFoundation
 import XCTest
 
 class EngineRealtimeTests: XCTestCase {
-
     func testBasicRealtime() throws {
         let engine = Engine()
 
@@ -15,12 +14,10 @@ class EngineRealtimeTests: XCTestCase {
         try! engine.start()
         osc.start()
 
-        usleep(100000)
+        usleep(100_000)
     }
 
-
     func testEffectRealtime() throws {
-
         let engine = Engine()
 
         let osc = Oscillator()
@@ -33,11 +30,10 @@ class EngineRealtimeTests: XCTestCase {
 
         try engine.start()
 
-        usleep(100000)
+        usleep(100_000)
     }
 
     func testTwoEffectsRealtime() throws {
-
         let engine = Engine()
 
         let osc = Oscillator()
@@ -51,12 +47,11 @@ class EngineRealtimeTests: XCTestCase {
         osc.amplitude = 0.1
         osc.start()
 
-        usleep(100000)
+        usleep(100_000)
     }
 
     /// Test changing the output chain on the fly.
     func testDynamicChangeRealtime() throws {
-
         let engine = Engine()
 
         let osc = Oscillator()
@@ -65,18 +60,17 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = osc
         try engine.start()
 
-        usleep(100000)
+        usleep(100_000)
 
         engine.output = dist
 
         osc.amplitude = 0.1
         osc.start()
 
-        usleep(100000)
+        usleep(100_000)
     }
 
     func testMixerRealtime() throws {
-
         let engine = Engine()
 
         let osc1 = Oscillator()
@@ -94,11 +88,10 @@ class EngineRealtimeTests: XCTestCase {
         osc1.start()
         osc2.start()
 
-        usleep(100000)
+        usleep(100_000)
     }
 
     func testMixerDynamicRealtime() throws {
-
         let engine = Engine()
 
         let osc1 = Oscillator()
@@ -116,15 +109,14 @@ class EngineRealtimeTests: XCTestCase {
 
         try engine.start()
 
-        usleep(100000)
+        usleep(100_000)
 
         mix.addInput(osc2)
 
-        usleep(100000)
+        usleep(100_000)
     }
 
     func testMultipleChangesRealtime() throws {
-
         let engine = Engine()
 
         let osc1 = Oscillator()
@@ -141,8 +133,8 @@ class EngineRealtimeTests: XCTestCase {
 
         try engine.start()
 
-        for i in 0..<10 {
-            usleep(100000)
+        for i in 0 ..< 10 {
+            usleep(100_000)
             engine.output = (i % 2 == 1) ? osc1 : osc2
         }
     }
@@ -152,11 +144,11 @@ class EngineRealtimeTests: XCTestCase {
         let url = URL.testAudio
         let buffer = try! AVAudioPCMBuffer(url: url)!
         let sampler = Sampler()
-        
+
         engine.output = sampler
         try engine.start()
         sampler.play()
-        usleep(100000)
+        usleep(100_000)
         sampler.play(buffer)
         sleep(2)
     }
@@ -166,7 +158,7 @@ class EngineRealtimeTests: XCTestCase {
 
         let mixer = Mixer()
 
-        for _ in 0..<100 {
+        for _ in 0 ..< 100 {
             mixer.addInput(Oscillator())
         }
 
@@ -176,5 +168,4 @@ class EngineRealtimeTests: XCTestCase {
         try engine.start()
         sleep(2)
     }
-
 }

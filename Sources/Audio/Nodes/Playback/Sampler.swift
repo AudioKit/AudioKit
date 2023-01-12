@@ -1,10 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
+import AudioFiles
 import AudioUnit
 import AVFoundation
+import Foundation
 import Utilities
-import AudioFiles
 
 public extension AudioBuffer {
     func clear() {
@@ -17,7 +17,6 @@ public extension AudioBuffer {
 }
 
 enum SamplerCommand {
-
     /// Play a sample immediately
     case playSample(UnsafeMutablePointer<SampleHolder>?)
 
@@ -30,7 +29,6 @@ enum SamplerCommand {
 
 /// Renders contents of a file
 class SamplerAudioUnit: AUAudioUnit {
-
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
 
@@ -41,10 +39,9 @@ class SamplerAudioUnit: AUAudioUnit {
 
     /// Returns an available voice. Audio thread ONLY.
     func getVoice() -> Int? {
-
         // Linear search to find a voice. This could be better
         // using a free list but we're lazy.
-        for index in 0..<voices.count {
+        for index in 0 ..< voices.count {
             if !voices[index].inUse {
                 voices[index].inUse = true
                 return index
@@ -73,11 +70,9 @@ class SamplerAudioUnit: AUAudioUnit {
         if let block = cachedMIDIBlock {
             block(.zero, 0, sysex.count, sysex)
         }
-
     }
 
     func stop() {
-
         let command: SamplerCommand = .stop
         let sysex = encodeSysex(command)
 
@@ -93,7 +88,6 @@ class SamplerAudioUnit: AUAudioUnit {
 
     /// Play a sample immediately.
     func play(_ sample: AVAudioPCMBuffer) {
-
         let holder = UnsafeMutablePointer<SampleHolder>.allocate(capacity: 1)
 
         holder.initialize(to: SampleHolder(pcmBuffer: sample,
@@ -110,7 +104,6 @@ class SamplerAudioUnit: AUAudioUnit {
         if let block = cachedMIDIBlock {
             block(.zero, 0, sysex.count, sysex)
         }
-
     }
 
     func playMIDINote(_ noteNumber: UInt8) {
@@ -152,8 +145,8 @@ class SamplerAudioUnit: AUAudioUnit {
     ///   - options: Audio Component Instantiation Options
     /// - Throws: error
     override public init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
-
+                         options: AudioComponentInstantiationOptions = []) throws
+    {
         try super.init(componentDescription: componentDescription, options: options)
 
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
@@ -171,76 +164,71 @@ class SamplerAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
-    override func allocateRenderResources() throws {
+    override func allocateRenderResources() throws {}
 
-    }
-
-    override func deallocateRenderResources() {
-
-    }
+    override func deallocateRenderResources() {}
 
     override var internalRenderBlock: AUInternalRenderBlock {
-        { (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-           timeStamp: UnsafePointer<AudioTimeStamp>,
+        { (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+           _: UnsafePointer<AudioTimeStamp>,
            frameCount: AUAudioFrameCount,
-           outputBusNumber: Int,
+           _: Int,
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            renderEvents: UnsafePointer<AURenderEvent>?,
-           inputBlock: AURenderPullInputBlock?) in
+           _: AURenderPullInputBlock?) in
 
-            process(events: renderEvents,
-                    midi: { event in
-                        let data = event.pointee.data
-                        let command = data.0 & 0xF0
-                        let noteNumber = data.1
-                        if command == noteOnByte {
-                            if let buf = self.samples[Int(noteNumber)] {
-                                self.play(buf)
+                process(events: renderEvents,
+                        midi: { event in
+                            let data = event.pointee.data
+                            let command = data.0 & 0xF0
+                            let noteNumber = data.1
+                            if command == noteOnByte {
+                                if let buf = self.samples[Int(noteNumber)] {
+                                    self.play(buf)
+                                }
+                            } else if command == noteOffByte {
+                                // XXX: ignore for now
                             }
-                        } else if command == noteOffByte {
-                            // XXX: ignore for now
-                        }
-                    },
-                    sysex: { event in
-                        var command: SamplerCommand = .playSample(nil)
+                        },
+                        sysex: { event in
+                            var command: SamplerCommand = .playSample(nil)
 
-                        decodeSysex(event, &command)
+                            decodeSysex(event, &command)
 
-                        switch command {
-                        case .playSample(let ptr):
-                            if let voiceIndex = self.getVoice() {
-                                self.voices[voiceIndex].sample = ptr
+                            switch command {
+                            case let .playSample(ptr):
+                                if let voiceIndex = self.getVoice() {
+                                    self.voices[voiceIndex].sample = ptr
 
-                                // XXX: shoudn't be calling frameLength here (ObjC call)
-                                self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.pcmBuffer.frameLength)
-                                self.voices[voiceIndex].playhead = 0
+                                    // XXX: shoudn't be calling frameLength here (ObjC call)
+                                    self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.pcmBuffer.frameLength)
+                                    self.voices[voiceIndex].playhead = 0
+                                }
+
+                            case let .assignSample(ptr, noteNumber):
+                                self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
+                            case .stop:
+                                for index in 0 ..< self.voices.count {
+                                    self.voices[index].inUse = false
+                                }
                             }
+                        })
 
-                        case .assignSample(let ptr, let noteNumber):
-                            self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
-                        case .stop:
-                            for index in 0..<self.voices.count {
-                                self.voices[index].inUse = false
-                            }
-                        }
-                    })
+                let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
-            let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
+                // Clear output.
+                for channel in 0 ..< outputBufferListPointer.count {
+                    outputBufferListPointer[channel].clear()
+                }
 
-            // Clear output.
-            for channel in 0 ..< outputBufferListPointer.count {
-                outputBufferListPointer[channel].clear()
-            }
+                // Render all active voices to output.
+                for voiceIndex in self.voices.indices {
+                    self.voices[voiceIndex].render(to: outputBufferListPointer, frameCount: frameCount)
+                }
 
-            // Render all active voices to output.
-            for voiceIndex in self.voices.indices {
-                self.voices[voiceIndex].render(to: outputBufferListPointer, frameCount: frameCount)
-            }
-
-            return noErr
+                return noErr
         }
     }
-
 }
 
 public class Sampler: Node {
@@ -288,5 +276,4 @@ public class Sampler: Node {
     public func playMIDINote(_ noteNumber: UInt8) {
         samplerAU.playMIDINote(noteNumber)
     }
-
 }

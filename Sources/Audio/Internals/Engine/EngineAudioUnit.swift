@@ -1,16 +1,15 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
+import Atomics
+import AudioToolbox
 import AudioUnit
 import AVFoundation
-import AudioToolbox
-import Atomics
+import Foundation
 
 public typealias AKAURenderContextObserver = (UnsafePointer<WorkGroup>?) -> Void
 
 /// Our single audio unit which will evaluate all audio units.
 public class EngineAudioUnit: AUAudioUnit {
-    
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
 
@@ -29,10 +28,10 @@ public class EngineAudioUnit: AUAudioUnit {
     ///   - options: Audio Component Instantiation Options
     /// - Throws: error
     override public init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
-        
+                         options: AudioComponentInstantiationOptions = []) throws
+    {
         try super.init(componentDescription: componentDescription, options: options)
-        
+
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         inputBusArray = AUAudioUnitBusArray(audioUnit: self,
                                             busType: .input,
@@ -40,7 +39,7 @@ public class EngineAudioUnit: AUAudioUnit {
         outputBusArray = AUAudioUnitBusArray(audioUnit: self,
                                              busType: .output,
                                              busses: [try AUAudioUnitBus(format: format)])
-        
+
         parameterTree = AUParameterTree.createTree(withChildren: [])
 
         let oldSelector = Selector(("renderContextObserver"))
@@ -54,10 +53,9 @@ public class EngineAudioUnit: AUAudioUnit {
         let imp = method_getImplementation(method)
 
         class_replaceMethod(EngineAudioUnit.self, oldSelector, imp, newType)
-
     }
 
-    @objc dynamic public func akRenderContextObserver() -> AKAURenderContextObserver {
+    @objc public dynamic func akRenderContextObserver() -> AKAURenderContextObserver {
         print("setting up render context observer")
         return { [pool] workgroupPtr in
             print("actually in render context observer")
@@ -71,23 +69,23 @@ public class EngineAudioUnit: AUAudioUnit {
             }
         }
     }
-    
+
     override public var inputBusses: AUAudioUnitBusArray {
         inputBusArray
     }
-    
+
     override public var outputBusses: AUAudioUnitBusArray {
         outputBusArray
     }
 
     static func avRenderBlock(block: @escaping AVAudioEngineManualRenderingBlock) -> AURenderBlock {
         {
-            (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-             timeStamp: UnsafePointer<AudioTimeStamp>,
+            (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+             _: UnsafePointer<AudioTimeStamp>,
              frameCount: AUAudioFrameCount,
-             outputBusNumber: Int,
+             _: Int,
              outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-             inputBlock: AURenderPullInputBlock?) in
+             _: AURenderPullInputBlock?) in
 
             var status = noErr
             _ = block(frameCount, outputBufferList, &status)
@@ -106,9 +104,9 @@ public class EngineAudioUnit: AUAudioUnit {
     /// So instead we use a dummy input block that just copies over an ABL.
     static func basicInputBlock(inputBufferLists: [SynchronizedAudioBufferList]) -> AURenderPullInputBlock {
         {
-            (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-             timestamp: UnsafePointer<AudioTimeStamp>,
-             frames: AUAudioFrameCount,
+            (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+             _: UnsafePointer<AudioTimeStamp>,
+             _: AUAudioFrameCount,
              bus: Int,
              outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
 
@@ -118,7 +116,7 @@ public class EngineAudioUnit: AUAudioUnit {
             assert(inputBuffer.abl.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
 
             // Note that we already have one buffer in the AudioBufferList type, hence the -1
-            let ablSize = MemoryLayout<AudioBufferList>.size + Int(inputBuffer.abl.pointee.mNumberBuffers-1) * MemoryLayout<AudioBuffer>.size
+            let ablSize = MemoryLayout<AudioBufferList>.size + Int(inputBuffer.abl.pointee.mNumberBuffers - 1) * MemoryLayout<AudioBuffer>.size
             memcpy(outputBuffer, inputBuffer.abl, ablSize)
 
             return noErr
@@ -128,18 +126,17 @@ public class EngineAudioUnit: AUAudioUnit {
     /// Returns an input block which mixes buffer lists.
     static func mixerInputBlock(inputBufferLists: [SynchronizedAudioBufferList]) -> AURenderPullInputBlock {
         {
-            (flags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-             timestamp: UnsafePointer<AudioTimeStamp>,
+            (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+             _: UnsafePointer<AudioTimeStamp>,
              frameCount: AUAudioFrameCount,
-             bus: Int,
+             _: Int,
              outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
 
             let ablPointer = UnsafeMutableAudioBufferListPointer(outputBuffer)
 
-            for channel in 0..<ablPointer.count {
-
+            for channel in 0 ..< ablPointer.count {
                 let outBuf = UnsafeMutableBufferPointer<Float>(ablPointer[channel])
-                for frame in 0..<Int(frameCount) {
+                for frame in 0 ..< Int(frameCount) {
                     outBuf[frame] = 0.0
                 }
 
@@ -148,7 +145,7 @@ public class EngineAudioUnit: AUAudioUnit {
                     let inputPointer = UnsafeMutableAudioBufferListPointer(inputBufferList.abl)
                     let inBuf = UnsafeMutableBufferPointer<Float>(inputPointer[channel])
 
-                    for frame in 0..<Int(frameCount) {
+                    for frame in 0 ..< Int(frameCount) {
                         outBuf[frame] += inBuf[frame]
                     }
                 }
@@ -171,7 +168,6 @@ public class EngineAudioUnit: AUAudioUnit {
 
     /// Allocates an output buffer for reach node.
     func makeBuffers(nodes: [Node]) -> [ObjectIdentifier: SynchronizedAudioBufferList] {
-
         var buffers: [ObjectIdentifier: SynchronizedAudioBufferList] = [:]
 
         for node in nodes {
@@ -185,7 +181,6 @@ public class EngineAudioUnit: AUAudioUnit {
     }
 
     func getOutputs(nodes: [Node]) -> [ObjectIdentifier: [Int]] {
-
         var nodeOutputs: [ObjectIdentifier: [Int]] = [:]
 
         for (index, node) in nodes.enumerated() {
@@ -210,7 +205,6 @@ public class EngineAudioUnit: AUAudioUnit {
         }
 
         if let output = output {
-
             // Generate a new schedule of AUs.
             var scheduled = Set<ObjectIdentifier>()
             var list: [Node] = []
@@ -227,9 +221,8 @@ public class EngineAudioUnit: AUAudioUnit {
             var renderList: [RenderJob] = []
 
             for node in list {
-
                 // Activate input busses.
-                for busIndex in 0..<node.au.inputBusses.count {
+                for busIndex in 0 ..< node.au.inputBusses.count {
                     let bus = node.au.inputBusses[busIndex]
                     try! bus.setFormat(format)
                     bus.isEnabled = true
@@ -243,10 +236,9 @@ public class EngineAudioUnit: AUAudioUnit {
 
                 let inputBuffers = node.connections.map { buffers[ObjectIdentifier($0)]! }
 
-                var inputBlock: AURenderPullInputBlock = { (_, _, _, _, _) in return noErr }
+                var inputBlock: AURenderPullInputBlock = { _, _, _, _, _ in noErr }
 
                 if let mixer = node as? Mixer {
-
                     // Set the engine on the mixer so adding or removing mixer inputs
                     // can trigger a recompile.
                     mixer.engineAU = self
@@ -268,7 +260,6 @@ public class EngineAudioUnit: AUAudioUnit {
                     renderList.append(info)
 
                 } else {
-
                     // We've just got a wrapped AU, so we can grab the render
                     // block.
 
@@ -283,8 +274,7 @@ public class EngineAudioUnit: AUAudioUnit {
                                          outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
                     renderList.append(info)
-
-                } 
+                }
             }
 
             program.store(AudioProgram(jobs: renderList,
@@ -302,7 +292,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
     /// Get just the signal generating nodes.
     func generatorIndices(nodes: [Node]) -> [Int] {
-        nodes.enumerated().compactMap { (index, node) in
+        nodes.enumerated().compactMap { index, node in
             node.connections.isEmpty ? index : nil
         }
     }
@@ -310,8 +300,8 @@ public class EngineAudioUnit: AUAudioUnit {
     /// Recursively build a schedule of audio units to run.
     func schedule(node: Node,
                   scheduled: inout Set<ObjectIdentifier>,
-                  list: inout [Node]) {
-
+                  list: inout [Node])
+    {
         let id = ObjectIdentifier(node)
         if scheduled.contains(id) { return }
 
@@ -323,32 +313,30 @@ public class EngineAudioUnit: AUAudioUnit {
 
         list.append(node)
     }
-    
+
     override public func allocateRenderResources() throws {
         try super.allocateRenderResources()
 
         compile()
     }
-    
-    override public func deallocateRenderResources() {
 
+    override public func deallocateRenderResources() {
         super.deallocateRenderResources()
     }
 
     // Worker threads.
     let pool = ThreadPool()
-    
+
     override public var internalRenderBlock: AUInternalRenderBlock {
-
         return { [pool] (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-                  timeStamp: UnsafePointer<AudioTimeStamp>,
-                  frameCount: AUAudioFrameCount,
-                  outputBusNumber: Int,
-                  outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-                  renderEvents: UnsafePointer<AURenderEvent>?,
-                  inputBlock: AURenderPullInputBlock?) in
+                         timeStamp: UnsafePointer<AudioTimeStamp>,
+                         frameCount: AUAudioFrameCount,
+                         _: Int,
+                         outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+                         _: UnsafePointer<AURenderEvent>?,
+                         _: AURenderPullInputBlock?) in
 
-            let dspList = self.program.load(ordering: .relaxed)
+                let dspList = self.program.load(ordering: .relaxed)
 
 //            process(events: renderEvents, sysex: { pointer in
 //                var program: Unmanaged<AudioProgram>?
@@ -356,36 +344,35 @@ public class EngineAudioUnit: AUAudioUnit {
 //                dspList = program?.takeRetainedValue()
 //            })
 
-            // Clear output.
-            let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
-            for channel in 0 ..< outputBufferListPointer.count {
-                outputBufferListPointer[channel].clear()
-            }
-
-            // Distribute the starting indices among workers.
-            for (index, generatorIndex) in dspList.generatorIndices.enumerated() {
-
-                // If we have a very very large number of jobs (1024 * number of threads),
-                // then this could fail.
-                if !pool.workers[index % pool.workers.count].add(job: generatorIndex) {
-                    return kAudioUnitErr_InvalidParameter
+                // Clear output.
+                let outputBufferListPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
+                for channel in 0 ..< outputBufferListPointer.count {
+                    outputBufferListPointer[channel].clear()
                 }
-            }
 
-            // Reset counters.
-            dspList.reset()
+                // Distribute the starting indices among workers.
+                for (index, generatorIndex) in dspList.generatorIndices.enumerated() {
+                    // If we have a very very large number of jobs (1024 * number of threads),
+                    // then this could fail.
+                    if !pool.workers[index % pool.workers.count].add(job: generatorIndex) {
+                        return kAudioUnitErr_InvalidParameter
+                    }
+                }
 
-            // Setup worker threads.
-            for worker in pool.workers {
-                worker.program = dspList
-                worker.actionFlags = actionFlags
-                worker.timeStamp = timeStamp
-                worker.frameCount = frameCount
-                worker.outputBufferList = outputBufferList
-            }
+                // Reset counters.
+                dspList.reset()
 
-            // Wake workers.
-            pool.start()
+                // Setup worker threads.
+                for worker in pool.workers {
+                    worker.program = dspList
+                    worker.actionFlags = actionFlags
+                    worker.timeStamp = timeStamp
+                    worker.frameCount = frameCount
+                    worker.outputBufferList = outputBufferList
+                }
+
+                // Wake workers.
+                pool.start()
 
 //            dspList.run(actionFlags: actionFlags,
 //                        timeStamp: timeStamp,
@@ -394,11 +381,10 @@ public class EngineAudioUnit: AUAudioUnit {
 //                        runQueue: runQueue,
 //                        finishedInputs: finishedInputs)
 
-            // Wait for workers to finish.
-            pool.wait()
+                // Wait for workers to finish.
+                pool.wait()
 
-            return noErr
+                return noErr
         }
     }
-    
 }

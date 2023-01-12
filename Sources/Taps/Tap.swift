@@ -1,9 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
+import Audio
 import AudioUnit
 import AVFoundation
-import Audio
+import Foundation
 import Utilities
 
 /// Node which provides a callback that "taps" the audio data from the stream.
@@ -20,7 +20,6 @@ public class Tap: Node {
     ///   - input: Input to monitor.
     ///   - tapBlock: Called with a stereo pair of channels. Note that this doesn't need to be realtime safe. Called on the main thread.
     public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) -> Void) {
-
         let componentDescription = AudioComponentDescription(effect: "tapn")
 
         AUAudioUnit.registerSubclass(TapAudioUnit.self,
@@ -31,12 +30,11 @@ public class Tap: Node {
         tapAU = au as! TapAudioUnit
         tapAU.tapBlock = tapBlock
         tapAU.bufferSize = bufferSize
-        self.connections = [input]
+        connections = [input]
     }
 }
 
 class TapAudioUnit: AUAudioUnit {
-
     private var inputBusArray: AUAudioUnitBusArray!
     private var outputBusArray: AUAudioUnitBusArray!
 
@@ -45,7 +43,7 @@ class TapAudioUnit: AUAudioUnit {
 
     let ringBuffer = RingBuffer<Float>(capacity: 4096)
 
-    var tapBlock: ([Float], [Float]) -> Void = { _,_  in }
+    var tapBlock: ([Float], [Float]) -> Void = { _, _ in }
     var semaphore = DispatchSemaphore(value: 0)
     var run = true
     var bufferSize = 1024
@@ -60,8 +58,8 @@ class TapAudioUnit: AUAudioUnit {
     ///   - options: Audio Component Instantiation Options
     /// - Throws: error
     override public init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws {
-
+                         options: AudioComponentInstantiationOptions = []) throws
+    {
         try super.init(componentDescription: componentDescription, options: options)
 
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
@@ -69,7 +67,6 @@ class TapAudioUnit: AUAudioUnit {
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
 
         let thread = Thread {
-
             var left: [Float] = []
             var right: [Float] = []
 
@@ -101,11 +98,9 @@ class TapAudioUnit: AUAudioUnit {
                         self.tapBlock(leftPrefix, rightPrefix)
                     }
                 }
-
             }
         }
         thread.start()
-
     }
 
     override var inputBusses: AUAudioUnitBusArray {

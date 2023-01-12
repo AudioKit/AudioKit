@@ -1,16 +1,15 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
+import AudioToolbox
 import AudioUnit
 import AVFoundation
-import AudioToolbox
+import Foundation
 
 extension Int: DefaultInit {
     public init() { self = 0 }
 }
 
 final class WorkerThread: Thread {
-
     /// Used to exit the worker thread.
     private var run = true
 
@@ -54,8 +53,9 @@ final class WorkerThread: Thread {
          runQueues: Vec<WorkStealingQueue<Int>>,
          prod: DispatchSemaphore,
          done: DispatchSemaphore,
-         workgroup: WorkGroup? = nil) {
-        self.workerIndex = index
+         workgroup: WorkGroup? = nil)
+    {
+        workerIndex = index
         self.runQueues = runQueues
         self.prod = prod
         self.done = done
@@ -75,7 +75,6 @@ final class WorkerThread: Thread {
     }
 
     override func main() {
-
         if let workgroup = workgroup {
             var tbinfo = mach_timebase_info_data_t()
             mach_timebase_info(&tbinfo)
@@ -83,7 +82,7 @@ final class WorkerThread: Thread {
             let seconds = (Double(tbinfo.denom) / Double(tbinfo.numer)) * 1_000_000_000
 
             // Guessing what the parameters would be for 128 frame buffer at 44.1kHz
-            let period = (128.0/44100.0) * seconds
+            let period = (128.0 / 44100.0) * seconds
             let constraint = 0.5 * period
             let comp = 0.5 * constraint
 
@@ -101,7 +100,7 @@ final class WorkerThread: Thread {
                 break
             }
 
-            for i in 0..<initialJobCount {
+            for i in 0 ..< initialJobCount {
                 runQueues[workerIndex].push(initialJobs[i])
             }
             initialJobCount = 0

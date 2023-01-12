@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import XCTest
 import AudioKit
 import AVFAudio
+import XCTest
 
 class BypassTests: XCTestCase {
     let duration = 0.1
@@ -22,7 +22,7 @@ class BypassTests: XCTestCase {
             LowShelfFilter(source, cutoffFrequency: 100, gain: 3),
             ParametricEQ(source, centerFreq: 100, q: 100, gain: 3),
             // Reverb(source),
-            Delay(source)
+            Delay(source),
         ]
     }
 

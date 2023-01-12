@@ -50,7 +50,6 @@ public struct NodeParameterDef {
 /// NodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
 public class NodeParameter {
-
     /// Due to Apple bugs, we need to set parameters using the V2 API.
     ///
     /// See https://github.com/AudioKit/AudioKit/issues/2528
@@ -133,7 +132,6 @@ public class NodeParameter {
                        parameter.address,
                        value.clamped(to: range))
         }
-
     }
 
     private var parameterObserverToken: AUParameterObserverToken?
@@ -204,7 +202,7 @@ public class NodeParameter {
 }
 
 /// So we can use NodeParameter with SwiftUI. See Cookbook.
-extension NodeParameter: Identifiable { }
+extension NodeParameter: Identifiable {}
 
 /// Base protocol for any type supported by @Parameter
 public protocol NodeParameterType {

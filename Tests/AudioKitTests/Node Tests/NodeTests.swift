@@ -35,13 +35,13 @@ class NodeTests: XCTestCase {
         mixer.addInput(player)
         XCTAssertEqual(mixer.connections.count, 1)
     }
-    
+
     func testDynamicOutput() {
         let engine = Engine()
 
         let sampler1 = Sampler()
         engine.output = sampler1
-        
+
         let audio = engine.startTest(totalDuration: 2.0)
         sampler1.play(url: URL.testAudio)
         let newAudio = engine.render(duration: 1.0)
@@ -50,33 +50,33 @@ class NodeTests: XCTestCase {
         let sampler2 = Sampler()
         engine.output = sampler2
         sampler2.play(url: URL.testAudioDrums)
-        
+
         let newAudio2 = engine.render(duration: 1.0)
         audio.append(newAudio2)
-        
+
         testMD5(audio)
     }
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testDynamicConnection() {
         let engine = Engine()
-        
+
         let osc1 = Oscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
         let mixer = Mixer(osc1)
-        
+
         engine.output = mixer
-        
+
         let audio = engine.startTest(totalDuration: 2.0)
-        
+
         osc1.play()
-        
+
         audio.append(engine.render(duration: 1.0))
-        
+
         let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880, amplitude: 0.1)
         mixer.addInput(osc2)
         osc2.play()
         audio.append(engine.render(duration: 1.0))
-        
+
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
@@ -117,7 +117,7 @@ class NodeTests: XCTestCase {
 
         let audio = engine.startTest(totalDuration: 3.0)
         sampler1.play(url: URL.testAudio)
-        
+
         audio.append(engine.render(duration: 1.0))
 
         let sampler2 = Sampler()
@@ -144,7 +144,7 @@ class NodeTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 2.0)
 
         player1.play(url: URL.testAudio)
-        
+
         audio.append(engine.render(duration: 1.0))
 
         let player2 = Sampler()
@@ -167,14 +167,14 @@ class NodeTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 1.0)
 
         let player = Sampler()
-        
+
         let mixer = Mixer()
         mixer.addInput(player)
 
         outputMixer.addInput(mixer) // change mixer to osc and this will play
 
         player.play(url: URL.testAudio)
-        
+
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
@@ -184,20 +184,20 @@ class NodeTests: XCTestCase {
         let engine = Engine()
 
         let player = Sampler()
-        
+
         let mixer = Mixer(player)
         engine.output = mixer
-        
+
         let audio = engine.startTest(totalDuration: 2.0)
-        
+
         player.play(url: URL.testAudio)
-        
+
         audio.append(engine.render(duration: 1.0))
-        
+
         mixer.removeInput(player)
-        
+
         audio.append(engine.render(duration: 1.0))
-        
+
         testMD5(audio)
     }
 
@@ -206,56 +206,55 @@ class NodeTests: XCTestCase {
     func testChainPerformance() {
         let engine = Engine()
         let player = Sampler()
-        
+
         let rev = Distortion(player)
-        
+
         engine.output = rev
-        
+
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
             player.play(url: URL.testAudio)
-            
+
             startMeasuring()
             let buf = engine.render(duration: 10.0)
             stopMeasuring()
-            
+
             audio.append(buf)
         }
     }
-    
+
     // Measure the overhead of mixers.
     func testMixerPerformance() {
         let engine = Engine()
         let player = Sampler()
-        
+
         let mix1 = Mixer(player)
         let rev = Distortion(mix1)
         let mix2 = Mixer(rev)
-        
+
         engine.output = mix2
-        
+
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
             player.play(url: URL.testAudio)
-            
+
             startMeasuring()
             let buf = engine.render(duration: 10.0)
             stopMeasuring()
-            
+
             audio.append(buf)
         }
     }
-    
+
     func testGraphviz() {
         let sampler = Sampler()
-        
+
         let verb = Distortion(sampler)
         let mixer = Mixer(sampler, verb)
-        
+
         let dot = mixer.graphviz
-        
+
         // Note that output depends on memory addresses.
         print(dot)
     }
-
 }

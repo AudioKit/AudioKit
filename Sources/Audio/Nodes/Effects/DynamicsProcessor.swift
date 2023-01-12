@@ -59,7 +59,7 @@ public class DynamicsProcessor: Node {
         name: "Expansion Threshold",
         address: AUParameterAddress(kDynamicsProcessorParam_ExpansionThreshold),
         defaultValue: -1,
-        range: -80...0,
+        range: -80 ... 0,
         unit: .decibels
     )
 
