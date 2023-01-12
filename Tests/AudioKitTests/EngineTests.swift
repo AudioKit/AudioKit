@@ -11,6 +11,7 @@ class EngineTests: XCTestCase {
         let osc = Oscillator()
 
         engine.output = osc
+        osc.start()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -26,6 +27,7 @@ class EngineTests: XCTestCase {
         let fx = Distortion(osc)
 
         engine.output = fx
+        osc.start()
         
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -39,9 +41,10 @@ class EngineTests: XCTestCase {
         
         let osc = Oscillator()
         let dist = Distortion(osc)
-        let rev = Delay(dist)
+        let rev = Reverb(dist)
 
         engine.output = rev
+        osc.start()
         
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -64,6 +67,7 @@ class EngineTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
 
         engine.output = dist
+        osc.start()
         
         audio.append(engine.render(duration: 1.0))
 
@@ -81,6 +85,8 @@ class EngineTests: XCTestCase {
         let mix = Mixer([osc1, osc2])
         
         engine.output = mix
+        osc1.start()
+        osc2.start()
         
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -101,6 +107,9 @@ class EngineTests: XCTestCase {
         mix.volume = 0.02
 
         engine.output = mix
+        osc1.start()
+        osc2.start()
+
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -119,6 +128,9 @@ class EngineTests: XCTestCase {
         let mix = Mixer([osc1])
 
         engine.output = mix
+        osc1.start()
+        osc2.start()
+
 
         let audio = engine.startTest(totalDuration: 2.0)
 
@@ -134,12 +146,12 @@ class EngineTests: XCTestCase {
     func testMixerVolume2() throws {
 
         let avAudioEngineMixerMD5s: [String] = [
-            "07a5ba764493617dcaa54d16e8cbec99",
-            "41be8ab2c3d61d3cb61bf5c7a1e06d42",
-            "66cc591ea1974ff7f0fef36d4faf1453",
-            "e2dadccf46c5bf77ec19232750150a99",
-            "f5b785dcc74759b4a0492aef430bfc2e",
-            "0e20255d8d106d37c95262f229aed527"
+            "4fc54784f2f7bcf2d51ad3c42a6639c2",
+            "99a373355496efe02613c1d21d63b1fe",
+            "3c364173950bdd58b486ab3240b5c3a4",
+            "0be26934bc76d9992501dda2bb6d5338",
+            "87c195248adcd83ca41c50cf240504fb",
+            "066618d77dccc54744259f3137ceb3b1"
         ]
 
         for (index, volume) in [0.0, 0.1, 0.5, 0.8, 1.0, 2.0].enumerated() {
@@ -148,6 +160,7 @@ class EngineTests: XCTestCase {
             let mix = Mixer(osc)
             mix.volume = AUValue(volume)
             engine.output = mix
+            osc.start()
             let audio = engine.startTest(totalDuration: 1.0)
             audio.append(engine.render(duration: 1.0))
 
@@ -159,13 +172,13 @@ class EngineTests: XCTestCase {
         let duration = 1.0
 
         let avAudioEngineMixerMD5s: [String] = [
-            "111472eeef40ef621e484fa7d164ce07",
-            "d908a41c25f1087cb4acfa40ba98192b",
-            "ab42b58d273e3fbd9d0bc2bf0406a6a2",
-            "ccfca4edd61c3f9ab8091b99d944d148",
-            "1bdd778d0a674c1b1d139066599c80b6",
-            "0bd0c266c681114276729d09bbc4178f",
-            "f9c92e3084ed6cabdc6934c51e6b730e"
+            "2df13e0bfbeeb0e4eeccba003093fc68",
+            "a84c33af9138d6647a672cae22c3d5c5",
+            "3719d46e00ae6417edb261ad7dc5ffce",
+            "0f205a702a095db2e7d2cc8b11e18ba0",
+            "702488ca65d6806d526c9532e57e5a01",
+            "41f58b2a8696503f4b9083f2e63ca55a",
+            "9c78defb1650aecc750d89dadf1d0d02"
         ]
 
         for (index, pan) in [-0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75].enumerated() {
@@ -180,6 +193,8 @@ class EngineTests: XCTestCase {
             let mixer = Mixer(mixL, mixR)
             mixer.pan = AUValue(pan)
             engine.output = mixer
+            oscL.start()
+            oscR.start()
             let audio = engine.startTest(totalDuration: duration)
             audio.append(engine.render(duration: duration))
 
@@ -199,6 +214,8 @@ class EngineTests: XCTestCase {
         osc1.frequency = 880
 
         engine.output = osc1
+        osc1.start()
+        osc2.start()
 
         let audio = engine.startTest(totalDuration: 10.0)
 
