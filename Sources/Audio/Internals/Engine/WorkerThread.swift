@@ -64,10 +64,14 @@ final class WorkerThread: Thread {
 
     /// Add a job for the worker.
     ///
-    /// MUST call this before the worker is awakened.
-    func add(job: RenderJobIndex) {
-        initialJobs[initialJobCount] = job
-        initialJobCount += 1
+    /// Call this *before* the worker is awakened or will have a data race.
+    func add(job: RenderJobIndex) -> Bool {
+        if initialJobCount < initialJobs.count {
+            initialJobs[initialJobCount] = job
+            initialJobCount += 1
+            return true
+        }
+        return false
     }
 
     override func main() {
