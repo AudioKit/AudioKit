@@ -67,7 +67,6 @@ let validatedMD5s: [String: [String]] = [
     "-[TableTests testTriangle]": ["9c1146981e940074bbbf63f1c2dd3896"],
     "-[TableTests testHarmonicWithPartialAmplitudes]": ["dfa0ab73fb4135456e8702c8652b9ead"],
     "-[EngineTests testBasic]": ["87c195248adcd83ca41c50cf240504fb"],
-    "-[EngineTests testDynamicsProcessorWithSampler]": ["3064ef82b30c512b2f426562a2ef3448"],
     "-[EngineTests testDynamicChange]": ["f0b84167f3261845ac08b41cef5b5b04"],
     "-[EngineTests testEffect]": ["a6aa462d1e77b569afa935e8f67f3e0a"],
     "-[EngineTests testMixer]": ["9a14ac2edb9392b4da3e603475b4c050"],
@@ -78,5 +77,9 @@ let validatedMD5s: [String: [String]] = [
     "-[EngineTests testSampler]": ["f44518ab94a8bab9a3ef8acfe1a4d45b"],
     "-[EngineTests testSamplerMIDINote]": ["38f84463320c0824422b4105b771b67c"],
     "-[EngineTests testTwoEffects]": ["2e7c6944c22e6ce2de1ae11ffb5480c7"],
+    "-[SamplerTests testSampler]": ["f44518ab94a8bab9a3ef8acfe1a4d45b"],
+    "-[SamplerTests testSamplerMIDINote]": ["38f84463320c0824422b4105b771b67c"],
+    "-[SamplerTests testDynamicsProcessorWithSampler]": ["3064ef82b30c512b2f426562a2ef3448"],
+
 
 ]
