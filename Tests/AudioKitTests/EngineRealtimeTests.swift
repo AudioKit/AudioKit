@@ -12,6 +12,7 @@ class EngineRealtimeTests: XCTestCase {
 
         engine.output = osc
         try! engine.start()
+        osc.start()
 
         sleep(1)
     }
@@ -25,6 +26,8 @@ class EngineRealtimeTests: XCTestCase {
         let fx = Distortion(osc)
 
         engine.output = fx
+        osc.start()
+
         try engine.start()
 
         sleep(1)
@@ -41,6 +44,7 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = rev
 
         try engine.start()
+        osc.start()
 
         sleep(1)
     }
@@ -59,6 +63,7 @@ class EngineRealtimeTests: XCTestCase {
         sleep(1)
 
         engine.output = dist
+        osc.start()
 
         sleep(1)
     }
@@ -76,6 +81,8 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = mix
 
         try engine.start()
+        osc1.start()
+        osc2.start()
 
         sleep(1)
     }
@@ -91,6 +98,8 @@ class EngineRealtimeTests: XCTestCase {
         let mix = Mixer([osc1])
 
         engine.output = mix
+        osc1.start()
+        osc2.start()
 
         try engine.start()
 
@@ -111,6 +120,8 @@ class EngineRealtimeTests: XCTestCase {
         osc1.frequency = 880
 
         engine.output = osc1
+        osc1.start()
+        osc2.start()
 
         try engine.start()
 
