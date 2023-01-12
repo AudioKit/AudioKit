@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "AudioKit",
-    platforms: [.macOS(.v12), .iOS(.v15), .tvOS(.v13)],
+    platforms: [.macOS(.v12), .iOS(.v15), .tvOS(.v15)],
     products: [.library(name: "AudioKit", targets: ["AudioKit"])],
     dependencies: [.package(url: "https://github.com/apple/swift-atomics", from: .init(1, 0, 3))],
     targets: [
