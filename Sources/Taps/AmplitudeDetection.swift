@@ -26,6 +26,6 @@ public func detectAmplitude(_ inputs: [Float]..., mode: AnalysisMode = .rms) -> 
     }
 }
 
-public func detectAmplitudes(_ inputs: [[Float]], mode _: AnalysisMode = .rms) -> [Float] {
-    inputs.map { detectAmplitude($0) }
+public func detectAmplitudes(_ inputs: [[Float]], mode: AnalysisMode = .rms) -> [Float] {
+    inputs.map { detectAmplitude($0, mode: mode) }
 }
