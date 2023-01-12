@@ -3,10 +3,6 @@
 import AudioKit
 import XCTest
 
-extension Int: DefaultInit {
-    public init() { self = 0 }
-}
-
 final class WorkStealingQueueTests: XCTestCase {
     func testBasic() throws {
         let queue = WorkStealingQueue<Int>()
