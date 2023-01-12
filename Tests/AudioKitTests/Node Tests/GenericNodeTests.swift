@@ -110,7 +110,7 @@ class GenericNodeTests: XCTestCase {
     func testEffects() {
         nodeParameterTest(md5s: ["dec105c6e2e44556608c9f393e205c1e"], factory: { input in Delay(input, time: 0.01) })
         nodeParameterTest(md5s: ["3979c710eff8e12f0c3f535987624fde", "2bca99c77cf6ed19cca0cd276e204fee"], factory: { input in Distortion(input) })
-        nodeParameterTest(md5s: ["18ee897d586f979ce682ef987b0a820c"], factory: { input in DynamicsProcessor(input) })
+        nodeParameterTest(md5s: ["7578e739da5c7b433bee6ebbad8d92f5"], factory: { input in DynamicsProcessor(input) })
         nodeParameterTest(md5s: ["d65f43bda68342d9a53a5e9eda7ad36d"], factory: { input in PeakLimiter(input) })
         #if os(macOS)
         nodeParameterTest(md5s: ["28d2cb7a5c1e369ca66efa8931d31d4d", "bff0b5fa57e589f5192b17194d9a43cb"], factory: { player in Reverb(player) })
