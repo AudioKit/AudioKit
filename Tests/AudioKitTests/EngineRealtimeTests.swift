@@ -9,12 +9,13 @@ class EngineRealtimeTests: XCTestCase {
         let engine = Engine()
 
         let osc = Oscillator()
+        osc.amplitude = 0.1
 
         engine.output = osc
         try! engine.start()
         osc.start()
 
-        sleep(1)
+        usleep(100000)
     }
 
 
@@ -26,11 +27,13 @@ class EngineRealtimeTests: XCTestCase {
         let fx = Distortion(osc)
 
         engine.output = fx
+
+        osc.amplitude = 0.1
         osc.start()
 
         try engine.start()
 
-        sleep(1)
+        usleep(100000)
     }
 
     func testTwoEffectsRealtime() throws {
@@ -44,9 +47,11 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = rev
 
         try engine.start()
+
+        osc.amplitude = 0.1
         osc.start()
 
-        sleep(1)
+        usleep(100000)
     }
 
     /// Test changing the output chain on the fly.
@@ -60,12 +65,14 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = osc
         try engine.start()
 
-        sleep(1)
+        usleep(100000)
 
         engine.output = dist
+
+        osc.amplitude = 0.1
         osc.start()
 
-        sleep(1)
+        usleep(100000)
     }
 
     func testMixerRealtime() throws {
@@ -81,10 +88,13 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = mix
 
         try engine.start()
+
+        osc1.amplitude = 0.1
+        osc2.amplitude = 0.1
         osc1.start()
         osc2.start()
 
-        sleep(1)
+        usleep(100000)
     }
 
     func testMixerDynamicRealtime() throws {
@@ -98,16 +108,19 @@ class EngineRealtimeTests: XCTestCase {
         let mix = Mixer([osc1])
 
         engine.output = mix
+
+        osc1.amplitude = 0.1
+        osc2.amplitude = 0.1
         osc1.start()
         osc2.start()
 
         try engine.start()
 
-        sleep(1)
+        usleep(100000)
 
         mix.addInput(osc2)
 
-        sleep(1)
+        usleep(100000)
     }
 
     func testMultipleChangesRealtime() throws {
@@ -120,13 +133,16 @@ class EngineRealtimeTests: XCTestCase {
         osc1.frequency = 880
 
         engine.output = osc1
+
+        osc1.amplitude = 0.1
+        osc2.amplitude = 0.1
         osc1.start()
         osc2.start()
 
         try engine.start()
 
         for i in 0..<10 {
-            sleep(1)
+            usleep(100000)
             engine.output = (i % 2 == 1) ? osc1 : osc2
         }
     }
@@ -140,7 +156,7 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = sampler
         try engine.start()
         sampler.play()
-        sleep(1)
+        usleep(100000)
         sampler.play(buffer)
         sleep(2)
     }
