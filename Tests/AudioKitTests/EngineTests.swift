@@ -41,9 +41,9 @@ class EngineTests: XCTestCase {
         
         let osc = Oscillator()
         let dist = Distortion(osc)
-        let rev = Reverb(dist)
+        let dyn = PeakLimiter(dist)
 
-        engine.output = rev
+        engine.output = dyn
         osc.start()
         
         let audio = engine.startTest(totalDuration: 1.0)
