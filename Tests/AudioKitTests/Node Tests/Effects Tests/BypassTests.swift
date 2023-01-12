@@ -6,7 +6,7 @@ import AVFAudio
 
 class BypassTests: XCTestCase {
     let duration = 0.1
-    let source = ConstantGenerator(constant: 1)
+    let source = Oscillator()
     var effects: [Node]!
 
     override func setUp() {
@@ -35,7 +35,7 @@ class BypassTests: XCTestCase {
         let engine = Engine()
         for effect in effects {
             engine.output = effect
-
+            source.start()
             effect.stop()
             let data = engine.startTest(totalDuration: duration)
             data.append(engine.render(duration: duration))
@@ -49,7 +49,7 @@ class BypassTests: XCTestCase {
         let engine = Engine()
         for effect in effects {
             engine.output = effect
-
+            source.start()
             effect.start()
             let data = engine.startTest(totalDuration: duration)
             data.append(engine.render(duration: duration))
@@ -61,6 +61,7 @@ class BypassTests: XCTestCase {
 
     func testStartStopEffectsChangesIsStarted() {
         for effect in effects {
+            source.start()
             effect.stop()
             XCTAssertFalse(effect.isStarted, "\(type(of: effect)) has not stopped correctly")
             effect.start()
