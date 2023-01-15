@@ -16,17 +16,27 @@ final class ThreadPool {
     var workers: Vec<WorkerThread>
 
     /// Initial guess for the number of worker threads.
-    let workerCount = 4 // XXX: Need to query for actual worker count.
+    let threadCount = 4
+
+    /// Current OS thread workgroup.
+    var workgroup: WorkGroup?
 
     /// Queues for each worker.
     var runQueues: Vec<WorkStealingQueue<RenderJobIndex>>
 
     init() {
-        runQueues = .init(count: workerCount) { _ in .init() }
-        workers = .init(count: workerCount) { [prod, done, runQueues] index in WorkerThread(index: index, runQueues: runQueues, prod: prod, done: done) }
+        runQueues = .init(count: threadCount) { _ in .init() }
+        workers = .init(count: threadCount) { [prod, done, runQueues] index in WorkerThread(index: index, runQueues: runQueues, prod: prod, done: done) }
         for worker in workers {
             worker.start()
         }
+    }
+
+    private var workerCount: Int {
+        if let workgroup = self.workgroup {
+            return min(threadCount, workgroup.maxParallelThreads)
+        }
+        return threadCount
     }
 
     /// Wake the threads.
@@ -61,6 +71,8 @@ final class ThreadPool {
         for worker in workers {
             worker.start()
         }
+
+        self.workgroup = workgroup
     }
 
     deinit {
