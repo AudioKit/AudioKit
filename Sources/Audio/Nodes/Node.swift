@@ -23,6 +23,6 @@ public protocol Node: AnyObject {
     /// Defaults to `Settings.audioFormat`.
     var outputFormat: AVAudioFormat { get }
 
-    /// The underlying audio unit for the new engine.
+    /// The underlying audio unit.
     var au: AUAudioUnit { get }
 }
