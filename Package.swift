@@ -8,7 +8,7 @@ let package = Package(
     products: [.library(name: "AudioKit", targets: ["AudioKit"])],
     dependencies: [
         .package(url: "https://github.com/apple/swift-atomics", from: .init(1, 0, 3)),
-        .package(url: "https://github.com/orchetect/midikit", from: .init(0, 7, 2)),
+        .package(url: "https://github.com/orchetect/midikit", from: .init(0, 7, 3))
     ],
     targets: [
         .target(name: "AudioKit",
@@ -20,6 +20,6 @@ let package = Package(
         .target(name: "MIDI", dependencies: ["Utilities", .product(name: "MIDIKit", package: "MIDIKit")]),
         .target(name: "Taps", dependencies: ["Audio"]),
         .target(name: "Sequencing", dependencies: ["Audio"]),
-        .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
+        .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")])
     ]
 )
