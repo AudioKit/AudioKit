@@ -13,16 +13,15 @@ extension ObserverProtocol {
     /// Equality test
     /// - Parameter listener: Another listener
     func isEqualTo(_ listener: ObserverProtocol) -> Bool {
-        return self == listener
+        self == listener
     }
 }
 
 func == (lhs: ObserverProtocol, rhs: ObserverProtocol) -> Bool {
-    return lhs.isEqualTo(rhs)
+    lhs.isEqualTo(rhs)
 }
 
-class MIDIObserverMaster<P> where P: ObserverProtocol {
-
+class MIDIObserverGroup<P> where P: ObserverProtocol {
     var observers: [P] = []
 
     /// Add an observer that conforms to the observer protocol
@@ -35,7 +34,7 @@ class MIDIObserverMaster<P> where P: ObserverProtocol {
     /// - Parameter observer: Object conforming to the observer protocol
     public func removeObserver(_ observer: P) {
         observers.removeAll { (anObserver: P) -> Bool in
-            return anObserver.isEqualTo(observer)
+            anObserver.isEqualTo(observer)
         }
     }
 
