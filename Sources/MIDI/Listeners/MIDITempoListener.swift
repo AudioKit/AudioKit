@@ -14,7 +14,7 @@
 
 #if !os(tvOS)
 import Foundation
-import CoreMIDI
+import MIDIKitIO
 import Utilities
 
 /// Type to store tempo in BeatsPerMinute
@@ -43,7 +43,6 @@ public typealias BPMType = TimeInterval
 /// in 1.6 seconds and the client is allowed to become the clock leader.
 ///
 public class MIDITempoListener: NSObject {
-
     /// Clock listener
     public var clockListener: MIDIClockListener?
 
@@ -189,168 +188,46 @@ public extension MIDITempoListener {
 // MARK: - MIDITempoListener should be used as an MIDIListener
 
 extension MIDITempoListener: MIDIListener {
-    /// Receive a MIDI system command (such as clock, SysEx, etc)
-    ///
-    /// - data:       Array of integers
-    /// - portID:     MIDI Unique Port ID
-    /// - offset:     MIDI Event TimeStamp
-    ///
-    public func receivedMIDISystemCommand(_ data: [MIDIByte], portID: MIDIUniqueID? = nil, timeStamp: MIDITimeStamp? = nil) {
-        if data[0] == MIDISystemCommand.clock.rawValue {
+    public func received(midiEvent: MIDIEvent, timeStamp: CoreMIDITimeStamp, source: MIDIOutputEndpoint?) {
+        switch midiEvent {
+        case .timingClock(_):
             clockTimeout?.succeed()
             clockTimeout?.perform {
                 if self.isIncomingClockActive == false {
                     midiClockActivityStarted()
                     self.isIncomingClockActive = true
                 }
-                let timeStamp = timeStamp ?? 0
                 clockEvents.append(timeStamp)
                 analyze()
                 clockListener?.midiClockBeat(timeStamp: timeStamp)
             }
-        }
-        if data[0] == MIDISystemCommand.stop.rawValue {
-            resetClockEventsLeavingNone()
-        }
-        if data[0] == MIDISystemCommand.start.rawValue {
+            
+        case .start(_):
             resetClockEventsLeavingOne()
+            
+        case .stop(_):
+            resetClockEventsLeavingNone()
+        default:
+            break
         }
-        srtListener.receivedMIDISystemCommand(data, portID: portID, timeStamp: timeStamp)
+        
+        // pass event up to SRT listener
+        switch midiEvent {
+        case .timingClock, .start, .stop:
+            srtListener.received(midiEvent: midiEvent, timeStamp: timeStamp, source: source)
+        default:
+            break
+        }
     }
     
-    /// Receive the MIDI note on event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note number of activated note
-    ///   - velocity:   MIDI Velocity (0-127)
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - timeStamp:  MIDI Event TimeStamp
-    ///
-    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
-                                   velocity: MIDIVelocity,
-                                   channel: MIDIChannel,
-                                   portID: MIDIUniqueID? = nil,
-                                   timeStamp: MIDITimeStamp? = nil) {
-        // Do nothing
+    public func received(midiNotification: MIDIKitIO.MIDIIONotification) {
+        // not used
     }
-
-    /// Receive the MIDI note off event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note number of released note
-    ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - timeStamp:  MIDI Event TimeStamp
-    ///
-    public func receivedMIDINoteOff(noteNumber: MIDINoteNumber,
-                                    velocity: MIDIVelocity,
-                                    channel: MIDIChannel,
-                                    portID: MIDIUniqueID? = nil,
-                                    timeStamp: MIDITimeStamp? = nil) {
-        // Do nothing
-    }
-
-    /// Receive a generic controller value
-    ///
-    /// - Parameters:
-    ///   - controller: MIDI Controller Number
-    ///   - value:      Value of this controller
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - timeStamp:  MIDI Event TimeStamp
-    ///
-    public func receivedMIDIController(_ controller: MIDIByte,
-                                       value: MIDIByte, channel: MIDIChannel,
-                                       portID: MIDIUniqueID? = nil,
-                                       timeStamp: MIDITimeStamp? = nil) {
-        // Do nothing
-    }
-
-    /// Receive single note based aftertouch event
-    ///
-    /// - Parameters:
-    ///   - noteNumber: Note number of touched note
-    ///   - pressure:   Pressure applied to the note (0-127)
-    ///   - channel:    MIDI Channel (1-16)
-    ///   - portID:     MIDI Unique Port ID
-    ///   - timeStamp:  MIDI Event TimeStamp
-    ///
-    public func receivedMIDIAftertouch(noteNumber: MIDINoteNumber,
-                                       pressure: MIDIByte,
-                                       channel: MIDIChannel,
-                                       portID: MIDIUniqueID? = nil,
-                                       timeStamp: MIDITimeStamp? = nil) {
-        // Do nothing
-    }
-
-    /// Receive global aftertouch
-    ///
-    /// - Parameters:
-    ///   - pressure: Pressure applied (0-127)
-    ///   - channel:  MIDI Channel (1-16)
-    ///   - portID:   MIDI Unique Port ID
-    ///   - timeStamp:MIDI Event TimeStamp
-    ///
-    public func receivedMIDIAftertouch(_ pressure: MIDIByte,
-                                       channel: MIDIChannel,
-                                       portID: MIDIUniqueID? = nil,
-                                       timeStamp: MIDITimeStamp? = nil) {
-        // Do nothing
-    }
-
-    /// Receive pitch wheel value
-    ///
-    /// - Parameters:
-    ///   - pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
-    ///   - channel:         MIDI Channel (1-16)
-    ///   - portID:          MIDI Unique Port ID
-    ///   - timeStamp:       MIDI Event TimeStamp
-    ///
-    public func receivedMIDIPitchWheel(_ pitchWheelValue: MIDIWord,
-                                       channel: MIDIChannel,
-                                       portID: MIDIUniqueID? = nil,
-                                       timeStamp: MIDITimeStamp? = nil) {
-        // Do nothing
-    }
-
-    /// Receive program change
-    ///
-    /// - Parameters:
-    ///   - program:  MIDI Program Value (0-127)
-    ///   - channel:  MIDI Channel (1-16)
-    ///   - portID:   MIDI Unique Port ID
-    ///   - timeStamp:MIDI Event TimeStamp
-    ///
-    public func receivedMIDIProgramChange(_ program: MIDIByte,
-                                          channel: MIDIChannel,
-                                          portID: MIDIUniqueID? = nil,
-                                          timeStamp: MIDITimeStamp? = nil) {
-        // Do nothing
-    }
-
-    /// MIDI Setup has changed
-    public func receivedMIDISetupChange() {
-        // Do nothing
-    }
-
-    /// MIDI Object Property has changed
-    public func receivedMIDIPropertyChange(propertyChangeInfo: MIDIObjectPropertyChangeNotification) {
-        // Do nothing
-    }
-
-    /// Generic MIDI Notification
-    public func receivedMIDINotification(notification: MIDINotification) {
-        // Do nothing
-    }
-
 }
 
 // MARK: - Management and Communications for BPM Observers
 
 extension MIDITempoListener {
-
     /// Add a MIDI Tempo Observer
     /// - Parameter observer: Tempo observer to add
     public func addObserver(_ observer: MIDITempoObserver) {
