@@ -4,6 +4,7 @@
 
 import os.log
 import Utilities
+import MIDIKitIO
 
 /// MIDI Transformer converting an array of MIDI events into another array
 public protocol MIDITransformer {
@@ -23,15 +24,15 @@ public extension MIDITransformer {
     }
 
     /// Equality check
-    /// - Parameter transformer: Another MIDI transformer
+    /// - Parameter other: Another MIDI transformer
     /// - Returns: True if equal
-    func isEqualTo(_ transformer: MIDITransformer) -> Bool {
-        return self == transformer
+    func isEqual(to other: MIDITransformer) -> Bool {
+        self == other
     }
 }
 
 func == (lhs: MIDITransformer, rhs: MIDITransformer) -> Bool {
-    return lhs.isEqualTo(rhs)
+    lhs.isEqual(to: rhs)
 }
 
 #endif

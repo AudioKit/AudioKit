@@ -27,14 +27,14 @@ public protocol MIDIListener {
 /// Default listener functions
 public extension MIDIListener {
     /// Equality test
-    /// - Parameter listener: Another listener
-    func isEqualTo(_ listener: MIDIListener) -> Bool {
-        return self == listener
+    /// - Parameter other: Another listener
+    func isEqual(to other: MIDIListener) -> Bool {
+        self == other
     }
 }
 
 func == (lhs: MIDIListener, rhs: MIDIListener) -> Bool {
-    return lhs.isEqualTo(rhs)
+    lhs.isEqual(to: rhs)
 }
 
 #endif

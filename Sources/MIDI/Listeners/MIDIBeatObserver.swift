@@ -82,13 +82,13 @@ public extension MIDIBeatObserver {
     }
 
     /// Equality test
-    /// - Parameter listener: Another listener
-    func isEqualTo(_ listener: MIDIBeatObserver) -> Bool {
-        return self == listener
+    /// - Parameter other: Another listener
+    func isEqual(to other: MIDIBeatObserver) -> Bool {
+        self == other
     }
 }
 
 func == (lhs: MIDIBeatObserver, rhs: MIDIBeatObserver) -> Bool {
-    return lhs.isEqualTo(rhs)
+    lhs.isEqual(to: rhs)
 }
 #endif

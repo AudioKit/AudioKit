@@ -5,20 +5,20 @@ import Foundation
 /// Observer protocol
 public protocol ObserverProtocol {
     /// Equality test
-    /// - Parameter listener: Another listener
-    func isEqualTo(_ listener: ObserverProtocol) -> Bool
+    /// - Parameter other: Another listener
+    func isEqual(to other: ObserverProtocol) -> Bool
 }
 
 extension ObserverProtocol {
     /// Equality test
-    /// - Parameter listener: Another listener
-    func isEqualTo(_ listener: ObserverProtocol) -> Bool {
-        self == listener
+    /// - Parameter other: Another listener
+    func isEqual(to other: ObserverProtocol) -> Bool {
+        self == other
     }
 }
 
 func == (lhs: ObserverProtocol, rhs: ObserverProtocol) -> Bool {
-    lhs.isEqualTo(rhs)
+    lhs.isEqual(to: rhs)
 }
 
 class MIDIObserverGroup<P> where P: ObserverProtocol {
@@ -34,7 +34,7 @@ class MIDIObserverGroup<P> where P: ObserverProtocol {
     /// - Parameter observer: Object conforming to the observer protocol
     public func removeObserver(_ observer: P) {
         observers.removeAll { (anObserver: P) -> Bool in
-            anObserver.isEqualTo(observer)
+            anObserver.isEqual(to: observer)
         }
     }
 
