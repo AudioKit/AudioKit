@@ -3,7 +3,7 @@
 #if !os(tvOS)
 import os.log
 import Utilities
-import MIDIKitIO
+@_exported import MIDIKitIO
 
 /// MIDI input and output handler
 public class MIDI {
@@ -59,13 +59,14 @@ public class MIDI {
         manager = MIDIManager(
             clientName: "AudioKit",
             model: "",
-            manufacturer: "",
-            notificationHandler: { [weak self] notification, manager in
-                self?.listeners.forEach {
-                    $0.receivedMIDINotification(notification: notification)
-                }
-            }
+            manufacturer: ""
         )
+        
+        manager.notificationHandler = { [weak self] notification, manager in
+            self?.listeners.forEach {
+                $0.received(midiNotification: notification)
+            }
+        }
         
         do {
             try manager.start()
