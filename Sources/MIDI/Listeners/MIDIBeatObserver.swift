@@ -4,6 +4,7 @@
 import Foundation
 import AVFoundation
 import Utilities
+import MIDIKitIO
 
 /// Protocol so that clients may observe beat events
 public protocol MIDIBeatObserver {
@@ -31,7 +32,7 @@ public protocol MIDIBeatObserver {
     ///   - quarterNote: MIDI Byte
     ///   - beat: Beat as a UInt64
     ///   - quantum: 24 quantums per quarter note
-    func receivedQuantum(time: MIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64)
+    func receivedQuantum(time: CoreMIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64)
 
     /// Called each 24 midi clock pulses
     /// - Parameter quarterNote: MIDI Byte
@@ -72,7 +73,7 @@ public extension MIDIBeatObserver {
     ///   - quarterNote: MIDI Byte
     ///   - beat: Beat as a UInt64
     ///   - quantum: 24 quantums per quarter note
-    func receivedQuantum(time: MIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64) {
+    func receivedQuantum(time: CoreMIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64) {
         // Do nothing
     }
 
