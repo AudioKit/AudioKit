@@ -2,7 +2,7 @@
 
 #if !os(tvOS)
 import Foundation
-import CoreMIDI
+import MIDIKitIO
 import os.log
 import Utilities
 

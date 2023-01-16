@@ -3,7 +3,7 @@
 #if !os(tvOS)
 
 import Foundation
-import CoreMIDI
+import MIDIKitIO
 import Utilities
 
 ///  This class probably needs to support observers as well
