@@ -8,7 +8,7 @@ import Utilities
 /// MIDI input and output handler
 public class MIDI {
     /// Shared singleton
-    public static let sharedInstance = MIDI()
+    public static let shared = MIDI()
 
     // MARK: - Properties
 
