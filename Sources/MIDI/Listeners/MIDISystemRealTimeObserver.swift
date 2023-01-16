@@ -6,7 +6,6 @@ import Foundation
 
 /// MIDI System Real Time Observer
 public protocol MIDISystemRealTimeObserver {
-
     /// Called when a midi start system message is received
     ///
     /// - Parameter srtListener: MIDISRTListener
@@ -26,7 +25,6 @@ public protocol MIDISystemRealTimeObserver {
 
 /// Default handler methods for MIDI MMC Events
 extension MIDISystemRealTimeObserver {
-
     func startSRT(listener: MIDISystemRealTimeListener) {
 
     }

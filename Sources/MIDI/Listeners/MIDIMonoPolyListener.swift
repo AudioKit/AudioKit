@@ -15,7 +15,6 @@ import Utilities
 ///
 /// MIDI Mono Poly Listener is a generic object but  should be used as an MIDIListener
 public class MIDIMonoPolyListener: NSObject {
-
     var monoMode: Bool
 
     /// Initialize in mono or poly
@@ -24,7 +23,6 @@ public class MIDIMonoPolyListener: NSObject {
         monoMode = mono
     }
 }
-
 
 extension MIDIMonoPolyListener: MIDIListener {
     public func received(midiEvent: MIDIEvent, timeStamp: CoreMIDITimeStamp, source: MIDIOutputEndpoint?) {

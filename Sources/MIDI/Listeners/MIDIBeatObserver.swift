@@ -8,7 +8,6 @@ import MIDIKitIO
 
 /// Protocol so that clients may observe beat events
 public protocol MIDIBeatObserver {
-
     /// Called when the midi system real time start or continue message arrives.
     /// Will be called when on the very first beat.
     /// - Parameter continue: Whether or not to continue
@@ -41,7 +40,6 @@ public protocol MIDIBeatObserver {
 
 /// Default listener methods
 public extension MIDIBeatObserver {
-
     /// Called when the midi system real time start or continue message arrives.
     /// Will be called when on the very first beat.
     /// - Parameter continue: Whether or not to continue

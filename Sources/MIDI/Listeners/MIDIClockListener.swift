@@ -115,7 +115,6 @@ public class MIDIClockListener: NSObject {
 // MARK: - Observers
 
 extension MIDIClockListener {
-
     /// Add MIDI beat observer
     /// - Parameter observer: MIDI Beat observer to add
     public func addObserver(_ observer: MIDIBeatObserver) {
@@ -179,7 +178,6 @@ extension MIDIClockListener: MIDIBeatObserver {
 // MARK: - MMC Observations interface
 
 extension MIDIClockListener: MIDITempoObserver {
-
     /// Resets the quantum counter
     public func midiClockFollowerMode() {
         Log("MIDI Clock Follower", log: OSLog.midi)
