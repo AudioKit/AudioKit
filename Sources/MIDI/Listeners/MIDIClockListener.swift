@@ -2,7 +2,7 @@
 
 #if !os(tvOS)
 import Foundation
-import CoreMIDI
+import MIDIKitIO
 import os.log
 import Utilities
 
@@ -62,7 +62,7 @@ public class MIDIClockListener: NSObject {
         quarterNoteQuantumCounter = MIDIByte(quantumCounter % 24)
     }
 
-    func midiClockBeat(timeStamp: MIDITimeStamp) {
+    func midiClockBeat(timeStamp: CoreMIDITimeStamp) {
         self.quantumCounter += 1
 
         // quarter notes can only increment when we are playing
@@ -115,7 +115,6 @@ public class MIDIClockListener: NSObject {
 // MARK: - Observers
 
 extension MIDIClockListener {
-
     /// Add MIDI beat observer
     /// - Parameter observer: MIDI Beat observer to add
     public func addObserver(_ observer: MIDIBeatObserver) {
@@ -145,7 +144,7 @@ extension MIDIClockListener: MIDIBeatObserver {
         }
     }
 
-    internal func sendQuantumUpdateToObservers(time: MIDITimeStamp) {
+    internal func sendQuantumUpdateToObservers(time: CoreMIDITimeStamp) {
         for observer in observers {
             observer.receivedQuantum(time: time,
                                      quarterNote: fourCount,
@@ -179,7 +178,6 @@ extension MIDIClockListener: MIDIBeatObserver {
 // MARK: - MMC Observations interface
 
 extension MIDIClockListener: MIDITempoObserver {
-
     /// Resets the quantum counter
     public func midiClockFollowerMode() {
         Log("MIDI Clock Follower", log: OSLog.midi)

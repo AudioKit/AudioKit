@@ -4,10 +4,10 @@
 import Foundation
 import AVFoundation
 import Utilities
+import MIDIKitIO
 
 /// Protocol so that clients may observe beat events
 public protocol MIDIBeatObserver {
-
     /// Called when the midi system real time start or continue message arrives.
     /// Will be called when on the very first beat.
     /// - Parameter continue: Whether or not to continue
@@ -31,7 +31,7 @@ public protocol MIDIBeatObserver {
     ///   - quarterNote: MIDI Byte
     ///   - beat: Beat as a UInt64
     ///   - quantum: 24 quantums per quarter note
-    func receivedQuantum(time: MIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64)
+    func receivedQuantum(time: CoreMIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64)
 
     /// Called each 24 midi clock pulses
     /// - Parameter quarterNote: MIDI Byte
@@ -40,7 +40,6 @@ public protocol MIDIBeatObserver {
 
 /// Default listener methods
 public extension MIDIBeatObserver {
-
     /// Called when the midi system real time start or continue message arrives.
     /// Will be called when on the very first beat.
     /// - Parameter continue: Whether or not to continue
@@ -72,7 +71,7 @@ public extension MIDIBeatObserver {
     ///   - quarterNote: MIDI Byte
     ///   - beat: Beat as a UInt64
     ///   - quantum: 24 quantums per quarter note
-    func receivedQuantum(time: MIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64) {
+    func receivedQuantum(time: CoreMIDITimeStamp, quarterNote: MIDIByte, beat: UInt64, quantum: UInt64) {
         // Do nothing
     }
 
@@ -83,13 +82,13 @@ public extension MIDIBeatObserver {
     }
 
     /// Equality test
-    /// - Parameter listener: Another listener
-    func isEqualTo(_ listener: MIDIBeatObserver) -> Bool {
-        return self == listener
+    /// - Parameter other: Another listener
+    func isEqual(to other: MIDIBeatObserver) -> Bool {
+        self == other
     }
 }
 
 func == (lhs: MIDIBeatObserver, rhs: MIDIBeatObserver) -> Bool {
-    return lhs.isEqualTo(rhs)
+    lhs.isEqual(to: rhs)
 }
 #endif

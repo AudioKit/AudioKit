@@ -1,44 +1,44 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if !os(tvOS)
-import CoreMIDI
 import os.log
 import Utilities
+@_exported import MIDIKitIO
 
 /// MIDI input and output handler
 public class MIDI {
-
     /// Shared singleton
-    public static var sharedInstance = MIDI()
+    public static let shared = MIDI()
 
     // MARK: - Properties
 
-    /// MIDI Client Reference
-    public var client = MIDIClientRef()
+    /// MIDI I/O Manager engine that provides all MIDI connectivity as well as device and endpoint metadata
+    public var manager: MIDIManager
+    
+    /// Dictionary of Virtual MIDI Input destination
+    public var virtualInputs: [String: MIDIInput] {
+        manager.managedInputs
+    }
 
-    /// MIDI Client Name
-    internal let clientName: CFString = "AudioKit" as CFString
+    /// Dictionary of Virtual MIDI output
+    public var virtualOutputs: [String: MIDIOutput] {
+        manager.managedOutputs
+    }
 
-    /// Array of MIDI In ports
-    public var inputPorts = [MIDIUniqueID: MIDIPortRef]()
+    /// Array of managed input connections to MIDI output ports
+    public var inputConnections: [String: MIDIInputConnection] {
+        manager.managedInputConnections
+    }
+    
+    /// Array of managed input connections to MIDI output ports
+    public var outputConnections: [String: MIDIOutputConnection] {
+        manager.managedOutputConnections
+    }
 
-    /// Array of Virtual MIDI Input destination
-    public var virtualInputs = [MIDIPortRef()]
-
-    /// MIDI In Port Name
-    internal let inputPortName: CFString = "MIDI In Port" as CFString
-
-    /// MIDI Out Port Reference
-    public var outputPort = MIDIPortRef()
-
-    /// Array of Virtual MIDI output
-    public var virtualOutputs = [MIDIPortRef()]
-
-    /// MIDI Out Port Name
-    var outputPortName: CFString = "MIDI Out Port" as CFString
-
-    /// Array of MIDI Endpoints
-    public var endpoints = [MIDIUniqueID: MIDIEndpointRef]()
+    /// MIDI Input and Output Endpoints
+    public var endpoints: MIDIEndpointsProtocol {
+        manager.endpoints
+    }
 
     /// Array of all listeners
     public var listeners = [MIDIListener]()
@@ -53,54 +53,28 @@ public class MIDI {
         Log("Initializing MIDI", log: OSLog.midi)
 
         #if os(iOS)
-        MIDINetworkSession.default().isEnabled = true
-        MIDINetworkSession.default().connectionPolicy =
-            MIDINetworkConnectionPolicy.anyone
+        MIDIKitIO.setMIDINetworkSession(policy: .anyone)
         #endif
-
-        if client == 0 {
-            let result = MIDIClientCreateWithBlock(clientName, &client) {
-                let messageID = $0.pointee.messageID
-
-                switch messageID {
-                case .msgSetupChanged:
-                    for listener in self.listeners {
-                        listener.receivedMIDISetupChange()
-                    }
-                case .msgPropertyChanged:
-                    let rawPtr = UnsafeRawPointer($0)
-                    let propChange = rawPtr.assumingMemoryBound(to: MIDIObjectPropertyChangeNotification.self).pointee
-                    for listener in self.listeners {
-                        listener.receivedMIDIPropertyChange(propertyChangeInfo: propChange)
-                    }
-                default:
-                    for listener in self.listeners {
-                        listener.receivedMIDINotification(notification: $0.pointee)
-                    }
-                }
-            }
-            if result != noErr {
-                Log("Error creating MIDI client: \(result)", log: OSLog.midi, type: .error)
+        
+        manager = MIDIManager(
+            clientName: "AudioKit",
+            model: "",
+            manufacturer: ""
+        )
+        
+        manager.notificationHandler = { [weak self] notification, manager in
+            self?.listeners.forEach {
+                $0.received(midiNotification: notification)
             }
         }
+        
+        do {
+            try manager.start()
+        } catch {
+            Log("Error creating MIDI client: \(error.localizedDescription)",
+                log: OSLog.midi,
+                type: .error)
+        }
     }
-
-    // MARK: - SYSEX
-
-    internal var isReceivingSysEx: Bool = false
-    func startReceivingSysEx(with midiBytes: [MIDIByte]) {
-        Log("Starting to receive SysEx", log: OSLog.midi)
-        isReceivingSysEx = true
-        incomingSysEx = midiBytes
-    }
-    func stopReceivingSysEx() {
-        Log("Done receiving SysEx", log: OSLog.midi)
-        isReceivingSysEx = false
-    }
-    var incomingSysEx = [MIDIByte]()
-    
-    // I don't want to break logic of existing code for receiving SysEx messages,
-    // So I use separate var for processUMPSysExMessage method
-    internal var incomingUMPSysExMessage = [UInt8]()
 }
 #endif

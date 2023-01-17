@@ -24,9 +24,11 @@ public extension Node {
     ///
     func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64 = 0) {
         if let midiBlock = au.scheduleMIDIEventBlock {
-            event.data.withUnsafeBufferPointer { ptr in
+            // note: AUScheduleMIDIEventBlock expected MIDI 1.0 raw bytes, not UMP/MIDI 2.0
+            let midi1RawBytes = event.midi1RawBytes()
+            event.midi1RawBytes().withUnsafeBufferPointer { ptr in
                 guard let ptr = ptr.baseAddress else { return }
-                midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, event.data.count, ptr)
+                midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, midi1RawBytes.count, ptr)
             }
         }
     }

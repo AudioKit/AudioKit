@@ -17,24 +17,26 @@ public extension MusicTrackManager {
     }
 
     /// Array of MIDI Program Change Events
-    var programChangeEvents: [MIDIProgramChangeEvent] {
-        var pgmEvents = [MIDIProgramChangeEvent]()
-        if let events = eventData {
-            for event in events where event.type == kMusicEventType_MIDIChannelMessage {
-                let data = event.data?.bindMemory(to: MIDIChannelMessage.self, capacity: 1)
-                guard let data1 = data?.pointee.data1,
-                      let statusData: MIDIByte = data?.pointee.status
-                else {
-                    break
-                }
-                let statusType = MIDIStatusType(rawValue: Int(statusData.highBit))
-                let channel = statusData.lowBit
-                if statusType == .programChange {
-                    let pgmEvent = MIDIProgramChangeEvent(time: event.time, channel: channel, number: data1)
-                    pgmEvents.append(pgmEvent)
-                }
+    var programChangeEvents: [MIDIEvent.ProgramChange] {
+        guard let appleMIDIEvents = eventData else { return [] }
+        
+        let pgmEvents: [MIDIEvent.ProgramChange] = appleMIDIEvents.reduce(into: []) { pgmEvents, appleMIDIEvent in
+            guard appleMIDIEvent.type == kMusicEventType_MIDIChannelMessage else { return }
+            
+            let data = appleMIDIEvent.data?.bindMemory(to: MIDIChannelMessage.self, capacity: 1)
+            guard let programNumber = data?.pointee.data1.toUInt7Exactly,
+                  let statusData: MIDIByte = data?.pointee.status
+            else {
+                return
+            }
+            let isProgramChangeStatus = statusData.nibbles.high == 0xC
+            let channel = statusData.nibbles.low
+            if isProgramChangeStatus {
+                let pgmEvent = MIDIEvent.ProgramChange(program: programNumber, bank: .noBankSelect, channel: channel)
+                pgmEvents.append(pgmEvent)
             }
         }
+        
         return pgmEvents
     }
 
@@ -75,12 +77,15 @@ public extension MusicTrackManager {
                     Log("Problem with raw midi channel message")
                     return
                 }
-                if let statusType = MIDIStatus(byte: statusData)?.type {
-                    switch statusType {
-                    case .programChange:
-                        Log("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(statusData.lowBit)")
-                    default:
-                        Log("MIDI Channel Message @\(event.time) data1:\(data1) data2:\(data2) status:\(statusType)")
+                let channel = statusData.nibbles.low
+                let statusByte = statusData.nibbles.high
+                let isProgramChangeStatus = statusByte == 0xC
+                if isProgramChangeStatus {
+                    switch isProgramChangeStatus {
+                    case true:
+                        Log("MIDI Program Change @ \(event.time) - program: \(data1) - channel: \(channel)")
+                    case false:
+                        Log("MIDI Channel Message @\(event.time) data1:\(data1) data2:\(data2) status:\(statusByte)")
                     }
                 }
             default:
@@ -133,14 +138,4 @@ public struct AppleMIDIEvent {
     public var data: UnsafeRawPointer?
     /// Size of data
     public var dataSize: UInt32
-}
-
-/// MIDI Program Change Event
-public struct MIDIProgramChangeEvent {
-    /// Start time
-    public var time: MusicTimeStamp
-    /// MIDI Channel
-    public var channel: MIDIChannel
-    /// Program change number
-    public var number: MIDIByte
 }

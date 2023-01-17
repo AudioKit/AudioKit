@@ -4,41 +4,7 @@
 
 import AVFoundation
 import Utilities
-
-extension MIDIPlayer: Collection {
-    /// This is a collection of AVMusicTracks, so we define element as such
-    public typealias Element = AVMusicTrack
-
-    /// Index by an integer
-    public typealias Index = Int
-
-    /// Start Index
-    public var startIndex: Index {
-        return 0
-    }
-
-    /// Ending index
-    public var endIndex: Index {
-        return count
-    }
-
-    /// Look up by subscript
-    public subscript(index: Index) -> Element {
-        return tracks[index]
-    }
-
-    /// Next index
-    /// - Parameter index: Current Index
-    /// - Returns: Next index
-    public func index(after index: Index) -> Index {
-        return index + 1
-    }
-
-    /// Rewind the sequence
-    public func rewind() {
-        currentPositionInBeats = 0
-    }
-}
+import MIDIKitIO
 
 /// Simple MIDI Player based on Apple's AVAudioSequencer which has limited capabilities
 public class MIDIPlayer: AVAudioSequencer {
@@ -130,12 +96,12 @@ public class MIDIPlayer: AVAudioSequencer {
 
     /// Current Time
     public var currentPosition: Duration {
-        return Duration(beats: currentPositionInBeats)
+        Duration(beats: currentPositionInBeats)
     }
 
     /// Current Time relative to sequencer length
     public var currentRelativePosition: Duration {
-        return currentPosition % length //can switch to modTime func when/if % is removed
+        currentPosition % length //can switch to modTime func when/if % is removed
     }
 
     /// Load a MIDI file
@@ -155,8 +121,44 @@ public class MIDIPlayer: AVAudioSequencer {
 
     /// Set the midi output for all tracks
     /// - Parameter midiEndpoint: MIDI Endpoint
-    public func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
-        for track in self { track.destinationMIDIEndpoint = midiEndpoint }
+    public func setGlobalMIDIOutput(to midiEndpoint: MIDIInputEndpoint) {
+        for track in self { track.destinationMIDIEndpoint = midiEndpoint.coreMIDIObjectRef }
     }
 }
+
+extension MIDIPlayer: Collection {
+    /// This is a collection of AVMusicTracks, so we define element as such
+    public typealias Element = AVMusicTrack
+    
+    /// Index by an integer
+    public typealias Index = Int
+    
+    /// Start Index
+    public var startIndex: Index {
+        0
+    }
+    
+    /// Ending index
+    public var endIndex: Index {
+        count
+    }
+    
+    /// Look up by subscript
+    public subscript(index: Index) -> Element {
+        tracks[index]
+    }
+    
+    /// Next index
+    /// - Parameter index: Current Index
+    /// - Returns: Next index
+    public func index(after index: Index) -> Index {
+        index + 1
+    }
+    
+    /// Rewind the sequence
+    public func rewind() {
+        currentPositionInBeats = 0
+    }
+}
+
 #endif
