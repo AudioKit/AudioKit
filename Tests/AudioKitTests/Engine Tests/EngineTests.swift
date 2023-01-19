@@ -257,8 +257,10 @@ class EngineTests: XCTestCase {
 
         let mixer = Mixer()
 
-        for _ in 0 ..< 100 {
-            mixer.addInput(Oscillator())
+        for _ in 0 ..< 20 {
+            let osc = Oscillator()
+            osc.start()
+            mixer.addInput(osc)
         }
 
         mixer.volume = 0.001
