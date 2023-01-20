@@ -57,13 +57,13 @@ class EngineTests: XCTestCase {
         let dist = Distortion(osc)
 
         engine.output = osc
+        osc.start()
 
         let audio = engine.startTest(totalDuration: 2.0)
 
         audio.append(engine.render(duration: 1.0))
 
         engine.output = dist
-        osc.start()
 
         audio.append(engine.render(duration: 1.0))
 

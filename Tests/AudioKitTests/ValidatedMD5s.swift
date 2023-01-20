@@ -66,7 +66,7 @@ let validatedMD5s: [String: [String]] = [
     "-[TableTests testTriangle]": ["9c1146981e940074bbbf63f1c2dd3896"],
     "-[TableTests testHarmonicWithPartialAmplitudes]": ["dfa0ab73fb4135456e8702c8652b9ead"],
     "-[EngineTests testBasic]": ["87c195248adcd83ca41c50cf240504fb", "434ec09c1e71d0bdef1a91c92a0d2c30"],
-    "-[EngineTests testDynamicChange]": ["f0b84167f3261845ac08b41cef5b5b04", "984f3b70fa4b63dbb726c8c3a2429b6d"],
+    "-[EngineTests testDynamicChange]": ["f0b84167f3261845ac08b41cef5b5b04", "08ccb09472af9a82fc1b6dbaf6c42c34"],
     "-[EngineTests testEffect]": ["a6aa462d1e77b569afa935e8f67f3e0a", "07c960c2544cac5603954f7725649c53"],
     "-[EngineTests testMixer]": ["9a14ac2edb9392b4da3e603475b4c050", "ca6ed06fe0b1c78ac14e59a31f1d1b82"],
     "-[EngineTests testMixerDynamic]": ["f1428ff0eaf4949f51790226c3d619dc", "e3da5e17710ba097542a6a24350eb616"],
