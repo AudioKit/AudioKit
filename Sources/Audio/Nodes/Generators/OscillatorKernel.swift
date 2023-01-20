@@ -9,14 +9,34 @@ class OscillatorKernel {
     var bypassed = true
 
     /// XXX: oscillator phases should be Doubles
-    var currentPhase: AUValue = 0.0
+    private var currentPhase: AUValue = 0.0
 
     /// Pitch in Hz
-    var frequency: AUValue = 440
+    private var frequency: AUValue = 440
 
-    var amplitude: AUValue = 1
+    private var amplitude: AUValue = 1
 
     private var table = Table()
+
+    func processEvents(events: UnsafePointer<AURenderEvent>?) {
+        process(events: events,
+                sysex: { event in
+                    var command: OscillatorCommand = .table(nil)
+
+                    decodeSysex(event, &command)
+                    switch command {
+                    case let .table(ptr):
+                        table = ptr?.pointee ?? Table()
+                    }
+                }, param: { event in
+                    let paramEvent = event.pointee
+                    switch paramEvent.parameterAddress {
+                    case 0: frequency = paramEvent.value
+                    case 1: amplitude = paramEvent.value
+                    default: break
+                    }
+                })
+    }
 
     func render(frameCount: AUAudioFrameCount, outputBufferList: UnsafeMutablePointer<AudioBufferList>) -> AUAudioUnitStatus {
 
