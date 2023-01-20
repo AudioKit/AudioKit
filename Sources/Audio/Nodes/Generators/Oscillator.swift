@@ -135,6 +135,12 @@ class OscillatorAudioUnit: AUAudioUnit {
 
     override func deallocateRenderResources() {}
 
+    override var shouldBypassEffect: Bool {
+        didSet {
+            bypassed = shouldBypassEffect
+        }
+    }
+
     var currentPhase: AUValue = 0.0
 
     /// Pitch in Hz
@@ -144,6 +150,8 @@ class OscillatorAudioUnit: AUAudioUnit {
     var amplitude: AUValue = 1
 
     private var table = Table()
+
+    var bypassed: Bool = true
 
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
         process(events: events,
@@ -178,6 +186,13 @@ class OscillatorAudioUnit: AUAudioUnit {
 
             let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
+            if self.bypassed {
+                for buffer in ablPointer {
+                    buffer.clear()
+                }
+                return noErr
+            }
+
             let twoPi: AUValue = .init(2 * Double.pi)
             let phaseIncrement = (twoPi / AUValue(Settings.sampleRate)) * self.frequency
             for frame in 0 ..< Int(frameCount) {
@@ -193,11 +208,7 @@ class OscillatorAudioUnit: AUAudioUnit {
                 for buffer in ablPointer {
                     let buf = UnsafeMutableBufferPointer<Float>(buffer)
                     assert(frame < buf.count)
-                    if self.shouldBypassEffect {
-                        buf[frame] = 0
-                    } else {
-                        buf[frame] = value
-                    }
+                    buf[frame] = value
                 }
             }
 
