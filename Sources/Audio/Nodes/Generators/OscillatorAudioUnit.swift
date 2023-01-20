@@ -77,82 +77,25 @@ class OscillatorAudioUnit: AUAudioUnit {
 
     override var shouldBypassEffect: Bool {
         didSet {
-            bypassed = shouldBypassEffect
+            kernel.bypassed = shouldBypassEffect
         }
     }
 
-    var currentPhase: AUValue = 0.0
-
-    /// Pitch in Hz
-    var frequency: AUValue = 440
-
-    /// Volume usually 0-1
-    var amplitude: AUValue = 1
-
-    private var table = Table()
-
-    var bypassed: Bool = true
-
-    func processEvents(events: UnsafePointer<AURenderEvent>?) {
-        process(events: events,
-                sysex: { event in
-                    var command: OscillatorCommand = .table(nil)
-
-                    decodeSysex(event, &command)
-                    switch command {
-                    case let .table(ptr):
-                        table = ptr?.pointee ?? Table()
-                    }
-                }, param: { event in
-                    let paramEvent = event.pointee
-                    switch paramEvent.parameterAddress {
-                    case 0: frequency = paramEvent.value
-                    case 1: amplitude = paramEvent.value
-                    default: break
-                    }
-                })
-    }
+    var kernel = OscillatorKernel()
 
     override var internalRenderBlock: AUInternalRenderBlock {
-        { (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+
+        let kernel = self.kernel
+
+        return { (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
            _: UnsafePointer<AudioTimeStamp>,
            frameCount: AUAudioFrameCount,
            _: Int,
            outputBufferList: UnsafeMutablePointer<AudioBufferList>,
            renderEvents: UnsafePointer<AURenderEvent>?,
            _: AURenderPullInputBlock?) in
-
-            self.processEvents(events: renderEvents)
-
-            let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
-
-            if self.bypassed {
-                for buffer in ablPointer {
-                    buffer.clear()
-                }
-                return noErr
-            }
-
-            let twoPi: AUValue = .init(2 * Double.pi)
-            let phaseIncrement = (twoPi / AUValue(Settings.sampleRate)) * self.frequency
-            for frame in 0 ..< Int(frameCount) {
-                // Get signal value for this frame at time.
-                let index = Int(self.currentPhase / twoPi * Float(self.table.count))
-                let value = self.table[index] * self.amplitude
-
-                // Advance the phase for the next frame.
-                self.currentPhase += phaseIncrement
-                if self.currentPhase >= twoPi { self.currentPhase -= twoPi }
-                if self.currentPhase < 0.0 { self.currentPhase += twoPi }
-                // Set the same value on all channels (due to the inputFormat we have only 1 channel though).
-                for buffer in ablPointer {
-                    let buf = UnsafeMutableBufferPointer<Float>(buffer)
-                    assert(frame < buf.count)
-                    buf[frame] = value
-                }
-            }
-
-            return noErr
+            kernel.processEvents(events: renderEvents)
+            return kernel.render(frameCount: frameCount, outputBufferList: outputBufferList)
         }
     }
 }
