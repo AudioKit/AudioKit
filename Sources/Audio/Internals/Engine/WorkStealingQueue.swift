@@ -48,8 +48,8 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
         }
     }
 
-    var _top: ManagedAtomic<Int> = .init(0)
-    var _bottom: ManagedAtomic<Int> = .init(0)
+    var _top = UnsafeAtomic<Int>.create(0)
+    var _bottom = UnsafeAtomic<Int>.create(0)
     var _array: ManagedAtomic<QueueArray>
     var _garbage: [QueueArray] = []
 
