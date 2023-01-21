@@ -2,8 +2,6 @@
 
 import Foundation
 
-#if !os(tvOS)
-
 /// MIDI Tempo Observer
 public protocol MIDITempoObserver {
 
@@ -48,5 +46,3 @@ public extension MIDITempoObserver {
 func == (lhs: MIDITempoObserver, rhs: MIDITempoObserver) -> Bool {
     lhs.isEqual(to: rhs)
 }
-
-#endif

@@ -12,13 +12,14 @@
 //      https://stackoverflow.com/questions/13562714/calculate-accurate-bpm-from-midi-clock-in-objc-with-coremidi
 //      https://github.com/yderidde/PGMidi/blob/master/Sources/PGMidi/PGMidiSession.mm#L186
 
-#if !os(tvOS)
 import Foundation
 import MIDIKitIO
 import Utilities
 
 /// Type to store tempo in BeatsPerMinute
 public typealias BPMType = TimeInterval
+
+#if !os(tvOS)
 
 /// A AudioKit midi listener that looks at midi clock messages and calculates a BPM
 ///
