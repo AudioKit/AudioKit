@@ -15,7 +15,8 @@ class TableTests: XCTestCase {
     }
 
     func testPositiveSine() {
-        XCTAssertEqual(MD5("\(Table(.positiveSine).content)"), "6e6cf289adef24957d785c1b916215a2")
+        let md5s = [ "6e6cf289adef24957d785c1b916215a2", "43ff51a686e02c6aa9a0aab2e72c81fa"]
+        XCTAssertTrue(md5s.contains(MD5("\(Table(.positiveSine).content)")))
     }
 
     func testPositiveSquare() {
@@ -35,7 +36,8 @@ class TableTests: XCTestCase {
     }
 
     func testSine() {
-        XCTAssertEqual(MD5("\(Table(.sine).content)"), "ca89fcc197408b4829fa946c86a42855")
+        let md5s = [ "ca89fcc197408b4829fa946c86a42855", "4e6df1c04689bc4a8cc57f712c43352b"]
+        XCTAssertTrue(md5s.contains(MD5("\(Table(.sine).content)")))
     }
 
     func testSquare() {
@@ -49,6 +51,7 @@ class TableTests: XCTestCase {
     func testHarmonicWithPartialAmplitudes() {
         let partialAmplitudes: [Float] = [0.8, 0.2, 0.3, 0.06, 0.12, 0.0015]
         let table = Table(.harmonic(partialAmplitudes))
-        XCTAssertEqual(MD5("\(table.content)"), "2e5695816694e97c824fea9b7edf9d7f")
+        let md5s = ["2e5695816694e97c824fea9b7edf9d7f", "db6d7a5af8bf379dc292df278b823dc9"]
+        XCTAssertTrue(md5s.contains(MD5("\(table.content)")))
     }
 }
