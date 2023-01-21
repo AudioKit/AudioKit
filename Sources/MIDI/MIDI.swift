@@ -43,9 +43,6 @@ public class MIDI {
     /// Array of all listeners
     public var listeners = [MIDIListener]()
 
-    /// Array of all transformers
-    public var transformers = [MIDITransformer]()
-
     // MARK: - Initialization
 
     /// Initialize the MIDI system
