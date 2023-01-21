@@ -34,6 +34,8 @@ We create a few worker threads which are woken by the audio thread. Those thread
 * Embed time/pitch into Sampler
 * Search code for XXX: issues
 * Make node recorder functional and tested again
+* Use log instead of print where appropriate
 * Test and update all the subAudioKits that depend on AK, especial AudioKitEX
 * Test and update other repos that depend on AK, like Cookbook, Waveform
 * Document changes in migration guide
+* Re-runn docc on all repos, regenerating AudioKit.io docs in the process
