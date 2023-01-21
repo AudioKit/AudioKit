@@ -1,7 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-#if !os(tvOS)
-
 import os.log
 import Utilities
 import MIDIKitIO
@@ -34,5 +32,3 @@ public extension MIDITransformer {
 func == (lhs: MIDITransformer, rhs: MIDITransformer) -> Bool {
     lhs.isEqual(to: rhs)
 }
-
-#endif

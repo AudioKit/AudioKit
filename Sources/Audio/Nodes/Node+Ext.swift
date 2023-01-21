@@ -15,7 +15,6 @@ public extension Node {
         }
     }
 
-#if !os(tvOS)
     /// Schedule an event with an offset
     ///
     /// - Parameters:
@@ -32,7 +31,6 @@ public extension Node {
             }
         }
     }
-#endif
 
     var isStarted: Bool { !bypassed }
     func start() { bypassed = false }

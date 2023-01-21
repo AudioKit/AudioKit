@@ -14,7 +14,7 @@ class NodeTests: XCTestCase {
         testMD5(audio)
     }
 
-    #if os(macOS) // For some reason failing on iOS and tvOS
+    #if os(macOS)
     func testNodeConnection() {
         let engine = Engine()
         let sampler = Sampler()
