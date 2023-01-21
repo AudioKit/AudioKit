@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import MIDI
+import MIDIKit
 import Utilities
 
 /// Wrapper for internal Apple MusicTrack

@@ -1,7 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import MIDIKit
+import MIDIKitIO
 import Utilities
 
 public extension Node {

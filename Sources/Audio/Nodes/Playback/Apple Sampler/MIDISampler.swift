@@ -8,7 +8,6 @@ import os.log
 import Utilities
 import MIDI
 import CoreMIDI
-import MIDIKitIO
 @_implementationOnly import MIDIKitInternals
 
 /// MIDI receiving Sampler
