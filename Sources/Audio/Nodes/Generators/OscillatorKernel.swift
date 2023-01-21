@@ -3,6 +3,7 @@
 import Foundation
 import AudioUnit
 import Utilities
+import CoreAudio
 
 class OscillatorKernel {
 
