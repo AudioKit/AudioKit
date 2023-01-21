@@ -17,12 +17,18 @@ public class WorkStealingQueue {
         var C: Int
         var M: Int
 
-        var S: Vec<ManagedAtomic<RenderJobIndex>>
+        var S: Vec<UnsafeAtomic<RenderJobIndex>>
 
         init(_ c: Int) {
             C = c
             M = c - 1
-            S = Vec(count: c) { _ in ManagedAtomic(0) }
+            S = Vec(count: c) { _ in UnsafeAtomic.create(0) }
+        }
+
+        deinit {
+            for i in 0..<S.count {
+                S[i].destroy()
+            }
         }
 
         var capacity: Int { C }
@@ -56,6 +62,11 @@ public class WorkStealingQueue {
         // assert(c && (!(c & (c-1))))
         _array = .init(QueueArray(c))
         _garbage.reserveCapacity(32)
+    }
+
+    deinit {
+        _top.destroy()
+        _bottom.destroy()
     }
 
     /// queries if the queue is empty at the time of this call
