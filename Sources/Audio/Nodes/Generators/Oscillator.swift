@@ -5,7 +5,7 @@ import AVFoundation
 import Utilities
 
 enum OscillatorCommand {
-    case table(UnsafeMutablePointer<Table>?)
+    case table(UnsafeMutablePointer<Vec<Float>>?)
 }
 
 public class Oscillator: Node {

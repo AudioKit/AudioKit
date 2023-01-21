@@ -23,9 +23,11 @@ class OscillatorAudioUnit: AUAudioUnit {
     let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 1, range: 0 ... 10, unit: .generic, flags: [])
 
     func setWaveform(_ waveform: Table) {
-        let holder = UnsafeMutablePointer<Table>.allocate(capacity: 1)
 
-        holder.initialize(to: waveform)
+        let waveVec = Vec(waveform.content)
+        let holder = UnsafeMutablePointer<Vec<Float>>.allocate(capacity: 1)
+
+        holder.initialize(to: waveVec)
 
         let command: OscillatorCommand = .table(holder)
         let sysex = encodeSysex(command)

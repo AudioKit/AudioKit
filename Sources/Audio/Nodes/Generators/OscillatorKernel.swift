@@ -16,7 +16,7 @@ class OscillatorKernel {
 
     private var amplitude: AUValue = 1
 
-    private var table = Table()
+    private var table = Vec<Float>(count: 0, { _ in 0.0})
 
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
         process(events: events,
@@ -26,7 +26,7 @@ class OscillatorKernel {
                     decodeSysex(event, &command)
                     switch command {
                     case let .table(ptr):
-                        table = ptr?.pointee ?? Table()
+                        table = ptr?.pointee ?? Vec<Float>(count: 0, { _ in 0.0})
                     }
                 }, param: { event in
                     let paramEvent = event.pointee
