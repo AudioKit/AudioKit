@@ -43,6 +43,19 @@ public class Reverb: Node {
 //        }
 //    }
 
+    /// Specification details for dry wet mix
+    public static let wetDryMixDef = NodeParameterDef(
+        identifier: "wetDryMix",
+        name: "Wet-Dry Mix",
+        address: 0,
+        defaultValue: 0,
+        range: 0.0 ... 100.0,
+        unit: .generic
+    )
+
+    /// Wet/Dry mix. Should be a value between 0-100.
+    @Parameter(wetDryMixDef) public var wetDryMix: AUValue
+
     /// Load an Apple Factory Preset
     public func loadFactoryPreset(_ preset: ReverbPreset) {
         let auPreset = AUAudioUnitPreset()
@@ -59,12 +72,14 @@ public class Reverb: Node {
     ///   - input: Node to reverberate
     ///   - dryWetMix: Amount of processed signal (Default: 0.5, Range: 0 - 1)
     ///
-    public init(_ input: Node) {
+    public init(_ input: Node, wetDryMix: AUValue = 0) {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_MatrixReverb)
         au = instantiateAU(componentDescription: desc)
         associateParams(with: au)
+
+        self.wetDryMix = wetDryMix
 
     }
 }
