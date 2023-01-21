@@ -6,7 +6,7 @@ import AudioUnit
 import AVFoundation
 import Foundation
 
-typealias RenderJobIndex = Int
+public typealias RenderJobIndex = Int
 
 /// Information to render a single AudioUnit
 final class RenderJob {

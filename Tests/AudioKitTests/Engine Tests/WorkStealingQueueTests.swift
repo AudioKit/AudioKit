@@ -5,7 +5,7 @@ import XCTest
 
 final class WorkStealingQueueTests: XCTestCase {
     func testBasic() throws {
-        let queue = WorkStealingQueue<Int>()
+        let queue = WorkStealingQueue()
 
         for i in 0 ..< 1000 {
             queue.push(i)

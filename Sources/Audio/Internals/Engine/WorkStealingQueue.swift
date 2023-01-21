@@ -3,10 +3,6 @@
 import Atomics
 import Foundation
 
-public protocol DefaultInit {
-    init()
-}
-
 /// Lock-free unbounded single-producer multiple-consumer queue.
 ///
 /// This class implements the work stealing queue described in the paper,
@@ -16,26 +12,26 @@ public protocol DefaultInit {
 /// Only the queue owner can perform pop and push operations,
 /// while others can steal data from the queue.
 /// Ported to swift from C++: https://github.com/taskflow/work-stealing-queue
-public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
+public class WorkStealingQueue {
     final class QueueArray: AtomicReference {
         var C: Int
         var M: Int
 
-        var S: Vec<ManagedAtomic<T>>
+        var S: Vec<ManagedAtomic<RenderJobIndex>>
 
         init(_ c: Int) {
             C = c
             M = c - 1
-            S = Vec(count: c) { _ in ManagedAtomic(T()) }
+            S = Vec(count: c) { _ in ManagedAtomic(0) }
         }
 
         var capacity: Int { C }
 
-        func push(_ i: Int, _ o: T) {
+        func push(_ i: Int, _ o: RenderJobIndex) {
             S[i & M].store(o, ordering: .relaxed)
         }
 
-        func pop(_ i: Int) -> T {
+        func pop(_ i: Int) -> RenderJobIndex {
             S[i & M].load(ordering: .relaxed)
         }
 
@@ -86,7 +82,7 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
     /// Only the owner thread can insert an item to the queue.
     /// The operation can trigger the queue to resize its capacity
     /// if more space is required.
-    public func push(_ o: T) {
+    public func push(_ o: RenderJobIndex) {
         let b = _bottom.load(ordering: .relaxed)
         let t = _top.load(ordering: .acquiring)
         var a = _array.load(ordering: .relaxed)
@@ -108,14 +104,14 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
     ///
     /// Only the owner thread can pop out an item from the queue.
     /// The return can be a @std_nullopt if this operation failed (empty queue).
-    public func pop() -> T? {
+    public func pop() -> RenderJobIndex? {
         let b = _bottom.load(ordering: .relaxed) - 1
         let a = _array.load(ordering: .relaxed)
         _bottom.store(b, ordering: .relaxed)
         atomicMemoryFence(ordering: .sequentiallyConsistent)
         let t = _top.load(ordering: .relaxed)
 
-        var item: T?
+        var item: RenderJobIndex?
 
         if t <= b {
             item = a.pop(b)
@@ -141,12 +137,12 @@ public class WorkStealingQueue<T> where T: AtomicValue, T: DefaultInit {
     ///
     /// Any threads can try to steal an item from the queue.
     /// The return can be nil if this operation failed (not necessary empty).
-    public func steal() -> T? {
+    public func steal() -> RenderJobIndex? {
         let t = _top.load(ordering: .acquiring)
         atomicMemoryFence(ordering: .sequentiallyConsistent)
         let b = _bottom.load(ordering: .acquiring)
 
-        var item: T?
+        var item: RenderJobIndex?
 
         if t < b {
             let a = _array.load(ordering: .acquiring)

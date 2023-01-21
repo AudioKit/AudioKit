@@ -22,7 +22,7 @@ final class ThreadPool {
     var workgroup: WorkGroup?
 
     /// Queues for each worker.
-    var runQueues: Vec<WorkStealingQueue<RenderJobIndex>>
+    var runQueues: Vec<WorkStealingQueue>
 
     init() {
         runQueues = .init(count: threadCount) { _ in .init() }

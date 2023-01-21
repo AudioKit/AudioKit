@@ -5,10 +5,6 @@ import AudioUnit
 import AVFoundation
 import Foundation
 
-extension Int: DefaultInit {
-    public init() { self = 0 }
-}
-
 final class WorkerThread: Thread {
     /// Used to exit the worker thread.
     private var run = true
@@ -43,14 +39,14 @@ final class WorkerThread: Thread {
     /// Index of this worker.
     var workerIndex: Int
 
-    private var runQueues: Vec<WorkStealingQueue<Int>>
+    private var runQueues: Vec<WorkStealingQueue>
 
     var workgroup: WorkGroup?
 
     var joinToken: WorkGroup.JoinToken?
 
     init(index: Int,
-         runQueues: Vec<WorkStealingQueue<Int>>,
+         runQueues: Vec<WorkStealingQueue>,
          prod: DispatchSemaphore,
          done: DispatchSemaphore,
          workgroup: WorkGroup? = nil)

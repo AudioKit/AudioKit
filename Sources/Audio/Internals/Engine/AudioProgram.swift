@@ -45,7 +45,7 @@ final class AudioProgram {
              frameCount: AUAudioFrameCount,
              outputBufferList: UnsafeMutablePointer<AudioBufferList>,
              workerIndex: Int,
-             runQueues: Vec<WorkStealingQueue<RenderJobIndex>>)
+             runQueues: Vec<WorkStealingQueue>)
     {
         let exec = { index in
             let info = self.jobs[index]
