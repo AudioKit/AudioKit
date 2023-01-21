@@ -17,38 +17,12 @@ public class Reverb: Node {
 
     // Hacking start, stop, play, and bypass to use dryWetMix because reverbAU's bypass results in no sound
 
-    /// Start the node
-    public func start() {
-        isStarted = true
-//        reverbAU.wetDryMix = dryWetMix * 100.0
-    }
-
-    /// Stop the node
-    public func stop() {
-        isStarted = false
-//        reverbAU.wetDryMix = 0.0
-    }
-//
-//    /// Play the node
-//    public func play() { start() }
-//
-    /// Bypass the node
-    public func bypass() { stop() }
-//
-//    /// Dry/Wet Mix (Default 0.5)
-//    public var dryWetMix: AUValue = 0.5 {
-//        didSet {
-//            dryWetMix = dryWetMix.clamped(to: 0 ... 1)
-//            reverbAU.wetDryMix = dryWetMix * 100.0
-//        }
-//    }
-
     /// Specification details for dry wet mix
     public static let wetDryMixDef = NodeParameterDef(
         identifier: "wetDryMix",
         name: "Wet-Dry Mix",
         address: 0,
-        defaultValue: 0,
+        defaultValue: 100,
         range: 0.0 ... 100.0,
         unit: .generic
     )
@@ -70,9 +44,9 @@ public class Reverb: Node {
     ///
     /// - Parameters:
     ///   - input: Node to reverberate
-    ///   - dryWetMix: Amount of processed signal (Default: 0.5, Range: 0 - 1)
+    ///   - wetDryMix: Amount of processed signal (Default: 100, Range: 0 - 100)
     ///
-    public init(_ input: Node, wetDryMix: AUValue = 0) {
+    public init(_ input: Node, wetDryMix: AUValue = 100) {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_MatrixReverb)

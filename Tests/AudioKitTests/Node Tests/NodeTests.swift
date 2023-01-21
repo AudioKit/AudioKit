@@ -25,6 +25,7 @@ class NodeTests: XCTestCase {
         audio.append(engine.render(duration: 0.1))
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
+        audio.audition()
     }
     #endif
     
