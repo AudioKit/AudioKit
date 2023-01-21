@@ -2,7 +2,7 @@
 
 import AVFoundation
 import Foundation
-import MIDI
+import MIDIKit
 import Utilities
 
 public extension MusicTrackManager {
