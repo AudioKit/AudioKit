@@ -73,7 +73,9 @@ class OscillatorAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
-    override func allocateRenderResources() throws {}
+    override func allocateRenderResources() throws {
+        kernel.sampleRate = outputBusArray[0].format.sampleRate
+    }
 
     override func deallocateRenderResources() {}
 

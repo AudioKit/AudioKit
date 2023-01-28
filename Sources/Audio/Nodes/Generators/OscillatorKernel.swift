@@ -19,6 +19,8 @@ class OscillatorKernel {
 
     private var table = Vec<Float>(count: 0, { _ in 0.0})
 
+    var sampleRate = 44100.0
+
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
         process(events: events,
                 sysex: { event in
@@ -51,7 +53,7 @@ class OscillatorKernel {
         }
 
         let twoPi: AUValue = .init(2 * Double.pi)
-        let phaseIncrement = (twoPi / AUValue(Settings.sampleRate)) * frequency
+        let phaseIncrement = (twoPi / Float(sampleRate)) * frequency
         for frame in 0 ..< Int(frameCount) {
             // Get signal value for this frame at time.
             let index = Int(currentPhase / twoPi * Float(table.count))
