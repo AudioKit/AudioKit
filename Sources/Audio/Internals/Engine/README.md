@@ -27,6 +27,8 @@ We create a few worker threads which are woken by the audio thread. Those thread
 
 ## To Do before it is ready for beta testers
 
+* Fix CI
+* Remove all use of Settings.sampleRate
 * Add Matrix Reverb with parameters on macOS
 * Add factory presets loading to every au that has them
 * Explore other audio units available
