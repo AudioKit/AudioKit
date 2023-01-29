@@ -381,6 +381,8 @@ extension MIDI {
         if virtualOutputs != [0] {
             virtualOutputPorts?.forEach {MIDIReceived($0, packetListPointer)}
         }
+
+        packetListPointer.deallocate()
     }
 }
 
