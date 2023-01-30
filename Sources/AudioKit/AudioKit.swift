@@ -9,5 +9,3 @@
 @_exported import Audio
 
 @_exported import Taps
-
-@_exported import Sequencing
