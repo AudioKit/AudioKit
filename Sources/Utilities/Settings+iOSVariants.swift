@@ -13,7 +13,7 @@ public extension Settings {
             do {
                 try AVAudioSession.sharedInstance().setPreferredSampleRate(audioFormat.sampleRate)
             } catch {
-                Log("Could not set preferred sample rate to \(sampleRate) " + error.localizedDescription,
+                Log("Could not set format to \(audioFormat) " + error.localizedDescription,
                     log: OSLog.settings,
                     type: .error)
             }
@@ -91,7 +91,6 @@ public extension Settings {
             Log("Could not allow haptics: \(error)", log: OSLog.settings, type: .error)
         }
 
-        try session.setPreferredIOBufferDuration(bufferLength.duration)
         try session.setActive(true)
     }
 
