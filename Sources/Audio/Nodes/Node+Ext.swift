@@ -1,7 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AVFoundation
-import MIDIKitIO
 import Utilities
 
 public extension Node {
@@ -12,23 +11,6 @@ public extension Node {
         // Call AudioUnitReset due to https://github.com/AudioKit/AudioKit/issues/2046
         if let v2au = (au as? AUAudioUnitV2Bridge)?.audioUnit {
             AudioUnitReset(v2au, kAudioUnitScope_Global, 0)
-        }
-    }
-
-    /// Schedule an event with an offset
-    ///
-    /// - Parameters:
-    ///   - event: MIDI Event to schedule
-    ///   - offset: Time in samples
-    ///
-    func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64 = 0) {
-        if let midiBlock = au.scheduleMIDIEventBlock {
-            // note: AUScheduleMIDIEventBlock expected MIDI 1.0 raw bytes, not UMP/MIDI 2.0
-            let midi1RawBytes = event.midi1RawBytes()
-            event.midi1RawBytes().withUnsafeBufferPointer { ptr in
-                guard let ptr = ptr.baseAddress else { return }
-                midiBlock(AUEventSampleTimeImmediate + AUEventSampleTime(offset), 0, midi1RawBytes.count, ptr)
-            }
         }
     }
 
