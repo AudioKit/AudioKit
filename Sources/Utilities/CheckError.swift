@@ -22,7 +22,7 @@ public func CheckError(_ error: OSStatus) {
 
     case kAUGraphErr_InvalidConnection:
         Log("kAUGraphErr_InvalidConnection", log: OSLog.general, type: .error)
-        
+
     case kAUGraphErr_CannotDoInCurrentContext:
         Log("kAUGraphErr_CannotDoInCurrentContext", log: OSLog.general, type: .error)
 

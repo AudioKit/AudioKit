@@ -45,7 +45,7 @@ public enum TableType {
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
-final public class Table: MutableCollection {
+public final class Table: MutableCollection {
     /// Index by an integer
     public typealias Index = Int
     /// Index distance, or count

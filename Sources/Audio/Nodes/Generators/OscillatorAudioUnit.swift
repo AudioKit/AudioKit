@@ -23,7 +23,6 @@ class OscillatorAudioUnit: AUAudioUnit {
     let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 1, range: 0 ... 10, unit: .generic, flags: [])
 
     func setWaveform(_ waveform: Table) {
-
         let waveVec = Vec(waveform.content)
         let holder = UnsafeMutablePointer<Vec<Float>>.allocate(capacity: 1)
 
@@ -88,18 +87,17 @@ class OscillatorAudioUnit: AUAudioUnit {
     var kernel = OscillatorKernel()
 
     override var internalRenderBlock: AUInternalRenderBlock {
-
         let kernel = self.kernel
 
         return { (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-           _: UnsafePointer<AudioTimeStamp>,
-           frameCount: AUAudioFrameCount,
-           _: Int,
-           outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-           renderEvents: UnsafePointer<AURenderEvent>?,
-           _: AURenderPullInputBlock?) in
-            kernel.processEvents(events: renderEvents)
-            return kernel.render(frameCount: frameCount, outputBufferList: outputBufferList)
+                  _: UnsafePointer<AudioTimeStamp>,
+                  frameCount: AUAudioFrameCount,
+                  _: Int,
+                  outputBufferList: UnsafeMutablePointer<AudioBufferList>,
+                  renderEvents: UnsafePointer<AURenderEvent>?,
+                  _: AURenderPullInputBlock?) in
+                kernel.processEvents(events: renderEvents)
+                return kernel.render(frameCount: frameCount, outputBufferList: outputBufferList)
         }
     }
 }

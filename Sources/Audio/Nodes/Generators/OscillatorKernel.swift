@@ -1,12 +1,11 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
-import Foundation
 import AudioUnit
-import Utilities
 import CoreAudio
+import Foundation
+import Utilities
 
 class OscillatorKernel {
-
     var bypassed = true
 
     /// XXX: oscillator phases should be Doubles
@@ -17,7 +16,7 @@ class OscillatorKernel {
 
     private var amplitude: AUValue = 1
 
-    private var table = Vec<Float>(count: 0, { _ in 0.0})
+    private var table = Vec<Float>(count: 0, { _ in 0.0 })
 
     var sampleRate = 44100.0
 
@@ -29,7 +28,7 @@ class OscillatorKernel {
                     decodeSysex(event, &command)
                     switch command {
                     case let .table(ptr):
-                        table = ptr?.pointee ?? Vec<Float>(count: 0, { _ in 0.0})
+                        table = ptr?.pointee ?? Vec<Float>(count: 0, { _ in 0.0 })
                     }
                 }, param: { event in
                     let paramEvent = event.pointee
@@ -42,7 +41,6 @@ class OscillatorKernel {
     }
 
     func render(frameCount: AUAudioFrameCount, outputBufferList: UnsafeMutablePointer<AudioBufferList>) -> AUAudioUnitStatus {
-
         let ablPointer = UnsafeMutableAudioBufferListPointer(outputBufferList)
 
         if bypassed {
@@ -72,6 +70,5 @@ class OscillatorKernel {
         }
 
         return noErr
-
     }
 }

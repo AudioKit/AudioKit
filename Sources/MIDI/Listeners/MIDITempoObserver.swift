@@ -4,7 +4,6 @@ import Foundation
 
 /// MIDI Tempo Observer
 public protocol MIDITempoObserver {
-
     /// Called when a clock slave mode is entered and this client is not allowed to become a clock master
     /// This signifies that there is an incoming midi clock detected
     func midiClockLeaderMode()
@@ -18,7 +17,6 @@ public protocol MIDITempoObserver {
 }
 
 public extension MIDITempoObserver {
-
     /// Called when a clock slave mode is entered and this client is not allowed to become a clock master
     /// This signifies that there is an incoming midi clock detected
     func midiClockLeaderMode() {

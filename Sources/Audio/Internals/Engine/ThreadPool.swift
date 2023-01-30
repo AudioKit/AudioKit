@@ -33,7 +33,7 @@ final class ThreadPool {
     }
 
     private var workerCount: Int {
-        if let workgroup = self.workgroup {
+        if let workgroup = workgroup {
             return min(threadCount, workgroup.maxParallelThreads)
         }
         return threadCount

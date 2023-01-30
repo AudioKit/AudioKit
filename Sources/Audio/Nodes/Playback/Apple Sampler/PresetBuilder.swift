@@ -3,7 +3,7 @@
 import AVFoundation
 import Utilities
 
-//swiftlint:disable all
+// swiftlint:disable all
 /// Builds presets for Apple sampler to read from
 public class PresetBuilder {
     fileprivate var presetXML = ""

@@ -26,7 +26,7 @@ public class WorkStealingQueue {
         }
 
         deinit {
-            for i in 0..<S.count {
+            for i in 0 ..< S.count {
                 S[i].destroy()
             }
         }

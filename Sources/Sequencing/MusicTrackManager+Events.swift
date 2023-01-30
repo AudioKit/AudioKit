@@ -19,10 +19,10 @@ public extension MusicTrackManager {
     /// Array of MIDI Program Change Events
     var programChangeEvents: [MIDIEvent.ProgramChange] {
         guard let appleMIDIEvents = eventData else { return [] }
-        
+
         let pgmEvents: [MIDIEvent.ProgramChange] = appleMIDIEvents.reduce(into: []) { pgmEvents, appleMIDIEvent in
             guard appleMIDIEvent.type == kMusicEventType_MIDIChannelMessage else { return }
-            
+
             let data = appleMIDIEvent.data?.bindMemory(to: MIDIChannelMessage.self, capacity: 1)
             guard let programNumber = data?.pointee.data1.toUInt7Exactly,
                   let statusData: MIDIByte = data?.pointee.status
@@ -36,7 +36,7 @@ public extension MusicTrackManager {
                 pgmEvents.append(pgmEvent)
             }
         }
-        
+
         return pgmEvents
     }
 

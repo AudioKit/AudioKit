@@ -31,7 +31,8 @@ import Foundation
     public init(timeoutInterval time: TimeInterval,
                 onMainThread: Bool = true,
                 success: @escaping ActionClosureType,
-                timeout: @escaping ActionClosureType) {
+                timeout: @escaping ActionClosureType)
+    {
         mainThread = onMainThread
         timeoutInterval = time
         onSuccess = success
@@ -68,7 +69,7 @@ import Foundation
         }
 
         if mainThread {
-            DispatchQueue.main.async( execute: action )
+            DispatchQueue.main.async(execute: action)
         } else {
             action()
         }
@@ -82,10 +83,9 @@ import Foundation
         }
 
         if mainThread {
-            DispatchQueue.main.async( execute: action )
+            DispatchQueue.main.async(execute: action)
         } else {
             action()
         }
     }
-
 }

@@ -30,7 +30,8 @@ public struct MIDINoteData: CustomStringConvertible, Equatable {
                 velocity: MIDIVelocity,
                 channel: MIDIChannel,
                 duration: Duration,
-                position: Duration) {
+                position: Duration)
+    {
         self.noteNumber = noteNumber
         self.velocity = velocity
         self.channel = channel

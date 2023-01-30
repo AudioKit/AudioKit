@@ -15,7 +15,7 @@ class TableTests: XCTestCase {
     }
 
     func testPositiveSine() {
-        let md5s = [ "6e6cf289adef24957d785c1b916215a2", "43ff51a686e02c6aa9a0aab2e72c81fa"]
+        let md5s = ["6e6cf289adef24957d785c1b916215a2", "43ff51a686e02c6aa9a0aab2e72c81fa"]
         XCTAssertTrue(md5s.contains(MD5("\(Table(.positiveSine).content)")))
     }
 
@@ -36,7 +36,7 @@ class TableTests: XCTestCase {
     }
 
     func testSine() {
-        let md5s = [ "ca89fcc197408b4829fa946c86a42855", "4e6df1c04689bc4a8cc57f712c43352b"]
+        let md5s = ["ca89fcc197408b4829fa946c86a42855", "4e6df1c04689bc4a8cc57f712c43352b"]
         XCTAssertTrue(md5s.contains(MD5("\(Table(.sine).content)")))
     }
 
