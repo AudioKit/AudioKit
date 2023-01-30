@@ -13,7 +13,7 @@ let package = Package(
         .target(name: "AudioKit",
                 dependencies: ["Audio", "AudioFiles", "Utilities", "Taps"]),
         .target(name: "Audio",
-                dependencies: ["Utilities", .product(name: "Atomics", package: "swift-atomics")]),
+                dependencies: ["Utilities", "AudioFiles", .product(name: "Atomics", package: "swift-atomics")]),
         .target(name: "AudioFiles", dependencies: ["Utilities"]),
         .target(name: "Utilities"),
         .target(name: "Taps", dependencies: ["Audio"]),
