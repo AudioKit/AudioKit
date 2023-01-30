@@ -88,12 +88,6 @@ public enum Settings {
     /// So setting this value may have no effect (depending on the hardware device ?)
     public static var recordingBufferLength: BufferLength = .veryLong
 
-    /// If set to true, Recording will stop after some delay to compensate
-    /// latency between time recording is stopped and time it is written to file
-    /// If set to false (the default value) , stopping record will be immediate,
-    /// even if the last audio frames haven't been recorded to file yet.
-    public static var fixTruncatedRecordings = false
-
     /// Turn on or off AudioKit logging
     public static var enableLogging: Bool = true
 }
