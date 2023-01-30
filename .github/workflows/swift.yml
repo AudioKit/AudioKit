@@ -27,4 +27,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: xcodebuild -scheme AudioKit -destination generic/platform=iOS 
+      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" 
+    - name: Run tests
+      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" test
