@@ -34,9 +34,6 @@ final class Recorder {
     // The file to record to
     private var internalAudioFile: AVAudioFile?
 
-    /// Used for fixing recordings being truncated
-    private var recordBufferDuration: Double = 16384 / Settings.sampleRate
-
     /// return the AVAudioFile for reading
     public var audioFile: AVAudioFile? {
         do {
@@ -161,7 +158,6 @@ final class Recorder {
 
         do {
             if !isPaused {
-                recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
                 try internalAudioFile.write(from: buffer)
 
                 // allow an optional timed stop
@@ -182,12 +178,6 @@ final class Recorder {
         }
 
         isRecording = false
-
-        if Settings.fixTruncatedRecordings {
-            //  delay before stopping so the recording is not truncated.
-            let delay = UInt32(recordBufferDuration * 1_000_000)
-            usleep(delay)
-        }
 
         // Unpause if paused
         if isPaused {
