@@ -12,14 +12,13 @@ let package = Package(
     ],
     targets: [
         .target(name: "AudioKit",
-                dependencies: ["Audio", "AudioFiles", "Utilities", "MIDI", "Taps", "Sequencing"]),
+                dependencies: ["Audio", "AudioFiles", "Utilities", "MIDI", "Taps"]),
         .target(name: "Audio",
                 dependencies: ["MIDI", "Utilities", .product(name: "Atomics", package: "swift-atomics")]),
         .target(name: "AudioFiles", dependencies: ["Utilities"]),
         .target(name: "Utilities"),
         .target(name: "MIDI", dependencies: ["Utilities", .product(name: "MIDIKit", package: "MIDIKit")]),
         .target(name: "Taps", dependencies: ["Audio"]),
-        .target(name: "Sequencing", dependencies: ["Audio"]),
         .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
     ]
 )
