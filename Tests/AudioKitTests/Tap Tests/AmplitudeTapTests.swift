@@ -11,7 +11,7 @@ class AmplitudeTapTests: XCTestCase {
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
         engine.output = player
-        let tap = AmplitudeTap(player)
+        let tap = AmplitudeTap(player, callbackQueue: .main)
 
         _ = engine.startTest(totalDuration: 1)
         tap.start()
@@ -21,13 +21,33 @@ class AmplitudeTapTests: XCTestCase {
         XCTAssertFalse(tap.isStarted)
     }
 
+    func testTapDoesntDeadlockOnStopWhenRunningOnAnotherQueue() throws {
+        let queue = DispatchQueue(label: "test")
+        let expectation = self.expectation(description: "")
+        queue.async {
+            let engine = AudioEngine()
+            let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+            let player = AudioPlayer(url: url)!
+            engine.output = player
+            let tap = AmplitudeTap(player, callbackQueue: queue)
+
+            _ = engine.startTest(totalDuration: 1)
+            tap.start()
+            _ = engine.render(duration: 1)
+            tap.stop()
+            XCTAssertFalse(tap.isStarted)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 2)
+    }
+
     func testDoesntCrashForMoreThenTwoChannels() {
         let channelCount: UInt32 = 4
         let channelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_DiscreteInOrder | channelCount)!
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
 
         let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
-        let tap = AmplitudeTap(reverb)
+        let tap = AmplitudeTap(reverb, callbackQueue: .main)
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
         for channel in 0...Int(channelCount - 1) {
@@ -42,7 +62,7 @@ class AmplitudeTapTests: XCTestCase {
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
 
         let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
-        let tap = AmplitudeTap(reverb)
+        let tap = AmplitudeTap(reverb, callbackQueue: .main)
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
         buffer.frameLength = 1
@@ -60,7 +80,7 @@ class AmplitudeTapTests: XCTestCase {
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channelLayout: channelLayout)
 
         let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
-        let tap = AmplitudeTap(reverb)
+        let tap = AmplitudeTap(reverb, callbackQueue: .main)
 
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
         buffer.frameLength = 1
@@ -93,7 +113,7 @@ class AmplitudeTapTests: XCTestCase {
 
         let expect = expectation(description: "wait for amplitudes")
 
-        let tap = AmplitudeTap(noise) { amp in
+        let tap = AmplitudeTap(noise, callbackQueue: .main) { amp in
             if abs(amp - (detectedAmplitudes.last ?? 0.0)) > 0.05 {
                 detectedAmplitudes.append(amp)
                 if detectedAmplitudes.count == 10 {

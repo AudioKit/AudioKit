@@ -5,6 +5,7 @@ import Foundation
 
 /// Base class for AudioKit taps using AVAudioEngine installTap
 open class BaseTap {
+    private let callbackQueue: DispatchQueue
     /// Size of buffer to analyze
     public private(set) var bufferSize: UInt32
 
@@ -49,9 +50,10 @@ open class BaseTap {
 
     /// - parameter bufferSize: Size of buffer to analyze
     /// - parameter handler: Callback to call
-    public init(_ input: Node, bufferSize: UInt32) {
+    public init(_ input: Node, bufferSize: UInt32, callbackQueue: DispatchQueue) {
         self.bufferSize = bufferSize
         self._input = input
+        self.callbackQueue = callbackQueue
     }
 
     /// Enable the tap on input
@@ -75,10 +77,16 @@ open class BaseTap {
             return
         }
         handleBlock = { [weak self] in self?.handleTapBlock(buffer: $0, at: $1) }
-        input.avAudioNode.installTap(onBus: bus,
-                                     bufferSize: bufferSize,
-                                     format: nil,
-                                     block: { [weak self] in self?.handleBlock?($0, $1) })
+        input.avAudioNode.installTap(
+            onBus: bus,
+            bufferSize: bufferSize,
+            format: nil,
+            block: { [weak self] buffer, time in
+                self?.callbackQueue.async {
+                    self?.handleBlock?(buffer, time)
+                }
+            }
+        )
     }
 
     /// Override this method to handle Tap in derived class

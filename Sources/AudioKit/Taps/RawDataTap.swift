@@ -18,10 +18,10 @@ open class RawDataTap: BaseTap {
     ///   - input: Node to analyze
     ///   - bufferSize: Size of buffer to analyze
     ///   - handler: Callback to call when results are available
-    public init(_ input: Node, bufferSize: UInt32 = 1_024, handler: @escaping Handler = { _ in }) {
+    public init(_ input: Node, bufferSize: UInt32 = 1_024, callbackQueue: DispatchQueue, handler: @escaping Handler = { _ in }) {
         self.data = Array(repeating: 0.0, count: Int(bufferSize))
         self.handler = handler
-        super.init(input, bufferSize: bufferSize)
+        super.init(input, bufferSize: bufferSize, callbackQueue: callbackQueue)
     }
 
     /// Override this method to handle Tap in derived class

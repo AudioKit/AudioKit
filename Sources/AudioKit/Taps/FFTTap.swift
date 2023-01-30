@@ -28,6 +28,7 @@ open class FFTTap: BaseTap {
     public init(_ input: Node,
                 bufferSize: UInt32 = 4096,
                 fftValidBinCount: FFTValidBinCount? = nil,
+                callbackQueue: DispatchQueue,
                 handler: @escaping Handler) {
         self.handler = handler
         if let fftBinCount = fftValidBinCount {
@@ -40,7 +41,7 @@ open class FFTTap: BaseTap {
             fftData = Array(repeating: 0.0, count: Int(bufferSize))
         }
 
-        super.init(input, bufferSize: bufferSize)
+        super.init(input, bufferSize: bufferSize, callbackQueue: callbackQueue)
     }
 
     /// Override this method to handle Tap in derived class

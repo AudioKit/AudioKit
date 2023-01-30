@@ -14,7 +14,7 @@ final class RawBufferTapTests: XCTestCase {
 
         let dataExpectation = XCTestExpectation(description: "dataExpectation")
         var allBuffers: [(AVAudioPCMBuffer, AVAudioTime)] = []
-        let tap = RawBufferTap(osc) { buffer, time in
+        let tap = RawBufferTap(osc, callbackQueue: .main) { buffer, time in
             dataExpectation.fulfill()
             allBuffers.append((buffer, time))
         }
