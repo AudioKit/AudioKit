@@ -140,7 +140,7 @@ public extension AudioPlayer {
         let timeBeforePlay = playerTime >= timeBeforePlay ? timeBeforePlay : 0
         let time = startTime + playerTime - timeBeforePlay
 
-        return time.clamped(to: startTime...duration)
+        return time.clamped(to: startTime...startTime + duration)
     }
 
     /// The time the node has been playing,  in seconds. This is `nil`
