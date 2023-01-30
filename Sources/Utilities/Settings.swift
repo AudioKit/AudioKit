@@ -4,7 +4,7 @@ import AVFoundation
 import Foundation
 
 /// Global settings for AudioKit
-public class Settings: NSObject {
+public class Settings {
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
