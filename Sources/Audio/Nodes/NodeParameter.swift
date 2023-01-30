@@ -116,7 +116,7 @@ public class NodeParameter {
 
     /// Automate to a new value using a ramp.
     public func ramp(to value: AUValue, duration: Float, delay: Float = 0) {
-        var delaySamples = AUAudioFrameCount(delay * Float(Settings.sampleRate))
+        var delaySamples = AUAudioFrameCount(delay * 44100)
         if delaySamples > 4096 {
             Log("Warning: delay longer than 4096, setting to to 4096")
             delaySamples = 4096
@@ -128,7 +128,7 @@ public class NodeParameter {
         assert(delaySamples < 4096)
         if let paramBlock = auAudioUnit?.scheduleParameterBlock {
             paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
-                       AUAudioFrameCount(duration * Float(Settings.sampleRate)),
+                       AUAudioFrameCount(duration * Float(44100)),
                        parameter.address,
                        value.clamped(to: range))
         }

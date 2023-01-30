@@ -44,28 +44,11 @@ public enum Settings {
         public var samplesCount: AVAudioFrameCount {
             return AVAudioFrameCount(pow(2.0, Double(rawValue)))
         }
-
-        /// The buffer Length expressed as a duration in seconds
-        public var duration: Double {
-            return Double(samplesCount) / Settings.sampleRate
-        }
     }
 
     /// Default audio format
     public static let defaultAudioFormat = AVAudioFormat(standardFormatWithSampleRate: 44100,
                                                          channels: 2) ?? AVAudioFormat()
-
-    /// The sample rate in Hertz, default is 44100 kHz. Set a new audioFormat if you want to change this value.
-    /// See audioFormat. This is the format that is used for node connections.
-    public static var sampleRate: Double {
-        get {
-            return audioFormat.sampleRate
-        }
-        set {
-            audioFormat = AVAudioFormat(standardFormatWithSampleRate: newValue,
-                                        channels: audioFormat.channelCount) ?? AVAudioFormat()
-        }
-    }
 
     /// Number of audio channels: 2 for stereo, 1 for mono
     public static var channelCount: UInt32 {
