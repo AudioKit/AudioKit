@@ -17,9 +17,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build
-      run: swift build -v
+      run: xcodebuild -scheme AudioKit -destination "platform=macOS" 
     - name: Run tests
-      run: swift test -v
+      run: xcodebuild -scheme AudioKit -destination "platform=macOS" test 
 
   build-ios:
 
