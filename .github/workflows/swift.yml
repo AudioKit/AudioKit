@@ -10,16 +10,6 @@ on:
     branches: [ "v6" ]
 
 jobs:
-  build-macos:
-
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
 
   build-ios:
 
