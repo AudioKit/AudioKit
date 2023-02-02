@@ -33,9 +33,6 @@ public extension Node {
     }
 
     var isStarted: Bool { !bypassed }
-    func start() { bypassed = false }
-    func stop() { bypassed = true }
-    func play() { bypassed = false }
     func bypass() { bypassed = true }
     var outputFormat: AVAudioFormat { Settings.audioFormat }
 
@@ -76,7 +73,7 @@ public extension Node {
     }
 }
 
-extension Node {
+public extension Node {
     /// Scan for all parameters and associate with the node.
     /// - Parameter au: AUAudioUnit to associate
     func associateParams(with au: AUAudioUnit) {

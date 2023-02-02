@@ -60,6 +60,5 @@ public class Oscillator: Node {
         self.frequency = frequency
         oscAU.setWaveform(waveform)
         self.waveform = waveform
-        stop()
     }
 }

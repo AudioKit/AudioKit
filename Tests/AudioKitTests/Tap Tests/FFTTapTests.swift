@@ -44,7 +44,6 @@ class FFTTapTests: XCTestCase {
         }
 
         engine.output = tap
-        oscillator.start()
 
         let audio = engine.startTest(totalDuration: 10.0)
         for targetFrequency in targetFrequencies {
@@ -65,7 +64,6 @@ class FFTTapTests: XCTestCase {
         let engine = Engine()
 
         let oscillator = Oscillator()
-        oscillator.start()
 
         var fftData: [Int] = []
 

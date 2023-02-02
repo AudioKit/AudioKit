@@ -15,7 +15,6 @@ class TapNodeTests: XCTestCase {
         engine.output = tapNode
 
         try engine.start()
-        noise.play()
         sleep(1)
     }
 }

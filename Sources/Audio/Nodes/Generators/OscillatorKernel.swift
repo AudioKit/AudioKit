@@ -6,7 +6,7 @@ import Foundation
 import Utilities
 
 class OscillatorKernel {
-    var bypassed = true
+    var bypassed = false
 
     /// XXX: oscillator phases should be Doubles
     private var currentPhase: AUValue = 0.0

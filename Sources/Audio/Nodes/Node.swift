@@ -7,12 +7,6 @@ public protocol Node: AnyObject {
     /// Nodes providing audio input to this node.
     var connections: [Node] { get }
 
-    /// Start the node
-    func start()
-
-    /// Stop the node
-    func stop()
-
     /// Bypass the node
     func bypass()
 

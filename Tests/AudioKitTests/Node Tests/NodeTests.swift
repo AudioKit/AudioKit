@@ -69,13 +69,11 @@ class NodeTests: XCTestCase {
 
         let audio = engine.startTest(totalDuration: 2.0)
 
-        osc1.play()
-
         audio.append(engine.render(duration: 1.0))
 
         let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880, amplitude: 0.1)
         mixer.addInput(osc2)
-        osc2.play()
+
         audio.append(engine.render(duration: 1.0))
 
         XCTAssertFalse(audio.isSilent)

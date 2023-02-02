@@ -12,7 +12,6 @@ class EngineRealtimeTests: XCTestCase {
 
         engine.output = osc
         try! engine.start()
-        osc.start()
 
         usleep(100_000)
     }
@@ -26,7 +25,6 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = fx
 
         osc.amplitude = 0.1
-        osc.start()
 
         try engine.start()
 
@@ -45,7 +43,6 @@ class EngineRealtimeTests: XCTestCase {
         try engine.start()
 
         osc.amplitude = 0.1
-        osc.start()
 
         usleep(100_000)
     }
@@ -65,7 +62,6 @@ class EngineRealtimeTests: XCTestCase {
         engine.output = dist
 
         osc.amplitude = 0.1
-        osc.start()
 
         usleep(100_000)
     }
@@ -85,8 +81,6 @@ class EngineRealtimeTests: XCTestCase {
 
         osc1.amplitude = 0.1
         osc2.amplitude = 0.1
-        osc1.start()
-        osc2.start()
 
         usleep(100_000)
     }
@@ -104,8 +98,6 @@ class EngineRealtimeTests: XCTestCase {
 
         osc1.amplitude = 0.1
         osc2.amplitude = 0.1
-        osc1.start()
-        osc2.start()
 
         try engine.start()
 
@@ -128,8 +120,6 @@ class EngineRealtimeTests: XCTestCase {
 
         osc1.amplitude = 0.1
         osc2.amplitude = 0.1
-        osc1.start()
-        osc2.start()
 
         try engine.start()
 
@@ -147,7 +137,6 @@ class EngineRealtimeTests: XCTestCase {
 
         engine.output = sampler
         try engine.start()
-        sampler.play()
         usleep(100_000)
         sampler.play(buffer)
         sleep(2)
@@ -160,7 +149,6 @@ class EngineRealtimeTests: XCTestCase {
 
         for _ in 0 ..< 100 {
             let osc = Oscillator()
-            osc.start()
             mixer.addInput(osc)
         }
 

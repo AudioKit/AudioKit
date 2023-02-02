@@ -37,9 +37,6 @@ public class Reverb: Node {
         au.currentPreset = auPreset
     }
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted = true
-
     /// Initialize the reverb node
     ///
     /// - Parameters:

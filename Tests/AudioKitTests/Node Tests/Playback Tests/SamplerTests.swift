@@ -10,7 +10,6 @@ class SamplerTests: XCTestCase {
         sampler.play(url: URL.testAudio)
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
-        sampler.play()
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
     }
@@ -33,7 +32,6 @@ class SamplerTests: XCTestCase {
         sampler.play(buffer)
         engine.output = DynamicsProcessor(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play()
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }

@@ -17,7 +17,6 @@ public class Noise: Node {
         didSet {
             amplitude = max(amplitude, 0)
             noiseAU.amplitudeParam.value = amplitude
-            start()
         }
     }
 
@@ -35,7 +34,6 @@ public class Noise: Node {
         noiseAU = au as! NoiseAudioUnit
         noiseAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
-        stop()
     }
 }
 

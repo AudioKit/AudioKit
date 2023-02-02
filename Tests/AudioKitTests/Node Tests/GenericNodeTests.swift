@@ -29,8 +29,6 @@ class GenericNodeTests: XCTestCase {
             let node = factory()
             engine.output = node
 
-            node.start()
-
             let audio = engine.startTest(totalDuration: 1.0)
             setParams(node: node, rng: rng)
             audio.append(engine.render(duration: 1.0))
@@ -79,8 +77,6 @@ class GenericNodeTests: XCTestCase {
 
             let param = node.parameters[i]
 
-            node.start()
-
             param.value = param.def.range.lowerBound
             param.ramp(to: param.def.range.upperBound, duration: 1)
 
@@ -102,9 +98,9 @@ class GenericNodeTests: XCTestCase {
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testGenerators() {
-        nodeParameterTest(md5s: ["1395270f613ccd7adc6a14eca3c5267b"], factory: { _ in let osc = Oscillator(waveform: Table(.square)); osc.play(); return osc })
-        nodeParameterTest(md5s: ["9c1146981e940074bbbf63f1c2dd3896"], factory: { _ in let osc = Oscillator(waveform: Table(.triangle)); osc.play(); return osc })
-        nodeParameterTest(md5s: ["870d5e9ea9133b43b8bbb91ca460c4ed"], factory: { _ in let osc = Oscillator(waveform: Table(.triangle), amplitude: 0.1); osc.play(); return osc })
+        nodeParameterTest(md5s: ["1395270f613ccd7adc6a14eca3c5267b"], factory: { _ in let osc = Oscillator(waveform: Table(.square)); return osc })
+        nodeParameterTest(md5s: ["9c1146981e940074bbbf63f1c2dd3896"], factory: { _ in let osc = Oscillator(waveform: Table(.triangle)); return osc })
+        nodeParameterTest(md5s: ["870d5e9ea9133b43b8bbb91ca460c4ed"], factory: { _ in let osc = Oscillator(waveform: Table(.triangle), amplitude: 0.1); return osc })
     }
 
     func testEffects() {

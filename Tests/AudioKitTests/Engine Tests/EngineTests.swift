@@ -10,7 +10,6 @@ class EngineTests: XCTestCase {
         let osc = Oscillator()
 
         engine.output = osc
-        osc.start()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -25,7 +24,6 @@ class EngineTests: XCTestCase {
         let fx = Distortion(osc)
 
         engine.output = fx
-        osc.start()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -41,7 +39,6 @@ class EngineTests: XCTestCase {
         let dyn = PeakLimiter(dist)
 
         engine.output = dyn
-        osc.start()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -57,7 +54,6 @@ class EngineTests: XCTestCase {
         let dist = Distortion(osc)
 
         engine.output = osc
-        osc.start()
 
         let audio = engine.startTest(totalDuration: 2.0)
 
@@ -80,8 +76,6 @@ class EngineTests: XCTestCase {
         let mix = Mixer([osc1, osc2])
 
         engine.output = mix
-        osc1.start()
-        osc2.start()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -101,8 +95,6 @@ class EngineTests: XCTestCase {
         mix.volume = 0.02
 
         engine.output = mix
-        osc1.start()
-        osc2.start()
 
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
@@ -120,8 +112,6 @@ class EngineTests: XCTestCase {
         let mix = Mixer([osc1])
 
         engine.output = mix
-        osc1.start()
-        osc2.start()
 
         let audio = engine.startTest(totalDuration: 2.0)
 
@@ -151,7 +141,6 @@ class EngineTests: XCTestCase {
             let mix = Mixer(osc)
             mix.volume = AUValue(volume)
             engine.output = mix
-            osc.start()
             let audio = engine.startTest(totalDuration: 1.0)
             audio.append(engine.render(duration: 1.0))
 
@@ -185,8 +174,6 @@ class EngineTests: XCTestCase {
             let mixer = Mixer(mixL, mixR)
             mixer.pan = AUValue(pan)
             engine.output = mixer
-            oscL.start()
-            oscR.start()
             let audio = engine.startTest(totalDuration: duration)
             audio.append(engine.render(duration: duration))
 
@@ -204,8 +191,6 @@ class EngineTests: XCTestCase {
         osc1.frequency = 880
 
         engine.output = osc1
-        osc1.start()
-        osc2.start()
 
         let audio = engine.startTest(totalDuration: 10.0)
 
@@ -237,7 +222,6 @@ class EngineTests: XCTestCase {
         let osc = Oscillator()
         engine.output = osc
         let audio = engine.startTest(totalDuration: 2.0)
-        osc.play()
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
     }
@@ -261,7 +245,6 @@ class EngineTests: XCTestCase {
 
         for _ in 0 ..< 20 {
             let osc = Oscillator()
-            osc.start()
             mixer.addInput(osc)
         }
 
