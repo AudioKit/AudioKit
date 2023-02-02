@@ -62,10 +62,15 @@ public class Engine {
     public func startTest(totalDuration duration: Double, sampleRate: Double = 44100) -> AVAudioPCMBuffer {
         let samples = Int(duration * sampleRate)
 
+        guard let format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2) else {
+            Log("🛑 Bad sample rate: \(sampleRate)")
+            return AVAudioPCMBuffer()
+        }
+
         do {
             avEngine.reset()
             try avEngine.enableManualRenderingMode(.offline,
-                                                   format: Settings.audioFormat,
+                                                   format: format,
                                                    maximumFrameCount: maximumFrameCount)
             try start()
         } catch let err {
