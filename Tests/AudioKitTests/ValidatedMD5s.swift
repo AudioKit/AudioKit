@@ -60,6 +60,7 @@ let validatedMD5s: [String: [String]] = [
     "-[MatrixReverbTests testCathedral]": ["3f8c5a1ada6a17b924ace7ba1268a20a"],
     "-[MatrixReverbTests testDefault]": ["0b9059b2b45be5b68a68e1636d860dcd"],
     "-[MatrixReverbTests testSmallRoom]": ["c205a155458107f22affd9ce1ec84c82"],
+    "-[MatrixReverbTests testSmallLargeMix]": ["d392ce16d38c1419998574b22712a228"],
     "-[ReverbTests testBypass]": ["8105caf3748de8fcddf6766f85f8b59f"],
     "-[ReverbTests testCathedral]": ["8c45b6d97afb254830b94adf34d9ec0d"],
     "-[ReverbTests testDefault]": ["d0fea1c1fc888019c592586e318deb6e"],

@@ -73,6 +73,18 @@ class MatrixReverbTests: XCTestCase {
         testMD5(audio)
     }
 
+    func testSmallLargeMix() {
+        let engine = Engine()
+        let input = Sampler()
+        let effect = MatrixReverb(input)
+        effect.smallLargeMix = 51
+        engine.output = effect
+        let audio = engine.startTest(totalDuration: 1.0)
+        input.play(url: URL.testAudio)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
 }
 
 #endif
