@@ -111,10 +111,6 @@ class TapAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
-    override func allocateRenderResources() throws {}
-
-    override func deallocateRenderResources() {}
-
     override var internalRenderBlock: AUInternalRenderBlock {
 
         let ringBuffer = self.ringBuffer

@@ -82,10 +82,6 @@ class NoiseAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
-    override func allocateRenderResources() throws {}
-
-    override func deallocateRenderResources() {}
-
     /// Volume usually 0-1
     var amplitude: AUValue = 1
 

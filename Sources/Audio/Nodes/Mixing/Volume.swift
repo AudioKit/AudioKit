@@ -74,10 +74,6 @@ class VolumeAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
-    override func allocateRenderResources() throws {}
-
-    override func deallocateRenderResources() {}
-
     private var volume: AUValue = 1.0
     private var pan: AUValue = 0.0
 
