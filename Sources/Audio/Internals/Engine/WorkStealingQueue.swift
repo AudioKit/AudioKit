@@ -41,13 +41,6 @@ public class WorkStealingQueue {
             S[i & M].load(ordering: .relaxed)
         }
 
-        func resize(_ b: Int, _ t: Int) -> QueueArray {
-            let new = QueueArray(2 * C)
-            for i in t ..< b {
-                new.push(i, pop(i))
-            }
-            return new
-        }
     }
 
     var _top = UnsafeAtomic<Int>.create(0)
