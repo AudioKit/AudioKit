@@ -123,32 +123,32 @@ public final class Table: MutableCollection {
         content = [Element](zeros: count)
 
         switch type {
-        case .sine:
-            standardSineWave()
-        case .sawtooth:
-            standardSawtoothWave()
-        case .triangle:
-            standardTriangleWave()
-        case .reverseSawtooth:
-            standardReverseSawtoothWave()
-        case .square:
-            standardSquareWave()
-        case .positiveSine:
-            positiveSineWave()
-        case .positiveSawtooth:
-            positiveSawtoothWave()
-        case .positiveTriangle:
-            positiveTriangleWave()
-        case .positiveReverseSawtooth:
-            positiveReverseSawtoothWave()
-        case .positiveSquare:
-            positiveSquareWave()
-        case let .harmonic(partialAmplitudes):
-            harmonicWave(with: partialAmplitudes)
-        case .zero:
-            zero()
-        case .custom:
-            assertionFailure("use init(content:phase:count:) to initialize a custom waveform")
+            case .sine:
+                standardSineWave()
+            case .sawtooth:
+                standardSawtoothWave()
+            case .triangle:
+                standardTriangleWave()
+            case .reverseSawtooth:
+                standardReverseSawtoothWave()
+            case .square:
+                standardSquareWave()
+            case .positiveSine:
+                positiveSineWave()
+            case .positiveSawtooth:
+                positiveSawtoothWave()
+            case .positiveTriangle:
+                positiveTriangleWave()
+            case .positiveReverseSawtooth:
+                positiveReverseSawtoothWave()
+            case .positiveSquare:
+                positiveSquareWave()
+            case let .harmonic(partialAmplitudes):
+                harmonicWave(with: partialAmplitudes)
+            case .zero:
+                zero()
+            case .custom:
+                assertionFailure("use init(content:phase:count:) to initialize a custom waveform")
         }
     }
 

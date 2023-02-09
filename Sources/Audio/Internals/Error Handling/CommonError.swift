@@ -16,14 +16,14 @@ enum CommonError: Error, LocalizedError {
     /// Pretty printout
     public var errorDescription: String? {
         switch self {
-        case .audioKitNotRunning:
-            return "AudioKit is not currently running"
-        case .couldNotOpenFile:
-            return "Can't open file"
-        case .deviceNotFound:
-            return "Could not find the requested device"
-        default:
-            return "I'm sorry Dave, I'm afraid I can't do that"
+            case .audioKitNotRunning:
+                return "AudioKit is not currently running"
+            case .couldNotOpenFile:
+                return "Can't open file"
+            case .deviceNotFound:
+                return "Could not find the requested device"
+            default:
+                return "I'm sorry Dave, I'm afraid I can't do that"
         }
     }
 }

@@ -92,8 +92,8 @@ class NoiseAudioUnit: AUAudioUnit {
                     let paramEvent = event.pointee
 
                     switch paramEvent.parameterAddress {
-                    case 0: amplitude = paramEvent.value
-                    default: break
+                        case 0: amplitude = paramEvent.value
+                        default: break
                     }
 
                 })

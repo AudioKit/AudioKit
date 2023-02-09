@@ -227,8 +227,8 @@ public class MatrixReverb: Node {
                 largeBrightness: AUValue = 0.49,
                 smallDelayRange: AUValue = 0.5,
                 modulationRate: AUValue = 1.0,
-                modulationDepth: AUValue = 0.2
-    ) {
+                modulationDepth: AUValue = 0.2)
+    {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_MatrixReverb)

@@ -1,10 +1,10 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if !os(tvOS)
-import Foundation
 import AVFoundation
-import Utilities
+import Foundation
 import MIDIKitIO
+import Utilities
 
 /// Protocol so that clients may observe beat events
 public protocol MIDIBeatObserver {

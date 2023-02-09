@@ -27,15 +27,15 @@ class OscillatorKernel {
 
                     decodeSysex(event, &command)
                     switch command {
-                    case let .table(ptr):
-                        table = ptr?.pointee ?? Vec<Float>(count: 0, { _ in 0.0 })
+                        case let .table(ptr):
+                            table = ptr?.pointee ?? Vec<Float>(count: 0, { _ in 0.0 })
                     }
                 }, param: { event in
                     let paramEvent = event.pointee
                     switch paramEvent.parameterAddress {
-                    case 0: frequency = paramEvent.value
-                    case 1: amplitude = paramEvent.value
-                    default: break
+                        case 0: frequency = paramEvent.value
+                        case 1: amplitude = paramEvent.value
+                        default: break
                     }
                 })
     }

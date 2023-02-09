@@ -71,7 +71,7 @@ public class MIDITempoListener: NSObject {
     public var isIncomingClockActive = false
 
     let BEAT_TICKS = 24
-    let oneThousand = UInt64(1_000)
+    let oneThousand = UInt64(1000)
 
     /// Create a BPM Listener
     ///
@@ -123,10 +123,10 @@ public extension MIDITempoListener {
         guard clockEventLimit > 1 else { return }
         guard clockEvents.count >= clockEventLimit else { return }
 
-        let previousClockTime = clockEvents[ clockEvents.count - 2 ]
-        let currentClockTime = clockEvents[ clockEvents.count - 1 ]
+        let previousClockTime = clockEvents[clockEvents.count - 2]
+        let currentClockTime = clockEvents[clockEvents.count - 1]
 
-        guard previousClockTime > 0 && currentClockTime > previousClockTime else { return }
+        guard previousClockTime > 0, currentClockTime > previousClockTime else { return }
 
         let clockDelta = currentClockTime - previousClockTime
 
@@ -137,7 +137,7 @@ public extension MIDITempoListener {
         let denominator = Float64(UInt64(oneThousand) * UInt64(timebaseInfo.denom))
         let intervalNanos = numerator / denominator
 
-        //NSEC_PER_SEC
+        // NSEC_PER_SEC
         let oneMillion = Float64(USEC_PER_SEC)
         let bpmCalc = ((oneMillion / intervalNanos / Float64(BEAT_TICKS)) * Float64(60.0)) + 0.055
 
@@ -191,37 +191,37 @@ public extension MIDITempoListener {
 extension MIDITempoListener: MIDIListener {
     public func received(midiEvent: MIDIEvent, timeStamp: CoreMIDITimeStamp, source: MIDIOutputEndpoint?) {
         switch midiEvent {
-        case .timingClock(_):
-            clockTimeout?.succeed()
-            clockTimeout?.perform {
-                if self.isIncomingClockActive == false {
-                    midiClockActivityStarted()
-                    self.isIncomingClockActive = true
+            case .timingClock:
+                clockTimeout?.succeed()
+                clockTimeout?.perform {
+                    if self.isIncomingClockActive == false {
+                        midiClockActivityStarted()
+                        self.isIncomingClockActive = true
+                    }
+                    clockEvents.append(timeStamp)
+                    analyze()
+                    clockListener?.midiClockBeat(timeStamp: timeStamp)
                 }
-                clockEvents.append(timeStamp)
-                analyze()
-                clockListener?.midiClockBeat(timeStamp: timeStamp)
-            }
-            
-        case .start(_):
-            resetClockEventsLeavingOne()
-            
-        case .stop(_):
-            resetClockEventsLeavingNone()
-        default:
-            break
+
+            case .start:
+                resetClockEventsLeavingOne()
+
+            case .stop:
+                resetClockEventsLeavingNone()
+            default:
+                break
         }
-        
+
         // pass event up to SRT listener
         switch midiEvent {
-        case .timingClock, .start, .stop:
-            srtListener.received(midiEvent: midiEvent, timeStamp: timeStamp, source: source)
-        default:
-            break
+            case .timingClock, .start, .stop:
+                srtListener.received(midiEvent: midiEvent, timeStamp: timeStamp, source: source)
+            default:
+                break
         }
     }
-    
-    public func received(midiNotification: MIDIKitIO.MIDIIONotification) {
+
+    public func received(midiNotification _: MIDIKitIO.MIDIIONotification) {
         // not used
     }
 }

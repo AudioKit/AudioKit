@@ -62,10 +62,10 @@ public struct AudioUnitPropertyListener {
             inRefCon.assumingMemoryBound(to: AudioUnitPropertyListenerCallback.self).pointee(inUnit, inID)
         }
 
-        self.procInput = UnsafeMutablePointer<AudioUnitPropertyListenerCallback>.allocate(
+        procInput = UnsafeMutablePointer<AudioUnitPropertyListenerCallback>.allocate(
             capacity: MemoryLayout<AudioUnitPropertyListenerCallback>.stride
         )
-        self.procInput.initialize(to: callback)
+        procInput.initialize(to: callback)
     }
 }
 
@@ -109,7 +109,8 @@ public extension AudioUnit {
     ///   - propertyID: Property to listen to
     /// - Throws: Error if could not add property listener
     internal func addPropertyListener(listener: AudioUnitPropertyListener,
-                                      toProperty propertyID: AudioUnitPropertyID) throws {
+                                      toProperty propertyID: AudioUnitPropertyID) throws
+    {
         try AudioUnitAddPropertyListener(self, propertyID, listener.proc, listener.procInput).check()
     }
 
@@ -119,7 +120,8 @@ public extension AudioUnit {
     ///   - propertyID: Property to listen to
     /// - Throws: Error if could not remove property listener
     internal func removePropertyListener(listener: AudioUnitPropertyListener,
-                                         fromProperty propertyID: AudioUnitPropertyID) throws {
+                                         fromProperty propertyID: AudioUnitPropertyID) throws
+    {
         try AudioUnitRemovePropertyListenerWithUserData(self, propertyID, listener.proc, listener.procInput).check()
     }
 }

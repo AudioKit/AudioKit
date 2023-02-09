@@ -319,50 +319,50 @@ public enum DistortionPreset: Int, CaseIterable, CustomStringConvertible {
 
     public var name: String {
         switch self {
-        case .drumsBitBrush:
-            return "Drums Bit Brush"
-        case .drumsBufferBeats:
-            return "Drums Buffer Beats"
-        case .drumsLoFi:
-            return "Drums LoFi"
-        case .multiBrokenSpeaker:
-            return "Multi-Broken Speaker"
-        case .multiCellphoneConcert:
-            return "Multi-Cellphone Concert"
-        case .multiDecimated1:
-            return "Multi-Decimated 1"
-        case .multiDecimated2:
-            return "Multi-Decimated 2"
-        case .multiDecimated3:
-            return "Multi-Decimated 3"
-        case .multiDecimated4:
-            return "Multi-Decimated 4"
-        case .multiDistortedFunk:
-            return "Multi-Distorted Funk"
-        case .multiDistortedCubed:
-            return "Multi-Distorted Cubed"
-        case .multiDistortedSquared:
-            return "Multi-Distorted Squared"
-        case .multiEcho1:
-            return "Multi-Echo 1"
-        case .multiEcho2:
-            return "Multi-Echo 2"
-        case .multiEchoTight1:
-            return "Multi-Echo Tight 1"
-        case .multiEchoTight2:
-            return "Multi-Echo Tight 2"
-        case .multiEverythingIsBroken:
-            return "Multi-Everything Is Broken"
-        case .speechAlienChatter:
-            return "Speech Alien Chatter"
-        case .speechCosmicInterference:
-            return "Speech Cosmic Interference"
-        case .speechGoldenPi:
-            return "Speech Golden Pi"
-        case .speechRadioTower:
-            return "Speech Radio Tower"
-        case .speechWaves:
-            return "Speech Waves"
+            case .drumsBitBrush:
+                return "Drums Bit Brush"
+            case .drumsBufferBeats:
+                return "Drums Buffer Beats"
+            case .drumsLoFi:
+                return "Drums LoFi"
+            case .multiBrokenSpeaker:
+                return "Multi-Broken Speaker"
+            case .multiCellphoneConcert:
+                return "Multi-Cellphone Concert"
+            case .multiDecimated1:
+                return "Multi-Decimated 1"
+            case .multiDecimated2:
+                return "Multi-Decimated 2"
+            case .multiDecimated3:
+                return "Multi-Decimated 3"
+            case .multiDecimated4:
+                return "Multi-Decimated 4"
+            case .multiDistortedFunk:
+                return "Multi-Distorted Funk"
+            case .multiDistortedCubed:
+                return "Multi-Distorted Cubed"
+            case .multiDistortedSquared:
+                return "Multi-Distorted Squared"
+            case .multiEcho1:
+                return "Multi-Echo 1"
+            case .multiEcho2:
+                return "Multi-Echo 2"
+            case .multiEchoTight1:
+                return "Multi-Echo Tight 1"
+            case .multiEchoTight2:
+                return "Multi-Echo Tight 2"
+            case .multiEverythingIsBroken:
+                return "Multi-Everything Is Broken"
+            case .speechAlienChatter:
+                return "Speech Alien Chatter"
+            case .speechCosmicInterference:
+                return "Speech Cosmic Interference"
+            case .speechGoldenPi:
+                return "Speech Golden Pi"
+            case .speechRadioTower:
+                return "Speech Radio Tower"
+            case .speechWaves:
+                return "Speech Waves"
         }
     }
 

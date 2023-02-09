@@ -141,21 +141,21 @@ extension FormatConverter {
         var formatKey: AudioFormatID
 
         switch outputFormat {
-        case .m4a, .mp4:
-            format = .m4a
-            formatKey = kAudioFormatMPEG4AAC
-        case .aif:
-            format = .aiff
-            formatKey = kAudioFormatLinearPCM
-        case .caf:
-            format = .caf
-            formatKey = kAudioFormatLinearPCM
-        case .wav:
-            format = .wav
-            formatKey = kAudioFormatLinearPCM
-        default:
-            Log("Unsupported output format: \(outputFormat)")
-            return
+            case .m4a, .mp4:
+                format = .m4a
+                formatKey = kAudioFormatMPEG4AAC
+            case .aif:
+                format = .aiff
+                formatKey = kAudioFormatLinearPCM
+            case .caf:
+                format = .caf
+                formatKey = kAudioFormatLinearPCM
+            case .wav:
+                format = .wav
+                formatKey = kAudioFormatLinearPCM
+            default:
+                Log("Unsupported output format: \(outputFormat)")
+                return
         }
 
         do {
@@ -267,28 +267,28 @@ extension FormatConverter {
                     writerInput.markAsFinished()
 
                     switch reader.status {
-                    case .failed:
-                        Log("Conversion failed with error", reader.error)
-                        writer.cancelWriting()
-                        self.completionProxy(error: reader.error, completionHandler: completionHandler)
-                    case .cancelled:
-                        Log("Conversion cancelled")
-                        self.completionProxy(error: Self.createError(message: "Process canceled"),
-                                             completionHandler: completionHandler)
-                    case .completed:
-                        writer.finishWriting {
-                            switch writer.status {
-                            case .failed:
-                                Log("Conversion failed at finishWriting")
-                                self.completionProxy(error: writer.error,
-                                                     completionHandler: completionHandler)
-                            default:
-                                // no errors
-                                completionHandler?(nil)
+                        case .failed:
+                            Log("Conversion failed with error", reader.error)
+                            writer.cancelWriting()
+                            self.completionProxy(error: reader.error, completionHandler: completionHandler)
+                        case .cancelled:
+                            Log("Conversion cancelled")
+                            self.completionProxy(error: Self.createError(message: "Process canceled"),
+                                                 completionHandler: completionHandler)
+                        case .completed:
+                            writer.finishWriting {
+                                switch writer.status {
+                                    case .failed:
+                                        Log("Conversion failed at finishWriting")
+                                        self.completionProxy(error: writer.error,
+                                                             completionHandler: completionHandler)
+                                    default:
+                                        // no errors
+                                        completionHandler?(nil)
+                                }
                             }
-                        }
-                    default:
-                        break
+                        default:
+                            break
                     }
                     processing = false
                 }

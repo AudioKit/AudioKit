@@ -40,7 +40,6 @@ public class WorkStealingQueue {
         func pop(_ i: Int) -> RenderJobIndex {
             S[i & M].load(ordering: .relaxed)
         }
-
     }
 
     private var _top = UnsafeAtomic<Int>.create(0)

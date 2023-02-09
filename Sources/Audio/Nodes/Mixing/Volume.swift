@@ -82,9 +82,9 @@ class VolumeAudioUnit: AUAudioUnit {
             let paramEvent = event.pointee
 
             switch paramEvent.parameterAddress {
-            case 0: volume = paramEvent.value
-            case 1: pan = paramEvent.value
-            default: break
+                case 0: volume = paramEvent.value
+                case 1: pan = paramEvent.value
+                default: break
             }
         })
     }

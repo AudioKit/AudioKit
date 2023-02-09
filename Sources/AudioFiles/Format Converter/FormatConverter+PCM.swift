@@ -23,15 +23,15 @@ extension FormatConverter {
         var format: AudioFileTypeID
 
         switch outputFormat {
-        case .aif:
-            format = kAudioFileAIFFType
-        case .wav:
-            format = kAudioFileWAVEType
-        case .caf:
-            format = kAudioFileCAFType
-        default:
-            completionHandler?(Self.createError(message: "Output file must be caf, wav or aif."))
-            return
+            case .aif:
+                format = kAudioFileAIFFType
+            case .wav:
+                format = kAudioFileWAVEType
+            case .caf:
+                format = kAudioFileCAFType
+            default:
+                completionHandler?(Self.createError(message: "Output file must be caf, wav or aif."))
+                return
         }
 
         var inputFile: ExtAudioFileRef?

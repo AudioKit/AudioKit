@@ -60,16 +60,16 @@ final class RenderJob {
         // Propagate errors.
         if status != noErr {
             switch status {
-            case kAudioUnitErr_NoConnection:
-                print("got kAudioUnitErr_NoConnection")
-            case kAudioUnitErr_TooManyFramesToProcess:
-                print("got kAudioUnitErr_TooManyFramesToProcess")
-            case AVAudioEngineManualRenderingError.notRunning.rawValue:
-                print("got AVAudioEngineManualRenderingErrorNotRunning")
-            case kAudio_ParamError:
-                print("got kAudio_ParamError")
-            default:
-                print("unknown rendering error \(status)")
+                case kAudioUnitErr_NoConnection:
+                    print("got kAudioUnitErr_NoConnection")
+                case kAudioUnitErr_TooManyFramesToProcess:
+                    print("got kAudioUnitErr_TooManyFramesToProcess")
+                case AVAudioEngineManualRenderingError.notRunning.rawValue:
+                    print("got AVAudioEngineManualRenderingErrorNotRunning")
+                case kAudio_ParamError:
+                    print("got kAudio_ParamError")
+                default:
+                    print("unknown rendering error \(status)")
             }
         }
 

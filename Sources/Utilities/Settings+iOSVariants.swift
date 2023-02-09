@@ -98,7 +98,7 @@ public extension Settings {
     /// Returns true if headPhones are connected, otherwise return false
     static var headPhonesPlugged: Bool {
         let headphonePortTypes: [AVAudioSession.Port] =
-        [.headphones, .bluetoothHFP, .bluetoothA2DP]
+            [.headphones, .bluetoothHFP, .bluetoothA2DP]
         return session.currentRoute.outputs.contains {
             headphonePortTypes.contains($0.portType)
         }
@@ -125,40 +125,40 @@ public extension Settings {
         /// Printout string
         public var description: String {
             switch self {
-            case .ambient:
-                return AVAudioSession.Category.ambient.rawValue
-            case .soloAmbient:
-                return AVAudioSession.Category.soloAmbient.rawValue
-            case .playback:
-                return AVAudioSession.Category.playback.rawValue
-            case .record:
-                return AVAudioSession.Category.record.rawValue
-            case .playAndRecord:
-                return AVAudioSession.Category.playAndRecord.rawValue
-            case .multiRoute:
-                return AVAudioSession.Category.multiRoute.rawValue
-            default:
-                return AVAudioSession.Category.soloAmbient.rawValue
+                case .ambient:
+                    return AVAudioSession.Category.ambient.rawValue
+                case .soloAmbient:
+                    return AVAudioSession.Category.soloAmbient.rawValue
+                case .playback:
+                    return AVAudioSession.Category.playback.rawValue
+                case .record:
+                    return AVAudioSession.Category.record.rawValue
+                case .playAndRecord:
+                    return AVAudioSession.Category.playAndRecord.rawValue
+                case .multiRoute:
+                    return AVAudioSession.Category.multiRoute.rawValue
+                default:
+                    return AVAudioSession.Category.soloAmbient.rawValue
             }
         }
 
         /// AV Audio Session Category
         public var avCategory: AVAudioSession.Category {
             switch self {
-            case .ambient:
-                return .ambient
-            case .soloAmbient:
-                return .soloAmbient
-            case .playback:
-                return .playback
-            case .record:
-                return .record
-            case .playAndRecord:
-                return .playAndRecord
-            case .multiRoute:
-                return .multiRoute
-            default:
-                return .soloAmbient
+                case .ambient:
+                    return .ambient
+                case .soloAmbient:
+                    return .soloAmbient
+                case .playback:
+                    return .playback
+                case .record:
+                    return .record
+                case .playAndRecord:
+                    return .playAndRecord
+                case .multiRoute:
+                    return .multiRoute
+                default:
+                    return .soloAmbient
             }
         }
     }

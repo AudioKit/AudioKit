@@ -8,10 +8,10 @@
 
 #if !os(tvOS)
 
-import os.log
 import AVFoundation
-import Utilities
 import MIDIKitIO
+import os.log
+import Utilities
 
 let MIDIListenerLogging = false
 

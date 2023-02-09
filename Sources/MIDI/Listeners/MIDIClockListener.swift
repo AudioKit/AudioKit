@@ -38,7 +38,8 @@ public class MIDIClockListener: NSObject {
     ///   - tempo: Tempo listener
     init(srtListener srt: MIDISystemRealTimeListener,
          quantumsPerQuarterNote count: MIDIByte = 24,
-         tempoListener tempo: MIDITempoListener) {
+         tempoListener tempo: MIDITempoListener)
+    {
         quantumsPerQuarterNote = count
         srtListener = srt
         tempoListener = tempo
@@ -63,7 +64,7 @@ public class MIDIClockListener: NSObject {
     }
 
     func midiClockBeat(timeStamp: CoreMIDITimeStamp) {
-        self.quantumCounter += 1
+        quantumCounter += 1
 
         // quarter notes can only increment when we are playing
         guard srtListener.state == .playing else {
@@ -72,7 +73,7 @@ public class MIDIClockListener: NSObject {
         }
 
         // increment quantum counter used for counting quarter notes
-        self.quarterNoteQuantumCounter += 1
+        quarterNoteQuantumCounter += 1
 
         // ever first quantum we will count as a quarter note event
         if quarterNoteQuantumCounter == 1 {
@@ -81,7 +82,7 @@ public class MIDIClockListener: NSObject {
             fourCount += 1
 
             let spaces = "    "
-            let prefix = spaces.prefix( Int(fourCount) )
+            let prefix = spaces.prefix(Int(fourCount))
             Log("\(prefix) \(fourCount)", log: OSLog.midi)
 
             if sendStart || sendContinue {
@@ -114,23 +115,23 @@ public class MIDIClockListener: NSObject {
 
 // MARK: - Observers
 
-extension MIDIClockListener {
+public extension MIDIClockListener {
     /// Add MIDI beat observer
     /// - Parameter observer: MIDI Beat observer to add
-    public func addObserver(_ observer: MIDIBeatObserver) {
+    func addObserver(_ observer: MIDIBeatObserver) {
         observers.append(observer)
         Log("[MIDIClockListener:addObserver] (\(observers.count) observers)", log: OSLog.midi)
     }
 
     /// Remove MIDI beat observer
     /// - Parameter observer: MIDI Beat observer to remove
-    public func removeObserver(_ observer: MIDIBeatObserver) {
+    func removeObserver(_ observer: MIDIBeatObserver) {
         observers.removeAll { $0 == observer }
         Log("[MIDIClockListener:removeObserver] (\(observers.count) observers)", log: OSLog.midi)
     }
 
     /// Remove all MIDI Beat observers
-    public func removeAllObservers() {
+    func removeAllObservers() {
         observers.removeAll()
     }
 }
@@ -194,14 +195,14 @@ extension MIDIClockListener: MIDITempoObserver {
 extension MIDIClockListener: MIDISystemRealTimeObserver {
     /// Stop MIDI System Real-time listener
     /// - Parameter listener: MIDI System Real-time Listener
-    public func stopSRT(listener: MIDISystemRealTimeListener) {
+    public func stopSRT(listener _: MIDISystemRealTimeListener) {
         Log("Beat: [Stop]", log: OSLog.midi)
         sendStopToObservers()
     }
 
     /// Start MIDI System Real-time listener
     /// - Parameter listener: MIDI System Real-time Listener
-    public func startSRT(listener: MIDISystemRealTimeListener) {
+    public func startSRT(listener _: MIDISystemRealTimeListener) {
         Log("Beat: [Start]", log: OSLog.midi)
         sppMIDIBeatCounter = 0
         quarterNoteQuantumCounter = 0
@@ -212,7 +213,7 @@ extension MIDIClockListener: MIDISystemRealTimeObserver {
 
     /// Continue MIDI System Real-time listener
     /// - Parameter listener: MIDI System Real-time Listener
-    public func continueSRT(listener: MIDISystemRealTimeListener) {
+    public func continueSRT(listener _: MIDISystemRealTimeListener) {
         Log("Beat: [Continue]", log: OSLog.midi)
         sendContinue = true
         sendPreparePlayToObservers(continue: true)

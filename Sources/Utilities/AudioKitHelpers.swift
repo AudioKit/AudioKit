@@ -198,7 +198,7 @@ extension Dictionary: Occupiable {}
 extension Set: Occupiable {}
 
 #if !os(macOS)
-    extension AVAudioSession.CategoryOptions: Occupiable {}
+extension AVAudioSession.CategoryOptions: Occupiable {}
 #endif
 
 public extension Sequence where Self.Element: Equatable {

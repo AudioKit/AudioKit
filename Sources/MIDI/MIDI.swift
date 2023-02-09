@@ -1,9 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 #if !os(tvOS)
+@_exported import MIDIKitIO
 import os.log
 import Utilities
-@_exported import MIDIKitIO
 
 /// MIDI input and output handler
 public class MIDI {
@@ -14,7 +14,7 @@ public class MIDI {
 
     /// MIDI I/O Manager engine that provides all MIDI connectivity as well as device and endpoint metadata
     public var manager: MIDIManager
-    
+
     /// Dictionary of Virtual MIDI Input destination
     public var virtualInputs: [String: MIDIInput] {
         manager.managedInputs
@@ -29,7 +29,7 @@ public class MIDI {
     public var inputConnections: [String: MIDIInputConnection] {
         manager.managedInputConnections
     }
-    
+
     /// Array of managed input connections to MIDI output ports
     public var outputConnections: [String: MIDIOutputConnection] {
         manager.managedOutputConnections
@@ -52,19 +52,19 @@ public class MIDI {
         #if os(iOS)
         MIDIKitIO.setMIDINetworkSession(policy: .anyone)
         #endif
-        
+
         manager = MIDIManager(
             clientName: "AudioKit",
             model: "",
             manufacturer: ""
         )
-        
-        manager.notificationHandler = { [weak self] notification, manager in
+
+        manager.notificationHandler = { [weak self] notification, _ in
             self?.listeners.forEach {
                 $0.received(midiNotification: notification)
             }
         }
-        
+
         do {
             try manager.start()
         } catch {

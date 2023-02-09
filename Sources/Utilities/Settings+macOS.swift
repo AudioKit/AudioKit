@@ -5,13 +5,13 @@
 import AVFoundation
 import os.log
 
-extension Settings {
+public extension Settings {
     /// Global audio format AudioKit will default to for new objects and connections
-    public static var audioFormat = defaultAudioFormat
+    static var audioFormat = defaultAudioFormat
 
     /// The hardware ioBufferDuration. Setting this will request the new value, getting
     /// will query the hardware.
-    public static func getIOBufferDuration(engine: AVAudioEngine) -> Double {
+    static func getIOBufferDuration(engine: AVAudioEngine) -> Double {
         let node = engine.outputNode
         guard let audioUnit = node.audioUnit else { return 0 }
         let sampleRate = node.outputFormat(forBus: 0).sampleRate

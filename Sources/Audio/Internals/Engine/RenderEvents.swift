@@ -20,14 +20,14 @@ func process(events: UnsafePointer<AURenderEvent>?,
         event.withMemoryRebound(to: AURenderEventHeader.self, capacity: 1) { pointer in
 
             switch pointer.pointee.eventType {
-            case .MIDI:
-                event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1, midi)
-            case .midiSysEx:
-                event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1, sysex)
-            case .parameter:
-                event.withMemoryRebound(to: AUParameterEvent.self, capacity: 1, param)
-            default:
-                break
+                case .MIDI:
+                    event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1, midi)
+                case .midiSysEx:
+                    event.withMemoryRebound(to: AUMIDIEvent.self, capacity: 1, sysex)
+                case .parameter:
+                    event.withMemoryRebound(to: AUParameterEvent.self, capacity: 1, param)
+                default:
+                    break
             }
 
             events = .init(pointer.pointee.next)

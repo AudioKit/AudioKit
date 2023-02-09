@@ -151,76 +151,76 @@ public class PresetBuilder {
                                                               release: existingRelease)
 
             switch triggerModeStr {
-            case SampleTriggerMode.Loop.rawValue?:
-                triggerMode = SampleTriggerMode.Loop
-            case SampleTriggerMode.Trigger.rawValue?:
-                triggerMode = SampleTriggerMode.Trigger
-            case SampleTriggerMode.Hold.rawValue?:
-                triggerMode = SampleTriggerMode.Hold
-            case SampleTriggerMode.Repeat.rawValue?:
-                triggerMode = SampleTriggerMode.Repeat
-            default:
-                triggerMode = SampleTriggerMode.Trigger
+                case SampleTriggerMode.Loop.rawValue?:
+                    triggerMode = SampleTriggerMode.Loop
+                case SampleTriggerMode.Trigger.rawValue?:
+                    triggerMode = SampleTriggerMode.Trigger
+                case SampleTriggerMode.Hold.rawValue?:
+                    triggerMode = SampleTriggerMode.Hold
+                case SampleTriggerMode.Repeat.rawValue?:
+                    triggerMode = SampleTriggerMode.Repeat
+                default:
+                    triggerMode = SampleTriggerMode.Trigger
             }
             switch triggerMode {
-            case .Hold:
-                if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
-                    sampleZoneXML = PresetBuilder.generateZone(id: i,
-                                                               rootNote: existingRootNote,
-                                                               startNote: existingStartNote,
-                                                               endNote: existingEndNote,
-                                                               wavRef: sampleNum,
-                                                               loopEnabled: false)
-                    let tempLayerXML = PresetBuilder.generateLayer(
-                        connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
-                        envelopes: envelopesXML,
-                        zones: sampleZoneXML,
-                        layer: i + 1,
-                        numVoices: 1,
-                        ignoreNoteOff: false
-                    )
-                    layerXML.append(tempLayerXML)
-                }
+                case .Hold:
+                    if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
+                        sampleZoneXML = PresetBuilder.generateZone(id: i,
+                                                                   rootNote: existingRootNote,
+                                                                   startNote: existingStartNote,
+                                                                   endNote: existingEndNote,
+                                                                   wavRef: sampleNum,
+                                                                   loopEnabled: false)
+                        let tempLayerXML = PresetBuilder.generateLayer(
+                            connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
+                            envelopes: envelopesXML,
+                            zones: sampleZoneXML,
+                            layer: i + 1,
+                            numVoices: 1,
+                            ignoreNoteOff: false
+                        )
+                        layerXML.append(tempLayerXML)
+                    }
 
-            case .Loop:
-                if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
-                    sampleZoneXML = PresetBuilder.generateZone(id: i,
-                                                               rootNote: existingRootNote,
-                                                               startNote: existingStartNote,
-                                                               endNote: existingEndNote,
-                                                               wavRef: sampleNum,
-                                                               loopEnabled: true)
-                    let tempLayerXML = PresetBuilder.generateLayer(
-                        connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
-                        envelopes: envelopesXML,
-                        zones: sampleZoneXML,
-                        layer: i + 1,
-                        numVoices: 1,
-                        ignoreNoteOff: false
-                    )
-                    layerXML.append(tempLayerXML)
-                }
+                case .Loop:
+                    if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
+                        sampleZoneXML = PresetBuilder.generateZone(id: i,
+                                                                   rootNote: existingRootNote,
+                                                                   startNote: existingStartNote,
+                                                                   endNote: existingEndNote,
+                                                                   wavRef: sampleNum,
+                                                                   loopEnabled: true)
+                        let tempLayerXML = PresetBuilder.generateLayer(
+                            connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
+                            envelopes: envelopesXML,
+                            zones: sampleZoneXML,
+                            layer: i + 1,
+                            numVoices: 1,
+                            ignoreNoteOff: false
+                        )
+                        layerXML.append(tempLayerXML)
+                    }
 
-            default:
-                // .Trigger and .Repeat (repeat needs to be handled in the app that uses this mode,
-                // otherwise is just the same as Trig mode)
-                if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
-                    sampleZoneXML = PresetBuilder.generateZone(id: i,
-                                                               rootNote: existingRootNote,
-                                                               startNote: existingStartNote,
-                                                               endNote: existingEndNote,
-                                                               wavRef: sampleNum,
-                                                               loopEnabled: false)
-                    let tempLayerXML = PresetBuilder.generateLayer(
-                        connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
-                        envelopes: envelopesXML,
-                        zones: sampleZoneXML,
-                        layer: i + 1,
-                        numVoices: 1,
-                        ignoreNoteOff: true
-                    )
-                    layerXML.append(tempLayerXML)
-                }
+                default:
+                    // .Trigger and .Repeat (repeat needs to be handled in the app that uses this mode,
+                    // otherwise is just the same as Trig mode)
+                    if let existingRootNote = rootNote, let existingStartNote = startNote, let existingEndNote = endNote {
+                        sampleZoneXML = PresetBuilder.generateZone(id: i,
+                                                                   rootNote: existingRootNote,
+                                                                   startNote: existingStartNote,
+                                                                   endNote: existingEndNote,
+                                                                   wavRef: sampleNum,
+                                                                   loopEnabled: false)
+                        let tempLayerXML = PresetBuilder.generateLayer(
+                            connections: PresetBuilder.generateMinimalConnections(layer: i + 1),
+                            envelopes: envelopesXML,
+                            zones: sampleZoneXML,
+                            layer: i + 1,
+                            numVoices: 1,
+                            ignoreNoteOff: true
+                        )
+                        layerXML.append(tempLayerXML)
+                    }
             }
         }
 

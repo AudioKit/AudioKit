@@ -31,15 +31,15 @@ public extension FormatConverter {
         let ext = url.pathExtension.lowercased()
 
         switch ext {
-        case "wav", "bwf", "aif", "aiff", "caf":
-            return false
+            case "wav", "bwf", "aif", "aiff", "caf":
+                return false
 
-        case "m4a", "mp3", "mp4", "m4v", "mpg", "flac", "ogg":
-            return true
+            case "m4a", "mp3", "mp4", "m4v", "mpg", "flac", "ogg":
+                return true
 
-        default:
-            // if the file extension is missing or unknown, open the file and check it
-            return isCompressedExt(url: url) ?? false
+            default:
+                // if the file extension is missing or unknown, open the file and check it
+                return isCompressedExt(url: url) ?? false
         }
     }
 
@@ -83,11 +83,11 @@ public extension FormatConverter {
         let mFormatID = inputDescription.mFormatID
 
         switch mFormatID {
-        case kAudioFormatLinearPCM,
-             kAudioFormatAppleLossless: return false
-        default:
-            // basically all other format IDs are compressed
-            return true
+            case kAudioFormatLinearPCM,
+                 kAudioFormatAppleLossless: return false
+            default:
+                // basically all other format IDs are compressed
+                return true
         }
     }
 }

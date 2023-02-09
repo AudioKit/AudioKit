@@ -8,7 +8,7 @@ class BTMIDICentralViewController: CABTMIDICentralViewController {
     var uiViewController: UIViewController?
 
     /// Called when subview area laid out
-    public override func viewDidLayoutSubviews() {
+    override public func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                             target: self,
@@ -23,7 +23,6 @@ class BTMIDICentralViewController: CABTMIDICentralViewController {
 
 /// A button that will pull up a Bluetooth MIDI menu
 public class BluetoothMIDIButton: UIButton {
-
     private var realSuperView: UIView?
 
     /// Use this when your button's superview is not the entire screen, or when you prefer
@@ -33,7 +32,7 @@ public class BluetoothMIDIButton: UIButton {
     }
 
     /// Pull up a popover controller when the button is released
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
 
         let bluetoothMIDIViewController = BTMIDICentralViewController()
@@ -43,14 +42,14 @@ public class BluetoothMIDIButton: UIButton {
 
         let popC = navController.popoverPresentationController
         let centerPopup = realSuperView != nil
-        let displayView = realSuperView ?? self.superview
+        let displayView = realSuperView ?? superview
 
         popC?.permittedArrowDirections = centerPopup ? [] : .any
         if let displayView = displayView {
             popC?.sourceRect = centerPopup ? CGRect(x: displayView.bounds.midX,
                                                     y: displayView.bounds.midY,
                                                     width: 0,
-                                                    height: 0) : self.frame
+                                                    height: 0) : frame
             let controller = nextResponderAsViewController(responder: displayView.next)
             controller?.present(navController, animated: true, completion: nil)
 
@@ -69,6 +68,5 @@ public class BluetoothMIDIButton: UIButton {
             return nextResponderAsViewController(responder: next)
         }
     }
-
 }
 #endif

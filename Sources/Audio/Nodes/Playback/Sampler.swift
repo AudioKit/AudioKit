@@ -192,21 +192,21 @@ class SamplerAudioUnit: AUAudioUnit {
                             decodeSysex(event, &command)
 
                             switch command {
-                            case let .playSample(ptr):
-                                if let voiceIndex = self.getVoice() {
-                                    self.voices[voiceIndex].sample = ptr
+                                case let .playSample(ptr):
+                                    if let voiceIndex = self.getVoice() {
+                                        self.voices[voiceIndex].sample = ptr
 
-                                    // XXX: shoudn't be calling frameLength here (ObjC call)
-                                    self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.pcmBuffer.frameLength)
-                                    self.voices[voiceIndex].playhead = 0
-                                }
+                                        // XXX: shoudn't be calling frameLength here (ObjC call)
+                                        self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.pcmBuffer.frameLength)
+                                        self.voices[voiceIndex].playhead = 0
+                                    }
 
-                            case let .assignSample(ptr, noteNumber):
-                                self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
-                            case .stop:
-                                for index in 0 ..< self.voices.count {
-                                    self.voices[index].inUse = false
-                                }
+                                case let .assignSample(ptr, noteNumber):
+                                    self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
+                                case .stop:
+                                    for index in 0 ..< self.voices.count {
+                                        self.voices[index].inUse = false
+                                    }
                             }
                         })
 

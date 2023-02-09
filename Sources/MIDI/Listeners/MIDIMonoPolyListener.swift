@@ -25,36 +25,36 @@ public class MIDIMonoPolyListener: NSObject {
 }
 
 extension MIDIMonoPolyListener: MIDIListener {
-    public func received(midiEvent: MIDIEvent, timeStamp: CoreMIDITimeStamp, source: MIDIOutputEndpoint?) {
+    public func received(midiEvent: MIDIEvent, timeStamp _: CoreMIDITimeStamp, source _: MIDIOutputEndpoint?) {
         switch midiEvent {
-        case .cc(let payload):
-            switch payload.controller {
-            case .mode(.monoModeOn):
-                guard monoMode == false else { return }
-                monoMode = true
-                monoPolyChanged()
-                
-            case .mode(.polyModeOn):
-                guard monoMode == true else { return }
-                monoMode = false
-                monoPolyChanged()
-                
+            case let .cc(payload):
+                switch payload.controller {
+                    case .mode(.monoModeOn):
+                        guard monoMode == false else { return }
+                        monoMode = true
+                        monoPolyChanged()
+
+                    case .mode(.polyModeOn):
+                        guard monoMode == true else { return }
+                        monoMode = false
+                        monoPolyChanged()
+
+                    default:
+                        break
+                }
             default:
                 break
-            }
-        default:
-            break
         }
     }
-    
-    public func received(midiNotification: MIDIKitIO.MIDIIONotification) {
+
+    public func received(midiNotification _: MIDIKitIO.MIDIIONotification) {
         // not needed
     }
 }
 
-extension MIDIMonoPolyListener {
+public extension MIDIMonoPolyListener {
     /// Function called when mono poly mode has changed
-    public func monoPolyChanged() {
+    func monoPolyChanged() {
         // override in subclass?
     }
 }

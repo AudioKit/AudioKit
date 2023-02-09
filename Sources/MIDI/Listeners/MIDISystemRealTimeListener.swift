@@ -26,33 +26,33 @@ open class MIDISystemRealTimeListener: NSObject {
 
         func event(event: SRTEvent) -> SRTState {
             switch self {
-            case .stopped:
-                switch event {
-                case .start:
-                    return .playing
-                case .stop:
-                    return .stopped
-                case .continue:
-                    return .playing
-                }
-            case .playing:
-                switch event {
-                case .start:
-                    return .playing
-                case .stop:
-                    return .paused
-                case .continue:
-                    return .playing
-                }
-            case .paused:
-                switch event {
-                case .start:
-                    return .playing
-                case .stop:
-                    return .stopped
-                case .continue:
-                    return .playing
-                }
+                case .stopped:
+                    switch event {
+                        case .start:
+                            return .playing
+                        case .stop:
+                            return .stopped
+                        case .continue:
+                            return .playing
+                    }
+                case .playing:
+                    switch event {
+                        case .start:
+                            return .playing
+                        case .stop:
+                            return .paused
+                        case .continue:
+                            return .playing
+                    }
+                case .paused:
+                    switch event {
+                        case .start:
+                            return .playing
+                        case .stop:
+                            return .stopped
+                        case .continue:
+                            return .playing
+                    }
             }
         }
     }
@@ -62,35 +62,35 @@ open class MIDISystemRealTimeListener: NSObject {
 }
 
 extension MIDISystemRealTimeListener: MIDIListener {
-    public func received(midiEvent: MIDIEvent, timeStamp: CoreMIDITimeStamp, source: MIDIOutputEndpoint?) {
+    public func received(midiEvent: MIDIEvent, timeStamp _: CoreMIDITimeStamp, source _: MIDIOutputEndpoint?) {
         switch midiEvent {
-        case .start(_):
-            Log("Incoming MMC [Start]", log: OSLog.midi)
-            let newState = state.event(event: .start)
-            state = newState
-            
-            sendStartToObservers()
-            
-        case .stop(_):
-            Log("Incoming MMC [Stop]", log: OSLog.midi)
-            let newState = state.event(event: .stop)
-            state = newState
-            
-            sendStopToObservers()
-            
-        case .continue(_):
-            Log("Incoming MMC [Continue]", log: OSLog.midi)
-            let newState = state.event(event: .continue)
-            state = newState
-            
-            sendContinueToObservers()
-            
-        default:
-            break
+            case .start:
+                Log("Incoming MMC [Start]", log: OSLog.midi)
+                let newState = state.event(event: .start)
+                state = newState
+
+                sendStartToObservers()
+
+            case .stop:
+                Log("Incoming MMC [Stop]", log: OSLog.midi)
+                let newState = state.event(event: .stop)
+                state = newState
+
+                sendStopToObservers()
+
+            case .continue:
+                Log("Incoming MMC [Continue]", log: OSLog.midi)
+                let newState = state.event(event: .continue)
+                state = newState
+
+                sendContinueToObservers()
+
+            default:
+                break
         }
     }
-    
-    public func received(midiNotification: MIDIKitIO.MIDIIONotification) {
+
+    public func received(midiNotification _: MIDIKitIO.MIDIIONotification) {
         // not used
     }
 }
@@ -112,6 +112,7 @@ extension MIDISystemRealTimeListener {
     public func removeAllObservers() {
         observers.removeAll()
     }
+
     /// Send stop command to all observers
     func sendStopToObservers() {
         for observer in observers { observer.stopSRT(listener: self) }

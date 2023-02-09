@@ -28,7 +28,7 @@ class NodeTests: XCTestCase {
         audio.audition()
     }
     #endif
-    
+
     func testRedundantConnection() {
         let player = Sampler()
         let mixer = Mixer()

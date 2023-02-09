@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
-import XCTest
 import AVFAudio
+import XCTest
 
 class ReverbTests: XCTestCase {
     func testBypass() {
@@ -50,5 +50,4 @@ class ReverbTests: XCTestCase {
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
-
 }

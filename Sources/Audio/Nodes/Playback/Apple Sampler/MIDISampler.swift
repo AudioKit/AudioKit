@@ -4,11 +4,11 @@
 
 import AVFoundation
 import CoreAudio
+import CoreMIDI
+import MIDI
+@_implementationOnly import MIDIKitInternals
 import os.log
 import Utilities
-import MIDI
-import CoreMIDI
-@_implementationOnly import MIDIKitInternals
 
 /// MIDI receiving Sampler
 ///
@@ -19,7 +19,7 @@ open class MIDISampler: AppleSampler, NamedNode {
 
     /// MIDI Input
     open var midiInputRef = MIDIEndpointRef()
-    
+
     /// Name of the instrument
     open var name = "(unset)"
 
@@ -37,11 +37,11 @@ open class MIDISampler: AppleSampler, NamedNode {
     deinit {
         destroyEndpoint()
     }
-    
+
     // MARK: - MIDI I/O
-    
+
     private var midi1Parser: MIDI1Parser = .init()
-    
+
     /// Enable MIDI input from a given MIDI client
     /// This is not in the init function because it must be called AFTER you start AudioKit
     ///
@@ -49,17 +49,18 @@ open class MIDISampler: AppleSampler, NamedNode {
     ///   - midiClient: A reference to the MIDI client
     ///   - name: Name to connect with
     ///
-    final public func enableMIDI(_ midiClient: MIDIClientRef = MIDI.shared.manager.coreMIDIClientRef,
-                                 name: String? = nil) {
+    public final func enableMIDI(_ midiClient: MIDIClientRef = MIDI.shared.manager.coreMIDIClientRef,
+                                 name: String? = nil)
+    {
         // don't allow setup to run more than once
         guard midiInputRef == 0 else { return }
-        
+
         let virtualInputName = (name ?? self.name) as CFString
-        
+
         guard let midiBlock = au.scheduleMIDIEventBlock else {
             fatalError("Expected AU to respond to MIDI.")
         }
-        
+
         let result = MIDIDestinationCreateWithBlock(midiClient, virtualInputName, &midiInputRef) { packetList, _ in
             packetList.pointee.packetPointerIterator { [weak self] packetPtr in
                 let events = self?.midi1Parser.parsedEvents(in: packetPtr.rawBytes) ?? []
@@ -72,37 +73,37 @@ open class MIDISampler: AppleSampler, NamedNode {
                 }
             }
         }
-        
+
         CheckError(result)
     }
 
     // MARK: - Handling MIDI Data
-    
+
     /// Handle MIDI events that arrive externally
     public func handle(event: MIDIEvent) throws {
         switch event {
-        case .noteOn(let payload):
-            switch payload.velocity.midi1Value {
-            case 0:
+            case let .noteOn(payload):
+                switch payload.velocity.midi1Value {
+                    case 0:
+                        stop(noteNumber: payload.note.number.uInt8Value,
+                             channel: payload.channel.uInt8Value)
+                    default:
+                        play(noteNumber: payload.note.number.uInt8Value,
+                             velocity: payload.velocity.midi1Value.uInt8Value,
+                             channel: payload.channel.uInt8Value)
+                }
+
+            case let .noteOff(payload):
                 stop(noteNumber: payload.note.number.uInt8Value,
                      channel: payload.channel.uInt8Value)
+
+            case let .cc(payload):
+                samplerUnit.sendController(payload.controller.number.uInt8Value,
+                                           withValue: payload.value.midi1Value.uInt8Value,
+                                           onChannel: payload.channel.uInt8Value)
+
             default:
-                play(noteNumber: payload.note.number.uInt8Value,
-                     velocity: payload.velocity.midi1Value.uInt8Value,
-                     channel: payload.channel.uInt8Value)
-            }
-            
-        case .noteOff(let payload):
-            stop(noteNumber: payload.note.number.uInt8Value,
-                 channel: payload.channel.uInt8Value)
-            
-        case .cc(let payload):
-            samplerUnit.sendController(payload.controller.number.uInt8Value,
-                                       withValue: payload.value.midi1Value.uInt8Value,
-                                       onChannel: payload.channel.uInt8Value)
-            
-        default:
-            break
+                break
         }
     }
 
@@ -118,15 +119,16 @@ open class MIDISampler: AppleSampler, NamedNode {
     /// NB: when using an audio file, noteNumber 60 will play back the file at normal
     /// speed, 72 will play back at double speed (1 octave higher), 48 will play back at
     /// half speed (1 octave lower) and so on
-    open override func play(noteNumber: MIDINoteNumber,
+    override open func play(noteNumber: MIDINoteNumber,
                             velocity: MIDIVelocity,
-                            channel: MIDIChannel) {
-        self.samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
+                            channel: MIDIChannel)
+    {
+        samplerUnit.startNote(noteNumber, withVelocity: velocity, onChannel: channel)
     }
 
     /// Stop a note
-    open override func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
-        self.samplerUnit.stopNote(noteNumber, onChannel: channel)
+    override open func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel) {
+        samplerUnit.stopNote(noteNumber, onChannel: channel)
     }
 
     /// Discard all virtual ports
@@ -140,6 +142,7 @@ open class MIDISampler: AppleSampler, NamedNode {
     func showVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiInputRef, kMIDIPropertyPrivate, 0)
     }
+
     func hideVirtualMIDIPort() {
         MIDIObjectSetIntegerProperty(midiInputRef, kMIDIPropertyPrivate, 1)
     }

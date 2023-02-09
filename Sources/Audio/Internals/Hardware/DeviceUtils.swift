@@ -9,10 +9,11 @@ struct AudioDeviceUtils {
     static func devices() -> [AudioDeviceID] {
         var propsize: UInt32 = 0
 
-        var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
+        var address = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioHardwarePropertyDevices),
             mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
-            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain))
+            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain)
+        )
 
         var result = AudioObjectGetPropertyDataSize(AudioObjectID(kAudioObjectSystemObject),
                                                     &address,
@@ -53,13 +54,14 @@ struct AudioDeviceUtils {
     }
 
     static func name(_ device: AudioDeviceID) -> String {
-        var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
+        var address = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyDeviceNameCFString),
             mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
-            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain))
+            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain)
+        )
 
         var name: CFString?
-        var propsize: UInt32 = UInt32(MemoryLayout<CFString?>.size)
+        var propsize = UInt32(MemoryLayout<CFString?>.size)
         let result: OSStatus = AudioObjectGetPropertyData(device, &address, 0, nil, &propsize, &name)
         if result != 0 {
             return ""
@@ -73,10 +75,11 @@ struct AudioDeviceUtils {
     }
 
     static func outputChannels(_ device: AudioDeviceID) -> Int {
-        var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
+        var address = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyStreamConfiguration),
             mScope: AudioObjectPropertyScope(kAudioDevicePropertyScopeOutput),
-            mElement: 0)
+            mElement: 0
+        )
 
         var propsize: UInt32 = 0
         var result: OSStatus = AudioObjectGetPropertyDataSize(device, &address, 0, nil, &propsize)
@@ -92,7 +95,7 @@ struct AudioDeviceUtils {
 
         let buffers = UnsafeMutableAudioBufferListPointer(bufferList)
         var channels = 0
-        for i in 0..<buffers.count {
+        for i in 0 ..< buffers.count {
             channels += Int(buffers[i].mNumberChannels)
         }
 
@@ -100,10 +103,11 @@ struct AudioDeviceUtils {
     }
 
     static func inputChannels(_ device: AudioDeviceID) -> Int {
-        var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
+        var address = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyStreamConfiguration),
             mScope: AudioObjectPropertyScope(kAudioDevicePropertyScopeInput),
-            mElement: 0)
+            mElement: 0
+        )
 
         var propsize: UInt32 = 0
         var result: OSStatus = AudioObjectGetPropertyDataSize(device, &address, 0, nil, &propsize)
@@ -119,7 +123,7 @@ struct AudioDeviceUtils {
 
         let buffers = UnsafeMutableAudioBufferListPointer(bufferList)
         var channels = 0
-        for i in 0..<buffers.count {
+        for i in 0 ..< buffers.count {
             channels += Int(buffers[i].mNumberChannels)
         }
 
@@ -127,13 +131,14 @@ struct AudioDeviceUtils {
     }
 
     static func uid(_ device: AudioDeviceID) -> String {
-        var address: AudioObjectPropertyAddress = AudioObjectPropertyAddress(
+        var address = AudioObjectPropertyAddress(
             mSelector: AudioObjectPropertySelector(kAudioDevicePropertyDeviceUID),
             mScope: AudioObjectPropertyScope(kAudioObjectPropertyScopeGlobal),
-            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain))
+            mElement: AudioObjectPropertyElement(kAudioObjectPropertyElementMain)
+        )
 
         var name: CFString?
-        var propsize: UInt32 = UInt32(MemoryLayout<CFString?>.size)
+        var propsize = UInt32(MemoryLayout<CFString?>.size)
         let result: OSStatus = AudioObjectGetPropertyData(device, &address, 0, nil, &propsize, &name)
         if result != 0 {
             return ""
