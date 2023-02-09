@@ -13,11 +13,11 @@ import Foundation
 /// while others can steal data from the queue.
 /// Ported to swift from C++: https://github.com/taskflow/work-stealing-queue
 public class WorkStealingQueue {
-    final class QueueArray {
-        var C: Int
-        var M: Int
+    struct QueueArray {
+        private var C: Int
+        private var M: Int
 
-        var S: Vec<UnsafeAtomic<RenderJobIndex>>
+        private var S: Vec<UnsafeAtomic<RenderJobIndex>>
 
         init(_ c: Int) {
             C = c
@@ -25,7 +25,7 @@ public class WorkStealingQueue {
             S = Vec(count: c) { _ in UnsafeAtomic.create(0) }
         }
 
-        deinit {
+        func destroy() {
             for i in 0 ..< S.count {
                 S[i].destroy()
             }
@@ -43,9 +43,9 @@ public class WorkStealingQueue {
 
     }
 
-    var _top = UnsafeAtomic<Int>.create(0)
-    var _bottom = UnsafeAtomic<Int>.create(0)
-    var _array: QueueArray
+    private var _top = UnsafeAtomic<Int>.create(0)
+    private var _bottom = UnsafeAtomic<Int>.create(0)
+    private var _array: QueueArray
 
     /// constructs the queue with a given capacity
     ///
@@ -58,6 +58,7 @@ public class WorkStealingQueue {
     deinit {
         _top.destroy()
         _bottom.destroy()
+        _array.destroy()
     }
 
     /// queries if the queue is empty at the time of this call
