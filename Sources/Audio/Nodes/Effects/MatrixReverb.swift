@@ -3,9 +3,11 @@
 import AVFoundation
 import Utilities
 
+#if os(macOS)
+
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-public class Reverb: Node {
+public class MatrixReverb: Node {
     public var au: AUAudioUnit
 
     let input: Node
@@ -44,7 +46,7 @@ public class Reverb: Node {
     public init(_ input: Node, wetDryMix: AUValue = 100) {
         self.input = input
 
-        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Reverb2)
+        let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_MatrixReverb)
         au = instantiateAU(componentDescription: desc)
         associateParams(with: au)
 
@@ -53,53 +55,4 @@ public class Reverb: Node {
     }
 }
 
-public enum ReverbPreset: Int, CaseIterable, CustomStringConvertible {
-    case smallRoom
-    case mediumRoom
-    case largeRoom
-    case mediumHall
-    case largeHall
-    case plate
-    case mediumChamber
-    case largeChamber
-    case cathedral
-    case largeRoom2
-    case mediumHall2
-    case mediumHall3
-    case largeHall2
-
-    public var name: String {
-        switch self {
-        case .smallRoom:
-            return "Small Room"
-        case .mediumRoom:
-            return "Medium Room"
-        case .largeRoom:
-            return "Large Room"
-        case .mediumHall:
-            return "Medium Hall"
-        case .largeHall:
-            return "Large Hall"
-        case .plate:
-            return "Plate"
-        case .mediumChamber:
-            return "Medium Chamber"
-        case .largeChamber:
-            return "Large Chamber"
-        case .cathedral:
-            return "Cathedral"
-        case .largeRoom2:
-            return "Large Room 2"
-        case .mediumHall2:
-            return "Medium Hall 2"
-        case .mediumHall3:
-            return "Medium Hall 3"
-        case .largeHall2:
-            return "Large Hall 2"
-        }
-    }
-
-    public var description: String {
-        return name
-    }
-}
+#endif // os(macOS)
