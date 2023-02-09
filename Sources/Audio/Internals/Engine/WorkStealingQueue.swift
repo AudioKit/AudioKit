@@ -13,7 +13,7 @@ import Foundation
 /// while others can steal data from the queue.
 /// Ported to swift from C++: https://github.com/taskflow/work-stealing-queue
 public class WorkStealingQueue {
-    final class QueueArray: AtomicReference {
+    final class QueueArray {
         var C: Int
         var M: Int
 
@@ -52,14 +52,14 @@ public class WorkStealingQueue {
 
     var _top = UnsafeAtomic<Int>.create(0)
     var _bottom = UnsafeAtomic<Int>.create(0)
-    var _array: ManagedAtomic<QueueArray>
+    var _array: QueueArray
 
     /// constructs the queue with a given capacity
     ///
     /// capacity the capacity of the queue (must be power of 2)
     public init(capacity c: Int = 1024) {
         // assert(c && (!(c & (c-1))))
-        _array = .init(QueueArray(c))
+        _array = QueueArray(c)
     }
 
     deinit {
@@ -83,7 +83,7 @@ public class WorkStealingQueue {
 
     /// queries the capacity of the queue
     public var capacity: Int {
-        _array.load(ordering: .relaxed).capacity
+        _array.capacity
     }
 
     /// inserts an item to the queue
@@ -94,14 +94,13 @@ public class WorkStealingQueue {
     public func push(_ o: RenderJobIndex) {
         let b = _bottom.load(ordering: .relaxed)
         let t = _top.load(ordering: .acquiring)
-        var a = _array.load(ordering: .relaxed)
 
         // queue is full
-        if a.capacity - 1 < (b - t) {
+        if _array.capacity - 1 < (b - t) {
             fatalError("Queue full. We should know statically the max size of the queue.")
         }
 
-        a.push(b, o)
+        _array.push(b, o)
         atomicMemoryFence(ordering: .releasing)
         _bottom.store(b + 1, ordering: .relaxed)
     }
@@ -112,7 +111,6 @@ public class WorkStealingQueue {
     /// The return can be a @std_nullopt if this operation failed (empty queue).
     public func pop() -> RenderJobIndex? {
         let b = _bottom.load(ordering: .relaxed) - 1
-        let a = _array.load(ordering: .relaxed)
         _bottom.store(b, ordering: .relaxed)
         atomicMemoryFence(ordering: .sequentiallyConsistent)
         let t = _top.load(ordering: .relaxed)
@@ -120,7 +118,7 @@ public class WorkStealingQueue {
         var item: RenderJobIndex?
 
         if t <= b {
-            item = a.pop(b)
+            item = _array.pop(b)
             if t == b {
                 // the last item just got stolen
                 let (exchanged, _) = _top.compareExchange(expected: t,
@@ -151,8 +149,7 @@ public class WorkStealingQueue {
         var item: RenderJobIndex?
 
         if t < b {
-            let a = _array.load(ordering: .acquiring)
-            item = a.pop(t)
+            item = _array.pop(t)
 
             let (exchanged, _) = _top.compareExchange(expected: t,
                                                       desired: t + 1,
