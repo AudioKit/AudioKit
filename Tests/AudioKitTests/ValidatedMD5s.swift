@@ -46,7 +46,7 @@ let validatedMD5s: [String: [String]] = [
     "-[NodeTests testDynamicConnection3]": ["70e6414b0f09f42f70ca7c0b0d576e84"],
     "-[NodeTests testDynamicOutput]": ["faf8254c11a6b73eb3238d57b1c14a9f"],
     "-[NodeTests testNodeBasic]": ["7e9104f6cbe53a0e3b8ec2d041f56396"],
-    "-[NodeTests testNodeConnection]": ["5fbcf0b327308ff4fc9b42292986e2d5", "9ec058582f8c7db11bbd695071a04d4b"],
+    "-[NodeTests testNodeConnection]": ["5fbcf0b327308ff4fc9b42292986e2d5", "9ec058582f8c7db11bbd695071a04d4b", "f3ef443b9db92b1662c9d305274db661"],
     "-[NodeTests testNodeDetach]": ["8c5c55d9f59f471ca1abb53672e3ffbf"],
     "-[NodeTests testTwoEngines]": ["42b1eafdf0fc632f46230ad0497a29bf"],
     "-[PeakLimiterTests testAttackTime]": ["8e221adb58aca54c3ad94bce33be27db"],
