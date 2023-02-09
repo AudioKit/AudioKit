@@ -15,7 +15,7 @@ public class SynchronizedAudioBufferList {
     var abl: UnsafeMutablePointer<AudioBufferList>
 
     /// For syncrhonization.
-    private var atomic = ManagedAtomic<Int32>(0)
+    private var atomic = UnsafeAtomic.create(0)
 
     public init(_ pcmBuffer: AVAudioPCMBuffer) {
         self.pcmBuffer = pcmBuffer
@@ -29,6 +29,6 @@ public class SynchronizedAudioBufferList {
 
     /// Indicate that we're ready to read from the buffer.
     func beginReading() {
-        atomic.wrappingIncrement(ordering: .acquiring)
+        atomic.wrappingDecrement(ordering: .acquiring)
     }
 }
