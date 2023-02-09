@@ -109,7 +109,10 @@ class GenericNodeTests: XCTestCase {
         nodeParameterTest(md5s: ["7578e739da5c7b433bee6ebbad8d92f5"], factory: { input in DynamicsProcessor(input) })
         nodeParameterTest(md5s: ["d65f43bda68342d9a53a5e9eda7ad36d"], factory: { input in PeakLimiter(input) })
         #if os(macOS)
-        nodeParameterTest(md5s: ["28d2cb7a5c1e369ca66efa8931d31d4d", "20215ab1ecb1943ca15d98e239018f25"], factory: { player in Reverb(player) })
+        nodeParameterTest(md5s: ["28d2cb7a5c1e369ca66efa8931d31d4d",
+                                 "20215ab1ecb1943ca15d98e239018f25",
+                                 "a131e348045438d2bef6d588c3a4e7a1"],
+                          factory: { player in Reverb(player) })
         #endif
     }
 
