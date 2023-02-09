@@ -164,10 +164,6 @@ class SamplerAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
-    override func allocateRenderResources() throws {}
-
-    override func deallocateRenderResources() {}
-
     override var internalRenderBlock: AUInternalRenderBlock {
         { (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
            _: UnsafePointer<AudioTimeStamp>,

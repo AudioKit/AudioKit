@@ -77,8 +77,6 @@ class OscillatorAudioUnit: AUAudioUnit {
         kernel.sampleRate = outputBusArray[0].format.sampleRate
     }
 
-    override func deallocateRenderResources() {}
-
     override var shouldBypassEffect: Bool {
         didSet {
             kernel.bypassed = shouldBypassEffect
