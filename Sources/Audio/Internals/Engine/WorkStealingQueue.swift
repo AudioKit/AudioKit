@@ -53,7 +53,6 @@ public class WorkStealingQueue {
     var _top = UnsafeAtomic<Int>.create(0)
     var _bottom = UnsafeAtomic<Int>.create(0)
     var _array: ManagedAtomic<QueueArray>
-    var _garbage: [QueueArray] = []
 
     /// constructs the queue with a given capacity
     ///
@@ -61,7 +60,6 @@ public class WorkStealingQueue {
     public init(capacity c: Int = 1024) {
         // assert(c && (!(c & (c-1))))
         _array = .init(QueueArray(c))
-        _garbage.reserveCapacity(32)
     }
 
     deinit {
@@ -100,10 +98,7 @@ public class WorkStealingQueue {
 
         // queue is full
         if a.capacity - 1 < (b - t) {
-            var tmp = a.resize(b, t)
-            _garbage.append(a)
-            swap(&a, &tmp)
-            _array.store(a, ordering: .relaxed)
+            fatalError("Queue full. We should know statically the max size of the queue.")
         }
 
         a.push(b, o)
