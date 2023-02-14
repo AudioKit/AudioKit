@@ -206,7 +206,8 @@ public final class Table: MutableCollection {
             if (i + phaseOffset) % count < count / 2 {
                 content[i] = slope * Float((i + phaseOffset) % count) - 1.0
             } else {
-                content[i] = slope * Float((-i - phaseOffset) % count) + 3.0
+                let neg_i: Int = -i // compile time perf
+                content[i] = slope * Float((neg_i - phaseOffset) % count) + 3.0
             }
         }
     }
@@ -277,7 +278,8 @@ public final class Table: MutableCollection {
             if (i + phaseOffset) % count < count / 2 {
                 content[i] = slope * Float((i + phaseOffset) % count)
             } else {
-                content[i] = slope * Float((-i - phaseOffset) % count) + 2.0
+                let neg_i: Int = -i // compile time perf
+                content[i] = slope * Float((neg_i - phaseOffset) % count) + 2.0
             }
         }
     }
