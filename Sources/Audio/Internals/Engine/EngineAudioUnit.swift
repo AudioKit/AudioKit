@@ -111,12 +111,13 @@ public class EngineAudioUnit: AUAudioUnit {
              outputBuffer: UnsafeMutablePointer<AudioBufferList>) in
 
             // We'd like to avoid actually copying samples, so just copy the ABL.
-            let inputBuffer = inputBufferLists[bus]
+            let inputBuffer: SynchronizedAudioBufferList = inputBufferLists[bus]
 
             assert(inputBuffer.abl.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
 
             // Note that we already have one buffer in the AudioBufferList type, hence the -1
-            let ablSize = MemoryLayout<AudioBufferList>.size + Int(inputBuffer.abl.pointee.mNumberBuffers - 1) * MemoryLayout<AudioBuffer>.size
+            let bufferCount: Int = Int(inputBuffer.abl.pointee.mNumberBuffers)
+            let ablSize = MemoryLayout<AudioBufferList>.size + (bufferCount - 1) * MemoryLayout<AudioBuffer>.size
             memcpy(outputBuffer, inputBuffer.abl, ablSize)
 
             return noErr
