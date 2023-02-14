@@ -23,7 +23,7 @@ class OscillatorAudioUnit: AUAudioUnit {
     let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 1, range: 0 ... 10, unit: .generic, flags: [])
 
     func setWaveform(_ waveform: Table) {
-        let waveVec = Vec(waveform.content)
+        let waveVec = Vec<Float>(waveform.content)
         let holder = UnsafeMutablePointer<Vec<Float>>.allocate(capacity: 1)
 
         holder.initialize(to: waveVec)
