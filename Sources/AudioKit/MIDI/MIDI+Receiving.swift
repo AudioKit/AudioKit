@@ -40,7 +40,7 @@ extension MIDI {
         listeners.append(listener)
     }
 
-    /// REmove a listener
+    /// Remove a listener
     /// - Parameter listener: MIDI Listener
     public func removeListener(_ listener: MIDIListener) {
         listeners.removeAll { (item) -> Bool in
@@ -108,9 +108,9 @@ extension MIDI {
         return refs
     }
 
-    /// Lookup a input name from its unique id
+    /// Lookup an input name from its unique id
     ///
-    /// - Parameter forUid: unique id for a input
+    /// - Parameter forUid: unique id for an input
     /// - Returns: name of input or nil
     public func inputName(for inputUid: MIDIUniqueID) -> String? {
 
@@ -124,7 +124,7 @@ extension MIDI {
         return name
     }
 
-    /// Look up the unique id for a input index
+    /// Look up the unique id for an input index
     ///
     /// - Parameter inputIndex: index of destination
     /// - Returns: unique identifier for the port
