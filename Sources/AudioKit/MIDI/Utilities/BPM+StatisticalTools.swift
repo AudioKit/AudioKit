@@ -175,11 +175,11 @@ struct BPMHistoryStatistics {
         return lineFn.c + lineFn.slope * Double(time)
     }
 
-    /// This methods attempts to return the most accurate BPM
+    /// This method attempts to return the most accurate BPM
     /// by searching through its most recent BPM history sets for
     /// the sequence with the least deviation from that sets mean.
     ///
-    /// - Returns: A tuple with Average BPM, Standard Deviation, index of the BTM history set it used,
+    /// - Returns: A tuple with Average BPM, Standard Deviation, index of the BPM history set it used,
     ///     and the number of BPMs used to obtain the average
     func avgFromSmallestDeviatingHistory() -> (avg: BPMType, std: BPMType, index: Int, count: Int, accuracy: Double) {
 
