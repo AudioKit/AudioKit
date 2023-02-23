@@ -11,14 +11,14 @@ final class MIDIPacketTests: XCTestCase {
         var packet = MIDIPacket()
         packet.length = 0
         XCTAssertEqual(extractPacketData(&packet), [])
-        var result = extractPacket(&packet)
+        var result = extractPacket(&packet)!
         XCTAssertEqual(result.length, 0)
 
         packet.length = 1
         packet.data.0 = 1
         XCTAssertEqual(extractPacketData(&packet), [1])
 
-        result = extractPacket(&packet)
+        result = extractPacket(&packet)!
         XCTAssertEqual(result.length, 1)
         XCTAssertEqual(result.data.0, 1)
 
@@ -28,7 +28,7 @@ final class MIDIPacketTests: XCTestCase {
         packet.data.2 = 3
         XCTAssertEqual(extractPacketData(&packet), [1,2,3])
 
-        result = extractPacket(&packet)
+        result = extractPacket(&packet)!
         XCTAssertEqual(result.length, 3)
         XCTAssertEqual(result.data.0, 1)
         XCTAssertEqual(result.data.1, 2)

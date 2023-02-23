@@ -15,20 +15,21 @@ extension MIDIPacketList: Sequence {
     /// Create the sequence
     /// - Returns: Iterator of elements
     public func makeIterator() -> AnyIterator<Element> {
-        var p: MIDIPacket = packet
-        var idx: UInt32 = 0
 
-        return AnyIterator {
-            guard idx < self.numPackets else {
-                return nil
-            }
+        withUnsafePointer(to: packet) { ptr in
+            var p = ptr
+            var idx: UInt32 = 0
 
-            if idx != 0 {
-                p = MIDIPacketNext(&p).pointee
+            return AnyIterator {
+                guard idx < self.numPackets else {
+                    return nil
+                }
+
+                idx += 1
+                let packet = extractPacket(p)
+                p = UnsafePointer(MIDIPacketNext(p))
+                return packet
             }
-            idx += 1
-            
-            return p
         }
     }
 }
@@ -56,7 +57,7 @@ public func extractPacketData(_ ptr: UnsafePointer<MIDIPacket>) -> [UInt8] {
 ///
 /// This is not ideal. We're using MIDIPacket directly and assuming that our packet length is less
 /// than the 256 bytes in MIDIPacket.
-public func extractPacket(_ ptr: UnsafePointer<MIDIPacket>) -> MIDIPacket {
+public func extractPacket(_ ptr: UnsafePointer<MIDIPacket>) -> MIDIPacket? {
 
     var packet = MIDIPacket()
     let raw = UnsafeRawPointer(ptr)
@@ -68,7 +69,10 @@ public func extractPacket(_ ptr: UnsafePointer<MIDIPacket>) -> MIDIPacket {
         Int(pointer.pointee)
     }
 
-    assert(length < 256)
+    // We can't represent a longer packet as a MIDIPacket value.
+    if length > 256 {
+        return nil
+    }
 
     packet.length = UInt16(length)
     packet.timeStamp = timestampPtr.withMemoryRebound(to: MIDITimeStamp.self, capacity: 1, { pointer in
