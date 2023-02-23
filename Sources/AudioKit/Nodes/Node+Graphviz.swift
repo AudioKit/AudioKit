@@ -13,7 +13,7 @@ fileprivate var labels: [ObjectIdentifier: String] = [:]
 extension Node {
 
     /// A label for to use when printing the dot.
-    var label: String {
+    public var label: String {
         get { labels[ObjectIdentifier(self)] ?? "" }
         set { labels[ObjectIdentifier(self)] = newValue }
     }
@@ -25,7 +25,7 @@ extension Node {
     /// 1. `brew install graphviz` (if not already installed)
     /// 2. Save output to `.dot` file (e.g. `effects.dot`)
     /// 2. `dot -Tpdf effects.dot > effects.pdf`
-    var graphviz: String {
+    public var graphviz: String {
 
         var str = "digraph patch {\n"
         str += "  graph [rankdir = \"LR\"];\n"
