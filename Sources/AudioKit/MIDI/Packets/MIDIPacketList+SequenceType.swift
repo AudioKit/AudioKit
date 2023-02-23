@@ -33,4 +33,22 @@ extension MIDIPacketList: Sequence {
     }
 }
 
+/// We can't call pointee on a packet pointer without potentially reading off the end and
+/// triggering ASAN. Instead extract the data.
+public func extractPacketData(_ ptr: UnsafePointer<MIDIPacket>) -> [UInt8] {
+
+    let raw = UnsafeRawPointer(ptr)
+    let lengthPtr = raw.advanced(by: MemoryLayout.offset(of: \MIDIPacket.length)!)
+    let dataPtr = raw.advanced(by: MemoryLayout.offset(of: \MIDIPacket.data)!)
+
+    let length = lengthPtr.withMemoryRebound(to: UInt16.self, capacity: 1) { pointer in
+        Int(pointer.pointee)
+    }
+
+    var array = [UInt8](repeating: 0, count: length)
+    memcpy(&array, dataPtr, length)
+
+    return array
+}
+
 #endif
