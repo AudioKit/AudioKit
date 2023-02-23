@@ -1,5 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-@testable import AudioKit
+import AudioKit
 import AVFoundation
 import XCTest
 

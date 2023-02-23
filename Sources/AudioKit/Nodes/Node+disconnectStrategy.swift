@@ -55,7 +55,7 @@ extension Node {
         }
     }
 
-    func detach() {
+    public func detach() {
         if let engine = avAudioNode.engine {
             engine.detach(avAudioNode)
         }

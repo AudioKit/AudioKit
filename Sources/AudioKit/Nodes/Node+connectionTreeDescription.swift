@@ -2,7 +2,7 @@
 
 import Foundation
 
-let connectionTreeLinePrefix = "AudioKit | "
+public let connectionTreeLinePrefix = "AudioKit | "
 
 extension Node {
     /// Nice printout of all the node connections
