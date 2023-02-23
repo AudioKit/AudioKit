@@ -39,12 +39,10 @@ extension MIDIPacketList: Sequence {
 public func extractPacketData(_ ptr: UnsafePointer<MIDIPacket>) -> [UInt8] {
 
     let raw = UnsafeRawPointer(ptr)
-    let lengthPtr = raw.advanced(by: MemoryLayout.offset(of: \MIDIPacket.length)!)
     let dataPtr = raw.advanced(by: MemoryLayout.offset(of: \MIDIPacket.data)!)
 
-    let length = lengthPtr.withMemoryRebound(to: UInt16.self, capacity: 1) { pointer in
-        Int(pointer.pointee)
-    }
+    let length = Int(raw.loadUnaligned(fromByteOffset: MemoryLayout.offset(of: \MIDIPacket.length)!,
+                                       as: UInt16.self))
 
     var array = [UInt8](repeating: 0, count: length)
     memcpy(&array, dataPtr, length)
@@ -61,26 +59,22 @@ public func extractPacket(_ ptr: UnsafePointer<MIDIPacket>) -> MIDIPacket? {
 
     var packet = MIDIPacket()
     let raw = UnsafeRawPointer(ptr)
-    let lengthPtr = raw.advanced(by: MemoryLayout.offset(of: \MIDIPacket.length)!)
-    let timestampPtr = raw.advanced(by: MemoryLayout.offset(of: \MIDIPacket.timeStamp)!)
-    let dataPtr = raw.advanced(by: MemoryLayout.offset(of: \MIDIPacket.data)!)
 
-    let length = lengthPtr.withMemoryRebound(to: UInt16.self, capacity: 1) { pointer in
-        Int(pointer.pointee)
-    }
+    let length = raw.loadUnaligned(fromByteOffset: MemoryLayout.offset(of: \MIDIPacket.length)!,
+                                   as: UInt16.self)
 
     // We can't represent a longer packet as a MIDIPacket value.
     if length > 256 {
         return nil
     }
 
-    packet.length = UInt16(length)
-    packet.timeStamp = timestampPtr.withMemoryRebound(to: MIDITimeStamp.self, capacity: 1, { pointer in
-        pointer.pointee
-    })
+    packet.length = length
+    packet.timeStamp = raw.loadUnaligned(fromByteOffset: MemoryLayout.offset(of: \MIDIPacket.timeStamp)!,
+                                         as: MIDITimeStamp.self)
 
+    let dataPtr = raw.advanced(by: MemoryLayout.offset(of: \MIDIPacket.data)!)
     _ = withUnsafeMutableBytes(of: &packet.data) { ptr in
-        memcpy(ptr.baseAddress!, dataPtr, length)
+        memcpy(ptr.baseAddress!, dataPtr, Int(length))
     }
 
     return packet
