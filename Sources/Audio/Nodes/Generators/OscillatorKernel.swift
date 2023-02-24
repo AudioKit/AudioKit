@@ -8,8 +8,7 @@ import Utilities
 class OscillatorKernel {
     var bypassed = false
 
-    /// XXX: oscillator phases should be Doubles
-    private var currentPhase: AUValue = 0.0
+    private var currentPhase: Double = 0.0
 
     /// Pitch in Hz
     private var frequency: AUValue = 440
@@ -50,11 +49,11 @@ class OscillatorKernel {
             return noErr
         }
 
-        let twoPi: AUValue = .init(2 * Double.pi)
-        let phaseIncrement = (twoPi / Float(sampleRate)) * frequency
+        let twoPi: Double = .init(2 * Double.pi)
+        let phaseIncrement = (twoPi / Double(sampleRate)) * Double(frequency)
         for frame in 0 ..< Int(frameCount) {
             // Get signal value for this frame at time.
-            let index = Int(currentPhase / twoPi * Float(table.count))
+            let index = Int(currentPhase / twoPi * Double(table.count))
             let value = table[index] * amplitude
 
             // Advance the phase for the next frame.
