@@ -16,7 +16,7 @@ let package = Package(
         .target(name: "Audio",
                 dependencies: ["MIDI", "Utilities", .product(name: "Atomics", package: "swift-atomics")],
                 swiftSettings: [
-                    .unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=10"])
+                    .unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=50"])
                 ]),
         .target(name: "AudioFiles", dependencies: ["Utilities"]),
         .target(name: "Utilities"),
