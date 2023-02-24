@@ -127,12 +127,12 @@ class EngineTests: XCTestCase {
     func testMixerVolume2() throws {
         let avAudioEngineMixerMD5s: [String] = [
             // Apple                            // Intel
-            "4fc54784f2f7bcf2d51ad3c42a6639c2", "4fc54784f2f7bcf2d51ad3c42a6639c2",
-            "99a373355496efe02613c1d21d63b1fe", "2ab46479ab6506bae3014d23be5e0dce",
-            "3c364173950bdd58b486ab3240b5c3a4", "6ea69742d46f2d0d4d667b3e9b3baef4",
-            "0be26934bc76d9992501dda2bb6d5338", "71944222e8b87cb9d9bbbb8461a26772",
-            "87c195248adcd83ca41c50cf240504fb", "434ec09c1e71d0bdef1a91c92a0d2c30",
-            "066618d77dccc54744259f3137ceb3b1", "18de289a354bd1ef3d7b108328f3cc60",
+            "07a5ba764493617dcaa54d16e8cbec99", "4fc54784f2f7bcf2d51ad3c42a6639c2",
+            "1366766f7dfa7282c0f15150c8ad09f7", "2ab46479ab6506bae3014d23be5e0dce",
+            "34d94eb74e7a6baff6b3f01615516824", "6ea69742d46f2d0d4d667b3e9b3baef4",
+            "1b6fcf41250ee6acef62fd8aa9653159", "71944222e8b87cb9d9bbbb8461a26772",
+            "96f75d59420c90eefa2a9f953902f358", "434ec09c1e71d0bdef1a91c92a0d2c30",
+            "5e2d75d048f097335e87c5ab3645078e", "18de289a354bd1ef3d7b108328f3cc60",
         ]
 
         for volume in [0.0, 0.1, 0.5, 0.8, 1.0, 2.0] {
@@ -153,13 +153,13 @@ class EngineTests: XCTestCase {
 
         let avAudioEngineMixerMD5s: [String] = [
             // Apple                            // Intel
-            "2df13e0bfbeeb0e4eeccba003093fc68", "412baf8dcec60f2825b608f3b493440e",
-            "a84c33af9138d6647a672cae22c3d5c5", "0ec52383c98b02a23a6b194a5ffc3166",
-            "3719d46e00ae6417edb261ad7dc5ffce", "b4274749a5d4370ea3d4cd1e69e9a2a4",
-            "0f205a702a095db2e7d2cc8b11e18ba0", "01c21afad50c08f7ff411b431e1dae5b",
-            "702488ca65d6806d526c9532e57e5a01", "92177ede4f8265a9e4221c890e08e458",
-            "41f58b2a8696503f4b9083f2e63ca55a", "22a130e99a4a75113f2a816a4644a7b1",
-            "9c78defb1650aecc750d89dadf1d0d02", "c62c7e285d8552eac689ce193a300ed1",
+            "71957476da05b8e62115113c419625cb", "412baf8dcec60f2825b608f3b493440e",
+            "4988fa152c867d15c8b263c4b9ae66aa", "0ec52383c98b02a23a6b194a5ffc3166",
+            "71a9223cde9f0288fe339bd3e3ba57e3", "b4274749a5d4370ea3d4cd1e69e9a2a4",
+            "32a97296e60a398a8b6f5533817e7e69", "01c21afad50c08f7ff411b431e1dae5b",
+            "5f6a773a46341897356a5997dd73245b", "92177ede4f8265a9e4221c890e08e458",
+            "b18e555120c1e7fa2103e55cb718d42d", "22a130e99a4a75113f2a816a4644a7b1",
+            "cfc283772998074a5b0e38fff916a87a", "c62c7e285d8552eac689ce193a300ed1",
         ]
 
         for pan in [-0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75] {
