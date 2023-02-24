@@ -120,6 +120,13 @@ public class DynamicsProcessor: Node {
         return au.parameterTree?.allParameters[9].value ?? 0
     }
 
+    /// Load an Apple Factory Preset
+    public func loadFactoryPreset(_ preset: DynamicsProcessorPreset) {
+        let auPreset = AUAudioUnitPreset()
+        auPreset.number = preset.rawValue
+        au.currentPreset = auPreset
+    }
+
     /// Initialize the dynamics processor node
     ///
     /// - parameter input: Input node to process
@@ -154,5 +161,35 @@ public class DynamicsProcessor: Node {
         self.attackTime = attackTime
         self.releaseTime = releaseTime
         self.masterGain = masterGain
+    }
+}
+
+public enum DynamicsProcessorPreset: Int, CaseIterable, CustomStringConvertible {
+    case fastAndSmooth
+    case hard
+    case light
+    case lightGate
+    case mediumGate
+    case hardGate
+
+    public var name: String {
+        switch self {
+            case .fastAndSmooth:
+                return "Fast and Smooth"
+            case .hard:
+                return "Hard"
+            case .light:
+                return "Light"
+            case .lightGate:
+                return "Light Gate"
+            case .mediumGate:
+                return "Medium Gate"
+            case .hardGate:
+                return "Hard Gate"
+        }
+    }
+
+    public var description: String {
+        return name
     }
 }

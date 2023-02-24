@@ -117,6 +117,7 @@ class GenericNodeTests: XCTestCase {
     }
 
     func testFilters() {
+        nodeParameterTest(md5s: ["85d7fbd22c14dc7cc8d3954ebafd0407"], factory: { input in BandPassFilter(input) })
         nodeParameterTest(md5s: ["befc21e17a65f32169c8b0efb15ea75c"], factory: { input in HighPassFilter(input) })
         nodeParameterTest(md5s: ["69926231aedb80c4bd9ad8c27e2738b8"], factory: { input in HighShelfFilter(input) })
         nodeParameterTest(md5s: ["aa3f867e12cf44b80d8142ebd0dc00a5"], factory: { input in LowPassFilter(input) })

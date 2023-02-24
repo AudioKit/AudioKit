@@ -37,6 +37,7 @@ let validatedMD5s: [String: [String]] = [
     "-[DynamicsProcessorTests testHeadRoom]": ["98ac5f20a433ba5a858c461aa090d81f"],
     "-[DynamicsProcessorTests testMasterGain]": ["b8ff41f64341a786bd6533670d238560"],
     "-[DynamicsProcessorTests testParameters]": ["6b99deb194dd53e8ceb6428924d6666b"],
+    "-[DynamicsProcessorTests testPreset]": ["f0c09e218767a2d11425688ba3b570c3"],
     "-[DynamicsProcessorTests testThreshold]": ["e1133fc525a256a72db31453d293c47c"],
     "-[MixerTests testSplitConnection]": ["6b2d34e86130813c7e7d9f1cf7a2a87c"],
     "-[NodeRecorderTests testBasicRecord]": ["f98d952748c408b1e38325f2bfe2ce81"],

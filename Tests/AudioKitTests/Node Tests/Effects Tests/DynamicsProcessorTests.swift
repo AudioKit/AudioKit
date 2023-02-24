@@ -14,6 +14,18 @@ class DynamicsProcessorTests: XCTestCase {
         testMD5(audio)
     }
 
+    func testPreset() throws {
+        let engine = Engine()
+        let sampler = Sampler()
+        let processor = DynamicsProcessor(sampler)
+        processor.loadFactoryPreset(.fastAndSmooth)
+        engine.output = processor
+        sampler.play(url: URL.testAudio)
+        let audio = engine.startTest(totalDuration: 1.0)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
     func testAttackTime() {
         let engine = Engine()
         let sampler = Sampler()
