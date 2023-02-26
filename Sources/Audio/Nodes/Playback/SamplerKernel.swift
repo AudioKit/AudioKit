@@ -36,39 +36,41 @@ class SamplerKernel {
         }
     }
 
-    func processEvents(events: UnsafePointer<AURenderEvent>?) {
-
-        process(events: events,
-                midi: { event in
-            let data = event.pointee.data
-            let command = data.0 & 0xF0
-            let noteNumber = data.1
-            if command == noteOnByte {
-                if let ptr = self.samples[Int(noteNumber)] {
-                    startVoice(holderPtr: ptr)
-                }
-            } else if command == noteOffByte {
-                // XXX: ignore for now
-            }
-        },
-                sysex: { event in
-            var command: SamplerCommand = .stop
-
-            decodeSysex(event, &command)
-
-            switch command {
-            case let .playSample(ptr):
+    func processMIDI(event: UnsafePointer<AUMIDIEvent>) {
+        let data = event.pointee.data
+        let command = data.0 & 0xF0
+        let noteNumber = data.1
+        if command == noteOnByte {
+            if let ptr = self.samples[Int(noteNumber)] {
                 startVoice(holderPtr: ptr)
-
-            case let .assignSample(ptr, noteNumber):
-                self.samples[Int(noteNumber)] = ptr
-            case .stop:
-                for index in 0 ..< self.voices.count {
-                    self.voices[index].inUse = false
-                }
             }
-        })
+        } else if command == noteOffByte {
+            // XXX: ignore for now
+        }
+    }
 
+    func processSysex(event: UnsafePointer<AUMIDIEvent>) {
+
+        var command: SamplerCommand = .stop
+
+        decodeSysex(event, &command)
+
+        switch command {
+        case let .playSample(ptr):
+            startVoice(holderPtr: ptr)
+
+        case let .assignSample(ptr, noteNumber):
+            self.samples[Int(noteNumber)] = ptr
+        case .stop:
+            for index in 0 ..< self.voices.count {
+                self.voices[index].inUse = false
+            }
+        }
+
+    }
+
+    func processEvents(events: UnsafePointer<AURenderEvent>?) {
+        process(events: events, midi: processMIDI, sysex: processSysex)
     }
 
     func render(frameCount: AUAudioFrameCount, outputBufferList: UnsafeMutablePointer<AudioBufferList>) -> AUAudioUnitStatus {
