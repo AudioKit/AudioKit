@@ -10,6 +10,9 @@ struct SampleHolder {
     /// Buffer to play.
     var bufferList: UnsafeMutableAudioBufferListPointer
 
+    /// So we can access frameCount without asking the pcmBuffer (an ObjC class)
+    var frameLength: UInt32
+
     /// Are we done using this sample?
     var done: Bool = false
 }

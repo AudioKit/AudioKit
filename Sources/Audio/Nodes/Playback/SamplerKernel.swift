@@ -39,8 +39,7 @@ class SamplerKernel {
                     if let voiceIndex = self.getVoice() {
                         self.voices[voiceIndex].sample = ptr
 
-                        // XXX: shoudn't be calling frameLength here (ObjC call)
-                        self.voices[voiceIndex].sampleFrames = Int(ptr.pointee.pcmBuffer.frameLength)
+                        self.voices[voiceIndex].sampleFrames = Int(ptr.pointee.frameLength)
                         self.voices[voiceIndex].playhead = 0
                     }
                 }
@@ -58,8 +57,7 @@ class SamplerKernel {
                 if let voiceIndex = self.getVoice() {
                     self.voices[voiceIndex].sample = ptr
 
-                    // XXX: shoudn't be calling frameLength here (ObjC call)
-                    self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.pcmBuffer.frameLength)
+                    self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.frameLength)
                     self.voices[voiceIndex].playhead = 0
                 }
 

@@ -44,7 +44,8 @@ class SamplerAudioUnit: AUAudioUnit {
         let holder = UnsafeMutablePointer<SampleHolder>.allocate(capacity: 1)
 
         holder.initialize(to: SampleHolder(pcmBuffer: sample,
-                                           bufferList: .init(sample.mutableAudioBufferList)))
+                                           bufferList: .init(sample.mutableAudioBufferList),
+                                           frameLength: sample.frameLength))
 
         let command: SamplerCommand = .assignSample(holder, midiNote)
         let sysex = encodeSysex(command)
@@ -78,7 +79,8 @@ class SamplerAudioUnit: AUAudioUnit {
         let holder = UnsafeMutablePointer<SampleHolder>.allocate(capacity: 1)
 
         holder.initialize(to: SampleHolder(pcmBuffer: sample,
-                                           bufferList: .init(sample.mutableAudioBufferList)))
+                                           bufferList: .init(sample.mutableAudioBufferList),
+                                           frameLength: sample.frameLength))
 
         let command: SamplerCommand = .playSample(holder)
         let sysex = encodeSysex(command)
