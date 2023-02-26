@@ -27,6 +27,15 @@ class SamplerKernel {
         return nil
     }
 
+    func startVoice(holderPtr ptr: UnsafeMutablePointer<SampleHolder>) {
+        if let voiceIndex = self.getVoice() {
+            self.voices[voiceIndex].sample = ptr
+
+            self.voices[voiceIndex].sampleFrames = Int(ptr.pointee.frameLength)
+            self.voices[voiceIndex].playhead = 0
+        }
+    }
+
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
 
         process(events: events,
@@ -36,12 +45,7 @@ class SamplerKernel {
             let noteNumber = data.1
             if command == noteOnByte {
                 if let ptr = self.samples[Int(noteNumber)] {
-                    if let voiceIndex = self.getVoice() {
-                        self.voices[voiceIndex].sample = ptr
-
-                        self.voices[voiceIndex].sampleFrames = Int(ptr.pointee.frameLength)
-                        self.voices[voiceIndex].playhead = 0
-                    }
+                    startVoice(holderPtr: ptr)
                 }
             } else if command == noteOffByte {
                 // XXX: ignore for now
@@ -54,12 +58,7 @@ class SamplerKernel {
 
             switch command {
             case let .playSample(ptr):
-                if let voiceIndex = self.getVoice() {
-                    self.voices[voiceIndex].sample = ptr
-
-                    self.voices[voiceIndex].sampleFrames = Int(ptr.pointee.frameLength)
-                    self.voices[voiceIndex].playhead = 0
-                }
+                startVoice(holderPtr: ptr)
 
             case let .assignSample(ptr, noteNumber):
                 self.samples[Int(noteNumber)] = ptr
