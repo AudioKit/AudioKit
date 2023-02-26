@@ -48,7 +48,7 @@ class SamplerKernel {
             }
         },
                 sysex: { event in
-            var command: SamplerCommand = .playSample(nil)
+            var command: SamplerCommand = .stop
 
             decodeSysex(event, &command)
 
@@ -57,7 +57,7 @@ class SamplerKernel {
                 if let voiceIndex = self.getVoice() {
                     self.voices[voiceIndex].sample = ptr
 
-                    self.voices[voiceIndex].sampleFrames = Int(ptr!.pointee.frameLength)
+                    self.voices[voiceIndex].sampleFrames = Int(ptr.pointee.frameLength)
                     self.voices[voiceIndex].playhead = 0
                 }
 

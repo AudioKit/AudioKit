@@ -18,7 +18,7 @@ public extension AudioBuffer {
 
 enum SamplerCommand {
     /// Play a sample immediately
-    case playSample(UnsafeMutablePointer<SampleHolder>?)
+    case playSample(UnsafeMutablePointer<SampleHolder>)
 
     /// Assign a sample to a midi note number.
     case assignSample(UnsafeMutablePointer<SampleHolder>?, UInt8)
