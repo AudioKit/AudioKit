@@ -79,7 +79,6 @@ let validatedMD5s: [String: [String]] = [
     "-[EngineTests testMixerVolume]": ["e68370da71ed55059dfdebe3846bb864", "dcfc1a485706295b89096e443c208814"],
     "-[EngineTests testMultipleChanges]": ["d0ec5cb2d162a8519179e7d9a3eed524", "d5415f32cfb1fe8a63379d1d1196c1d1"],
     "-[EngineTests testOscillator]": ["b484df49b662f3bc1b41be9d5e3dcd23", "ec81679f6e9e4e476d96f0ae26c556be"],
-    "-[EngineTests testSampler]": ["f44518ab94a8bab9a3ef8acfe1a4d45b"],
     "-[EngineTests testTwoEffects]": ["c1a6abd874e85a0c4721af2ad8f46f54", "910c00d933862b402663e64cf0ad6ebe"],
     "-[SamplerTests testSampler]": ["f44518ab94a8bab9a3ef8acfe1a4d45b"],
     "-[SamplerTests testSamplerMIDINote]": ["f44518ab94a8bab9a3ef8acfe1a4d45b"],
