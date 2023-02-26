@@ -130,7 +130,7 @@ class SamplerAudioUnit: AUAudioUnit {
     }
 
     /// A potential sample for every MIDI note.
-    private var samples = [AVAudioPCMBuffer?](repeating: nil, count: 128)
+    private var samples = [UnsafeMutablePointer<SampleHolder>?](repeating: nil, count: 128)
 
     /// Voices for playing back samples.
     private var voices = [SamplerVoice](repeating: SamplerVoice(), count: 1024)
@@ -179,8 +179,14 @@ class SamplerAudioUnit: AUAudioUnit {
                             let command = data.0 & 0xF0
                             let noteNumber = data.1
                             if command == noteOnByte {
-                                if let buf = self.samples[Int(noteNumber)] {
-                                    self.play(buf)
+                                if let ptr = self.samples[Int(noteNumber)] {
+                                    if let voiceIndex = self.getVoice() {
+                                        self.voices[voiceIndex].sample = ptr
+
+                                        // XXX: shoudn't be calling frameLength here (ObjC call)
+                                        self.voices[voiceIndex].sampleFrames = Int(ptr.pointee.pcmBuffer.frameLength)
+                                        self.voices[voiceIndex].playhead = 0
+                                    }
                                 }
                             } else if command == noteOffByte {
                                 // XXX: ignore for now
@@ -202,7 +208,7 @@ class SamplerAudioUnit: AUAudioUnit {
                                     }
 
                                 case let .assignSample(ptr, noteNumber):
-                                    self.samples[Int(noteNumber)] = ptr!.pointee.pcmBuffer
+                                    self.samples[Int(noteNumber)] = ptr
                                 case .stop:
                                     for index in 0 ..< self.voices.count {
                                         self.voices[index].inUse = false
