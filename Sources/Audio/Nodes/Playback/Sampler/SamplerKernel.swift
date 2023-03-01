@@ -36,6 +36,12 @@ class SamplerKernel {
         }
     }
 
+    func stop(noteNumber: UInt8) {
+        for (index, voice) in self.voices.enumerated() where voice.sample == samples[Int(noteNumber)] {
+            voices[index].inUse = false
+        }
+    }
+
     func processMIDI(event: UnsafePointer<AUMIDIEvent>) {
         let data = event.pointee.data
         let command = data.0 & 0xF0
@@ -45,26 +51,27 @@ class SamplerKernel {
                 startVoice(holderPtr: ptr)
             }
         } else if command == noteOffByte {
-            // XXX: ignore for now
+            stop(noteNumber: noteNumber)
         }
     }
 
     func processSysex(event: UnsafePointer<AUMIDIEvent>) {
 
-        var command: SamplerCommand = .stop
+        var command: SamplerCommand = .panic
 
         decodeSysex(event, &command)
 
         switch command {
-        case let .playSample(ptr):
-            startVoice(holderPtr: ptr)
-
-        case let .assignSample(ptr, noteNumber):
-            self.samples[Int(noteNumber)] = ptr
-        case .stop:
-            for index in 0 ..< self.voices.count {
-                self.voices[index].inUse = false
-            }
+            case let .playSample(ptr):
+                startVoice(holderPtr: ptr)
+            case let .stop(noteNumber):
+                stop(noteNumber: noteNumber)
+            case let .assignSample(ptr, noteNumber):
+                self.samples[Int(noteNumber)] = ptr
+            case .panic:
+                for index in 0 ..< self.voices.count {
+                    self.voices[index].inUse = false
+                }
         }
 
     }

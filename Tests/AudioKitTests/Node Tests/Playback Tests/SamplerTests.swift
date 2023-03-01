@@ -14,16 +14,32 @@ class SamplerTests: XCTestCase {
         testMD5(audio)
     }
 
-    func testSamplerMIDINote() {
+    func testPlayMIDINote() {
         let engine = Engine()
         let sampler = Sampler()
         sampler.assign(url: URL.testAudio, to: 60)
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
-        sampler.playMIDINote(60)
+        sampler.play(noteNumber: 60)
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
     }
+
+    func testStopMIDINote() {
+        let engine = Engine()
+        let sampler = Sampler()
+        sampler.assign(url: URL.testAudio, to: 60)
+        sampler.assign(url: URL.testAudio, to: 61)
+        engine.output = sampler
+        let audio = engine.startTest(totalDuration: 2.0)
+        sampler.play(noteNumber: 60)
+        sampler.stop(noteNumber: 61) // Should not stop note 60
+        audio.append(engine.render(duration: 1.0))
+        sampler.stop(noteNumber: 60)
+        audio.append(engine.render(duration: 1.0))
+        testMD5(audio)
+    }
+
 
     func testDynamicsProcessorWithSampler() {
         let engine = Engine()

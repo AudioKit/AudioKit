@@ -23,8 +23,11 @@ enum SamplerCommand {
     /// Assign a sample to a midi note number.
     case assignSample(UnsafeMutablePointer<SampleHolder>?, UInt8)
 
+    /// Stop all samples associated with a MIDI Note
+    case stop(UInt8)
+
     /// Stop all playback
-    case stop
+    case panic
 }
 
 /// Renders contents of a file
@@ -61,7 +64,7 @@ class SamplerAudioUnit: AUAudioUnit {
     }
 
     func stop() {
-        let command: SamplerCommand = .stop
+        let command: SamplerCommand = .panic
         let sysex = encodeSysex(command)
 
         if cachedMIDIBlock == nil {
@@ -95,14 +98,25 @@ class SamplerAudioUnit: AUAudioUnit {
         }
     }
 
-    func playMIDINote(_ noteNumber: UInt8) {
+    func play(noteNumber: UInt8) {
         if cachedMIDIBlock == nil {
             cachedMIDIBlock = scheduleMIDIEventBlock
             assert(cachedMIDIBlock != nil)
         }
 
         if let block = cachedMIDIBlock {
-            block(.zero, 0, 3, [0x90, noteNumber, 127])
+            block(.zero, 0, 3, [noteOnByte, noteNumber, 127])
+        }
+    }
+
+    func stop(noteNumber: UInt8) {
+        if cachedMIDIBlock == nil {
+            cachedMIDIBlock = scheduleMIDIEventBlock
+            assert(cachedMIDIBlock != nil)
+        }
+
+        if let block = cachedMIDIBlock {
+            block(.zero, 0, 3, [noteOffByte, noteNumber, 0])
         }
     }
 
@@ -207,7 +221,11 @@ public class Sampler: Node {
         }
     }
 
-    public func playMIDINote(_ noteNumber: UInt8) {
-        samplerAU.playMIDINote(noteNumber)
+    public func play(noteNumber: UInt8) {
+        samplerAU.play(noteNumber: noteNumber)
+    }
+
+    public func stop(noteNumber: UInt8) {
+        samplerAU.stop(noteNumber: noteNumber)
     }
 }
