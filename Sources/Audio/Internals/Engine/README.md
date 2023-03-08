@@ -29,7 +29,7 @@ We create a few worker threads which are woken by the audio thread. Those thread
 
 * Explore other audio units available
 * Make Sampler have the abilities of AudioPlayer
-* Embed time/pitch into Sampler
+* Embed time/pitch into Sampler (or separate Player)
 * Search code for XXX: issues
 * Make node recorder functional and tested again
 * Use log instead of print where appropriate
