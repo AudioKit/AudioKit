@@ -32,6 +32,8 @@ struct SamplerVoice {
     var playhead: Int = 0
 
     // Envelope state, etc. would go here.
+
+    /// XXX: add playback speed, looping
 }
 
 extension AudioBuffer {
