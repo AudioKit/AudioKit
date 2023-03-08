@@ -78,6 +78,8 @@ class SamplerAudioUnit: AUAudioUnit {
     }
 
     /// Play a sample immediately.
+    ///
+    /// XXX: should we have an async version that will wait until the sample is played?
     func play(_ sample: AVAudioPCMBuffer) {
         let holder = UnsafeMutablePointer<SampleHolder>.allocate(capacity: 1)
 
