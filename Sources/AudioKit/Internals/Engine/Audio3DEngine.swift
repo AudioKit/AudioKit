@@ -14,8 +14,10 @@ public class Audio3DEngine {
 	let maximumFrameCount: AVAudioFrameCount = 1024
 
 	// The object that simulates a 3D audio environment.
-	public var avAudioEnvironmentNode: AVAudioEnvironmentNode? {
-		main3DMixerNode?.avAudioEnvironmentNode
+	public private(set) var avAudioEnvironmentNode: AVAudioEnvironmentNode? {
+		didSet {
+			print("AVAudioEnvironmentNode New Set")
+		}
 	}
 
 	/// Main mixer at the end of the signal chain
@@ -123,7 +125,7 @@ public class Audio3DEngine {
 		avEngine.connect(avAudioEnvironmentNode,
 						 to: mixer3D.avAudioNode,
 						 format: Settings.getStereoFormatFrom(format: mixer3D.outputFormat))
-		mixer3D.avAudioEnvironmentNode = avAudioEnvironmentNode
+		self.avAudioEnvironmentNode = avAudioEnvironmentNode
 	}
 
 
