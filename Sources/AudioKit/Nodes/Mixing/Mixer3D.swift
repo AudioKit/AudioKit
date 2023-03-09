@@ -12,6 +12,13 @@ public class Mixer3D: Node, NamedNode {
 	/// The internal mixer node
 	fileprivate let mixerAU = AVAudioMixerNode()
 
+	// The object that simulates a 3D audio environment.
+	public var avAudioEnvironmentNode: AVAudioEnvironmentNode? {
+		didSet {
+			print("AVAudioEnvironmentNode New Set")
+		}
+	}
+
 	var inputs: [Node] = []
 
 	/// Connected nodes
