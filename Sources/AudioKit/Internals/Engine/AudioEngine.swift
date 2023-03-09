@@ -56,6 +56,24 @@ public extension AVAudioMixerNode {
             }
         }
     }
+
+	/// Make a connection without breaking other connections.
+	func connectToMixer3D(input: AVAudioNode, format: AVAudioFormat) {
+		if let engine = engine {
+			var points = engine.outputConnectionPoints(for: input, outputBus: 0)
+			if points.contains(where: { $0.node === self }) { return }
+			points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
+			if points.count == 1 {
+				// If we only have 1 connection point, use connect API
+				// Workaround for a bug where specified format is not correctly applied
+				// http://openradar.appspot.com/radar?id=5490575180562432
+				engine.connect(input, to: self, format: format)
+			} else {
+				engine.connect(input, to: points, fromBus: 0, format: format)
+			}
+		}
+	}
+	
 }
 
 /// AudioKit's wrapper for AVAudioEngine

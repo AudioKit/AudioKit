@@ -162,6 +162,40 @@ extension Node {
         }
     }
 
+
+	func makeAV3DConnections() {
+		if let node = self as? HasInternalConnections {
+			node.makeInternalConnections()
+		}
+
+		// Are we attached?
+		if let engine = avAudioNode.engine {
+			for (bus, connection) in connections.enumerated() {
+				if let sourceEngine = connection.avAudioNode.engine {
+					if sourceEngine != avAudioNode.engine {
+						Log("🛑 Error: Attempt to connect nodes from different engines.")
+						return
+					}
+				}
+
+				engine.attach(connection.avAudioNode)
+
+				// Mixers will decide which input bus to use.
+				if let mixer = avAudioNode as? AVAudioMixerNode {
+					mixer.connectToMixer3D(input: connection.avAudioNode, format: Settings.getMonoWith(format: connection.outputFormat))
+					if let akMixer = self as? Mixer3D {
+						mixer.outputVolume = akMixer.volume
+					}
+				} else {
+					avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: Settings.getMonoWith(format: connection.outputFormat))
+				}
+
+				connection.makeAVConnections()
+			}
+		}
+	}
+
+
     var bypassed: Bool {
         get { avAudioNode.auAudioUnit.shouldBypassEffect }
         set { avAudioNode.auAudioUnit.shouldBypassEffect = newValue }
