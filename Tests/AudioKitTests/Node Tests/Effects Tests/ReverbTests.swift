@@ -9,15 +9,15 @@ class ReverbTests: XCTestCase {
     #if os(iOS)
 
     func testBypass() {
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let input = AudioPlayer(url: url)!
         let effect = Reverb(input)
         effect.bypass()
-        engine3D.output = effect
-        let audio = engine3D.startTest(totalDuration: 1.0)
+        engine.output = effect
+        let audio = engine.startTest(totalDuration: 1.0)
         input.start()
-        audio.append(engine3D.render(duration: 1.0))
+        audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
@@ -46,39 +46,39 @@ class ReverbTests: XCTestCase {
     }
 
     func testCathedral() {
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let input = AudioPlayer(url: url)!
         let effect = Reverb(input)
-        engine3D.output = effect
+        engine.output = effect
         effect.loadFactoryPreset(.cathedral)
-        let audio = engine3D.startTest(totalDuration: 1.0)
+        let audio = engine.startTest(totalDuration: 1.0)
         input.start()
-        audio.append(engine3D.render(duration: 1.0))
+        audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testDefault() {
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let input = AudioPlayer(url: url)!
-        engine3D.output = Reverb(input)
-        let audio = engine3D.startTest(totalDuration: 1.0)
+        engine.output = Reverb(input)
+        let audio = engine.startTest(totalDuration: 1.0)
         input.start()
-        audio.append(engine3D.render(duration: 1.0))
+        audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
 
     func testSmallRoom() {
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let input = AudioPlayer(url: url)!
         let effect = Reverb(input)
-        engine3D.output = effect
+        engine.output = effect
         effect.loadFactoryPreset(.smallRoom)
-        let audio = engine3D.startTest(totalDuration: 1.0)
+        let audio = engine.startTest(totalDuration: 1.0)
         input.start()
-        audio.append(engine3D.render(duration: 1.0))
+        audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
     #endif

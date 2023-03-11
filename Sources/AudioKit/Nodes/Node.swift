@@ -147,54 +147,41 @@ extension Node {
 
                 engine.attach(connection.avAudioNode)
 
-                // Mixers will decide which input bus to use.
-                if let mixer = avAudioNode as? AVAudioMixerNode {
-                    mixer.connectMixer(input: connection.avAudioNode, format: connection.outputFormat)
-                    if let akMixer = self as? Mixer {
-                        mixer.outputVolume = akMixer.volume
-                    }
-                } else {
-                    avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
-                }
+				// If avAudioNode is a Mixer...
+                // and an AVAudioEnvironmentNode is connecting to it.
+				// And make sure you connect the AVAudioEnvironmentNode to the mixer in **stereo**
+				if let mixer = avAudioNode as? AVAudioMixerNode,
+				   let environmentNode = connection.avAudioNode as? AVAudioEnvironmentNode,
+				   let stereoFormat = AVAudioFormat(
+					standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
+					channels: 2) {
+					print("AVAudioEnvironmentNode is connecting to mixer")
+					mixer.connectMixer(input: environmentNode, format: stereoFormat)
+				}
+				// If avAudioNode isA AVAudioEnvironmentNode...
+				// and a Mixer3D is connecting to it.
+				// This ensure EnvironmentalNodes input connections are **only** Mixers3D.
+				else if let environmentNode = avAudioNode as? AVAudioEnvironmentNode,
+						let mixer3D = connection as? Mixer3D,
+						let avAudioMixerNode = mixer3D.avAudioNode as? AVAudioMixerNode {
+					environmentNode.connectMixer3D(avAudioMixerNode, format: connection.outputFormat)
+				}
+				// Everything else...
+				// If avAudioNode is a Mixer, let Mixers will decide which input bus to use.
+				else if let mixer = avAudioNode as? AVAudioMixerNode {
+					mixer.connectMixer(input: connection.avAudioNode, format: connection.outputFormat)
+					if let akMixer = self as? Mixer {
+						mixer.outputVolume = akMixer.volume
+					}
+				}
+				else {
+					avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
+				}
 
                 connection.makeAVConnections()
             }
         }
     }
-
-
-	func makeAV3DConnections() {
-		if let node = self as? HasInternalConnections {
-			node.makeInternalConnections()
-		}
-
-		// Are we attached?
-		if let engine = avAudioNode.engine {
-			for (bus, connection) in connections.enumerated() {
-				if let sourceEngine = connection.avAudioNode.engine {
-					if sourceEngine != avAudioNode.engine {
-						Log("🛑 Error: Attempt to connect nodes from different engines.")
-						return
-					}
-				}
-
-				engine.attach(connection.avAudioNode)
-
-				// Mixers will decide which input bus to use.
-				if let mixer = avAudioNode as? AVAudioMixerNode {
-					mixer.connectToMixer3D(input: connection.avAudioNode, format: Settings.getMonoWith(format: connection.outputFormat))
-					if let akMixer = self as? Mixer3D {
-						mixer.outputVolume = akMixer.volume
-					}
-				} else {
-					avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: Settings.getMonoWith(format: connection.outputFormat))
-				}
-
-				connection.makeAVConnections()
-			}
-		}
-	}
-
 
     var bypassed: Bool {
         get { avAudioNode.auAudioUnit.shouldBypassEffect }

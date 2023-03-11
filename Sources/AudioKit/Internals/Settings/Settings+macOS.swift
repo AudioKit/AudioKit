@@ -11,8 +11,8 @@ extension Settings {
 
     /// The hardware ioBufferDuration. Setting this will request the new value, getting
     /// will query the hardware.
-    public static func getIOBufferDuration(engine3D: AVAudioEngine) -> Double {
-        let node = engine3D.outputNode
+    public static func getIOBufferDuration(engine: AVAudioEngine) -> Double {
+        let node = engine.outputNode
         guard let audioUnit = node.audioUnit else { return 0 }
         let sampleRate = node.outputFormat(forBus: 0).sampleRate
         var frames = UInt32()

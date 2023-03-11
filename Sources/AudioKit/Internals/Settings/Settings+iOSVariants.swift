@@ -20,20 +20,6 @@
             }
         }
 
-		static func getMonoWith(format: AVAudioFormat) -> AVAudioFormat {
-			guard let monoResult = AVAudioFormat(
-				standardFormatWithSampleRate: format.sampleRate,
-				channels: 1) else { return format }
-			return monoResult
-		}
-
-		static func getStereoFormatFrom(format: AVAudioFormat) -> AVAudioFormat {
-			guard let stereoResult = AVAudioFormat(
-				standardFormatWithSampleRate: format.sampleRate,
-				channels: 2) else { return format }
-			return stereoResult
-		}
-
 		/// For Audio3DEngine
 		static let audioFormatMono = AVAudioFormat(
 			standardFormatWithSampleRate: Settings.audioFormat.sampleRate,

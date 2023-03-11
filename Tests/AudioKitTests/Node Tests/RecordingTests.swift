@@ -47,13 +47,13 @@ class RecordingTests: AudioFileTestCase {
         // pull from channels 3+4 - needs to work with the device being tested
         // var channelMap: [Int32] = [2, 3] // , 4, 5
 
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
 
         let channelMap: [Int32] = [0] // mono first channel
 
-        let recorder = MultiChannelInputNodeTap(inputNode: engine3D.avEngine.inputNode)
+        let recorder = MultiChannelInputNodeTap(inputNode: engine.avEngine.inputNode)
         recorder.ioLatency = ioLatency
-        try engine3D.start()
+        try engine.start()
         recorder.directory = url
         recorder.prepare(channelMap: channelMap)
         recorder.record()
@@ -65,7 +65,7 @@ class RecordingTests: AudioFileTestCase {
 
         wait(for: 1)
 
-        engine3D.stop()
+        engine.stop()
     }
 
     func createFileURL() -> URL {
@@ -96,7 +96,7 @@ class RecordingTests: AudioFileTestCase {
             forWriting: fileURL,
             settings: settings)
 
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let input = AudioPlayer(file: file)
         guard let input = input else {
             XCTFail("Couldn't load input Node.")
@@ -106,9 +106,9 @@ class RecordingTests: AudioFileTestCase {
         let recorder = try? NodeRecorder(node: input)
         recorder?.openFile(file: &outFile)
         let player = AudioPlayer()
-        engine3D.output = input
+        engine.output = input
 
-        try? engine3D.start()
+        try? engine.start()
 
         return // this should not play live but instead invoke a test
 
@@ -118,9 +118,9 @@ class RecordingTests: AudioFileTestCase {
 
         recorder?.stop()
         input.stop()
-        engine3D.stop()
+        engine.stop()
 
-        engine3D.output = player
+        engine.output = player
         recorder?.closeFile(file: &outFile)
 
         guard let recordedFile = recorder?.audioFile else {
@@ -130,7 +130,7 @@ class RecordingTests: AudioFileTestCase {
         wait(for: 2)
 
         player.file = recordedFile
-        try? engine3D.start()
+        try? engine.start()
         player.play()
         wait(for: 2)
     }
@@ -149,7 +149,7 @@ class RecordingTests: AudioFileTestCase {
             forWriting: fileURL,
             settings: settings)
 
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let player = AudioPlayer(file: file)
         guard let player = player else {
             XCTFail("Couldn't load input Node.")
@@ -158,9 +158,9 @@ class RecordingTests: AudioFileTestCase {
 
         let recorder = try? NodeRecorder(node: player)
         recorder?.openFile(file: &outFile)
-        engine3D.output = player
+        engine.output = player
 
-        try? engine3D.start()
+        try? engine.start()
 
 
         return // this should not play live but instead invoke a test
@@ -177,8 +177,8 @@ class RecordingTests: AudioFileTestCase {
 
         recorder?.stop()
         player.stop()
-        engine3D.stop()
-        engine3D.output = player
+        engine.stop()
+        engine.output = player
 
         recorder?.closeFile(file: &outFile)
 
@@ -189,7 +189,7 @@ class RecordingTests: AudioFileTestCase {
         wait(for: 1)
 
         player.file = recordedFile
-        try? engine3D.start()
+        try? engine.start()
         // 1, 2, 4
         player.play()
         wait(for: 3)
@@ -202,7 +202,7 @@ class RecordingTests: AudioFileTestCase {
             return
         }
 
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let player = AudioPlayer(file: file)
 
         guard let player = player else {
@@ -211,8 +211,8 @@ class RecordingTests: AudioFileTestCase {
         }
 
         let recorder = try? NodeRecorder(node: player)
-        engine3D.output = player
-        try? engine3D.start()
+        engine.output = player
+        try? engine.start()
 
         return // this should not play live but instead invoke a test
 
@@ -231,8 +231,8 @@ class RecordingTests: AudioFileTestCase {
 
         recorder?.stop()
         player.stop()
-        engine3D.stop()
-        engine3D.output = player
+        engine.stop()
+        engine.output = player
 
         guard let recordedFile = recorder?.audioFile else {
             XCTFail("Couldn't open recorded audio file!")
@@ -243,7 +243,7 @@ class RecordingTests: AudioFileTestCase {
         player.file = recordedFile
 
 
-        try? engine3D.start()
+        try? engine.start()
         // 3
         player.play()
         wait(for: 3)

@@ -18,13 +18,13 @@ class NodeTests: XCTestCase {
 
     #if os(macOS) // For some reason failing on iOS and tvOS
     func testNodeConnection() {
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let player = AudioPlayer(testFile: "12345")
         let verb = Reverb(player)
-        engine3D.output = verb
-        let audio = engine3D.startTest(totalDuration: 0.1)
+        engine.output = verb
+        let audio = engine.startTest(totalDuration: 0.1)
         player.play()
-        audio.append(engine3D.render(duration: 0.1))
+        audio.append(engine.render(duration: 0.1))
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
     }
@@ -562,7 +562,7 @@ class NodeTests: XCTestCase {
     // This is only happening when using destination point API with one point
     #if !os(tvOS)
     func testConnectionFormatAppliedWhenAddingNode() throws {
-        let engine3D = AudioEngine()
+        let engine = AudioEngine()
         let previousFormat = Settings.audioFormat
 
         var settings = Settings.audioFormat.settings
@@ -570,9 +570,9 @@ class NodeTests: XCTestCase {
         Settings.audioFormat = AVAudioFormat(settings: settings)!
 
         let mixer = Mixer(MIDISampler())
-        engine3D.output = mixer
-        try engine3D.start()
-        engine3D.pause()
+        engine.output = mixer
+        try engine.start()
+        engine.pause()
 
         let sampler = MIDISampler()
         mixer.addInput(sampler)

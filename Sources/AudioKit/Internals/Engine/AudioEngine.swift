@@ -56,24 +56,6 @@ public extension AVAudioMixerNode {
             }
         }
     }
-
-	/// Make a connection without breaking other connections.
-	func connectToMixer3D(input: AVAudioNode, format: AVAudioFormat) {
-		if let engine = engine {
-			var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-			if points.contains(where: { $0.node === self }) { return }
-			points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
-			if points.count == 1 {
-				// If we only have 1 connection point, use connect API
-				// Workaround for a bug where specified format is not correctly applied
-				// http://openradar.appspot.com/radar?id=5490575180562432
-				engine.connect(input, to: self, format: format)
-			} else {
-				engine.connect(input, to: points, fromBus: 0, format: format)
-			}
-		}
-	}
-	
 }
 
 /// AudioKit's wrapper for AVAudioEngine
@@ -117,8 +99,12 @@ public class AudioEngine {
         return _input
     }
 
+	public var isUsing3D: Bool
+
     /// Empty initializer
-    public init() {}
+    public init(isUsing3D: Bool = false) {
+		self.isUsing3D = isUsing3D
+	}
 
     /// Output node
     public var output: Node? {
@@ -147,7 +133,7 @@ public class AudioEngine {
                 }
 
                 // create the on demand mixer if needed
-                createEngineMixer()
+				createEngineMixer()
                 mainMixerNode?.addInput(node)
                 mainMixerNode?.makeAVConnections()
             }
@@ -158,14 +144,25 @@ public class AudioEngine {
 
     // simulate the AVAudioEngine.mainMixerNode, but create it ourselves to ensure the
     // correct sample rate is used from Settings.audioFormat
-    private func createEngineMixer() {
-        guard mainMixerNode == nil else { return }
+	private func createEngineMixer(isUsing3D: Bool = false) {
+		guard mainMixerNode == nil else { return }
 
-        let mixer = Mixer(name: "AudioKit Engine Mixer")
-        avEngine.attach(mixer.avAudioNode)
-        avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
-        mainMixerNode = mixer
-    }
+		let mixer = Mixer(name: "AudioKit Engine Mixer")
+		avEngine.attach(mixer.avAudioNode)
+		if isUsing3D,
+		   let stereoFormat = AVAudioFormat(
+			standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
+			channels: 2) {
+			avEngine.connect(mixer.avAudioNode,
+							 to: avEngine.outputNode,
+							 format: stereoFormat)
+		} else {
+			avEngine.connect(mixer.avAudioNode,
+							 to: avEngine.outputNode,
+							 format: Settings.audioFormat)
+		}
+		mainMixerNode = mixer
+	}
 
     private func removeEngineMixer() {
         guard let mixer = mainMixerNode else { return }

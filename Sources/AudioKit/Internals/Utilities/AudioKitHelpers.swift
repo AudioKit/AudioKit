@@ -435,12 +435,6 @@ public protocol HasAudioEngine {
     var engine: AudioEngine { get }
 }
 
-/// Protocol prescribing that something ahs an audio "engine"
-public protocol HasAudioEngine3D {
-	var engine3D: Audio3DEngine { get }
-}
-
-
 /// Basic start and stop functionality
 public extension HasAudioEngine {
     func start() {
@@ -450,16 +444,4 @@ public extension HasAudioEngine {
     func stop() {
         engine.stop()
     }
-}
-
-
-/// Basic start and stop functionality
-public extension HasAudioEngine3D {
-	func start() {
-		do { try engine3D.start() } catch let err { Log(err) }
-	}
-
-	func stop() {
-		engine3D.stop()
-	}
 }
