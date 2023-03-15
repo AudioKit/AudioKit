@@ -437,10 +437,10 @@ class NodeTests: XCTestCase {
         let nameString = "Customized Name"
         let sampler = MIDISampler(name: nameString)
         let compressor = Compressor(sampler)
-        let mixer = Mixer(compressor)
-        let mixerAddress = MemoryAddress(of: mixer).description
+        let source1mixer3D = Mixer(compressor)
+        let mixerAddress = MemoryAddress(of: source1mixer3D).description
         
-        XCTAssertEqual(mixer.connectionTreeDescription,
+        XCTAssertEqual(source1mixer3D.connectionTreeDescription,
                        """
         \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(connectionTreeLinePrefix) ↳Compressor
@@ -569,13 +569,13 @@ class NodeTests: XCTestCase {
         settings[AVSampleRateKey] = 48000
         Settings.audioFormat = AVAudioFormat(settings: settings)!
 
-        let mixer = Mixer(MIDISampler())
-        engine.output = mixer
+        let source1mixer3D = Mixer(MIDISampler())
+        engine.output = source1mixer3D
         try engine.start()
         engine.pause()
 
         let sampler = MIDISampler()
-        mixer.addInput(sampler)
+        source1mixer3D.addInput(sampler)
 
         XCTAssertEqual(sampler.avAudioNode.outputFormat(forBus: 0).sampleRate, 48000)
 

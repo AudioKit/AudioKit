@@ -144,23 +144,15 @@ public class AudioEngine {
 
     // simulate the AVAudioEngine.mainMixerNode, but create it ourselves to ensure the
     // correct sample rate is used from Settings.audioFormat
-	private func createEngineMixer(isUsing3D: Bool = false) {
+	private func createEngineMixer() {
 		guard mainMixerNode == nil else { return }
 
 		let mixer = Mixer(name: "AudioKit Engine Mixer")
 		avEngine.attach(mixer.avAudioNode)
-		if isUsing3D,
-		   let stereoFormat = AVAudioFormat(
-			standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
-			channels: 2) {
-			avEngine.connect(mixer.avAudioNode,
-							 to: avEngine.outputNode,
-							 format: stereoFormat)
-		} else {
-			avEngine.connect(mixer.avAudioNode,
-							 to: avEngine.outputNode,
-							 format: Settings.audioFormat)
-		}
+		avEngine.connect(mixer.avAudioNode,
+						 to: avEngine.outputNode,
+						 format: Settings.audioFormat)
+
 		mainMixerNode = mixer
 	}
 
