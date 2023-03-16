@@ -155,15 +155,6 @@ extension Node {
 						let avAudioMixerNode = mixer3D.avAudioNode as? AVAudioMixerNode {
 					environmentNode.connectMixer3D(avAudioMixerNode, format: connection.outputFormat)
 				}
-				// If avAudioNode isA Mixer, and an AVAudioEnvironmentNode is connecting to it.
-				// And make sure you connect the AVAudioEnvironmentNode to the mixer in **stereo**
-				else if let mixer = avAudioNode as? AVAudioMixerNode,
-				   let environmentNode = connection.avAudioNode as? AVAudioEnvironmentNode,
-						let stereoFormat = AVAudioFormat(
-							standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
-							channels: 2) {
-					mixer.connectMixer(input: environmentNode, format: stereoFormat)
-				}
 				// Everything else...
 				// If avAudioNode is a Mixer, let Mixers will decide which input bus to use.
 				else if let mixer = avAudioNode as? AVAudioMixerNode {
