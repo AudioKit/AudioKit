@@ -1,6 +1,5 @@
 import AVFoundation
 
-
 public extension AVAudioEnvironmentNode {
 
 	/// Make a connection without breaking other connections.
