@@ -24,8 +24,6 @@ public extension AVAudioEnvironmentNode {
 	}
 }
 
-
-
 /**
  AudioKit wrapper of Apple's AVAudioEnvironmentNode Node.
 
@@ -95,9 +93,9 @@ public class EnvironmentalNode: Node, NamedNode {
 
 	/// The reverb parameters for the environment. (get only)
 	public var reverbParameters: AVAudioEnvironmentReverbParameters {
-		get {
-			avAudioEnvironmentNode.reverbParameters
-		}
+		{
+			return avAudioEnvironmentNode.reverbParameters
+		}()
 	}
 
 	/// The  blend of reverb-processed (also called dry and wet) audio for playback of the audio source.
@@ -138,7 +136,7 @@ public class EnvironmentalNode: Node, NamedNode {
 	}
 
 	/// The type of rendering algorithm the mixer uses.
-	public var renderingAlgorithm: AVAudio3DMixingRenderingAlgorithm  {
+	public var renderingAlgorithm: AVAudio3DMixingRenderingAlgorithm {
 		get {
 			avAudioEnvironmentNode.renderingAlgorithm
 		}
