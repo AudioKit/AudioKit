@@ -147,14 +147,22 @@ extension Node {
 
                 engine.attach(connection.avAudioNode)
 
-
-//				// If avAudioNode isA AVAudioEnvironmentNode and a Mixer3D is connecting to it.
+				// If avAudioNode isA AVAudioEnvironmentNode and a Mixer3D is connecting to it.
 				// Makes sure the Mixer3D -Connects> EnvironmentNode as Mono.  **THIS IS IMPORTANT!**
-//				// This als0 ensure EnvironmentalNodes input connections are **only** Mixers3D, so you can adjust 3D Parameters
+				// This also ensure EnvironmentalNodes input connections are **only** Mixers3D, so you can adjust 3D Parameters
 				if let environmentNode = avAudioNode as? AVAudioEnvironmentNode,
 						let mixer3D = connection as? Mixer3D,
 						let avAudioMixerNode = mixer3D.avAudioNode as? AVAudioMixerNode {
 					environmentNode.connectMixer3D(avAudioMixerNode, format: connection.outputFormat)
+				}
+				// If avAudioNode isA Mixer, and an AVAudioEnvironmentNode is connecting to it.
+				// And make sure you connect the AVAudioEnvironmentNode to the mixer in **stereo**
+				else if let mixer = avAudioNode as? AVAudioMixerNode,
+				   let environmentNode = connection.avAudioNode as? AVAudioEnvironmentNode,
+						let stereoFormat = AVAudioFormat(
+							standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
+							channels: 2) {
+					mixer.connectMixer(input: environmentNode, format: stereoFormat)
 				}
 				// Everything else...
 				// If avAudioNode is a Mixer, let Mixers will decide which input bus to use.
@@ -163,8 +171,7 @@ extension Node {
 					if let akMixer = self as? Mixer {
 						mixer.outputVolume = akMixer.volume
 					}
-				}
-				else {
+				} else {
 					avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
 				}
 

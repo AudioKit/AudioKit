@@ -31,6 +31,14 @@ public extension AVAudioEnvironmentNode {
 /**
  AudioKit wrapper of Apple's AVAudioEnvironmentNode Node.
 
+ This is the object which does the rendering of 3D positional sound, and allow mamipulation of the listener position/orientation.
+ All sound sources which you want rendered in 3D **MUST** connect to the EnvironmentalNode in MONO, otherwise the signal is just passed through.
+ Enviromental Nodes can (and should) be connected to any downstream nodes (usually a mixer) in STEREO.
+ This class exposes the  methods of AVAudioEnvironmentNode needed to position and  manipulate propeties of the listener in 3D space,
+ as well as the over-all reverb.
+
+ - Example: [  Mixer3D -> EnvironmentalNode -> MainMixer]
+
  */
 public class EnvironmentalNode: Node, NamedNode {
 
