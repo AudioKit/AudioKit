@@ -23,7 +23,6 @@ public extension AVAudioEnvironmentNode {
 			}
 		}
 	}
-
 }
 
 
@@ -31,10 +30,13 @@ public extension AVAudioEnvironmentNode {
 /**
  AudioKit wrapper of Apple's AVAudioEnvironmentNode Node.
 
- This is the object which does the rendering of 3D positional sound, and allow mamipulation of the listener position/orientation.
- All sound sources which you want rendered in 3D **MUST** connect to the EnvironmentalNode in MONO, otherwise the signal is just passed through.
+ This is the object which does the rendering of 3D positional sound,
+ and allow mamipulation of the listener position/orientation.
+ All sound sources which you want rendered in 3D **MUST** connect to the EnvironmentalNode in MONO,
+ otherwise the signal is just passed through.
  Enviromental Nodes can (and should) be connected to any downstream nodes (usually a mixer) in STEREO.
- This class exposes the  methods of AVAudioEnvironmentNode needed to position and  manipulate propeties of the listener in 3D space,
+ This class exposes the  methods of AVAudioEnvironmentNode
+ needed to position and manipulate propeties of the listener in 3D space,
  as well as the over-all reverb.
 
  - Example: [  Mixer3D -> EnvironmentalNode -> MainMixer]
@@ -65,7 +67,6 @@ public class EnvironmentalNode: Node, NamedNode {
 		}
 	}
 
-
 	/// The listener’s angular orientation in the environment.
 	public var listenerAngularOrientation: AVAudio3DAngularOrientation {
 		get {
@@ -75,7 +76,6 @@ public class EnvironmentalNode: Node, NamedNode {
 			avAudioEnvironmentNode.listenerAngularOrientation = newValue
 		}
 	}
-
 
 	/// The listener’s angular orientation in the environment.
 	public var listenerVectorOrientation: AVAudio3DVectorOrientation {
@@ -87,11 +87,11 @@ public class EnvironmentalNode: Node, NamedNode {
 		}
 	}
 
-	/// The distance attenuation parameters for the environment (get only)
+	/// The distance attenuation parameters for the environment (read only)
 	public var distanceAttenuationParameters: AVAudioEnvironmentDistanceAttenuationParameters {
-		get {
-			avAudioEnvironmentNode.distanceAttenuationParameters
-		}
+		{
+			return avAudioEnvironmentNode.distanceAttenuationParameters
+		}()
 	}
 
 	/// The reverb parameters for the environment. (get only)
@@ -110,7 +110,6 @@ public class EnvironmentalNode: Node, NamedNode {
 			avAudioEnvironmentNode.reverbBlend = newValue
 		}
 	}
-
 
 	/// The mixer’s output volume.
 	public var outputVolume: Float {
@@ -132,11 +131,11 @@ public class EnvironmentalNode: Node, NamedNode {
 		}
 	}
 
-	/// An array of rendering algorithms applicable to the environment node. (get only)
+	/// An array of rendering algorithms applicable to the environment node. (read only)
 	public var applicableRenderingAlgorithms: [NSNumber] {
-		get {
-			avAudioEnvironmentNode.applicableRenderingAlgorithms
-		}
+		{
+			return avAudioEnvironmentNode.applicableRenderingAlgorithms
+		}()
 	}
 
 	/// The type of rendering algorithm the mixer uses.
@@ -151,20 +150,21 @@ public class EnvironmentalNode: Node, NamedNode {
 
 	/// An unused input bus.
 	public var nextAvailableInputBus: AVAudioNodeBus {
-		get {
-			avAudioEnvironmentNode.nextAvailableInputBus
-		}
+		{
+			return avAudioEnvironmentNode.nextAvailableInputBus
+		}()
 	}
-
 
 	public init() {	}
 
 	/**
-	 In order to control the source's 3D properties the single goign into the avAudioEnvironmentNode must conform to AVAudioMixing
-	 (specifically AVAudio3DMixing).
+	 In order to control the source's 3D properties the single going into the avAudioEnvironmentNode
+	 must conform to AVAudioMixing (specifically AVAudio3DMixing).
 
-	 To simplify keeping thing AudioKit easy, you can only connect Mixer3D object to EnvironmentalNode with this function.  Therefore to connect
-	 any non-mixer3D object, you must first connect the object to a Mixer3D instance, and then that instance to the EnvironmentalNode.
+	 To simplify keeping thing AudioKit easy, you can only connect Mixer3D object to EnvironmentalNode with this function.
+	 Therefore to connect any non-mixer3D object,
+	 you must first connect the object to a Mixer3D instance,
+	 and then that instance to the EnvironmentalNode.
 
 	 - Attention: Each object you want to poition in 3D Space must have its own Mixer3D instance.
 
@@ -173,5 +173,4 @@ public class EnvironmentalNode: Node, NamedNode {
 	public func connect(mixer3D: Mixer3D) {
 		inputs.append(mixer3D)
 	}
-
 }
