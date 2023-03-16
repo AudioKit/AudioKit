@@ -99,12 +99,8 @@ public class AudioEngine {
         return _input
     }
 
-	public var isUsing3D: Bool
-
     /// Empty initializer
-    public init(isUsing3D: Bool = false) {
-		self.isUsing3D = isUsing3D
-	}
+    public init() { }
 
     /// Output node
     public var output: Node? {
