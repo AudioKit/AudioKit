@@ -27,7 +27,6 @@ We create a few worker threads which are woken by the audio thread. Those thread
 
 ## To Do before it is ready for beta testers
 
-* Explore other audio units available
 * Make Sampler have the abilities of AudioPlayer
 * Embed time/pitch into Sampler (or separate Player)
 * Search code for XXX: issues
@@ -37,3 +36,4 @@ We create a few worker threads which are woken by the audio thread. Those thread
 * Test and update other repos that depend on AK, like Cookbook, Waveform
 * Document changes in migration guide
 * Re-run docc on all repos, regenerating AudioKit.io docs in the process
+* Explore other audio units available
