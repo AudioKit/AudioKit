@@ -6,15 +6,7 @@ import AVFoundation
 import Foundation
 import Utilities
 
-public extension AudioBuffer {
-    func clear() {
-        bzero(mData, Int(mDataByteSize))
-    }
 
-    var frameCapacity: AVAudioFrameCount {
-        mDataByteSize / UInt32(MemoryLayout<Float>.size)
-    }
-}
 
 public class Sampler: Node {
     public let connections: [Node] = []
