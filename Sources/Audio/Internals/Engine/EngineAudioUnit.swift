@@ -78,22 +78,6 @@ public class EngineAudioUnit: AUAudioUnit {
         outputBusArray
     }
 
-    static func avRenderBlock(block: @escaping AVAudioEngineManualRenderingBlock) -> AURenderBlock {
-        {
-            (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-             _: UnsafePointer<AudioTimeStamp>,
-             frameCount: AUAudioFrameCount,
-             _: Int,
-             outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-             _: AURenderPullInputBlock?) in
-
-            var status = noErr
-            _ = block(frameCount, outputBufferList, &status)
-
-            return status
-        }
-    }
-
     /// Returns a function which provides input from a buffer list.
     ///
     /// Typically, AUs are evaluated recursively. This is less than ideal for various reasons:
