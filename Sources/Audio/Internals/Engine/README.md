@@ -27,8 +27,7 @@ We create a few worker threads which are woken by the audio thread. Those thread
 
 ## To Do before it is ready for beta testers
 
-* Make Sampler have the abilities of AudioPlayer
-* Embed time/pitch into Sampler (or separate Player)
+* Make new AudioPlayer with TimePitch embedded
 * Search code for XXX: issues
 * Make node recorder functional and tested again
 * Use log instead of print where appropriate
