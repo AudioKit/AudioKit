@@ -9,9 +9,12 @@ let validTestResults: [TestResult] = [
     TestResult(md5: "eeaea3cd4ff26b7d0df8f0002270c793", suiteName: "AppleSamplerTests", testName: "testSamplePlayback"),
     TestResult(md5: "b42b86f6a7ff3a6fc85eb1760226cba0", suiteName: "AppleSamplerTests", testName: "testStop"),
     TestResult(md5: "3a4d7f01a664fd08f65ba79497c2a6b4", suiteName: "AppleSamplerTests", testName: "testVolume"),
-    TestResult(md5: "a13aea9dcf485589666db760e14241d3", suiteName: "AudioPlayerTests", testName: "testDefault"),
-    TestResult(md5: "481f7709e7a08a926112a256a5a6ced6", suiteName: "AudioPlayerTests", testName: "testPitch"),
-    TestResult(md5: "576c1def2055593cd827aa3f1d6effde", suiteName: "AudioPlayerTests", testName: "testRate"),
+    TestResult(md5: "a13aea9dcf485589666db760e14241d3", suiteName: "AudioPlayerTests", testName: "testDefault"), // Apple
+    TestResult(md5: "12a824fd71405fe90082df8a77f27122", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI
+    TestResult(md5: "481f7709e7a08a926112a256a5a6ced6", suiteName: "AudioPlayerTests", testName: "testPitch"), // Apple
+    TestResult(md5: "1e24468fdc7b20c8ac8434db4e551fdb", suiteName: "AudioPlayerTests", testName: "testPitch"), // CI
+    TestResult(md5: "576c1def2055593cd827aa3f1d6effde", suiteName: "AudioPlayerTests", testName: "testRate"), // Apple
+    TestResult(md5: "103096c954ff23a2a841465225472d97", suiteName: "AudioPlayerTests", testName: "testRate"), //CI
     TestResult(md5: "609e0a3e3606082a92de70f733f37809", suiteName: "DistortionTests", testName: "testDefault"),
     TestResult(md5: "d54c5309e650d1e8291f3a8ee3423e61", suiteName: "DistortionTests", testName: "testPresetChange"),
     TestResult(md5: "f2da585c3e9838c1a41f1a5f34c467d0", suiteName: "DynamicsProcessorTests", testName: "testAttackTime"),
