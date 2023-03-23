@@ -5,7 +5,7 @@ import XCTest
 
 class AudioPlayerTests: XCTestCase {
 
-    func testAudioPlayer() {
+    func testDefault() {
         let engine = Engine()
         let player = AudioPlayer()
         engine.output = player
@@ -13,6 +13,28 @@ class AudioPlayerTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 2.0)
         audio.append(engine.render(duration: 2.0))
         testMD5(audio)
-        // audio.audition()
     }
+
+    func testRate() {
+        let engine = Engine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.play(url: URL.testAudio)
+        player.rate = 2
+        let audio = engine.startTest(totalDuration: 2.0)
+        audio.append(engine.render(duration: 2.0))
+        testMD5(audio)
+    }
+
+    func testPitch() {
+        let engine = Engine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.play(url: URL.testAudio)
+        player.pitch = 1200
+        let audio = engine.startTest(totalDuration: 2.0)
+        audio.append(engine.render(duration: 2.0))
+        testMD5(audio)
+    }
+
 }
