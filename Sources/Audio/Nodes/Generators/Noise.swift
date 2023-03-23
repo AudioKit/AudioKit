@@ -49,7 +49,12 @@ class NoiseAudioUnit: AUAudioUnit {
         return [inputChannelCount, outputChannelCount]
     }
 
-    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 0, range: 0 ... 10, unit: .generic, flags: [])
+    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude",
+                                                         name: "amplitude",
+                                                         address: 0,
+                                                         range: 0 ... 10,
+                                                         unit: .generic,
+                                                         flags: [])
 
     /// Initialize with component description and options
     /// - Parameters:

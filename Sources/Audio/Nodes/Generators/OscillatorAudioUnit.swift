@@ -18,9 +18,19 @@ class OscillatorAudioUnit: AUAudioUnit {
 
     var cachedMIDIBlock: AUScheduleMIDIEventBlock?
 
-    let frequencyParam = AUParameterTree.createParameter(identifier: "frequency", name: "frequency", address: 0, range: 0 ... 22050, unit: .hertz, flags: [])
+    let frequencyParam = AUParameterTree.createParameter(identifier: "frequency",
+                                                         name: "frequency",
+                                                         address: 0,
+                                                         range: 0 ... 22050,
+                                                         unit: .hertz,
+                                                         flags: [])
 
-    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude", name: "amplitude", address: 1, range: 0 ... 10, unit: .generic, flags: [])
+    let amplitudeParam = AUParameterTree.createParameter(identifier: "amplitude",
+                                                         name: "amplitude",
+                                                         address: 1,
+                                                         range: 0 ... 10,
+                                                         unit: .generic,
+                                                         flags: [])
 
     func setWaveform(_ waveform: Table) {
         let waveVec = Vec<Float>(waveform.content)
