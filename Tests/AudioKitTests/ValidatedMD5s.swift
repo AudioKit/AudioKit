@@ -13,6 +13,7 @@ let validTestResults: [TestResult] = [
     TestResult(md5: "1e342477f88590fa315dee077ad07c71", suiteName: "AudioPlayerTests", testName: "testDefault"), // Intel
     TestResult(md5: "12a824fd71405fe90082df8a77f27122", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI
     TestResult(md5: "1dbb38c415ca71d311695dc7bce4d327", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI2
+    TestResult(md5: "75e7bb3e2090698e3a3065098a584c5a", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI3
     TestResult(md5: "499386101282b71fd83785d8b5070a4f", suiteName: "AudioPlayerTests", testName: "testLoop"), // Apple
     TestResult(md5: "6f8d501184bfb07abbd4733a136f6444", suiteName: "AudioPlayerTests", testName: "testLoop"), // CI
     TestResult(md5: "481f7709e7a08a926112a256a5a6ced6", suiteName: "AudioPlayerTests", testName: "testPitch"), // Apple
