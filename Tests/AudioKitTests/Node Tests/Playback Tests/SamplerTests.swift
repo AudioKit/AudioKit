@@ -7,7 +7,7 @@ class SamplerTests: XCTestCase {
     func testSampler() {
         let engine = Engine()
         let sampler = Sampler()
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
         audio.append(engine.render(duration: 2.0))
@@ -17,7 +17,7 @@ class SamplerTests: XCTestCase {
     func testPlayMIDINote() {
         let engine = Engine()
         let sampler = Sampler()
-        sampler.assign(url: URL.testAudio, to: 60)
+        sampler.assign(url: .testAudio, to: 60)
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
         sampler.play(noteNumber: 60)
@@ -28,8 +28,8 @@ class SamplerTests: XCTestCase {
     func testStopMIDINote() {
         let engine = Engine()
         let sampler = Sampler()
-        sampler.assign(url: URL.testAudio, to: 60)
-        sampler.assign(url: URL.testAudio, to: 61)
+        sampler.assign(url: .testAudio, to: 60)
+        sampler.assign(url: .testAudio, to: 61)
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 2.0)
         sampler.play(noteNumber: 60)
@@ -43,7 +43,7 @@ class SamplerTests: XCTestCase {
 
     func testDynamicsProcessorWithSampler() {
         let engine = Engine()
-        let buffer = try! AVAudioPCMBuffer(url: URL.testAudio)!
+        let buffer = try! AVAudioPCMBuffer(url: .testAudio)!
         let sampler = Sampler()
         sampler.play(buffer)
         engine.output = DynamicsProcessor(sampler)

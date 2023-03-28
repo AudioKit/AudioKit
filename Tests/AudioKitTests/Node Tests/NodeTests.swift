@@ -9,7 +9,7 @@ class NodeTests: XCTestCase {
         let sampler = Sampler()
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 0.1)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 0.1))
         testMD5(audio)
     }
@@ -21,7 +21,7 @@ class NodeTests: XCTestCase {
         let verb = Reverb(sampler)
         engine.output = verb
         let audio = engine.startTest(totalDuration: 0.1)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 0.1))
         XCTAssertFalse(audio.isSilent)
         testMD5(audio)
@@ -44,13 +44,13 @@ class NodeTests: XCTestCase {
         engine.output = sampler1
 
         let audio = engine.startTest(totalDuration: 2.0)
-        sampler1.play(url: URL.testAudio)
+        sampler1.play(url: .testAudio)
         let newAudio = engine.render(duration: 1.0)
         audio.append(newAudio)
 
         let sampler2 = Sampler()
         engine.output = sampler2
-        sampler2.play(url: URL.testAudioDrums)
+        sampler2.play(url: .testAudioDrums)
 
         let newAudio2 = engine.render(duration: 1.0)
         audio.append(newAudio2)
@@ -91,13 +91,13 @@ class NodeTests: XCTestCase {
         engine.output = mixer
 
         let audio = engine.startTest(totalDuration: 2.0)
-        sampler1.play(url: URL.testAudio)
+        sampler1.play(url: .testAudio)
 
         audio.append(engine.render(duration: 1.0))
 
         let sampler2 = Sampler()
         let verb = Distortion(sampler2)
-        sampler2.play(url: URL.testAudioDrums)
+        sampler2.play(url: .testAudioDrums)
         mixer.addInput(verb)
 
         audio.append(engine.render(duration: 1.0))
@@ -115,14 +115,14 @@ class NodeTests: XCTestCase {
         engine.output = mixer
 
         let audio = engine.startTest(totalDuration: 3.0)
-        sampler1.play(url: URL.testAudio)
+        sampler1.play(url: .testAudio)
 
         audio.append(engine.render(duration: 1.0))
 
         let sampler2 = Sampler()
         mixer.addInput(sampler2)
 
-        sampler2.play(url: URL.testAudioDrums)
+        sampler2.play(url: .testAudioDrums)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -142,7 +142,7 @@ class NodeTests: XCTestCase {
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 2.0)
 
-        player1.play(url: URL.testAudio)
+        player1.play(url: .testAudio)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -152,7 +152,7 @@ class NodeTests: XCTestCase {
         localMixer.addInput(player2)
         outputMixer.addInput(localMixer)
 
-        player2.play(url: URL.testAudioDrums)
+        player2.play(url: .testAudioDrums)
         audio.append(engine.render(duration: 1.0))
 
         testMD5(audio)
@@ -172,7 +172,7 @@ class NodeTests: XCTestCase {
 
         outputMixer.addInput(mixer) // change mixer to osc and this will play
 
-        player.play(url: URL.testAudio)
+        player.play(url: .testAudio)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -189,7 +189,7 @@ class NodeTests: XCTestCase {
 
         let audio = engine.startTest(totalDuration: 2.0)
 
-        player.play(url: URL.testAudio)
+        player.play(url: .testAudio)
 
         audio.append(engine.render(duration: 1.0))
 
@@ -212,7 +212,7 @@ class NodeTests: XCTestCase {
 
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
-            player.play(url: URL.testAudio)
+            player.play(url: .testAudio)
 
             startMeasuring()
             let buf = engine.render(duration: 10.0)
@@ -235,7 +235,7 @@ class NodeTests: XCTestCase {
 
         measureMetrics([.wallClockTime], automaticallyStartMeasuring: false) {
             let audio = engine.startTest(totalDuration: 10.0)
-            player.play(url: URL.testAudio)
+            player.play(url: .testAudio)
 
             startMeasuring()
             let buf = engine.render(duration: 10.0)

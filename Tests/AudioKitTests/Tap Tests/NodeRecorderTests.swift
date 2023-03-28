@@ -14,7 +14,7 @@ class NodeRecorderTests: XCTestCase {
 //
 //        // record a little audio
 //        try engine.start()
-//        sampler.play(url: URL.testAudio)
+//        sampler.play(url: .testAudio)
 //        try recorder.reset()
 //        try recorder.record()
 //        sleep(1)
@@ -47,7 +47,7 @@ class NodeRecorderTests: XCTestCase {
 //
 //        // record a little audio
 //        try engine.start()
-//        sampler.play(url: URL.testAudio)
+//        sampler.play(url: .testAudio)
 //        try recorder.reset()
 //        try recorder.record()
 //        sleep(1)

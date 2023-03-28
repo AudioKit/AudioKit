@@ -9,7 +9,7 @@ class PeakLimiterTests: XCTestCase {
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, attackTime: 0.02)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -21,7 +21,7 @@ class PeakLimiterTests: XCTestCase {
         mixer.volume = 5 // Had to be loud to allow for decay time to affected the sound
         engine.output = PeakLimiter(mixer, decayTime: 0.02)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -33,7 +33,7 @@ class PeakLimiterTests: XCTestCase {
         mixer.volume = 5 // Had to be loud to allow for decay time to affected the sound
         engine.output = PeakLimiter(mixer, decayTime: 0.03)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -43,7 +43,7 @@ class PeakLimiterTests: XCTestCase {
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -53,7 +53,7 @@ class PeakLimiterTests: XCTestCase {
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, attackTime: 0.02, decayTime: 0.03, preGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -63,7 +63,7 @@ class PeakLimiterTests: XCTestCase {
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, preGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -74,10 +74,10 @@ class PeakLimiterTests: XCTestCase {
         let effect = PeakLimiter(sampler, attackTime: 0.02, decayTime: 0.03, preGain: -20)
         engine.output = effect
         let audio = engine.startTest(totalDuration: 2.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         sampler.stop()
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         effect.preGain = 40
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)

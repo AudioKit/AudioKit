@@ -14,7 +14,7 @@ class MatrixReverbTests: XCTestCase {
         effect.bypass()
         engine.output = effect
         let audio = engine.startTest(totalDuration: 1.0)
-        input.play(url: URL.testAudio)
+        input.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -46,7 +46,7 @@ class MatrixReverbTests: XCTestCase {
         engine.output = effect
         effect.loadFactoryPreset(.cathedral)
         let audio = engine.startTest(totalDuration: 1.0)
-        input.play(url: URL.testAudio)
+        input.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -56,7 +56,7 @@ class MatrixReverbTests: XCTestCase {
         let input = Sampler()
         engine.output = MatrixReverb(input)
         let audio = engine.startTest(totalDuration: 1.0)
-        input.play(url: URL.testAudio)
+        input.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -68,7 +68,7 @@ class MatrixReverbTests: XCTestCase {
         engine.output = effect
         effect.loadFactoryPreset(.smallRoom)
         let audio = engine.startTest(totalDuration: 1.0)
-        input.play(url: URL.testAudio)
+        input.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -80,7 +80,7 @@ class MatrixReverbTests: XCTestCase {
         effect.smallLargeMix = 51
         engine.output = effect
         let audio = engine.startTest(totalDuration: 1.0)
-        input.play(url: URL.testAudio)
+        input.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }

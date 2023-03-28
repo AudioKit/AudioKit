@@ -8,7 +8,7 @@ class DynamicsProcessorTests: XCTestCase {
         let engine = Engine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -20,7 +20,7 @@ class DynamicsProcessorTests: XCTestCase {
         let processor = DynamicsProcessor(sampler)
         processor.loadFactoryPreset(.fastAndSmooth)
         engine.output = processor
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -30,7 +30,7 @@ class DynamicsProcessorTests: XCTestCase {
         let engine = Engine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler, attackTime: 0.1)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         let audio = engine.startTest(totalDuration: 1.0)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
@@ -41,7 +41,7 @@ class DynamicsProcessorTests: XCTestCase {
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler, headRoom: 0)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -51,7 +51,7 @@ class DynamicsProcessorTests: XCTestCase {
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler, masterGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -66,7 +66,7 @@ class DynamicsProcessorTests: XCTestCase {
                                           releaseTime: 0.1,
                                           masterGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -78,7 +78,7 @@ class DynamicsProcessorTests: XCTestCase {
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler, threshold: -25)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }

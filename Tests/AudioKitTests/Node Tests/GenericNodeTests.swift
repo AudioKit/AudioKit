@@ -52,7 +52,7 @@ class GenericNodeTests: XCTestCase {
     /// Because of platform differences we pass in an array of possible checksums.
     func nodeParameterTest(md5s: [String], factory: (Node) -> Node, audition: Bool = false) {
         let sampler = Sampler()
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         let node = factory(sampler)
 
         let duration = node.parameters.count + 1

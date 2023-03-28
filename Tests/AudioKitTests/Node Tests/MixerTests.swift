@@ -12,7 +12,7 @@ class MixerTests: XCTestCase {
         let mixer2 = Mixer()
         engine.output = Mixer(mixer1, mixer2)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         mixer2.addInput(sampler)
         mixer2.removeInput(sampler)
@@ -33,7 +33,7 @@ class MixerTests: XCTestCase {
         let sampler = Sampler()
         subtreeMixer.addInput(sampler)
 
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
 
         // only for auditioning
         // wait(for: 2.0)

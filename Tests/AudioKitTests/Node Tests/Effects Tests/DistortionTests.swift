@@ -10,7 +10,7 @@ class DistortionTests: XCTestCase {
         let sampler = Sampler()
         engine.output = Distortion(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
@@ -22,7 +22,7 @@ class DistortionTests: XCTestCase {
         distortion.loadFactoryPreset(.drumsBitBrush)
         engine.output = distortion
         let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: URL.testAudio)
+        sampler.play(url: .testAudio)
         audio.append(engine.render(duration: 1.0))
         testMD5(audio)
     }
