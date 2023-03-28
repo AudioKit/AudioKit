@@ -14,7 +14,7 @@ public final class AudioPlayer: Node {
     public var rate: AUValue = 1.0 {
         didSet {
             rate = rate.clamped(to: 0.031_25 ... 32)
-            playerAU.rateParam.value = rate
+            playerAU.timePitch.rate = rate
         }
     }
 
@@ -22,7 +22,7 @@ public final class AudioPlayer: Node {
     public var pitch: AUValue = 0.0 {
         didSet {
             pitch = pitch.clamped(to: -2400 ... 2400)
-            playerAU.pitchParam.value = pitch
+            playerAU.timePitch.pitch = pitch
         }
     }
 
@@ -30,13 +30,32 @@ public final class AudioPlayer: Node {
     public var overlap: AUValue = 8.0 {
         didSet {
             overlap = overlap.clamped(to: 3 ... 32)
-            playerAU.overlapParam.value = overlap
+            playerAU.timePitch.overlap = overlap
+        }
+    }
+
+    public var loopStart: AUValue = 0.0 {
+        didSet {
+            playerAU.loopStart = TimeInterval(loopStart)
+        }
+    }
+
+    public var loopDuration: AUValue = 0.0 {
+        didSet {
+            playerAU.loopDuration = TimeInterval(loopDuration)
+        }
+    }
+
+    public var isLooping: Bool = false {
+        didSet {
+            playerAU.isLooping = isLooping
         }
     }
 
     public init(rate: AUValue = 1.0,
                 pitch: AUValue = 0.0,
                 overlap: AUValue = 8.0) {
+
         let componentDescription = AudioComponentDescription(instrument: "apau")
 
         AUAudioUnit.registerSubclass(AudioPlayerAudioUnit.self,
@@ -48,131 +67,29 @@ public final class AudioPlayer: Node {
         self.rate = rate
         self.pitch = pitch
         self.overlap = overlap
+
     }
 
     public func play(url: URL) {
+        load(url: url)
+        play()
+    }
 
+    public func load(url: URL) {
         if let file = try? AVAudioFile(forReading: url) {
-            playerAU.play(file: file)
+            playerAU.load(file: file)
         }
     }
+
+    public func stop() {
+        playerAU.stop()
+    }
+
+    public func play() {
+        playerAU.stop()
+        playerAU.play()
+    }
+
+
 }
 
-final class AudioPlayerAudioUnit: AUAudioUnit {
-    private var inputBusArray: AUAudioUnitBusArray!
-    private var outputBusArray: AUAudioUnitBusArray!
-
-    let inputChannelCount: NSNumber = 2
-    let outputChannelCount: NSNumber = 2
-
-    /// Player AV Audio Node
-    public var playerUnit = AVAudioPlayerNode()
-    public var timePitch = AVAudioUnitTimePitch()
-    private var _engine = AVAudioEngine()
-
-    func play(file: AVAudioFile) {
-        playerUnit.play()
-        playerUnit.scheduleSegment(file,
-                                   startingFrame: 0,
-                                   frameCount: AVAudioFrameCount(file.length),
-                                   at: .now())
-    }
-
-    var stdFormat: AVAudioFormat {
-        AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
-    }
-
-    let rateParam = AUParameterTree.createParameter(identifier: "rate",
-                                                    name: "rate",
-                                                    address: 0,
-                                                    range: 0.031_25 ... 32,
-                                                    unit: .generic,
-                                                    flags: [])
-
-    let pitchParam = AUParameterTree.createParameter(identifier: "pitch",
-                                                    name: "pitch",
-                                                    address: 1,
-                                                    range: -2400 ... 2400,
-                                                    unit: .cents,
-                                                    flags: [])
-
-    let overlapParam = AUParameterTree.createParameter(identifier: "overlap",
-                                                    name: "overlap",
-                                                    address: 2,
-                                                    range: 3 ... 32,
-                                                    unit: .generic,
-                                                    flags: [])
-
-    /// Initialize with component description and options
-    /// - Parameters:
-    ///   - componentDescription: Audio Component Description
-    ///   - options: Audio Component Instantiation Options
-    /// - Throws: error
-    override public init(componentDescription: AudioComponentDescription,
-                         options: AudioComponentInstantiationOptions = []) throws
-    {
-        try super.init(componentDescription: componentDescription, options: options)
-
-        inputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [])
-        outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: stdFormat)])
-
-        parameterTree = AUParameterTree.createTree(withChildren: [rateParam, pitchParam, overlapParam])
-
-        let paramBlock = scheduleParameterBlock
-
-        parameterTree?.implementorValueObserver = { parameter, _ in
-            paramBlock(.zero, 0, parameter.address, parameter.value)
-        }
-        setup()
-    }
-
-    func setup() {
-        _engine.attach(playerUnit)
-        _engine.attach(timePitch)
-
-        _engine.connect(playerUnit, to: timePitch, format: stdFormat)
-        _engine.connect(timePitch, to: _engine.mainMixerNode, format: stdFormat)
-
-        do {
-            try _engine.enableManualRenderingMode(.realtime, format: .init(standardFormatWithSampleRate: 44100, channels: 2)!, maximumFrameCount: 1024)
-            try _engine.start()
-        } catch {
-            print("Could not enable manual rendering mode")
-        }
-
-    }
-
-    func processEvents(events: UnsafePointer<AURenderEvent>?) {
-        process(events: events,
-                param: { event in
-
-                    let paramEvent = event.pointee
-
-                    switch paramEvent.parameterAddress {
-                        case 0: timePitch.rate = paramEvent.value
-                        case 1: timePitch.pitch = paramEvent.value
-                        case 2: timePitch.overlap = paramEvent.value
-                        default: break
-                    }
-
-                })
-    }
-
-
-    override var internalRenderBlock: AUInternalRenderBlock {
-        { (_: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-           _: UnsafePointer<AudioTimeStamp>,
-           frameCount: AUAudioFrameCount,
-           _: Int,
-           outputBufferList: UnsafeMutablePointer<AudioBufferList>,
-           renderEvents: UnsafePointer<AURenderEvent>?,
-           _: AURenderPullInputBlock?) in
-
-            self.processEvents(events: renderEvents)
-
-            var status = noErr
-            _ = self._engine.manualRenderingBlock(frameCount, outputBufferList, &status)
-            return status
-        }
-    }
-}
