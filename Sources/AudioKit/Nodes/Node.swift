@@ -130,7 +130,8 @@ extension Node {
         }
     }
 
-    func makeAVConnections() {
+    func makeAVConnections(for subset: [Node]? = nil) {
+        let connections = subset ?? connections
         if let node = self as? HasInternalConnections {
             node.makeInternalConnections()
         }
