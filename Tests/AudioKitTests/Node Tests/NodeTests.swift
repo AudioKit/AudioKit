@@ -46,6 +46,7 @@ class NodeTests: XCTestCase {
         let mixer = Mixer()
         mixer.addInput(player)
         mixer.addInput(player)
+        mixer.addInput(player, strategy: .incremental)
         XCTAssertEqual(mixer.connections.count, 1)
     }
     
