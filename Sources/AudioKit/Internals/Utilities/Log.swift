@@ -38,8 +38,6 @@ public func Log(_ items: Any?...,
                 function: String = #function,
                 line: Int = #line)
 {
-    guard Settings.enableLogging else { return }
-
     let fileName = (file as NSString).lastPathComponent
     let content = (items.map {
         String(describing: $0 ?? "nil")
