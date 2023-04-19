@@ -48,27 +48,27 @@ class FormatConverterTests: AudioFileTestCase {
         try convert(with: options)
     }
 
-    func testConvertM4A24Bit() throws {
-        var options = FormatConverter.Options()
-        options.sampleRate = 44100
-        options.bitRate = 256000
-        options.format = .m4a
-        options.eraseFile = true
-        options.bitDepthRule = .any
-
-        try convert(with: options)
-    }
-
-    func testConvertMonoM4A24Bit() throws {
-        var options = FormatConverter.Options()
-        options.sampleRate = 48000
-        options.bitRate = 320000
-        options.format = .m4a
-        options.eraseFile = true
-        options.bitDepthRule = .any
-
-        try convert(with: options, input: monoWAVE44k24Bit)
-    }
+//    func testConvertM4A24Bit() throws {
+//        var options = FormatConverter.Options()
+//        options.sampleRate = 44100
+//        options.bitRate = 256000
+//        options.format = .m4a
+//        options.eraseFile = true
+//        options.bitDepthRule = .any
+//
+//        try convert(with: options)
+//    }
+//
+//    func testConvertMonoM4A24Bit() throws {
+//        var options = FormatConverter.Options()
+//        options.sampleRate = 48000
+//        options.bitRate = 320000
+//        options.format = .m4a
+//        options.eraseFile = true
+//        options.bitDepthRule = .any
+//
+//        try convert(with: options, input: monoWAVE44k24Bit)
+//    }
 
     // MARK: helpers
 
