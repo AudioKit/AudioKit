@@ -7,9 +7,6 @@ public protocol Node: AnyObject {
     /// Nodes providing audio input to this node.
     var connections: [Node] { get }
 
-    /// Bypass the node
-    func bypass()
-
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
 

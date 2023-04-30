@@ -11,7 +11,7 @@ class MatrixReverbTests: XCTestCase {
         let engine = Engine()
         let input = Sampler()
         let effect = MatrixReverb(input)
-        effect.bypass()
+        effect.bypassed = true
         engine.output = effect
         let audio = engine.startTest(totalDuration: 1.0)
         input.play(url: .testAudio)
@@ -21,7 +21,7 @@ class MatrixReverbTests: XCTestCase {
 
     func testNotStartedWhenBypassed() {
         let effect = MatrixReverb(Sampler())
-        effect.bypass()
+        effect.bypassed = true
         XCTAssertFalse(effect.isStarted)
     }
 
@@ -30,7 +30,7 @@ class MatrixReverbTests: XCTestCase {
         // bypass() needs to be a part of protocol
         // for this to work properly
         let effect = MatrixReverb(Sampler())
-        (effect as Node).bypass()
+        effect.bypassed = true
         XCTAssertFalse(effect.isStarted)
     }
 

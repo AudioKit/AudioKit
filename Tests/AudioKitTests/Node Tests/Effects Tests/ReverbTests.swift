@@ -9,7 +9,7 @@ class ReverbTests: XCTestCase {
         let engine = Engine()
         let input = Sampler()
         let effect = Reverb(input)
-        effect.bypass()
+        effect.bypassed = true
         engine.output = effect
         let audio = engine.startTest(totalDuration: 1.0)
         input.play(url: .testAudio)

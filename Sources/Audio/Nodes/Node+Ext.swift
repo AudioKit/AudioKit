@@ -33,7 +33,6 @@ public extension Node {
     }
 
     var isStarted: Bool { !bypassed }
-    func bypass() { bypassed = true }
     var outputFormat: AVAudioFormat { Settings.audioFormat }
 
     /// All parameters on the Node
