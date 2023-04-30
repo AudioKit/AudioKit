@@ -37,7 +37,7 @@ class BypassTests: XCTestCase {
         let engine = Engine()
         for effect in effects {
             engine.output = effect
-            effect.bypass()
+            effect.bypassed = true
             let data = engine.startTest(totalDuration: duration)
             data.append(engine.render(duration: duration))
             let channel1 = try XCTUnwrap(data.toFloatChannelData()?.first)
@@ -60,7 +60,7 @@ class BypassTests: XCTestCase {
 
     func testStartStopEffectsChangesIsStarted() {
         for effect in effects {
-            effect.bypass()
+            effect.bypassed = true
             XCTAssertFalse(effect.isStarted, "\(type(of: effect)) has not stopped correctly")
             effect.bypassed = false
             XCTAssertTrue(effect.isStarted, "\(type(of: effect)) has not started correctly")
