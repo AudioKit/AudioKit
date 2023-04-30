@@ -3,31 +3,37 @@
 import Foundation
 
 let validTestResults: [TestResult] = [
-    TestResult(md5: "f26a2c57c43896381b16d3c3afcf5976", suiteName: "AppleSamplerTests", testName: "testAmplitude"),
-    TestResult(md5: "f26a2c57c43896381b16d3c3afcf5976", suiteName: "AppleSamplerTests", testName: "testAmplitude"),
-    TestResult(md5: "41ac3c9d92ecb63ecad5d7740be487a0", suiteName: "AppleSamplerTests", testName: "testPan"),
-    TestResult(md5: "eeaea3cd4ff26b7d0df8f0002270c793", suiteName: "AppleSamplerTests", testName: "testSamplePlayback"),
+    TestResult(md5: "19e71e85b1bf1ab72e2ac19afc0050fb", suiteName: "AppleSamplerTests", testName: "testAmplitude"), // Apple
+    TestResult(md5: "f26a2c57c43896381b16d3c3afcf5976", suiteName: "AppleSamplerTests", testName: "testAmplitude"), // Intel
+    TestResult(md5: "03cadafd47ce6e516d5cd006a9c3d133", suiteName: "AppleSamplerTests", testName: "testPan"), // Apple
+    TestResult(md5: "41ac3c9d92ecb63ecad5d7740be487a0", suiteName: "AppleSamplerTests", testName: "testPan"), // Intel
+    TestResult(md5: "80f9030fdc3bed5bc69fc164ba4ac686", suiteName: "AppleSamplerTests", testName: "testSamplePlayback"), // Apple
+    TestResult(md5: "eeaea3cd4ff26b7d0df8f0002270c793", suiteName: "AppleSamplerTests", testName: "testSamplePlayback"), // Intel
     TestResult(md5: "b42b86f6a7ff3a6fc85eb1760226cba0", suiteName: "AppleSamplerTests", testName: "testStop"),
-    TestResult(md5: "3a4d7f01a664fd08f65ba79497c2a6b4", suiteName: "AppleSamplerTests", testName: "testVolume"),
-    TestResult(md5: "a13aea9dcf485589666db760e14241d3", suiteName: "AudioPlayerTests", testName: "testDefault"), // Apple
+    TestResult(md5: "1b1327abd7dee7a3c7089943af6933cc", suiteName: "AppleSamplerTests", testName: "testVolume"), // Apple
+    TestResult(md5: "3a4d7f01a664fd08f65ba79497c2a6b4", suiteName: "AppleSamplerTests", testName: "testVolume"), // Intel
+    TestResult(md5: "ae188989b95dcab17e237135bd4165eb", suiteName: "AudioPlayerTests", testName: "testDefault"), // Apple
     TestResult(md5: "b3cf818208d17fa8ace739ef5eba3ab7", suiteName: "AudioPlayerTests", testName: "testDefault"), // Intel
     TestResult(md5: "12a824fd71405fe90082df8a77f27122", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI
     TestResult(md5: "1dbb38c415ca71d311695dc7bce4d327", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI2
     TestResult(md5: "75e7bb3e2090698e3a3065098a584c5a", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI3
-    TestResult(md5: "499386101282b71fd83785d8b5070a4f", suiteName: "AudioPlayerTests", testName: "testLoop"), // Apple
+    TestResult(md5: "0d2652fb7243c0b7cea2abd76e63763b", suiteName: "AudioPlayerTests", testName: "testLoop"), // Apple
     TestResult(md5: "6f8d501184bfb07abbd4733a136f6444", suiteName: "AudioPlayerTests", testName: "testLoop"), // CI
     TestResult(md5: "1bacbe390f2f9ee40da50d89361adb3c", suiteName: "AudioPlayerTests", testName: "testLoop"), // Intel
-    TestResult(md5: "481f7709e7a08a926112a256a5a6ced6", suiteName: "AudioPlayerTests", testName: "testPitch"), // Apple
+    TestResult(md5: "1dd8115780874f5ccb63611ae0cdc7bd", suiteName: "AudioPlayerTests", testName: "testPitch"), // Apple
     TestResult(md5: "1e24468fdc7b20c8ac8434db4e551fdb", suiteName: "AudioPlayerTests", testName: "testPitch"), // CI
     TestResult(md5: "7bae58f288b91d737e3d72e912599529", suiteName: "AudioPlayerTests", testName: "testPitch"), // Intel
-    TestResult(md5: "576c1def2055593cd827aa3f1d6effde", suiteName: "AudioPlayerTests", testName: "testRate"), // Apple
+    TestResult(md5: "545908357d901969d1ba3ac7491e8f30", suiteName: "AudioPlayerTests", testName: "testRate"), // Apple
     TestResult(md5: "103096c954ff23a2a841465225472d97", suiteName: "AudioPlayerTests", testName: "testRate"), // CI
     TestResult(md5: "86bdd1d2dd6dc3cf730816189dff5575", suiteName: "AudioPlayerTests", testName: "testRate"), // Intel
-    TestResult(md5: "609e0a3e3606082a92de70f733f37809", suiteName: "DistortionTests", testName: "testDefault"),
-    TestResult(md5: "d54c5309e650d1e8291f3a8ee3423e61", suiteName: "DistortionTests", testName: "testPresetChange"),
+    TestResult(md5: "4c7115302b4e430d070f169245f87e6e", suiteName: "DistortionTests", testName: "testDefault"), // Apple
+    TestResult(md5: "609e0a3e3606082a92de70f733f37809", suiteName: "DistortionTests", testName: "testDefault"), // Intel
+    TestResult(md5: "216f0ccd685f879def7aafddc0809531", suiteName: "DistortionTests", testName: "testPresetChange"), // Apple
+    TestResult(md5: "d54c5309e650d1e8291f3a8ee3423e61", suiteName: "DistortionTests", testName: "testPresetChange"), // Intel
     TestResult(md5: "f2da585c3e9838c1a41f1a5f34c467d0", suiteName: "DynamicsProcessorTests", testName: "testAttackTime"),
     TestResult(md5: "3064ef82b30c512b2f426562a2ef3448", suiteName: "DynamicsProcessorTests", testName: "testDefault"),
     TestResult(md5: "98ac5f20a433ba5a858c461aa090d81f", suiteName: "DynamicsProcessorTests", testName: "testHeadRoom"),
+    TestResult(md5: "db27f010ec481cd02ca73b8652c4f7c1", suiteName: "DynamicsProcessorTests", testName: "testHeadRoom"), // Apple
     TestResult(md5: "b8ff41f64341a786bd6533670d238560", suiteName: "DynamicsProcessorTests", testName: "testMasterGain"),
     TestResult(md5: "6b99deb194dd53e8ceb6428924d6666b", suiteName: "DynamicsProcessorTests", testName: "testParameters"),
     TestResult(md5: "f0c09e218767a2d11425688ba3b570c3", suiteName: "DynamicsProcessorTests", testName: "testPreset"),
@@ -55,9 +61,13 @@ let validTestResults: [TestResult] = [
     TestResult(md5: "ed14bc85f1732bd77feaa417c0c20cae", suiteName: "PeakLimiterTests", testName: "testPreGainChangingAfterEngineStarted"),
     TestResult(md5: "6b2d34e86130813c7e7d9f1cf7a2a87c", suiteName: "MatrixReverbTests", testName: "testBypass"),
     TestResult(md5: "3f8c5a1ada6a17b924ace7ba1268a20a", suiteName: "MatrixReverbTests", testName: "testCathedral"),
+    TestResult(md5: "ed53261c6c0b7c5cc9f4808dddeb82d2", suiteName: "MatrixReverbTests", testName: "testCathedral"), // Apple
+    TestResult(md5: "de10caa806c6bca6059ce8a1e41681e7", suiteName: "MatrixReverbTests", testName: "testDefault"), // Apple
     TestResult(md5: "353ce82b89b2f9c28fdd05773c5c2f0b", suiteName: "MatrixReverbTests", testName: "testDefault"),
     TestResult(md5: "c205a155458107f22affd9ce1ec84c82", suiteName: "MatrixReverbTests", testName: "testSmallRoom"),
+    TestResult(md5: "af50ae6213e56b43f4df3abaac99db91", suiteName: "MatrixReverbTests", testName: "testSmallRoom"), // Apple
     TestResult(md5: "d392ce16d38c1419998574b22712a228", suiteName: "MatrixReverbTests", testName: "testSmallLargeMix"),
+    TestResult(md5: "421f25a94b707d3043ab775089ec6a56", suiteName: "MatrixReverbTests", testName: "testSmallLargeMix"), // Apple
     TestResult(md5: "8105caf3748de8fcddf6766f85f8b59f", suiteName: "ReverbTests", testName: "testBypass"),
     TestResult(md5: "8c45b6d97afb254830b94adf34d9ec0d", suiteName: "ReverbTests", testName: "testCathedral"),
     TestResult(md5: "d0fea1c1fc888019c592586e318deb6e", suiteName: "ReverbTests", testName: "testDefault"),
@@ -70,8 +80,8 @@ let validTestResults: [TestResult] = [
     TestResult(md5: "96f75d59420c90eefa2a9f953902f358", suiteName: "EngineTests", testName: "testBasic"), // Intel
     TestResult(md5: "6325bd86b8fb3b6493fbe25da5f74fef", suiteName: "EngineTests", testName: "testBasic"), // Apple
     TestResult(md5: "1366837b009efedbc445a4c963131b0b", suiteName: "EngineTests", testName: "testDynamicChange"), // Intel
-    TestResult(md5: "389f1fa836ed4101fbfcfb16a1a569cf", suiteName: "EngineTests", testName: "testDynamicChange"), // Apple
-    TestResult(md5: "4a45d6a3369c9fd3d1fb91833d73252a", suiteName: "EngineTests", testName: "testEffect"), // Intel
+    TestResult(md5: "ae3b5a15bd371b88eba0038aad2115cd", suiteName: "EngineTests", testName: "testDynamicChange"), // Apple
+    TestResult(md5: "3286f89f5ea2bb531aafdf10739b7402", suiteName: "EngineTests", testName: "testEffect"), // Intel
     TestResult(md5: "7f5623009e72f07c17ec489cfcf17715", suiteName: "EngineTests", testName: "testEffect"), // Apple
     TestResult(md5: "afd041d70949e88931a8b7ad802ac36f", suiteName: "EngineTests", testName: "testMixer"), // Intel
     TestResult(md5: "e7520e3efa548139a12cd8dda897fbac", suiteName: "EngineTests", testName: "testMixer"), // Apple
@@ -84,7 +94,7 @@ let validTestResults: [TestResult] = [
     TestResult(md5: "b484df49b662f3bc1b41be9d5e3dcd23", suiteName: "EngineTests", testName: "testOscillator"), // Intel
     TestResult(md5: "ec81679f6e9e4e476d96f0ae26c556be", suiteName: "EngineTests", testName: "testOscillator"), // Apple
     TestResult(md5: "c1a6abd874e85a0c4721af2ad8f46f54", suiteName: "EngineTests", testName: "testTwoEffects"), // Intel
-    TestResult(md5: "910c00d933862b402663e64cf0ad6ebe", suiteName: "EngineTests", testName: "testTwoEffects"), // Apple
+    TestResult(md5: "bed3e0e437be657a3fdf68b6de4d8e66", suiteName: "EngineTests", testName: "testTwoEffects"), // Apple
     TestResult(md5: "f44518ab94a8bab9a3ef8acfe1a4d45b", suiteName: "SamplerTests", testName: "testSampler"),
     TestResult(md5: "f44518ab94a8bab9a3ef8acfe1a4d45b", suiteName: "SamplerTests", testName: "testPlayMIDINote"),
     TestResult(md5: "8c5c55d9f59f471ca1abb53672e3ffbf", suiteName: "SamplerTests", testName: "testStopMIDINote"),
