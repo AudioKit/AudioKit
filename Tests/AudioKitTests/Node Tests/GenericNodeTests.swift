@@ -104,9 +104,9 @@ class GenericNodeTests: XCTestCase {
     }
 
     func testEffects() {
-        nodeParameterTest(md5s: ["dec105c6e2e44556608c9f393e205c1e", "4c606fb4cba776df20620c75ac48b62b"], factory: { input in Delay(input, time: 0.01) })
-        nodeParameterTest(md5s: ["3979c710eff8e12f0c3f535987624fde", "98b9d88598b8dbad2ccced51fe4c5e87"], factory: { input in Distortion(input) })
-        nodeParameterTest(md5s: ["7578e739da5c7b433bee6ebbad8d92f5", "1b233677a544c8005ba51ee7aebdcf76"], factory: { input in DynamicsProcessor(input) })
+        nodeParameterTest(md5s: ["dec105c6e2e44556608c9f393e205c1e"], factory: { input in Delay(input, time: 0.01) })
+        nodeParameterTest(md5s: ["3979c710eff8e12f0c3f535987624fde", "2bca99c77cf6ed19cca0cd276e204fee"], factory: { input in Distortion(input) })
+        nodeParameterTest(md5s: ["7578e739da5c7b433bee6ebbad8d92f5"], factory: { input in DynamicsProcessor(input) })
         nodeParameterTest(md5s: ["d65f43bda68342d9a53a5e9eda7ad36d"], factory: { input in PeakLimiter(input) })
         #if os(macOS)
         nodeParameterTest(md5s: ["28d2cb7a5c1e369ca66efa8931d31d4d",
@@ -117,10 +117,10 @@ class GenericNodeTests: XCTestCase {
     }
 
     func testFilters() {
-        nodeParameterTest(md5s: ["85d7fbd22c14dc7cc8d3954ebafd0407", "06cfc040558013bc968be128e8e5566b"], factory: { input in BandPassFilter(input) })
-        nodeParameterTest(md5s: ["befc21e17a65f32169c8b0efb15ea75c", "910e14c59cfbf834135b9757863a0908"], factory: { input in HighPassFilter(input) })
-        nodeParameterTest(md5s: ["69926231aedb80c4bd9ad8c27e2738b8", "834558e528f2dd3dc51c25e1cde6ce26"], factory: { input in HighShelfFilter(input) })
-        nodeParameterTest(md5s: ["aa3f867e12cf44b80d8142ebd0dc00a5", "e29c8d493ab0aadd3586aa4efb366906"], factory: { input in LowPassFilter(input) })
-        nodeParameterTest(md5s: ["8bcb9c497515412afae7ae3bd2cc7b62", "d40e501f58919d35ce58d9c40c4c7d24"], factory: { input in LowShelfFilter(input) })
+        nodeParameterTest(md5s: ["85d7fbd22c14dc7cc8d3954ebafd0407"], factory: { input in BandPassFilter(input) })
+        nodeParameterTest(md5s: ["befc21e17a65f32169c8b0efb15ea75c"], factory: { input in HighPassFilter(input) })
+        nodeParameterTest(md5s: ["69926231aedb80c4bd9ad8c27e2738b8"], factory: { input in HighShelfFilter(input) })
+        nodeParameterTest(md5s: ["aa3f867e12cf44b80d8142ebd0dc00a5"], factory: { input in LowPassFilter(input) })
+        nodeParameterTest(md5s: ["8bcb9c497515412afae7ae3bd2cc7b62"], factory: { input in LowShelfFilter(input) })
     }
 }
