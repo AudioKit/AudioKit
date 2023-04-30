@@ -48,15 +48,15 @@ final class AudioProgram {
              runQueues: Vec<WorkStealingQueue>)
     {
         let exec = { index in
-            let info = self.jobs[index]
+            let job = self.jobs[index]
 
-            info.render(actionFlags: actionFlags,
-                        timeStamp: timeStamp,
-                        frameCount: frameCount,
-                        outputBufferList: (index == self.jobs.count - 1) ? outputBufferList : nil)
+            job.render(actionFlags: actionFlags,
+                       timeStamp: timeStamp,
+                       frameCount: frameCount,
+                       outputBufferList: (index == self.jobs.count - 1) ? outputBufferList : nil)
 
             // Increment outputs.
-            for outputIndex in self.jobs[index].outputIndices {
+            for outputIndex in job.outputIndices {
                 if self.finished[outputIndex].wrappingIncrementThenLoad(ordering: .relaxed) == self.jobs[outputIndex].inputCount {
                     runQueues[workerIndex].push(outputIndex)
                 }
