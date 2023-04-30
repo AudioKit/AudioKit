@@ -8,6 +8,8 @@ import Utilities
 final class Recorder {
     // MARK: - Properties
 
+    private var tap: Tap?
+
     /// True if we are recording.
     public private(set) var isRecording = false
 
@@ -66,12 +68,40 @@ final class Recorder {
     ///   - fileDirectoryPath: Directory to write audio files to
     ///   - shouldCleanupRecordings: Determines if recorded files are deleted upon deinit (default = true)
     ///
-    public init(fileDirectoryURL: URL? = nil,
+    public init(node: Node,
+                fileDirectoryURL: URL? = nil,
                 shouldCleanupRecordings: Bool = true) throws
     {
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
         createNewFile()
+
+        self.tap = Tap(node) { [weak self] left, right in
+            guard let strongSelf = self else { return }
+            guard let internalAudioFile = strongSelf.internalAudioFile else { return }
+
+            do {
+                if !strongSelf.isPaused {
+
+                    let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
+                    let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(left.count))!
+
+                    for i in 0..<left.count {
+                        buffer.floatChannelData![0][i] = left[i]
+                        buffer.floatChannelData![1][i] = right[i]
+                    }
+
+                    try internalAudioFile.write(from: buffer)
+
+                    // allow an optional timed stop
+                    if strongSelf.durationToRecord != 0, internalAudioFile.duration >= strongSelf.durationToRecord {
+                        strongSelf.stop()
+                    }
+                }
+            } catch let error as NSError {
+                Log("Write failed: error -> \(error.localizedDescription)")
+            }
+        }
     }
 
     deinit {
