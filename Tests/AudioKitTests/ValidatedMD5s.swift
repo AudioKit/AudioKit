@@ -10,18 +10,19 @@ let validTestResults: [TestResult] = [
     TestResult(md5: "b42b86f6a7ff3a6fc85eb1760226cba0", suiteName: "AppleSamplerTests", testName: "testStop"),
     TestResult(md5: "3a4d7f01a664fd08f65ba79497c2a6b4", suiteName: "AppleSamplerTests", testName: "testVolume"),
     TestResult(md5: "a13aea9dcf485589666db760e14241d3", suiteName: "AudioPlayerTests", testName: "testDefault"), // Apple
-    TestResult(md5: "1e342477f88590fa315dee077ad07c71", suiteName: "AudioPlayerTests", testName: "testDefault"), // Intel
+    TestResult(md5: "b3cf818208d17fa8ace739ef5eba3ab7", suiteName: "AudioPlayerTests", testName: "testDefault"), // Intel
     TestResult(md5: "12a824fd71405fe90082df8a77f27122", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI
     TestResult(md5: "1dbb38c415ca71d311695dc7bce4d327", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI2
     TestResult(md5: "75e7bb3e2090698e3a3065098a584c5a", suiteName: "AudioPlayerTests", testName: "testDefault"), // CI3
     TestResult(md5: "499386101282b71fd83785d8b5070a4f", suiteName: "AudioPlayerTests", testName: "testLoop"), // Apple
     TestResult(md5: "6f8d501184bfb07abbd4733a136f6444", suiteName: "AudioPlayerTests", testName: "testLoop"), // CI
+    TestResult(md5: "1bacbe390f2f9ee40da50d89361adb3c", suiteName: "AudioPlayerTests", testName: "testLoop"), // Intel
     TestResult(md5: "481f7709e7a08a926112a256a5a6ced6", suiteName: "AudioPlayerTests", testName: "testPitch"), // Apple
     TestResult(md5: "1e24468fdc7b20c8ac8434db4e551fdb", suiteName: "AudioPlayerTests", testName: "testPitch"), // CI
-    TestResult(md5: "d9192cd0c89539c9262c71bd4c3bedab", suiteName: "AudioPlayerTests", testName: "testPitch"), // Intel
+    TestResult(md5: "7bae58f288b91d737e3d72e912599529", suiteName: "AudioPlayerTests", testName: "testPitch"), // Intel
     TestResult(md5: "576c1def2055593cd827aa3f1d6effde", suiteName: "AudioPlayerTests", testName: "testRate"), // Apple
     TestResult(md5: "103096c954ff23a2a841465225472d97", suiteName: "AudioPlayerTests", testName: "testRate"), // CI
-    TestResult(md5: "71384a7974d944fbb030be20dcd826d7", suiteName: "AudioPlayerTests", testName: "testRate"), // Intel
+    TestResult(md5: "86bdd1d2dd6dc3cf730816189dff5575", suiteName: "AudioPlayerTests", testName: "testRate"), // Intel
     TestResult(md5: "609e0a3e3606082a92de70f733f37809", suiteName: "DistortionTests", testName: "testDefault"),
     TestResult(md5: "d54c5309e650d1e8291f3a8ee3423e61", suiteName: "DistortionTests", testName: "testPresetChange"),
     TestResult(md5: "f2da585c3e9838c1a41f1a5f34c467d0", suiteName: "DynamicsProcessorTests", testName: "testAttackTime"),
