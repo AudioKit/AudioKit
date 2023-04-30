@@ -27,9 +27,8 @@ We create a few worker threads which are woken by the audio thread. Those thread
 
 ## To Do before it is ready for beta testers
 
-* Make new AudioPlayer with TimePitch embedded
-* Search code for XXX: issues
 * Make node recorder functional and tested again
+* Search code for XXX: issues
 * Use log instead of print where appropriate
 * Test and update all the subAudioKits that depend on AK, especial AudioKitEX
 * Test and update other repos that depend on AK, like Cookbook, Waveform
