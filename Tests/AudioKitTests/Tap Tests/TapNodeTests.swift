@@ -17,4 +17,18 @@ class TapNodeTests: XCTestCase {
         try engine.start()
         sleep(1)
     }
+
+    func testTap2() async throws {
+        let engine = Engine()
+        let noise = Noise()
+        noise.amplitude = 0.1
+        let tap = Tap2(noise) { l, r in
+            print("left.count: \(l.count), right.count: \(r.count)")
+            print(detectAmplitudes([l, r]))
+        }
+        engine.output = noise
+
+        try engine.start()
+        sleep(1)
+    }
 }
