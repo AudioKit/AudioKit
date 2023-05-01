@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class TapNodeTests: XCTestCase {
+class TapTests: XCTestCase {
     func testTapNode() async throws {
         let engine = Engine()
         let noise = Noise()
