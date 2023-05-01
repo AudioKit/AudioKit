@@ -22,6 +22,13 @@ public class EngineAudioUnit: AUAudioUnit {
         return [inputChannelCount, outputChannelCount]
     }
 
+    struct WeakEngineAU {
+        weak var engine: EngineAudioUnit?
+    }
+
+    /// So we can look up the engine associated with a node.
+    static var nodeEngines: [ObjectIdentifier: WeakEngineAU] = [:]
+
     /// Initialize with component description and options
     /// - Parameters:
     ///   - componentDescription: Audio Component Description
@@ -189,6 +196,9 @@ public class EngineAudioUnit: AUAudioUnit {
             var nodeJobs: [ObjectIdentifier: Int] = [:]
 
             for node in list {
+
+                Self.nodeEngines[.init(node)] = .init(engine: self)
+
                 // Activate input busses.
                 for busIndex in 0 ..< node.au.inputBusses.count {
                     let bus = node.au.inputBusses[busIndex]
