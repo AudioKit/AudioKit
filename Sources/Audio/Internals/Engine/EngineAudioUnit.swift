@@ -179,7 +179,7 @@ public class EngineAudioUnit: AUAudioUnit {
             var scheduled = Set<ObjectIdentifier>()
             var list: [Node] = []
 
-            schedule(node: output, scheduled: &scheduled, list: &list)
+            output.dfs(seen: &scheduled, list: &list)
 
             // Generate output buffers for each AU.
             let buffers = makeBuffers(nodes: list)
@@ -284,23 +284,6 @@ public class EngineAudioUnit: AUAudioUnit {
         nodes.enumerated().compactMap { index, node in
             node.connections.isEmpty ? index : nil
         }
-    }
-
-    /// Recursively build a schedule of audio units to run.
-    func schedule(node: Node,
-                  scheduled: inout Set<ObjectIdentifier>,
-                  list: inout [Node])
-    {
-        let id = ObjectIdentifier(node)
-        if scheduled.contains(id) { return }
-
-        scheduled.insert(id)
-
-        for input in node.connections {
-            schedule(node: input, scheduled: &scheduled, list: &list)
-        }
-
-        list.append(node)
     }
 
     override public func allocateRenderResources() throws {

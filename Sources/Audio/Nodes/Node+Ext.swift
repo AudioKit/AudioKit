@@ -104,3 +104,22 @@ public protocol DynamicWaveformNode: Node {
     /// - Parameter handler: Closure with an array of floats as the argument
     func setWaveformUpdateHandler(_ handler: @escaping ([Float]) -> Void)
 }
+
+public extension Node {
+
+    /// Depth-first search of the Node DAG.
+    func dfs(seen: inout Set<ObjectIdentifier>,
+             list: inout [Node])
+    {
+        let id = ObjectIdentifier(self)
+        if seen.contains(id) { return }
+
+        seen.insert(id)
+
+        for input in connections {
+            input.dfs(seen: &seen, list: &list)
+        }
+
+        list.append(self)
+    }
+}
