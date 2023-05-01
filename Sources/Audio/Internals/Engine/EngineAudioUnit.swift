@@ -285,11 +285,6 @@ public class EngineAudioUnit: AUAudioUnit {
             program.store(AudioProgram(jobs: jobs,
                                        generatorIndices: generatorIndices(nodes: list)),
                           ordering: .relaxed)
-//            let array = encodeSysex(Unmanaged.passRetained(schedule))
-//
-//            if let block = cachedMIDIBlock {
-//                block(.zero, 0, array.count, array)
-//            }
         }
     }
 
