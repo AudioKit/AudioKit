@@ -97,5 +97,14 @@ let validTestResults: [TestResult] = [
     TestResult(md5: "1e24468fdc7b20c8ac8434db4e551fdb", suiteName: "AudioPlayerTests", testName: "testPitch"),
     TestResult(md5: "103096c954ff23a2a841465225472d97", suiteName: "AudioPlayerTests", testName: "testRate"),
     TestResult(md5: "f3ef443b9db92b1662c9d305274db661", suiteName: "NodeTests", testName: "testNodeConnection"),
+    TestResult(md5: "6325bd86b8fb3b6493fbe25da5f74fef", suiteName: "EngineTests", testName: "testBasic"),
+    TestResult(md5: "389f1fa836ed4101fbfcfb16a1a569cf", suiteName: "EngineTests", testName: "testDynamicChange"),
+    TestResult(md5: "7f5623009e72f07c17ec489cfcf17715", suiteName: "EngineTests", testName: "testEffect"),
+    TestResult(md5: "e7520e3efa548139a12cd8dda897fbac", suiteName: "EngineTests", testName: "testMixer"),
+    TestResult(md5: "0066e1a778b42ea9b079f3a67a0f81b8", suiteName: "EngineTests", testName: "testMixerDynamic"),
+    TestResult(md5: "dcfc1a485706295b89096e443c208814", suiteName: "EngineTests", testName: "testMixerVolume"),
+    TestResult(md5: "d5415f32cfb1fe8a63379d1d1196c1d1", suiteName: "EngineTests", testName: "testMultipleChanges"),
+    TestResult(md5: "ec81679f6e9e4e476d96f0ae26c556be", suiteName: "EngineTests", testName: "testOscillator"),
+    TestResult(md5: "910c00d933862b402663e64cf0ad6ebe", suiteName: "EngineTests", testName: "testTwoEffects"),
 
 ]
