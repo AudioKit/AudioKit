@@ -22,13 +22,17 @@ class TapNodeTests: XCTestCase {
         let engine = Engine()
         let noise = Noise()
         noise.amplitude = 0.1
-        let tap = Tap2(noise) { l, r in
+
+        let expectation = XCTestExpectation(description: "tap callback called")
+        let tap: Tap2? = Tap2(noise) { l, r in
             print("left.count: \(l.count), right.count: \(r.count)")
             print(detectAmplitudes([l, r]))
+            expectation.fulfill()
         }
         engine.output = noise
 
         try engine.start()
-        sleep(1)
+        await fulfillment(of: [expectation], timeout: 1.0)
+        XCTAssertNotNil(tap) // keep tap alive
     }
 }
