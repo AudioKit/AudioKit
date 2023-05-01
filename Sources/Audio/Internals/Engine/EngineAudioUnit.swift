@@ -165,21 +165,6 @@ public class EngineAudioUnit: AUAudioUnit {
         return buffers
     }
 
-    func getOutputs(nodes: [Node]) -> [ObjectIdentifier: [Int]] {
-        var nodeOutputs: [ObjectIdentifier: [Int]] = [:]
-
-        for (index, node) in nodes.enumerated() {
-            for input in node.connections {
-                let inputId = ObjectIdentifier(input)
-                var outputs = nodeOutputs[inputId] ?? []
-                outputs.append(index)
-                nodeOutputs[inputId] = outputs
-            }
-        }
-
-        return nodeOutputs
-    }
-
     /// Recompiles our DAG of nodes into a list of render functions to be called on the audio thread.
     func compile() {
         // Traverse the node graph to schedule
@@ -196,14 +181,12 @@ public class EngineAudioUnit: AUAudioUnit {
 
             schedule(node: output, scheduled: &scheduled, list: &list)
 
-            // So we can look up indices of outputs.
-            let outputs = getOutputs(nodes: list)
-
             // Generate output buffers for each AU.
             let buffers = makeBuffers(nodes: list)
 
             // Pass the schedule to the engineAU
             var jobs: [RenderJob] = []
+            var nodeJobs: [ObjectIdentifier: Int] = [:]
 
             for node in list {
                 // Activate input busses.
@@ -223,6 +206,9 @@ public class EngineAudioUnit: AUAudioUnit {
 
                 var inputBlock: AURenderPullInputBlock = { _, _, _, _, _ in noErr }
 
+                let nodeJobIndex = jobs.count
+                nodeJobs[ObjectIdentifier(node)] = nodeJobIndex
+
                 if let mixer = node as? Mixer {
                     // Set the engine on the mixer so adding or removing mixer inputs
                     // can trigger a recompile.
@@ -240,7 +226,7 @@ public class EngineAudioUnit: AUAudioUnit {
                                         renderBlock: volumeAU.renderBlock,
                                         inputBlock: inputBlock,
                                         inputCount: Int32(node.connections.count),
-                                        outputIndices: outputs[ObjectIdentifier(mixer)] ?? [])
+                                        inputIndices: node.connections.map { nodeJobs[ObjectIdentifier($0)]! })
 
                     jobs.append(job)
 
@@ -256,7 +242,7 @@ public class EngineAudioUnit: AUAudioUnit {
                                         renderBlock: node.au.renderBlock,
                                         inputBlock: inputBlock,
                                         inputCount: Int32(node.connections.count),
-                                        outputIndices: outputs[ObjectIdentifier(node)] ?? [])
+                                        inputIndices: node.connections.map { nodeJobs[ObjectIdentifier($0)]! })
 
                     jobs.append(job)
                 }
@@ -276,9 +262,16 @@ public class EngineAudioUnit: AUAudioUnit {
                                         renderBlock: tap.tapAU.renderBlock,
                                         inputBlock: EngineAudioUnit.basicInputBlock(inputBufferLists: [nodeBuffer]),
                                         inputCount: 1,
-                                        outputIndices: [])
+                                        inputIndices: [nodeJobIndex])
 
                     jobs.append(job)
+                }
+            }
+
+            // Generate output indices
+            for (index, job) in jobs.enumerated() {
+                for inputIndex in job.inputIndices {
+                    jobs[inputIndex].outputIndices.append(index)
                 }
             }
 

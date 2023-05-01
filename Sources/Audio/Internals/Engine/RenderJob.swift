@@ -22,20 +22,23 @@ final class RenderJob {
     /// Number of inputs feeding this AU.
     let inputCount: Int32
 
-    /// Indices of AUs that this one feeds.
-    let outputIndices: Vec<Int>
+    /// Indices of jobs that this one feeds.
+    var outputIndices: [Int] = []
+
+    /// Indices of jobs feeding this one
+    let inputIndices: [Int]
 
     public init(outputBuffer: SynchronizedAudioBufferList,
                 renderBlock: @escaping AURenderBlock,
                 inputBlock: @escaping AURenderPullInputBlock,
                 inputCount: Int32,
-                outputIndices: [Int])
+                inputIndices: [Int])
     {
         self.outputBuffer = outputBuffer
         self.renderBlock = renderBlock
         self.inputBlock = inputBlock
         self.inputCount = inputCount
-        self.outputIndices = Vec(outputIndices)
+        self.inputIndices = inputIndices
     }
 
     func render(actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
