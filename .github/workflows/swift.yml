@@ -3,11 +3,7 @@
 
 name: Swift
 
-on:
-  push:
-    branches: [ "v6" ]
-  pull_request:
-    branches: [ "v6" ]
+on: [push, pull_request]
 
 jobs:
 
