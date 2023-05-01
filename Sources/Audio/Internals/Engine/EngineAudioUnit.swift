@@ -203,7 +203,7 @@ public class EngineAudioUnit: AUAudioUnit {
             let buffers = makeBuffers(nodes: list)
 
             // Pass the schedule to the engineAU
-            var renderList: [RenderJob] = []
+            var jobs: [RenderJob] = []
 
             for node in list {
                 // Activate input busses.
@@ -236,13 +236,13 @@ public class EngineAudioUnit: AUAudioUnit {
                         try! volumeAU.allocateRenderResources()
                     }
 
-                    let info = RenderJob(outputBuffer: nodeBuffer,
-                                         renderBlock: volumeAU.renderBlock,
-                                         inputBlock: inputBlock,
-                                         inputCount: Int32(node.connections.count),
-                                         outputIndices: outputs[ObjectIdentifier(mixer)] ?? [])
+                    let job = RenderJob(outputBuffer: nodeBuffer,
+                                        renderBlock: volumeAU.renderBlock,
+                                        inputBlock: inputBlock,
+                                        inputCount: Int32(node.connections.count),
+                                        outputIndices: outputs[ObjectIdentifier(mixer)] ?? [])
 
-                    renderList.append(info)
+                    jobs.append(job)
 
                 } else {
                     // We've just got a wrapped AU, so we can grab the render
@@ -252,13 +252,13 @@ public class EngineAudioUnit: AUAudioUnit {
                         inputBlock = EngineAudioUnit.basicInputBlock(inputBufferLists: inputBuffers)
                     }
 
-                    let info = RenderJob(outputBuffer: nodeBuffer,
-                                         renderBlock: node.au.renderBlock,
-                                         inputBlock: inputBlock,
-                                         inputCount: Int32(node.connections.count),
-                                         outputIndices: outputs[ObjectIdentifier(node)] ?? [])
+                    let job = RenderJob(outputBuffer: nodeBuffer,
+                                        renderBlock: node.au.renderBlock,
+                                        inputBlock: inputBlock,
+                                        inputCount: Int32(node.connections.count),
+                                        outputIndices: outputs[ObjectIdentifier(node)] ?? [])
 
-                    renderList.append(info)
+                    jobs.append(job)
                 }
 
                 // Add render jobs for taps.
@@ -278,11 +278,11 @@ public class EngineAudioUnit: AUAudioUnit {
                                         inputCount: 1,
                                         outputIndices: [])
 
-                    renderList.append(job)
+                    jobs.append(job)
                 }
             }
 
-            program.store(AudioProgram(jobs: renderList,
+            program.store(AudioProgram(jobs: jobs,
                                        generatorIndices: generatorIndices(nodes: list)),
                           ordering: .relaxed)
 //            let array = encodeSysex(Unmanaged.passRetained(schedule))
