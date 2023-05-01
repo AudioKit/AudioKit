@@ -150,15 +150,12 @@ public class Mixer: Node, NamedNode {
         return requiredSize
     }
 
-    /// This is so we can recompile when there's a change to the inputs.
-    weak var engineAU: EngineAudioUnit?
-
     /// For the new engine, this does the volume.
     var volumeAU: VolumeAudioUnit
 
     /// Recompile the AudioProgram.
     private func compile() {
-        if let engineAU = engineAU {
+        if let engineAU = EngineAudioUnit.nodeEngines[.init(self)]?.engine {
             engineAU.compile()
         }
     }

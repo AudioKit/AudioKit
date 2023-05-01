@@ -222,9 +222,6 @@ public class EngineAudioUnit: AUAudioUnit {
                 nodeJobs[ObjectIdentifier(node)] = nodeJobIndex
 
                 if let mixer = node as? Mixer {
-                    // Set the engine on the mixer so adding or removing mixer inputs
-                    // can trigger a recompile.
-                    mixer.engineAU = self
 
                     inputBlock = EngineAudioUnit.mixerInputBlock(inputBufferLists: inputBuffers)
 
