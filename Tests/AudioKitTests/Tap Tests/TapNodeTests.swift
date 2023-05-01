@@ -18,7 +18,7 @@ class TapNodeTests: XCTestCase {
         sleep(1)
     }
 
-    func testTap2() async throws {
+    func testTap2() throws {
         let engine = Engine()
         let noise = Noise()
         noise.amplitude = 0.1
@@ -32,11 +32,11 @@ class TapNodeTests: XCTestCase {
         engine.output = noise
 
         try engine.start()
-        await fulfillment(of: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 1.0)
         XCTAssertNotNil(tap) // keep tap alive
     }
 
-    func testTap2Dynamic() async throws {
+    func testTap2Dynamic() throws {
         let engine = Engine()
         let noise = Noise()
         noise.amplitude = 0.1
@@ -54,7 +54,7 @@ class TapNodeTests: XCTestCase {
             expectation.fulfill()
         }
 
-        await fulfillment(of: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 1.0)
         XCTAssertNotNil(tap) // keep tap alive
     }
 }
