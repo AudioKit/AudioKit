@@ -6,7 +6,9 @@ import Foundation
 import Utilities
 
 /// Provides a callback that "taps" the audio data from the stream.
-public class Tap2 {
+public class Tap2: AsyncSequence, AsyncIteratorProtocol {
+
+    public typealias Element = ([Float], [Float])
 
     private let input: Node
 
@@ -22,7 +24,7 @@ public class Tap2 {
 
     static var tapRegistry: [ObjectIdentifier: [WeakTap]] = [:]
 
-    public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) -> Void) {
+    public init(_ input: Node, bufferSize: Int = 1024) {
         self.input = input
 
         let componentDescription = AudioComponentDescription(effect: "tap2")
@@ -32,7 +34,6 @@ public class Tap2 {
                                      name: "Tap AU2",
                                      version: .max)
         tapAU = instantiateAU(componentDescription: componentDescription) as! TapAudioUnit2
-        tapAU.tapBlock = tapBlock
         tapAU.bufferSize = bufferSize
 
         if Self.tapRegistry.keys.contains(ObjectIdentifier(input)) {
@@ -47,6 +48,48 @@ public class Tap2 {
         }
 
     }
+
+    private var left: [Float] = []
+    private var right: [Float] = []
+
+    public func next() async -> Element? {
+        guard !Task.isCancelled else {
+            return nil
+        }
+
+        // Get some new data if we need more.
+        while left.count < tapAU.bufferSize {
+            await withCheckedContinuation({ c in
+
+                // Wait for the next set of samples
+                tapAU.semaphore.wait()
+
+                var i = 0
+                tapAU.ringBuffer.popAll { sample in
+                    if i.isMultiple(of: 2) {
+                        left.append(sample)
+                    } else {
+                        right.append(sample)
+                    }
+                    i += 1
+                }
+
+                c.resume()
+            })
+        }
+
+        let leftPrefix = Array(left.prefix(tapAU.bufferSize))
+        let rightPrefix = Array(right.prefix(tapAU.bufferSize))
+
+        left = Array(left.dropFirst(tapAU.bufferSize))
+        right = Array(right.dropFirst(tapAU.bufferSize))
+
+        return (leftPrefix, rightPrefix)
+    }
+
+    public func makeAsyncIterator() -> Tap2 {
+        self
+    }
 }
 
 class TapAudioUnit2: AUAudioUnit {
@@ -58,7 +101,6 @@ class TapAudioUnit2: AUAudioUnit {
 
     let ringBuffer = RingBuffer<Float>(capacity: 4096)
 
-    var tapBlock: ([Float], [Float]) -> Void = { _, _ in }
     var semaphore = DispatchSemaphore(value: 0)
     var run = true
     var bufferSize = 1024
@@ -80,42 +122,6 @@ class TapAudioUnit2: AUAudioUnit {
         let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         inputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .input, busses: [])
         outputBusArray = AUAudioUnitBusArray(audioUnit: self, busType: .output, busses: [try AUAudioUnitBus(format: format)])
-
-        let thread = Thread {
-            var left: [Float] = []
-            var right: [Float] = []
-
-            while true {
-                self.semaphore.wait()
-
-                if !self.run {
-                    return
-                }
-
-                var i = 0
-                self.ringBuffer.popAll { sample in
-                    if i.isMultiple(of: 2) {
-                        left.append(sample)
-                    } else {
-                        right.append(sample)
-                    }
-                    i += 1
-                }
-
-                while left.count > self.bufferSize {
-                    let leftPrefix = Array(left.prefix(self.bufferSize))
-                    let rightPrefix = Array(right.prefix(self.bufferSize))
-
-                    left = Array(left.dropFirst(self.bufferSize))
-                    right = Array(right.dropFirst(self.bufferSize))
-
-                    DispatchQueue.main.async {
-                        self.tapBlock(leftPrefix, rightPrefix)
-                    }
-                }
-            }
-        }
-        thread.start()
     }
 
     override var inputBusses: AUAudioUnitBusArray {
