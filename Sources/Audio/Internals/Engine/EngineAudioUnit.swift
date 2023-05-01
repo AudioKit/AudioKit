@@ -225,14 +225,12 @@ public class EngineAudioUnit: AUAudioUnit {
                     let job = RenderJob(outputBuffer: nodeBuffer,
                                         renderBlock: volumeAU.renderBlock,
                                         inputBlock: inputBlock,
-                                        inputCount: Int32(node.connections.count),
                                         inputIndices: node.connections.map { nodeJobs[ObjectIdentifier($0)]! })
 
                     jobs.append(job)
 
                 } else {
-                    // We've just got a wrapped AU, so we can grab the render
-                    // block.
+                    // We've just got a wrapped AU, so we can grab the render block.
 
                     if !inputBuffers.isEmpty {
                         inputBlock = EngineAudioUnit.basicInputBlock(inputBufferLists: inputBuffers)
@@ -241,7 +239,6 @@ public class EngineAudioUnit: AUAudioUnit {
                     let job = RenderJob(outputBuffer: nodeBuffer,
                                         renderBlock: node.au.renderBlock,
                                         inputBlock: inputBlock,
-                                        inputCount: Int32(node.connections.count),
                                         inputIndices: node.connections.map { nodeJobs[ObjectIdentifier($0)]! })
 
                     jobs.append(job)
@@ -261,7 +258,6 @@ public class EngineAudioUnit: AUAudioUnit {
                     let job = RenderJob(outputBuffer: .init(buf),
                                         renderBlock: tap.tapAU.renderBlock,
                                         inputBlock: EngineAudioUnit.basicInputBlock(inputBufferLists: [nodeBuffer]),
-                                        inputCount: 1,
                                         inputIndices: [nodeJobIndex])
 
                     jobs.append(job)

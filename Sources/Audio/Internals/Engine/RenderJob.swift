@@ -20,7 +20,7 @@ final class RenderJob {
     private let inputBlock: AURenderPullInputBlock
 
     /// Number of inputs feeding this AU.
-    let inputCount: Int32
+    var inputCount: Int32 { Int32(inputIndices.count) }
 
     /// Indices of jobs that this one feeds.
     var outputIndices: [Int] = []
@@ -31,13 +31,11 @@ final class RenderJob {
     public init(outputBuffer: SynchronizedAudioBufferList,
                 renderBlock: @escaping AURenderBlock,
                 inputBlock: @escaping AURenderPullInputBlock,
-                inputCount: Int32,
                 inputIndices: [Int])
     {
         self.outputBuffer = outputBuffer
         self.renderBlock = renderBlock
         self.inputBlock = inputBlock
-        self.inputCount = inputCount
         self.inputIndices = inputIndices
     }
 
