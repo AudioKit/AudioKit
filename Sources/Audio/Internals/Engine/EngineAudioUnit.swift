@@ -104,6 +104,8 @@ public class EngineAudioUnit: AUAudioUnit {
             // We'd like to avoid actually copying samples, so just copy the ABL.
             let inputBuffer: SynchronizedAudioBufferList = inputBufferLists[bus]
 
+            inputBuffer.beginReading()
+
             assert(inputBuffer.abl.pointee.mNumberBuffers == outputBuffer.pointee.mNumberBuffers)
 
             // Note that we already have one buffer in the AudioBufferList type, hence the -1
