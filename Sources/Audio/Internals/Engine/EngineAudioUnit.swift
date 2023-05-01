@@ -260,6 +260,26 @@ public class EngineAudioUnit: AUAudioUnit {
 
                     renderList.append(info)
                 }
+
+                // Add render jobs for taps.
+                for weakTap in Tap2.tapRegistry[ObjectIdentifier(node)] ?? [] {
+
+                    guard let tap = weakTap.tap else { continue }
+
+                    // We don't actually care about this output buffer. Perhaps
+                    // there's a better way to express this?
+                    let length = maximumFramesToRender
+                    let buf = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: length)!
+                    buf.frameLength = length
+
+                    let job = RenderJob(outputBuffer: .init(buf),
+                                        renderBlock: tap.tapAU.renderBlock,
+                                        inputBlock: EngineAudioUnit.basicInputBlock(inputBufferLists: [nodeBuffer]),
+                                        inputCount: 1,
+                                        outputIndices: [])
+
+                    renderList.append(job)
+                }
             }
 
             program.store(AudioProgram(jobs: renderList,

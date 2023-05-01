@@ -6,6 +6,45 @@ import AVFoundation
 import Foundation
 import Utilities
 
+/// Provides a callback that "taps" the audio data from the stream.
+public class Tap2 {
+
+    private let input: Node
+
+    let tapAU: TapAudioUnit
+
+    struct WeakTap {
+        weak var tap: Tap2?
+
+        init(tap: Tap2?) {
+            self.tap = tap
+        }
+    }
+
+    static var tapRegistry: [ObjectIdentifier: [WeakTap]] = [:]
+
+    public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) -> Void) {
+        self.input = input
+
+        let componentDescription = AudioComponentDescription(effect: "tapn")
+
+        AUAudioUnit.registerSubclass(TapAudioUnit.self,
+                                     as: componentDescription,
+                                     name: "Tap AU",
+                                     version: .max)
+        tapAU = instantiateAU(componentDescription: componentDescription) as! TapAudioUnit
+        tapAU.tapBlock = tapBlock
+        tapAU.bufferSize = bufferSize
+
+        if Self.tapRegistry.keys.contains(ObjectIdentifier(input)) {
+            Self.tapRegistry[ObjectIdentifier(input)]?.append(WeakTap(tap: self))
+        } else {
+            Self.tapRegistry[ObjectIdentifier(input)] = [WeakTap(tap: self)]
+        }
+
+    }
+}
+
 /// Node which provides a callback that "taps" the audio data from the stream.
 public class Tap: Node {
     public let connections: [Node]
