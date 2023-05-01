@@ -35,4 +35,26 @@ class TapNodeTests: XCTestCase {
         await fulfillment(of: [expectation], timeout: 1.0)
         XCTAssertNotNil(tap) // keep tap alive
     }
+
+    func testTap2Dynamic() async throws {
+        let engine = Engine()
+        let noise = Noise()
+        noise.amplitude = 0.1
+
+        let expectation = XCTestExpectation(description: "tap callback called")
+        engine.output = noise
+
+        try engine.start()
+
+        // Add the tap after the engine is started. This should trigger
+        // a recompile and the tap callback should still be called
+        let tap: Tap2? = Tap2(noise) { l, r in
+            print("left.count: \(l.count), right.count: \(r.count)")
+            print(detectAmplitudes([l, r]))
+            expectation.fulfill()
+        }
+
+        await fulfillment(of: [expectation], timeout: 1.0)
+        XCTAssertNotNil(tap) // keep tap alive
+    }
 }

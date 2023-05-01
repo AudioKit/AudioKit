@@ -41,6 +41,11 @@ public class Tap2 {
             Self.tapRegistry[ObjectIdentifier(input)] = [WeakTap(tap: self)]
         }
 
+        // Trigger a recompile if input already has an associated engine.
+        if let engineAU = EngineAudioUnit.nodeEngines[.init(input)]?.engine {
+            engineAU.compile()
+        }
+
     }
 }
 
