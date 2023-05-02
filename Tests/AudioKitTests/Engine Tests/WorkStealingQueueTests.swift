@@ -14,8 +14,7 @@ final class WorkStealingQueueTests: XCTestCase {
         var popCount = 0
         let owner = Thread {
             while !queue.isEmpty {
-                if let item = queue.pop() {
-                    // print("popped \(item)")
+                if queue.pop() != nil {
                     popCount += 1
                 }
             }
@@ -24,8 +23,7 @@ final class WorkStealingQueueTests: XCTestCase {
         var theftCount = 0
         let thief = Thread {
             while !queue.isEmpty {
-                if let item = queue.steal() {
-                    // print("stole \(item)")
+                if queue.steal() != nil {
                     theftCount += 1
                 }
             }
