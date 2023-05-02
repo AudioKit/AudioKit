@@ -54,6 +54,7 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
 
     public func next() async -> Element? {
         guard !Task.isCancelled else {
+            print("Tap cancelled!")
             return nil
         }
 
@@ -62,7 +63,9 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
             await withCheckedContinuation({ c in
 
                 // Wait for the next set of samples
+                print("waiting for samples")
                 tapAU.semaphore.wait()
+                print("done waiting for samples")
 
                 var i = 0
                 tapAU.ringBuffer.popAll { sample in
