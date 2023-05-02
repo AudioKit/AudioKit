@@ -2,6 +2,7 @@
 
 import AudioKit
 import XCTest
+import Atomics
 
 final class WorkStealingQueueTests: XCTestCase {
     func testBasic() throws {
@@ -11,20 +12,20 @@ final class WorkStealingQueueTests: XCTestCase {
             queue.push(i)
         }
 
-        var popCount = 0
+        var popCount = ManagedAtomic(0)
         let owner = Thread {
             while !queue.isEmpty {
                 if queue.pop() != nil {
-                    popCount += 1
+                    popCount.wrappingIncrement(ordering: .relaxed)
                 }
             }
         }
 
-        var theftCount = 0
+        var theftCount = ManagedAtomic(0)
         let thief = Thread {
             while !queue.isEmpty {
                 if queue.steal() != nil {
-                    theftCount += 1
+                    theftCount.wrappingIncrement(ordering: .relaxed)
                 }
             }
         }
@@ -37,9 +38,15 @@ final class WorkStealingQueueTests: XCTestCase {
         XCTAssertTrue(owner.isFinished)
         XCTAssertTrue(thief.isFinished)
 
-        XCTAssertGreaterThan(popCount, 0)
-        XCTAssertGreaterThan(theftCount, 0)
+        // Stupid NSThread doesn't have join, so just use atomics.
+        let pc = popCount.load(ordering: .relaxed)
+        let tc = theftCount.load(ordering: .relaxed)
 
-        XCTAssertEqual(popCount + theftCount, 1000)
+        // Shoud have at least some of each pops and thefts.
+        XCTAssertGreaterThan(pc, 0)
+        XCTAssertGreaterThan(tc, 0)
+
+        // Everything should have been either popped or stolen
+        XCTAssertEqual(pc + tc, 1000)
     }
 }
