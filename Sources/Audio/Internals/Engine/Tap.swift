@@ -22,7 +22,14 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
         }
     }
 
+    static var tapRegistryLock = NSLock()
     static var tapRegistry: [ObjectIdentifier: [WeakTap]] = [:]
+
+    static func getTapsFor(node: Node) -> [Tap2] {
+        tapRegistryLock.withLock {
+            (Self.tapRegistry[ObjectIdentifier(node)] ?? []).compactMap { $0.tap }
+        }
+    }
 
     public init(_ input: Node, bufferSize: Int = 1024) {
         self.input = input
@@ -36,14 +43,16 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
         tapAU = instantiateAU(componentDescription: componentDescription) as! TapAudioUnit2
         tapAU.bufferSize = bufferSize
 
-        if Self.tapRegistry.keys.contains(ObjectIdentifier(input)) {
-            Self.tapRegistry[ObjectIdentifier(input)]?.append(WeakTap(tap: self))
-        } else {
-            Self.tapRegistry[ObjectIdentifier(input)] = [WeakTap(tap: self)]
+        Self.tapRegistryLock.withLock {
+            if Self.tapRegistry.keys.contains(ObjectIdentifier(input)) {
+                Self.tapRegistry[ObjectIdentifier(input)]?.append(WeakTap(tap: self))
+            } else {
+                Self.tapRegistry[ObjectIdentifier(input)] = [WeakTap(tap: self)]
+            }
         }
 
         // Trigger a recompile if input already has an associated engine.
-        if let engineAU = EngineAudioUnit.nodeEngines[.init(input)]?.engine {
+        if let engineAU = EngineAudioUnit.getEngine(for: input) {
             print("triggering recompile from Tap2.init")
             engineAU.compile()
         }

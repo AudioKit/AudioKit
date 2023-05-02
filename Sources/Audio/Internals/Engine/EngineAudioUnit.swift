@@ -26,8 +26,16 @@ public class EngineAudioUnit: AUAudioUnit {
         weak var engine: EngineAudioUnit?
     }
 
+    static var nodeEnginesLock = NSLock()
+
     /// So we can look up the engine associated with a node.
     static var nodeEngines: [ObjectIdentifier: WeakEngineAU] = [:]
+
+    static func getEngine(for node: Node) -> EngineAudioUnit? {
+        nodeEnginesLock.withLock {
+            EngineAudioUnit.nodeEngines[.init(node)]?.engine
+        }
+    }
 
     /// Initialize with component description and options
     /// - Parameters:
@@ -199,7 +207,9 @@ public class EngineAudioUnit: AUAudioUnit {
 
             for node in list {
 
-                Self.nodeEngines[.init(node)] = .init(engine: self)
+                Self.nodeEnginesLock.withLock {
+                    Self.nodeEngines[.init(node)] = .init(engine: self)
+                }
 
                 // Activate input busses.
                 for busIndex in 0 ..< node.au.inputBusses.count {
@@ -254,9 +264,7 @@ public class EngineAudioUnit: AUAudioUnit {
                 }
 
                 // Add render jobs for taps.
-                for weakTap in Tap2.tapRegistry[ObjectIdentifier(node)] ?? [] {
-
-                    guard let tap = weakTap.tap else { continue }
+                for tap in Tap2.getTapsFor(node: node) {
 
                     // We don't actually care about this output buffer. Perhaps
                     // there's a better way to express this?
