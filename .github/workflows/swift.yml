@@ -16,3 +16,19 @@ jobs:
       run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" 
     - name: Run tests
       run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" test
+
+  test-ios-asan:
+
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run tests (ASAN)
+      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" -enableAddressSanitizer YES test
+
+  test-ios-tsan:
+
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run tests (TSAN)
+      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" -enableThreadSanitizer YES test
