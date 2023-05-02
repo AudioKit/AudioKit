@@ -44,6 +44,7 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
 
         // Trigger a recompile if input already has an associated engine.
         if let engineAU = EngineAudioUnit.nodeEngines[.init(input)]?.engine {
+            print("triggering recompile from Tap2.init")
             engineAU.compile()
         }
 
@@ -169,6 +170,8 @@ class TapAudioUnit2: AUAudioUnit {
 
             let outBufL = UnsafeBufferPointer<Float>(ablPointer[0])
             let outBufR = UnsafeBufferPointer<Float>(ablPointer[1])
+
+            print("pushing \(outBufL.count) frames")
 
             // We are assuming there is enough room in the ring buffer
             // for the all the samples. If not there's nothing we can do.
