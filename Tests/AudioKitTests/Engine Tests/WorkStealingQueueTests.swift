@@ -17,6 +17,7 @@ final class WorkStealingQueueTests: XCTestCase {
             while !queue.isEmpty {
                 if queue.pop() != nil {
                     popCount.wrappingIncrement(ordering: .relaxed)
+                    usleep(1) // sleep to simulate work
                 }
             }
         }
@@ -26,6 +27,7 @@ final class WorkStealingQueueTests: XCTestCase {
             while !queue.isEmpty {
                 if queue.steal() != nil {
                     theftCount.wrappingIncrement(ordering: .relaxed)
+                    usleep(1) // sleep to simulate work
                 }
             }
         }
