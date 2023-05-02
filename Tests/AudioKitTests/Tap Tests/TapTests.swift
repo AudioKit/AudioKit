@@ -12,7 +12,7 @@ class TapTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "tap callback called")
 
-        Task {
+        let task = Task {
             for await (l,r) in Tap2(noise) {
                 print("left.count: \(l.count), right.count: \(r.count)")
                 print(detectAmplitudes([l, r]))
@@ -24,6 +24,7 @@ class TapTests: XCTestCase {
 
         try engine.start()
         wait(for: [expectation], timeout: 1.0)
+        task.cancel()
     }
 
     func testTap2Dynamic() throws {
@@ -38,7 +39,7 @@ class TapTests: XCTestCase {
 
         // Add the tap after the engine is started. This should trigger
         // a recompile and the tap callback should still be called
-        Task {
+        let task = Task {
             for await (l,r) in Tap2(noise) {
                 print("left.count: \(l.count), right.count: \(r.count)")
                 print(detectAmplitudes([l, r]))
@@ -47,5 +48,6 @@ class TapTests: XCTestCase {
         }
 
         wait(for: [expectation], timeout: 1.0)
+        task.cancel()
     }
 }
