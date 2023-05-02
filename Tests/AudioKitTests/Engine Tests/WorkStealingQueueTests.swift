@@ -12,7 +12,7 @@ final class WorkStealingQueueTests: XCTestCase {
             queue.push(i)
         }
 
-        var popCount = ManagedAtomic(0)
+        let popCount = ManagedAtomic(0)
         let owner = Thread {
             while !queue.isEmpty {
                 if queue.pop() != nil {
@@ -22,7 +22,7 @@ final class WorkStealingQueueTests: XCTestCase {
             }
         }
 
-        var theftCount = ManagedAtomic(0)
+        let theftCount = ManagedAtomic(0)
         let thief = Thread {
             while !queue.isEmpty {
                 if queue.steal() != nil {
