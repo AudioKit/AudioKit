@@ -40,11 +40,13 @@ class TapTests: XCTestCase {
         // Add the tap after the engine is started. This should trigger
         // a recompile and the tap callback should still be called
         let task = Task {
+            print("started tap task")
             for await (l,r) in Tap2(noise) {
                 print("left.count: \(l.count), right.count: \(r.count)")
                 print(detectAmplitudes([l, r]))
                 expectation.fulfill()
             }
+            print("ending tap task")
         }
 
         wait(for: [expectation], timeout: 1.0)
