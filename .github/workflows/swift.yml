@@ -9,7 +9,7 @@ jobs:
 
   build-ios:
 
-    runs-on: macos-13 
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
     - name: Build
@@ -19,7 +19,7 @@ jobs:
 
   test-ios-asan:
 
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
     - name: Run tests (ASAN)
@@ -27,7 +27,7 @@ jobs:
 
   test-ios-tsan:
 
-    runs-on: macos-13
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
     - name: Run tests (TSAN)
