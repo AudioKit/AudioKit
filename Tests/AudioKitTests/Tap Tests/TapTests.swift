@@ -6,25 +6,38 @@ import XCTest
 class TapTests: XCTestCase {
 
     func testTap2() throws {
-        let engine = Engine()
-        let noise = Noise()
-        noise.amplitude = 0.1
 
-        let expectation = XCTestExpectation(description: "tap callback called")
+        let framesReceived = XCTestExpectation(description: "received audio frames")
+        let taskFinished = XCTestExpectation(description: "finished tap task")
 
-        let task = Task {
-            for await (l,r) in Tap2(noise) {
-                print("left.count: \(l.count), right.count: \(r.count)")
-                print(detectAmplitudes([l, r]))
-                expectation.fulfill()
+        let scope = {
+            let engine = Engine()
+            let noise = Noise()
+            noise.amplitude = 0.1
+
+            let tap = Tap2(noise)
+
+            Task {
+                for await (l,r) in tap {
+                    print("left.count: \(l.count), right.count: \(r.count)")
+                    print(detectAmplitudes([l, r]))
+                    framesReceived.fulfill()
+                }
+                print("task finished")
+                taskFinished.fulfill()
             }
+
+            engine.output = noise
+
+            try engine.start()
+            self.wait(for: [framesReceived], timeout: 1.0)
+            engine.stop()
         }
 
-        engine.output = noise
+        try scope()
 
-        try engine.start()
-        wait(for: [expectation], timeout: 1.0)
-        task.cancel()
+        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0)
+        wait(for: [taskFinished], timeout: 1.0)
     }
 
     func testTap2Dynamic() throws {

@@ -10,7 +10,7 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
 
     public typealias Element = ([Float], [Float])
 
-    private let input: Node
+    private weak var input: Node?
 
     let tapAU: TapAudioUnit2
 
@@ -68,6 +68,11 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
         while left.count < tapAU.bufferSize {
             guard !Task.isCancelled else {
                 print("Tap cancelled!")
+                return nil
+            }
+
+            if input == nil {
+                // Node went away, so stop the tap
                 return nil
             }
 
