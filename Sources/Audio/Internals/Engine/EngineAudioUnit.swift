@@ -317,7 +317,7 @@ public class EngineAudioUnit: AUAudioUnit {
     let pool = ThreadPool()
 
     override public var internalRenderBlock: AUInternalRenderBlock {
-        return { [pool] (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+        return { [pool, program] (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                          timeStamp: UnsafePointer<AudioTimeStamp>,
                          frameCount: AUAudioFrameCount,
                          _: Int,
@@ -325,7 +325,7 @@ public class EngineAudioUnit: AUAudioUnit {
                          _: UnsafePointer<AURenderEvent>?,
                          _: AURenderPullInputBlock?) in
 
-                let dspList = self.program.load(ordering: .relaxed)
+                let dspList = program.load(ordering: .relaxed)
 
 //            process(events: renderEvents, sysex: { pointer in
 //                var program: Unmanaged<AudioProgram>?
