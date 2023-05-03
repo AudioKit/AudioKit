@@ -256,4 +256,25 @@ class NodeTests: XCTestCase {
         // Note that output depends on memory addresses.
         print(dot)
     }
+
+    func testNodeLeak() throws {
+        let scope = {
+            let engine = Engine()
+            let noise = Noise()
+            noise.amplitude = 0.1
+
+            engine.output = noise
+
+            try engine.start()
+            sleep(1)
+            engine.stop()
+        }
+
+        try scope()
+
+        sleep(1)
+
+        XCTAssertEqual(EngineAudioUnit.instanceCount.load(ordering: .relaxed), 0)
+        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0)
+    }
 }

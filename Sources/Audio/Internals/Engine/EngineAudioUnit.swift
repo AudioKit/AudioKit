@@ -18,6 +18,8 @@ public class EngineAudioUnit: AUAudioUnit {
 
     var cachedMIDIBlock: AUScheduleMIDIEventBlock?
 
+    public static var instanceCount = ManagedAtomic(0)
+
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
     }
@@ -68,6 +70,12 @@ public class EngineAudioUnit: AUAudioUnit {
         let imp = method_getImplementation(method)
 
         class_replaceMethod(EngineAudioUnit.self, oldSelector, imp, newType)
+
+        Self.instanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Self.instanceCount.wrappingDecrement(ordering: .relaxed)
     }
 
     @objc public dynamic func akRenderContextObserver() -> AKAURenderContextObserver {
@@ -317,7 +325,7 @@ public class EngineAudioUnit: AUAudioUnit {
     let pool = ThreadPool()
 
     override public var internalRenderBlock: AUInternalRenderBlock {
-        return { [pool] (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+        return { [pool, program] (actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
                          timeStamp: UnsafePointer<AudioTimeStamp>,
                          frameCount: AUAudioFrameCount,
                          _: Int,
@@ -325,7 +333,7 @@ public class EngineAudioUnit: AUAudioUnit {
                          _: UnsafePointer<AURenderEvent>?,
                          _: AURenderPullInputBlock?) in
 
-                let dspList = self.program.load(ordering: .relaxed)
+                let dspList = program.load(ordering: .relaxed)
 
 //            process(events: renderEvents, sysex: { pointer in
 //                var program: Unmanaged<AudioProgram>?
