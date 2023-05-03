@@ -275,5 +275,6 @@ class NodeTests: XCTestCase {
         sleep(1)
 
         XCTAssertEqual(EngineAudioUnit.instanceCount.load(ordering: .relaxed), 0)
+        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0)
     }
 }

@@ -3,6 +3,7 @@
 import AudioUnit
 import AVFoundation
 import Utilities
+import Atomics
 
 /// Pure Swift Noise Generator
 public class Noise: Node {
@@ -20,6 +21,8 @@ public class Noise: Node {
         }
     }
 
+    public static var instanceCount = ManagedAtomic(0)
+
     /// Initialize the pure Swift Noise Generator
     /// - Parameters:
     ///   - amplitude: Volume, usually 0-1
@@ -34,10 +37,12 @@ public class Noise: Node {
         noiseAU = au as! NoiseAudioUnit
         noiseAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
+
+        Self.instanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        print("Noise deinit")
+        Self.instanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }
 
