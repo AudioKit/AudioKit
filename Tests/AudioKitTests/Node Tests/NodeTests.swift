@@ -273,5 +273,8 @@ class NodeTests: XCTestCase {
         try scope()
 
         sleep(1)
+
+        XCTExpectFailure()
+        XCTAssertEqual(EngineAudioUnit.instances.load(ordering: .relaxed), 0)
     }
 }

@@ -18,6 +18,8 @@ public class EngineAudioUnit: AUAudioUnit {
 
     var cachedMIDIBlock: AUScheduleMIDIEventBlock?
 
+    public static var instances = ManagedAtomic(0)
+
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
     }
@@ -60,6 +62,12 @@ public class EngineAudioUnit: AUAudioUnit {
         let imp = method_getImplementation(method)
 
         class_replaceMethod(EngineAudioUnit.self, oldSelector, imp, newType)
+
+        Self.instances.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Self.instances.wrappingDecrement(ordering: .relaxed)
     }
 
     @objc public dynamic func akRenderContextObserver() -> AKAURenderContextObserver {
