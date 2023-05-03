@@ -27,7 +27,7 @@ class TapTests: XCTestCase {
         task.cancel()
     }
 
-    func testTap2Dynamic() async throws {
+    func testTap2Dynamic() throws {
         let engine = Engine()
         let noise = Noise()
         noise.amplitude = 0.1
@@ -49,7 +49,7 @@ class TapTests: XCTestCase {
             print("ending tap task")
         }
 
-        await fulfillment(of: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: 1.0)
         task.cancel()
     }
 }
