@@ -63,18 +63,19 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
     private var right: [Float] = []
 
     public func next() async -> Element? {
-        guard !Task.isCancelled else {
-            print("Tap cancelled!")
-            return nil
-        }
 
         // Get some new data if we need more.
         while left.count < tapAU.bufferSize {
+            guard !Task.isCancelled else {
+                print("Tap cancelled!")
+                return nil
+            }
+
             await withCheckedContinuation({ c in
 
                 // Wait for the next set of samples
                 print("waiting for samples")
-                tapAU.semaphore.wait()
+                _ = tapAU.semaphore.wait(timeout: .now() + 0.1)
                 print("done waiting for samples")
 
                 var i = 0
