@@ -35,6 +35,10 @@ public class Noise: Node {
         noiseAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
     }
+
+    deinit {
+        print("Noise deinit")
+    }
 }
 
 /// Renders an NoiseGenerator

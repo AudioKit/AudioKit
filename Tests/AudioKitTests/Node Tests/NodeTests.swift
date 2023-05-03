@@ -256,4 +256,22 @@ class NodeTests: XCTestCase {
         // Note that output depends on memory addresses.
         print(dot)
     }
+
+    func testNodeLeak() throws {
+        let scope = {
+            let engine = Engine()
+            let noise = Noise()
+            noise.amplitude = 0.1
+
+            engine.output = noise
+
+            try engine.start()
+            sleep(1)
+            engine.stop()
+        }
+
+        try scope()
+
+        sleep(1)
+    }
 }
