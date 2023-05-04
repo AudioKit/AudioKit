@@ -211,8 +211,8 @@ public class Tap: Node {
     ///
     /// - Parameters:
     ///   - input: Input to monitor.
-    ///   - tapBlock: Called with a stereo pair of channels. Note that this doesn't need to be realtime safe. Called on the main thread.
-    public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) -> Void) {
+    ///   - tapBlock: Called with a stereo pair of channels. Note that this doesn't need to be realtime safe.
+    public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) async -> Void) {
         let componentDescription = AudioComponentDescription(effect: "tapn")
 
         AUAudioUnit.registerSubclass(TapAudioUnit.self,
@@ -236,7 +236,7 @@ class TapAudioUnit: AUAudioUnit {
 
     let ringBuffer = RingBuffer<Float>(capacity: 4096)
 
-    var tapBlock: ([Float], [Float]) -> Void = { _, _ in }
+    var tapBlock: ([Float], [Float]) async -> Void = { _, _ in }
     var semaphore = DispatchSemaphore(value: 0)
     var run = true
     var bufferSize = 1024
@@ -287,8 +287,8 @@ class TapAudioUnit: AUAudioUnit {
                     left = Array(left.dropFirst(self.bufferSize))
                     right = Array(right.dropFirst(self.bufferSize))
 
-                    DispatchQueue.main.async {
-                        self.tapBlock(leftPrefix, rightPrefix)
+                    Task {
+                        await self.tapBlock(leftPrefix, rightPrefix)
                     }
                 }
             }

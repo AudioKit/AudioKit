@@ -5,6 +5,27 @@ import XCTest
 
 class TapTests: XCTestCase {
 
+    func testTap() async throws {
+
+        let framesReceived = XCTestExpectation(description: "received audio frames")
+
+        let engine = Engine()
+        let noise = Noise()
+        noise.amplitude = 0.1
+
+        let tap = Tap(noise) { l,r in
+            print("left.count: \(l.count), right.count: \(r.count)")
+            print(detectAmplitudes([l, r]))
+            framesReceived.fulfill()
+        }
+
+        engine.output = tap
+
+        try engine.start()
+        sleep(1)
+        engine.stop()
+    }
+
     func testTap2() throws {
 
         let framesReceived = XCTestExpectation(description: "received audio frames")
