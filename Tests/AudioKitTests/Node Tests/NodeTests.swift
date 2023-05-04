@@ -258,6 +258,10 @@ class NodeTests: XCTestCase {
     }
 
     func testNodeLeak() throws {
+
+        let initialEngineCount = EngineAudioUnit.instanceCount.load(ordering: .relaxed)
+        let initialNoiseCount = Noise.instanceCount.load(ordering: .relaxed)
+
         let scope = {
             let engine = Engine()
             let noise = Noise()
@@ -274,7 +278,7 @@ class NodeTests: XCTestCase {
 
         sleep(1)
 
-        XCTAssertEqual(EngineAudioUnit.instanceCount.load(ordering: .relaxed), 0)
-        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0)
+        XCTAssertEqual(EngineAudioUnit.instanceCount.load(ordering: .relaxed), initialEngineCount, "leaked EngineAudioUnit")
+        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), initialNoiseCount, "leaked Noise node")
     }
 }
