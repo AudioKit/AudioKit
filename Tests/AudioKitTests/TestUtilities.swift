@@ -2,6 +2,7 @@
 
 import AVFoundation
 import XCTest
+import AudioKit
 
 extension URL {
     static var testAudio: URL {
@@ -17,6 +18,13 @@ struct TestResult: Equatable {
     let md5: String
     let suiteName: String
     let testName: String
+}
+
+class AKTestCase: XCTestCase {
+    override func tearDown() {
+        XCTAssertEqual(EngineAudioUnit.instanceCount.load(ordering: .relaxed), 0, "leaked EngineAudioUnit")
+        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0, "leaked EngineAudioUnit")
+    }
 }
 
 extension XCTestCase {
