@@ -24,6 +24,7 @@ class AKTestCase: XCTestCase {
     override func tearDown() {
         XCTAssertEqual(EngineAudioUnit.instanceCount.load(ordering: .relaxed), 0, "leaked EngineAudioUnit")
         XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0, "leaked EngineAudioUnit")
+        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0, "leaked NoiseAudioUnit")
     }
 }
 
