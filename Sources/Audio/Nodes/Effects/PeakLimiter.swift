@@ -75,5 +75,10 @@ public class PeakLimiter: Node {
         self.attackTime = attackTime
         self.decayTime = decayTime
         self.preGain = preGain
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

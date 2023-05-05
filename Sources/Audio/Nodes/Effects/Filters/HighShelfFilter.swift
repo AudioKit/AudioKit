@@ -59,5 +59,10 @@ public class HighShelfFilter: Node {
 
         self.cutOffFrequency = cutOffFrequency
         self.gain = gain
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

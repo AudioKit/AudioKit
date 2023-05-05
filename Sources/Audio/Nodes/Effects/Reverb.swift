@@ -49,6 +49,11 @@ public class Reverb: Node {
         associateParams(with: au)
 
         self.wetDryMix = wetDryMix
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }
 
