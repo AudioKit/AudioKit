@@ -4,7 +4,7 @@ import AudioKit
 import XCTest
 import Atomics
 
-final class WorkStealingQueueTests: XCTestCase {
+final class WorkStealingQueueTests: AKTestCase {
     func testBasic() throws {
         let queue = WorkStealingQueue()
 

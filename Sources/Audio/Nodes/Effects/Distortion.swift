@@ -290,6 +290,11 @@ public class Distortion: Node {
         self.polynomialMix = polynomialMix
         self.softClipGain = softClipGain
         self.finalMix = finalMix
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }
 

@@ -4,7 +4,7 @@ import XCTest
 
 /// Base Test Case for file based testing such as with AudioPlayer
 /// See Node Tests/Player Tests
-class AudioFileTestCase: XCTestCase {
+class AudioFileTestCase: AKTestCase {
     // C4 - C5
     let chromaticScale: [AUValue] = [261.63, 277.18, 293.66, 311.13, 329.63,
                                      349.23, 369.99, 392, 415.3, 440,

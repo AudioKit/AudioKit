@@ -16,7 +16,7 @@ func setParams(node: Node, rng: GKRandomSource) {
     }
 }
 
-class GenericNodeTests: XCTestCase {
+class GenericNodeTests: AKTestCase {
     func nodeRandomizedTest(md5: String, factory: () -> Node, audition: Bool = false) {
         // We want determinism.
         let rng = GKMersenneTwisterRandomSource(seed: 0)

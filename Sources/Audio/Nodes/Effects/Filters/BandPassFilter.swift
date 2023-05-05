@@ -59,5 +59,10 @@ public class BandPassFilter: Node {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

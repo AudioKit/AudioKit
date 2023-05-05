@@ -3,7 +3,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class NodeTests: XCTestCase {
+class NodeTests: AKTestCase {
     func testNodeBasic() {
         let engine = Engine()
         let sampler = Sampler()
@@ -258,6 +258,7 @@ class NodeTests: XCTestCase {
     }
 
     func testNodeLeak() throws {
+
         let scope = {
             let engine = Engine()
             let noise = Noise()
@@ -273,8 +274,5 @@ class NodeTests: XCTestCase {
         try scope()
 
         sleep(1)
-
-        XCTAssertEqual(EngineAudioUnit.instanceCount.load(ordering: .relaxed), 0)
-        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0)
     }
 }

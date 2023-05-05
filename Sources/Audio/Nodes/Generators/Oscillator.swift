@@ -46,7 +46,7 @@ public class Oscillator: Node {
     ///   - amplitude: Volume, usually 0-1
     public init(waveform: Table = Table(.sine), frequency: AUValue = 440, amplitude: AUValue = 1.0) {
         let componentDescription = AudioComponentDescription(instrument: "pgos")
-
+        
         AUAudioUnit.registerSubclass(OscillatorAudioUnit.self,
                                      as: componentDescription,
                                      name: "Oscillator AU",
@@ -60,5 +60,10 @@ public class Oscillator: Node {
         self.frequency = frequency
         oscAU.setWaveform(waveform)
         self.waveform = waveform
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

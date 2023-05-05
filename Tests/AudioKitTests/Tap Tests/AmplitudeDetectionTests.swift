@@ -4,7 +4,7 @@ import AudioKit
 import AVFAudio
 import XCTest
 
-class AmplitudeDectorTests: XCTestCase {
+class AmplitudeDectorTests: AKTestCase {
     func testDefault() {
         let sr = 44100
         for i in 0 ..< 10 {

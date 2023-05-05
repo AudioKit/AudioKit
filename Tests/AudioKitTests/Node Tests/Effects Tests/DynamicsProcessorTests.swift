@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class DynamicsProcessorTests: XCTestCase {
+class DynamicsProcessorTests: AKTestCase {
     func testDefault() throws {
         let engine = Engine()
         let sampler = Sampler()

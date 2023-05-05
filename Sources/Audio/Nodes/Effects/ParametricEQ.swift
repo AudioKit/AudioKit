@@ -75,5 +75,10 @@ public class ParametricEQ: Node {
         self.centerFreq = centerFreq
         self.q = q
         self.gain = gain
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

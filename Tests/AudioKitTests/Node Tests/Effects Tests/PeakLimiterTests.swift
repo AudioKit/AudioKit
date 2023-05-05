@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class PeakLimiterTests: XCTestCase {
+class PeakLimiterTests: AKTestCase {
     func testAttackTime() {
         let engine = Engine()
         let sampler = Sampler()

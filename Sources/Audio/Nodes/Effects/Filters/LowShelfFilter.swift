@@ -59,5 +59,10 @@ public class LowShelfFilter: Node {
 
         self.cutoffFrequency = cutoffFrequency
         self.gain = gain
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

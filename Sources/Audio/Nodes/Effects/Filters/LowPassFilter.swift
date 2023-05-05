@@ -59,5 +59,10 @@ public class LowPassFilter: Node {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

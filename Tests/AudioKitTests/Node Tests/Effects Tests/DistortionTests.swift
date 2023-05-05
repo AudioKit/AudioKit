@@ -4,7 +4,7 @@ import AudioKit
 import AVFAudio
 import XCTest
 
-class DistortionTests: XCTestCase {
+class DistortionTests: AKTestCase {
     func testDefault() {
         let engine = Engine()
         let sampler = Sampler()

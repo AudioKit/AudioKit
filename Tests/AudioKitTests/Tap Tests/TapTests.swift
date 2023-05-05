@@ -3,9 +3,8 @@
 import AudioKit
 import XCTest
 
-class TapTests: XCTestCase {
-
-    func testTap() async throws {
+class TapTests: AKTestCase {
+    func testTapNode() async throws {
 
         let framesReceived = XCTestExpectation(description: "received audio frames")
 
@@ -56,8 +55,6 @@ class TapTests: XCTestCase {
         }
 
         try scope()
-
-        XCTAssertEqual(Noise.instanceCount.load(ordering: .relaxed), 0)
         wait(for: [taskFinished], timeout: 1.0)
     }
 
@@ -71,11 +68,13 @@ class TapTests: XCTestCase {
 
         try engine.start()
 
+        let tap = Tap2(noise)
+
         // Add the tap after the engine is started. This should trigger
         // a recompile and the tap callback should still be called
         let task = Task {
             print("started tap task")
-            for await (l,r) in Tap2(noise) {
+            for await (l,r) in tap {
                 print("left.count: \(l.count), right.count: \(r.count)")
                 print(detectAmplitudes([l, r]))
                 expectation.fulfill()
