@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-final class RingBufferTests: XCTestCase {
+final class RingBufferTests: AKTestCase {
     func testRingBuffer() {
         let buffer = RingBuffer<Float>()
 

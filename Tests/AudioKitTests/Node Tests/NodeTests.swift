@@ -3,7 +3,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class NodeTests: XCTestCase {
+class NodeTests: AKTestCase {
     func testNodeBasic() {
         let engine = Engine()
         let sampler = Sampler()

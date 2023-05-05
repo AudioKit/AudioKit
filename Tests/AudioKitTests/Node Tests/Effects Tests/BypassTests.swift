@@ -4,7 +4,7 @@ import AudioKit
 import AVFAudio
 import XCTest
 
-class BypassTests: XCTestCase {
+class BypassTests: AKTestCase {
     let duration = 0.1
     let source = Oscillator()
     var effects: [Node]!

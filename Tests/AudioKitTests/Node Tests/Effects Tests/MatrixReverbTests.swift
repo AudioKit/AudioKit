@@ -6,7 +6,7 @@ import XCTest
 
 #if os(macOS)
 
-class MatrixReverbTests: XCTestCase {
+class MatrixReverbTests: AKTestCase {
     func testBypass() {
         let engine = Engine()
         let input = Sampler()

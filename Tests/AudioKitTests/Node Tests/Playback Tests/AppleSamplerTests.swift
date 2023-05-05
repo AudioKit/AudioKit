@@ -6,7 +6,7 @@ import XCTest
 
 // Commented these out if still fail CI
 
-class AppleSamplerTests: XCTestCase {
+class AppleSamplerTests: AKTestCase {
 
     func testSamplePlayback() throws {
         let sampler = AppleSampler()

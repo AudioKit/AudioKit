@@ -4,7 +4,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class MixerTests: XCTestCase {
+class MixerTests: AKTestCase {
     func testSplitConnection() {
         let engine = Engine()
         let sampler = Sampler()

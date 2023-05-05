@@ -3,7 +3,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class NodeRecorderTests: XCTestCase {
+class NodeRecorderTests: AKTestCase {
 //    func testBasicRecord() throws {
 //        return // for now, tests are failing
 //

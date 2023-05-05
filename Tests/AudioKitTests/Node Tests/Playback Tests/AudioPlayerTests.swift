@@ -3,7 +3,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class AudioPlayerTests: XCTestCase {
+class AudioPlayerTests: AKTestCase {
 
     func testDefault() {
         let engine = Engine()

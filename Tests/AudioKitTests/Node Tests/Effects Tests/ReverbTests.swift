@@ -4,7 +4,7 @@ import AudioKit
 import AVFAudio
 import XCTest
 
-class ReverbTests: XCTestCase {
+class ReverbTests: AKTestCase {
     func testBypass() {
         let engine = Engine()
         let input = Sampler()
