@@ -50,6 +50,11 @@ public class Mixer: Node, NamedNode {
         volumeAU.volumeParam.value = volume
         self.volume = volume
         self.name = name ?? MemoryAddress(of: self).description
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 
     /// Initialize the mixer node with multiple inputs

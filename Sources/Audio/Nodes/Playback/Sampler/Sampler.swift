@@ -23,6 +23,11 @@ public class Sampler: Node {
                                      version: .max)
         au = instantiateAU(componentDescription: componentDescription)
         samplerAU = au as! SamplerAudioUnit
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+    }
+
+    deinit {
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 
     public func stop() {
