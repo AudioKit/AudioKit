@@ -21,8 +21,6 @@ public class Noise: Node {
         }
     }
 
-    public static var instanceCount = ManagedAtomic(0)
-
     /// Initialize the pure Swift Noise Generator
     /// - Parameters:
     ///   - amplitude: Volume, usually 0-1
@@ -38,11 +36,11 @@ public class Noise: Node {
         noiseAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
 
-        Self.instanceCount.wrappingIncrement(ordering: .relaxed)
+        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        Self.instanceCount.wrappingDecrement(ordering: .relaxed)
+        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }
 

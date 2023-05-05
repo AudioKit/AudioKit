@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import Atomics
 import AVFoundation
 import Utilities
 
@@ -9,6 +10,8 @@ import Utilities
 public class Engine {
     /// Internal AVAudioEngine
     private let avEngine = AVAudioEngine()
+
+    public static var nodeInstanceCount = ManagedAtomic(0)
 
     public var output: Node? {
         didSet {
