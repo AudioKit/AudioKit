@@ -6,13 +6,13 @@ import Foundation
 import Utilities
 
 /// Provides a callback that "taps" the audio data from the stream.
-public class Tap2: AsyncSequence, AsyncIteratorProtocol {
+public class Tap2 {
 
     public typealias Element = ([Float], [Float])
 
-    private weak var input: Node?
-
     let tapAU: TapAudioUnit2
+
+    var task: Task<Void, Error>? = nil
 
     struct WeakTap {
         weak var tap: Tap2?
@@ -31,8 +31,7 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
         }
     }
 
-    public init(_ input: Node, bufferSize: Int = 1024) {
-        self.input = input
+    public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) async -> Void) {
 
         let componentDescription = AudioComponentDescription(effect: "tap2")
 
@@ -42,6 +41,55 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
                                      version: .max)
         tapAU = instantiateAU(componentDescription: componentDescription) as! TapAudioUnit2
         tapAU.bufferSize = bufferSize
+
+        task = Task { [tapAU, weak input] in
+
+            var left: [Float] = []
+            var right: [Float] = []
+
+            while input != nil {
+                // Get some new data if we need more.
+                while left.count < tapAU.bufferSize {
+                    guard !Task.isCancelled else {
+                        print("Tap cancelled!")
+                        return
+                    }
+
+                    if input == nil {
+                        // Node went away, so stop the tap
+                        return
+                    }
+
+                    await withCheckedContinuation({ c in
+
+                        // Wait for the next set of samples
+                        print("waiting for samples")
+                        _ = tapAU.semaphore.wait(timeout: .now() + 0.1)
+                        print("done waiting for samples")
+
+                        var i = 0
+                        tapAU.ringBuffer.popAll { sample in
+                            if i.isMultiple(of: 2) {
+                                left.append(sample)
+                            } else {
+                                right.append(sample)
+                            }
+                            i += 1
+                        }
+
+                        c.resume()
+                    })
+                }
+
+                let leftPrefix = Array(left.prefix(tapAU.bufferSize))
+                let rightPrefix = Array(right.prefix(tapAU.bufferSize))
+
+                left = Array(left.dropFirst(tapAU.bufferSize))
+                right = Array(right.dropFirst(tapAU.bufferSize))
+
+                await tapBlock(leftPrefix, rightPrefix)
+            }
+        }
 
         Self.tapRegistryLock.withLock {
             if Self.tapRegistry.keys.contains(ObjectIdentifier(input)) {
@@ -59,56 +107,10 @@ public class Tap2: AsyncSequence, AsyncIteratorProtocol {
 
     }
 
-    private var left: [Float] = []
-    private var right: [Float] = []
-
-    public func next() async -> Element? {
-
-        // Get some new data if we need more.
-        while left.count < tapAU.bufferSize {
-            guard !Task.isCancelled else {
-                print("Tap cancelled!")
-                return nil
-            }
-
-            if input == nil {
-                // Node went away, so stop the tap
-                return nil
-            }
-
-            await withCheckedContinuation({ c in
-
-                // Wait for the next set of samples
-                print("waiting for samples")
-                _ = tapAU.semaphore.wait(timeout: .now() + 0.1)
-                print("done waiting for samples")
-
-                var i = 0
-                tapAU.ringBuffer.popAll { sample in
-                    if i.isMultiple(of: 2) {
-                        left.append(sample)
-                    } else {
-                        right.append(sample)
-                    }
-                    i += 1
-                }
-
-                c.resume()
-            })
-        }
-
-        let leftPrefix = Array(left.prefix(tapAU.bufferSize))
-        let rightPrefix = Array(right.prefix(tapAU.bufferSize))
-
-        left = Array(left.dropFirst(tapAU.bufferSize))
-        right = Array(right.dropFirst(tapAU.bufferSize))
-
-        return (leftPrefix, rightPrefix)
+    deinit {
+        task?.cancel()
     }
 
-    public func makeAsyncIterator() -> Tap2 {
-        self
-    }
 }
 
 class TapAudioUnit2: AUAudioUnit {

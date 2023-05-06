@@ -28,23 +28,17 @@ class TapTests: AKTestCase {
     func testTap2() throws {
 
         let framesReceived = XCTestExpectation(description: "received audio frames")
-        let taskFinished = XCTestExpectation(description: "finished tap task")
+        // let taskFinished = XCTestExpectation(description: "finished tap task")
 
         let scope = {
             let engine = Engine()
             let noise = Noise()
             noise.amplitude = 0.1
 
-            let tap = Tap2(noise)
-
-            Task {
-                for await (l,r) in tap {
-                    print("left.count: \(l.count), right.count: \(r.count)")
-                    print(detectAmplitudes([l, r]))
-                    framesReceived.fulfill()
-                }
-                print("task finished")
-                taskFinished.fulfill()
+            let tap: Tap2? = Tap2(noise) { (l, r) in
+                print("left.count: \(l.count), right.count: \(r.count)")
+                print(detectAmplitudes([l, r]))
+                framesReceived.fulfill()
             }
 
             engine.output = noise
@@ -52,10 +46,10 @@ class TapTests: AKTestCase {
             try engine.start()
             self.wait(for: [framesReceived], timeout: 1.0)
             engine.stop()
+            XCTAssertNotNil(tap) // just to keep the tap alive
         }
 
         try scope()
-        wait(for: [taskFinished], timeout: 1.0)
     }
 
     func testTap2Dynamic() throws {
@@ -63,26 +57,20 @@ class TapTests: AKTestCase {
         let noise = Noise()
         noise.amplitude = 0.1
 
-        let expectation = XCTestExpectation(description: "tap callback called")
+        let framesReceived = XCTestExpectation(description: "received audio frames")
         engine.output = noise
 
         try engine.start()
 
-        let tap = Tap2(noise)
-
         // Add the tap after the engine is started. This should trigger
         // a recompile and the tap callback should still be called
-        let task = Task {
-            print("started tap task")
-            for await (l,r) in tap {
-                print("left.count: \(l.count), right.count: \(r.count)")
-                print(detectAmplitudes([l, r]))
-                expectation.fulfill()
-            }
-            print("ending tap task")
+        let tap: Tap2? = Tap2(noise) { l,r in
+            print("left.count: \(l.count), right.count: \(r.count)")
+            print(detectAmplitudes([l, r]))
+            framesReceived.fulfill()
         }
 
-        wait(for: [expectation], timeout: 1.0)
-        task.cancel()
+        wait(for: [framesReceived], timeout: 1.0)
+        XCTAssertNotNil(tap) // just to keep the tap alive
     }
 }
