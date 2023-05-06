@@ -4,28 +4,8 @@ import AudioKit
 import XCTest
 
 class TapTests: AKTestCase {
-    func testTapNode() async throws {
 
-        let framesReceived = XCTestExpectation(description: "received audio frames")
-
-        let engine = Engine()
-        let noise = Noise()
-        noise.amplitude = 0.1
-
-        let tap = Tap(noise) { l,r in
-            print("left.count: \(l.count), right.count: \(r.count)")
-            print(detectAmplitudes([l, r]))
-            framesReceived.fulfill()
-        }
-
-        engine.output = tap
-
-        try engine.start()
-        sleep(1)
-        engine.stop()
-    }
-
-    func testTap2() throws {
+    func testTap() throws {
 
         let framesReceived = XCTestExpectation(description: "received audio frames")
         // let taskFinished = XCTestExpectation(description: "finished tap task")
@@ -35,7 +15,7 @@ class TapTests: AKTestCase {
             let noise = Noise()
             noise.amplitude = 0.1
 
-            let tap: Tap2? = Tap2(noise) { (l, r) in
+            let tap: Tap? = Tap(noise) { (l, r) in
                 print("left.count: \(l.count), right.count: \(r.count)")
                 print(detectAmplitudes([l, r]))
                 framesReceived.fulfill()
@@ -52,7 +32,7 @@ class TapTests: AKTestCase {
         try scope()
     }
 
-    func testTap2Dynamic() throws {
+    func testTapDynamic() throws {
         let engine = Engine()
         let noise = Noise()
         noise.amplitude = 0.1
@@ -64,7 +44,7 @@ class TapTests: AKTestCase {
 
         // Add the tap after the engine is started. This should trigger
         // a recompile and the tap callback should still be called
-        let tap: Tap2? = Tap2(noise) { l,r in
+        let tap: Tap? = Tap(noise) { l,r in
             print("left.count: \(l.count), right.count: \(r.count)")
             print(detectAmplitudes([l, r]))
             framesReceived.fulfill()

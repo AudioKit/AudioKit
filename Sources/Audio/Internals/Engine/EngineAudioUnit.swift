@@ -272,7 +272,7 @@ public class EngineAudioUnit: AUAudioUnit {
                 }
 
                 // Add render jobs for taps.
-                for tap in Tap2.getTapsFor(node: node) {
+                for tap in Tap.getTapsFor(node: node) {
 
                     // We don't actually care about this output buffer. Perhaps
                     // there's a better way to express this?

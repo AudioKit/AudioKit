@@ -43,7 +43,7 @@ class FFTTapTests: AKTestCase {
             }
         }
 
-        engine.output = tap
+        engine.output = mixer
 
         let audio = engine.startTest(totalDuration: 10.0)
         for targetFrequency in targetFrequencies {
@@ -52,6 +52,8 @@ class FFTTapTests: AKTestCase {
         }
 
         wait(for: [expect], timeout: 10.0)
+        engine.stop()
+        XCTAssertNotNil(tap)
         check(values: fftData, known: expectedBuckets)
     }
 
@@ -86,7 +88,7 @@ class FFTTapTests: AKTestCase {
                 }
             }
         }
-        engine.output = tap
+        engine.output = oscillator
 
         let audio = engine.startTest(totalDuration: 10.0)
         for targetFrequency in targetFrequencies {
@@ -95,7 +97,8 @@ class FFTTapTests: AKTestCase {
         }
 
         wait(for: [expect], timeout: 10.0)
-
+        engine.stop()
+        XCTAssertNotNil(tap)
         check(values: fftData, known: expectedBuckets)
     }
 }
