@@ -23,7 +23,7 @@ let validTestResults: [TestResult] = [
     TestResult(md5: "f0c09e218767a2d11425688ba3b570c3", suiteName: "DynamicsProcessorTests", testName: "testPreset"),
     TestResult(md5: "e1133fc525a256a72db31453d293c47c", suiteName: "DynamicsProcessorTests", testName: "testThreshold"),
     TestResult(md5: "6b2d34e86130813c7e7d9f1cf7a2a87c", suiteName: "MixerTests", testName: "testSplitConnection"),
-    TestResult(md5: "f98d952748c408b1e38325f2bfe2ce81", suiteName: "NodeRecorderTests", testName: "testBasicRecord"),
+    TestResult(md5: "f98d952748c408b1e38325f2bfe2ce81", suiteName: "RecorderTests", testName: "testBasicRecord"),
     TestResult(md5: "8c5c55d9f59f471ca1abb53672e3ffbf", suiteName: "NodeTests", testName: "testDisconnect"),
     TestResult(md5: "b812ee753c1bd5e76b9305a096e2562d", suiteName: "NodeTests", testName: "testDynamicConnection"),
     TestResult(md5: "8c5c55d9f59f471ca1abb53672e3ffbf", suiteName: "NodeTests", testName: "testDynamicConnection2"),
