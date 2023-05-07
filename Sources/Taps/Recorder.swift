@@ -5,7 +5,7 @@ import AVFoundation
 import Utilities
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
-final class Recorder {
+final public class Recorder {
     // MARK: - Properties
 
     private var tap: Tap?
