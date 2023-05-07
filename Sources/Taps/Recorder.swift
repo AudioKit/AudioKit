@@ -5,7 +5,7 @@ import AVFoundation
 import Utilities
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
-final public class Recorder {
+final public actor Recorder {
     // MARK: - Properties
 
     private var tap: Tap?
@@ -70,7 +70,7 @@ final public class Recorder {
     ///
     public init(node: Node,
                 fileDirectoryURL: URL? = nil,
-                shouldCleanupRecordings: Bool = true) throws
+                shouldCleanupRecordings: Bool = true) async throws
     {
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
@@ -78,29 +78,34 @@ final public class Recorder {
 
         self.tap = Tap(node) { [weak self] left, right in
             guard let strongSelf = self else { return }
-            guard let internalAudioFile = strongSelf.internalAudioFile else { return }
+            await strongSelf.handleTap(left: left, right: right)
+        }
+    }
 
-            do {
-                if !strongSelf.isPaused {
+    func handleTap(left: [Float], right: [Float]) {
 
-                    let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
-                    let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(left.count))!
+        guard let file = internalAudioFile else { return }
 
-                    for i in 0..<left.count {
-                        buffer.floatChannelData![0][i] = left[i]
-                        buffer.floatChannelData![1][i] = right[i]
-                    }
+        do {
+            if !isPaused {
 
-                    try internalAudioFile.write(from: buffer)
+                let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
+                let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(left.count))!
 
-                    // allow an optional timed stop
-                    if strongSelf.durationToRecord != 0, internalAudioFile.duration >= strongSelf.durationToRecord {
-                        strongSelf.stop()
-                    }
+                for i in 0..<left.count {
+                    buffer.floatChannelData![0][i] = left[i]
+                    buffer.floatChannelData![1][i] = right[i]
                 }
-            } catch let error as NSError {
-                Log("Write failed: error -> \(error.localizedDescription)")
+
+                try file.write(from: buffer)
+
+                // allow an optional timed stop
+                if durationToRecord != 0, file.duration >= durationToRecord {
+                    stop()
+                }
             }
+        } catch let error as NSError {
+            Log("Write failed: error -> \(error.localizedDescription)")
         }
     }
 
