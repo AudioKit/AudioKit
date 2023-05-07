@@ -5,7 +5,7 @@ import AVFoundation
 import Utilities
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
-final public actor Recorder {
+@MainActor final public class Recorder {
     // MARK: - Properties
 
     private var tap: Tap?
@@ -70,7 +70,7 @@ final public actor Recorder {
     ///
     public init(node: Node,
                 fileDirectoryURL: URL? = nil,
-                shouldCleanupRecordings: Bool = true) async throws
+                shouldCleanupRecordings: Bool = true) throws
     {
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
@@ -110,7 +110,13 @@ final public actor Recorder {
     }
 
     deinit {
-        if shouldCleanupRecordings { Recorder.removeRecordedFiles() }
+        if shouldCleanupRecordings {
+            Task {
+                await MainActor.run {
+                    Recorder.removeRecordedFiles()
+                }
+            }
+        }
     }
 
     // MARK: - Methods

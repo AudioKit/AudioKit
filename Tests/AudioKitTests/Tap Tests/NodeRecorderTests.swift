@@ -4,23 +4,26 @@ import AVFoundation
 import XCTest
 
 class NodeRecorderTests: AKTestCase {
-    func testBasicRecord() async throws {
+
+    @MainActor
+    func testBasicRecord() throws {
 
         let engine = Engine()
         let sampler = Sampler()
         engine.output = sampler
-        let recorder = try await Recorder(node: sampler)
+        let recorder = try Recorder(node: sampler)
 
         // record a little audio
         try engine.start()
         sampler.play(url: .testAudio)
-        try await recorder.reset()
-        try await recorder.record()
-        sleep(1)
+        try recorder.reset()
+        try recorder.record()
+
+        RunLoop.main.run(until: .now+1.0)
 
         // stop recording and load it into a player
-        await recorder.stop()
-        let audioFileURL = await recorder.audioFile!.url
+        recorder.stop()
+        let audioFileURL = recorder.audioFile!.url
         engine.stop()
         sampler.stop()
 
