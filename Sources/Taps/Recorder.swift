@@ -78,7 +78,7 @@ import Utilities
 
         self.tap = Tap(node) { [weak self] left, right in
             guard let strongSelf = self else { return }
-            await strongSelf.handleTap(left: left, right: right)
+            strongSelf.handleTap(left: left, right: right)
         }
     }
 
