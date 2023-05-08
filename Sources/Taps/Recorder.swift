@@ -5,6 +5,57 @@ import AVFoundation
 import Utilities
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
+@MainActor final public class Recorder2 {
+
+    private var tap: Tap?
+
+    var file: AVAudioFile
+
+    public var isPaused = true
+
+    public init(node: Node, file: AVAudioFile) {
+
+        self.file = file
+
+        self.tap = Tap(node) { [weak self] left, right in
+            guard let strongSelf = self else { return }
+            strongSelf.handleTap(left: left, right: right)
+        }
+    }
+
+    func handleTap(left: [Float], right: [Float]) {
+
+        do {
+            if !isPaused {
+
+                let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
+                let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(left.count))!
+
+                for i in 0..<left.count {
+                    buffer.floatChannelData![0][i] = left[i]
+                    buffer.floatChannelData![1][i] = right[i]
+                }
+
+                buffer.frameLength = buffer.frameCapacity
+
+                print("writing \(left.count) frames to \(file.url)")
+                try file.write(from: buffer)
+
+                print("new length: \(file.length)")
+
+                // allow an optional timed stop
+//                if durationToRecord != 0, file.duration >= durationToRecord {
+//                    stop()
+//                }
+            }
+        } catch let error as NSError {
+            Log("Write failed: error -> \(error.localizedDescription)")
+        }
+    }
+
+}
+
+/// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
 @MainActor final public class Recorder {
     // MARK: - Properties
 

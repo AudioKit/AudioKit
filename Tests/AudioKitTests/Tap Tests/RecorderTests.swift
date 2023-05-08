@@ -8,31 +8,41 @@ class RecorderTests: AKTestCase {
     @MainActor
     func testBasicRecord() throws {
 
-        let engine = Engine()
-        let sampler = Sampler()
-        engine.output = sampler
-        let recorder = try Recorder(node: sampler)
+        let mgr = FileManager.default
+        var audioFileURL = mgr.temporaryDirectory.appendingPathComponent("testBasicRecord.aiff", conformingTo: .aiff)
 
-        // record a little audio
-        try engine.start()
-        sampler.play(url: .testAudio)
-        try recorder.reset()
-        try recorder.record()
+        try? mgr.removeItem(at: audioFileURL)
 
-        RunLoop.main.run(until: .now+1.0)
+        let scope = {
+            let engine = Engine()
+            let sampler = Sampler()
+            engine.output = sampler
 
-        // stop recording and load it into a player
-        recorder.stop()
-        let audioFileURL = recorder.audioFile!.url
-        engine.stop()
-        sampler.stop()
+            let format = AVAudioFormat(standardFormatWithSampleRate: 44100,
+                                       channels: 2)!
 
-        // test the result
-        let audio = engine.startTest(totalDuration: 1.0)
-        sampler.play(url: audioFileURL)
-        audio.append(engine.render(duration: 1.0))
-        audio.audition()
-        //testMD5(audio)
+            let file = try AVAudioFile(forWriting: audioFileURL, settings: format.settings)
+            let recorder = Recorder2(node: sampler, file: file)
+
+            recorder.isPaused = false
+
+            // record a little audio
+            try engine.start()
+            sampler.play(url: .testAudio)
+
+            RunLoop.main.run(until: .now+1.0)
+
+            XCTAssertGreaterThan(file.length, 1024)
+
+        }
+
+        try scope()
+
+        print("audioFileURL: \(audioFileURL)")
+        let file = try AVAudioFile(forReading: audioFileURL)
+        XCTAssertGreaterThan(file.length, 1024)
+        XCTAssertFalse(file.toAVAudioPCMBuffer()!.isSilent)
+
     }
 //
 //    func testCallback() throws {
