@@ -148,6 +148,8 @@ import Utilities
                     buffer.floatChannelData![1][i] = right[i]
                 }
 
+                buffer.frameLength = buffer.frameCapacity
+
                 try file.write(from: buffer)
 
                 // allow an optional timed stop
