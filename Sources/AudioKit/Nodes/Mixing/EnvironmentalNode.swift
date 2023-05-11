@@ -170,4 +170,16 @@ public class EnvironmentalNode: Node, NamedNode {
 	public func connect(mixer3D: Mixer3D) {
 		inputs.append(mixer3D)
 	}
+    
+    /// Remove all inputs from the mixer
+    /// Inputs where this mixer is their last connection
+    /// will be detached from the engine.
+    public func removeAllInputs() {
+        guard connections.isNotEmpty else { return }
+
+        for input in connections {
+            disconnectAndDetachIfLast(input: input)
+        }
+        inputs.removeAll()
+    }
 }
