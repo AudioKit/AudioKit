@@ -40,20 +40,14 @@ public extension AVAudioEnvironmentNode {
  
  */
 public class EnvironmentalNode: Node, NamedNode {
-    
     /// The internal avAudioEnvironmentNode node
     public private(set) var avAudioEnvironmentNode = AVAudioEnvironmentNode()
-    
     var inputs: [Node] = []
-    
     public var connections: [Node] { inputs }
-    
     public var avAudioNode: AVAudioNode {
         avAudioEnvironmentNode
     }
-    
     open var name = "(unset)"
-    
     /// The listener’s position in the 3D environment.
     public var listenerPosition: AVAudio3DPoint {
         get {
@@ -63,7 +57,6 @@ public class EnvironmentalNode: Node, NamedNode {
             avAudioEnvironmentNode.listenerPosition = newValue
         }
     }
-    
     /// The listener’s angular orientation in the environment.
     public var listenerAngularOrientation: AVAudio3DAngularOrientation {
         get {
@@ -73,7 +66,6 @@ public class EnvironmentalNode: Node, NamedNode {
             avAudioEnvironmentNode.listenerAngularOrientation = newValue
         }
     }
-    
     /// The listener’s angular orientation in the environment.
     public var listenerVectorOrientation: AVAudio3DVectorOrientation {
         get {
@@ -83,21 +75,18 @@ public class EnvironmentalNode: Node, NamedNode {
             avAudioEnvironmentNode.listenerVectorOrientation = newValue
         }
     }
-    
     /// The distance attenuation parameters for the environment (read only)
     public var distanceAttenuationParameters: AVAudioEnvironmentDistanceAttenuationParameters {
         {
             return avAudioEnvironmentNode.distanceAttenuationParameters
         }()
     }
-    
     /// The reverb parameters for the environment. (get only)
     public var reverbParameters: AVAudioEnvironmentReverbParameters {
         {
             return avAudioEnvironmentNode.reverbParameters
         }()
     }
-    
     /// The  blend of reverb-processed (also called dry and wet) audio for playback of the audio source.
     public var reverbBlend: Float {
         get {
@@ -107,7 +96,6 @@ public class EnvironmentalNode: Node, NamedNode {
             avAudioEnvironmentNode.reverbBlend = newValue
         }
     }
-    
     /// The mixer’s output volume.
     public var outputVolume: Float {
         get {
@@ -117,7 +105,6 @@ public class EnvironmentalNode: Node, NamedNode {
             avAudioEnvironmentNode.outputVolume = newValue
         }
     }
-    
     /// The type of output hardware.
     public var outputType: AVAudioEnvironmentOutputType {
         get {
@@ -127,14 +114,12 @@ public class EnvironmentalNode: Node, NamedNode {
             avAudioEnvironmentNode.outputType = newValue
         }
     }
-    
     /// An array of rendering algorithms applicable to the environment node. (read only)
     public var applicableRenderingAlgorithms: [NSNumber] {
         {
             return avAudioEnvironmentNode.applicableRenderingAlgorithms
         }()
     }
-    
     /// The type of rendering algorithm the mixer uses.
     public var renderingAlgorithm: AVAudio3DMixingRenderingAlgorithm {
         get {
@@ -144,16 +129,13 @@ public class EnvironmentalNode: Node, NamedNode {
             avAudioEnvironmentNode.renderingAlgorithm = newValue
         }
     }
-    
     /// An unused input bus.
     public var nextAvailableInputBus: AVAudioNodeBus {
         {
             return avAudioEnvironmentNode.nextAvailableInputBus
         }()
     }
-    
     public init() {	}
-    
     /**
      In order to control the source's 3D properties the single going into the avAudioEnvironmentNode
      must conform to AVAudioMixing (specifically AVAudio3DMixing).
@@ -170,7 +152,6 @@ public class EnvironmentalNode: Node, NamedNode {
     public func connect(mixer3D: Mixer3D) {
         inputs.append(mixer3D)
     }
-
     /// Remove all inputs from the EnvironmentalNode
     public func removeInputs() {
         guard connections.isNotEmpty else { return }
