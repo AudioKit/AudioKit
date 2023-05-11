@@ -170,4 +170,11 @@ public class EnvironmentalNode: Node, NamedNode {
 	public func connect(mixer3D: Mixer3D) {
 		inputs.append(mixer3D)
 	}
+    
+    /// Remove all inputs from the EnvironmentalNode
+    public func removeInputs() {
+        guard connections.isNotEmpty else { return }
+
+        inputs.removeAll()
+    }
 }
