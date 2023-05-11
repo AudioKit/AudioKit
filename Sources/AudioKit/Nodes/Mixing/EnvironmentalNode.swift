@@ -155,7 +155,6 @@ public class EnvironmentalNode: Node, NamedNode {
     /// Remove all inputs from the EnvironmentalNode
     public func removeInputs() {
         guard connections.isNotEmpty else { return }
-        
         inputs.removeAll()
     }
 }
