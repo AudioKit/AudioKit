@@ -1,7 +1,6 @@
 import AVFoundation
 
 public extension AVAudioEnvironmentNode {
-    
     /// Make a connection without breaking other connections.
     /// Makes sure the Mixer3D connects to the EnviromentalNode In **MONO**
     func connectMixer3D(_ input: AVAudioNode, format: AVAudioFormat) {
@@ -140,7 +139,8 @@ public class EnvironmentalNode: Node, NamedNode {
      In order to control the source's 3D properties the single going into the avAudioEnvironmentNode
      must conform to AVAudioMixing (specifically AVAudio3DMixing).
      
-     To simplify keeping thing AudioKit easy, you can only connect Mixer3D object to EnvironmentalNode with this function.
+     To simplify keeping thing AudioKit easy, you can only connect Mixer3D
+     object to EnvironmentalNode with this function.
      Therefore to connect any non-mixer3D object,
      you must first connect the object to a Mixer3D instance,
      and then that instance to the EnvironmentalNode.
