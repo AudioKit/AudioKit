@@ -28,7 +28,7 @@ public class EngineAudioUnit: AUAudioUnit {
         weak var engine: EngineAudioUnit?
     }
 
-    static var nodeEnginesLock = NSLock()
+    static let nodeEnginesLock = NSLock()
 
     /// So we can look up the engine associated with a node.
     static var nodeEngines: [ObjectIdentifier: WeakEngineAU] = [:]
