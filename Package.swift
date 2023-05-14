@@ -2,6 +2,8 @@
 
 import PackageDescription
 
+let concurrency: SwiftSetting = .unsafeFlags(["-Xfrontend", "-strict-concurrency=complete"])
+
 let package = Package(
     name: "AudioKit",
     platforms: [.macOS(.v12), .iOS(.v15), .tvOS(.v15)],
@@ -16,7 +18,8 @@ let package = Package(
         .target(name: "Audio",
                 dependencies: ["MIDI", "Utilities", .product(name: "Atomics", package: "swift-atomics")],
                 swiftSettings: [
-                    .unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=50"])
+                    .unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=50"]),
+                    concurrency
                 ]),
         .target(name: "AudioFiles", dependencies: ["Utilities"]),
         .target(name: "Utilities"),
