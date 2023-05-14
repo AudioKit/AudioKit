@@ -11,7 +11,7 @@ public class Engine {
     /// Internal AVAudioEngine
     private let avEngine = AVAudioEngine()
 
-    public static var nodeInstanceCount = ManagedAtomic(0)
+    public static let nodeInstanceCount = ManagedAtomic(0)
 
     public var output: Node? {
         didSet {
