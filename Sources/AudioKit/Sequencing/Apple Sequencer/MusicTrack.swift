@@ -734,7 +734,9 @@ open class MusicTrackManager {
     @available(tvOS 12.0, *)
     public func setMIDIOutput(_ endpoint: MIDIEndpointRef) {
         if let track = internalMusicTrack {
-            MusicTrackSetDestMIDIEndpoint(track, endpoint)
+            if MusicTrackSetDestMIDIEndpoint(track, endpoint) == kAudioToolboxErr_InvalidPlayerState {
+                Log("🛑 Error: InvalidPlayerState. Please stop any sequencer playback before performing this operation.")
+            }
         }
     }
 }
