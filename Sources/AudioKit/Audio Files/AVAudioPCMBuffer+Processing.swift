@@ -175,87 +175,66 @@ public extension AVAudioPCMBuffer {
 
     /// - Returns: A new buffer from this one that has fades applied to it. Pass 0 for either parameter
     /// if you only want one of them. The ramp is exponential by default.
-    func fade(inTime: Double,
-              outTime: Double,
-              linearRamp: Bool = false) -> AVAudioPCMBuffer?
-    {
-        guard let floatData = floatChannelData, inTime > 0 || outTime > 0 else {
+    func fade(inTime: Double, outTime: Double, linearRamp: Bool = false) -> AVAudioPCMBuffer? {
+        guard let floatData = self.floatChannelData, inTime > 0 || outTime > 0 else {
             Log("Error fading buffer, returning original...")
             return self
         }
 
-        let fadeBuffer = AVAudioPCMBuffer(pcmFormat: format,
-                                          frameCapacity: frameCapacity)
-
-        let length: UInt32 = frameLength
-        let sampleRate = format.sampleRate
-        let channelCount = Int(format.channelCount)
-
-        // initial starting point for the gain, if there is a fade in, start it at .01 otherwise at 1
-        var gain: Double = inTime > 0 ? 0.01 : 1
+        let sampleRate = self.format.sampleRate
+        let totalDuration = Double(self.frameLength) / sampleRate
 
         let sampleTime = 1.0 / sampleRate
+        let fadeInPower = linearRamp ? sampleTime / inTime : exp(log(10) * sampleTime / inTime)
+        let fadeOutPower = linearRamp ? sampleTime / outTime : exp(-log(25) * sampleTime / outTime)
 
-        var fadeInPower: Double = 1
-        var fadeOutPower: Double = 1
+        let fadeInBuffer: AVAudioPCMBuffer? = inTime > 0 ? self.extract(from: 0, to: inTime) : nil
+        let fadeOutBuffer: AVAudioPCMBuffer? = outTime > 0 ? self.extract(from: totalDuration - outTime, to: totalDuration) : nil
 
-        if linearRamp {
-            gain = inTime > 0 ? 0 : 1
-            fadeInPower = sampleTime / inTime
+        var gain: Double = 1
 
-        } else {
-            fadeInPower = exp(log(10) * sampleTime / inTime)
-        }
+        // Only FadeIn if inTime was provided
+        if let fadeInBuffer = fadeInBuffer {
+            gain = 0.01
 
-        if linearRamp {
-            fadeOutPower = sampleTime / outTime
-
-        } else {
-            fadeOutPower = exp(-log(25) * sampleTime / outTime)
-        }
-
-        // where in the buffer to end the fade in
-        let fadeInSamples = Int(sampleRate * inTime)
-        // where in the buffer to start the fade out
-        let fadeOutSamples = Int(Double(length) - (sampleRate * outTime))
-
-        // i is the index in the buffer
-        for i in 0 ..< Int(length) {
-            // n is the channel
-            for n in 0 ..< channelCount {
-                if i < fadeInSamples, inTime > 0 {
-                    if linearRamp {
-                        gain += fadeInPower
-                    } else {
-                        gain *= fadeInPower
-                    }
-
-                } else if i > fadeOutSamples, outTime > 0 {
-                    if linearRamp {
-                        gain -= fadeOutPower
-                    } else {
-                        gain *= fadeOutPower
-                    }
-                } else {
-                    gain = 1.0
+            for i in 0 ..< Int(fadeInBuffer.frameLength) {
+                gain = linearRamp ? gain + fadeInPower : gain * fadeInPower
+                gain = min(max(gain, 0), 1)  // clamp gain between 0 and 1
+                for n in 0 ..< Int(fadeInBuffer.format.channelCount) {
+                    fadeInBuffer.floatChannelData?[n][i] *= Float(gain)
                 }
-
-                // sanity check
-                if gain > 1 {
-                    gain = 1
-                } else if gain < 0 {
-                    gain = 0
-                }
-
-                let sample = floatData[n][i] * Float(gain)
-                fadeBuffer?.floatChannelData?[n][i] = sample
             }
         }
-        // update this
-        fadeBuffer?.frameLength = length
 
-        // set the buffer now to be the faded one
-        return fadeBuffer
+        // Only FadeOut if outTime was provided
+        if let fadeOutBuffer = fadeOutBuffer {
+            gain = 1
+
+            for i in 0 ..< Int(fadeOutBuffer.frameLength) {
+                gain = linearRamp ? gain - fadeOutPower : gain * fadeOutPower
+                gain = min(max(gain, 0), 1)  // clamp gain between 0 and 1
+                for n in 0 ..< Int(fadeOutBuffer.format.channelCount) {
+                    fadeOutBuffer.floatChannelData?[n][i] *= Float(gain)
+                }
+            }
+        }
+
+        // Create the result buffer by appending fadeIn, middle part of original buffer, and fadeOut
+        let resultBuffer = AVAudioPCMBuffer(pcmFormat: self.format, frameCapacity: self.frameCapacity)!
+
+        if let fadeInBuffer = fadeInBuffer {
+            resultBuffer.append(fadeInBuffer)
+        }
+
+        if inTime < totalDuration - outTime {
+            resultBuffer.append(self.extract(from: inTime, to: totalDuration - outTime)!)
+        }
+
+        if let fadeOutBuffer = fadeOutBuffer {
+            resultBuffer.append(fadeOutBuffer)
+        }
+
+        return resultBuffer
     }
 }
 
