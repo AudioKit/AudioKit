@@ -245,7 +245,7 @@ extension MIDI {
             incomingUMPSysExMessage.append(0xF7)
             return incomingUMPSysExMessage
         case .Start:
-            Log("UMP SYSEX - Start receiving UMP SysEx messages", log: OSLog.midi)
+            //Log("UMP SYSEX - Start receiving UMP SysEx messages", log: OSLog.midi)
             
             incomingUMPSysExMessage = [UInt8]()
             incomingUMPSysExMessage.append(0xF0)
@@ -253,13 +253,13 @@ extension MIDI {
             // Full message not ready, nothing to return
             return []
         case .Continue:
-            Log("UMP SYSEX - Continue receiving UMP SysEx messages", log: OSLog.midi)
+            //Log("UMP SYSEX - Continue receiving UMP SysEx messages", log: OSLog.midi)
             
             incomingUMPSysExMessage.append(contentsOf: validBytes)
             // Full message not ready, nothing to return
             return []
         case .End:
-            Log("UMP SYSEX - End of UMP SysEx messages", log: OSLog.midi)
+            //Log("UMP SYSEX - End of UMP SysEx messages", log: OSLog.midi)
             
             incomingUMPSysExMessage.append(contentsOf: validBytes)
             incomingUMPSysExMessage.append(0xF7)
