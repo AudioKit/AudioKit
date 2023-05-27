@@ -160,7 +160,7 @@ public class Mixer: Node, NamedNode {
 
     /// Recompile the AudioProgram.
     private func compile() {
-        if let engineAU = EngineAudioUnit.nodeEngines[.init(self)]?.engine {
+        if let engineAU = NodeEnginesManager.shared.getEngine(for: self) {
             engineAU.compile()
         }
     }

@@ -100,7 +100,7 @@ public class Tap {
         }
 
         // Trigger a recompile if input already has an associated engine.
-        if let engineAU = EngineAudioUnit.getEngine(for: input) {
+        if let engineAU = NodeEnginesManager.shared.getEngine(for: input) {
             print("triggering recompile from Tap.init")
             engineAU.compile()
         }

@@ -24,21 +24,6 @@ public class EngineAudioUnit: AUAudioUnit {
         return [inputChannelCount, outputChannelCount]
     }
 
-    struct WeakEngineAU {
-        weak var engine: EngineAudioUnit?
-    }
-
-    static let nodeEnginesLock = NSLock()
-
-    /// So we can look up the engine associated with a node.
-    static var nodeEngines: [ObjectIdentifier: WeakEngineAU] = [:]
-
-    static func getEngine(for node: Node) -> EngineAudioUnit? {
-        nodeEnginesLock.withLock {
-            EngineAudioUnit.nodeEngines[.init(node)]?.engine
-        }
-    }
-
     /// Initialize with component description and options
     /// - Parameters:
     ///   - componentDescription: Audio Component Description
@@ -215,9 +200,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
             for node in list {
 
-                Self.nodeEnginesLock.withLock {
-                    Self.nodeEngines[.init(node)] = .init(engine: self)
-                }
+                NodeEnginesManager.shared.set(engine: self, for: node)
 
                 // Activate input busses.
                 for busIndex in 0 ..< node.au.inputBusses.count {
