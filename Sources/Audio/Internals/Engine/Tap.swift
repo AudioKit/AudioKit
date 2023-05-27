@@ -14,23 +14,6 @@ public class Tap {
 
     var task: Task<Void, Error>? = nil
 
-    struct WeakTap {
-        weak var tap: Tap?
-
-        init(tap: Tap?) {
-            self.tap = tap
-        }
-    }
-
-    static var tapRegistryLock = NSLock()
-    static var tapRegistry: [ObjectIdentifier: [WeakTap]] = [:]
-
-    static func getTapsFor(node: Node) -> [Tap] {
-        tapRegistryLock.withLock {
-            (Self.tapRegistry[ObjectIdentifier(node)] ?? []).compactMap { $0.tap }
-        }
-    }
-
     public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) async -> Void) {
 
         let componentDescription = AudioComponentDescription(effect: "tap2")
@@ -91,13 +74,7 @@ public class Tap {
             }
         }
 
-        Self.tapRegistryLock.withLock {
-            if Self.tapRegistry.keys.contains(ObjectIdentifier(input)) {
-                Self.tapRegistry[ObjectIdentifier(input)]?.append(WeakTap(tap: self))
-            } else {
-                Self.tapRegistry[ObjectIdentifier(input)] = [WeakTap(tap: self)]
-            }
-        }
+        TapRegistry.shared.add(tap: self, for: input)
 
         // Trigger a recompile if input already has an associated engine.
         if let engineAU = NodeEnginesManager.shared.getEngine(for: input) {
