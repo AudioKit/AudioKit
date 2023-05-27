@@ -245,7 +245,7 @@ class NodeTests: AKTestCase {
         }
     }
 
-    func testGraphviz() {
+    @MainActor func testGraphviz() {
         let sampler = Sampler()
 
         let verb = Distortion(sampler)
