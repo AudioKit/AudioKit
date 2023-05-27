@@ -9,7 +9,7 @@ class RecorderTests: AKTestCase {
     func testBasicRecord() throws {
 
         let mgr = FileManager.default
-        var audioFileURL = mgr.temporaryDirectory.appendingPathComponent("testBasicRecord.aiff", conformingTo: .aiff)
+        let audioFileURL = mgr.temporaryDirectory.appendingPathComponent("testBasicRecord.aiff", conformingTo: .aiff)
 
         try? mgr.removeItem(at: audioFileURL)
 
