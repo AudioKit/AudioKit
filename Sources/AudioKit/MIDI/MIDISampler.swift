@@ -8,7 +8,7 @@ import os.log
 
 /// MIDI receiving Sampler
 ///
-/// Be sure to enableMIDI if you want to receive messages
+/// Similar to ``AppleSampler`` but with added MIDI capabilities
 ///
 open class MIDISampler: AppleSampler, NamedNode {
     // MARK: - Properties
@@ -30,8 +30,7 @@ open class MIDISampler: AppleSampler, NamedNode {
         hideVirtualMIDIPort()
     }
 
-    /// Enable MIDI input from a given MIDI client
-    /// This is not in the init function because it must be called AFTER you start AudioKit
+    /// Enable MIDI input from a given MIDI client - called automatically in ``init(name:)``
     ///
     /// - Parameters:
     ///   - midiClient: A reference to the MIDI client
