@@ -18,7 +18,7 @@ public class EngineAudioUnit: AUAudioUnit {
 
     var cachedMIDIBlock: AUScheduleMIDIEventBlock?
 
-    public static var instanceCount = ManagedAtomic(0)
+    public static let instanceCount = ManagedAtomic(0)
 
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
