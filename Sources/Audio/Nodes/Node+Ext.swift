@@ -33,7 +33,9 @@ public extension Node {
     }
 
     var isStarted: Bool { !bypassed }
-    var outputFormat: AVAudioFormat { Settings.audioFormat }
+    var outputFormat: AVAudioFormat {
+        au.outputBusses[0].format
+    }
 
     /// All parameters on the Node
     var parameters: [NodeParameter] {

@@ -10,10 +10,6 @@ public protocol Node: AnyObject {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
 
-    /// Audio format to use when connecting this node.
-    /// Defaults to `Settings.audioFormat`.
-    var outputFormat: AVAudioFormat { get }
-
     /// The underlying audio unit.
     var au: AUAudioUnit { get }
 }
