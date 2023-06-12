@@ -25,6 +25,9 @@ public typealias MIDIChannel = UInt8
 /// Sample type alias making it clear when you're working with samples
 public typealias SampleIndex = UInt32
 
+/// BPM (for backwards compatibility)
+public typealias BPM = Double
+
 /// Note on shortcut
 public let noteOnByte: MIDIByte = 0x90
 /// Note off shortcut
