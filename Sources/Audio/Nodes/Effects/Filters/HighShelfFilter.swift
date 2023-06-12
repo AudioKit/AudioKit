@@ -7,7 +7,7 @@ import Utilities
 /// AudioKit version of Apple's HighShelfFilter Audio Unit
 ///
 public class HighShelfFilter: Node {
-    public var au: AUAudioUnit
+    public var auAudioUnit: AUAudioUnit
 
     let input: Node
 
@@ -54,8 +54,8 @@ public class HighShelfFilter: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_HighShelfFilter)
-        au = instantiateAU(componentDescription: desc)
-        associateParams(with: au)
+        auAudioUnit = instantiateAU(componentDescription: desc)
+        associateParams(with: auAudioUnit)
 
         self.cutOffFrequency = cutOffFrequency
         self.gain = gain

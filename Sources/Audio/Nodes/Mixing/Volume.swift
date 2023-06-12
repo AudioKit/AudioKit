@@ -9,7 +9,7 @@ import Utilities
 public class Volume: Node {
     public let connections: [Node] = []
 
-    public var au: AUAudioUnit
+    public var auAudioUnit: AUAudioUnit
     let volumeAU: VolumeAudioUnit
 
     public var volume: Float { get { volumeAU.volumeParam.value } set { volumeAU.volumeParam.value = newValue }}
@@ -22,8 +22,8 @@ public class Volume: Node {
                                      as: componentDescription,
                                      name: "Volume AU",
                                      version: .max)
-        au = instantiateAU(componentDescription: componentDescription)
-        volumeAU = au as! VolumeAudioUnit
+        auAudioUnit = instantiateAU(componentDescription: componentDescription)
+        volumeAU = auAudioUnit as! VolumeAudioUnit
         AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 

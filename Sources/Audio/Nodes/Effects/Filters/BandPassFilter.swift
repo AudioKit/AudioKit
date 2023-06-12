@@ -7,7 +7,7 @@ import Utilities
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
 public class BandPassFilter: Node {
-    public var au: AUAudioUnit
+    public var auAudioUnit: AUAudioUnit
 
     let input: Node
 
@@ -54,8 +54,8 @@ public class BandPassFilter: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_BandPassFilter)
-        au = instantiateAU(componentDescription: desc)
-        associateParams(with: au)
+        auAudioUnit = instantiateAU(componentDescription: desc)
+        associateParams(with: auAudioUnit)
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth

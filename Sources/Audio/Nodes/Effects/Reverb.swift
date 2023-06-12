@@ -6,7 +6,7 @@ import Utilities
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
 public class Reverb: Node {
-    public var au: AUAudioUnit
+    public var auAudioUnit: AUAudioUnit
 
     let input: Node
 
@@ -32,7 +32,7 @@ public class Reverb: Node {
     public func loadFactoryPreset(_ preset: ReverbPreset) {
         let auPreset = AUAudioUnitPreset()
         auPreset.number = preset.rawValue
-        au.currentPreset = auPreset
+        auAudioUnit.currentPreset = auPreset
     }
 
     /// Initialize the reverb node
@@ -45,8 +45,8 @@ public class Reverb: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Reverb2)
-        au = instantiateAU(componentDescription: desc)
-        associateParams(with: au)
+        auAudioUnit = instantiateAU(componentDescription: desc)
+        associateParams(with: auAudioUnit)
 
         self.wetDryMix = wetDryMix
         AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)

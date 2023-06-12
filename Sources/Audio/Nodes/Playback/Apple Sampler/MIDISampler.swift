@@ -57,7 +57,7 @@ open class MIDISampler: AppleSampler, NamedNode {
 
         let virtualInputName = (name ?? self.name) as CFString
 
-        guard let midiBlock = au.scheduleMIDIEventBlock else {
+        guard let midiBlock = auAudioUnit.scheduleMIDIEventBlock else {
             fatalError("Expected AU to respond to MIDI.")
         }
 

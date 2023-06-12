@@ -11,7 +11,7 @@ import Utilities
 public class Sampler: Node {
     public let connections: [Node] = []
 
-    public let au: AUAudioUnit
+    public let auAudioUnit: AUAudioUnit
     let samplerAU: SamplerAudioUnit
 
     public init() {
@@ -21,8 +21,8 @@ public class Sampler: Node {
                                      as: componentDescription,
                                      name: "Player AU",
                                      version: .max)
-        au = instantiateAU(componentDescription: componentDescription)
-        samplerAU = au as! SamplerAudioUnit
+        auAudioUnit = instantiateAU(componentDescription: componentDescription)
+        samplerAU = auAudioUnit as! SamplerAudioUnit
         AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 

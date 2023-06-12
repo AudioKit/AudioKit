@@ -11,5 +11,5 @@ public protocol Node: AnyObject {
     var isStarted: Bool { get }
 
     /// The underlying audio unit.
-    var au: AUAudioUnit { get }
+    var auAudioUnit: AUAudioUnit { get }
 }

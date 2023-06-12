@@ -203,14 +203,14 @@ public class EngineAudioUnit: AUAudioUnit {
                 NodeEnginesManager.shared.set(engine: self, for: node)
 
                 // Activate input busses.
-                for busIndex in 0 ..< node.au.inputBusses.count {
-                    let bus = node.au.inputBusses[busIndex]
+                for busIndex in 0 ..< node.auAudioUnit.inputBusses.count {
+                    let bus = node.auAudioUnit.inputBusses[busIndex]
                     try! bus.setFormat(format)
                     bus.isEnabled = true
                 }
 
-                if !node.au.renderResourcesAllocated {
-                    try! node.au.allocateRenderResources()
+                if !node.auAudioUnit.renderResourcesAllocated {
+                    try! node.auAudioUnit.allocateRenderResources()
                 }
 
                 let nodeBuffer = buffers[ObjectIdentifier(node)]!
@@ -247,7 +247,7 @@ public class EngineAudioUnit: AUAudioUnit {
                     }
 
                     let job = RenderJob(outputBuffer: nodeBuffer,
-                                        renderBlock: node.au.renderBlock,
+                                        renderBlock: node.auAudioUnit.renderBlock,
                                         inputBlock: inputBlock,
                                         inputIndices: node.connections.map { nodeJobs[ObjectIdentifier($0)]! })
 

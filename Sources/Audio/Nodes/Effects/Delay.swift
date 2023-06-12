@@ -6,7 +6,7 @@ import Utilities
 /// AudioKit version of Apple's Delay Audio Unit
 ///
 public class Delay: Node {
-    public var au: AUAudioUnit
+    public var auAudioUnit: AUAudioUnit
 
     let input: Node
 
@@ -84,8 +84,8 @@ public class Delay: Node {
         self.input = input
 
         let desc = AudioComponentDescription(appleEffect: kAudioUnitSubType_Delay)
-        au = instantiateAU(componentDescription: desc)
-        associateParams(with: au)
+        auAudioUnit = instantiateAU(componentDescription: desc)
+        associateParams(with: auAudioUnit)
 
         self.dryWetMix = dryWetMix
         self.time = time

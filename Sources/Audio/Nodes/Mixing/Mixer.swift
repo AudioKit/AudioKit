@@ -5,7 +5,7 @@ import Utilities
 
 /// AudioKit version of Apple's Mixer Node. Mixes a variadic list of Nodes.
 public class Mixer: Node, NamedNode {
-    public let au: AUAudioUnit
+    public let auAudioUnit: AUAudioUnit
 
     var inputs: [Node] = []
 
@@ -45,8 +45,8 @@ public class Mixer: Node, NamedNode {
                                      name: "Volume AU",
                                      version: .max)
 
-        au = instantiateAU(componentDescription: volumeCD)
-        volumeAU = au as! VolumeAudioUnit
+        auAudioUnit = instantiateAU(componentDescription: volumeCD)
+        volumeAU = auAudioUnit as! VolumeAudioUnit
         volumeAU.volumeParam.value = volume
         self.volume = volume
         self.name = name ?? MemoryAddress(of: self).description
@@ -137,7 +137,7 @@ public class Mixer: Node, NamedNode {
     /// - Returns: new input busses array size or its current size in case it's less than required
     ///  and resize failed, or can't be done.
     public func resizeInputBussesArray(requiredSize: Int) -> Int {
-        let busses = au.inputBusses
+        let busses = auAudioUnit.inputBusses
         guard busses.isCountChangeable else {
             // input busses array is not changeable
             return min(busses.count, requiredSize)

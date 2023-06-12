@@ -9,7 +9,7 @@ import Atomics
 public class Noise: Node {
     public let connections: [Node] = []
 
-    public let au: AUAudioUnit
+    public let auAudioUnit: AUAudioUnit
 
     let noiseAU: NoiseAudioUnit
 
@@ -31,8 +31,8 @@ public class Noise: Node {
                                      as: componentDescription,
                                      name: "NoiseGenerator AU",
                                      version: .max)
-        au = instantiateAU(componentDescription: componentDescription)
-        noiseAU = au as! NoiseAudioUnit
+        auAudioUnit = instantiateAU(componentDescription: componentDescription)
+        noiseAU = auAudioUnit as! NoiseAudioUnit
         noiseAU.amplitudeParam.value = amplitude
         self.amplitude = amplitude
 

@@ -7,10 +7,10 @@ import Utilities
 public extension Node {
     /// Reset the internal state of the unit
     func reset() {
-        au.reset()
+        auAudioUnit.reset()
 
         // Call AudioUnitReset due to https://github.com/AudioKit/AudioKit/issues/2046
-        if let v2au = (au as? AUAudioUnitV2Bridge)?.audioUnit {
+        if let v2au = (auAudioUnit as? AUAudioUnitV2Bridge)?.audioUnit {
             AudioUnitReset(v2au, kAudioUnitScope_Global, 0)
         }
     }
@@ -22,7 +22,7 @@ public extension Node {
     ///   - offset: Time in samples
     ///
     func scheduleMIDIEvent(event: MIDIEvent, offset: UInt64 = 0) {
-        if let midiBlock = au.scheduleMIDIEventBlock {
+        if let midiBlock = auAudioUnit.scheduleMIDIEventBlock {
             // note: AUScheduleMIDIEventBlock expected MIDI 1.0 raw bytes, not UMP/MIDI 2.0
             let midi1RawBytes = event.midi1RawBytes()
             event.midi1RawBytes().withUnsafeBufferPointer { ptr in
@@ -34,7 +34,7 @@ public extension Node {
 
     var isStarted: Bool { !bypassed }
     var outputFormat: AVAudioFormat {
-        au.outputBusses[0].format
+        auAudioUnit.outputBusses[0].format
     }
 
     /// All parameters on the Node
@@ -66,11 +66,11 @@ public extension Node {
                                                               unit: def.unit,
                                                               flags: def.flags)
                 params.append(auParam)
-                param.projectedValue.associate(with: au, parameter: auParam)
+                param.projectedValue.associate(with: auAudioUnit, parameter: auParam)
             }
         }
 
-        au.parameterTree = AUParameterTree.createTree(withChildren: params)
+        auAudioUnit.parameterTree = AUParameterTree.createTree(withChildren: params)
     }
 }
 
@@ -88,8 +88,8 @@ public extension Node {
     }
 
     var bypassed: Bool {
-        get { au.shouldBypassEffect }
-        set { au.shouldBypassEffect = newValue }
+        get { auAudioUnit.shouldBypassEffect }
+        set { auAudioUnit.shouldBypassEffect = newValue }
     }
 }
 
