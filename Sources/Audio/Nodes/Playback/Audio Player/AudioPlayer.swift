@@ -68,11 +68,11 @@ public final class AudioPlayer: Node {
         self.pitch = pitch
         self.overlap = overlap
 
-        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 
     public func play(url: URL) {

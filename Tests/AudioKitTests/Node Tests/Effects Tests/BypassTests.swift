@@ -26,7 +26,7 @@ class BypassTests: AKTestCase {
                 Delay(source),
             ]
 
-        let engine = Engine()
+        let engine = AudioEngine()
         for effect in effects {
             engine.output = effect
             effect.bypassed = true
@@ -55,7 +55,7 @@ class BypassTests: AKTestCase {
                 Delay(source),
             ]
 
-        let engine = Engine()
+        let engine = AudioEngine()
         for effect in effects {
             engine.output = effect
             let data = engine.startTest(totalDuration: duration)

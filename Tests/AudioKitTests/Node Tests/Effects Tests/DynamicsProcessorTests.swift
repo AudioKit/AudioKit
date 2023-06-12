@@ -5,7 +5,7 @@ import XCTest
 
 class DynamicsProcessorTests: AKTestCase {
     func testDefault() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler)
         sampler.play(url: .testAudio)
@@ -15,7 +15,7 @@ class DynamicsProcessorTests: AKTestCase {
     }
 
     func testPreset() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         let processor = DynamicsProcessor(sampler)
         processor.loadFactoryPreset(.fastAndSmooth)
@@ -27,7 +27,7 @@ class DynamicsProcessorTests: AKTestCase {
     }
 
     func testAttackTime() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler, attackTime: 0.1)
         sampler.play(url: .testAudio)
@@ -37,7 +37,7 @@ class DynamicsProcessorTests: AKTestCase {
     }
 
     func testHeadRoom() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler, headRoom: 0)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -47,7 +47,7 @@ class DynamicsProcessorTests: AKTestCase {
     }
 
     func testMasterGain() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler, masterGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -57,7 +57,7 @@ class DynamicsProcessorTests: AKTestCase {
     }
 
     func testParameters() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler,
                                           threshold: -25,
@@ -74,7 +74,7 @@ class DynamicsProcessorTests: AKTestCase {
     // Release time is not currently tested
 
     func testThreshold() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = DynamicsProcessor(sampler, threshold: -25)
         let audio = engine.startTest(totalDuration: 1.0)

@@ -14,7 +14,7 @@ class FFTTapTests: AKTestCase {
     }
 
     func testFFT() {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let oscillator = Oscillator()
         let mixer = Mixer(oscillator)
@@ -63,7 +63,7 @@ class FFTTapTests: AKTestCase {
         return
         let paddingFactor = 7
 
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let oscillator = Oscillator()
 

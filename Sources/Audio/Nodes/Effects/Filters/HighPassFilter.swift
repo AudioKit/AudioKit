@@ -59,10 +59,10 @@ public class HighPassFilter: Node {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
-        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

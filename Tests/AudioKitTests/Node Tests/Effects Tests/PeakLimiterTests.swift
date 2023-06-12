@@ -5,7 +5,7 @@ import XCTest
 
 class PeakLimiterTests: AKTestCase {
     func testAttackTime() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, attackTime: 0.02)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -15,7 +15,7 @@ class PeakLimiterTests: AKTestCase {
     }
 
     func testDecayTime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         let mixer = Mixer(sampler)
         mixer.volume = 5 // Had to be loud to allow for decay time to affected the sound
@@ -27,7 +27,7 @@ class PeakLimiterTests: AKTestCase {
     }
 
     func testDecayTime2() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         let mixer = Mixer(sampler)
         mixer.volume = 5 // Had to be loud to allow for decay time to affected the sound
@@ -39,7 +39,7 @@ class PeakLimiterTests: AKTestCase {
     }
 
     func testDefault() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -49,7 +49,7 @@ class PeakLimiterTests: AKTestCase {
     }
 
     func testParameters() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, attackTime: 0.02, decayTime: 0.03, preGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -59,7 +59,7 @@ class PeakLimiterTests: AKTestCase {
     }
 
     func testPreGain() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = PeakLimiter(sampler, preGain: 1)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -69,7 +69,7 @@ class PeakLimiterTests: AKTestCase {
     }
 
     func testPreGainChangingAfterEngineStarted() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         let effect = PeakLimiter(sampler, attackTime: 0.02, decayTime: 0.03, preGain: -20)
         engine.output = effect

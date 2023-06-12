@@ -161,11 +161,11 @@ public class DynamicsProcessor: Node {
         self.attackTime = attackTime
         self.releaseTime = releaseTime
         self.masterGain = masterGain
-        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }
 

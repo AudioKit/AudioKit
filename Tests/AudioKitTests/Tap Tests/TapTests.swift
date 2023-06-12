@@ -11,7 +11,7 @@ class TapTests: AKTestCase {
         // let taskFinished = XCTestExpectation(description: "finished tap task")
 
         let scope = {
-            let engine = Engine()
+            let engine = AudioEngine()
             let noise = Noise()
             noise.amplitude = 0.1
 
@@ -33,7 +33,7 @@ class TapTests: AKTestCase {
     }
 
     func testTapDynamic() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
         let noise = Noise()
         noise.amplitude = 0.1
 

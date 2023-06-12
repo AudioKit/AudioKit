@@ -66,11 +66,11 @@ open class AppleSampler: Node {
     /// Initialize the sampler node
     public init() {
         au = samplerUnit.auAudioUnit
-        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 
     // Add URL based initializers

@@ -22,7 +22,7 @@ class GenericNodeTests: AKTestCase {
         let rng = GKMersenneTwisterRandomSource(seed: 0)
 
         let duration = 10
-        let engine = Engine()
+        let engine = AudioEngine()
         var bigBuffer: AVAudioPCMBuffer?
 
         for _ in 0 ..< duration {
@@ -57,7 +57,7 @@ class GenericNodeTests: AKTestCase {
 
         let duration = node.parameters.count + 1
 
-        let engine = Engine()
+        let engine = AudioEngine()
         var bigBuffer: AVAudioPCMBuffer?
 
         engine.output = node

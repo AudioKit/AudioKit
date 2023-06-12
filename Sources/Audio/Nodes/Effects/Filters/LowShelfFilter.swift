@@ -59,10 +59,10 @@ public class LowShelfFilter: Node {
 
         self.cutoffFrequency = cutoffFrequency
         self.gain = gain
-        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }

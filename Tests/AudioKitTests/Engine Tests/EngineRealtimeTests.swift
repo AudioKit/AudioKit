@@ -5,7 +5,7 @@ import XCTest
 
 class EngineRealtimeTests: AKTestCase {
     func testBasicRealtime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc = Oscillator()
         osc.amplitude = 0.1
@@ -17,7 +17,7 @@ class EngineRealtimeTests: AKTestCase {
     }
 
     func testEffectRealtime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc = Oscillator()
         let fx = Distortion(osc)
@@ -32,7 +32,7 @@ class EngineRealtimeTests: AKTestCase {
     }
 
     func testTwoEffectsRealtime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc = Oscillator()
         let dist = Distortion(osc)
@@ -49,7 +49,7 @@ class EngineRealtimeTests: AKTestCase {
 
     /// Test changing the output chain on the fly.
     func testDynamicChangeRealtime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc = Oscillator()
         let dist = Distortion(osc)
@@ -67,7 +67,7 @@ class EngineRealtimeTests: AKTestCase {
     }
 
     func testMixerRealtime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc1 = Oscillator()
         let osc2 = Oscillator()
@@ -86,7 +86,7 @@ class EngineRealtimeTests: AKTestCase {
     }
 
     func testMixerDynamicRealtime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc1 = Oscillator()
         let osc2 = Oscillator()
@@ -109,7 +109,7 @@ class EngineRealtimeTests: AKTestCase {
     }
 
     func testMultipleChangesRealtime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc1 = Oscillator()
         let osc2 = Oscillator()
@@ -130,7 +130,7 @@ class EngineRealtimeTests: AKTestCase {
     }
 
     func testSamplerRealtime() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
         let url = URL.testAudio
         let buffer = try! AVAudioPCMBuffer(url: url)!
         let sampler = Sampler()
@@ -143,7 +143,7 @@ class EngineRealtimeTests: AKTestCase {
     }
 
     func testManyOscillators() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let mixer = Mixer()
 

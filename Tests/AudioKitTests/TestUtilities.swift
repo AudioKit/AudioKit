@@ -23,7 +23,7 @@ struct TestResult: Equatable {
 class AKTestCase: XCTestCase {
     override func tearDown() {
         XCTAssertEqual(EngineAudioUnit.instanceCount.load(ordering: .relaxed), 0, "leaked EngineAudioUnit")
-        XCTAssertEqual(Engine.nodeInstanceCount.load(ordering: .relaxed), 0, "leaked Node")
+        XCTAssertEqual(AudioEngine.nodeInstanceCount.load(ordering: .relaxed), 0, "leaked Node")
     }
 }
 

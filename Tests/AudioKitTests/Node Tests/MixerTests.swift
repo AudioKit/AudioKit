@@ -6,7 +6,7 @@ import XCTest
 
 class MixerTests: AKTestCase {
     func testSplitConnection() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         let mixer1 = Mixer(sampler)
         let mixer2 = Mixer()
@@ -21,7 +21,7 @@ class MixerTests: AKTestCase {
     }
 
     func testWiringAfterEngineStart() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let engineMixer = Mixer()
 
         engine.output = engineMixer

@@ -8,7 +8,7 @@ import XCTest
 
 class MatrixReverbTests: AKTestCase {
     func testBypass() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         let effect = MatrixReverb(input)
         effect.bypassed = true
@@ -40,7 +40,7 @@ class MatrixReverbTests: AKTestCase {
     }
 
     func testCathedral() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         let effect = MatrixReverb(input)
         engine.output = effect
@@ -52,7 +52,7 @@ class MatrixReverbTests: AKTestCase {
     }
 
     func testDefault() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         engine.output = MatrixReverb(input)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -62,7 +62,7 @@ class MatrixReverbTests: AKTestCase {
     }
 
     func testSmallRoom() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         let effect = MatrixReverb(input)
         engine.output = effect
@@ -74,7 +74,7 @@ class MatrixReverbTests: AKTestCase {
     }
 
     func testSmallLargeMix() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         let effect = MatrixReverb(input)
         effect.smallLargeMix = 51

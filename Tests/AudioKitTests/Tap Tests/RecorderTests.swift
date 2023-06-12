@@ -14,7 +14,7 @@ class RecorderTests: AKTestCase {
         try? mgr.removeItem(at: audioFileURL)
 
         let scope = {
-            let engine = Engine()
+            let engine = AudioEngine()
             let sampler = Sampler()
             engine.output = sampler
 

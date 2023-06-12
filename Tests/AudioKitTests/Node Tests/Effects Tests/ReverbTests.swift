@@ -6,7 +6,7 @@ import XCTest
 
 class ReverbTests: AKTestCase {
     func testBypass() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         let effect = Reverb(input)
         effect.bypassed = true
@@ -18,7 +18,7 @@ class ReverbTests: AKTestCase {
     }
 
     func testCathedral() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         let effect = Reverb(input)
         engine.output = effect
@@ -30,7 +30,7 @@ class ReverbTests: AKTestCase {
     }
 
     func testDefault() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         engine.output = Reverb(input)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -40,7 +40,7 @@ class ReverbTests: AKTestCase {
     }
 
     func testSmallRoom() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let input = Sampler()
         let effect = Reverb(input)
         engine.output = effect

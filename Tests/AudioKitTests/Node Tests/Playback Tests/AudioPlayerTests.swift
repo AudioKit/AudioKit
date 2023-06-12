@@ -6,7 +6,7 @@ import XCTest
 class AudioPlayerTests: AKTestCase {
 
     func testDefault() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
         player.play(url: .testAudio)
@@ -16,7 +16,7 @@ class AudioPlayerTests: AKTestCase {
     }
 
     func testRate() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
         player.play(url: .testAudio)
@@ -27,7 +27,7 @@ class AudioPlayerTests: AKTestCase {
     }
 
     func testPitch() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
         player.play(url: .testAudio)
@@ -38,7 +38,7 @@ class AudioPlayerTests: AKTestCase {
     }
 
     func testLoop() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let player = AudioPlayer()
         player.load(url: .testAudio)
         player.isLooping = true

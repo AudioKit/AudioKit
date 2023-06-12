@@ -249,11 +249,11 @@ public class MatrixReverb: Node {
         self.smallDelayRange = smallDelayRange
         self.modulationRate = modulationRate
         self.modulationDepth = modulationDepth
-        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }
 

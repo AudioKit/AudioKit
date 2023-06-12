@@ -5,7 +5,7 @@ import XCTest
 
 class SamplerTests: AKTestCase {
     func testSampler() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         sampler.play(url: .testAudio)
         engine.output = sampler
@@ -15,7 +15,7 @@ class SamplerTests: AKTestCase {
     }
 
     func testPlayMIDINote() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         sampler.assign(url: .testAudio, to: 60)
         engine.output = sampler
@@ -26,7 +26,7 @@ class SamplerTests: AKTestCase {
     }
 
     func testStopMIDINote() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         sampler.assign(url: .testAudio, to: 60)
         sampler.assign(url: .testAudio, to: 61)
@@ -42,7 +42,7 @@ class SamplerTests: AKTestCase {
 
 
     func testDynamicsProcessorWithSampler() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let buffer = try! AVAudioPCMBuffer(url: .testAudio)!
         let sampler = Sampler()
         sampler.play(buffer)

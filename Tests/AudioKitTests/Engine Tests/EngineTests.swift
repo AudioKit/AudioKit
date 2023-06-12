@@ -5,7 +5,7 @@ import XCTest
 
 class EngineTests: AKTestCase {
     func testBasic() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc = Oscillator()
 
@@ -18,7 +18,7 @@ class EngineTests: AKTestCase {
     }
 
     func testEffect() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc = Oscillator()
         let fx = Distortion(osc)
@@ -32,7 +32,7 @@ class EngineTests: AKTestCase {
     }
 
     func testTwoEffects() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc = Oscillator()
         let dist = Distortion(osc)
@@ -48,7 +48,7 @@ class EngineTests: AKTestCase {
 
     /// Test changing the output chain on the fly.
     func testDynamicChange() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc = Oscillator()
         let dist = Distortion(osc)
@@ -67,7 +67,7 @@ class EngineTests: AKTestCase {
     }
 
     func testMixer() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc1 = Oscillator()
         let osc2 = Oscillator()
@@ -84,7 +84,7 @@ class EngineTests: AKTestCase {
     }
 
     func testMixerVolume() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc1 = Oscillator()
         let osc2 = Oscillator()
@@ -103,7 +103,7 @@ class EngineTests: AKTestCase {
     }
 
     func testMixerDynamic() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc1 = Oscillator()
         let osc2 = Oscillator()
@@ -136,7 +136,7 @@ class EngineTests: AKTestCase {
         ]
 
         for volume in [0.0, 0.1, 0.5, 0.8, 1.0, 2.0] {
-            let engine = Engine()
+            let engine = AudioEngine()
             let osc = Oscillator()
             let mix = Mixer(osc)
             mix.volume = AUValue(volume)
@@ -163,7 +163,7 @@ class EngineTests: AKTestCase {
         ]
 
         for pan in [-0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75] {
-            let engine = Engine()
+            let engine = AudioEngine()
             let oscL = Oscillator()
             let oscR = Oscillator()
             oscR.frequency = 500
@@ -183,7 +183,7 @@ class EngineTests: AKTestCase {
 
     /// Test some number of changes so schedules are released.
     func testMultipleChanges() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc1 = Oscillator()
         let osc2 = Oscillator()
@@ -218,7 +218,7 @@ class EngineTests: AKTestCase {
     }
 
     func testOscillator() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let osc = Oscillator()
         engine.output = osc
         let audio = engine.startTest(totalDuration: 2.0)
@@ -239,7 +239,7 @@ class EngineTests: AKTestCase {
     }
 
     func testManyOscillatorsPerf() throws {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let mixer = Mixer()
 

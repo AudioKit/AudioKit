@@ -6,7 +6,7 @@ import XCTest
 
 class DistortionTests: AKTestCase {
     func testDefault() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = Distortion(sampler)
         let audio = engine.startTest(totalDuration: 1.0)
@@ -16,7 +16,7 @@ class DistortionTests: AKTestCase {
     }
 
     func testPresetChange() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         let distortion = Distortion(sampler)
         distortion.loadFactoryPreset(.drumsBitBrush)

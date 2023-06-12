@@ -24,11 +24,11 @@ public class Volume: Node {
                                      version: .max)
         au = instantiateAU(componentDescription: componentDescription)
         volumeAU = au as! VolumeAudioUnit
-        Engine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingIncrement(ordering: .relaxed)
     }
 
     deinit {
-        Engine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
+        AudioEngine.nodeInstanceCount.wrappingDecrement(ordering: .relaxed)
     }
 }
 

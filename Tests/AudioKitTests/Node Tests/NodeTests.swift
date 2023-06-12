@@ -5,7 +5,7 @@ import XCTest
 
 class NodeTests: AKTestCase {
     func testNodeBasic() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 0.1)
@@ -16,7 +16,7 @@ class NodeTests: AKTestCase {
 
     #if os(macOS)
     func testNodeConnection() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let sampler = Sampler()
         let verb = Reverb(sampler)
         engine.output = verb
@@ -38,7 +38,7 @@ class NodeTests: AKTestCase {
     }
 
     func testDynamicOutput() {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let sampler1 = Sampler()
         engine.output = sampler1
@@ -60,7 +60,7 @@ class NodeTests: AKTestCase {
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testDynamicConnection() {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let osc1 = Oscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
         let mixer = Mixer(osc1)
@@ -83,7 +83,7 @@ class NodeTests: AKTestCase {
     func testDynamicConnection2() throws {
         try XCTSkipIf(true, "TODO Skipped test")
 
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let sampler1 = Sampler()
         let mixer = Mixer(sampler1)
@@ -108,7 +108,7 @@ class NodeTests: AKTestCase {
     func testDynamicConnection3() throws {
         try XCTSkipIf(true, "TODO Skipped test")
 
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let sampler1 = Sampler()
         let mixer = Mixer(sampler1)
@@ -135,7 +135,7 @@ class NodeTests: AKTestCase {
 
     func testDynamicConnection4() throws {
         try XCTSkipIf(true, "TODO Skipped test")
-        let engine = Engine()
+        let engine = AudioEngine()
         let outputMixer = Mixer()
         let player1 = Sampler()
         outputMixer.addInput(player1)
@@ -160,7 +160,7 @@ class NodeTests: AKTestCase {
 
     func testDynamicConnection5() throws {
         try XCTSkipIf(true, "TODO Skipped test")
-        let engine = Engine()
+        let engine = AudioEngine()
         let outputMixer = Mixer()
         engine.output = outputMixer
         let audio = engine.startTest(totalDuration: 1.0)
@@ -180,7 +180,7 @@ class NodeTests: AKTestCase {
     }
 
     func testDisconnect() {
-        let engine = Engine()
+        let engine = AudioEngine()
 
         let player = Sampler()
 
@@ -203,7 +203,7 @@ class NodeTests: AKTestCase {
     // This provides a baseline for measuring the overhead
     // of mixers in testMixerPerformance.
     func testChainPerformance() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let player = Sampler()
 
         let rev = Distortion(player)
@@ -224,7 +224,7 @@ class NodeTests: AKTestCase {
 
     // Measure the overhead of mixers.
     func testMixerPerformance() {
-        let engine = Engine()
+        let engine = AudioEngine()
         let player = Sampler()
 
         let mix1 = Mixer(player)
@@ -260,7 +260,7 @@ class NodeTests: AKTestCase {
     func testNodeLeak() throws {
 
         let scope = {
-            let engine = Engine()
+            let engine = AudioEngine()
             let noise = Noise()
             noise.amplitude = 0.1
 
