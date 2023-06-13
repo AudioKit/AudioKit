@@ -38,7 +38,7 @@ class OscillatorAudioUnit: AUAudioUnit {
 
         holder.initialize(to: waveVec)
 
-        let command: OscillatorCommand = .table(holder)
+        let command: TestOscillatorCommand = .table(holder)
         let sysex = encodeSysex(command)
 
         if cachedMIDIBlock == nil {

@@ -22,7 +22,7 @@ class OscillatorKernel {
     func processEvents(events: UnsafePointer<AURenderEvent>?) {
         process(events: events,
                 sysex: { event in
-                    var command: OscillatorCommand = .table(nil)
+                    var command: TestOscillatorCommand = .table(nil)
 
                     decodeSysex(event, &command)
                     switch command {

@@ -62,7 +62,7 @@ class NodeTests: AKTestCase {
     func testDynamicConnection() {
         let engine = AudioEngine()
 
-        let osc1 = Oscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
+        let osc1 = TestOscillator(waveform: Table(.triangle), frequency: 440, amplitude: 0.1)
         let mixer = Mixer(osc1)
 
         engine.output = mixer
@@ -71,7 +71,7 @@ class NodeTests: AKTestCase {
 
         audio.append(engine.render(duration: 1.0))
 
-        let osc2 = Oscillator(waveform: Table(.triangle), frequency: 880, amplitude: 0.1)
+        let osc2 = TestOscillator(waveform: Table(.triangle), frequency: 880, amplitude: 0.1)
         mixer.addInput(osc2)
 
         audio.append(engine.render(duration: 1.0))

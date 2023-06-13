@@ -11,7 +11,7 @@ class BypassTests: AKTestCase {
         return
 
         let duration = 0.1
-        let source = Oscillator()
+        let source = TestOscillator()
         let effects: [Node] = [
                 Distortion(source),
                 DynamicsProcessor(source),
@@ -40,7 +40,7 @@ class BypassTests: AKTestCase {
 
     func testStartEffectPerformsTransformation() throws {
         let duration = 0.1
-        let source = Oscillator()
+        let source = TestOscillator()
         let effects: [Node] = [
                 Distortion(source),
                 DynamicsProcessor(source),
@@ -68,7 +68,7 @@ class BypassTests: AKTestCase {
 
     func testStartStopEffectsChangesIsStarted() {
         let duration = 0.1
-        let source = Oscillator()
+        let source = TestOscillator()
         let effects: [Node] = [
                 Distortion(source),
                 DynamicsProcessor(source),

@@ -4,11 +4,11 @@ import AudioUnit
 import AVFoundation
 import Utilities
 
-enum OscillatorCommand {
+enum TestOscillatorCommand {
     case table(UnsafeMutablePointer<Vec<Float>>?)
 }
 
-public class Oscillator: Node {
+public class TestOscillator: Node {
     public let connections: [Node] = []
 
     public let auAudioUnit: AUAudioUnit

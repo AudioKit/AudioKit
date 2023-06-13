@@ -98,9 +98,9 @@ class GenericNodeTests: AKTestCase {
 
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
     func testGenerators() {
-        nodeParameterTest(md5s: ["885d882c758552e08a214b661eb128e4"], factory: { _ in let osc = Oscillator(waveform: Table(.square)); return osc })
-        nodeParameterTest(md5s: ["569c8b32aa826ba22f62d8b682dc4ca4"], factory: { _ in let osc = Oscillator(waveform: Table(.triangle)); return osc })
-        nodeParameterTest(md5s: ["d0a155478e77465653beccb31d3d45b7"], factory: { _ in let osc = Oscillator(waveform: Table(.triangle), amplitude: 0.1); return osc })
+        nodeParameterTest(md5s: ["885d882c758552e08a214b661eb128e4"], factory: { _ in let osc = TestOscillator(waveform: Table(.square)); return osc })
+        nodeParameterTest(md5s: ["569c8b32aa826ba22f62d8b682dc4ca4"], factory: { _ in let osc = TestOscillator(waveform: Table(.triangle)); return osc })
+        nodeParameterTest(md5s: ["d0a155478e77465653beccb31d3d45b7"], factory: { _ in let osc = TestOscillator(waveform: Table(.triangle), amplitude: 0.1); return osc })
     }
 
     func testEffects() {
