@@ -91,6 +91,11 @@ public extension Node {
         get { auAudioUnit.shouldBypassEffect }
         set { auAudioUnit.shouldBypassEffect = newValue }
     }
+
+    func start() { bypassed = false }
+    func stop() { bypassed = true }
+    func play() { bypassed = false }
+    func bypass() { bypassed = true }
 }
 
 /// Protocol mostly to support DynamicOscillator in SoundpipeAudioKit, but could be used elsewhere
