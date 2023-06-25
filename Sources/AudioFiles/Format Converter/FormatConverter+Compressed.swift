@@ -221,7 +221,7 @@ extension FormatConverter {
         let writerInput = AVAssetWriterInput(mediaType: .audio, outputSettings: outputSettings, sourceFormatHint: hint)
         writer.add(writerInput)
 
-        guard let track = asset.tracks(withMediaType: .audio).first else {
+        guard let track = asset.tracks.first(where: { $0.mediaType == .audio}) else {
             completionProxy(error: Self.createError(message: "No audio was found in the input file."),
                             completionHandler: completionHandler)
             return
