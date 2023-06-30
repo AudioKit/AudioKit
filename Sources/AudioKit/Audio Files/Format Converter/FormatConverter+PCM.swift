@@ -169,7 +169,7 @@ extension FormatConverter {
                 {
                     completionProxy(error: Self.createError(message: "Error reading from the input file."),
                                     completionHandler: completionHandler)
-                    didErrorWhileIteratingSRCBUffer = true
+                    didErrorWhileIteratingSRCBuffer = true
                     return
                 }
                 // EOF
@@ -183,13 +183,13 @@ extension FormatConverter {
                 {
                     completionProxy(error: Self.createError(message: "Error reading from the output file."),
                                     completionHandler: completionHandler)
-                    didErrorWhileIteratingSRCBUffer = true
+                    didErrorWhileIteratingSRCBuffer = true
                     return
                 }
             }
         }
 
-        if !didErrorWhileIteratingSRCBUffer {
+        if !didErrorWhileIteratingSRCBuffer {
             // no errors
             completionHandler?(nil)
         }
