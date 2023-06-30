@@ -185,9 +185,6 @@ extension FormatConverter {
                 }
             }
         }
-
-        closeFiles()
-
         // no errors
         completionHandler?(nil)
     }
