@@ -148,6 +148,7 @@ extension FormatConverter {
         var srcBuffer = [UInt8](repeating: 0, count: Int(bufferByteSize))
         var sourceFrameOffset: UInt32 = 0
 
+        var didErrorWhileIteratingSRCBuffer = false
         srcBuffer.withUnsafeMutableBytes { body in
             while true {
                 let mBuffer = AudioBuffer(mNumberChannels: inputDescription.mChannelsPerFrame,
@@ -168,6 +169,7 @@ extension FormatConverter {
                 {
                     completionProxy(error: Self.createError(message: "Error reading from the input file."),
                                     completionHandler: completionHandler)
+                    didErrorWhileIteratingSRCBUffer = true
                     return
                 }
                 // EOF
@@ -181,12 +183,16 @@ extension FormatConverter {
                 {
                     completionProxy(error: Self.createError(message: "Error reading from the output file."),
                                     completionHandler: completionHandler)
+                    didErrorWhileIteratingSRCBUffer = true
                     return
                 }
             }
         }
-        // no errors
-        completionHandler?(nil)
+
+        if !didErrorWhileIteratingSRCBUffer {
+            // no errors
+            completionHandler?(nil)
+        }
     }
 
     func createOutputDescription(options: Options,
