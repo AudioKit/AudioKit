@@ -17,11 +17,12 @@ let package = Package(
                 dependencies: ["Audio", "AudioFiles", "Utilities", "MIDI", "Taps"],
                 swiftSettings: [concurrency]),
         .target(name: "Audio",
-                dependencies: ["MIDI", "Utilities", .product(name: "Atomics", package: "swift-atomics")],
+                dependencies: ["MIDI", "Utilities", "CAudio", .product(name: "Atomics", package: "swift-atomics")],
                 swiftSettings: [
                     .unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=50"]),
                     concurrency
                 ]),
+        .target(name: "CAudio"),
         .target(name: "AudioFiles",
                 dependencies: ["Utilities"],
                 swiftSettings: [concurrency]),
