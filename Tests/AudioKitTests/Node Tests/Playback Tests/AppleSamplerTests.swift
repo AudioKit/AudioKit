@@ -87,11 +87,12 @@ class AppleSamplerTests: AKTestCase {
 
     // Repro case.
     func testLoadEXS24_bug() throws {
-        throw XCTSkip("Repro case")
         let engine = AVAudioEngine()
         let samplerUnit = AVAudioUnitSampler()
         engine.attach(samplerUnit)
         let exsURL = Bundle.module.url(forResource: "TestResources/Sampler Instruments/sawPiano1", withExtension: "exs")!
+        let mgr = FileManager.default
+        XCTAssertTrue(mgr.fileExists(atPath: exsURL.path))
         try samplerUnit.loadInstrument(at: exsURL)
     }
 }
