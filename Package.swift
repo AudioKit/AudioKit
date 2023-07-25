@@ -35,5 +35,6 @@ let package = Package(
                 dependencies: ["Audio"],
                 swiftSettings: [concurrency]),
         .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
-    ]
+    ],
+    cxxLanguageStandard: .cxx20
 )
