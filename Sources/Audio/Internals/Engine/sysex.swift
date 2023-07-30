@@ -1,5 +1,7 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+#warning("Can we mark this for deletion as we are moving to MIDIKit?")
+
 import AudioUnit
 import Foundation
 
