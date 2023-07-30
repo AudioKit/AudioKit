@@ -2,3 +2,4 @@
 #include "WorkStealingQueue.hpp"
 #include "SynchronizedAudioBufferList.h"
 #include "RingBuffer.h"
+#include "Vec.h"
