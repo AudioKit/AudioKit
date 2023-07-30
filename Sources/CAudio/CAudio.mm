@@ -3,3 +3,4 @@
 #include "SynchronizedAudioBufferList.h"
 #include "RingBuffer.h"
 #include "Vec.h"
+#include "RenderJob.h"
