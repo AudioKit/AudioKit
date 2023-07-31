@@ -12,16 +12,20 @@ typedef int RenderJobIndex;
 
 namespace AudioKit {
 
+using AUPullInputBlock = std::function<AUAudioUnitStatus(AudioUnitRenderActionFlags*, const AudioTimeStamp*, AUAudioFrameCount, int, AudioBufferList*)>;
+
+using AURenderBlock = std::function<AUAudioUnitStatus(AudioUnitRenderActionFlags*, const AudioTimeStamp*, AUAudioFrameCount, int, AudioBufferList*, AURenderPullInputBlock)>;
+
 class RenderJob {
 private:
     /// Buffer we're writing to, unless overridden by buffer passed to render.
     SynrchonizedAudioBufferList2 *outputBuffer;
     
     /// Block called to render.
-    std::function<AUAudioUnitStatus(AudioUnitRenderActionFlags*, const AudioTimeStamp*, AUAudioFrameCount, NSInteger, AudioBufferList*)> renderBlock;
+    AURenderBlock renderBlock;
 
     /// Input block passed to the renderBlock. We don't chain AUs recursively.
-    std::function<AUAudioUnitStatus(AudioUnitRenderActionFlags*, const AudioTimeStamp*, AUAudioFrameCount, NSInteger, AudioBufferList*)> inputBlock;
+    AUPullInputBlock inputBlock;
 
     /// Indices of jobs that this one feeds.
     std::vector<int> outputIndices;
@@ -31,8 +35,8 @@ private:
 
 public:
     RenderJob(SynrchonizedAudioBufferList2* outputBuffer,
-              std::function<AUAudioUnitStatus(AudioUnitRenderActionFlags*, const AudioTimeStamp*, AUAudioFrameCount, NSInteger, AudioBufferList*)> renderBlock,
-              std::function<AUAudioUnitStatus(AudioUnitRenderActionFlags*, const AudioTimeStamp*, AUAudioFrameCount, NSInteger, AudioBufferList*)> inputBlock,
+              AURenderBlock renderBlock,
+              AUPullInputBlock inputBlock,
               std::vector<int> inputIndices)
         : outputBuffer(outputBuffer), renderBlock(renderBlock), inputBlock(inputBlock), inputIndices(inputIndices) {
     }
@@ -47,6 +51,7 @@ public:
     }
 
     void render(AudioUnitRenderActionFlags* actionFlags, const AudioTimeStamp* timeStamp, AUAudioFrameCount frameCount, AudioBufferList* outputBufferList=nullptr) {
+        
         AudioBufferList* out = outputBufferList ? outputBufferList : outputBuffer->abl;
         
         // AUs may change the output size, so reset it.
@@ -54,8 +59,7 @@ public:
         out->mBuffers[1].mDataByteSize = frameCount * sizeof(float);
 
         // Do the actual DSP.
-
-        AUAudioUnitStatus status = renderBlock(actionFlags, timeStamp, frameCount, 0, out);
+        AUAudioUnitStatus status = renderBlock(actionFlags, timeStamp, frameCount, 0, out, inputBlock);
 
         // Propagate errors.
         if (status != noErr) {
