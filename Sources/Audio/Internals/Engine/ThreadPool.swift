@@ -76,7 +76,7 @@ final class ThreadPool {
     }
 
     deinit {
-        // Shut down workers.
+        // Shut down workers. WOTWU
         for worker in workers {
             worker.exit()
         }

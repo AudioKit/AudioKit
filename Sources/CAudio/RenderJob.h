@@ -1,31 +1,28 @@
+// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+
 #include <vector>
 #include <functional>
 #include <atomic>
+#include <memory>
 #include <AudioUnit/AudioUnit.h>
 #include <AudioToolbox/AudioToolbox.h>
 #include <AVFoundation/AVFoundation.h>
 #include "SynchronizedAudioBufferList.h"
 
-//// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-
 typedef int RenderJobIndex;
 
 namespace AudioKit {
 
-using AUPullInputBlock = std::function<AUAudioUnitStatus(AudioUnitRenderActionFlags*, const AudioTimeStamp*, AUAudioFrameCount, int, AudioBufferList*)>;
-
-using AURenderBlock = std::function<AUAudioUnitStatus(AudioUnitRenderActionFlags*, const AudioTimeStamp*, AUAudioFrameCount, int, AudioBufferList*, AURenderPullInputBlock)>;
-
 class RenderJob {
 private:
     /// Buffer we're writing to, unless overridden by buffer passed to render.
-    SynrchonizedAudioBufferList2 *outputBuffer;
+    std::shared_ptr<SynrchonizedAudioBufferList2> outputBuffer;
     
     /// Block called to render.
     AURenderBlock renderBlock;
 
     /// Input block passed to the renderBlock. We don't chain AUs recursively.
-    AUPullInputBlock inputBlock;
+    AURenderPullInputBlock inputBlock;
 
     /// Indices of jobs that this one feeds.
     std::vector<int> outputIndices;
@@ -34,21 +31,17 @@ private:
     std::vector<int> inputIndices;
 
 public:
-    RenderJob(SynrchonizedAudioBufferList2* outputBuffer,
+    RenderJob(std::shared_ptr<SynrchonizedAudioBufferList2> outputBuffer,
               AURenderBlock renderBlock,
-              AUPullInputBlock inputBlock,
+              AURenderPullInputBlock inputBlock,
               std::vector<int> inputIndices)
-        : outputBuffer(outputBuffer), renderBlock(renderBlock), inputBlock(inputBlock), inputIndices(inputIndices) {
-    }
-
-    ~RenderJob() {
-        delete outputBuffer;
+    : outputBuffer(outputBuffer), renderBlock(renderBlock), inputBlock(inputBlock), inputIndices(inputIndices) {
     }
 
     /// Number of inputs feeding this AU.
     int32_t inputCount() {
         return static_cast<int32_t>(inputIndices.size());
-    }
+    } 
 
     void render(AudioUnitRenderActionFlags* actionFlags, const AudioTimeStamp* timeStamp, AUAudioFrameCount frameCount, AudioBufferList* outputBufferList=nullptr) {
         
@@ -65,19 +58,20 @@ public:
         if (status != noErr) {
             switch (status) {
                 case kAudioUnitErr_NoConnection:
-//                    std::cout << "got kAudioUnitErr_NoConnection" << std::endl;
+                    printf("got kAudioUnitErr_NoConnection\n");
                     break;
                 case kAudioUnitErr_TooManyFramesToProcess:
-//                    std::cout << "got kAudioUnitErr_TooManyFramesToProcess" << std::endl;
+                    printf("got kAudioUnitErr_TooManyFramesToProcess\n");
                     break;
-//                case AVAudioEngineManualRenderingError::notRunning:
-////                    std::cout << "got AVAudioEngineManualRenderingErrorNotRunning" << std::endl;
-//                    break;
+                case AVAudioEngineManualRenderingErrorNotRunning:
+                    printf("got AVAudioEngineManualRenderingErrorNotRunning\n");
+                    break;
                 case kAudio_ParamError:
-//                    std::cout << "got kAudio_ParamError" << std::endl;
+                    printf("got kAudio_ParamError\n");
                     break;
                 default:
-//                    std::cout << "unknown rendering error " << status << std::endl;
+                    printf("unkown rendering error\n");
+                    break;
             }
         }
 
