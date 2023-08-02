@@ -2,6 +2,6 @@
 #include "WorkStealingQueue.hpp"
 #include "SynchronizedAudioBufferList.h"
 #include "RingBuffer.h"
-#include "Vec.h"
 #include "RenderJob.h"
 #include "RenderEvents.h"
+#include "AudioProgram.h"

@@ -24,13 +24,14 @@ private:
     /// Input block passed to the renderBlock. We don't chain AUs recursively.
     AURenderPullInputBlock inputBlock;
 
-    /// Indices of jobs that this one feeds.
-    std::vector<int> outputIndices;
-
     /// Indices of jobs feeding this one
     std::vector<int> inputIndices;
 
 public:
+    
+    /// Indices of jobs that this one feeds.
+    std::vector<int> outputIndices;
+    
     RenderJob(std::shared_ptr<SynrchonizedAudioBufferList2> outputBuffer,
               AURenderBlock renderBlock,
               AURenderPullInputBlock inputBlock,
