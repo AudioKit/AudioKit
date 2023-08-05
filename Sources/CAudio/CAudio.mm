@@ -5,3 +5,4 @@
 #include "RenderJob.h"
 #include "RenderEvents.h"
 #include "AudioProgram.h"
+#include "Sysex.h"
