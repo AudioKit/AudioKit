@@ -112,10 +112,8 @@ public:
              #define DISPATCH_TIME_FOREVER (~0ull)*/
             
             intptr_t wait = dispatch_semaphore_wait(prod, DISPATCH_TIME_FOREVER);
-            
-            bool isRunning = run.load();
-            
-            if (!isRunning) {
+                        
+            if (!run.load()) {
                 break;
             }
             
