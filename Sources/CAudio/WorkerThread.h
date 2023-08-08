@@ -131,12 +131,12 @@ public:
             }
 
             dispatch_semaphore_signal(done);
-            
-            if (joinToken) {
-                os_workgroup_leave(workgroup, joinToken);
-            }
         }
-        
+
+        if (joinToken) {
+            os_workgroup_leave(workgroup, joinToken);
+        }
+
     }
     
     void exit() {
