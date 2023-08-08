@@ -108,10 +108,7 @@ public:
         }
         
         while (true) {
-            /* #define DISPATCH_TIME_NOW (0ull)
-             #define DISPATCH_TIME_FOREVER (~0ull)*/
-            
-            intptr_t wait = dispatch_semaphore_wait(prod, DISPATCH_TIME_FOREVER);
+            dispatch_semaphore_wait(prod, DISPATCH_TIME_FOREVER);
                         
             if (!run.load()) {
                 break;
@@ -133,7 +130,7 @@ public:
                 printf("worker has no program!\n");
             }
 
-            intptr_t done_semaphore_int = dispatch_semaphore_signal(done);
+            dispatch_semaphore_signal(done);
             
             if (joinToken) {
                 os_workgroup_leave(workgroup, joinToken);
