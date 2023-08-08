@@ -141,15 +141,12 @@ public:
         }
         
     }
-
     
     void exit() {
         run.store(false);
         dispatch_semaphore_signal(prod);
     }
 
-
-    
 private:
     std::atomic<bool> run = true;
     
