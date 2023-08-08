@@ -36,7 +36,7 @@ public:
     AUAudioFrameCount frameCount = 0;
     
     /// Our main output buffer.
-    vector<AudioBufferList> outputBufferList;
+    AudioBufferList* _Nonnull outputBufferList;
     
     /// Queue for submitting jobs to the worker.
     vector<RenderJobIndex> initialJobs;
@@ -128,9 +128,9 @@ public:
                 program->run(&actionFlags,
                              &timeStamp,
                              frameCount,
-                             &outputBufferList,
+                             outputBufferList,
                              workerIndex,
-                             &runQueues);
+                             runQueues);
             } else {
                 printf("worker has no program!");
             }

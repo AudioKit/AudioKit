@@ -41,8 +41,8 @@ public:
              AUAudioFrameCount frameCount,
              AudioBufferList* outputBufferList,
              int workerIndex,
-             std::vector<WorkStealingQueue<int>>& runQueues) {
-        
+             std::vector<std::shared_ptr<WorkStealingQueue<int>>>& runQueues) {
+
         auto exec = [&](int index) {
             auto& job = jobs[index];
             
@@ -52,7 +52,7 @@ public:
             // Increment outputs.
             for (int outputIndex : job->outputIndices) {
                 if (finished[outputIndex].fetch_add(1, std::memory_order_relaxed) == jobs[outputIndex]->inputCount()) {
-                    runQueues[workerIndex].push(outputIndex);
+                    runQueues[workerIndex]->push(outputIndex);
                 }
             }
             
@@ -61,14 +61,14 @@ public:
         
         while (remaining.load(std::memory_order_relaxed) > 0) {
             // Pop an index off our queue.
-            if (auto index = runQueues[workerIndex].pop()) {
+            if (auto index = runQueues[workerIndex]->pop()) {
                 exec(*index);
             } else {
                 // Try to steal an index. Start with the next worker and wrap around,
                 // but don't steal from ourselves.
                 for (int i = 0; i < runQueues.size() - 1; ++i) {
                     int victim = (workerIndex + i) % runQueues.size();
-                    if (auto index = runQueues[victim].steal()) {
+                    if (auto index = runQueues[victim]->steal()) {
                         exec(*index);
                         break;
                     }
