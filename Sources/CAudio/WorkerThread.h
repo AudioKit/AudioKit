@@ -145,7 +145,7 @@ public:
     
     void exit() {
         run.store(false);
-        intptr_t prod_semaphore_int = dispatch_semaphore_signal(prod);
+        dispatch_semaphore_signal(prod);
     }
 
 
