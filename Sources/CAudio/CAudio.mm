@@ -6,3 +6,4 @@
 #include "RenderEvents.h"
 #include "AudioProgram.h"
 #include "Sysex.h"
+#include "WorkerThread.h"

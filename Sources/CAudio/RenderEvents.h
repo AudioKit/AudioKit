@@ -1,5 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-
+#pragma once
 #include <AudioToolbox/AudioToolbox.h>
 
 /// Handles the ickyness of accessing AURenderEvents without reading off the end of the struct.
