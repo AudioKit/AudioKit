@@ -130,7 +130,7 @@ public:
                              workerIndex,
                              runQueues);
             } else {
-                printf("worker has no program!");
+                printf("worker has no program!\n");
             }
 
             intptr_t done_semaphore_int = dispatch_semaphore_signal(done);
