@@ -6,8 +6,6 @@ The major change with AudioKit 6 is wer eare using our own audio engine, `Engine
 
 Taps are now done with a `Tap` node inserted into your signal chain as opposed to installing taps anywhere.  Now instead of tapping nodes with different kinds of taps, you just run functions on the data supplied by a given tap node to do whatever kind of analysis you need.
 
-Deleted nodes: MatrixMixer
-
 ## AudioKit 5.4 to 5.5
 
 Some taps were changed to use async/await which bumped the minimum requirement operating system.
