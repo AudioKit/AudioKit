@@ -13,7 +13,7 @@
 /// different format then downstream. Downstream connections are determined by
 /// output node's channel count. But, for matrix mixer to be able to count input channels
 /// correctly, upstream connections need to preserve source number of channels.
-/// This can be done using `Node.outputFormat`.
+/// This can be done using `Node.auAudioUnit.outputBusses[index].format`.
 ///
 /// Additionally, you might need to set audio format channel layout.
 /// Even though it seems like `kAudioChannelLayoutTag_DiscreteInOrder` should be used, you will likely need `kAudioChannelLayoutTag_Unknown`
