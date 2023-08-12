@@ -4,7 +4,6 @@ import XCTest
 import AudioKit
 import AVFAudio
 
-@available(iOS 13.0, *)
 class MatrixMixerTests: XCTestCase {
     let engine = AudioEngine()
     let mixer = MatrixMixer([TestOscillator(waveform: Table([1])), TestOscillator(waveform: Table([2]))])
