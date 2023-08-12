@@ -1,7 +1,7 @@
 #pragma once
 
 #import <AVFoundation/AVFoundation.h>
-#import <CoreAudio/CoreAudio.h>
+#import <AVFAudio/AVFAudio.h>
 
 struct SynrchonizedAudioBufferList2 {
 

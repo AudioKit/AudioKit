@@ -10,6 +10,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 #include <AVFoundation/AVFoundation.h>
 #include <mach/mach_time.h>
+#include <mach/thread_act.h>
 #include "AudioProgram.h"
 #include "WorkStealingQueue.hpp"
 
