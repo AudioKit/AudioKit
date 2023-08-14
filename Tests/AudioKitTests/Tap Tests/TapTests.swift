@@ -4,50 +4,62 @@ import AudioKit
 import XCTest
 
 class TapTests: AKTestCase {
+    var engine: AudioEngine!
+    var framesReceived: XCTestExpectation!
 
-    func testTap() throws {
-
-        let framesReceived = XCTestExpectation(description: "received audio frames")
-        // let taskFinished = XCTestExpectation(description: "finished tap task")
-
-        let scope = {
-            let engine = AudioEngine()
-            let noise = Noise()
-            noise.amplitude = 0.1
-
-            let tap: Tap? = Tap(noise) { (l, r) in
-                print("left.count: \(l.count), right.count: \(r.count)")
-                print(detectAmplitudes([l, r]))
-                framesReceived.fulfill()
-            }
-
-            engine.output = noise
-
-            try engine.start()
-            self.wait(for: [framesReceived], timeout: 1.0)
-            engine.stop()
-            XCTAssertNotNil(tap) // just to keep the tap alive
-        }
-
-        try scope()
+    override func setUp() async throws {
+        engine = AudioEngine()
+        framesReceived = XCTestExpectation(description: "received audio frames")
     }
 
-    func testTapDynamic() throws {
-        let engine = AudioEngine()
-        let noise = Noise()
-        noise.amplitude = 0.1
+    override func tearDown() {
+        engine.stop()
+        engine = nil
+        super.tearDown()
+    }
 
-        let framesReceived = XCTestExpectation(description: "received audio frames")
-        engine.output = noise
+    func testCorrectDataPulled() throws {
+        let oscillator = TestOscillator(waveform: .init([1]))
+
+        let tap = Tap(oscillator) { (left, right) in
+            XCTAssertTrue(left.allSatisfy { $0 == 1 })
+            XCTAssertTrue(right.allSatisfy { $0 == 1 })
+            self.framesReceived.fulfill()
+        }
+
+        engine.output = oscillator
+
+        try engine.start()
+        self.wait(for: [framesReceived], timeout: 1.0)
+        XCTAssertNotNil(tap) // just to keep the tap alive
+    }
+
+
+    func testCorrectNumberOfFramesPulled() throws {
+        let oscillator = TestOscillator(waveform: .init([1]))
+
+        let tap = Tap(oscillator, bufferSize: 2048) { (left, right) in
+            XCTAssertEqual(left.count, 2048)
+            XCTAssertEqual(right.count, 2048)
+            self.framesReceived.fulfill()
+        }
+
+        engine.output = oscillator
+
+        try engine.start()
+        self.wait(for: [framesReceived], timeout: 1.0)
+        XCTAssertNotNil(tap) // just to keep the tap alive
+    }
+
+    func testAddingTapAfterStartingEngineTriggersCallback() throws {
+        let oscillator = TestOscillator(waveform: .init([1]))
+
+        engine.output = oscillator
 
         try engine.start()
 
-        // Add the tap after the engine is started. This should trigger
-        // a recompile and the tap callback should still be called
-        let tap: Tap? = Tap(noise) { l,r in
-            print("left.count: \(l.count), right.count: \(r.count)")
-            print(detectAmplitudes([l, r]))
-            framesReceived.fulfill()
+        let tap = Tap(oscillator) { _, _ in
+            self.framesReceived.fulfill()
         }
 
         wait(for: [framesReceived], timeout: 1.0)

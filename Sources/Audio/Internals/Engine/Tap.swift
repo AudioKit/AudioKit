@@ -15,7 +15,6 @@ public class Tap {
     var task: Task<Void, Error>? = nil
 
     public init(_ input: Node, bufferSize: Int = 1024, tapBlock: @escaping ([Float], [Float]) async -> Void) {
-
         let componentDescription = AudioComponentDescription(effect: "tap2")
 
         AUAudioUnit.registerSubclass(TapAudioUnit2.self,
@@ -23,7 +22,6 @@ public class Tap {
                                      name: "Tap AU2",
                                      version: .max)
         tapAU = instantiateAU(componentDescription: componentDescription) as! TapAudioUnit2
-        tapAU.bufferSize = bufferSize
 
         task = Task { [tapAU, weak input] in
 
@@ -32,7 +30,7 @@ public class Tap {
 
             while input != nil {
                 // Get some new data if we need more.
-                while left.count < tapAU.bufferSize {
+                while left.count < bufferSize {
                     guard !Task.isCancelled else {
                         print("Tap cancelled!")
                         return
@@ -47,6 +45,7 @@ public class Tap {
 
                         // Wait for the next set of samples
                         print("waiting for samples")
+                        // TODO: 0.1 might not be enough for higher engine buffer sizes
                         _ = tapAU.semaphore.wait(timeout: .now() + 0.1)
                         print("done waiting for samples")
 
@@ -64,11 +63,11 @@ public class Tap {
                     })
                 }
 
-                let leftPrefix = Array(left.prefix(tapAU.bufferSize))
-                let rightPrefix = Array(right.prefix(tapAU.bufferSize))
+                let leftPrefix = Array(left.prefix(bufferSize))
+                let rightPrefix = Array(right.prefix(bufferSize))
 
-                left = Array(left.dropFirst(tapAU.bufferSize))
-                right = Array(right.dropFirst(tapAU.bufferSize))
+                left = Array(left.dropFirst(bufferSize))
+                right = Array(right.dropFirst(bufferSize))
 
                 await tapBlock(leftPrefix, rightPrefix)
             }
@@ -100,8 +99,6 @@ class TapAudioUnit2: AUAudioUnit {
     let ringBuffer = RingBuffer<Float>(capacity: 4096)
 
     var semaphore = DispatchSemaphore(value: 0)
-    var run = true
-    var bufferSize = 1024
 
     override public var channelCapabilities: [NSNumber]? {
         return [inputChannelCount, outputChannelCount]
@@ -170,10 +167,17 @@ class TapAudioUnit2: AUAudioUnit {
             // We are assuming there is enough room in the ring buffer
             // for the all the samples. If not there's nothing we can do.
             _ = ringBuffer.push(interleaving: outBufL, and: outBufR)
+
+            // TODO: I think this is not realtime safe
             semaphore.signal()
 
             return noErr
         }
+    }
+
+    override func allocateRenderResources() throws {
+        try super.allocateRenderResources()
+        // TODO: Allocate ring buffers for multichannel audio
     }
 }
 
