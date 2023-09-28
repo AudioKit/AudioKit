@@ -69,7 +69,7 @@ public class Mixer: Node, NamedNode {
 
     /// Add input to the mixer
     /// - Parameter node: Node to add
-    public func addInput(_ node: Node) {
+    public func addInput(_ node: Node, strategy: ConnectStrategy = .complete) {
         guard !hasInput(node) else {
             Log("🛑 Error: Node is already connected to Mixer.")
             return
@@ -84,7 +84,12 @@ public class Mixer: Node, NamedNode {
             mixerAU.engine?.detach(mixerReset)
         }
 
-        makeAVConnections()
+        switch strategy {
+        case .complete:
+            makeAVConnections()
+        case .incremental:
+            makeAVConnections(for: [node])
+        }
     }
 
     /// Is this node already connected?

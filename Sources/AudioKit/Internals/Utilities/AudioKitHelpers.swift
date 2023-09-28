@@ -156,7 +156,7 @@ internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameter
 }
 
 extension AVAudioNode {
-    var inputCount: Int { numberOfInputs }
+    public var inputCount: Int { numberOfInputs }
 
     func inputConnections() -> [AVAudioConnectionPoint] {
         return (0 ..< inputCount).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }

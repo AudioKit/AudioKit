@@ -1,5 +1,5 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
-@testable import AudioKit
+import AudioKit
 import AVFoundation
 import XCTest
 
@@ -46,6 +46,7 @@ class NodeTests: XCTestCase {
         let mixer = Mixer()
         mixer.addInput(player)
         mixer.addInput(player)
+        mixer.addInput(player, strategy: .incremental)
         XCTAssertEqual(mixer.connections.count, 1)
     }
     
@@ -437,10 +438,10 @@ class NodeTests: XCTestCase {
         let nameString = "Customized Name"
         let sampler = MIDISampler(name: nameString)
         let compressor = Compressor(sampler)
-        let mixer = Mixer(compressor)
-        let mixerAddress = MemoryAddress(of: mixer).description
-        
-        XCTAssertEqual(mixer.connectionTreeDescription,
+		let mixer = Mixer(compressor)
+		let mixerAddress = MemoryAddress(of: mixer).description
+
+		XCTAssertEqual(mixer.connectionTreeDescription,
                        """
         \(connectionTreeLinePrefix)↳Mixer("\(mixerAddress)")
         \(connectionTreeLinePrefix) ↳Compressor
@@ -569,13 +570,13 @@ class NodeTests: XCTestCase {
         settings[AVSampleRateKey] = 48000
         Settings.audioFormat = AVAudioFormat(settings: settings)!
 
-        let mixer = Mixer(MIDISampler())
-        engine.output = mixer
-        try engine.start()
-        engine.pause()
+		let mixer = Mixer(MIDISampler())
+		engine.output = mixer
+		try engine.start()
+		engine.pause()
 
-        let sampler = MIDISampler()
-        mixer.addInput(sampler)
+		let sampler = MIDISampler()
+		mixer.addInput(sampler)
 
         XCTAssertEqual(sampler.avAudioNode.outputFormat(forBus: 0).sampleRate, 48000)
 

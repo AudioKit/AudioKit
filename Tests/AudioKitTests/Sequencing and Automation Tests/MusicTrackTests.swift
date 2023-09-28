@@ -319,6 +319,35 @@ class MusicTrackManagerTests: XCTestCase {
         XCTAssertTrue(originalLength > newTrack.length)
     }
 
+    func testSetMIDIOutput_willShowErrorWithInvalidPlayerState() {
+        let sequencer = AppleSequencer()
+        let endpoint = MIDIEndpointRef(1234567)
+        var trackEndpoint = MIDIEndpointRef()
+        guard let newTrack = sequencer.newTrack() else {
+            XCTFail("Sequencer track couldn't be created.")
+            return
+        }
+        guard let internalTrack = newTrack.internalMusicTrack else {
+            XCTFail("Internal music track not found.")
+            return
+        }
+
+        // Try playing the sequencer while setting the MIDI endpoint of its track
+        sequencer.play()
+        newTrack.setMIDIOutput(endpoint)
+        // This should fail...
+        MusicTrackGetDestMIDIEndpoint(internalTrack, &trackEndpoint)
+        XCTAssert(endpoint != trackEndpoint, "Endpoints were set correctly")
+
+        // Now stop the sequencer to make it work...
+        sequencer.stop()
+        newTrack.setMIDIOutput(endpoint)
+        // This should work now...
+        MusicTrackGetDestMIDIEndpoint(internalTrack, &trackEndpoint)
+        sequencer.play()
+        XCTAssert(endpoint == trackEndpoint, "Endpoints are not the same")
+    }
+
     // MARK: - helper functions for reuse
 
     fileprivate func addSysExMetaEventAndNotes() {

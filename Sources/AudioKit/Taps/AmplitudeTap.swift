@@ -44,13 +44,14 @@ public class AmplitudeTap: BaseTap {
                 bufferSize: UInt32 = 1_024,
                 stereoMode: StereoMode = .center,
                 analysisMode: AnalysisMode = .rms,
+                callbackQueue: DispatchQueue,
                 handler: @escaping (Float) -> Void = { _ in }) {
         self.handler = handler
         self.stereoMode = stereoMode
         self.analysisMode = analysisMode
         self.channelCount = Int(input.outputFormat.channelCount)
         self.amp = Array(repeating: 0, count: channelCount)
-        super.init(input, bufferSize: bufferSize)
+        super.init(input, bufferSize: bufferSize, callbackQueue: callbackQueue)
     }
 
     /// Override this method to handle Tap in derived class

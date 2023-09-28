@@ -130,7 +130,8 @@ extension Node {
         }
     }
 
-    func makeAVConnections() {
+    func makeAVConnections(for subset: [Node]? = nil) {
+        let connections = subset ?? connections
         if let node = self as? HasInternalConnections {
             node.makeInternalConnections()
         }
@@ -147,18 +148,25 @@ extension Node {
 
                 engine.attach(connection.avAudioNode)
 
-                // Mixers will decide which input bus to use.
-                if let mixer = avAudioNode as? AVAudioMixerNode {
-                    mixer.connectMixer(input: connection.avAudioNode, format: connection.outputFormat)
-                    if let akMixer = self as? Mixer {
-                        mixer.outputVolume = akMixer.volume
-                    }
-                } else {
-                    avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
-                }
+				// If avAudioNode is a Mixer, let Mixers will decide which input bus to use.
+				if let mixer = avAudioNode as? AVAudioMixerNode {
+					mixer.connectMixer(input: connection.avAudioNode, format: connection.outputFormat)
+					if let akMixer = self as? Mixer {
+						mixer.outputVolume = akMixer.volume
+					}
+				} else if let environmentNode = avAudioNode as? AVAudioEnvironmentNode,
+						  let mixer3D = connection as? Mixer3D,
+						  let avAudioMixerNode = mixer3D.avAudioNode as? AVAudioMixerNode {
+					// If avAudioNode isA AVAudioEnvironmentNode and a Mixer3D is connecting to it.
+					// Makes sure the Mixer3D -Connects> EnvironmentNode as Mono.  **THIS IS IMPORTANT!**
+					// This also ensure EnvironmentalNodes input connections are **only** Mixers3D, so you can adjust 3D Parameters
+					environmentNode.connectMixer3D(avAudioMixerNode, format: connection.outputFormat)
+				} else {
+					avAudioNode.connect(input: connection.avAudioNode, bus: bus, format: connection.outputFormat)
+				}
 
-                connection.makeAVConnections()
-            }
+				connection.makeAVConnections()
+			}
         }
     }
 

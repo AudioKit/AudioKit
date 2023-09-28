@@ -100,7 +100,7 @@ public class AudioEngine {
     }
 
     /// Empty initializer
-    public init() {}
+    public init() { }
 
     /// Output node
     public var output: Node? {
@@ -129,7 +129,7 @@ public class AudioEngine {
                 }
 
                 // create the on demand mixer if needed
-                createEngineMixer()
+				createEngineMixer()
                 mainMixerNode?.addInput(node)
                 mainMixerNode?.makeAVConnections()
             }
@@ -140,14 +140,17 @@ public class AudioEngine {
 
     // simulate the AVAudioEngine.mainMixerNode, but create it ourselves to ensure the
     // correct sample rate is used from Settings.audioFormat
-    private func createEngineMixer() {
-        guard mainMixerNode == nil else { return }
+	private func createEngineMixer() {
+		guard mainMixerNode == nil else { return }
 
-        let mixer = Mixer(name: "AudioKit Engine Mixer")
-        avEngine.attach(mixer.avAudioNode)
-        avEngine.connect(mixer.avAudioNode, to: avEngine.outputNode, format: Settings.audioFormat)
-        mainMixerNode = mixer
-    }
+		let mixer = Mixer(name: "AudioKit Engine Mixer")
+		avEngine.attach(mixer.avAudioNode)
+		avEngine.connect(mixer.avAudioNode,
+						 to: avEngine.outputNode,
+						 format: Settings.audioFormat)
+
+		mainMixerNode = mixer
+	}
 
     private func removeEngineMixer() {
         guard let mixer = mainMixerNode else { return }
