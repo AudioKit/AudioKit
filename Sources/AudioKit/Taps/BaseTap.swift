@@ -82,9 +82,7 @@ open class BaseTap {
             bufferSize: bufferSize,
             format: nil,
             block: { [weak self] buffer, time in
-                self?.callbackQueue.async {
-                    self?.handleBlock?(buffer, time)
-                }
+                self?.handleBlock?(buffer, time)
             }
         )
     }
@@ -108,15 +106,18 @@ open class BaseTap {
         }
 
         bufferWithCapacity.frameLength = bufferSize
-
-        // Create trackers as needed.
-        self.lock()
-        guard self.isStarted == true else {
+        
+        self.callbackQueue.async {
+            
+            // Create trackers as needed.
+            self.lock()
+            guard self.isStarted == true else {
+                self.unlock()
+                return
+            }
+            self.doHandleTapBlock(buffer: bufferWithCapacity, at: time)
             self.unlock()
-            return
         }
-        self.doHandleTapBlock(buffer: bufferWithCapacity, at: time)
-        self.unlock()
     }
 
     /// Override this method to handle Tap in derived class
