@@ -27,12 +27,12 @@ final class RawBufferTapTests: XCTestCase {
 
         XCTAssertGreaterThan(allBuffers.count, 0)
     }
-    
+
     func testRawBufferTapCount() throws {
         let duration = 1.5
         let bufferSize = 1024
         let rounding = 0.9
-        
+
         let engine = AudioEngine()
         let osc = PlaygroundOscillator()
         engine.output = osc
@@ -42,7 +42,7 @@ final class RawBufferTapTests: XCTestCase {
         let tap = RawBufferTap(osc, bufferSize: UInt32(bufferSize), callbackQueue: .main) { buffer, time in
             allBuffers.append((buffer, time))
         }
-        
+
         tap.start()
         osc.start()
         try engine.start()
