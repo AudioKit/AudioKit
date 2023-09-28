@@ -22,10 +22,12 @@ open class MIDISampler: AppleSampler, NamedNode {
     /// Initialize the MIDI Sampler
     ///
     /// - Parameter midiOutputName: Name of the instrument's MIDI output
+    /// - Parameter shouldEnableMIDI: Should automatically enable MIDI input for this sampler. Defaults to false
     ///
-    public init(name midiOutputName: String? = nil) {
+    public init(name midiOutputName: String? = nil, shouldEnableMIDI: Bool = true) {
         super.init()
         name = midiOutputName ?? MemoryAddress(of: self).description
+        guard shouldEnableMIDI else { return }
         enableMIDI(name: name)
         hideVirtualMIDIPort()
     }
