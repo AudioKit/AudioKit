@@ -58,8 +58,12 @@ extension AudioPlayer {
                                    at: audioTime,
                                    completionCallbackType: completionCallbackType) { _ in
             if self.isSeeking { return }
-            DispatchQueue.main.async {
+            if Thread.isMainThread {
                 self.internalCompletionHandler()
+            } else {
+                DispatchQueue.main.async {
+                    self.internalCompletionHandler()
+                }
             }
         }
 
@@ -92,8 +96,12 @@ extension AudioPlayer {
                                   options: bufferOptions,
                                   completionCallbackType: completionCallbackType) { _ in
             if self.isSeeking { return }
-            DispatchQueue.main.async {
+            if Thread.isMainThread {
                 self.internalCompletionHandler()
+            } else {
+                DispatchQueue.main.async {
+                    self.internalCompletionHandler()
+                }
             }
         }
 
