@@ -15,6 +15,9 @@ public class Mixer: Node, NamedNode {
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
 
+    /// Output format to be used when making connections from this node
+    public var outputFormat = Settings.audioFormat
+
     /// Name of the node
     open var name = "(unset)"
 
