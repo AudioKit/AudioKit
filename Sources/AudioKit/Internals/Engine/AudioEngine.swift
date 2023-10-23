@@ -68,7 +68,7 @@ public class AudioEngine {
 
     /// Main mixer at the end of the signal chain
     public private(set) var mainMixerNode: Mixer?
-    
+
     /// Output format to be used when making connections to the output
     public var outputFormat = Settings.audioFormat
 
