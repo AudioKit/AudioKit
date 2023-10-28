@@ -45,6 +45,18 @@ public extension AudioComponentDescription {
         self.init(effect: fourCC(subType))
     }
 
+    /// Initialize as a non-realtime effect with sub-type
+    /// - Parameter subType: OSType
+    init(nonRealTimeEffect subType: OSType) {
+        self.init(type: kAudioUnitType_FormatConverter, subType: subType)
+    }
+
+    /// Initialize as a non-realtime effect with sub-type string
+    /// - Parameter subType: Subtype string
+    init(nonRealTimeEffect subType: String) {
+        self.init(nonRealTimeEffect: fourCC(subType))
+    }
+
     /// Initialize as a mixer with a sub-type string
     /// - Parameter subType: Subtype string
     init(mixer subType: String) {
