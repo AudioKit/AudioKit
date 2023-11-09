@@ -70,7 +70,8 @@ public class AudioEngine {
     public private(set) var mainMixerNode: Mixer?
 
     /// Output format to be used when making connections to the output
-    public var outputFormat = Settings.audioFormat
+    public var outputAudioFormat: AVAudioFormat?
+    private var outputFormat: AVAudioFormat { outputAudioFormat ?? Settings.audioFormat }
 
     /// Input node mixer
     public class InputNode: Mixer {
