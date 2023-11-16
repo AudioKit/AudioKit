@@ -12,7 +12,7 @@ open class MusicTrackManager {
     /// A copy of the original track at init
     open var initMusicTrack: MusicTrack?
 
-    fileprivate var name: String = "Unnamed"
+    open var name: String = "Unnamed"
 
     /// Sequencer this music track is part of
     open var sequencer = AppleSequencer()
