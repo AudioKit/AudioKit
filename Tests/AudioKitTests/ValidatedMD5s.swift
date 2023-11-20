@@ -6,7 +6,7 @@ extension XCTestCase {
         let localMD5 = buffer.md5
         let name = description
         XCTAssertFalse(buffer.isSilent)
-        XCTAssert(validatedMD5s[name] == buffer.md5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
+        XCTAssert(validatedMD5s[name] == buffer.md5 || validatedM1MD5s[name] == buffer.md5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
     }
 }
 
@@ -75,4 +75,9 @@ let validatedMD5s: [String: String] = [
     "-[TableTests testReverseSawtooth]": "b3188781c2e696f065629e2a86ef57a6",
     "-[TableTests testSawtooth]": "6f37a4d0df529995d7ff783053ff18fe",
     "-[TableTests testTriangle]": "789c1e77803a4f9d10063eb60ca03cea",
+]
+
+let validatedM1MD5s: [String: String] = [
+    "-[CompressorTests testHeadRoom]": "db27f010ec481cd02ca73b8652c4f7c1",
+    "-[NodeTests testNodeConnection]": "6df5064dfb23635516cc418cbebb2e0d",
 ]
