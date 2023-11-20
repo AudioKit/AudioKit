@@ -176,7 +176,7 @@ public extension AVAudioPCMBuffer {
     /// - Returns: A new buffer from this one that has fades applied to it. Pass 0 for either parameter
     /// if you only want one of them. The ramp is exponential by default.
     func fade(inTime: Double, outTime: Double, linearRamp: Bool = false) -> AVAudioPCMBuffer? {
-        guard let _ = self.floatChannelData, inTime > 0 || outTime > 0 else {
+        guard self.floatChannelData != nil, inTime > 0 || outTime > 0 else {
             Log("Error fading buffer, returning original...")
             return self
         }
