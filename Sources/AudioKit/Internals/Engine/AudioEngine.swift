@@ -69,6 +69,10 @@ public class AudioEngine {
     /// Main mixer at the end of the signal chain
     public private(set) var mainMixerNode: Mixer?
 
+    /// Output format to be used when making connections to the output
+    public var outputAudioFormat: AVAudioFormat?
+    private var outputFormat: AVAudioFormat { outputAudioFormat ?? Settings.audioFormat }
+
     /// Input node mixer
     public class InputNode: Mixer {
         var isNotConnected = true
@@ -122,7 +126,8 @@ public class AudioEngine {
 
                 // has the sample rate changed?
                 if let currentSampleRate = mainMixerNode?.avAudioNode.outputFormat(forBus: 0).sampleRate,
-                   currentSampleRate != Settings.sampleRate
+                   let currentChannelCount = mainMixerNode?.avAudioNode.outputFormat(forBus: 0).channelCount,
+                   (currentSampleRate != outputFormat.sampleRate || currentChannelCount != outputFormat.channelCount)
                 {
                     Log("Sample Rate has changed, creating new mainMixerNode at", Settings.sampleRate)
                     removeEngineMixer()
@@ -139,15 +144,16 @@ public class AudioEngine {
     }
 
     // simulate the AVAudioEngine.mainMixerNode, but create it ourselves to ensure the
-    // correct sample rate is used from Settings.audioFormat
+    // correct sample rate is used from outputFormat (default: Settings.audioFormat)
 	private func createEngineMixer() {
 		guard mainMixerNode == nil else { return }
 
 		let mixer = Mixer(name: "AudioKit Engine Mixer")
+        mixer.outputFormat = outputFormat
 		avEngine.attach(mixer.avAudioNode)
 		avEngine.connect(mixer.avAudioNode,
 						 to: avEngine.outputNode,
-						 format: Settings.audioFormat)
+						 format: outputFormat)
 
 		mainMixerNode = mixer
 	}
@@ -201,7 +207,7 @@ public class AudioEngine {
         do {
             avEngine.reset()
             try avEngine.enableManualRenderingMode(.offline,
-                                                   format: Settings.audioFormat,
+                                                   format: outputFormat,
                                                    maximumFrameCount: maximumFrameCount)
             try start()
         } catch let err {
