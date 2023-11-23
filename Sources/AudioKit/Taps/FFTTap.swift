@@ -28,7 +28,7 @@ open class FFTTap: BaseTap {
     public init(_ input: Node,
                 bufferSize: UInt32 = 4096,
                 fftValidBinCount: FFTValidBinCount? = nil,
-                callbackQueue: DispatchQueue,
+                callbackQueue: DispatchQueue = .main,
                 handler: @escaping Handler) {
         self.handler = handler
         if let fftBinCount = fftValidBinCount {

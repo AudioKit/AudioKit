@@ -15,7 +15,7 @@ open class RawBufferTap: BaseTap {
     ///   - input: Node to analyze
     ///   - bufferSize: Size of buffer
     ///   - handler: Callback to call on each pcm buffer received
-    public init(_ input: Node, bufferSize: UInt32 = 4096, callbackQueue: DispatchQueue, handler: @escaping Handler) {
+    public init(_ input: Node, bufferSize: UInt32 = 4096, callbackQueue: DispatchQueue = .main, handler: @escaping Handler) {
         self.handler = handler
         super.init(input, bufferSize: bufferSize, callbackQueue: callbackQueue)
     }
