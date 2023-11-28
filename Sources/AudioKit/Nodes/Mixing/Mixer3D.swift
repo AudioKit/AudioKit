@@ -19,14 +19,14 @@ public class Mixer3D: Mixer {
 
 	fileprivate let mixerAU = AVAudioMixerNode()
 
-	public var outputFormat: AVAudioFormat {
-		guard let monoFormat = AVAudioFormat(
+	override init(volume: AUValue = 1.0, name: String? = nil) {
+        super.init(volume: volume, name: name)
+
+		outputFormat = AVAudioFormat(
 			standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
-			channels: 1) else {
-			return Settings.audioFormat
-		}
-		return monoFormat
-	}
+			channels: 1
+		) ?? Settings.audioFormat
+    }
 
 	// MARK: - 3D Mixing Properties
 
