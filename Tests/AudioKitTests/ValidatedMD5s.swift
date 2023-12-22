@@ -74,5 +74,5 @@ let validatedMD5s: [String: [String]] = [
     "-[SequencerTrackTests testTempo]": ["1eb7efc6ea54eafbe616dfa8e1a3ef36"],
     "-[TableTests testReverseSawtooth]": ["b3188781c2e696f065629e2a86ef57a6"],
     "-[TableTests testSawtooth]": ["6f37a4d0df529995d7ff783053ff18fe"],
-    "-[TableTests testTriangle]": ["789c1e77803a4f9d10063eb60ca03cea"],
+    "-[TableTests testTriangle]": ["789c1e77803a4f9d10063eb60ca03cea"]
 ]
