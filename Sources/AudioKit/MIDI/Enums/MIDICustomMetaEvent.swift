@@ -125,7 +125,7 @@ public struct MIDICustomMetaEvent: MIDIMessage {
             let type = MIDICustomMetaEventType(rawValue: data[1]),
             let vlqLength = MIDIVariableLengthQuantity(fromBytes: Array(data.suffix(from: 2))) {
             self.length = Int(vlqLength.quantity)
-            self.data = Array(data.prefix(2 + vlqLength.length + length)) //drop excess data
+            self.data = Array(data.prefix(2 + vlqLength.length + length)) // drop excess data
             self.type = type
         } else {
             return nil
