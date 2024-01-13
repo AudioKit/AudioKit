@@ -220,78 +220,95 @@ extension FormatConverter {
         let writerInput = AVAssetWriterInput(mediaType: .audio, outputSettings: outputSettings, sourceFormatHint: hint)
         writer.add(writerInput)
 
-        guard let track = asset.tracks(withMediaType: .audio).first else {
-            completionProxy(error: Self.createError(message: "No audio was found in the input file."),
-                            completionHandler: completionHandler)
-            return
-        }
-
-        let readerOutput = AVAssetReaderTrackOutput(track: track, outputSettings: nil)
-        guard reader.canAdd(readerOutput) else {
-            completionProxy(error: Self.createError(message: "Unable to add reader output."),
-                            completionHandler: completionHandler)
-            return
-        }
-        reader.add(readerOutput)
-
-        if !writer.startWriting() {
-            Log("Failed to start writing. Error:", writer.error?.localizedDescription)
-            completionProxy(error: writer.error,
-                            completionHandler: completionHandler)
-            return
-        }
-
-        writer.startSession(atSourceTime: CMTime.zero)
-
-        if !reader.startReading() {
-            Log("Failed to start reading. Error:", reader.error?.localizedDescription)
-            completionProxy(error: reader.error,
-                            completionHandler: completionHandler)
-            return
-        }
-
-        let queue = DispatchQueue(label: "com.audiodesigndesk.ADD.FormatConverter.convertAsset")
-
-        // session.progress could be sent out via a delegate for this session
-        writerInput.requestMediaDataWhenReady(on: queue, using: {
-            var processing = true // safety flag to prevent runaway loops if errors
-
-            while writerInput.isReadyForMoreMediaData, processing {
-                if reader.status == .reading,
-                   let buffer = readerOutput.copyNextSampleBuffer()
-                {
-                    writerInput.append(buffer)
-
-                } else {
-                    writerInput.markAsFinished()
-
-                    switch reader.status {
-                    case .failed:
-                        Log("Conversion failed with error", reader.error)
-                        writer.cancelWriting()
-                        self.completionProxy(error: reader.error, completionHandler: completionHandler)
-                    case .cancelled:
-                        Log("Conversion cancelled")
-                        self.completionProxy(error: Self.createError(message: "Process canceled"),
-                                             completionHandler: completionHandler)
-                    case .completed:
-                        writer.finishWriting {
-                            switch writer.status {
-                            case .failed:
-                                Log("Conversion failed at finishWriting")
-                                self.completionProxy(error: writer.error,
-                                                     completionHandler: completionHandler)
-                            default:
-                                // no errors
-                                completionHandler?(nil)
-                            }
-                        }
-                    default:
-                        break
-                    }
-                    processing = false
-                }
+        func tracksCompletion(tracks: [AVAssetTrack]?, error: Error?) {
+            if let error {
+                self.completionProxy(error: error, completionHandler: completionHandler)
+                return
             }
-        }) // requestMediaDataWhenReady
+
+            guard let track = tracks?.first else {
+                self.completionProxy(error: Self.createError(message: "No audio was found in the input file."),
+                                completionHandler: completionHandler)
+                return
+            }
+
+            let readerOutput = AVAssetReaderTrackOutput(track: track, outputSettings: nil)
+            guard reader.canAdd(readerOutput) else {
+                self.completionProxy(error: Self.createError(message: "Unable to add reader output."),
+                                completionHandler: completionHandler)
+                return
+            }
+            reader.add(readerOutput)
+
+            if !writer.startWriting() {
+                Log("Failed to start writing. Error:", writer.error?.localizedDescription)
+                self.completionProxy(error: writer.error,
+                                completionHandler: completionHandler)
+                return
+            }
+
+            writer.startSession(atSourceTime: CMTime.zero)
+
+            if !reader.startReading() {
+                Log("Failed to start reading. Error:", reader.error?.localizedDescription)
+                self.completionProxy(error: reader.error,
+                                completionHandler: completionHandler)
+                return
+            }
+
+            let queue = DispatchQueue(label: "com.audiodesigndesk.ADD.FormatConverter.convertAsset")
+
+            // session.progress could be sent out via a delegate for this session
+            writerInput.requestMediaDataWhenReady(on: queue, using: {
+                var processing = true // safety flag to prevent runaway loops if errors
+
+                while writerInput.isReadyForMoreMediaData, processing {
+                    if reader.status == .reading,
+                       let buffer = readerOutput.copyNextSampleBuffer()
+                    {
+                        writerInput.append(buffer)
+
+                    } else {
+                        writerInput.markAsFinished()
+
+                        switch reader.status {
+                        case .failed:
+                            Log("Conversion failed with error", reader.error)
+                            writer.cancelWriting()
+                            self.completionProxy(error: reader.error, completionHandler: completionHandler)
+                        case .cancelled:
+                            Log("Conversion cancelled")
+                            self.completionProxy(error: Self.createError(message: "Process canceled"),
+                                                 completionHandler: completionHandler)
+                        case .completed:
+                            writer.finishWriting {
+                                switch writer.status {
+                                case .failed:
+                                    Log("Conversion failed at finishWriting")
+                                    self.completionProxy(error: writer.error,
+                                                         completionHandler: completionHandler)
+                                default:
+                                    // no errors
+                                    completionHandler?(nil)
+                                }
+                            }
+                        default:
+                            break
+                        }
+                        processing = false
+                    }
+                }
+            }) // requestMediaDataWhenReady
+        }
+
+#if os(visionOS)
+        asset.loadTracks(withMediaType: .audio) { tracks, error in
+            tracksCompletion(tracks: tracks, error: error)
+        }
+#else
+        let tracks = asset.tracks(withMediaType: .audio)
+        tracksCompletion(tracks: tracks, error: nil)
+#endif
+
     }
 }
