@@ -111,8 +111,9 @@ public extension AudioPlayer {
             self.internalCompletionHandler()
         }
 
-        playerNode.play()
-        status = .playing
+        if status == .playing {
+            playerNode.play()
+        }
         isSeeking = false
         timeBeforePlay = editStartTime - startTime
     }
