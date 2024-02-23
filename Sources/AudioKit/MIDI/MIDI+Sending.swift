@@ -356,7 +356,8 @@ extension MIDI {
                             time: MIDITimeStamp = mach_absolute_time(),
                             endpointsUIDs: [MIDIUniqueID]? = nil,
                             virtualOutputPorts: [MIDIPortRef]? = nil) {
-        let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(capacity: 1)
+        let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.allocate(
+            capacity: data.count)
 
         var packet: UnsafeMutablePointer<MIDIPacket> = MIDIPacketListInit(packetListPointer)
         packet = MIDIPacketListAdd(packetListPointer, 1_024, packet, time, data.count, data)
