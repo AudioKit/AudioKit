@@ -121,6 +121,13 @@ class UMPParsingTests: XCTestCase {
                                                           portID: sender.uniqueID)])
     }
 
+    // Test for heap overflow encountered in https://github.com/AudioKit/AudioKit/issues/2890
+    // will timeout if heap overflow is encountered
+    func testHeapAllocation() {
+        let overflowingMessage: [UInt8] = Array(repeating: 0x01, count: 260)
+        midi.sendMessage(overflowingMessage)
+    }
+
     func testSimultaneousStreams() throws {
         throw XCTSkip("skip test for now: sysex joining is not thread safe")
 
