@@ -63,7 +63,7 @@ open class NodeRecorder: NSObject {
 
     private var recordedFileURL: URL?
 
-    private static var recordedFiles = [URL]()
+    public static var recordedFiles = [URL]()
 
     /// Callback type
     public typealias AudioDataCallback = ([Float], AVAudioTime) -> Void
