@@ -81,7 +81,7 @@ open class MusicTrackManager {
     ///
     /// if the track already contains a track name meta event, that name is used instead of the name parameter.
     ///
-    /// A track name meta event is only added, if it doesn't  yet exist and the name parameter is not an empty string.
+    /// A track name meta event is only added, if it doesn't yet exist and the name parameter is not an empty string.
     ///
     /// - parameter musicTrack: An Apple Music Track
     /// - parameter name: Name for the track
