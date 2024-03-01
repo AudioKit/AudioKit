@@ -92,8 +92,7 @@ open class MusicTrackManager {
         if name == "" {
             // Use track name from meta event (or empty name if no meta event found)
             self.name = tryReadTrackNameFromMetaEvent() ?? ""
-        }
-        else {
+        } else {
             // Clear track name meta event if exists
             clearMetaEvent(3)
             // Add meta event with new track name
@@ -110,7 +109,7 @@ open class MusicTrackManager {
     ///
     func tryReadTrackNameFromMetaEvent() -> String? {
         var trackName: String?
-        
+
         eventData?.forEach({ event in
             if event.type == kMusicEventType_Meta {
                 let metaEventPointer = UnsafeMIDIMetaEventPointer(event.data)
@@ -382,7 +381,7 @@ open class MusicTrackManager {
         }
         DisposeMusicEventIterator(iterator)
     }
-    
+
     /// Clear a specific meta event
     public func clearMetaEvent(_ metaEventType: MIDIByte) {
         guard let track = internalMusicTrack else {
@@ -623,7 +622,7 @@ open class MusicTrackManager {
             Log("Unable to insert raw midi data")
         }
     }
-    
+
     /// Add MetaEvent to sequence
     ///
     /// - Parameters:
