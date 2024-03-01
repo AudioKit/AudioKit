@@ -96,7 +96,7 @@ open class MusicTrackManager {
         if existingTrackName == nil && name != "" {
             // Add a meta event with track name from parameter
             let data = [MIDIByte](name.utf8)
-            addMetaEvent(metaEventType: 3, data: data, position: Duration(beats: 0))
+            addMetaEvent(metaEventType: 3, data: data)
         }
 
         initSequence()
@@ -586,7 +586,9 @@ open class MusicTrackManager {
     ///   - data: The MIDI data byte array - standard bytes containing the length of the data are added automatically
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///
-    public func addMetaEvent(metaEventType: MIDIByte, data: [MIDIByte], position: Duration) {
+    public func addMetaEvent(metaEventType: MIDIByte,
+                             data: [MIDIByte],
+                             position: Duration = Duration(beats: 0)) {
         guard let track = internalMusicTrack else {
             Log("internalMusicTrack does not exist")
             return
@@ -594,7 +596,7 @@ open class MusicTrackManager {
         let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: metaEventType, data: data)
         defer { metaEventPtr.deallocate() }
 
-        let result = MusicTrackNewMetaEvent(track, MusicTimeStamp(0), metaEventPtr)
+        let result = MusicTrackNewMetaEvent(track, position.musicTimeStamp, metaEventPtr)
         if result != 0 {
             Log("Unable to write meta event")
         }
