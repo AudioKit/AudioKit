@@ -79,22 +79,24 @@ open class MusicTrackManager {
 
     /// Initialize with a music track
     ///
-    /// if the track already contains a track name meta event, that name is used instead of the name parameter.
-    ///
-    /// A track name meta event is only added, if it doesn't yet exist and the name parameter is not an empty string.
-    ///
     /// - parameter musicTrack: An Apple Music Track
     /// - parameter name: Name for the track
+    ///   - if name is an empty string, the name is read from track name meta event.
+    ///   - if name is not empty, that name is used and a track name meta event is added or replaced.
     ///
     public init(musicTrack: MusicTrack, name: String = "Unnamed") {
+        self.name = name
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer(musicTrack)
 
-        let existingTrackName = tryReadTrackNameFromMetaEvent()
-        self.name = existingTrackName ?? name
-
-        if existingTrackName == nil && name != "" {
-            // Add a meta event with track name from parameter
+        if name == "" {
+            // Use track name from meta event (or empty name if no meta event found)
+            self.name = tryReadTrackNameFromMetaEvent() ?? ""
+        }
+        else {
+            // Clear track name meta event if exists
+            clearMetaEvent(3)
+            // Add meta event with new track name
             let data = [MIDIByte](name.utf8)
             addMetaEvent(metaEventType: 3, data: data)
         }
@@ -369,6 +371,48 @@ open class MusicTrackManager {
             if eventType == kMusicEventType_MIDINoteMessage {
                 if let convertedData = eventData?.load(as: MIDINoteMessage.self) {
                     if convertedData.note == MIDIByte(note) {
+                        MusicEventIteratorDeleteEvent(iterator)
+                        isReadyForNextEvent = false
+                    }
+                }
+            }
+
+            if isReadyForNextEvent { MusicEventIteratorNextEvent(iterator) }
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
+        DisposeMusicEventIterator(iterator)
+    }
+    
+    /// Clear a specific meta event
+    public func clearMetaEvent(_ metaEventType: MIDIByte) {
+        guard let track = internalMusicTrack else {
+            Log("internalMusicTrack does not exist")
+            return
+        }
+        var tempIterator: MusicEventIterator?
+        NewMusicEventIterator(track, &tempIterator)
+        guard let iterator = tempIterator else {
+            Log("Unable to create iterator in clearNote")
+            return
+        }
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafeRawPointer?
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        var isReadyForNextEvent: Bool
+
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        while hasNextEvent.boolValue {
+            isReadyForNextEvent = true
+            MusicEventIteratorGetEventInfo(iterator,
+                                           &eventTime,
+                                           &eventType,
+                                           &eventData,
+                                           &eventDataSize)
+            if eventType == kMusicEventType_Meta {
+                if let convertedData = eventData?.load(as: MIDIMetaEvent.self) {
+                    if convertedData.metaEventType == metaEventType {
                         MusicEventIteratorDeleteEvent(iterator)
                         isReadyForNextEvent = false
                     }
