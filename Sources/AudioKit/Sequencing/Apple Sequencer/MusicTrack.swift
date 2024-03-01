@@ -79,25 +79,46 @@ open class MusicTrackManager {
 
     /// Initialize with a music track
     ///
+    /// if the track already contains a track name meta event, that name is used instead of the name parameter.
+    ///
+    /// A track name meta event is only added, if it doesn't  yet exist and the name parameter is not an empty string.
+    ///
     /// - parameter musicTrack: An Apple Music Track
     /// - parameter name: Name for the track
     ///
     public init(musicTrack: MusicTrack, name: String = "Unnamed") {
-        self.name = name
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer(musicTrack)
 
-        let data = [MIDIByte](name.utf8)
+        let existingTrackName = tryReadTrackNameFromMetaEvent()
+        self.name = existingTrackName ?? name
 
-        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 3, data: data)
-        defer { metaEventPtr.deallocate() }
-
-        let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), metaEventPtr)
-        if result != 0 {
-            Log("Unable to name Track")
+        if existingTrackName == nil && name != "" {
+            // Add a meta event with track name from parameter
+            let data = [MIDIByte](name.utf8)
+            addMetaEvent(metaEventType: 3, data: data, position: Duration(beats: 0))
         }
 
         initSequence()
+    }
+
+    /// Try to read existing track name from meta event
+    ///
+    /// - returns: the found track name or nil
+    ///
+    func tryReadTrackNameFromMetaEvent() -> String? {
+        var trackName: String?
+        
+        eventData?.forEach({ event in
+            if event.type == kMusicEventType_Meta {
+                let metaEventPointer = UnsafeMIDIMetaEventPointer(event.data)
+                let metaEvent = metaEventPointer!.event.pointee
+                if metaEvent.metaEventType == 0x03 {
+                    trackName = String(decoding: metaEventPointer!.payload, as: UTF8.self)
+                }
+            }
+        })
+        return trackName
     }
 
     /// Initialize with a music track and the NoteEventSequence
@@ -556,6 +577,26 @@ open class MusicTrackManager {
         let result = MusicTrackNewMIDIRawDataEvent(track, position.musicTimeStamp, &midiData)
         if result != 0 {
             Log("Unable to insert raw midi data")
+        }
+    }
+    
+    /// Add MetaEvent to sequence
+    ///
+    /// - Parameters:
+    ///   - data: The MIDI data byte array - standard bytes containing the length of the data are added automatically
+    ///   - position: Where in the sequence to start the note (expressed in beats)
+    ///
+    public func addMetaEvent(metaEventType: MIDIByte, data: [MIDIByte], position: Duration) {
+        guard let track = internalMusicTrack else {
+            Log("internalMusicTrack does not exist")
+            return
+        }
+        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: metaEventType, data: data)
+        defer { metaEventPtr.deallocate() }
+
+        let result = MusicTrackNewMetaEvent(track, MusicTimeStamp(0), metaEventPtr)
+        if result != 0 {
+            Log("Unable to write meta event")
         }
     }
 
