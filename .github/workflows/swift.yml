@@ -15,7 +15,8 @@ jobs:
 
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
     - name: Build
       run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" 
     - name: Run tests
