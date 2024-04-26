@@ -668,7 +668,7 @@ open class AppleSequencer: NSObject {
                 MusicSequenceGetIndTrack(existingSequence, UInt32(i), &musicTrack)
             }
             if let existingMusicTrack = musicTrack {
-                tracks.append(MusicTrackManager(musicTrack: existingMusicTrack, name: "InitializedTrack"))
+                tracks.append(MusicTrackManager(musicTrack: existingMusicTrack, name: ""))
             }
         }
 
