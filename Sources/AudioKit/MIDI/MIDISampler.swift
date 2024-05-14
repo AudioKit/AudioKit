@@ -43,12 +43,16 @@ open class MIDISampler: AppleSampler, NamedNode {
             fatalError("Expected AU to respond to MIDI.")
         }
         CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
-            for e in packetList.pointee {
-                for event in e {
-                    event.data.withUnsafeBufferPointer { ptr in
-                        guard let ptr = ptr.baseAddress else { return }
-                        midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
+            withUnsafePointer(to: packetList.pointee.packet) { packetPtr in
+                var p = packetPtr
+                for _ in 1...packetList.pointee.numPackets {
+                    for event in p.pointee {
+                        event.data.withUnsafeBufferPointer { ptr in
+                            guard let ptr = ptr.baseAddress else { return }
+                            midiBlock(AUEventSampleTimeImmediate, 0, event.data.count, ptr)
+                        }
                     }
+                    p = UnsafePointer<MIDIPacket>(MIDIPacketNext(p))
                 }
             }
         })

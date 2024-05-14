@@ -81,23 +81,45 @@ open class MusicTrackManager {
     ///
     /// - parameter musicTrack: An Apple Music Track
     /// - parameter name: Name for the track
+    ///   - if name is an empty string, the name is read from track name meta event.
+    ///   - if name is not empty, that name is used and a track name meta event is added or replaced.
     ///
     public init(musicTrack: MusicTrack, name: String = "Unnamed") {
         self.name = name
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer(musicTrack)
 
-        let data = [MIDIByte](name.utf8)
-
-        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: 3, data: data)
-        defer { metaEventPtr.deallocate() }
-
-        let result = MusicTrackNewMetaEvent(musicTrack, MusicTimeStamp(0), metaEventPtr)
-        if result != 0 {
-            Log("Unable to name Track")
+        if name == "" {
+            // Use track name from meta event (or empty name if no meta event found)
+            self.name = tryReadTrackNameFromMetaEvent() ?? ""
+        } else {
+            // Clear track name meta event if exists
+            clearMetaEvent(3)
+            // Add meta event with new track name
+            let data = [MIDIByte](name.utf8)
+            addMetaEvent(metaEventType: 3, data: data)
         }
 
         initSequence()
+    }
+
+    /// Try to read existing track name from meta event
+    ///
+    /// - returns: the found track name or nil
+    ///
+    func tryReadTrackNameFromMetaEvent() -> String? {
+        var trackName: String?
+
+        eventData?.forEach({ event in
+            if event.type == kMusicEventType_Meta {
+                let metaEventPointer = UnsafeMIDIMetaEventPointer(event.data)
+                let metaEvent = metaEventPointer!.event.pointee
+                if metaEvent.metaEventType == 0x03 {
+                    trackName = String(decoding: metaEventPointer!.payload, as: UTF8.self)
+                }
+            }
+        })
+        return trackName
     }
 
     /// Initialize with a music track and the NoteEventSequence
@@ -360,6 +382,48 @@ open class MusicTrackManager {
         DisposeMusicEventIterator(iterator)
     }
 
+    /// Clear a specific meta event
+    public func clearMetaEvent(_ metaEventType: MIDIByte) {
+        guard let track = internalMusicTrack else {
+            Log("internalMusicTrack does not exist")
+            return
+        }
+        var tempIterator: MusicEventIterator?
+        NewMusicEventIterator(track, &tempIterator)
+        guard let iterator = tempIterator else {
+            Log("Unable to create iterator in clearNote")
+            return
+        }
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafeRawPointer?
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        var isReadyForNextEvent: Bool
+
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        while hasNextEvent.boolValue {
+            isReadyForNextEvent = true
+            MusicEventIteratorGetEventInfo(iterator,
+                                           &eventTime,
+                                           &eventType,
+                                           &eventData,
+                                           &eventDataSize)
+            if eventType == kMusicEventType_Meta {
+                if let convertedData = eventData?.load(as: MIDIMetaEvent.self) {
+                    if convertedData.metaEventType == metaEventType {
+                        MusicEventIteratorDeleteEvent(iterator)
+                        isReadyForNextEvent = false
+                    }
+                }
+            }
+
+            if isReadyForNextEvent { MusicEventIteratorNextEvent(iterator) }
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
+        DisposeMusicEventIterator(iterator)
+    }
+
     /// Determine if the sequence is empty
     open var isEmpty: Bool {
         guard let track = internalMusicTrack else {
@@ -556,6 +620,28 @@ open class MusicTrackManager {
         let result = MusicTrackNewMIDIRawDataEvent(track, position.musicTimeStamp, &midiData)
         if result != 0 {
             Log("Unable to insert raw midi data")
+        }
+    }
+
+    /// Add MetaEvent to sequence
+    ///
+    /// - Parameters:
+    ///   - data: The MIDI data byte array - standard bytes containing the length of the data are added automatically
+    ///   - position: Where in the sequence to start the note (expressed in beats)
+    ///
+    public func addMetaEvent(metaEventType: MIDIByte,
+                             data: [MIDIByte],
+                             position: Duration = Duration(beats: 0)) {
+        guard let track = internalMusicTrack else {
+            Log("internalMusicTrack does not exist")
+            return
+        }
+        let metaEventPtr = MIDIMetaEvent.allocate(metaEventType: metaEventType, data: data)
+        defer { metaEventPtr.deallocate() }
+
+        let result = MusicTrackNewMetaEvent(track, position.musicTimeStamp, metaEventPtr)
+        if result != 0 {
+            Log("Unable to write meta event")
         }
     }
 
