@@ -94,7 +94,8 @@ public class AudioPlayer: Node {
 
     /// Completion handler to be called when file or buffer is done playing.
     /// This also will be called when looping from disk,
-    /// but no completion is called when looping seamlessly when buffered
+    /// but no completion is called when looping seamlessly when buffered.
+    /// This runs on an asyncronous thread and requires thread-safety practice. See: https://web.mit.edu/6.031/www/fa17/classes/20-thread-safety/.
     public var completionHandler: AVAudioNodeCompletionHandler?
 
     /// The file to use with the player. This can be set while the player is playing.
