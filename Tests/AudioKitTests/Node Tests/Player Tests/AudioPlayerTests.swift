@@ -543,7 +543,9 @@ class AudioPlayerTests: XCTestCase {
             player.play()
         }
         try? player.load(url: counting)
+        let audio = engine.startTest(totalDuration: 9.0)
         player.play()
-        XCTAssert(player.status != .stopped) // Player should be playing
+        audio.append(engine.render(duration: 9.0))
+        testMD5(audio)
     }
 }
