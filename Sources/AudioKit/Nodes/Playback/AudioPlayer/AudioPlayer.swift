@@ -197,18 +197,7 @@ public class AudioPlayer: Node {
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
-        guard status == .playing,
-              !isSeeking,
-              engine?.isInManualRenderingMode == false else { return }
-
         completionHandler?()
-
-        if isLooping, !isBuffered {
-            status = .stopped
-            play()
-        } else {
-            status = .stopped
-        }
     }
 
     // MARK: - Init
