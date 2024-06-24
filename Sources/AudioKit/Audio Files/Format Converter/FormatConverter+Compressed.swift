@@ -18,7 +18,7 @@ extension FormatConverter {
     ///
     /// This is no longer used in this class as it's not possible to convert sample rate or other
     /// required options. It will use the next function instead
-    func convertCompressed(presetName: String, completionHandler: FormatConverterCallback? = nil) {
+    func convertCompressed(presetName: String, completionHandler: FormatConverterCallback? = nil) async {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
@@ -30,21 +30,34 @@ extension FormatConverter {
 
         let asset = AVURLAsset(url: inputURL)
         guard let session = AVAssetExportSession(asset: asset,
-                                                 presetName: presetName) else { return }
+                                                presetName: presetName) else { return }
 
         session.determineCompatibleFileTypes { list in
+            Task.init {
+                guard let outputFileType: AVFileType = list.first else {
+                    let error = Self.createError(message: "Unable to determine a compatible file type from \(inputURL.path)")
+                    completionHandler?(error)
+                    return
+                }
 
-            guard let outputFileType: AVFileType = list.first else {
-                let error = Self.createError(message: "Unable to determine a compatible file type from \(inputURL.path)")
-                completionHandler?(error)
-                return
-            }
-
-            // session.progress could be sent out via a delegate for this session
-            session.outputURL = outputURL
-            session.outputFileType = outputFileType
-            session.exportAsynchronously {
-                completionHandler?(session.error)
+                // session.progress could be sent out via a delegate for this session
+                if #available(iOS 18, macOS 15, tvOS 15, visionOS 2, *) {
+                    do {
+                        try await session.export(to: outputURL, as: outputFileType)
+                        completionHandler?(nil)
+                    } catch {
+                        completionHandler?(error)
+                    }
+                } else {
+                    // Fallback on earlier versions
+                    #if !os(visionOS)
+                    session.outputURL = outputURL
+                    session.outputFileType = outputFileType
+                    session.exportAsynchronously {
+                        completionHandler?(session.error)
+                    }
+                    #endif
+                }
             }
         }
     }
