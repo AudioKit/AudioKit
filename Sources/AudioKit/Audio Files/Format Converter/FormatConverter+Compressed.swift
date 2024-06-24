@@ -35,7 +35,8 @@ extension FormatConverter {
         session.determineCompatibleFileTypes { list in
             Task.init {
                 guard let outputFileType: AVFileType = list.first else {
-                    let error = Self.createError(message: "Unable to determine a compatible file type from \(inputURL.path)")
+                    let errorMessage = "Unable to determine a compatible file type from \(inputURL.path)"
+                    let error = Self.createError(message: errorMessage)
                     completionHandler?(error)
                     return
                 }
