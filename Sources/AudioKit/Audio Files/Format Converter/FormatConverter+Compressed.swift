@@ -50,6 +50,19 @@ extension FormatConverter {
         }
     }
 
+    /// Example of the most simplistic AVFoundation conversion.
+    /// With this approach you can't really specify any settings other than the limited presets.
+    /// No sample rate conversion in this. This isn't used in the public methods but is here
+    /// for example.
+    ///
+    /// see `AVAssetExportSession`:
+    /// *Prior to initializing an instance of AVAssetExportSession, you can invoke
+    /// +allExportPresets to obtain the complete list of presets available. Use
+    /// +exportPresetsCompatibleWithAsset: to obtain a list of presets that are compatible
+    /// with a specific AVAsset.*
+    ///
+    /// This is no longer used in this class as it's not possible to convert sample rate or other
+    /// required options. It will use the next function instead
     @available(macOS 15, iOS 18, tvOS 18, visionOS 2.0, *)
     func convertCompressed(presetName: String) async throws {
         guard let inputURL = inputURL else {
