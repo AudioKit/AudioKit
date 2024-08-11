@@ -18,6 +18,7 @@ extension FormatConverter {
     ///
     /// This is no longer used in this class as it's not possible to convert sample rate or other
     /// required options. It will use the next function instead
+    @available(visionOS, unavailable, message: "This method is not supported on visionOS")
     func convertCompressed(presetName: String, completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
@@ -47,6 +48,29 @@ extension FormatConverter {
                 completionHandler?(session.error)
             }
         }
+    }
+
+    @available(macOS 15, iOS 18, tvOS 18, visionOS 2.0, *)
+    func convertCompressed(presetName: String) async throws {
+        guard let inputURL = inputURL else {
+            throw Self.createError(message: "Input file can't be nil.")
+        }
+        guard let outputURL = outputURL else {
+            throw Self.createError(message: "Output file can't be nil.")
+        }
+
+        let asset = AVURLAsset(url: inputURL)
+        guard let session = AVAssetExportSession(asset: asset,
+                                                 presetName: presetName) else {
+            throw Self.createError(message: "session can't be nil.")
+        }
+
+        let list = await session.compatibleFileTypes
+        guard let outputFileType: AVFileType = list.first else {
+            throw Self.createError(message: "Unable to determine a compatible file type from \(inputURL.path)")
+        }
+
+        try await session.export(to: outputURL, as: outputFileType)
     }
 
     /// Convert to compressed first creating a tmp file to PCM to allow more flexible conversion
