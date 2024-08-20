@@ -63,6 +63,7 @@ extension FormatConverter {
     ///
     /// This is no longer used in this class as it's not possible to convert sample rate or other
     /// required options. It will use the next function instead
+    #if swift(>=6.0) // Swift 6.0 corresponds to Xcode 16+
     @available(macOS 15, iOS 18, tvOS 18, visionOS 2.0, *)
     func convertCompressed(presetName: String) async throws {
         guard let inputURL = inputURL else {
@@ -85,6 +86,7 @@ extension FormatConverter {
 
         try await session.export(to: outputURL, as: outputFileType)
     }
+    #endif
 
     /// Convert to compressed first creating a tmp file to PCM to allow more flexible conversion
     /// options to work.
