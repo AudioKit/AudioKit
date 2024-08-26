@@ -146,13 +146,15 @@ extension Sequence where Iterator.Element: Hashable {
 @inline(__always)
 internal func AudioUnitGetParameter(_ unit: AudioUnit, param: AudioUnitParameterID) -> AUValue {
     var val: AudioUnitParameterValue = 0
-    AudioUnitGetParameter(unit, param, kAudioUnitScope_Global, 0, &val)
+    let status = AudioUnitGetParameter(unit, param, kAudioUnitScope_Global, 0, &val)
+    CheckError(status)
     return val
 }
 
 @inline(__always)
 internal func AudioUnitSetParameter(_ unit: AudioUnit, param: AudioUnitParameterID, to value: AUValue) {
-    AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
+    let status = AudioUnitSetParameter(unit, param, kAudioUnitScope_Global, 0, AudioUnitParameterValue(value), 0)
+    CheckError(status)
 }
 
 extension AVAudioNode {
