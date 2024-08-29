@@ -522,4 +522,30 @@ class AudioPlayerTests: XCTestCase {
         XCTAssert(player.status == .stopped)
         testMD5(audio)
     }
+
+    // https://github.com/AudioKit/AudioKit/issues/2916
+    func testCompletionHandler() {
+        guard let counting = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav")
+        else {
+            XCTFail("Couldn't find file")
+            return
+        }
+        guard let drumLoop = Bundle.module.url(forResource: "TestResources/drumloop", withExtension: "wav")
+        else {
+            XCTFail("Couldn't find file")
+            return
+        }
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.completionHandler = {
+            try? player.load(url: drumLoop)
+            player.play()
+        }
+        try? player.load(url: counting)
+        let audio = engine.startTest(totalDuration: 9.0)
+        player.play()
+        audio.append(engine.render(duration: 9.0))
+        testMD5(audio)
+    }
 }
