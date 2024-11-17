@@ -253,3 +253,19 @@ extension AVAudioPCMBuffer {
         return value
     }
 }
+
+public extension AVAudioPCMBuffer {
+    func mixToMono() -> AVAudioPCMBuffer {
+        let newFormat = AVAudioFormat(standardFormatWithSampleRate: format.sampleRate, channels: 1)!
+        let buffer = AVAudioPCMBuffer(pcmFormat: newFormat, frameCapacity: frameLength)!
+        buffer.frameLength = frameLength
+
+        let stride = vDSP_Stride(1)
+        let result = buffer.floatChannelData![0]
+        for channel in 0 ..< format.channelCount {
+            let channelData = self.floatChannelData![Int(channel)]
+            vDSP_vadd(channelData, stride, result, stride, result, stride, vDSP_Length(frameLength))
+        }
+        return buffer
+    }
+}
