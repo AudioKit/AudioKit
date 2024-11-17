@@ -11,9 +11,9 @@ class AVAudioPCMBufferMixToMonoTests: XCTestCase {
     lazy var data = buffer.floatChannelData!
 
     func testMixToMonoCancellation() {
-        for i in 0..<capacity {
-            data[0][Int(i)] = -1
-            data[1][Int(i)] = 1
+        for index in 0..<capacity {
+            data[0][Int(index)] = -1
+            data[1][Int(index)] = 1
         }
         buffer.frameLength = capacity
 
@@ -27,9 +27,9 @@ class AVAudioPCMBufferMixToMonoTests: XCTestCase {
     }
 
     func testMixToMonoDouble() {
-        for i in 0..<capacity {
-            data[0][Int(i)] = 1
-            data[1][Int(i)] = 1
+        for index in 0..<capacity {
+            data[0][Int(index)] = 1
+            data[1][Int(index)] = 1
         }
         buffer.frameLength = capacity
 
