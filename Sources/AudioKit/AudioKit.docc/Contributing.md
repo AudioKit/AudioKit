@@ -9,7 +9,7 @@ make your changes, and send us a [pull request](https://github.com/audiokit/Audi
 
 ## Documentation / Commenting
 
-Ideally, our code would not need comments because it would be so clear to read the code directly, but this is often impossible, so commenting is important.
+Ideally, our code would not need comments because it would be so clear to read the code directly, but this is often impossible, so commenting is important. To publish documentation on audiokit.io please follow the guides in [docgen repository](https://github.com/AudioKit/docgen)  and [audiokit.io repository](https://github.com/AudioKit/audiokit.io)  
 
 ### Comments should be documentation generating
 
