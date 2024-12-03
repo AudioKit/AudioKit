@@ -98,7 +98,11 @@ let validatedMD5s: [String: String] = [
 ### Runing Tests
 
 - To run tests of your App: Refer to [Apple documentation on XCTest](https://developer.apple.com/documentation/xctest)) as well as on [Xcode](https://developer.apple.com/documentation/xcode/testing) 
-- To locally run tests fo a package: Not as simple as it seems.  
+- To locally run tests fo a package: 
+     - Drag'n'drop the folder of the package onto Xcodes icon in the Dock. The package will open even when there is no .xcodeproj or .xcodescheme files available'
+     - Choose a Simulator as Run destination
+     - Start the tests using Menu Product > Test (or hit cmd-U)
+     - In rare cases, the package opens without the possibility to run tests. Try deleting the local directory and clone again from remote. 
 
 ## Continous Integration
 
