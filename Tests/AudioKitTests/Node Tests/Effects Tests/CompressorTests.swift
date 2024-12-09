@@ -4,6 +4,10 @@ import AudioKit
 import XCTest
 
 class CompressorTests: XCTestCase {
+    override func setUp() {
+        Settings.sampleRate = 44100
+    }
+
     func testAttackTime() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!

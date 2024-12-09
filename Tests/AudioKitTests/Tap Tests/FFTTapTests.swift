@@ -13,6 +13,10 @@ class FFTTapTests: XCTestCase {
         }
     }
 
+    override func setUp() {
+        Settings.sampleRate = 44100
+    }
+
     @available(iOS 13.0, *)
     func panTest(pan: Float) {
         let engine = AudioEngine()

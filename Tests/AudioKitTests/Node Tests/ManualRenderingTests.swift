@@ -5,6 +5,9 @@ import AVFAudio
 import AudioKit
 
 class ManualRenderingTests: XCTestCase {
+    override func setUp() {
+        Settings.sampleRate = 44100
+    }
 
     func testManualRenderingInput() throws {
 

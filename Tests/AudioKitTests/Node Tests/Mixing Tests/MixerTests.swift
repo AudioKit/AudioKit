@@ -5,6 +5,10 @@ import AVFoundation
 import XCTest
 
 class MixerTests: XCTestCase {
+    override func setUp() {
+        Settings.sampleRate = 44100
+    }
+
     func testSplitConnection() {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
