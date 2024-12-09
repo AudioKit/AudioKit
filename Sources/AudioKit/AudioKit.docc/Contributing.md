@@ -9,7 +9,7 @@ make your changes, and send us a [pull request](https://github.com/audiokit/Audi
 
 ## Documentation / Commenting
 
-Ideally, our code would not need comments because it would be so clear to read the code directly, but this is often impossible, so commenting is important.
+Ideally, our code would not need comments because it would be so clear to read the code directly, but this is often impossible, so commenting is important. To publish documentation on audiokit.io please follow the guides in [docgen repository](https://github.com/AudioKit/docgen)  and [audiokit.io repository](https://github.com/AudioKit/audiokit.io)  
 
 ### Comments should be documentation generating
 
@@ -30,6 +30,84 @@ Using xcode, create documentation comments is as easy as `Command-Option-/` on t
                              prerender: (() -> Void)? = nil,
                              progress: ((Double) -> Void)? = nil) throws {
 ```                                 
+
+## Testing
+
+It's important to us that our work is tested and proved to build successfully across as many platforms as possible. AudioKit and all it's packages and project have implemented tests using `XCTestCase`. Using Github's "Actions" continuous integration system all tests are run as soon at it is commited to the repository. The results of these automated tests can be found on our [GitHub Page](https://github.com/audiokit/). Xcodes built in support for `XCTestCase` is widely used within all packages.
+
+AudioKit implements extensions to `AFAudioBuffer` to help developing tests. A MD5 Hash value of the sound output is used to check if edited code still sounds like it should be. This makes automated, headless testing possible.
+
+### Developing Tests
+
+- Add new func or edit existing func as needed to `XCTestCase` 
+- Add a `ValidatedMD5s.swift` file to your project, best to copy one of an existing package including all methods.
+- Adjust the name of the TestCaseName and the test method in the `validatedMD5s` dictionary
+
+Within the test method:
+- Instantiate a AudioEngine
+- Add nodes to the engines output
+- Start the engine, set the output to a constant variable 
+- Make some noise or music using the nodes
+- Listen to the output using [`audition()`](https://github.com/AudioKit/AudioKit/blob/main/Sources/AudioKit/Internals/Utilities/AVAudioPCMBuffer+audition.swift) of your output
+- If you're satisfied with how it sounds: set a breakpoint in `validatedMD5s`, run the test again and copy-paste the localMD5 to the dictionary
+- Verify the output with [`testMD5()`](https://github.com/AudioKit/AudioKit/blob/main/Sources/AudioKit/Audio%20Files/AVAudioPCMBuffer+Utilities.swift)
+
+After you have developed the tests, remove `audition()` line. 
+
+
+Example of a simple test:
+```
+func testDefault() {
+    let engine = AudioEngine()
+    let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+    let player = AudioPlayer(url: url)!
+    engine.output = Compressor(player)
+    let audio = engine.startTest(totalDuration: 1.0)
+    player.play()
+    audio.append(engine.render(duration: 1.0))
+    
+// remove following line when satisfied with the sound
+    audio.audition()
+
+    testMD5(audio)
+}
+```
+
+Example `ValidatedMD5s.swift`
+```
+
+import AVFoundation
+import XCTest
+
+extension XCTestCase {
+    func testMD5(_ buffer: AVAudioPCMBuffer) {
+        let localMD5 = buffer.md5
+        let name = description
+        XCTAssert(validatedMD5s[name] == buffer.md5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
+    }
+}
+
+let validatedMD5s: [String: String] = [
+    // Get the MD5 value: play the sound using .audition of AudioEngine and set a breakpoint on the line below
+    "-[XCTestCaseName testDefault]": ["3064ef82b30c512b2f426562a2ef3448"],
+]
+
+
+```
+
+### Runing Tests
+
+- To run tests of your App: Refer to [Apple documentation on XCTest](https://developer.apple.com/documentation/xctest)) as well as on [Xcode](https://developer.apple.com/documentation/xcode/testing) 
+- To locally run tests fo a package: 
+     - Drag'n'drop the folder of the package onto Xcodes icon in the Dock. The package will open even when there is no .xcodeproj or .xcodescheme files available'
+     - Choose a Simulator as Run destination
+     - Start the tests using Menu Product > Test (or hit cmd-U)
+     - In rare cases, the package opens without the possibility to run tests. Try deleting the local directory and clone again from remote. 
+
+## Continous Integration
+
+Most of our projects have GitHub actions to automatically build and test after each commit. They include a Hound to check for Style Guide violations.
+
 
 ## Style Guide
 
