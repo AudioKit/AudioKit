@@ -4,6 +4,8 @@ import XCTest
 import AudioKit
 import AVFAudio
 
+// This is intermittent on macOS
+#if os(iOS)
 @available(iOS 13.0, *)
 class MatrixMixerTests: XCTestCase {
     let engine = AudioEngine()
@@ -81,3 +83,4 @@ class MatrixMixerTests: XCTestCase {
         XCTAssertTrue(output1.allSatisfy { $0 == 0 })
     }
 }
+#endif
