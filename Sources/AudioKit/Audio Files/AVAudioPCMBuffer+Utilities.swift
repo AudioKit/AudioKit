@@ -193,3 +193,94 @@ public extension AVAudioPCMBuffer {
         return editedBuffer
     }
 }
+
+public extension AVAudioPCMBuffer {
+    /// Reduce a buffer into a specified number of buckets
+    /// Returns `[Float]` buckets and absolute maximum bucket value
+    func reduce(bucketCount: Int) -> ([Float], Float) {
+        let frameCount = Int(self.frameLength)
+        guard frameCount > 0 else { return ([], 0) }
+        let mono = mixToMono()
+        let samples = Array(UnsafeBufferPointer(start: mono.floatChannelData![0], count: frameCount))
+        let samplesPerBucket = max(1, Double(frameCount) / Double(bucketCount))
+
+        var buckets = [Float](repeating: 0, count: bucketCount)
+        var maxBucket: Float = 0
+        for i in 0..<bucketCount {
+            let bucketStart = Int(Double(i) * samplesPerBucket)
+            let bucketEnd = min(bucketStart + Int(samplesPerBucket), frameCount)
+            guard bucketStart < bucketEnd else { break }
+            let bucketSamples = samples[bucketStart..<bucketEnd]
+            let avgSample = bucketSamples.reduce(into: Float(0)) { currentMax, value in
+                if abs(value) > abs(currentMax) {
+                    currentMax = value
+                }
+            }
+            buckets[i] = avgSample
+            if abs(avgSample) > maxBucket {
+                maxBucket = abs(avgSample)
+            }
+        }
+        return (buckets, maxBucket)
+    }
+}
+
+public extension AVAudioPCMBuffer {
+    func visualDescription(width: Int = 60, height: Int = 15) -> String {
+        assert((height - 1).isMultiple(of: 2))
+        let rows = [
+            format.stringDescription,
+            "Frame count \(frameLength)",
+            "Frame capacity \(frameCapacity)"
+        ]
+        let frameCount = Int(self.frameLength)
+        guard self.floatChannelData != nil, frameCount > 0 else {
+            return rows.joined(separator: "\n")
+        }
+        let (buckets, maxBucket) = reduce(bucketCount: width)
+        let scaleFactor = maxBucket > 0 ? Float((height - 1) / 2) / maxBucket : 1.0
+        let half = Int((Double(height) / 2).rounded(.up))
+        let waveformRows = (0..<height).map { rowIndex in
+            let row = height - rowIndex
+            return "\(abs(row - half))│ " + String(
+                buckets.map { value in
+                    let scaled = value * scaleFactor
+                    let max = Int(half) + Int(scaled)
+                    if row > Int(half) {
+                        return (max == row && scaled > 0) ? "*" : " "
+                    } else if row < Int(half) {
+                        return (row == max && scaled < 0) ? "*" : " "
+                    } else {
+                        return (row == max) ? "*" : " "
+                    }
+                }
+            )
+        }
+        return (rows + [""] + waveformRows + [""]).joined(separator: "\n")
+    }
+
+    // Allows to use Quick Look in the debugger on AVAudioPCMBuffer
+    // https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/CustomClassDisplay_in_QuickLook/CH01-quick_look_for_custom_objects/CH01-quick_look_for_custom_objects.html
+    @objc func debugQuickLookObject() -> Any? {
+        visualDescription()
+    }
+}
+
+private extension AVAudioFormat {
+    var stringDescription: String {
+        "Format \(channelCount) ch, \(sampleRate) Hz, \(isInterleaved ? "interleaved" : "deinterleaved"), \(commonFormat.stringDescription)"
+    }
+}
+
+private extension AVAudioCommonFormat {
+    var stringDescription: String {
+        switch self {
+        case .otherFormat: "Other format"
+        case .pcmFormatFloat32: "Float32"
+        case .pcmFormatFloat64: "Float64"
+        case .pcmFormatInt16: "Int16"
+        case .pcmFormatInt32: "Int32"
+        @unknown default: "Unknown"
+        }
+    }
+}
