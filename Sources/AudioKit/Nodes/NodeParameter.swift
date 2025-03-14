@@ -107,14 +107,14 @@ public class NodeParameter {
     public func ramp(to value: AUValue, duration: Float, delay: Float = 0) {
         var delaySamples = AUAudioFrameCount(delay * Float(Settings.sampleRate))
         if delaySamples > 4096 {
-            Log("Warning: delay longer than 4096, setting to to 4096")
+          Log("Warning: delay of \(delay) sec. at a sample rate of \(Settings.sampleRate) results in \(delaySamples), which is longer than 4096. Setting to to 4096")
             delaySamples = 4096
         }
         if !parameter.flags.contains(.flag_CanRamp) {
             Log("Error: can't ramp parameter \(parameter.displayName)", type: .error)
             return
         }
-        assert(delaySamples < 4096)
+        assert(delaySamples < 4097)
         let paramBlock = avAudioNode.auAudioUnit.scheduleParameterBlock
         paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
                    AUAudioFrameCount(duration * Float(Settings.sampleRate)),
