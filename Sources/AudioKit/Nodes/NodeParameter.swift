@@ -114,7 +114,7 @@ public class NodeParameter {
             Log("Error: can't ramp parameter \(parameter.displayName)", type: .error)
             return
         }
-        assert(delaySamples < 4097)
+        assert(delaySamples <= 4096)
         let paramBlock = avAudioNode.auAudioUnit.scheduleParameterBlock
         paramBlock(AUEventSampleTimeImmediate + Int64(delaySamples),
                    AUAudioFrameCount(duration * Float(Settings.sampleRate)),
