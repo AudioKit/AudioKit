@@ -23,7 +23,7 @@ public protocol Node: AnyObject {
     var isStarted: Bool { get }
 
     /// Audio format to use when connecting this node.
-    /// Defaults to `Settings.audioFormat`.
+    /// Defaults to  [Settings.audioFormat](x-source-tag://SettingsAudioFormat)
     var outputFormat: AVAudioFormat { get }
 }
 
