@@ -15,22 +15,27 @@ extension MIDIPacketList: Sequence {
     /// Create the sequence
     /// - Returns: Iterator of elements
     public func makeIterator() -> AnyIterator<Element> {
-
-        withUnsafePointer(to: packet) { ptr in
+        // Copy packets to prevent AddressSanitizer: stack-use-after-return on address
+        let packets = withUnsafePointer(to: packet) { ptr in
+            var packets = [MIDIPacket]()
             var p = ptr
-            var idx: UInt32 = 0
 
-            return AnyIterator {
-                guard idx < self.numPackets else {
-                    return nil
+            for _ in 0..<numPackets {
+                if let packet = extractPacket(p) {
+                    packets.append(packet)
+                } else {
+                    // If a packet cannot be extracted, return already extracted and ignore all
+                    // subsequent packets.
+                    return packets
                 }
 
-                idx += 1
-                let packet = extractPacket(p)
                 p = UnsafePointer(MIDIPacketNext(p))
-                return packet
             }
+
+            return packets
         }
+
+        return AnyIterator(packets.makeIterator())
     }
 }
 

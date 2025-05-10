@@ -4,6 +4,11 @@ import AVFoundation
 import XCTest
 
 class NodeTests: XCTestCase {
+
+    override func setUp() {
+        Settings.sampleRate = 44100
+    }
+
     func testNodeBasic() {
         let engine = AudioEngine()
         let player = AudioPlayer(testFile: "12345")

@@ -23,11 +23,11 @@ Here is a list of types that moved into a new package, and where they live now.
 
 | Class                              | New Framework     |
 |------------------------------------|-------------------|
-| CallbackInstrument                 | AudioKitEX        |
-| Fader                              | AudioKitEX        |
-| StereoFieldLimiter                 | AudioKitEX        |
-| DynaRageCompressor                 | DevoloopAudioKit  |
-| RhinoGuitarProcessor               | DevoloopAudioKit  |
+| CallbackInstrument                 | [AudioKitEX](https://github.com/AudioKit/AudioKitEX)        |
+| Fader                              | [AudioKitEX](https://github.com/AudioKit/AudioKitEX)        |
+| StereoFieldLimiter                 | [AudioKitEX](https://github.com/AudioKit/AudioKitEX)        |
+| DynaRageCompressor                 | [DevoloopAudioKit](https://github.com/AudioKit/DevoloopAudioKit/)  |
+| RhinoGuitarProcessor               | [DevoloopAudioKit](https://github.com/AudioKit/DevoloopAudioKit/)  |
 | Flanger                            | [DunneAudioKit](https://audiokit.io/DunneAudioKit/)      |
 | Chorus                             | [DunneAudioKit](https://audiokit.io/DunneAudioKit/)      |
 | Sampler                            | [DunneAudioKit](https://audiokit.io/DunneAudioKit/)      |

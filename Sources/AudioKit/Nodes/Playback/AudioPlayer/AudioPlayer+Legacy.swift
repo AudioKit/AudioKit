@@ -6,7 +6,7 @@ public extension AudioPlayer {
     /// Schedule a buffer to play at a a specific time, with options
     /// - Parameters:
     ///   - buffer: Buffer to play
-    ///   - when: Time to pay
+    ///   - when: Time to play
     ///   - options: Buffer options
     @available(*, deprecated, renamed: "schedule(at:)")
     func scheduleBuffer(_ buffer: AVAudioPCMBuffer,
@@ -21,7 +21,7 @@ public extension AudioPlayer {
     /// Schedule a buffer to play from a URL, at a a specific time, with options
     /// - Parameters:
     ///   - url: URL Location of buffer
-    ///   - when: Time to pay
+    ///   - when: Time to play
     ///   - options: Buffer options
     @available(*, deprecated, renamed: "schedule(at:)")
     func scheduleBuffer(url: URL,

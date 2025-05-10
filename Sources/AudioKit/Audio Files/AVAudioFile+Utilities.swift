@@ -33,9 +33,15 @@ public extension AVAudioFile {
         guard let buffer = AVAudioPCMBuffer(pcmFormat: processingFormat,
                                             frameCapacity: AVAudioFrameCount(length)) else { return nil }
 
+        guard let tmpBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat,
+                                              frameCapacity: AVAudioFrameCount(length)) else { return nil }
+
         do {
             framePosition = 0
-            try read(into: buffer)
+            while framePosition < length {
+                try read(into: tmpBuffer)
+                buffer.append(tmpBuffer)
+            }
             Log("Created buffer with format", processingFormat)
 
         } catch let error as NSError {

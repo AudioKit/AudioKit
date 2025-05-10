@@ -3,6 +3,10 @@ import AVFoundation
 import XCTest
 
 class MultiSegmentPlayerTests: XCTestCase {
+    override func setUp() {
+        Settings.sampleRate = 44100
+    }
+
     func testPlaySegment() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
               let file = try? AVAudioFile(forReading: url)
