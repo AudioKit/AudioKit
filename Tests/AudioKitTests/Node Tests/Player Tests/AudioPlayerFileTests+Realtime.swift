@@ -78,7 +78,7 @@ extension AudioPlayerFileTests {
     }
 
     func testCompletionHandler() {
-        //guard realtimeEnabled else { return }
+        // guard realtimeEnabled else { return }
         guard let counting = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav")
         else {
             XCTFail("Couldn't find file")
@@ -93,13 +93,13 @@ extension AudioPlayerFileTests {
         let player = AudioPlayer()
         let firstFileExpectation = XCTestExpectation(description: "Wait for first file completion")
         let secondFileExpectation = XCTestExpectation(description: "Wait for second file completion")
-        
+
         engine.output = player
         player.completionHandler = {
             try? player.load(url: drumLoop)
             player.play(from: 0.0)
             firstFileExpectation.fulfill()
-            
+
             // Set up completion handler for second file
             player.completionHandler = {
                 secondFileExpectation.fulfill()
@@ -108,7 +108,7 @@ extension AudioPlayerFileTests {
         try? player.load(url: counting)
         try? engine.start()
         player.play()
-        
+
         wait(for: [firstFileExpectation, secondFileExpectation], timeout: 15.0)
         engine.stop()
     }

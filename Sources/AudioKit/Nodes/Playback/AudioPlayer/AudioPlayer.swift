@@ -102,14 +102,14 @@ public class AudioPlayer: Node {
     /// The file to use with the player. This can be set while the player is playing.
     public var file: AVAudioFile? {
         didSet {
-            //let wasPlaying = status == .playing
-            //if wasPlaying { stop() }
+            // let wasPlaying = status == .playing
+            // if wasPlaying { stop() }
 
             if isBuffered, file != oldValue {
                 updateBuffer()
             }
 
-            //if wasPlaying { play() }
+            // if wasPlaying { play() }
         }
     }
 
