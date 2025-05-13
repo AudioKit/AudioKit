@@ -58,7 +58,7 @@ extension AudioPlayerFileTests {
 
     // testSeek and testSeekBuffered should effectively sound the same
     func testSeek() {
-        //guard realtimeEnabled else { return }
+        guard realtimeEnabled else { return }
         realtimeTestSeek(buffered: false)
     }
 

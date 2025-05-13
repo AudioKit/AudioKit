@@ -555,29 +555,7 @@ class AudioPlayerTests: XCTestCase {
     }
 
     func testRepeatedCompletionHandlerOnNewTrack() {
-        // Create a playlist of test files
-        guard let url1 = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
-              let url2 = Bundle.module.url(forResource: "TestResources/chromaticScale-1", withExtension: "aiff"),
-              let url3 = Bundle.module.url(forResource: "TestResources/drumloop", withExtension: "wav")
-        else {
-            XCTFail("Couldn't find test files")
-            return
-        }
-
-        let engine = AudioEngine()
-        let player = AudioPlayer()
-        engine.output = player
-
-        // Track completion counts and expectations
-        var completionCount = 0
-        let completionExpectation = XCTestExpectation(description: "Wait for all completions")
-        // We expect three completions (one for each track)
-        completionExpectation.expectedFulfillmentCount = 3
-
-        // Simulate playlist behavior
-        var currentTrackIndex = 0
-        let playlist = [url1, url2, url3]
-
+        // Helper functions from: https://github.com/AudioKit/AudioKit/issues/2954#issuecomment-2810159697
         func playTrack(at index: Int) {
             guard !playlist.isEmpty, index >= 0, index < playlist.count else { return }
             currentTrackIndex = index
@@ -588,7 +566,6 @@ class AudioPlayerTests: XCTestCase {
                 print("Error loading file: \(error)")
             }
         }
-
         func loadAudioFile(from url: URL) throws {
             stop()
             let file = try AVAudioFile(forReading: url)
@@ -605,14 +582,12 @@ class AudioPlayerTests: XCTestCase {
                 completionExpectation.fulfill()
             }
         }
-
         func play() {
             if !engine.avEngine.isRunning {
                 do { try engine.start() } catch { print("AudioEngine start error: \(error)") }
             }
             player.play()
         }
-
         func playNextTrack() {
             // Ensure the playlist is not empty.
             guard !playlist.isEmpty else { return }
@@ -637,29 +612,44 @@ class AudioPlayerTests: XCTestCase {
             currentTrackIndex = (currentTrackIndex + offset) % playlist.count
             playTrack(at: currentTrackIndex)
         }
-
         func stop() {
             player.stop()
             stopEngine()
         }
-
         func stopEngine() {
             engine.stop()
         }
+        // Create a playlist of test files
+        guard let url1 = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let url2 = Bundle.module.url(forResource: "TestResources/chromaticScale-1", withExtension: "aiff"),
+              let url3 = Bundle.module.url(forResource: "TestResources/drumloop", withExtension: "wav")
+        else {
+            XCTFail("Couldn't find test files")
+            return
+        }
 
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+
+        // Track completion counts and expectations
+        var completionCount = 0
+        let completionExpectation = XCTestExpectation(description: "Wait for all completions")
+        // We expect three completions (one for each track)
+        completionExpectation.expectedFulfillmentCount = 3
+
+        // Simulate playlist behavior
+        var currentTrackIndex = 0
+        let playlist = [url1, url2, url3]
         // Start playback
         try? loadAudioFile(from: playlist[0])
         play()
-
         // Wait for all completions with a reasonable timeout
         wait(for: [completionExpectation], timeout: 30.0)
-        
         // Verify completion count
         XCTAssertEqual(completionCount, 3, "Completion handler should be called exactly three times")
-        
         // Verify we've gone through all tracks
         XCTAssertEqual(currentTrackIndex, 2, "Should have played through all tracks")
-        
         // Clean up
         player.stop()
         engine.stop()
