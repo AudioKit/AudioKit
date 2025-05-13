@@ -553,4 +553,115 @@ class AudioPlayerTests: XCTestCase {
         audio.append(engine.render(duration: 9.0))
         testMD5(audio)
     }
+
+    func testRepeatedCompletionHandlerOnNewTrack() {
+        // Create a playlist of test files
+        guard let url1 = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let url2 = Bundle.module.url(forResource: "TestResources/chromaticScale-1", withExtension: "aiff"),
+              let url3 = Bundle.module.url(forResource: "TestResources/drumloop", withExtension: "wav")
+        else {
+            XCTFail("Couldn't find test files")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+
+        // Track completion counts and expectations
+        var completionCount = 0
+        let completionExpectation = XCTestExpectation(description: "Wait for all completions")
+        // We expect three completions (one for each track)
+        completionExpectation.expectedFulfillmentCount = 3
+
+        // Simulate playlist behavior
+        var currentTrackIndex = 0
+        let playlist = [url1, url2, url3]
+
+        func playTrack(at index: Int) {
+            guard !playlist.isEmpty, index >= 0, index < playlist.count else { return }
+            currentTrackIndex = index
+            do {
+                try loadAudioFile(from: playlist[index])
+                play()
+            } catch {
+                print("Error loading file: \(error)")
+            }
+        }
+
+        func loadAudioFile(from url: URL) throws {
+            stop()
+            let file = try AVAudioFile(forReading: url)
+            try player.load(file: file)
+            player.completionHandler = {
+                completionCount += 1
+                Log("Completion handler called \(completionCount) times")
+
+                // Simulate the real-world scenario where we load and play the next track
+                DispatchQueue.main.async {
+                    playNextTrack()
+                }
+
+                completionExpectation.fulfill()
+            }
+        }
+
+        func play() {
+            if !engine.avEngine.isRunning {
+                do { try engine.start() } catch { print("AudioEngine start error: \(error)") }
+            }
+            player.play()
+        }
+
+        func playNextTrack() {
+            // Ensure the playlist is not empty.
+            guard !playlist.isEmpty else { return }
+
+            // Default offset moves to the next track
+            var offset = 1
+
+            if playlist.count > 1 {
+                // Check if the immediate next track is the same as the current one.
+                let candidateIndex = (currentTrackIndex + 1) % playlist.count
+
+                // If so, skip to the next track by increasing the offset.
+                if currentTrackIndex == candidateIndex {
+                    offset += 1
+                }
+            } else {
+                // If there's only one track, no offset is needed.
+                offset = 0
+            }
+
+            // Calculate the new track index, ensuring we wrap properly.
+            currentTrackIndex = (currentTrackIndex + offset) % playlist.count
+            playTrack(at: currentTrackIndex)
+        }
+
+        func stop() {
+            player.stop()
+            stopEngine()
+        }
+
+        func stopEngine() {
+            engine.stop()
+        }
+
+        // Start playback
+        try? loadAudioFile(from: playlist[0])
+        play()
+
+        // Wait for all completions with a reasonable timeout
+        wait(for: [completionExpectation], timeout: 30.0)
+        
+        // Verify completion count
+        XCTAssertEqual(completionCount, 3, "Completion handler should be called exactly three times")
+        
+        // Verify we've gone through all tracks
+        XCTAssertEqual(currentTrackIndex, 2, "Should have played through all tracks")
+        
+        // Clean up
+        player.stop()
+        engine.stop()
+    }
 }
