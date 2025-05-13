@@ -25,7 +25,7 @@ public extension AudioPlayer {
             return
         }
 
-         guard status != .playing else { return }
+        guard status != .playing else { return }
 
         editStartTime = startTime ?? editStartTime
         editEndTime = endTime ?? editEndTime
