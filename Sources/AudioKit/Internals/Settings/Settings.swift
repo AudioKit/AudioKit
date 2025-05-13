@@ -60,11 +60,6 @@ public class Settings: NSObject {
             }
         }
 
-        if #available(macOS 15.0, *) {
-            /// Default AVAudioFormat for macOS 15 and newer
-            return AVAudioFormat(standardFormatWithSampleRate: 48_000, channels: 2) ?? AVAudioFormat()
-        }
-
         /// Fallback default
         return AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 2) ?? AVAudioFormat()
     }()
