@@ -609,17 +609,16 @@ private class PlaylistState {
 // https://github.com/AudioKit/AudioKit/issues/2954#issuecomment-2810159697
 extension AudioPlayerTests {
     fileprivate func playTrack(at index: Int,
-                               playlist: [URL],
                                state: PlaylistState,
                                player: AudioPlayer,
                                completionExpectation: XCTestExpectation,
                                engine: AudioEngine) {
-        guard !playlist.isEmpty, index >= 0, index < playlist.count else { return }
+        guard !state.playlist.isEmpty, index >= 0, index < state.playlist.count else { return }
 
         state.currentTrackIndex = index
 
         do {
-            try loadAudioFile(from: playlist[index],
+            try loadAudioFile(from: state.playlist[index],
                               player: player,
                               state: state,
                               completionExpectation: completionExpectation,
@@ -642,7 +641,11 @@ extension AudioPlayerTests {
             state.completionCount += 1
             Log("Completion handler called \(state.completionCount) times")
             DispatchQueue.main.async {
-                self?.playNextTrack(playlist: state.playlist, state: state, player: player, completionExpectation: completionExpectation, engine: engine)
+                self?.playNextTrack(playlist: state.playlist,
+                                    state: state,
+                                    player: player,
+                                    completionExpectation: completionExpectation,
+                                    engine: engine)
             }
             completionExpectation.fulfill()
         }
@@ -682,7 +685,6 @@ extension AudioPlayerTests {
         // Calculate the new track index, ensuring we wrap properly.
         state.currentTrackIndex = (state.currentTrackIndex + offset) % playlist.count
         playTrack(at: state.currentTrackIndex,
-                  playlist: playlist,
                   state: state,
                   player: player,
                   completionExpectation: completionExpectation,
