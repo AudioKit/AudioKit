@@ -7,6 +7,7 @@ import os.log
 
 extension Settings {
     /// Global audio format AudioKit will default to for new objects and connections
+    /// - Tag: SettingsAudioFormat
     public static var audioFormat = defaultAudioFormat
 
     /// The hardware ioBufferDuration. Setting this will request the new value, getting

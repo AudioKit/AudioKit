@@ -8,6 +8,7 @@
 
     public extension Settings {
         /// Global audio format AudioKit will default to for new objects and connections
+        /// - Tag: SettingsAudioFormat
         static var audioFormat = defaultAudioFormat {
             didSet {
                 do {
