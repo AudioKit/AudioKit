@@ -18,6 +18,8 @@ public struct NodeParameterDef {
     public var unit: AudioUnitParameterUnit
     /// Options
     public var flags: AudioUnitParameterOptions
+    /// Invoke AudioUnitSetParameter when setting a parameter
+    public var updateV2Parameter: Bool
 
     /// Initialize node parameter definition with all data
     /// - Parameters:
@@ -28,13 +30,15 @@ public struct NodeParameterDef {
     ///   - range: Value range
     ///   - unit: Physical units
     ///   - flags: Audio Unit Parameter options
+    ///   - updateV2Parameter: Invoke AudioUnitSetParameter when setting a parameter
     public init(identifier: String,
                 name: String,
                 address: AUParameterAddress,
                 defaultValue: AUValue,
                 range: ClosedRange<AUValue>,
                 unit: AudioUnitParameterUnit,
-                flags: AudioUnitParameterOptions = .default)
+                flags: AudioUnitParameterOptions = .default,
+                updateV2Parameter: Bool = true)
     {
         self.identifier = identifier
         self.name = name
@@ -43,6 +47,7 @@ public struct NodeParameterDef {
         self.range = range
         self.unit = unit
         self.flags = flags
+        self.updateV2Parameter = updateV2Parameter
     }
 }
 
@@ -63,7 +68,7 @@ public class NodeParameter {
     public var value: AUValue {
         get { parameter.value }
         set {
-            if let avAudioUnit = avAudioNode as? AVAudioUnit {
+            if let avAudioUnit = avAudioNode as? AVAudioUnit, def.updateV2Parameter {
                 AudioUnitSetParameter(avAudioUnit.audioUnit,
                                       param: AudioUnitParameterID(def.address),
                                       to: newValue.clamped(to: range))
