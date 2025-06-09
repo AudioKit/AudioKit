@@ -137,7 +137,9 @@ open class NodeRecorder: NSObject {
     /// Settings.audioFormat
     /// - Parameters:
     ///   - fileDirectoryURL: Directory in which to save recorded files. Defaults to Temp.
-    ///   - filenameProvider: Function that returns the filename to use within the fileDirectory. Any sub directorys must already exist. Defaults to String containing a date with format `yyyy-MM-dd HH-mm-ss.SSSS`. A `.caf` extension will be appended.
+    ///   - filenameProvider: Function that returns the filename to use within the fileDirectory. Any sub directorys
+    ///   must already exist. Defaults to String containing a date with format `yyyy-MM-dd HH-mm-ss.SSSS`. A `.caf` 
+    ///   extension will be appended.
     /// - Returns: The configured AVAudioFile
     public static func createAudioFile(fileDirectoryURL: URL = URL(fileURLWithPath: NSTemporaryDirectory()),
                                        filenameProvider: (() -> String)? = nil) -> AVAudioFile? {
