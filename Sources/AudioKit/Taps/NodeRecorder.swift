@@ -133,9 +133,16 @@ open class NodeRecorder: NSObject {
         file = nil
     }
 
-    /// Returns a CAF file in specified directory suitable for writing to via Settings.audioFormat
-    public static func createAudioFile(fileDirectoryURL: URL = URL(fileURLWithPath: NSTemporaryDirectory())) -> AVAudioFile? {
-        let filename = createDateFileName() + ".caf"
+    /// Returns a CAF file in specified directory named using the provided function suitable for writing to via
+    /// Settings.audioFormat
+    /// - Parameters:
+    ///   - fileDirectoryURL: Directory in which to save recorded files. Defaults to Temp.
+    ///   - filenameProvider: Function that returns the filename to use within the fileDirectory. Any sub directorys must already exist. Defaults to String containing a date with format `yyyy-MM-dd HH-mm-ss.SSSS`. A `.caf` extension will be appended.
+    /// - Returns: The configured AVAudioFile
+    public static func createAudioFile(fileDirectoryURL: URL = URL(fileURLWithPath: NSTemporaryDirectory()),
+                                       filenameProvider: (() -> String)? = nil) -> AVAudioFile? {
+        let filenameProvider = filenameProvider ?? NodeRecorder.createDateFileName
+        let filename = filenameProvider() + ".caf"
         let url = fileDirectoryURL.appendingPathComponent(filename)
         var settings = Settings.audioFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
