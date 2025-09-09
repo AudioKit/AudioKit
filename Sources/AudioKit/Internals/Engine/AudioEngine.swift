@@ -27,33 +27,29 @@ extension AVAudioNode {
     }
 
     /// Make a connection without breaking other connections.
-    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat) {
-        if let engine = engine {
-            var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-            if points.contains(where: {
-                $0.node === self && $0.bus == bus
-            }) { return }
-            points.append(AVAudioConnectionPoint(node: self, bus: bus))
-            engine.connect(input, to: points, fromBus: 0, format: format)
-        }
+    func connect(input: AVAudioNode, bus: Int, engine: AVAudioEngine, format: AVAudioFormat) {
+        var points = engine.outputConnectionPoints(for: input, outputBus: 0)
+        if points.contains(where: {
+            $0.node === self && $0.bus == bus
+        }) { return }
+        points.append(AVAudioConnectionPoint(node: self, bus: bus))
+        engine.connect(input, to: points, fromBus: 0, format: format)
     }
 }
 
 public extension AVAudioMixerNode {
     /// Make a connection without breaking other connections.
-    func connectMixer(input: AVAudioNode, format: AVAudioFormat) {
-        if let engine = engine {
-            var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-            if points.contains(where: { $0.node === self }) { return }
-            points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
-            if points.count == 1 {
-                // If we only have 1 connection point, use connect API
-                // Workaround for a bug where specified format is not correctly applied
-                // http://openradar.appspot.com/radar?id=5490575180562432
-                engine.connect(input, to: self, format: format)
-            } else {
-                engine.connect(input, to: points, fromBus: 0, format: format)
-            }
+    func connectMixer(input: AVAudioNode, engine: AVAudioEngine, format: AVAudioFormat) {
+        var points = engine.outputConnectionPoints(for: input, outputBus: 0)
+        if points.contains(where: { $0.node === self }) { return }
+        points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
+        if points.count == 1 {
+            // If we only have 1 connection point, use connect API
+            // Workaround for a bug where specified format is not correctly applied
+            // http://openradar.appspot.com/radar?id=5490575180562432
+            engine.connect(input, to: self, format: format)
+        } else {
+            engine.connect(input, to: points, fromBus: 0, format: format)
         }
     }
 }
