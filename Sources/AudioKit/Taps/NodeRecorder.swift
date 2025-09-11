@@ -71,6 +71,9 @@ open class NodeRecorder: NSObject {
     /// Callback of incoming audio floating point values and time stamp for monitoring purposes
     public var audioDataCallback: AudioDataCallback?
 
+    /// Error callback type
+    public typealias RecordingErrorCallback = (any  Error) -> Void
+
     // MARK: - Initialization
 
     /// Initialize the node recorder
@@ -133,9 +136,18 @@ open class NodeRecorder: NSObject {
         file = nil
     }
 
-    /// Returns a CAF file in specified directory suitable for writing to via Settings.audioFormat
-    public static func createAudioFile(fileDirectoryURL: URL = URL(fileURLWithPath: NSTemporaryDirectory())) -> AVAudioFile? {
-        let filename = createDateFileName() + ".caf"
+    /// Returns a CAF file in specified directory named using the provided function suitable for writing to via
+    /// Settings.audioFormat
+    /// - Parameters:
+    ///   - fileDirectoryURL: Directory in which to save recorded files. Defaults to Temp.
+    ///   - filenameProvider: Function that returns the filename to use within the fileDirectory. Any sub directorys
+    ///   must already exist. Defaults to String containing a date with format `yyyy-MM-dd HH-mm-ss.SSSS`. A `.caf` 
+    ///   extension will be appended.
+    /// - Returns: The configured AVAudioFile
+    public static func createAudioFile(fileDirectoryURL: URL = URL(fileURLWithPath: NSTemporaryDirectory()),
+                                       filenameProvider: (() -> String)? = nil) -> AVAudioFile? {
+        let filenameProvider = filenameProvider ?? NodeRecorder.createDateFileName
+        let filename = filenameProvider() + ".caf"
         let url = fileDirectoryURL.appendingPathComponent(filename)
         var settings = Settings.audioFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
@@ -158,7 +170,7 @@ open class NodeRecorder: NSObject {
     }
 
     /// Start recording
-    public func record() throws {
+    public func record(onError: RecordingErrorCallback? = nil) throws {
         if isRecording == true {
             Log("Warning: already recording")
             return
@@ -198,28 +210,35 @@ open class NodeRecorder: NSObject {
         node.avAudioNode.installTap(onBus: bus,
                                     bufferSize: bufferLength,
                                     format: recordFormat,
-                                    block: process(buffer:time:))
+                                    block: processBlockBuilder(onError))
     }
 
-    private func process(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
-        guard let internalAudioFile = internalAudioFile else { return }
-
-        do {
-            if !isPaused {
-                recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
-                try internalAudioFile.write(from: buffer)
-
-                // allow an optional timed stop
-                if durationToRecord != 0, internalAudioFile.duration >= durationToRecord {
-                    stop()
-                }
-
-                if audioDataCallback != nil {
-                    doHandleTapBlock(buffer: buffer, time: time)
-                }
+    private func processBlockBuilder(_ onError: RecordingErrorCallback?) -> (AVAudioPCMBuffer, AVAudioTime) -> Void {
+        return { [weak self] buffer, time in
+            guard let self else { return }
+            guard let internalAudioFile = internalAudioFile else {
+                onError?(CommonError.couldNotOpenFile)
+                return
             }
-        } catch let error as NSError {
-            Log("Write failed: error -> \(error.localizedDescription)")
+
+            do {
+                if !isPaused {
+                    recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
+                    try internalAudioFile.write(from: buffer)
+
+                    // allow an optional timed stop
+                    if durationToRecord != 0, internalAudioFile.duration >= durationToRecord {
+                        stop()
+                    }
+
+                    if audioDataCallback != nil {
+                        doHandleTapBlock(buffer: buffer, time: time)
+                    }
+                }
+            } catch let error as NSError {
+                Log("Write failed: error -> \(error.localizedDescription)")
+                onError?(error)
+            }
         }
     }
 

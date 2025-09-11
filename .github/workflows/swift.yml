@@ -21,3 +21,4 @@ jobs:
       run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16 Pro" 
     - name: Run tests
       run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16 Pro" test
+

@@ -4,56 +4,50 @@ import AVFoundation
 
 extension AVAudioNode {
     /// Disconnect without breaking other connections.
-    func disconnect(input: AVAudioNode, format: AVAudioFormat) {
-        if let engine = engine {
-            var newConnections: [AVAudioNode: [AVAudioConnectionPoint]] = [:]
-            for bus in 0 ..< inputCount {
-                if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
-                    if cp.node === input {
-                        let points = engine.outputConnectionPoints(for: input, outputBus: 0)
-                        newConnections[input] = points.filter { $0.node != self }
-                    }
+    func disconnect(input: AVAudioNode, engine: AVAudioEngine, format: AVAudioFormat) {
+        var newConnections: [AVAudioNode: [AVAudioConnectionPoint]] = [:]
+        for bus in 0 ..< inputCount {
+            if let cp = engine.inputConnectionPoint(for: self, inputBus: bus) {
+                if cp.node === input {
+                    let points = engine.outputConnectionPoints(for: input, outputBus: 0)
+                    newConnections[input] = points.filter { $0.node != self }
                 }
             }
+        }
 
-            for (node, connections) in newConnections {
-                if connections.isEmpty {
-                    engine.disconnectNodeOutput(node)
-                } else {
-                    engine.connect(node, to: connections, fromBus: 0, format: format)
-                }
+        for (node, connections) in newConnections {
+            if connections.isEmpty {
+                engine.disconnectNodeOutput(node)
+            } else {
+                engine.connect(node, to: connections, fromBus: 0, format: format)
             }
         }
     }
 
     /// Make a connection without breaking other connections.
-    func connect(input: AVAudioNode, bus: Int, format: AVAudioFormat) {
-        if let engine = engine {
-            var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-            if points.contains(where: {
-                $0.node === self && $0.bus == bus
-            }) { return }
-            points.append(AVAudioConnectionPoint(node: self, bus: bus))
-            engine.connect(input, to: points, fromBus: 0, format: format)
-        }
+    func connect(input: AVAudioNode, bus: Int, engine: AVAudioEngine, format: AVAudioFormat) {
+        var points = engine.outputConnectionPoints(for: input, outputBus: 0)
+        if points.contains(where: {
+            $0.node === self && $0.bus == bus
+        }) { return }
+        points.append(AVAudioConnectionPoint(node: self, bus: bus))
+        engine.connect(input, to: points, fromBus: 0, format: format)
     }
 }
 
 public extension AVAudioMixerNode {
     /// Make a connection without breaking other connections.
-    func connectMixer(input: AVAudioNode, format: AVAudioFormat) {
-        if let engine = engine {
-            var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-            if points.contains(where: { $0.node === self }) { return }
-            points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
-            if points.count == 1 {
-                // If we only have 1 connection point, use connect API
-                // Workaround for a bug where specified format is not correctly applied
-                // http://openradar.appspot.com/radar?id=5490575180562432
-                engine.connect(input, to: self, format: format)
-            } else {
-                engine.connect(input, to: points, fromBus: 0, format: format)
-            }
+    func connectMixer(input: AVAudioNode, engine: AVAudioEngine, format: AVAudioFormat) {
+        var points = engine.outputConnectionPoints(for: input, outputBus: 0)
+        if points.contains(where: { $0.node === self }) { return }
+        points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
+        if points.count == 1 {
+            // If we only have 1 connection point, use connect API
+            // Workaround for a bug where specified format is not correctly applied
+            // http://openradar.appspot.com/radar?id=5490575180562432
+            engine.connect(input, to: self, format: format)
+        } else {
+            engine.connect(input, to: points, fromBus: 0, format: format)
         }
     }
 }
@@ -117,7 +111,7 @@ public class AudioEngine {
             if let node = oldValue {
                 mainMixerNode?.removeInput(node)
                 node.detach()
-                avEngine.outputNode.disconnect(input: node.avAudioNode, format: node.outputFormat)
+                avEngine.outputNode.disconnect(input: node.avAudioNode, engine: avEngine, format: node.outputFormat)
             }
 
             // if non nil, set the main output now
@@ -160,7 +154,7 @@ public class AudioEngine {
 
     private func removeEngineMixer() {
         guard let mixer = mainMixerNode else { return }
-        avEngine.outputNode.disconnect(input: mixer.avAudioNode, format: mixer.outputFormat)
+        avEngine.outputNode.disconnect(input: mixer.avAudioNode, engine: avEngine, format: mixer.outputFormat)
         mixer.removeAllInputs()
         mixer.detach()
         mainMixerNode = nil
