@@ -3,9 +3,8 @@ import AVFoundation
 public extension AVAudioEnvironmentNode {
     /// Make a connection without breaking other connections.
     /// Makes sure the Mixer3D connects to the EnviromentalNode In **MONO**
-    func connectMixer3D(_ input: AVAudioNode, format: AVAudioFormat) {
-        if let engine = engine,
-           let monoFormat = AVAudioFormat(
+    func connectMixer3D(_ input: AVAudioNode, engine: AVAudioEngine, format: AVAudioFormat) {
+        if let monoFormat = AVAudioFormat(
             standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
             channels: 1) {
             var points = engine.outputConnectionPoints(for: input, outputBus: 0)
