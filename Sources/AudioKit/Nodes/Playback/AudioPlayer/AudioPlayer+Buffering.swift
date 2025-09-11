@@ -67,7 +67,7 @@ extension AudioPlayer {
         if pcmBuffer.format.channelCount < playerChannelCount {
             Log("Copying mono data to 2 channel buffer...", pcmBuffer.format)
 
-            guard let tmpBuffer = AVAudioPCMBuffer(pcmFormat: playerNode.outputFormat(forBus: 0),
+            guard let tmpBuffer = AVAudioPCMBuffer(pcmFormat: processingFormat,
                                                    frameCapacity: frameCount),
                 let monoData = pcmBuffer.floatChannelData
             else {
