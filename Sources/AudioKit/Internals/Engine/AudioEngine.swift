@@ -196,7 +196,7 @@ public class AudioEngine {
     /// - Parameter duration: Total duration of the entire test
     /// - Returns: A buffer which you can append to
     public func startTest(totalDuration duration: Double) -> AVAudioPCMBuffer {
-        let samples = Int(duration * Settings.sampleRate)
+        let samples = Int(duration * outputFormat.sampleRate)
 
         do {
             avEngine.reset()
@@ -221,7 +221,7 @@ public class AudioEngine {
     /// - Parameter duration: Length of time to render for
     /// - Returns: Buffer of rendered audio
     public func render(duration: Double) -> AVAudioPCMBuffer {
-        let sampleCount = Int(duration * Settings.sampleRate)
+        let sampleCount = Int(duration * outputFormat.sampleRate)
         let startSampleCount = Int(avEngine.manualRenderingSampleTime)
 
         let buffer = AVAudioPCMBuffer(
