@@ -18,6 +18,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     - name: Build
-      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" 
+      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16"
     - name: Run tests
-      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 14" test
+      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16" test
