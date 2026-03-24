@@ -588,6 +588,29 @@ class NodeTests: XCTestCase {
         Settings.audioFormat = previousFormat
     }
     #endif
+    
+    func testDynamicPlayerCrash() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        let testFileURL = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let audioFile = try AVAudioFile(forReading: testFileURL)
+
+        // Pre-connect an intermediate mixer (like an instrument bus)
+        let instrumentMixer = Mixer(name: "Instrument")
+        masterMixer.addInput(instrumentMixer)
+
+        let player = AudioPlayer()
+        try player.load(file: audioFile, buffered: false)
+
+        let fader = Mixer(player)
+        let panMixer = Mixer(fader, name: "Pan")
+        instrumentMixer.addInput(panMixer)
+
+        player.play()
+    }
 }
 
 private extension NodeTests {
