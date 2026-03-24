@@ -148,6 +148,11 @@ extension Node {
 
             engine.attach(connection.avAudioNode)
 
+            // Recursively connect inputs BEFORE establishing the output connection.
+            // This avoids an Apple bug where connecting a mixer's output while it has
+            // no inputs causes subsequent input connections to silently fail.
+            connection.makeAVConnections()
+
             // If avAudioNode is a Mixer, let Mixers will decide which input bus to use.
             if let mixer = avAudioNode as? AVAudioMixerNode {
                 mixer.connectMixer(input: connection.avAudioNode, engine: engine, format: connection.outputFormat)
@@ -164,8 +169,6 @@ extension Node {
             } else {
                 avAudioNode.connect(input: connection.avAudioNode, bus: bus, engine: engine, format: connection.outputFormat)
             }
-
-            connection.makeAVConnections()
         }
     }
 

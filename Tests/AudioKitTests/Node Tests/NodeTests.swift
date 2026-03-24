@@ -611,6 +611,226 @@ class NodeTests: XCTestCase {
 
         player.play()
     }
+
+    // MARK: - Dynamic Graph Reconfiguration Tests
+
+    /// Add a player through nested mixers using incremental strategy
+    func testDynamicNestedMixersIncremental() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        let instrumentMixer = Mixer(name: "Instrument")
+        masterMixer.addInput(instrumentMixer)
+
+        let player = AudioPlayer(testFile: "12345")
+        let fader = Mixer(player)
+        let panMixer = Mixer(fader, name: "Pan")
+        instrumentMixer.addInput(panMixer, strategy: .incremental)
+
+        player.play()
+    }
+
+    /// Three levels of dynamically added mixers: player → m1 → m2 → m3 → master
+    func testDynamicDeepMixerNesting() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        let m3 = Mixer(name: "Level3")
+        masterMixer.addInput(m3)
+
+        let player = AudioPlayer(testFile: "12345")
+        let m1 = Mixer(player, name: "Level1")
+        let m2 = Mixer(m1, name: "Level2")
+        m3.addInput(m2)
+
+        player.play()
+        XCTAssertNotNil(player.avAudioNode.engine)
+        XCTAssertNotNil(m1.avAudioNode.engine)
+        XCTAssertNotNil(m2.avAudioNode.engine)
+    }
+
+    /// Add two separate player branches to the same parent mixer
+    func testDynamicMultipleBranches() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        let busMixer = Mixer(name: "Bus")
+        masterMixer.addInput(busMixer)
+
+        // First branch
+        let player1 = AudioPlayer(testFile: "12345")
+        let branch1 = Mixer(player1, name: "Branch1")
+        busMixer.addInput(branch1)
+        player1.play()
+
+        // Second branch
+        let player2 = AudioPlayer(testFile: "drumloop")
+        let branch2 = Mixer(player2, name: "Branch2")
+        busMixer.addInput(branch2)
+        player2.play()
+    }
+
+    /// Add a player directly (no wrapping mixer) to a pre-connected mixer
+    func testDynamicPlayerDirectToMixer() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        let busMixer = Mixer(name: "Bus")
+        masterMixer.addInput(busMixer)
+
+        let player = AudioPlayer(testFile: "12345")
+        busMixer.addInput(player)
+        player.play()
+    }
+
+    /// Remove a dynamic branch and re-add it
+    func testDynamicRemoveAndReAdd() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        let busMixer = Mixer(name: "Bus")
+        masterMixer.addInput(busMixer)
+
+        let player = AudioPlayer(testFile: "12345")
+        let fader = Mixer(player, name: "Fader")
+        busMixer.addInput(fader)
+        player.play()
+        player.stop()
+
+        // Remove and re-add
+        busMixer.removeInput(fader)
+        busMixer.addInput(fader)
+        player.play()
+    }
+
+    /// Add an effect node (not a mixer) inside a dynamic chain
+    func testDynamicEffectChain() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        let busMixer = Mixer(name: "Bus")
+        masterMixer.addInput(busMixer)
+
+        let player = AudioPlayer(testFile: "12345")
+        let reverb = Reverb(player)
+        let fader = Mixer(reverb, name: "Fader")
+        busMixer.addInput(fader)
+        player.play()
+    }
+
+    /// Add a second nested branch to a mixer that already has one playing input
+    func testDynamicAddToMixerWithExistingInput() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        let busMixer = Mixer(name: "Bus")
+        masterMixer.addInput(busMixer)
+
+        // First input already connected and playing
+        let player1 = AudioPlayer(testFile: "12345")
+        busMixer.addInput(player1)
+        player1.play()
+
+        // Add a second nested branch while first is playing
+        let player2 = AudioPlayer(testFile: "drumloop")
+        let fader = Mixer(player2, name: "Fader")
+        let panMixer = Mixer(fader, name: "Pan")
+        busMixer.addInput(panMixer)
+        player2.play()
+    }
+
+    /// Build entire chain offline then add to running engine in one shot
+    func testDynamicAddPrebuiltChain() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+        try engine.start()
+
+        // Build the entire chain before connecting to engine
+        let player = AudioPlayer(testFile: "12345")
+        let fader = Mixer(player, name: "Fader")
+        let panMixer = Mixer(fader, name: "Pan")
+        let busMixer = Mixer(panMixer, name: "Bus")
+
+        // Single addInput connects the whole tree
+        masterMixer.addInput(busMixer)
+        player.play()
+    }
+
+    /// Verify audio actually flows through dynamically-added nested mixers (offline rendering)
+    func testDynamicNestedMixersProduceAudio() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+
+        let audio = engine.startTest(totalDuration: 1.0)
+
+        let instrumentMixer = Mixer(name: "Instrument")
+        masterMixer.addInput(instrumentMixer)
+
+        let player = AudioPlayer(testFile: "12345")
+        let fader = Mixer(player, name: "Fader")
+        let panMixer = Mixer(fader, name: "Pan")
+        instrumentMixer.addInput(panMixer)
+
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        XCTAssertFalse(audio.isSilent)
+    }
+
+    /// Verify audio flows when adding a pre-built chain to the engine (offline rendering)
+    func testDynamicPrebuiltChainProducesAudio() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+
+        let audio = engine.startTest(totalDuration: 1.0)
+
+        let player = AudioPlayer(testFile: "12345")
+        let fader = Mixer(player, name: "Fader")
+        let panMixer = Mixer(fader, name: "Pan")
+        let busMixer = Mixer(panMixer, name: "Bus")
+        masterMixer.addInput(busMixer)
+
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        XCTAssertFalse(audio.isSilent)
+    }
+
+    /// Verify audio flows through a deeply nested dynamic chain (offline rendering)
+    func testDynamicDeepNestingProducesAudio() throws {
+        let engine = AudioEngine()
+        let masterMixer = Mixer(name: "Master")
+        engine.output = masterMixer
+
+        let audio = engine.startTest(totalDuration: 1.0)
+
+        let m3 = Mixer(name: "Level3")
+        masterMixer.addInput(m3)
+
+        let player = AudioPlayer(testFile: "12345")
+        let m1 = Mixer(player, name: "Level1")
+        let m2 = Mixer(m1, name: "Level2")
+        m3.addInput(m2)
+
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        XCTAssertFalse(audio.isSilent)
+    }
 }
 
 private extension NodeTests {
