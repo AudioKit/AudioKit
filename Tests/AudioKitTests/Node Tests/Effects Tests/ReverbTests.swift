@@ -4,7 +4,7 @@ import AudioKit
 import XCTest
 import AVFAudio
 
-class ReverbTests: XCTestCase {
+@MainActor class ReverbTests: XCTestCase {
 
     #if os(iOS)
 

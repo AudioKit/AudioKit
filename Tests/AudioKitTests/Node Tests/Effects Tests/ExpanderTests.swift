@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class ExpanderTests: XCTestCase {
+@MainActor class ExpanderTests: XCTestCase {
     func testDefault() throws {
         try XCTSkipIf(true, "TODO This test gives different results on local machines from what CI does")
         let engine = AudioEngine()

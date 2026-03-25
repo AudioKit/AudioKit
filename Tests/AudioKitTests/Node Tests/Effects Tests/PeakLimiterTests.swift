@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class PeakLimiterTests: XCTestCase {
+@MainActor class PeakLimiterTests: XCTestCase {
     override func setUp() {
         Settings.sampleRate = 44100
     }

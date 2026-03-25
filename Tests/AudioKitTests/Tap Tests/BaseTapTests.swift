@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class BaseTapTests: XCTestCase {
+@MainActor class BaseTapTests: XCTestCase {
     func testBaseTapDeallocated() throws {
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!

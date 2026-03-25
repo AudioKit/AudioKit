@@ -6,7 +6,7 @@ import Foundation
 import GameplayKit
 import XCTest
 
-class PlaygroundOscillatorTests: XCTestCase {
+@MainActor class PlaygroundOscillatorTests: XCTestCase {
     let engine = AudioEngine()
 
     override func setUp() {

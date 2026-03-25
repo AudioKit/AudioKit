@@ -7,30 +7,30 @@ import AVFoundation
 /// start() will add the tap, and stop() will remove it.
 public class AmplitudeTap: BaseTap {
     private let channelCount: Int
-    private var amp: [Float]
+    nonisolated(unsafe) private var amp: [Float]
 
     /// Detected amplitude (average of all channels)
-    public var amplitude: Float {
+    nonisolated public var amplitude: Float {
         return amp.reduce(0, +) / Float(channelCount)
     }
 
     /// Detected left channel amplitude
-    public var leftAmplitude: Float {
+    nonisolated public var leftAmplitude: Float {
         return amp[0]
     }
 
     /// Detected right channel amplitude
-    public var rightAmplitude: Float {
+    nonisolated public var rightAmplitude: Float {
         return amp[1]
     }
 
     /// Determines if the returned amplitude value is the left, right, or average of the two
-    public var stereoMode: StereoMode = .center
+    nonisolated(unsafe) public var stereoMode: StereoMode = .center
 
     /// Determines if the returned amplitude value is the rms or peak value
-    public var analysisMode: AnalysisMode = .rms
+    nonisolated(unsafe) public var analysisMode: AnalysisMode = .rms
 
-    private var handler: (Float) -> Void = { _ in }
+    nonisolated(unsafe) private var handler: (Float) -> Void = { _ in }
 
     /// Initialize the amplitude
     ///
@@ -58,7 +58,7 @@ public class AmplitudeTap: BaseTap {
     /// - Parameters:
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
-    override public func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    nonisolated override public func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
 
         let channelCount = Int(buffer.format.channelCount)

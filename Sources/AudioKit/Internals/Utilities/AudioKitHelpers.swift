@@ -419,7 +419,7 @@ public extension DSPSplitComplex {
 
 public extension AVAudioTime {
     /// Returns an AVAudioTime set to sampleTime of zero at the default sample rate
-    static func sampleTimeZero(sampleRate: Double = Settings.sampleRate) -> AVAudioTime {
+    static func sampleTimeZero(sampleRate: Double = 44_100) -> AVAudioTime {
         let sampleTime = AVAudioFramePosition(Double(0))
         return AVAudioTime(sampleTime: sampleTime, atRate: sampleRate)
     }
@@ -432,8 +432,8 @@ public protocol ProcessesPlayerInput: HasAudioEngine {
     var player: AudioPlayer { get }
 }
 
-/// Protocol prescribing that something ahs an audio "engine"
-public protocol HasAudioEngine {
+/// Protocol prescribing that something has an audio "engine"
+@MainActor public protocol HasAudioEngine {
     var engine: AudioEngine { get }
 }
 

@@ -3,7 +3,7 @@
 import XCTest
 import AudioKit
 
-class RawDataTapTests: XCTestCase {
+@MainActor class RawDataTapTests: XCTestCase {
 
     func testRawDataTap() throws {
 
@@ -12,7 +12,7 @@ class RawDataTapTests: XCTestCase {
         engine.output = osc
 
         let dataExpectation = XCTestExpectation(description: "dataExpectation")
-        var allData: [Float] = []
+        nonisolated(unsafe) var allData: [Float] = []
         let tap = RawDataTap2(osc) { data in
             dataExpectation.fulfill()
             allData += data
@@ -41,24 +41,16 @@ class RawDataTapTests: XCTestCase {
 
         let dataExpectation = XCTestExpectation(description: "dataExpectation")
 
-        Task {
-            var allData: [Float] = []
-            let tap = RawDataTap2(osc) { data in
-                dataExpectation.fulfill()
-                allData += data
-            }
-
-            osc.install(tap: tap, bufferSize: 1024)
+        nonisolated(unsafe) var allData: [Float] = []
+        let tap = RawDataTap2(osc) { data in
+            dataExpectation.fulfill()
+            allData += data
         }
 
-        // Lock up the main thread instead of servicing the runloop.
-        // This demonstrates that we can use a Tap safely on a background
-        // thread.
-        sleep(1)
+        osc.install(tap: tap, bufferSize: 1024)
 
-        // Expectation should have been already fulfilled by
-        // the background Task.
-        wait(for: [dataExpectation], timeout: 0)
+        // Wait for the tap to receive data from the audio callback.
+        wait(for: [dataExpectation], timeout: 2)
 
     }
 

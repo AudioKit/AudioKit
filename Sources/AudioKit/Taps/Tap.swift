@@ -1,9 +1,9 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import Foundation
-import AVFAudio
+@preconcurrency import AVFAudio
 
-public protocol Tap {
+public protocol Tap: Sendable {
     func handleTap(buffer: AVAudioPCMBuffer, at time: AVAudioTime) async
 }
 
@@ -17,14 +17,17 @@ extension Node {
         }
 
         let bus = 0 // Should be a ctor argument?
-        avAudioNode.installTap(onBus: bus,
-                                     bufferSize: bufferSize,
-                                     format: nil,
-                                     block: { (buffer, time) in
+        // Install via nonisolated static helper to avoid @MainActor closure tagging
+        Self.installTapOnNode(avAudioNode, bus: bus, bufferSize: bufferSize, tap: tap)
+    }
+
+    nonisolated private static func installTapOnNode(_ node: AVAudioNode, bus: Int, bufferSize: UInt32, tap: Tap) {
+        node.installTap(onBus: bus, bufferSize: bufferSize, format: nil) { buffer, time in
+            nonisolated(unsafe) let buf = buffer
             Task {
-                await tap.handleTap(buffer: buffer, at: time)
+                await tap.handleTap(buffer: buf, at: time)
             }
-        })
+        }
     }
 
 }

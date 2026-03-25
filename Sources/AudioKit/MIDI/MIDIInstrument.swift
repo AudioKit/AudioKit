@@ -46,19 +46,33 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
     open func enableMIDI(_ midiClient: MIDIClientRef = MIDI.sharedInstance.client,
                          name: String? = nil) {
         let cfName = (name ?? self.name) as CFString
-        CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
+        // Create the MIDI destination via nonisolated static helper so the closure
+        // passed to CoreMIDI is not tagged with @MainActor isolation metadata.
+        CheckError(Self.createMIDIDestination(client: midiClient, name: cfName, endpoint: &midiIn, instrument: self))
+    }
+
+    /// Creates a MIDI destination from a nonisolated context.
+    nonisolated private static func createMIDIDestination(
+        client: MIDIClientRef,
+        name: CFString,
+        endpoint: inout MIDIEndpointRef,
+        instrument: MIDIInstrument
+    ) -> OSStatus {
+        nonisolated(unsafe) let inst = instrument
+        return MIDIDestinationCreateWithBlock(client, name, &endpoint) { packetList, _ in
             withUnsafePointer(to: packetList.pointee.packet) { packetPtr in
                 var p = packetPtr
                 for _ in 1...packetList.pointee.numPackets {
                     for event in p.pointee {
+                        nonisolated(unsafe) let capturedEvent = event
                         DispatchQueue.main.async {
-                            self.handle(event: event)
+                            inst.handle(event: capturedEvent)
                         }
                     }
                     p = UnsafePointer<MIDIPacket>(MIDIPacketNext(p))
                 }
             }
-        })
+        }
     }
 
     private func handle(event: MIDIEvent) {

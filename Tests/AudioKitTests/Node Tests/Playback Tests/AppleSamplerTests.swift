@@ -7,7 +7,7 @@ import XCTest
 // Commented out these tests due to intermittent failure on CI
 
 /*
-class AppleSamplerTests: XCTestCase {
+@MainActor class AppleSamplerTests: XCTestCase {
     let sampler = AppleSampler()
     let engine = AudioEngine()
 

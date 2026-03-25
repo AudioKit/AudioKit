@@ -13,10 +13,10 @@
 import os.log
 import AVFoundation
 
-let MIDIListenerLogging = false
+nonisolated(unsafe) let MIDIListenerLogging = false
 
 /// MIDI Listener protocol
-public protocol MIDIListener {
+@MainActor public protocol MIDIListener {
 
     /// Receive the MIDI note on event
     ///
@@ -147,7 +147,7 @@ public extension MIDIListener {
     }
 }
 
-func == (lhs: MIDIListener, rhs: MIDIListener) -> Bool {
+@MainActor func == (lhs: MIDIListener, rhs: MIDIListener) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 

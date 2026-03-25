@@ -3,7 +3,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class MusicTrackManagerTests: XCTestCase {
+@MainActor class MusicTrackManagerTests: XCTestCase {
     var musicTrack: MusicTrackManager!
 
     override func setUp() {

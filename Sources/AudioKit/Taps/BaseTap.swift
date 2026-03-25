@@ -3,14 +3,23 @@
 import AVFoundation
 import Foundation
 
+/// Shared mutable holder for a weak reference to the tap, used so the installed
+/// tap closure can call back into the tap without capturing @MainActor self.
+/// This class is intentionally not @MainActor so it can be captured in
+/// closures passed to AVFoundation without carrying actor isolation metadata.
+private class TapBlockHolder: @unchecked Sendable {
+    weak var tap: BaseTap?
+}
+
 /// Base class for AudioKit taps using AVAudioEngine installTap
+@MainActor
 open class BaseTap {
     private let callbackQueue: DispatchQueue
     /// Size of buffer to analyze
-    public private(set) var bufferSize: UInt32
+    nonisolated(unsafe) public private(set) var bufferSize: UInt32
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public private(set) var isStarted: Bool = false
+    nonisolated(unsafe) public private(set) var isStarted: Bool = false
 
     /// The bus to install the tap onto
     public var bus: Int = 0 {
@@ -23,7 +32,7 @@ open class BaseTap {
     }
 
     private var _input: Node
-    private var handleBlock: AVAudioNodeTapBlock?
+    private let blockHolder = TapBlockHolder()
 
     /// Input node to analyze
     public var input: Node {
@@ -76,22 +85,39 @@ open class BaseTap {
             Log("The tapped node isn't attached to the engine")
             return
         }
-        handleBlock = { [weak self] in self?.handleTapBlock(buffer: $0, at: $1) }
-        input.avAudioNode.installTap(
-            onBus: bus,
-            bufferSize: bufferSize,
-            format: nil,
-            block: { [weak self] buffer, time in
-                self?.handleBlock?(buffer, time)
-            }
-        )
+        blockHolder.tap = self
+        // Install the tap via a nonisolated static helper so the closure passed
+        // to AVFoundation is not tagged with @MainActor isolation metadata.
+        // AVFoundation calls this block from audio threads and checks isolation
+        // metadata at runtime, crashing if it finds @MainActor.
+        // The blockHolder is a non-isolated class holding a weak ref to self,
+        // so capturing it in the closure won't tag it with @MainActor.
+        // The indirection through blockHolder allows stop() to nil out the ref
+        // to prevent pending callbacks (same pattern as original handleBlock).
+        BaseTap.installTapOnNode(input.avAudioNode, bus: bus, bufferSize: bufferSize, blockHolder: blockHolder)
+    }
+
+    /// Installs a tap on a node from a nonisolated context.
+    /// This is critical because closures created inside @MainActor methods carry
+    /// MainActor isolation metadata that AVFoundation checks at runtime when
+    /// invoking the tap block from audio threads. By creating the wrapper closure
+    /// here in a nonisolated static method, the closure has no actor isolation.
+    nonisolated private static func installTapOnNode(
+        _ node: AVAudioNode,
+        bus: Int,
+        bufferSize: UInt32,
+        blockHolder: TapBlockHolder
+    ) {
+        node.installTap(onBus: bus, bufferSize: bufferSize, format: nil) { buffer, time in
+            blockHolder.tap?.handleTapBlock(buffer: buffer, at: time)
+        }
     }
 
     /// Override this method to handle Tap in derived class
     /// - Parameters:
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
-    private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    nonisolated private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         var bufferWithCapacity: AVAudioPCMBuffer
 
         if bufferSize > buffer.frameCapacity {
@@ -107,6 +133,7 @@ open class BaseTap {
 
         bufferWithCapacity.frameLength = bufferSize
 
+        let capturedBuffer = bufferWithCapacity
         self.callbackQueue.async {
 
             // Create trackers as needed.
@@ -115,13 +142,13 @@ open class BaseTap {
                 self.unlock()
                 return
             }
-            self.doHandleTapBlock(buffer: bufferWithCapacity, at: time)
+            self.doHandleTapBlock(buffer: capturedBuffer, at: time)
             self.unlock()
         }
     }
 
     /// Override this method to handle Tap in derived class
-    open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {}
+    nonisolated open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {}
 
     /// Remove the tap on the input
     open func stop() {
@@ -133,7 +160,7 @@ open class BaseTap {
         // It is important to do this from the outside of the `lock()`.
         // Once we are inside of the lock, the deadlock might occur,
         // if `handleBlock` is called just after lock, but before `removeTap`.
-        handleBlock = nil
+        blockHolder.tap = nil
         lock()
         removeTap()
         isStarted = false
@@ -156,12 +183,12 @@ open class BaseTap {
         }
     }
 
-    private var unfairLock = os_unfair_lock_s()
-    func lock() {
+    nonisolated(unsafe) private var unfairLock = os_unfair_lock_s()
+    nonisolated func lock() {
         os_unfair_lock_lock(&unfairLock)
     }
 
-    func unlock() {
+    nonisolated func unlock() {
         os_unfair_lock_unlock(&unfairLock)
     }
 }

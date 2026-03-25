@@ -5,7 +5,7 @@ import AudioKit
 import AVFAudio
 
 @available(iOS 13.0, *)
-class MatrixMixerTests: XCTestCase {
+@MainActor class MatrixMixerTests: XCTestCase {
     let engine = AudioEngine()
     var mixer = MatrixMixer([ConstantGenerator(constant: 1), ConstantGenerator(constant: 2)])
     var data: AVAudioPCMBuffer!
@@ -13,8 +13,7 @@ class MatrixMixerTests: XCTestCase {
     var output0: [Float] { data.toFloatChannelData()!.first! }
     var output1: [Float] { data.toFloatChannelData()!.last! }
 
-    override func setUp() {
-        super.setUp()
+    private func configureTest() {
         Settings.sampleRate = 44100
         mixer.outputFormat = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         engine.output = mixer
@@ -24,6 +23,7 @@ class MatrixMixerTests: XCTestCase {
     }
 
     func testMapChannel0ToChannel0() {
+        configureTest()
         mixer.set(volume: 1, atCrosspoints: [(0, 0)])
         data.append(engine.render(duration: 1))
 
@@ -32,6 +32,7 @@ class MatrixMixerTests: XCTestCase {
     }
 
     func testMapChannel0ToChannel1() {
+        configureTest()
         mixer.set(volume: 1, atCrosspoints: [(0, 1)])
         data.append(engine.render(duration: 1))
 
@@ -40,6 +41,7 @@ class MatrixMixerTests: XCTestCase {
     }
 
     func testMapChannel2ToChannel0() {
+        configureTest()
         mixer.set(volume: 1, atCrosspoints: [(2, 0)])
         data.append(engine.render(duration: 1))
 
@@ -48,6 +50,7 @@ class MatrixMixerTests: XCTestCase {
     }
 
     func testMapChannel0And2ToChannel0() {
+        configureTest()
         mixer.set(volume: 1, atCrosspoints: [(0, 0)])
         mixer.set(volume: 1, atCrosspoints: [(2, 0)])
         data.append(engine.render(duration: 1))
@@ -57,6 +60,7 @@ class MatrixMixerTests: XCTestCase {
     }
 
     func testMapChannel2ToChannel0MasterVolume0() {
+        configureTest()
         mixer.masterVolume = 0
         mixer.set(volume: 1, atCrosspoints: [(2, 0)])
         data.append(engine.render(duration: 1))
@@ -66,6 +70,7 @@ class MatrixMixerTests: XCTestCase {
     }
 
     func testMapChannel2ToChannel0Channel0Output0Volume0() {
+        configureTest()
         mixer.set(volume: 0, outputChannelIndex: 0)
         mixer.set(volume: 1, atCrosspoints: [(2, 0)])
         data.append(engine.render(duration: 1))
@@ -75,6 +80,7 @@ class MatrixMixerTests: XCTestCase {
     }
 
     func testMapChannel2ToChannel0Channel0Input2Volume0() {
+        configureTest()
         mixer.set(volume: 0, inputChannelIndex: 2)
         mixer.set(volume: 1, atCrosspoints: [(2, 0)])
         data.append(engine.render(duration: 1))

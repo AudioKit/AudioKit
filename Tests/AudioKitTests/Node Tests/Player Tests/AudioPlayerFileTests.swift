@@ -2,7 +2,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class AudioPlayerFileTests: AudioFileTestCase {
+@MainActor class AudioPlayerFileTests: AudioFileTestCase {
     // Bypass tests for automated CI
     var realtimeEnabled = false
 

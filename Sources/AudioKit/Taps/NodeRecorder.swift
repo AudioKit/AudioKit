@@ -3,6 +3,7 @@
 import AVFoundation
 
 /// Simple audio recorder class, requires a minimum buffer length of 128 samples (.short)
+@MainActor
 open class NodeRecorder: NSObject {
     // MARK: - Properties
 
@@ -13,10 +14,10 @@ open class NodeRecorder: NSObject {
     public private(set) var isRecording = false
 
     /// True if we are paused
-    public private(set) var isPaused = false
+    nonisolated(unsafe) public private(set) var isPaused = false
 
     /// An optional duration for the recording to auto-stop when reached
-    open var durationToRecord: Double = 0
+    nonisolated(unsafe) open var durationToRecord: Double = 0
 
     /// Duration of recording
     open var recordedDuration: Double {
@@ -33,13 +34,13 @@ open class NodeRecorder: NSObject {
     open var recordFormat: AVAudioFormat?
 
     // The file to record to
-    private var internalAudioFile: AVAudioFile?
+    nonisolated(unsafe) private var internalAudioFile: AVAudioFile?
 
     /// The bus to install the recording tap on. Default is 0.
     private var bus: Int = 0
 
     /// Used for fixing recordings being truncated
-    private var recordBufferDuration: Double = 16384 / Settings.sampleRate
+    nonisolated(unsafe) private var recordBufferDuration: Double = 16384 / 44_100
 
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
@@ -63,13 +64,13 @@ open class NodeRecorder: NSObject {
 
     private var recordedFileURL: URL?
 
-    public static var recordedFiles = [URL]()
+    nonisolated(unsafe) public static var recordedFiles = [URL]()
 
     /// Callback type
     public typealias AudioDataCallback = ([Float], AVAudioTime) -> Void
 
     /// Callback of incoming audio floating point values and time stamp for monitoring purposes
-    public var audioDataCallback: AudioDataCallback?
+    nonisolated(unsafe) public var audioDataCallback: AudioDataCallback?
 
     /// Error callback type
     public typealias RecordingErrorCallback = (any  Error) -> Void
@@ -161,7 +162,7 @@ open class NodeRecorder: NSObject {
     }
 
     /// When done with this class, remove any audio files that were created with createAudioFile()
-    public static func removeRecordedFiles() {
+    nonisolated public static func removeRecordedFiles() {
         for url in NodeRecorder.recordedFiles {
             try? FileManager.default.removeItem(at: url)
             Log("𝗫 Deleted tmp file at", url)
@@ -207,13 +208,31 @@ open class NodeRecorder: NSObject {
             return
         }
 
-        node.avAudioNode.installTap(onBus: bus,
-                                    bufferSize: bufferLength,
-                                    format: recordFormat,
-                                    block: processBlockBuilder(onError))
+        let cachedSampleRate = Settings.sampleRate
+        let block = processBlockBuilder(onError, sampleRate: cachedSampleRate)
+        // Install tap via a nonisolated static helper so the closure passed to
+        // AVFoundation is not tagged with @MainActor isolation metadata.
+        NodeRecorder.installTapOnNode(node.avAudioNode,
+                                      bus: bus,
+                                      bufferSize: bufferLength,
+                                      format: recordFormat,
+                                      block: block)
     }
 
-    private func processBlockBuilder(_ onError: RecordingErrorCallback?) -> (AVAudioPCMBuffer, AVAudioTime) -> Void {
+    /// Installs a tap from a nonisolated context to avoid @MainActor metadata on the closure.
+    nonisolated private static func installTapOnNode(
+        _ node: AVAudioNode,
+        bus: Int,
+        bufferSize: AVAudioFrameCount,
+        format: AVAudioFormat?,
+        block: @escaping (AVAudioPCMBuffer, AVAudioTime) -> Void
+    ) {
+        node.installTap(onBus: bus, bufferSize: bufferSize, format: format) { buffer, time in
+            block(buffer, time)
+        }
+    }
+
+    nonisolated private func processBlockBuilder(_ onError: RecordingErrorCallback?, sampleRate: Double) -> (AVAudioPCMBuffer, AVAudioTime) -> Void {
         return { [weak self] buffer, time in
             guard let self else { return }
             guard let internalAudioFile = internalAudioFile else {
@@ -223,12 +242,14 @@ open class NodeRecorder: NSObject {
 
             do {
                 if !isPaused {
-                    recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
+                    recordBufferDuration = Double(buffer.frameLength) / sampleRate
                     try internalAudioFile.write(from: buffer)
 
                     // allow an optional timed stop
                     if durationToRecord != 0, internalAudioFile.duration >= durationToRecord {
-                        stop()
+                        Task { @MainActor in
+                            self.stop()
+                        }
                     }
 
                     if audioDataCallback != nil {
@@ -243,7 +264,7 @@ open class NodeRecorder: NSObject {
     }
 
     /// When a raw data tap handler is provided, we call it back with the recorded float values
-    private func doHandleTapBlock(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
+    nonisolated private func doHandleTapBlock(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
         let offset = Int(buffer.frameCapacity - buffer.frameLength)

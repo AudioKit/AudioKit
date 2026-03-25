@@ -1,7 +1,7 @@
 import XCTest
 import AVFoundation
 
-final class AVAudioFileTests: XCTestCase {
+@MainActor final class AVAudioFileTests: XCTestCase {
 
     func testReadFile() throws {
 

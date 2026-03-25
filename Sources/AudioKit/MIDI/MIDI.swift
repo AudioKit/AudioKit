@@ -5,18 +5,19 @@ import CoreMIDI
 import os.log
 
 /// MIDI input and output handler
+@MainActor
 public class MIDI {
 
     /// Shared singleton
-    public static var sharedInstance = MIDI()
+    nonisolated(unsafe) public static let sharedInstance = MIDI()
 
     // MARK: - Properties
 
     /// MIDI Client Reference
-    public var client = MIDIClientRef()
+    nonisolated(unsafe) public var client = MIDIClientRef()
 
     /// MIDI Client Name
-    internal let clientName: CFString = "AudioKit" as CFString
+    nonisolated(unsafe) internal let clientName: CFString = "AudioKit" as CFString
 
     /// Array of MIDI In ports
     public var inputPorts = [MIDIUniqueID: MIDIPortRef]()
@@ -48,7 +49,7 @@ public class MIDI {
     // MARK: - Initialization
 
     /// Initialize the MIDI system
-    public init() {
+    nonisolated public init() {
         Log("Initializing MIDI", log: OSLog.midi)
 
         #if os(iOS)
@@ -58,23 +59,33 @@ public class MIDI {
         #endif
 
         if client == 0 {
-            let result = MIDIClientCreateWithBlock(clientName, &client) {
-                let messageID = $0.pointee.messageID
+            // Capture self without @MainActor isolation for use in CoreMIDI callbacks
+            nonisolated(unsafe) let midi = self
+            let result = MIDIClientCreateWithBlock(clientName, &client) { notification in
+                let messageID = notification.pointee.messageID
 
                 switch messageID {
                 case .msgSetupChanged:
-                    for listener in self.listeners {
-                        listener.receivedMIDISetupChange()
+                    Task { @MainActor in
+                        for listener in midi.listeners {
+                            listener.receivedMIDISetupChange()
+                        }
                     }
                 case .msgPropertyChanged:
-                    let rawPtr = UnsafeRawPointer($0)
+                    let rawPtr = UnsafeRawPointer(notification)
                     let propChange = rawPtr.assumingMemoryBound(to: MIDIObjectPropertyChangeNotification.self).pointee
-                    for listener in self.listeners {
-                        listener.receivedMIDIPropertyChange(propertyChangeInfo: propChange)
+                    nonisolated(unsafe) let propChangeCopy = propChange
+                    Task { @MainActor in
+                        for listener in midi.listeners {
+                            listener.receivedMIDIPropertyChange(propertyChangeInfo: propChangeCopy)
+                        }
                     }
                 default:
-                    for listener in self.listeners {
-                        listener.receivedMIDINotification(notification: $0.pointee)
+                    let notificationValue = notification.pointee
+                    Task { @MainActor in
+                        for listener in midi.listeners {
+                            listener.receivedMIDINotification(notification: notificationValue)
+                        }
                     }
                 }
             }
@@ -86,20 +97,20 @@ public class MIDI {
 
     // MARK: - SYSEX
 
-    internal var isReceivingSysEx: Bool = false
-    func startReceivingSysEx(with midiBytes: [MIDIByte]) {
+    nonisolated(unsafe) internal var isReceivingSysEx: Bool = false
+    nonisolated func startReceivingSysEx(with midiBytes: [MIDIByte]) {
         Log("Starting to receive SysEx", log: OSLog.midi)
         isReceivingSysEx = true
         incomingSysEx = midiBytes
     }
-    func stopReceivingSysEx() {
+    nonisolated func stopReceivingSysEx() {
         Log("Done receiving SysEx", log: OSLog.midi)
         isReceivingSysEx = false
     }
-    var incomingSysEx = [MIDIByte]()
+    nonisolated(unsafe) var incomingSysEx = [MIDIByte]()
     
     // I don't want to break logic of existing code for receiving SysEx messages,
     // So I use separate var for processUMPSysExMessage method
-    internal var incomingUMPSysExMessage = [UInt8]()
+    nonisolated(unsafe) internal var incomingUMPSysExMessage = [UInt8]()
 }
 #endif

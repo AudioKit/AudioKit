@@ -12,7 +12,7 @@ private extension MIDIEventList.Builder {
 }
 
 // simple test sender only for testing, will not work on simulator
-class TestSender {
+@MainActor class TestSender {
     var client: MIDIClientRef = 0
     var source: MIDIEndpointRef = 0
 

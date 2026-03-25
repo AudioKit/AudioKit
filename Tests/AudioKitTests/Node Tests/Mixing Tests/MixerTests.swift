@@ -4,7 +4,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class MixerTests: XCTestCase {
+@MainActor class MixerTests: XCTestCase {
     override func setUp() {
         Settings.sampleRate = 44100
     }

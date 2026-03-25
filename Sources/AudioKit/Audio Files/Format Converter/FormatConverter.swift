@@ -122,7 +122,7 @@ public class FormatConverter {
 
 // MARK: - Definitions
 
-public enum AudioFileFormat: String {
+public enum AudioFileFormat: String, Sendable {
     case aac
     case aif
     case aifc

@@ -7,7 +7,7 @@ open class RawBufferTap: BaseTap {
     /// Callback type
     public typealias Handler = (AVAudioPCMBuffer, AVAudioTime) -> Void
 
-    private let handler: Handler
+    nonisolated(unsafe) private let handler: Handler
 
     /// Initialize the raw buffer tap
     ///
@@ -20,7 +20,7 @@ open class RawBufferTap: BaseTap {
         super.init(input, bufferSize: bufferSize, callbackQueue: callbackQueue)
     }
 
-    override public func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    nonisolated override public func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         handler(buffer, time)
     }
 }

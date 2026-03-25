@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class CompressorTests: XCTestCase {
+@MainActor class CompressorTests: XCTestCase {
     override func setUp() {
         Settings.sampleRate = 44100
     }

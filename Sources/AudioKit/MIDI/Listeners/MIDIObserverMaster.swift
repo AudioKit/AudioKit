@@ -3,7 +3,7 @@
 import Foundation
 
 /// Observer protocol
-public protocol ObserverProtocol {
+@MainActor public protocol ObserverProtocol {
     /// Equality test
     /// - Parameter listener: Another listener
     func isEqualTo(_ listener: ObserverProtocol) -> Bool
@@ -17,11 +17,11 @@ extension ObserverProtocol {
     }
 }
 
-func == (lhs: ObserverProtocol, rhs: ObserverProtocol) -> Bool {
+@MainActor func == (lhs: ObserverProtocol, rhs: ObserverProtocol) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 
-class MIDIObserverMaster<P> where P: ObserverProtocol {
+@MainActor class MIDIObserverMaster<P> where P: ObserverProtocol {
 
     var observers: [P] = []
 

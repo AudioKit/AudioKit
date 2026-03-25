@@ -13,7 +13,7 @@ import CoreMIDI
 ///  Subclasses can override monoPolyChange() to observe changes
 ///
 /// MIDI Mono Poly Listener is a generic object but  should be used as an MIDIListener
-public class MIDIMonoPolyListener: NSObject {
+@MainActor public class MIDIMonoPolyListener: NSObject {
 
     var monoMode: Bool
 

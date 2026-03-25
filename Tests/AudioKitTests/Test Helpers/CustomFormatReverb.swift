@@ -3,7 +3,7 @@
 import AudioKit
 import AVFAudio
 
-class CustomFormatReverb: Node {
+@MainActor class CustomFormatReverb: Node {
     private let reverb: Reverb
     var avAudioNode: AVAudioNode { reverb.avAudioNode }
     var connections: [Node] { reverb.connections }

@@ -124,7 +124,7 @@ extension AVAudioEngine {
     /// node to the mixer prior to making a connection, then removing the dummy node after the connection has been made.
     /// This is still a bug as of macOS 11.4 (2021). A place in ADD where this would happen is the Importer editor
     /// http://openradar.appspot.com/radar?id=5588189343383552
-    func initializeMixer(_ node: AVAudioNode) -> AVAudioNode? {
+    @MainActor func initializeMixer(_ node: AVAudioNode) -> AVAudioNode? {
         // Only an issue if engine is running, node is a mixer, and mixer has no inputs
         guard isRunning,
               let mixer = node as? AVAudioMixerNode,

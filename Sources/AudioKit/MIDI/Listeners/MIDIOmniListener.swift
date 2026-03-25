@@ -6,7 +6,7 @@ import CoreMIDI
 
 ///  This class probably needs to support observers as well
 ///  so that a client may be able to be notified of state changes
-public class MIDIOMNIListener: NSObject {
+@MainActor public class MIDIOMNIListener: NSObject {
 
     var omniMode: Bool
 

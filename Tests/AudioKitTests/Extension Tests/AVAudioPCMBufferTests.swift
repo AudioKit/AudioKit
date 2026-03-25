@@ -3,7 +3,7 @@ import AVFoundation
 import Foundation
 import XCTest
 
-class AVAudioPCMBufferTests: XCTestCase {
+@MainActor class AVAudioPCMBufferTests: XCTestCase {
     func testAppend() {
         let path = Bundle.module.url(forResource: "TestResources/drumloop", withExtension: "wav")
         let file = try! AVAudioFile(forReading: path!)

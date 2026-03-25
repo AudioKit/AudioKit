@@ -4,7 +4,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class AppleSequencerTests: XCTestCase {
+@MainActor class AppleSequencerTests: XCTestCase {
     var seq: AppleSequencer!
 
     override func setUp() {

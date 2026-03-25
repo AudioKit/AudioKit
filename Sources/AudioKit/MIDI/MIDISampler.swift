@@ -42,7 +42,18 @@ open class MIDISampler: AppleSampler, NamedNode {
         guard let midiBlock = avAudioNode.auAudioUnit.scheduleMIDIEventBlock else {
             fatalError("Expected AU to respond to MIDI.")
         }
-        CheckError(MIDIDestinationCreateWithBlock(midiClient, cfName, &midiIn) { packetList, _ in
+        // Create via nonisolated static helper to avoid @MainActor closure tagging
+        CheckError(Self.createMIDISamplerDestination(client: midiClient, name: cfName, endpoint: &midiIn, midiBlock: midiBlock))
+    }
+
+    /// Creates a MIDI destination from a nonisolated context.
+    nonisolated private static func createMIDISamplerDestination(
+        client: MIDIClientRef,
+        name: CFString,
+        endpoint: inout MIDIEndpointRef,
+        midiBlock: @escaping AUScheduleMIDIEventBlock
+    ) -> OSStatus {
+        return MIDIDestinationCreateWithBlock(client, name, &endpoint) { packetList, _ in
             withUnsafePointer(to: packetList.pointee.packet) { packetPtr in
                 var p = packetPtr
                 for _ in 1...packetList.pointee.numPackets {
@@ -55,7 +66,7 @@ open class MIDISampler: AppleSampler, NamedNode {
                     p = UnsafePointer<MIDIPacket>(MIDIPacketNext(p))
                 }
             }
-        })
+        }
     }
 
     private func handle(event: MIDIEvent) throws {

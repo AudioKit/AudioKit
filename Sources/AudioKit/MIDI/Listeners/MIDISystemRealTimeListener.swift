@@ -7,7 +7,7 @@ import os.log
 
 /// This MIDIListener looks for midi system real time (SRT)
 /// midi system messages.
-open class MIDISystemRealTimeListener: NSObject {
+@MainActor open class MIDISystemRealTimeListener: NSObject {
     enum SRTEvent: MIDIByte {
         case stop = 0xFC
         case start = 0xFA

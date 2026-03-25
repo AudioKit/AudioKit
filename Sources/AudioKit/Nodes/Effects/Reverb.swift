@@ -68,7 +68,7 @@ public class Reverb: Node {
 }
 
 public extension AVAudioUnitReverbPreset {
-    static var allCases: [AVAudioUnitReverbPreset] =
+    nonisolated(unsafe) static var allCases: [AVAudioUnitReverbPreset] =
         [.smallRoom, .mediumRoom,
          .largeRoom, .mediumHall, .largeHall,
          .plate,

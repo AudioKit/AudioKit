@@ -5,7 +5,7 @@
 import Foundation
 
 /// MIDI System Real Time Observer
-public protocol MIDISystemRealTimeObserver {
+@MainActor public protocol MIDISystemRealTimeObserver {
 
     /// Called when a midi start system message is received
     ///
@@ -47,7 +47,7 @@ extension MIDISystemRealTimeObserver {
     }
 }
 
-func == (lhs: MIDISystemRealTimeObserver, rhs: MIDISystemRealTimeObserver) -> Bool {
+@MainActor func == (lhs: MIDISystemRealTimeObserver, rhs: MIDISystemRealTimeObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 

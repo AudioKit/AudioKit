@@ -1,4 +1,4 @@
-// swift-tools-version:5.9
+// swift-tools-version:6.0
 
 import PackageDescription
 
@@ -9,8 +9,14 @@ let package = Package(
     targets: [
         .target(
             name: "AudioKit",
-            resources: [.process("Resources")]
+            resources: [.process("Resources")],
+            swiftSettings: [.swiftLanguageMode(.v6)]
         ),
-        .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
+        .testTarget(
+            name: "AudioKitTests",
+            dependencies: ["AudioKit"],
+            resources: [.copy("TestResources/")],
+            swiftSettings: [.swiftLanguageMode(.v6)]
+        ),
     ]
 )

@@ -8,7 +8,7 @@ extension ObjectIdentifier {
     }
 }
 
-fileprivate var labels: [ObjectIdentifier: String] = [:]
+nonisolated(unsafe) fileprivate var labels: [ObjectIdentifier: String] = [:]
 
 extension Node {
 

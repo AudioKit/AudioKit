@@ -16,7 +16,7 @@ let validatedMD5s: [String: [String]] = [
     "-[AppleSamplerTests testSamplePlayback]": ["7e38e34c8d052d9730b24cddd160d328"],
     "-[AppleSamplerTests testStop]": ["b42b86f6a7ff3a6fc85eb1760226cba0"],
     "-[AppleSamplerTests testVolume]": ["0b71c337205812fb30c536a014af7765"],
-    "-[AudioPlayerTests testBasic]": ["feb1367cee8917a890088b8967b8d422"],
+    "-[AudioPlayerTests testPlayerStatus]": ["feb1367cee8917a890088b8967b8d422"],
     "-[AudioPlayerTests testEngineRestart]": ["b0dd4297f40fd11a2b648f6cb3aad13f"],
     "-[AudioPlayerTests testCurrentTime]": ["af7c73c8c8c6f43a811401246c10cba4"],
     "-[AudioPlayerTests testToggleEditTime]": ["ff165ef8695946c41d3bbb8b68e5d295"],

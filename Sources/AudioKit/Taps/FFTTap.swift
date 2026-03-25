@@ -6,17 +6,17 @@ import AVFoundation
 /// FFT Calculation for any node
 open class FFTTap: BaseTap {
     /// Array of FFT data
-    open var fftData: [Float]
+    nonisolated(unsafe) open var fftData: [Float]
     /// Type of callback
     public typealias Handler = ([Float]) -> Void
     /// Determines if the returned FFT data is normalized
-    public var isNormalized: Bool = true
+    nonisolated(unsafe) public var isNormalized: Bool = true
     /// Determines the ratio of zeros padding the input of the FFT (default 0 = no padding)
-    public var zeroPaddingFactor: UInt32 = 0
+    nonisolated(unsafe) public var zeroPaddingFactor: UInt32 = 0
     /// Sets the number of fft bins return
-    private var fftSetupForBinCount: FFTSetupForBinCount?
+    nonisolated(unsafe) private var fftSetupForBinCount: FFTSetupForBinCount?
 
-    private var handler: Handler = { _ in }
+    nonisolated(unsafe) private var handler: Handler = { _ in }
 
     /// Initialize the FFT Tap
     ///
@@ -48,7 +48,7 @@ open class FFTTap: BaseTap {
     /// - Parameters:
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
-    override open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    nonisolated override open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
         fftData = FFTTap.performFFT(buffer: buffer,
@@ -58,7 +58,7 @@ open class FFTTap: BaseTap {
         handler(fftData)
     }
 
-    static func performFFT(buffer: AVAudioPCMBuffer,
+    nonisolated static func performFFT(buffer: AVAudioPCMBuffer,
                            isNormalized: Bool = true,
                            zeroPaddingFactor: UInt32 = 0,
                            fftSetupForBinCount: FFTSetupForBinCount? = nil) -> [Float] {
@@ -136,7 +136,7 @@ open class FFTTap: BaseTap {
     }
 
     /// Determines the value to use for log2n input to fft
-    static func determineLog2n(frameCount: UInt32, fftSetupForBinCount: FFTSetupForBinCount?) -> UInt {
+    nonisolated static func determineLog2n(frameCount: UInt32, fftSetupForBinCount: FFTSetupForBinCount?) -> UInt {
         if let setup = fftSetupForBinCount {
             if frameCount >= setup.binCount { // guard against more bins than buffer size
                 return UInt(setup.log2n + 1) // +1 because we divide bufferSizePOT by two

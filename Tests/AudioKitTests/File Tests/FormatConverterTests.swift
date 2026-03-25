@@ -2,7 +2,7 @@ import AudioKit
 import AVFoundation
 import XCTest
 
-class FormatConverterTests: AudioFileTestCase {
+@MainActor class FormatConverterTests: AudioFileTestCase {
     var stereoAIFF44k32Bit: URL? {
         Bundle.module.url(forResource: "chromaticScale-5", withExtension: "aiff", subdirectory: "TestResources")
     }

@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import AVFoundation
 
-final class RawBufferTapTests: XCTestCase {
+@MainActor final class RawBufferTapTests: XCTestCase {
 
     func testRawBufferTap() throws {
 

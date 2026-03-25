@@ -3,6 +3,7 @@
 import AVFoundation
 
 /// Node in an audio graph.
+@MainActor
 public protocol Node: AnyObject {
     /// Nodes providing audio input to this node.
     var connections: [Node] { get }
@@ -178,13 +179,13 @@ extension Node {
     }
 }
 
-public protocol HasInternalConnections: AnyObject {
+@MainActor public protocol HasInternalConnections: AnyObject {
     /// Override point for any connections internal to the node.
     func makeInternalConnections()
 }
 
 /// Protocol mostly to support DynamicOscillator in SoundpipeAudioKit, but could be used elsewhere
-public protocol DynamicWaveformNode: Node {
+@MainActor public protocol DynamicWaveformNode: Node {
     /// Sets the wavetable
     /// - Parameter waveform: The tablve
     func setWaveform(_ waveform: Table)

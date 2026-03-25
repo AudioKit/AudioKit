@@ -4,7 +4,7 @@ import AudioKit
 import AVFAudio
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-public class ConstantGenerator: Node {
+@MainActor public class ConstantGenerator: Node {
     public var connections: [Node] { [] }
     public private(set) var avAudioNode: AVAudioNode
 

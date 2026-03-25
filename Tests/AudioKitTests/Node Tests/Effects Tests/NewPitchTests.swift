@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import AVFAudio
 
-final class NewPitchTests: XCTestCase {
+@MainActor final class NewPitchTests: XCTestCase {
     let engine = AudioEngine()
     let newPitch = NewPitch(ConstantGenerator(constant: 1))
 

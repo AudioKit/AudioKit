@@ -4,7 +4,7 @@ import XCTest
 import AVFAudio
 import AudioKit
 
-class ManualRenderingTests: XCTestCase {
+@MainActor class ManualRenderingTests: XCTestCase {
     override func setUp() {
         Settings.sampleRate = 44100
     }

@@ -6,11 +6,11 @@ import AVFoundation
 /// Get the raw data for any node
 open class RawDataTap: BaseTap {
     /// Array of Raw data
-    open var data: [Float]
+    nonisolated(unsafe) open var data: [Float]
     /// Callback type
     public typealias Handler = ([Float]) -> Void
 
-    private var handler: Handler = { _ in }
+    nonisolated(unsafe) private var handler: Handler = { _ in }
 
     /// Initialize the raw data tap
     ///
@@ -28,7 +28,7 @@ open class RawDataTap: BaseTap {
     /// - Parameters:
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
-    override open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    nonisolated override open func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard buffer.floatChannelData != nil else { return }
 
         let offset = Int(buffer.frameCapacity - buffer.frameLength)
@@ -52,15 +52,15 @@ open class RawDataTap: BaseTap {
 public actor RawDataTap2: Tap {
 
     /// Callback type
-    public typealias Handler = ([Float]) -> Void
+    public typealias Handler = @Sendable ([Float]) -> Void
 
-    private let handler: Handler
+    private nonisolated(unsafe) let handler: Handler
 
     public init(_ input: Node, handler: @escaping Handler = { _ in }) {
         self.handler = handler
     }
 
-    public func handleTap(buffer: AVAudioPCMBuffer, at time: AVAudioTime) async {
+    nonisolated public func handleTap(buffer: AVAudioPCMBuffer, at time: AVAudioTime) async {
         guard buffer.floatChannelData != nil else { return }
 
         let offset = Int(buffer.frameCapacity - buffer.frameLength)

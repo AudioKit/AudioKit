@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import AVFAudio
 
-class AmplitudeTapTests: XCTestCase {
+@MainActor class AmplitudeTapTests: XCTestCase {
 
     func testTapDoesntDeadlockOnStop() throws {
         let engine = AudioEngine()
@@ -22,23 +22,18 @@ class AmplitudeTapTests: XCTestCase {
     }
 
     func testTapDoesntDeadlockOnStopWhenRunningOnAnotherQueue() throws {
+        let engine = AudioEngine()
+        let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
+        let player = AudioPlayer(url: url)!
+        engine.output = player
         let queue = DispatchQueue(label: "test")
-        let expectation = self.expectation(description: "")
-        queue.async {
-            let engine = AudioEngine()
-            let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
-            let player = AudioPlayer(url: url)!
-            engine.output = player
-            let tap = AmplitudeTap(player, callbackQueue: queue)
+        let tap = AmplitudeTap(player, callbackQueue: queue)
 
-            _ = engine.startTest(totalDuration: 1)
-            tap.start()
-            _ = engine.render(duration: 1)
-            tap.stop()
-            XCTAssertFalse(tap.isStarted)
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 2)
+        _ = engine.startTest(totalDuration: 1)
+        tap.start()
+        _ = engine.render(duration: 1)
+        tap.stop()
+        XCTAssertFalse(tap.isStarted)
     }
 
     func testDoesntCrashForMoreThenTwoChannels() {

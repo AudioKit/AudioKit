@@ -53,6 +53,7 @@ public extension AVAudioMixerNode {
 }
 
 /// AudioKit's wrapper for AVAudioEngine
+@MainActor
 public class AudioEngine {
     /// Internal AVAudioEngine
     public let avEngine = AVAudioEngine()

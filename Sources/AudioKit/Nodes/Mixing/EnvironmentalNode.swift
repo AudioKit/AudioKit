@@ -1,6 +1,6 @@
 import AVFoundation
 
-public extension AVAudioEnvironmentNode {
+@MainActor public extension AVAudioEnvironmentNode {
     /// Make a connection without breaking other connections.
     /// Makes sure the Mixer3D connects to the EnviromentalNode In **MONO**
     func connectMixer3D(_ input: AVAudioNode, engine: AVAudioEngine, format: AVAudioFormat) {

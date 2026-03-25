@@ -5,7 +5,7 @@ import Foundation
 import AVFoundation
 
 /// Protocol so that clients may observe beat events
-public protocol MIDIBeatObserver {
+@MainActor public protocol MIDIBeatObserver {
 
     /// Called when the midi system real time start or continue message arrives.
     /// Will be called when on the very first beat.
@@ -88,7 +88,7 @@ public extension MIDIBeatObserver {
     }
 }
 
-func == (lhs: MIDIBeatObserver, rhs: MIDIBeatObserver) -> Bool {
+@MainActor func == (lhs: MIDIBeatObserver, rhs: MIDIBeatObserver) -> Bool {
     return lhs.isEqualTo(rhs)
 }
 #endif

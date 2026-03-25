@@ -12,7 +12,7 @@ extension TestSender {
     }
 }
 
-class UMPParsingTests: XCTestCase {
+@MainActor class UMPParsingTests: XCTestCase {
 
     let midi = MIDI()
     let sender = TestSender()

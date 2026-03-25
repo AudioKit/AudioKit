@@ -4,7 +4,7 @@ import XCTest
 import AudioKit
 import CoreMIDI
 
-final class MIDIPacketTests: XCTestCase {
+@MainActor final class MIDIPacketTests: XCTestCase {
 
     func testExtractData() throws {
 

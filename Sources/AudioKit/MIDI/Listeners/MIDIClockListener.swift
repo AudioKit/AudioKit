@@ -10,7 +10,7 @@ import os.log
 ///
 /// If you wish to observer its events, then add your own MIDIBeatObserver
 ///
-public class MIDIClockListener: NSObject {
+@MainActor public class MIDIClockListener: NSObject {
     /// Definition of 24 quantums per quarter note
     let quantumsPerQuarterNote: MIDIByte
     /// Count of 24 quantums per quarter note
@@ -50,9 +50,11 @@ public class MIDIClockListener: NSObject {
     }
 
     deinit {
-        srtListener.removeObserver(self)
-        tempoListener.removeObserver(self)
-        observers = []
+        MainActor.assumeIsolated {
+            srtListener.removeObserver(self)
+            tempoListener.removeObserver(self)
+            observers = []
+        }
     }
 
     func sppChange(_ positionPointer: UInt16) {

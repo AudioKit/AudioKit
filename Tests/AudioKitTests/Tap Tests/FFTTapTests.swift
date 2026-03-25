@@ -3,7 +3,7 @@
 import AudioKit
 import XCTest
 
-class FFTTapTests: XCTestCase {
+@MainActor class FFTTapTests: XCTestCase {
     func check(values: [Int], known: [Int]) {
         XCTAssertGreaterThanOrEqual(values.count, known.count)
         if values.count >= known.count {

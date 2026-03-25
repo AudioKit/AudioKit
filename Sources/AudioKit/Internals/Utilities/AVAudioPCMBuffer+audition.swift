@@ -4,7 +4,7 @@ import AVFoundation
 
 public extension AVAudioPCMBuffer {
     /// Audition the buffer. Especially useful in AudioKit testing
-    func audition() {
+    @MainActor func audition() {
         let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player

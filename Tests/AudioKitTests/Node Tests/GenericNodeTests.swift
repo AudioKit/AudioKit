@@ -6,7 +6,7 @@ import Foundation
 import GameplayKit
 import XCTest
 
-func setParams(node: Node, rng: GKRandomSource) {
+@MainActor func setParams(node: Node, rng: GKRandomSource) {
     for param in node.parameters {
         let def = param.def
         let size = def.range.upperBound - def.range.lowerBound
@@ -16,7 +16,7 @@ func setParams(node: Node, rng: GKRandomSource) {
     }
 }
 
-class GenericNodeTests: XCTestCase {
+@MainActor class GenericNodeTests: XCTestCase {
     func nodeRandomizedTest(md5: String, factory: () -> Node, audition: Bool = false) {
         // We want determinism.
         let rng = GKMersenneTwisterRandomSource(seed: 0)

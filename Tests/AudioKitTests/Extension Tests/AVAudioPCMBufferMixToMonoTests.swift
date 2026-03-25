@@ -3,7 +3,7 @@ import AVFoundation
 import Foundation
 import XCTest
 
-class AVAudioPCMBufferMixToMonoTests: XCTestCase {
+@MainActor class AVAudioPCMBufferMixToMonoTests: XCTestCase {
     let sampleRate: Double = 44100
     lazy var capacity = 10 * UInt32(sampleRate)
     lazy var format = AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: 2)!

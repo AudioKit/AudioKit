@@ -3,7 +3,7 @@
 import AVFoundation
 
 /// Definition or specification of a node parameter
-public struct NodeParameterDef {
+public struct NodeParameterDef: Sendable {
     /// Unique ID
     public var identifier: String
     /// Name
@@ -53,6 +53,7 @@ public struct NodeParameterDef {
 
 /// NodeParameter wraps AUParameter in a user-friendly interface and adds some AudioKit-specific functionality.
 /// New version for use with Parameter property wrapper.
+@MainActor
 public class NodeParameter {
     public private(set) var avAudioNode: AVAudioNode!
 
@@ -131,7 +132,7 @@ public class NodeParameter {
 
     /// Records automation for this parameter.
     /// - Parameter callback: Called on the main queue for each parameter event.
-    public func recordAutomation(callback: @escaping (AUParameterAutomationEvent) -> Void) {
+    public func recordAutomation(callback: @escaping @Sendable (AUParameterAutomationEvent) -> Void) {
         parameterObserverToken = parameter.token(byAddingParameterAutomationObserver: { numberEvents, events in
 
             for index in 0 ..< numberEvents {
@@ -229,7 +230,7 @@ extension AUValue: NodeParameterType {
 }
 
 /// Used internally so we can iterate over parameters using reflection.
-protocol ParameterBase {
+@MainActor protocol ParameterBase {
     var projectedValue: NodeParameter { get }
 }
 
@@ -248,7 +249,7 @@ protocol ParameterBase {
 ///
 /// Note that we don't allow initialization of Parameters to values
 /// because we don't yet have an underlying AUParameter.
-@propertyWrapper
+@MainActor @propertyWrapper
 public struct Parameter<Value: NodeParameterType>: ParameterBase {
     var param: NodeParameter
 

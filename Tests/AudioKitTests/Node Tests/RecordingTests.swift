@@ -5,7 +5,7 @@ import XCTest
 
 #if !os(tvOS)
 /// Tests for engine.inputNode - note can't be tested without an Info.plist
-class RecordingTests: AudioFileTestCase {
+@MainActor class RecordingTests: AudioFileTestCase {
     func testMultiChannelRecording() throws {
         // This test is failing. I am not sure what was the intention of it,
         // but it doesn't have any assertions. Also, it attempts to start

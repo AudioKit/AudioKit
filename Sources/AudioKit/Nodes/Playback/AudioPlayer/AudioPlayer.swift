@@ -235,8 +235,10 @@ public class AudioPlayer: Node {
     }
 
     deinit {
-        buffer = nil
-        file = nil
+        MainActor.assumeIsolated {
+            buffer = nil
+            file = nil
+        }
     }
 
     // MARK: - Loading

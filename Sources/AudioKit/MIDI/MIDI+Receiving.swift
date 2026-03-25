@@ -194,15 +194,15 @@ extension MIDI {
         case End = 0x3
     }
     
-    private func byteArray<T>(from value: T) -> [UInt8] where T: FixedWidthInteger {
+    nonisolated private func byteArray<T>(from value: T) -> [UInt8] where T: FixedWidthInteger {
         withUnsafeBytes(of: value.bigEndian, Array.init)
     }
     
-    private func getMSB(from uint8: UInt8) -> UInt8 {
+    nonisolated private func getMSB(from uint8: UInt8) -> UInt8 {
         return (uint8 & 0xF0) >> 4
     }
     
-    private func getLSB(from uint8: UInt8) -> UInt8 {
+    nonisolated private func getLSB(from uint8: UInt8) -> UInt8 {
         return uint8 & 0x0F
     }
     
@@ -211,7 +211,7 @@ extension MIDI {
     /// A Universal MIDI Packet contains a MIDI message which can consists of one to four 32-bit words.
     ///
     /// https://www.midi.org/midi-articles/details-about-midi-2-0-midi-ci-profiles-and-property-exchange
-    private func getUMPMessageTypeWithByteArray(from ump: UInt32) -> (UMPMessageType?, [UInt8]) {
+    nonisolated private func getUMPMessageTypeWithByteArray(from ump: UInt32) -> (UMPMessageType?, [UInt8]) {
         let bytes = byteArray(from: ump) // 4 bytes from UInt32
         // returning bytes without first type/group byte, I guess we don't need it in MIDI 1.0
         return (UMPMessageType(rawValue: getMSB(from: bytes[0])), Array(bytes[1...bytes.count - 1]))
@@ -219,7 +219,7 @@ extension MIDI {
     
     /// Converting UMP SysEx message data to conform existing MIDI parser code.
     /// Returns only complete SysEx message data.
-    private func processUMPSysExMessage(with bytes: [UInt8]) -> [UInt8] {
+    nonisolated private func processUMPSysExMessage(with bytes: [UInt8]) -> [UInt8] {
         // Chapter 4.4 of Universal MIDI Packet (UMP) Format and MIDI 2.0 Protocol, Version 1.0
         // http://download.xskernel.org/docs/protocols/M2-104-UM_v1-0_UMP_and_MIDI_2-0_Protocol_Specification.pdf
         
@@ -272,7 +272,7 @@ extension MIDI {
 
     /// Parsing UMP Messages
     @available(iOS 14.0, macOS 11.0, *)
-    private func processUMPMessages(_ midiEventPacket: MIDIEventList.UnsafeSequence.Element) -> [MIDIEvent] {
+    nonisolated private func processUMPMessages(_ midiEventPacket: MIDIEventList.UnsafeSequence.Element) -> [MIDIEvent] {
         // Collection of UInt32 words
         let words = MIDIEventPacket.WordCollection(midiEventPacket)
         let timeStamp = midiEventPacket.pointee.timeStamp
@@ -348,52 +348,78 @@ extension MIDI {
                 inputPorts[inputUID] = MIDIPortRef()
 
                 if var port = inputPorts[inputUID] {
-                    var inputPortCreationResult = noErr
-                    
-                    // Using MIDIInputPortCreateWithProtocol on iOS 14+
-                    if #available(iOS 14.0, macOS 11.0, *) {
-                        // Hardcoded MIDI protocol version 1.0 here, consider to have an option somewhere
-                        inputPortCreationResult = MIDIInputPortCreateWithProtocol(client, inputPortName, ._1_0, &port) { eventPacketList, _ in
-
-                            guard (eventPacketList.pointee.protocol == ._1_0) else {
-                                Log("Got unsupported MIDI 2.0 MIDIEventList, skipping", log: OSLog.midi)
-                                return
-                            }
-
-                            for midiEventPacket in eventPacketList.unsafeSequence() {
-
-                                let midiEvents = self.processUMPMessages(midiEventPacket)
-                                let transformedMIDIEventList = self.transformMIDIEventList(midiEvents)
-                                for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
-                                    || transformedEvent.command != nil {
-                                    self.handleMIDIMessage(transformedEvent, fromInput: inputUID)
-                                }
-                            }
-                        }
-                    } else {
-                        // Using MIDIInputPortCreateWithBlock on iOS 9 - 13
-                        inputPortCreationResult = MIDIInputPortCreateWithBlock(client, inputPortName, &port) { packetList, _ in
-                            
-                            for packet in packetList.pointee {
-                                // a CoreMIDI packet may contain multiple MIDI events -
-                                // treat it like an array of events that can be transformed
-                                let events = [MIDIEvent](packet) //uses MIDIPacketList makeIterator
-                                let transformedMIDIEventList = self.transformMIDIEventList(events)
-                                // Note: incomplete SysEx packets will not have a status
-                                for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
-                                    || transformedEvent.command != nil {
-                                    self.handleMIDIMessage(transformedEvent, fromInput: inputUID)
-                                }
-                            }
-                        }
-                    }
-                    if inputPortCreationResult != noErr {
-                        Log("Error creating MIDI Input Port: \(inputPortCreationResult)")
+                    // Create the MIDI input port via a nonisolated static helper so
+                    // the closures passed to CoreMIDI are not tagged with @MainActor
+                    // isolation metadata. CoreMIDI calls these from background threads.
+                    let result = Self.createMIDIInputPort(
+                        client: client,
+                        portName: inputPortName,
+                        port: &port,
+                        midi: self,
+                        inputUID: inputUID
+                    )
+                    if result != noErr {
+                        Log("Error creating MIDI Input Port: \(result)")
                     }
 
                     MIDIPortConnectSource(port, src, nil)
                     inputPorts[inputUID] = port
                     endpoints[inputUID] = src
+                }
+            }
+        }
+    }
+
+    /// Creates a MIDI input port from a nonisolated context to avoid @MainActor
+    /// closure tagging. CoreMIDI calls these callbacks from background threads
+    /// and Swift 6 checks isolation metadata at runtime.
+    nonisolated private static func createMIDIInputPort(
+        client: MIDIClientRef,
+        portName: CFString,
+        port: inout MIDIPortRef,
+        midi: MIDI,
+        inputUID: MIDIUniqueID
+    ) -> OSStatus {
+        if #available(iOS 14.0, macOS 11.0, *) {
+            return MIDIInputPortCreateWithProtocol(client, portName, ._1_0, &port) { eventPacketList, _ in
+
+                guard (eventPacketList.pointee.protocol == ._1_0) else {
+                    Log("Got unsupported MIDI 2.0 MIDIEventList, skipping", log: OSLog.midi)
+                    return
+                }
+
+                // Collect events from the CoreMIDI callback thread
+                var allEvents = [MIDIEvent]()
+                for midiEventPacket in eventPacketList.unsafeSequence() {
+                    let midiEvents = midi.processUMPMessages(midiEventPacket)
+                    allEvents.append(contentsOf: midiEvents)
+                }
+
+                nonisolated(unsafe) let capturedEvents = allEvents
+                Task { @MainActor in
+                    let transformedMIDIEventList = midi.transformMIDIEventList(capturedEvents)
+                    for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
+                        || transformedEvent.command != nil {
+                        midi.handleMIDIMessage(transformedEvent, fromInput: inputUID)
+                    }
+                }
+            }
+        } else {
+            return MIDIInputPortCreateWithBlock(client, portName, &port) { packetList, _ in
+
+                var allEvents = [MIDIEvent]()
+                for packet in packetList.pointee {
+                    let events = [MIDIEvent](packet)
+                    allEvents.append(contentsOf: events)
+                }
+
+                nonisolated(unsafe) let capturedEvents = allEvents
+                Task { @MainActor in
+                    let transformedMIDIEventList = midi.transformMIDIEventList(capturedEvents)
+                    for transformedEvent in transformedMIDIEventList where transformedEvent.status != nil
+                        || transformedEvent.command != nil {
+                        midi.handleMIDIMessage(transformedEvent, fromInput: inputUID)
+                    }
                 }
             }
         }

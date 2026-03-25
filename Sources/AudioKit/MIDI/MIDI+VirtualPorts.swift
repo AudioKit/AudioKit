@@ -114,17 +114,15 @@ extension MIDI {
                 uniqueID = 2_000_000 + unIDPortIndex
                 unIDPortIndex += 2
             }
-            let result = MIDIDestinationCreateWithBlock(
-            client,
-            virtualPortName as CFString,
-            &virtualInputs[virtualPortIndex]) { packetList, _ in
-                for packet in packetList.pointee {
-                    // a Core MIDI packet may contain multiple MIDI events
-                    for event in packet {
-                        self.handleMIDIMessage(event, fromInput: uniqueID)
-                    }
-                }
-            }
+            // Create destination via nonisolated static helper to avoid
+            // @MainActor closure tagging on the CoreMIDI callback.
+            let result = Self.createVirtualDestination(
+                client: client,
+                portName: virtualPortName as CFString,
+                endpoint: &virtualInputs[virtualPortIndex],
+                midi: self,
+                uniqueID: uniqueID
+            )
             if result == noErr {
                 MIDIObjectSetIntegerProperty(virtualInputs[virtualPortIndex], kMIDIPropertyUniqueID, uniqueID)
             } else {
@@ -137,6 +135,34 @@ extension MIDI {
                     log: OSLog.midi, type: .error
                 )
                 CheckError(result)
+            }
+        }
+    }
+
+    /// Creates a virtual MIDI destination from a nonisolated context.
+    nonisolated private static func createVirtualDestination(
+        client: MIDIClientRef,
+        portName: CFString,
+        endpoint: inout MIDIEndpointRef,
+        midi: MIDI,
+        uniqueID: Int32
+    ) -> OSStatus {
+        return MIDIDestinationCreateWithBlock(
+            client,
+            portName,
+            &endpoint
+        ) { packetList, _ in
+            var allEvents = [MIDIEvent]()
+            for packet in packetList.pointee {
+                for event in packet {
+                    allEvents.append(event)
+                }
+            }
+            nonisolated(unsafe) let capturedEvents = allEvents
+            Task { @MainActor in
+                for event in capturedEvents {
+                    midi.handleMIDIMessage(event, fromInput: uniqueID)
+                }
             }
         }
     }
