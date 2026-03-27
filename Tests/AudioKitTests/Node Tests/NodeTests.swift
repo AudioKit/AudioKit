@@ -472,9 +472,9 @@ class NodeTests: XCTestCase {
         for strategy in [DisconnectStrategy.recursive, .detach] {
             let engine = AudioEngine()
             var chain: Node? = createChain()
-            weak let weakPitch = chain?.avAudioNode
-            weak let weakDelay = chain?.connections.first?.avAudioNode
-            weak let weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
+            weak var weakPitch = chain?.avAudioNode
+            weak var weakDelay = chain?.connections.first?.avAudioNode
+            weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
             let mixer = Mixer(chain!, createChain())
             engine.output = mixer
 
@@ -493,9 +493,9 @@ class NodeTests: XCTestCase {
     func testNodesThatHaveOtherConnectionsNotDeallocated() {
         let engine = AudioEngine()
         var chain: Node? = createChain()
-        weak let weakPitch = chain?.avAudioNode
-        weak let weakDelay = chain?.connections.first?.avAudioNode
-        weak let weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
+        weak var weakPitch = chain?.avAudioNode
+        weak var weakDelay = chain?.connections.first?.avAudioNode
+        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
         let mixer1 = Mixer(chain!, createChain())
         let mixer2 = Mixer(mixer1, chain!)
         engine.output = mixer2
@@ -515,10 +515,10 @@ class NodeTests: XCTestCase {
     func testInnerNodesThatHaveOtherConnectionsNotDeallocated() {
         let engine = AudioEngine()
         var chain: Node? = createChain()
-        weak let weakPitch = chain?.avAudioNode
-        weak let weakDelayNode = chain?.connections.first
-        weak let weakDelay = chain?.connections.first?.avAudioNode
-        weak let weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
+        weak var weakPitch = chain?.avAudioNode
+        weak var weakDelayNode = chain?.connections.first
+        weak var weakDelay = chain?.connections.first?.avAudioNode
+        weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
         let mixer = Mixer(chain!, createChain(), weakDelayNode!)
         engine.output = mixer
 
@@ -538,9 +538,9 @@ class NodeTests: XCTestCase {
         for strategy in [DisconnectStrategy.recursive, .detach] {
             let engine = AudioEngine()
             var chain: Node? = createChain()
-            weak let weakPitch = chain?.avAudioNode
-            weak let weakDelay = chain?.connections.first?.avAudioNode
-            weak let weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
+            weak var weakPitch = chain?.avAudioNode
+            weak var weakDelay = chain?.connections.first?.avAudioNode
+            weak var weakPlayer = chain?.connections.first?.connections.first?.avAudioNode
             var mixer: Mixer? = Mixer(chain!, Mixer(chain!))
             var outer: Mixer? = Mixer(mixer!)
             engine.output = outer
