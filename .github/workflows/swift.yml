@@ -13,12 +13,12 @@ jobs:
 
   build-ios:
 
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
     - name: Checkout code
       uses: actions/checkout@v5
     - name: Build
-      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16 Pro" 
+      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 17 Pro"
     - name: Run tests
-      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16 Pro" test
+      run: xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 17 Pro" test
 
