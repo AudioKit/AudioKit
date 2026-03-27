@@ -11,7 +11,7 @@ class BaseTapTests: XCTestCase {
         engine.output = player
 
         var tap: BaseTap? = BaseTap(player, bufferSize: 1024, callbackQueue: .main)
-        weak var weakTap = tap
+        weak let weakTap = tap
         tap?.start()
 
         tap = nil

@@ -68,7 +68,7 @@ public class Reverb: Node {
 }
 
 public extension AVAudioUnitReverbPreset {
-    static var allCases: [AVAudioUnitReverbPreset] =
+    static let allCases: [AVAudioUnitReverbPreset] =
         [.smallRoom, .mediumRoom,
          .largeRoom, .mediumHall, .largeHall,
          .plate,
