@@ -153,25 +153,18 @@ public class MIDIFileTrackNoteMap {
 
     private func getEndOfTrack() {
         let midiTrack = midiFile.tracks[trackNumber]
-        let endOfTrackEvent = 47
-        var eventTime = 0.0
-        for event in midiTrack.events {
-            // Again, here we make sure the
-            // data is in the proper format
-            // for a MIDI end of track message before trying to parse it
-            if event.data[1] == endOfTrackEvent && event.data.count >= 3 {
-                eventTime = (event.positionInBeats ?? 0.0) / Double(self.midiFile.ticksPerBeat ?? 1)
-                self.endOfTrack = eventTime
-            } else {
-                // Some MIDI files may not
-                // have this message. Instead, we can
-                // grab the position of the last noteOff message
-                if self.noteList.isNotEmpty {
-                    self.endOfTrack = self.noteList[self.noteList.count - 1].noteEndTime
-                }
-            }
+
+        // Look for the End of Track meta event (0xFF 0x2F).
+        // Meta events live in metaEvents, not events (which filters them out).
+        if let endEvent = midiTrack.metaEvents.first(where: { $0.type == .endOfTrack }) {
+            self.endOfTrack = (endEvent.positionInBeats ?? 0.0) / Double(self.midiFile.ticksPerBeat ?? 1)
+            return
         }
-        self.endOfTrack = 0.0
+
+        // Fallback: use the last note-off position
+        if let lastNote = self.noteList.last {
+            self.endOfTrack = lastNote.noteEndTime
+        }
     }
 }
 #endif
