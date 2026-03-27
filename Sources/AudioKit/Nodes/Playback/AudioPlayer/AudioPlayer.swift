@@ -199,11 +199,11 @@ public class AudioPlayer: Node {
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
-        guard !isLooping else {
-            completionHandler?()
-            return
+        if !isLooping {
+            status = .stopped
+            playerNode.stop()
+            timeBeforePlay = 0
         }
-        status = .stopped
         completionHandler?()
     }
 
