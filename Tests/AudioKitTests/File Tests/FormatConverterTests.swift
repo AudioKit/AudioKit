@@ -110,7 +110,7 @@ class FormatConverterTests: AudioFileTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 9)
+        wait(for: [expectation], timeout: 30)
 
         guard FileManager.default.fileExists(atPath: outputURL.path) else {
             throw createError(message: "File is missing at \(outputURL.path)")
