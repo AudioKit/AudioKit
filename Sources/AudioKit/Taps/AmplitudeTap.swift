@@ -19,9 +19,9 @@ public class AmplitudeTap: BaseTap {
         return amp[0]
     }
 
-    /// Detected right channel amplitude
+    /// Detected right channel amplitude (returns left channel for mono sources)
     public var rightAmplitude: Float {
-        return amp[1]
+        return amp.count > 1 ? amp[1] : amp[0]
     }
 
     /// Determines if the returned amplitude value is the left, right, or average of the two
@@ -61,11 +61,12 @@ public class AmplitudeTap: BaseTap {
     override public func doHandleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
         guard let floatData = buffer.floatChannelData else { return }
 
-        let channelCount = Int(buffer.format.channelCount)
+        let bufferChannelCount = Int(buffer.format.channelCount)
         let length = UInt(buffer.frameLength)
 
-        // n is the channel
-        for n in 0 ..< channelCount {
+        // Clamp to the amp array size to avoid out-of-bounds if the buffer
+        // has more channels than the node reported at init time.
+        for n in 0 ..< min(bufferChannelCount, amp.count) {
             let data = floatData[n]
 
             if analysisMode == .rms {
