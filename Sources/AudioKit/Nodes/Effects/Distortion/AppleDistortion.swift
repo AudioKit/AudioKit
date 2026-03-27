@@ -56,7 +56,7 @@ public class AppleDistortion: Node {
 
 @available(iOS 8.0, *)
 public extension AVAudioUnitDistortionPreset {
-    static var allCases: [AVAudioUnitDistortionPreset] =
+    static let allCases: [AVAudioUnitDistortionPreset] =
         [.drumsBitBrush, .drumsBufferBeats,
          .drumsLoFi, .multiBrokenSpeaker, .multiCellphoneConcert,
          .multiDecimated1, .multiDecimated2, .multiDecimated3,
