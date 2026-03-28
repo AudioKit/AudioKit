@@ -128,6 +128,7 @@ extension AudioPlayerFileTests {
         }
         engine.output = clipPlayer
         try? engine.start()
+        engine.stop()
 
         return // this should not play live but instead invoke a test
 
