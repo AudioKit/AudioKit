@@ -57,6 +57,13 @@ Tests use **MD5 hash comparison** of rendered audio buffers for deterministic va
 
 During test development, use `audio.audition()` to listen to output, then capture the MD5 hash and add it to the validated dictionary. Remove `audition()` before committing.
 
+### Testing Gotchas
+
+- **Never use realtime engine mode (`engine.start()`) in tests.** Use `startTest()`/`render()` for offline rendering. Realtime mode hangs in headless CI runners.
+- **Call `engine.stop()` before modifying the audio graph after rendering.** Graph modifications (addInput/removeInput) while the engine is running can deadlock during cleanup.
+- **Nodes wired after `startTest()` produce silence in offline mode.** The rendering pipeline is already set up. Tests for post-start wiring validate "doesn't crash," not audio output.
+- **Not all tests need MD5 validation.** Some tests (like wiring-after-start) just verify the operation completes without crashing or hanging.
+
 ## Style Conventions
 
 - camelCase variables (lowercase first), uppercase Classes. No Hungarian notation.
