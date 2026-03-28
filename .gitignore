@@ -27,3 +27,6 @@ profile
 .swiftpm/
 
 Package.resolved
+
+# Claude Code
+.claude/settings.local.json

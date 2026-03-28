@@ -8,13 +8,13 @@ AudioKit uses Swift Package Manager. The CI builds target iOS Simulator:
 
 ```bash
 # Build
-xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16 Pro"
+xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 17 Pro"
 
 # Run all tests
-xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16 Pro" test
+xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 17 Pro" test
 
 # Run a single test
-xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 16 Pro" test -only-testing:AudioKitTests/DistortionTests/testDefault
+xcodebuild -scheme AudioKit -destination "platform=iOS Simulator,name=iPhone 17 Pro" test -only-testing:AudioKitTests/DistortionTests/testDefault
 ```
 
 You can also open the package in Xcode (drag the folder onto Xcode's dock icon) and run tests with Cmd-U.

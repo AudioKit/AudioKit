@@ -528,6 +528,38 @@ class AudioPlayerTests: XCTestCase {
         testMD5(audio)
     }
 
+    // https://github.com/AudioKit/AudioKit/issues/2971
+    func testPlayAfterNonLoopingCompletion() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let file = try? AVAudioFile(forReading: url)
+        else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.file = file
+        player.isLooping = false
+
+        // Play for longer than the file duration so playback completes
+        let audio = engine.startTest(totalDuration: 10.0)
+        player.play()
+        audio.append(engine.render(duration: 6.0))
+
+        // After non-looping playback completes, status should be stopped
+        XCTAssertEqual(player.status, .stopped)
+        XCTAssertFalse(player.isStarted)
+
+        // Calling play() again should restart playback
+        player.play()
+        XCTAssertEqual(player.status, .playing)
+        audio.append(engine.render(duration: 4.0))
+
+        testMD5(audio)
+    }
+
     // https://github.com/AudioKit/AudioKit/issues/2916
     func testCompletionHandler() {
         guard let counting = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav")
