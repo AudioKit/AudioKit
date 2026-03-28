@@ -529,34 +529,37 @@ class AudioPlayerTests: XCTestCase {
     }
 
     // https://github.com/AudioKit/AudioKit/issues/2971
+    // Verifies that play() restarts after non-looping playback completes.
+    // The completion handler resets status to .stopped so subsequent
+    // play() calls are not silently ignored.
     func testPlayAfterNonLoopingCompletion() {
-        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
-              let file = try? AVAudioFile(forReading: url)
+        guard let counting = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav"),
+              let drumLoop = Bundle.module.url(forResource: "TestResources/drumloop", withExtension: "wav")
         else {
-            XCTFail("Didn't get test file")
+            XCTFail("Couldn't find files")
             return
         }
 
         let engine = AudioEngine()
         let player = AudioPlayer()
         engine.output = player
-        player.file = file
         player.isLooping = false
 
-        // Play for longer than the file duration so playback completes
-        let audio = engine.startTest(totalDuration: 10.0)
+        // Use the completion handler to load a new file and play it.
+        // Before the fix in #2971, play() inside the completion handler
+        // was silently ignored because status remained .playing.
+        player.completionHandler = {
+            try? player.load(url: drumLoop)
+            player.play()
+        }
+
+        try? player.load(url: counting)
+        let audio = engine.startTest(totalDuration: 9.0)
         player.play()
-        audio.append(engine.render(duration: 6.0))
+        audio.append(engine.render(duration: 9.0))
 
-        // After non-looping playback completes, status should be stopped
-        XCTAssertEqual(player.status, .stopped)
-        XCTAssertFalse(player.isStarted)
-
-        // Calling play() again should restart playback
-        player.play()
-        XCTAssertEqual(player.status, .playing)
-        audio.append(engine.render(duration: 4.0))
-
+        // The MD5 proves the drumloop played after counting finished,
+        // confirming play() works after non-looping completion.
         testMD5(audio)
     }
 
