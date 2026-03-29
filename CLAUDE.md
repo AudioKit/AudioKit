@@ -57,6 +57,15 @@ Tests use **MD5 hash comparison** of rendered audio buffers for deterministic va
 
 During test development, use `audio.audition()` to listen to output, then capture the MD5 hash and add it to the validated dictionary. Remove `audition()` before committing.
 
+## Contributing
+
+This is a fork of AudioKit/AudioKit. We contribute upstream via PRs.
+
+- **aure** (Aurelius Prochazka) is the primary maintainer
+- Branch from `upstream/main` for PRs, never include `.claude/` or internal files
+- Our active work area: `AudioPlayer` and related playback nodes
+- Related issues often cluster (memory leaks, samplerate, buffered playback) — check for overlap before filing new ones
+
 ## Style Conventions
 
 - camelCase variables (lowercase first), uppercase Classes. No Hungarian notation.
