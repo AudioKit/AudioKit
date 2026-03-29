@@ -100,7 +100,9 @@ public extension AudioUnit {
     func setProperty<T>(propertyID: AudioUnitPropertyID, dataSize: UInt32, data: T) throws {
         var data = data
 
-        try AudioFileSetProperty(self, propertyID, dataSize, &data).check()
+        try withUnsafePointer(to: &data) { pointer in
+            AudioFileSetProperty(self, propertyID, dataSize, pointer)
+        }.check()
     }
 
     /// Add property listener
