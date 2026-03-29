@@ -201,10 +201,18 @@ public class AudioPlayer: Node {
     func internalCompletionHandler() {
         if !isLooping {
             status = .stopped
-            playerNode.stop()
             timeBeforePlay = 0
         }
-        completionHandler?()
+
+        guard let completionHandler else { return }
+
+        if Thread.isMainThread {
+            completionHandler()
+        } else {
+            DispatchQueue.main.async {
+                completionHandler()
+            }
+        }
     }
 
     // MARK: - Init
@@ -298,8 +306,18 @@ public class AudioPlayer: Node {
     /// Load a buffer for playing directly
     /// - Parameter buffer: Buffer to play
     public func load(buffer: AVAudioPCMBuffer) {
-        self.buffer = buffer
-        isBuffered = true
+        if let engine = engine,
+           playerNode.engine != nil,
+           playerNode.outputFormat(forBus: 0) != buffer.format
+        {
+            engine.disconnectNodeInput(playerNode)
+            self.buffer = buffer
+            isBuffered = true
+            makeInternalConnections()
+        } else {
+            self.buffer = buffer
+            isBuffered = true
+        }
     }
 }
 
@@ -331,7 +349,7 @@ extension AudioPlayer: HasInternalConnections {
             engine.attach(playerNode)
         }
         if !isPlayerConnectedToMixerNode {
-            engine.connect(playerNode, to: mixerNode, format: file?.processingFormat)
+            engine.connect(playerNode, to: mixerNode, format: file?.processingFormat ?? buffer?.format)
         }
     }
 }

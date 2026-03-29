@@ -107,8 +107,8 @@ public extension AudioPlayer {
             frameCount: frameCount,
             at: nil,
             completionCallbackType: .dataPlayedBack
-        ) { _ in
-            self.internalCompletionHandler()
+        ) { [weak self] _ in
+            self?.internalCompletionHandler()
         }
 
         playerNode.play()

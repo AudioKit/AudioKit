@@ -3,7 +3,7 @@
 #if !os(tvOS)
 import CoreMIDI
 
-extension MIDIPacketList: Sequence {
+extension MIDIPacketList: @retroactive Sequence {
     /// The element is a packet list sequence is a MIDI Packet
     public typealias Element = MIDIPacket
 
