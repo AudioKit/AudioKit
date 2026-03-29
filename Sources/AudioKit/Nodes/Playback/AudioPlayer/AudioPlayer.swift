@@ -201,10 +201,18 @@ public class AudioPlayer: Node {
     func internalCompletionHandler() {
         if !isLooping {
             status = .stopped
-            playerNode.stop()
             timeBeforePlay = 0
         }
-        completionHandler?()
+
+        guard let completionHandler else { return }
+
+        if Thread.isMainThread {
+            completionHandler()
+        } else {
+            DispatchQueue.main.async {
+                completionHandler()
+            }
+        }
     }
 
     // MARK: - Init
