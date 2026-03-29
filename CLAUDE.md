@@ -57,13 +57,6 @@ Tests use **MD5 hash comparison** of rendered audio buffers for deterministic va
 
 During test development, use `audio.audition()` to listen to output, then capture the MD5 hash and add it to the validated dictionary. Remove `audition()` before committing.
 
-### Testing Gotchas
-
-- **Never use realtime engine mode (`engine.start()`) in tests.** Use `startTest()`/`render()` for offline rendering. Realtime mode hangs in headless CI runners.
-- **Call `engine.stop()` before modifying the audio graph after rendering.** Graph modifications (addInput/removeInput) while the engine is running can deadlock during cleanup.
-- **Nodes wired after `startTest()` produce silence in offline mode.** The rendering pipeline is already set up. Tests for post-start wiring validate "doesn't crash," not audio output.
-- **Not all tests need MD5 validation.** Some tests (like wiring-after-start) just verify the operation completes without crashing or hanging.
-
 ## Style Conventions
 
 - camelCase variables (lowercase first), uppercase Classes. No Hungarian notation.
@@ -73,3 +66,32 @@ During test development, use `audio.audition()` to listen to output, then captur
 - Acronyms all CAPS or all lowercase: `enableMIDI` not `enableMidi`
 - Booleans: `is` prefix with `ed`/`ing` suffix: `isLooping`, `isFilterEnabled`
 - Time intervals are called "Durations" (to distinguish from moments in time)
+
+## Swift 6.1 Gotchas
+
+- `weak let` must be `weak var` -- Swift 6.1 rejects `weak let` since the reference can become nil at runtime.
+- FormatConverter AAC encoding takes ~17s locally, longer on CI. Test timeout needs 30s minimum.
+
+## XcodeBuildMCP
+
+- Profile "audiokit" persisted in `.xcodebuildmcp/config.yaml`
+- Workspace: `.swiftpm/xcode/package.xcworkspace` (not a .xcodeproj). Use `workspacePath`, not `projectPath`.
+- Full test suite is slow (real audio rendering). Xcode GUI (Cmd+U) is faster than CLI for full runs.
+
+## Testing Gotchas
+
+- AVAudioPlayerNode completion callbacks don't reliably update `player.status` during offline rendering (`engine.startTest()`/`engine.render()`). Validate behavior through MD5 hashes, not status assertions.
+- Tests that call `engine.start()` must call `engine.stop()` before returning, or the test runner hangs.
+- `testMD5()` force-unwraps the hash dictionary. Missing entries crash, not fail. Always add MD5 entry to `ValidatedMD5s.swift` first.
+- MD5 hashes can differ across iOS/Xcode versions. Verify on CI's target platform.
+
+## Contributing to Upstream
+
+- Never post GitHub comments without Shelton's approval. Draft in chat first, wait for go-ahead.
+- One sentence max. State what you'll do, link what you did. No explanations, no opinions on their approach.
+
+## CI Investigation (GitHub API)
+
+- Job logs: `gh api "repos/AudioKit/AudioKit/actions/jobs/JOB_ID/logs"`
+- File on main: `gh api "repos/AudioKit/AudioKit/contents/PATH"` (spaces → %20), base64 decode
+- PR check runs: `gh api "repos/AudioKit/AudioKit/commits/SHA/check-runs"`
