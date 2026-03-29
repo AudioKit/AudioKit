@@ -13,6 +13,7 @@ class RecordingTests: AudioFileTestCase {
         // I am leaving the code in case it is relevant, but skipping this test on CI
         return
 
+        #if false
         guard Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") != nil else {
             Log("Unsupported test: To record audio, you must include the NSMicrophoneUsageDescription in your Info.plist.",
                 type: .error)
@@ -46,6 +47,7 @@ class RecordingTests: AudioFileTestCase {
 
         try FileManager.default.removeItem(at: url)
         wait(for: [expectation], timeout: 10)
+        #endif
     }
 
     /// unable to test this in AudioKit due to the lack of the Info.plist, but this should be addressed
@@ -118,6 +120,7 @@ class RecordingTests: AudioFileTestCase {
 
         return // this should not play live but instead invoke a test
 
+        #if false
         input.start()
         try? recorder?.record()
         wait(for: 2)
@@ -139,6 +142,7 @@ class RecordingTests: AudioFileTestCase {
         try? engine.start()
         player.play()
         wait(for: 2)
+        #endif
     }
 
     func testPauseRecording() {
@@ -171,6 +175,7 @@ class RecordingTests: AudioFileTestCase {
 
         return // this should not play live but instead invoke a test
 
+        #if false
         player.play()
         try? recorder?.record()
         wait(for: 1.5)
@@ -199,6 +204,7 @@ class RecordingTests: AudioFileTestCase {
         // 1, 2, 4
         player.play()
         wait(for: 3)
+        #endif
     }
 
     func testReset() {
@@ -222,7 +228,7 @@ class RecordingTests: AudioFileTestCase {
 
         return // this should not play live but instead invoke a test
 
-
+        #if false
         player.play()
         try? recorder?.record()
         wait(for: 1.5)
@@ -248,11 +254,11 @@ class RecordingTests: AudioFileTestCase {
 
         player.file = recordedFile
 
-
         try? engine.start()
         // 3
         player.play()
         wait(for: 3)
+        #endif
     }
 }
 #endif

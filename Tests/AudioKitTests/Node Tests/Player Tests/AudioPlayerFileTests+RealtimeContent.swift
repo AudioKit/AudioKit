@@ -132,12 +132,14 @@ extension AudioPlayerFileTests {
 
         return // this should not play live but instead invoke a test
 
+        #if false
             clipPlayer.play()
         wait(for: 2.0)
         stopAndStart(file: file2, clipPlayer: clipPlayer)
         wait(for: 2.0)
         stopAndStart(file: file3, clipPlayer: clipPlayer)
         wait(for: 2.0)
+        #endif
     }
 
     func realtimeTestPause() {
@@ -154,6 +156,7 @@ extension AudioPlayerFileTests {
 
         return // this should not play live but instead invoke a test
 
+        #if false
             Log("▶️")
         player.play()
         wait(for: 2)
@@ -168,6 +171,7 @@ extension AudioPlayerFileTests {
         player.play()
         wait(for: duration)
         Log("⏹")
+        #endif
     }
 
     func realtimeScheduleFile() {
