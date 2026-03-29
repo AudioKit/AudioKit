@@ -89,6 +89,10 @@ This is a fork of AudioKit/AudioKit. We contribute upstream via PRs.
 
 ## Testing Gotchas
 
+- If Xcode shows "unsigned library" errors in the test navigator, delete DerivedData: `rm -rf ~/Library/Developer/Xcode/DerivedData/AudioKit-*` and rebuild.
+- `AVAudioNode.installTap(bufferSize:)` is a request, not a guarantee. The engine delivers whatever buffer size it wants. Code that needs a specific size must handle this (see BaseTap's buffer resizing, NodeRecorder's chunking).
+- MIDI `Sequence` retroactive conformance warnings (MIDIPacket, MIDIPacketList) are pre-existing upstream. Ignore them.
+- `testRawDataTapTask` occasionally gets canceled (flaky timeout). Pre-existing, not a failure.
 - AVAudioPlayerNode completion callbacks don't reliably update `player.status` during offline rendering (`engine.startTest()`/`engine.render()`). Validate behavior through MD5 hashes, not status assertions.
 - Tests that call `engine.start()` must call `engine.stop()` before returning, or the test runner hangs.
 - `testMD5()` force-unwraps the hash dictionary. Missing entries crash, not fail. Always add MD5 entry to `ValidatedMD5s.swift` first.
@@ -97,8 +101,8 @@ This is a fork of AudioKit/AudioKit. We contribute upstream via PRs.
 ## Contributing to Upstream
 
 - Never post GitHub comments without Shelton's approval. Draft in chat first, wait for go-ahead.
-- One sentence max. State what you'll do, link what you did. No explanations, no opinions on their approach.
-- PR descriptions: 2-3 short plain sentences max. No backtick code references, no technical deep-dives. Say what broke and what the fix does, that's it.
+- Two sentences max for all GitHub text (comments, PR descriptions). First person, informal, simple. No backtick code references, no technical deep-dives.
+- Commit messages can be slightly more detailed if needed.
 - Never include internal files (CLAUDE.md, .claude/, memory, rules) in upstream PRs. Always branch from `upstream/main`, not fork `main`: `git fetch upstream main && git checkout -b fix/N-desc upstream/main`.
 - `testPlayAfterNonLoopingCompletion` has no ValidatedMD5s entry and crashes the runner. Pre-existing, ignore it.
 
