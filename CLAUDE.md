@@ -89,6 +89,7 @@ During test development, use `audio.audition()` to listen to output, then captur
 
 - Never post GitHub comments without Shelton's approval. Draft in chat first, wait for go-ahead.
 - One sentence max. State what you'll do, link what you did. No explanations, no opinions on their approach.
+- PR descriptions: 2-3 short plain sentences max. No backtick code references, no technical deep-dives. Say what broke and what the fix does, that's it.
 
 ## CI Investigation (GitHub API)
 
