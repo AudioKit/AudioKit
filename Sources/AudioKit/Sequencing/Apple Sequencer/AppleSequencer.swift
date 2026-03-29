@@ -19,6 +19,14 @@ open class AppleSequencer: NSObject {
     /// Loop control
     open private(set) var loopEnabled: Bool = false
 
+    /// Host time offset in Mach absolute time units to compensate for audio pipeline latency.
+    /// When using `hostTime(forBeats:)` to schedule audio (e.g. `AudioPlayer`) in sync with
+    /// MIDI events from this sequencer, the underlying `MusicPlayer` API may return host times
+    /// that don't account for render pipeline latency, causing a timing mismatch.
+    /// Set this value to shift the returned host times earlier (and `beats(forHostTime:)` later)
+    /// to compensate. A typical value is around 1300 frames worth of host ticks at your sample rate.
+    open var hostTimeOffset: UInt64 = 0
+
     /// Sequencer Initialization
     override public init() {
         NewMusicSequence(&sequence)
@@ -835,6 +843,7 @@ open class AppleSequencer: NSObject {
 
     /// Returns the host time that will be (or was) played at the specified beat.
     /// This function is valid only if the music player is playing.
+    /// The returned value is adjusted by `hostTimeOffset` to compensate for audio pipeline latency.
     public func hostTime(forBeats inBeats: AVMusicTimeStamp) throws -> UInt64 {
         guard let musicPlayer = musicPlayer, isPlaying else {
             throw MusicPlayerTimeConversionError.musicPlayerIsNotPlaying
@@ -844,17 +853,22 @@ open class AppleSequencer: NSObject {
         guard code == noErr else {
             throw MusicPlayerTimeConversionError.osStatus(code)
         }
+        if hostTime > hostTimeOffset {
+            hostTime -= hostTimeOffset
+        }
         return hostTime
     }
 
     /// Returns the beat that will be (or was) played at the specified host time.
     /// This function is valid only if the music player is playing.
+    /// The input host time is adjusted by `hostTimeOffset` to compensate for audio pipeline latency.
     public func beats(forHostTime inHostTime: UInt64) throws -> AVMusicTimeStamp {
         guard let musicPlayer = musicPlayer, isPlaying else {
             throw MusicPlayerTimeConversionError.musicPlayerIsNotPlaying
         }
         var beats: MusicTimeStamp = 0
-        let code = MusicPlayerGetBeatsForHostTime(musicPlayer, inHostTime, &beats)
+        let adjustedHostTime = inHostTime + hostTimeOffset
+        let code = MusicPlayerGetBeatsForHostTime(musicPlayer, adjustedHostTime, &beats)
         guard code == noErr else {
             throw MusicPlayerTimeConversionError.osStatus(code)
         }

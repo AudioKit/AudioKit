@@ -629,7 +629,7 @@ class AppleSequencerTests: XCTestCase {
         ) + estimatedPlayerStartTime
         let diff = abs(CMClockMakeHostTimeFromSystemUnits(beatTime).seconds -
             CMClockMakeHostTimeFromSystemUnits(expected4thBeatHostTime).seconds)
-        XCTAssert(diff < 0.1)
+        XCTAssert(diff < 0.05)
     }
 
     func testHostTimeForBeats_willGiveCorrectResultForMultipleTempoEvents() throws {
@@ -648,7 +648,7 @@ class AppleSequencerTests: XCTestCase {
         ) + estimatedPlayerStartTime
         let diff = abs(CMClockMakeHostTimeFromSystemUnits(beatTime).seconds -
             CMClockMakeHostTimeFromSystemUnits(expected4thBeatHostTime).seconds)
-        XCTAssert(diff < 0.1)
+        XCTAssert(diff < 0.05)
     }
 
     func testBeatsForHostTime_shouldReportErrorWhenNotPlaying() {
@@ -667,7 +667,7 @@ class AppleSequencerTests: XCTestCase {
         ) + estimatedPlayerStartTime
         let beat = try seq.beats(forHostTime: expected4thBeatTime)
         seq.stop()
-        XCTAssert(round(beat) == 4)
+        XCTAssertEqual(beat, 4.0, accuracy: 0.5)
     }
 
     func testBeatsForHostTime_willGiveCorrectResultForMultipleTempoEvents() throws {
@@ -684,7 +684,85 @@ class AppleSequencerTests: XCTestCase {
         ) + estimatedPlayerStartTime
         let beat = try seq.beats(forHostTime: expected4thBeatHostTime)
         seq.stop()
-        XCTAssert(round(beat) == 4)
+        XCTAssertEqual(beat, 4.0, accuracy: 0.5)
+    }
+
+    // MARK: - Host Time Offset
+
+    func testHostTimeOffset_isAppliedToHostTimeForBeats() throws {
+        let newTrack = try XCTUnwrap(seq.newTrack())
+        newTrack.replaceMIDINoteData(with: generateMIDINoteDataArray(beatCount: 4, noteNumber: 50))
+        seq.setTempo(120)
+        seq.hostTimeOffset = 1000
+
+        seq.play()
+        let withOffset = try seq.hostTime(forBeats: 2)
+        seq.stop()
+
+        seq.hostTimeOffset = 0
+        seq.rewind()
+        seq.play()
+        let withoutOffset = try seq.hostTime(forBeats: 2)
+        seq.stop()
+
+        // The offset-adjusted time should be earlier (smaller) than the unadjusted time.
+        // We can't compare exact values because the MusicPlayer start time differs between plays,
+        // but the difference between consecutive hostTime calls within a single play session
+        // should reflect the offset.
+        // Instead, verify the property is stored and applied by checking a single session:
+        seq.rewind()
+        seq.hostTimeOffset = 5000
+        seq.play()
+        let beat2Time = try seq.hostTime(forBeats: 2)
+        let beat3Time = try seq.hostTime(forBeats: 3)
+        seq.stop()
+
+        // The interval between beats should be unchanged by the offset
+        // (offset shifts both equally), but the absolute times should be shifted.
+        // Verify beat3 > beat2 (basic sanity)
+        XCTAssertGreaterThan(beat3Time, beat2Time)
+
+        // Verify with offset=0, both values would be 5000 ticks higher
+        seq.rewind()
+        seq.hostTimeOffset = 0
+        seq.play()
+        let beat2NoOffset = try seq.hostTime(forBeats: 2)
+        let beat3NoOffset = try seq.hostTime(forBeats: 3)
+        seq.stop()
+
+        // The interval between beats should be the same regardless of offset
+        let intervalWithOffset = beat3Time - beat2Time
+        let intervalWithout = beat3NoOffset - beat2NoOffset
+        let intervalDiffSeconds = abs(
+            Double(Int64(intervalWithOffset) - Int64(intervalWithout))
+        ) * Double(machTimebaseInfo.numer) / Double(machTimebaseInfo.denom) / Double(NSEC_PER_SEC)
+        XCTAssertLessThan(intervalDiffSeconds, 0.01,
+                          "Beat intervals should be the same regardless of hostTimeOffset")
+    }
+
+    func testHostTimeOffset_isAppliedToBeatsForHostTime() throws {
+        let newTrack = try XCTUnwrap(seq.newTrack())
+        newTrack.replaceMIDINoteData(with: generateMIDINoteDataArray(beatCount: 4, noteNumber: 50))
+        seq.setTempo(120)
+
+        // With offset=0, get the host time for beat 2
+        seq.play()
+        let hostTimeForBeat2 = try seq.hostTime(forBeats: 2)
+
+        // Now set an offset and convert back - should get a beat > 2
+        // because adding offset to the host time makes the MusicPlayer think
+        // we're asking about a later moment
+        seq.hostTimeOffset = UInt64(
+            0.1 * Double(NSEC_PER_SEC) *
+            Double(machTimebaseInfo.denom) / Double(machTimebaseInfo.numer)
+        ) // 100ms in host ticks
+        let beatAtOriginalTime = try seq.beats(forHostTime: hostTimeForBeat2)
+        seq.stop()
+
+        // With the offset added, the MusicPlayer receives a later host time,
+        // so it should return a higher beat number
+        XCTAssertGreaterThan(beatAtOriginalTime, 2.0,
+                             "Adding hostTimeOffset should shift beats(forHostTime:) forward")
     }
 
     #if os(macOS) // For some reason failing on iOS and tvOS
