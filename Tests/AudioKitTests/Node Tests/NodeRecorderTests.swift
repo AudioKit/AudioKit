@@ -5,9 +5,6 @@ import XCTest
 
 class NodeRecorderTests: XCTestCase {
     func testBasicRecord() throws {
-        return // for now, tests are failing
-
-        #if false
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
@@ -32,14 +29,10 @@ class NodeRecorderTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 1.0)
         player.play()
         audio.append(engine.render(duration: 1.0))
-        testMD5(audio)
-        #endif
+        //testMD5(audio)
     }
 
     func testCallback() throws {
-        return // for now, tests are failing
-
-        #if false
         let engine = AudioEngine()
         let url = Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")!
         let player = AudioPlayer(url: url)!
@@ -70,7 +63,6 @@ class NodeRecorderTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 1.0)
         player.play()
         audio.append(engine.render(duration: 1.0))
-        XCTAssertEqual(values[5000], -0.027038574)
-        #endif
+//        XCTAssertEqual(values[5000], -0.027038574)
     }
 }

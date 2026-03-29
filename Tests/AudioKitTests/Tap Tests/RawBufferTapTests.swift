@@ -9,7 +9,7 @@ final class RawBufferTapTests: XCTestCase {
     func testRawBufferTap() throws {
 
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator()
+        let osc = PlaygroundOscillator(amplitude: 0)
         engine.output = osc
 
         let dataExpectation = XCTestExpectation(description: "dataExpectation")
@@ -34,7 +34,7 @@ final class RawBufferTapTests: XCTestCase {
         let rounding = 0.9
 
         let engine = AudioEngine()
-        let osc = PlaygroundOscillator()
+        let osc = PlaygroundOscillator(amplitude: 0) // slience output
         engine.output = osc
 
         let durationExpectation = XCTestExpectation(description: "durationExpectation")
