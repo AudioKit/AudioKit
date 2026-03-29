@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
+import Accelerate
 import AVFoundation
 
 // MARK: - internal helper functions
@@ -121,20 +122,6 @@ extension FormatConverter {
             return
         }
 
-        // The format must be linear PCM (kAudioFormatLinearPCM).
-        // You must set this in order to encode or decode a non-PCM file data format.
-        // You may set this on PCM files to specify the data format used in your calls
-        // to read/write.
-        if noErr != ExtAudioFileSetProperty(strongInputFile,
-                                            kExtAudioFileProperty_ClientDataFormat,
-                                            inputDescriptionSize,
-                                            &outputDescription)
-        {
-            completionProxy(error: Self.createError(message: "Unable to set data format on input file."),
-                            completionHandler: completionHandler)
-            return
-        }
-
         if noErr != ExtAudioFileSetProperty(strongOutputFile,
                                             kExtAudioFileProperty_ClientDataFormat,
                                             inputDescriptionSize,
@@ -144,6 +131,29 @@ extension FormatConverter {
                             completionHandler: completionHandler)
             return
         }
+        let needsChannelMix = outputDescription.mChannelsPerFrame < inputDescription.mChannelsPerFrame
+
+        // When downmixing channels, read in the input's native channel count and mix manually,
+        // because ExtAudioFile just drops extra channels instead of mixing them (GitHub #2900).
+        var readDescription = outputDescription
+        if needsChannelMix {
+            readDescription.mChannelsPerFrame = inputDescription.mChannelsPerFrame
+            readDescription.mBytesPerFrame = readDescription.mBitsPerChannel * inputDescription.mChannelsPerFrame / 8
+            readDescription.mBytesPerPacket = readDescription.mBytesPerFrame
+        }
+
+        var readDescriptionSize = UInt32(MemoryLayout.stride(ofValue: readDescription))
+
+        if noErr != ExtAudioFileSetProperty(strongInputFile,
+                                            kExtAudioFileProperty_ClientDataFormat,
+                                            readDescriptionSize,
+                                            &readDescription)
+        {
+            completionProxy(error: Self.createError(message: "Unable to set read format on input file."),
+                            completionHandler: completionHandler)
+            return
+        }
+
         let bufferByteSize: UInt32 = 32768
         var srcBuffer = [UInt8](repeating: 0, count: Int(bufferByteSize))
         var sourceFrameOffset: UInt32 = 0
@@ -151,7 +161,7 @@ extension FormatConverter {
         var didErrorWhileIteratingSRCBuffer = false
         srcBuffer.withUnsafeMutableBytes { body in
             while true {
-                let mBuffer = AudioBuffer(mNumberChannels: inputDescription.mChannelsPerFrame,
+                let mBuffer = AudioBuffer(mNumberChannels: readDescription.mChannelsPerFrame,
                                           mDataByteSize: bufferByteSize,
                                           mData: body.baseAddress)
 
@@ -159,8 +169,8 @@ extension FormatConverter {
                                                   mBuffers: mBuffer)
                 var frameCount: UInt32 = 0
 
-                if outputDescription.mBytesPerFrame > 0 {
-                    frameCount = bufferByteSize / outputDescription.mBytesPerFrame
+                if readDescription.mBytesPerFrame > 0 {
+                    frameCount = bufferByteSize / readDescription.mBytesPerFrame
                 }
 
                 if noErr != ExtAudioFileRead(strongInputFile,
@@ -177,14 +187,87 @@ extension FormatConverter {
 
                 sourceFrameOffset += frameCount
 
-                if noErr != ExtAudioFileWrite(strongOutputFile,
-                                              frameCount,
-                                              &fillBufList)
-                {
-                    completionProxy(error: Self.createError(message: "Error reading from the output file."),
-                                    completionHandler: completionHandler)
-                    didErrorWhileIteratingSRCBuffer = true
-                    return
+                if needsChannelMix {
+                    // Mix interleaved multi-channel samples down to mono by summing all channels.
+                    // Data is interleaved: [L0, R0, L1, R1, ...] for stereo.
+                    let inputChannels = Int(inputDescription.mChannelsPerFrame)
+                    let frames = Int(frameCount)
+                    let bytesPerSample = Int(readDescription.mBitsPerChannel / 8)
+
+                    if readDescription.mFormatFlags & kAudioFormatFlagIsSignedInteger != 0 {
+                        // Integer PCM path: convert sample pairs to Float, sum, convert back
+                        switch bytesPerSample {
+                        case 2: // 16-bit
+                            body.baseAddress!.withMemoryRebound(to: Int16.self, capacity: frames * inputChannels) { src in
+                                for f in 0 ..< frames {
+                                    var sum: Float = 0
+                                    for ch in 0 ..< inputChannels {
+                                        sum += Float(src[f * inputChannels + ch])
+                                    }
+                                    src[f] = Int16(clamping: Int(sum))
+                                }
+                            }
+                        case 3: // 24-bit (packed)
+                            for f in 0 ..< frames {
+                                var sum: Int32 = 0
+                                for ch in 0 ..< inputChannels {
+                                    let offset = (f * inputChannels + ch) * 3
+                                    let b0 = Int32(body[offset])
+                                    let b1 = Int32(body[offset + 1])
+                                    let b2 = Int32(body[offset + 2])
+                                    // Little-endian signed 24-bit
+                                    let sample = b0 | (b1 << 8) | (b2 << 16)
+                                    let signed = sample >= 0x800000 ? sample - 0x1000000 : sample
+                                    sum += signed
+                                }
+                                let outOffset = f * 3
+                                let clamped = max(-0x800000, min(0x7FFFFF, Int(sum)))
+                                let unsigned = clamped < 0 ? clamped + 0x1000000 : clamped
+                                body[outOffset] = UInt8(unsigned & 0xFF)
+                                body[outOffset + 1] = UInt8((unsigned >> 8) & 0xFF)
+                                body[outOffset + 2] = UInt8((unsigned >> 16) & 0xFF)
+                            }
+                        case 4: // 32-bit
+                            body.baseAddress!.withMemoryRebound(to: Int32.self, capacity: frames * inputChannels) { src in
+                                for f in 0 ..< frames {
+                                    var sum: Int64 = 0
+                                    for ch in 0 ..< inputChannels {
+                                        sum += Int64(src[f * inputChannels + ch])
+                                    }
+                                    src[f] = Int32(clamping: sum)
+                                }
+                            }
+                        default:
+                            break
+                        }
+                    }
+
+                    // Rewrite the buffer metadata for mono output
+                    let monoDataSize = UInt32(frames * bytesPerSample)
+                    let monoBuffer = AudioBuffer(mNumberChannels: outputDescription.mChannelsPerFrame,
+                                                 mDataByteSize: monoDataSize,
+                                                 mData: body.baseAddress)
+                    var monoList = AudioBufferList(mNumberBuffers: 1, mBuffers: monoBuffer)
+
+                    if noErr != ExtAudioFileWrite(strongOutputFile,
+                                                  frameCount,
+                                                  &monoList)
+                    {
+                        completionProxy(error: Self.createError(message: "Error writing to the output file."),
+                                        completionHandler: completionHandler)
+                        didErrorWhileIteratingSRCBuffer = true
+                        return
+                    }
+                } else {
+                    if noErr != ExtAudioFileWrite(strongOutputFile,
+                                                  frameCount,
+                                                  &fillBufList)
+                    {
+                        completionProxy(error: Self.createError(message: "Error writing to the output file."),
+                                        completionHandler: completionHandler)
+                        didErrorWhileIteratingSRCBuffer = true
+                        return
+                    }
                 }
             }
         }
