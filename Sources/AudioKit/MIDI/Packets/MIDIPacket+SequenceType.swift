@@ -15,7 +15,7 @@ import CoreMIDI
  // message is a Message
  }
  */
-extension MIDIPacket: Sequence {
+extension MIDIPacket: @retroactive Sequence {
     /// Generate a MIDI packet
     public func makeIterator() -> AnyIterator<MIDIEvent> {
         let generator = generatorForTuple(self.data)
