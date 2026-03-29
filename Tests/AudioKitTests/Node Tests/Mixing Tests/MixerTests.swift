@@ -19,7 +19,6 @@ class MixerTests: XCTestCase {
         let audio = engine.startTest(totalDuration: 1.0)
         player.play()
         audio.append(engine.render(duration: 1.0))
-        engine.stop()
         mixer2.addInput(player)
         mixer2.removeInput(player)
         mixer2.addInput(player)
@@ -36,9 +35,7 @@ extension MixerTests {
         let engineMixer = Mixer()
 
         engine.output = engineMixer
-        // startTest() calls engine.start() internally, so nodes added
-        // below are still wired after engine start
-        let audio = engine.startTest(totalDuration: 2.0)
+        try? engine.start()
 
         let subtreeMixer = Mixer()
         engineMixer.addInput(subtreeMixer)
@@ -47,11 +44,12 @@ extension MixerTests {
         let player = AudioPlayer(url: url)!
         subtreeMixer.addInput(player)
 
+        print(engine.connectionTreeDescription)
         player.play()
-        audio.append(engine.render(duration: 2.0))
-        // Audio is silent in offline mode because nodes were wired after
-        // rendering setup, but the test validates that wiring after engine
-        // start doesn't crash or hang (the Apple radar workaround).
+
+        // only for auditioning
+        // wait(for: player.duration)
+        engine.stop()
     }
 
     @available(iOS 16.0, *)
