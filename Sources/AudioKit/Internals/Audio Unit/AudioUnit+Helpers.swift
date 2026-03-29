@@ -101,8 +101,8 @@ public extension AudioUnit {
         var data = data
 
         try withUnsafePointer(to: &data) { pointer in
-            AudioFileSetProperty(self, propertyID, dataSize, pointer)
-        }.check()
+            try AudioFileSetProperty(self, propertyID, dataSize, UnsafeRawPointer(pointer)).check()
+        }
     }
 
     /// Add property listener
