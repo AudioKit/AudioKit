@@ -70,6 +70,113 @@ class FormatConverterTests: AudioFileTestCase {
         try convert(with: options, input: monoWAVE44k24Bit)
     }
 
+    func testStereoToMonoMixesAllChannels() throws {
+        // Convert an existing stereo file to mono and verify the output is non-silent.
+        // This tests that FormatConverter properly mixes all channels instead of
+        // just taking the first channel (AudioKit/AudioKit#2900).
+        var options = FormatConverter.Options()
+        options.format = .wav
+        options.sampleRate = 44100
+        options.bitDepth = 16
+        options.channels = 1
+        options.eraseFile = true
+        options.bitDepthRule = .any
+
+        try convert(with: options, input: stereoAIFF44k32Bit)
+    }
+
+    func testStereoToMonoRightChannelPreserved() throws {
+        // Create a stereo WAV with audio only on the right channel,
+        // convert to mono, and verify the output is non-silent.
+        let tmp = FileManager.default.temporaryDirectory.appendingPathComponent("_StereoMonoTest")
+        try FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: tmp) }
+
+        let sampleRate: Double = 44100
+        let frameCount: AVAudioFrameCount = 44100 // 1 second
+        guard let stereoFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32,
+                                               sampleRate: sampleRate,
+                                               channels: 2,
+                                               interleaved: false) else {
+            XCTFail("Failed to create stereo format")
+            return
+        }
+
+        guard let stereoBuffer = AVAudioPCMBuffer(pcmFormat: stereoFormat, frameCapacity: frameCount) else {
+            XCTFail("Failed to create stereo buffer")
+            return
+        }
+        stereoBuffer.frameLength = frameCount
+
+        // Fill: left channel silence, right channel with a 440 Hz sine
+        if let floatData = stereoBuffer.floatChannelData {
+            for i in 0 ..< Int(frameCount) {
+                let sample = Float(sin(Double(i) * 2.0 * .pi * 440.0 / sampleRate) * 0.8)
+                floatData[0][i] = 0      // left: silence
+                floatData[1][i] = sample // right: sine
+            }
+        }
+
+        let inputURL = tmp.appendingPathComponent("rightOnly.wav")
+        let writeSettings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatLinearPCM,
+            AVSampleRateKey: sampleRate,
+            AVNumberOfChannelsKey: 2,
+            AVLinearPCMBitDepthKey: 16,
+            AVLinearPCMIsFloatKey: false,
+            AVLinearPCMIsBigEndianKey: false,
+        ]
+        // Scope the writer so it closes before FormatConverter opens the file
+        do {
+            let inputFile = try AVAudioFile(forWriting: inputURL,
+                                            settings: writeSettings)
+            try inputFile.write(from: stereoBuffer)
+        }
+
+        let outputURL = tmp.appendingPathComponent("mono.wav")
+
+        var options = FormatConverter.Options()
+        options.format = .wav
+        options.sampleRate = sampleRate
+        options.bitDepth = 16
+        options.channels = 1
+        options.eraseFile = true
+        options.bitDepthRule = .any
+
+        let expectation = XCTestExpectation(description: "Convert stereo to mono")
+        let converter = FormatConverter(inputURL: inputURL, outputURL: outputURL, options: options)
+
+        var conversionError: Error?
+        converter.start { error in
+            conversionError = error
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 30)
+        XCTAssertNil(conversionError, "Conversion failed: \(conversionError!)")
+
+        // Read the mono output and verify it contains non-silent audio
+        let monoFile = try AVAudioFile(forReading: outputURL)
+        XCTAssertEqual(monoFile.fileFormat.channelCount, 1)
+        XCTAssertGreaterThan(monoFile.length, 0, "Output file should not be empty")
+
+        let readFormat = AVAudioFormat(commonFormat: .pcmFormatFloat32,
+                                       sampleRate: sampleRate,
+                                       channels: 1,
+                                       interleaved: false)!
+        let monoBuffer = AVAudioPCMBuffer(pcmFormat: readFormat,
+                                           frameCapacity: AVAudioFrameCount(monoFile.length))!
+        try monoFile.read(into: monoBuffer)
+
+        // Check that the output has non-trivial amplitude (right channel was mixed in)
+        var maxAmplitude: Float = 0
+        if let floatData = monoBuffer.floatChannelData {
+            for i in 0 ..< Int(monoBuffer.frameLength) {
+                maxAmplitude = max(maxAmplitude, abs(floatData[0][i]))
+            }
+        }
+        XCTAssertGreaterThan(maxAmplitude, 0.1, "Mono output should contain audio from the right channel")
+    }
+
     // MARK: helpers
 
     private func convert(with options: FormatConverter.Options,
