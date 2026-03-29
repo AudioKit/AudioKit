@@ -20,6 +20,7 @@ public class TimePitch: Node {
         didSet {
             rate = rate.clamped(to: 0.031_25 ... 32)
             timePitchAU.rate = rate
+            reset()
         }
     }
 
@@ -60,6 +61,4 @@ public class TimePitch: Node {
 
         avAudioNode = timePitchAU
     }
-
-    // TODO: This node is untested
 }
