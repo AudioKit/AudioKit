@@ -41,6 +41,9 @@ open class NodeRecorder: NSObject {
     /// Used for fixing recordings being truncated
     private var recordBufferDuration: Double = 16384 / Settings.sampleRate
 
+    /// Buffer length used for chunking audioDataCallback deliveries
+    private var bufferLength: AVAudioFrameCount = Settings.recordingBufferLength.samplesCount
+
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
         do {
@@ -188,7 +191,7 @@ open class NodeRecorder: NSObject {
             }
         }
 
-        let bufferLength: AVAudioFrameCount = Settings.recordingBufferLength.samplesCount
+        bufferLength = Settings.recordingBufferLength.samplesCount
         isRecording = true
 
         // Note: if you install a tap on a bus that already has a tap it will crash your application.
@@ -242,18 +245,27 @@ open class NodeRecorder: NSObject {
         }
     }
 
-    /// When a raw data tap handler is provided, we call it back with the recorded float values
+    /// When a raw data tap handler is provided, we call it back with the recorded float values.
+    /// Splits the buffer into chunks of `bufferLength` so the callback fires at the expected
+    /// frequency regardless of the engine's actual buffer size.
     private func doHandleTapBlock(buffer: AVAudioPCMBuffer, time: AVAudioTime) {
-        guard buffer.floatChannelData != nil else { return }
+        guard let channelData = buffer.floatChannelData?[0] else { return }
 
+        let frameLength = Int(buffer.frameLength)
+        let chunkSize = Int(bufferLength)
         let offset = Int(buffer.frameCapacity - buffer.frameLength)
-        var data = [Float]()
-        if let channelData = buffer.floatChannelData?[0] {
-            for index in 0 ..< buffer.frameLength {
-                data.append(channelData[offset + Int(index)])
+        var position = 0
+
+        while position < frameLength {
+            let remaining = frameLength - position
+            let count = min(chunkSize, remaining)
+            var chunk = [Float](repeating: 0, count: count)
+            for i in 0 ..< count {
+                chunk[i] = channelData[offset + position + i]
             }
+            audioDataCallback?(chunk, time)
+            position += count
         }
-        audioDataCallback?(data, time)
     }
 
     /// Stop recording
