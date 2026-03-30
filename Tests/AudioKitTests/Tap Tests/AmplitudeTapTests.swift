@@ -91,6 +91,61 @@ class AmplitudeTapTests: XCTestCase {
         XCTAssertEqual(tap.amplitude, 1)
     }
 
+    func testStereoModeReturnsIndependentLeftAndRightAmplitudes() {
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
+        let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
+
+        var detectedLeftAmplitude: Float = 0
+        var detectedRightAmplitude: Float = 0
+        let tap = AmplitudeTap(reverb,
+                               stereoMode: .stereo,
+                               callbackQueue: .main,
+                               stereoHandler: { left, right in
+            detectedLeftAmplitude = left
+            detectedRightAmplitude = right
+        })
+
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
+        buffer.frameLength = 1
+        buffer.floatChannelData?[0][0] = 0.25
+        buffer.floatChannelData?[1][0] = 0.75
+
+        tap.doHandleTapBlock(buffer: buffer, at: .now())
+
+        XCTAssertEqual(detectedLeftAmplitude, 0.25, accuracy: 0.0001)
+        XCTAssertEqual(detectedRightAmplitude, 0.75, accuracy: 0.0001)
+        XCTAssertEqual(tap.leftAmplitude, 0.25, accuracy: 0.0001)
+        XCTAssertEqual(tap.rightAmplitude, 0.75, accuracy: 0.0001)
+        XCTAssertEqual(tap.amplitude, 0.5, accuracy: 0.0001)
+    }
+
+    func testStereoModeMirrorsMonoInputAcrossBothCallbackValues() {
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 1)!
+        let reverb = CustomFormatReverb(AudioPlayer(), outputFormat: format)
+
+        var detectedLeftAmplitude: Float = 0
+        var detectedRightAmplitude: Float = 0
+        let tap = AmplitudeTap(reverb,
+                               stereoMode: .stereo,
+                               callbackQueue: .main,
+                               stereoHandler: { left, right in
+            detectedLeftAmplitude = left
+            detectedRightAmplitude = right
+        })
+
+        let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 1)!
+        buffer.frameLength = 1
+        buffer.floatChannelData?[0][0] = 0.4
+
+        tap.doHandleTapBlock(buffer: buffer, at: .now())
+
+        XCTAssertEqual(detectedLeftAmplitude, 0.4, accuracy: 0.0001)
+        XCTAssertEqual(detectedRightAmplitude, 0.4, accuracy: 0.0001)
+        XCTAssertEqual(tap.leftAmplitude, 0.4, accuracy: 0.0001)
+        XCTAssertEqual(tap.rightAmplitude, 0.4, accuracy: 0.0001)
+        XCTAssertEqual(tap.amplitude, 0.4, accuracy: 0.0001)
+    }
+
     func check(values: [Float], known: [Float]) {
         if values.count >= known.count {
             for i in 0..<known.count {

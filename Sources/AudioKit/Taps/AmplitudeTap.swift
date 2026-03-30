@@ -31,6 +31,7 @@ public class AmplitudeTap: BaseTap {
     public var analysisMode: AnalysisMode = .rms
 
     private var handler: (Float) -> Void = { _ in }
+    private var stereoHandler: (Float, Float) -> Void = { _, _ in }
 
     /// Initialize the amplitude
     ///
@@ -47,6 +48,28 @@ public class AmplitudeTap: BaseTap {
                 callbackQueue: DispatchQueue = .main,
                 handler: @escaping (Float) -> Void = { _ in }) {
         self.handler = handler
+        self.stereoMode = stereoMode
+        self.analysisMode = analysisMode
+        self.channelCount = Int(input.outputFormat.channelCount)
+        self.amp = Array(repeating: 0, count: channelCount)
+        super.init(input, bufferSize: bufferSize, callbackQueue: callbackQueue)
+    }
+
+    /// Initialize the amplitude with stereo callback support.
+    ///
+    /// - Parameters:
+    ///   - input: Node to analyze
+    ///   - bufferSize: Size of buffer to analyze
+    ///   - stereoMode: left, right, average, or stereo returned amplitudes
+    ///   - analysisMode: rms or peak returned amplitudes
+    ///   - stereoHandler: Code to call with new amplitudes
+    public init(_ input: Node,
+                bufferSize: UInt32 = 1_024,
+                stereoMode: StereoMode = .center,
+                analysisMode: AnalysisMode = .rms,
+                callbackQueue: DispatchQueue = .main,
+                stereoHandler: @escaping (_ left: Float, _ right: Float) -> Void) {
+        self.stereoHandler = stereoHandler
         self.stereoMode = stereoMode
         self.analysisMode = analysisMode
         self.channelCount = Int(input.outputFormat.channelCount)
@@ -81,14 +104,20 @@ public class AmplitudeTap: BaseTap {
             }
         }
 
+        let callbackAmplitudes: (Float, Float)
         switch stereoMode {
         case .left:
-            handler(leftAmplitude)
+            callbackAmplitudes = (leftAmplitude, leftAmplitude)
         case .right:
-            handler(rightAmplitude)
+            callbackAmplitudes = (rightAmplitude, rightAmplitude)
         case .center:
-            handler(amplitude)
+            callbackAmplitudes = (amplitude, amplitude)
+        case .stereo:
+            callbackAmplitudes = (leftAmplitude, rightAmplitude)
         }
+
+        handler(callbackAmplitudes.0)
+        stereoHandler(callbackAmplitudes.0, callbackAmplitudes.1)
     }
 
     /// Remove the tap on the input
@@ -116,4 +145,6 @@ public enum StereoMode {
     case right
     /// Use combined left and right channels
     case center
+    /// Use independent left and right channels
+    case stereo
 }
