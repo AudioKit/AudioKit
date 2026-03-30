@@ -36,7 +36,7 @@ extension AudioPlayer {
             return
         }
 
-        let startFrame = AVAudioFramePosition(editStartTime * file.fileFormat.sampleRate)
+        let startFrame = AVAudioFramePosition(playbackStartTime * file.fileFormat.sampleRate)
         var endFrame = AVAudioFramePosition(editEndTime * file.fileFormat.sampleRate)
 
         if endFrame == 0 {
@@ -57,15 +57,7 @@ extension AudioPlayer {
                                    frameCount: frameCount,
                                    at: audioTime,
                                    completionCallbackType: completionCallbackType) { [weak self] _ in
-            guard let self else { return }
-            if self.isSeeking { return }
-            if Thread.isMainThread {
-                self.internalCompletionHandler()
-            } else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.internalCompletionHandler()
-                }
-            }
+            self?.invokeCompletionHandlerOnMain()
         }
 
         playerNode.prepare(withFrameCount: frameCount)
@@ -96,15 +88,7 @@ extension AudioPlayer {
                                   at: audioTime,
                                   options: bufferOptions,
                                   completionCallbackType: completionCallbackType) { [weak self] _ in
-            guard let self else { return }
-            if self.isSeeking { return }
-            if Thread.isMainThread {
-                self.internalCompletionHandler()
-            } else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.internalCompletionHandler()
-                }
-            }
+            self?.invokeCompletionHandlerOnMain()
         }
 
         playerNode.prepare(withFrameCount: buffer.frameLength)

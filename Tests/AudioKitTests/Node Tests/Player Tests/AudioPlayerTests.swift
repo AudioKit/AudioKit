@@ -403,6 +403,113 @@ class AudioPlayerTests: XCTestCase {
         testMD5(audio)
     }
 
+    func testSeekWhileStoppedPreservesStoppedState() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+
+        let audio = engine.startTest(totalDuration: 2.0)
+
+        do {
+            try player.load(url: url, buffered: true)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        XCTAssertEqual(player.status, .stopped)
+        player.seek(time: 1.0)
+        XCTAssertEqual(player.status, .stopped)
+        XCTAssertEqual(player.currentTime, 1.0, accuracy: 0.001)
+
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+
+        XCTAssertEqual(player.status, .playing)
+        XCTAssertEqual(player.currentTime, 2.0, accuracy: 0.001)
+    }
+
+    func testSeekWhilePausedPreservesPausedState() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+
+        let audio = engine.startTest(totalDuration: 3.0)
+
+        do {
+            try player.load(url: url)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        player.pause()
+
+        XCTAssertEqual(player.status, .paused)
+        XCTAssertEqual(player.currentTime, 1.0, accuracy: 0.001)
+
+        player.seek(time: 1.0)
+
+        XCTAssertEqual(player.status, .paused)
+        XCTAssertEqual(player.currentTime, 2.0, accuracy: 0.001)
+
+        audio.append(engine.render(duration: 1.0))
+        XCTAssertEqual(player.currentTime, 2.0, accuracy: 0.001)
+
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        XCTAssertEqual(player.status, .playing)
+        XCTAssertEqual(player.currentTime, 3.0, accuracy: 0.001)
+    }
+
+    func testSeekWhilePausedDoesNotTriggerCompletionHandler() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+
+        let audio = engine.startTest(totalDuration: 6.0)
+        var completionCount = 0
+        player.completionHandler = {
+            completionCount += 1
+        }
+
+        do {
+            try player.load(url: url)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        player.play()
+        audio.append(engine.render(duration: 1.0))
+        player.pause()
+        player.seek(time: 3.5)
+
+        XCTAssertEqual(player.status, .paused)
+        XCTAssertEqual(player.currentTime, 4.5, accuracy: 0.001)
+        XCTAssertEqual(completionCount, 0)
+
+        audio.append(engine.render(duration: 1.0))
+        XCTAssertEqual(completionCount, 0)
+    }
+
     func testSeekForwardsAndBackwards() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
             XCTFail("Didn't get test file")

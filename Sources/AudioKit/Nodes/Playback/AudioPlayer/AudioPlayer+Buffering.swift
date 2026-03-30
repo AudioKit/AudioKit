@@ -16,7 +16,7 @@ extension AudioPlayer {
 
         let sampleRate: Double = file.fileFormat.sampleRate
         let processingFormat = file.processingFormat
-        var startFrame = AVAudioFramePosition(editStartTime * sampleRate)
+        var startFrame = AVAudioFramePosition(playbackStartTime * sampleRate)
         let endTime = editEndTime > 0 ? editEndTime : duration
         var endFrame = AVAudioFramePosition(endTime * sampleRate)
 
@@ -24,7 +24,7 @@ extension AudioPlayer {
         // since the edit points would be reversed as well, we swap them here:
         if isReversed {
             let revStartTime = editEndTime > 0 ? duration - editEndTime : duration
-            let revEndTime = duration - editStartTime
+            let revEndTime = duration - playbackStartTime
 
             startFrame = AVAudioFramePosition(revStartTime * sampleRate)
             endFrame = AVAudioFramePosition(revEndTime * sampleRate)

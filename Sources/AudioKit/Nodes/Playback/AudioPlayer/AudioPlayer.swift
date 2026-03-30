@@ -171,6 +171,9 @@ public class AudioPlayer: Node {
     // Internal variable to keep track of how much time before the player is scheduled to play
     var timeBeforePlay: TimeInterval = 0.0
 
+    // Pending playback head used by seek(time:) without mutating edit points.
+    var seekStartTime: TimeInterval?
+
     // MARK: - Internal properties
 
     // Time in audio file where track was stopped (allows retrieval of playback time after playerNode is paused)
@@ -196,12 +199,17 @@ public class AudioPlayer: Node {
 
     var engine: AVAudioEngine? { mixerNode.engine }
 
+    var playbackStartTime: TimeInterval { seekStartTime ?? editStartTime }
+
     // MARK: - Internal functions
 
     func internalCompletionHandler() {
+        guard !isSeeking, status == .playing else { return }
+
         if !isLooping {
             status = .stopped
             timeBeforePlay = 0
+            seekStartTime = nil
         }
 
         guard let completionHandler else { return }
@@ -211,6 +219,16 @@ public class AudioPlayer: Node {
         } else {
             DispatchQueue.main.async {
                 completionHandler()
+            }
+        }
+    }
+
+    func invokeCompletionHandlerOnMain() {
+        if Thread.isMainThread {
+            internalCompletionHandler()
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                self?.internalCompletionHandler()
             }
         }
     }
