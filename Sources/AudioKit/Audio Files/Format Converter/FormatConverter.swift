@@ -145,7 +145,7 @@ public extension FormatConverter {
 
     /// FormatConverterCallback is the callback format for start()
     /// - Parameter: error This will contain one parameter of type Error which is nil if the conversion was successful.
-    typealias FormatConverterCallback = (_ error: Error?) -> Void
+    typealias FormatConverterCallback = @Sendable (_ error: Error?) -> Void
 
     /// Formats that this class can write
     static let outputFormats: [AudioFileFormat] = [.wav, .aif, .caf, .m4a]
