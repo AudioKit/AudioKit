@@ -9,7 +9,8 @@ let package = Package(
     targets: [
         .target(
             name: "AudioKit",
-            resources: [.process("Resources")]
+            resources: [.process("Resources")],
+            swiftSettings: [.enableExperimentalFeature("StrictConcurrency")]
         ),
         .testTarget(name: "AudioKitTests", dependencies: ["AudioKit"], resources: [.copy("TestResources/")]),
     ]
