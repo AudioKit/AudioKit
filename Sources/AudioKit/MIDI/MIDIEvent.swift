@@ -5,7 +5,7 @@ import CoreMIDI
 import os.log
 
 /// A container for the values that define a MIDI event
-public struct MIDIEvent: MIDIMessage, Equatable {
+public struct MIDIEvent: MIDIMessage, Equatable, Sendable {
     
     /// Internal data
     public var data = [MIDIByte]()
