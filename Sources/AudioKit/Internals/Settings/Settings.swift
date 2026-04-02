@@ -91,12 +91,6 @@ public class Settings: NSObject {
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
     public static var bufferLength: BufferLength = .veryLong
 
-    /// AudioKit recording buffer length is set using Settings.BufferLength
-    /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)
-    /// in Apple's doc : "The requested size of the incoming buffers. The implementation may choose another size."
-    /// So setting this value may have no effect (depending on the hardware device ?)
-    public static var recordingBufferLength: BufferLength = .veryLong
-
     /// If set to true, Recording will stop after some delay to compensate
     /// latency between time recording is stopped and time it is written to file
     /// If set to false (the default value) , stopping record will be immediate,
