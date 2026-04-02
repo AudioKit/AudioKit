@@ -251,20 +251,18 @@ public class AudioEngine {
     /// Make sure to do this before the engine is running to avoid blocking.
     /// - Parameter named: Display name of the Audio Unit
     /// - Returns: The Audio Unit's AVAudioUnit
-    public func findAudioUnit(named: String) -> AVAudioUnit? {
-        var foundAU: AVAudioUnit?
+    public static func findAudioUnit(named: String) -> AVAudioUnit? {
         let allComponents = AVAudioUnitComponentManager().components(matching: AudioComponentDescription())
         for component in allComponents where component.name == named {
-            AVAudioUnit.instantiate(with: component.audioComponentDescription) { theAudioUnit, _ in
-                if let newAU = theAudioUnit {
-                    foundAU = newAU
-                } else {
-                    Log("🛑 Failed to load Audio Unit named: \(named)")
-                }
+            let (avAudioUnit, error) = instantiate(description: component.audioComponentDescription)
+            if let avAudioUnit {
+                return avAudioUnit
+            } else {
+                Log("🛑 Failed to load Audio Unit named: \(named), error: \(String(describing: error))")
             }
         }
-        if foundAU == nil { Log("🛑 Failed to find Audio Unit named: \(named)") }
-        return foundAU
+        Log("🛑 Failed to find Audio Unit named: \(named)")
+        return nil
     }
 
     /// Enumerate the list of available input devices.

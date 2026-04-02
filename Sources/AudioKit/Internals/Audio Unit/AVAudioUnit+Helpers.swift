@@ -3,13 +3,28 @@
 import AVFAudio
 
 func instantiate(componentDescription: AudioComponentDescription) -> AVAudioUnit {
+    let (avAudioUnit, error) = instantiate(description: componentDescription)
+    guard let avAudioUnit else {
+        fatalError("Unable to instantiate AVAudioUnit: \(error?.localizedDescription ?? "no error")")
+    }
+    return avAudioUnit
+}
+
+func instantiate(description: AudioComponentDescription) -> (AVAudioUnit?, Error?) {
     let semaphore = DispatchSemaphore(value: 0)
-    var result: AVAudioUnit!
-    AVAudioUnit.instantiate(with: componentDescription) { avAudioUnit, _ in
-        guard let au = avAudioUnit else { fatalError("Unable to instantiate AVAudioUnit") }
-        result = au
+    #if Swift6
+    // This is safe as it is synchronised by the semaphore
+    nonisolated(unsafe) var result: AVAudioUnit?
+    nonisolated(unsafe) var resultError: Error?
+    #else
+    var result: AVAudioUnit?
+    var resultError: Error?
+    #endif
+    AVAudioUnit.instantiate(with: description) { avAudioUnit, error in
+        result = avAudioUnit
+        resultError = error
         semaphore.signal()
     }
     _ = semaphore.wait(wallTimeout: .distantFuture)
-    return result
+    return (result, resultError)
 }

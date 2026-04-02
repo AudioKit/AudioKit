@@ -201,10 +201,9 @@ class EngineTests: XCTestCase {
     }
 
     func testFindAudioUnit() {
-        let engine = AudioEngine()
-        let delayAVAudioUnit = engine.findAudioUnit(named: "AUDelay")
+        let delayAVAudioUnit = AudioEngine.findAudioUnit(named: "AUDelay")
         XCTAssertNotNil(delayAVAudioUnit)
-        let unknownAVAudioUnit = engine.findAudioUnit(named: "su·per·ca·li·fra·gil·is·tic·ex·pi·a·li·do·cious")
+        let unknownAVAudioUnit = AudioEngine.findAudioUnit(named: "su·per·ca·li·fra·gil·is·tic·ex·pi·a·li·do·cious")
         XCTAssertNil(unknownAVAudioUnit)
     }
 }
