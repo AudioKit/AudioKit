@@ -192,6 +192,10 @@ open class NodeRecorder: NSObject {
             }
         }
 
+        bufferLength = Settings.recordingBufferLength.samplesCount
+        pauseLock.lock()
+        pauseTransitions.removeAll()
+        pauseLock.unlock()
         isRecording = true
 
         // Note: if you install a tap on a bus that already has a tap it will crash your application.
@@ -225,7 +229,7 @@ open class NodeRecorder: NSObject {
             }
 
             do {
-                if !isPaused {
+                if !wasPaused(at: time.sampleTime) {
                     recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
                     try internalAudioFile.write(from: buffer)
 
@@ -293,11 +297,42 @@ open class NodeRecorder: NSObject {
     /// Pause recording
     public func pause() {
         isPaused = true
+        recordPauseTransition(paused: true)
     }
 
     /// Resume recording
     public func resume() {
         isPaused = false
+        recordPauseTransition(paused: false)
+    }
+
+    // Tap buffers arrive after the audio they describe has already been rendered,
+    // so a simple `isPaused` bool checked at delivery time misclassifies buffers
+    // straddling a pause/resume boundary. We instead stamp each transition with
+    // the render sample time at which it took effect, and decide per-buffer based
+    // on when its audio was generated.
+    private struct PauseTransition {
+        let sampleTime: AVAudioFramePosition
+        let isPaused: Bool
+    }
+    private var pauseTransitions: [PauseTransition] = []
+    private let pauseLock = NSLock()
+
+    private func recordPauseTransition(paused: Bool) {
+        let sampleTime = node.avAudioNode.lastRenderTime?.sampleTime ?? 0
+        pauseLock.lock()
+        pauseTransitions.append(PauseTransition(sampleTime: sampleTime, isPaused: paused))
+        pauseLock.unlock()
+    }
+
+    private func wasPaused(at sampleTime: AVAudioFramePosition) -> Bool {
+        pauseLock.lock()
+        defer { pauseLock.unlock() }
+        var paused = false
+        for transition in pauseTransitions where transition.sampleTime <= sampleTime {
+            paused = transition.isPaused
+        }
+        return paused
     }
 
     /// Reset the AVAudioFile to clear previous recordings
