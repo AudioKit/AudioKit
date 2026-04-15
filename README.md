@@ -7,7 +7,6 @@
 [![License](https://img.shields.io/cocoapods/l/AudioKit)](https://github.com/AudioKit/AudioKit/blob/main/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit)](https://github.com/AudioKit/AudioKit/)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
-[![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitPro.svg?style=social)](https://twitter.com/AudioKitPro)
 
 </div>
 
