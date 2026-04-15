@@ -3,7 +3,6 @@
   
 # AudioKit
   
-[![Build Status](https://github.com/AudioKit/AudioKit/workflows/CI/badge.svg)](https://github.com/AudioKit/AudioKit/actions?query=workflow%3ACI)
 [![License](https://img.shields.io/cocoapods/l/AudioKit)](https://github.com/AudioKit/AudioKit/blob/main/LICENSE)
 [![Platform](https://img.shields.io/cocoapods/p/AudioKit)](https://github.com/AudioKit/AudioKit/)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
