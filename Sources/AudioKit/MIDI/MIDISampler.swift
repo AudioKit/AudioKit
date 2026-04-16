@@ -16,12 +16,6 @@ open class MIDISampler: AppleSampler {
     /// MIDI Input
     open var midiIn = MIDIEndpointRef()
 
-    /// Name of the instrument
-    open override var name: String {
-        get { super.name }
-        set { super.name = newValue }
-    }
-
     /// Initialize the MIDI Sampler
     ///
     /// - Parameter midiOutputName: Name of the instrument's MIDI output
