@@ -192,7 +192,6 @@ open class NodeRecorder: NSObject {
             }
         }
 
-        bufferLength = Settings.recordingBufferLength.samplesCount
         pauseLock.lock()
         pauseTransitions.removeAll()
         pauseLock.unlock()
