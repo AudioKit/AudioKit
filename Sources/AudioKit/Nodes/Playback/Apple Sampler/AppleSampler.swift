@@ -9,11 +9,13 @@ import AVFoundation
 /// 3. connect to the engine: engine.output = sampler
 /// 4. start the engine engine.start()
 ///
-open class AppleSampler: Node {
+open class AppleSampler: NamedNode {
     // MARK: - Properties
 
     /// Internal audio unit
     public private(set) var internalAU: AUAudioUnit?
+
+    open var name = "AppleSampler"
 
     private var _audioFiles: [AVAudioFile] = []
 

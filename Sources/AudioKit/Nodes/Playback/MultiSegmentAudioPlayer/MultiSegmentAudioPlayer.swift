@@ -3,18 +3,20 @@
 import AVFoundation
 
 /// audio player that can schedule many file segments
-public class MultiSegmentAudioPlayer: Node {
+public class MultiSegmentAudioPlayer: NamedNode {
     /// Nodes providing input to this node.
     public var connections: [Node] { [] }
-    
+
     /// The underlying player node
     public private(set) var playerNode = AVAudioPlayerNode()
 
     /// The output of the AudioPlayer and provides sample rate conversion if needed
     public private(set) var mixerNode = AVAudioMixerNode()
-    
+
     /// The internal AVAudioEngine AVAudioNode
     public var avAudioNode: AVAudioNode { return mixerNode }
+
+    public var name = "MultiSegmentAudioPlayer"
     
     /// Just the playerNode's property, values above 1 will have gain applied
     public var volume: AUValue {

@@ -7,7 +7,7 @@ let twoPi = 2 * Float.pi
 
 /// Pure Swift oscillator
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-public class PlaygroundOscillator: Node {
+public class PlaygroundOscillator: NamedNode {
     fileprivate lazy var sourceNode = AVAudioSourceNode { [self] _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
 
@@ -44,6 +44,8 @@ public class PlaygroundOscillator: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { sourceNode }
+
+    public var name = "PlaygroundOscillator"
 
     private var currentPhase: Float = 0
 

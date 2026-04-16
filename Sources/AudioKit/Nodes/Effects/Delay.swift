@@ -4,7 +4,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Delay Audio Unit
 ///
-public class Delay: Node {
+public class Delay: NamedNode {
     let delayAU = AVAudioUnitDelay()
 
     let input: Node
@@ -14,6 +14,8 @@ public class Delay: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { return delayAU }
+
+    public var name = "Delay"
 
     /// Specification details for dry wet mix
     public static let dryWetMixDef = NodeParameterDef(

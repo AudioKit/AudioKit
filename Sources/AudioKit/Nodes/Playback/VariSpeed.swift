@@ -4,7 +4,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's VariSpeed Audio Unit
 ///
-public class VariSpeed: Node {
+public class VariSpeed: NamedNode {
     fileprivate let variSpeedAU = AVAudioUnitVarispeed()
 
     let input: Node
@@ -14,6 +14,8 @@ public class VariSpeed: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
+
+    public var name = "VariSpeed"
 
     /// Rate (rate) ranges form 0.25 to 4.0 (Default: 1.0)
     public var rate: AUValue = 1.0 {

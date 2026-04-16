@@ -27,11 +27,13 @@
 
 import AVFAudio
 
-public class MatrixMixer: Node {
+public class MatrixMixer: NamedNode {
     private let inputs: [Node]
 
     public var connections: [Node] { inputs }
     public var avAudioNode: AVAudioNode { unit }
+
+    public var name = "MatrixMixer"
 
     /// Output format to be used when making connections from this node
     public var outputFormat = Settings.audioFormat

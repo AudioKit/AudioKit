@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-public class PeakLimiter: Node {
+public class PeakLimiter: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_PeakLimiter)
 
     let input: Node
@@ -15,6 +15,8 @@ public class PeakLimiter: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "PeakLimiter"
 
     /// Specification details for attackTime
     public static let attackTimeDef = NodeParameterDef(

@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-public class BandPassFilter: Node {
+public class BandPassFilter: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_BandPassFilter)
 
     let input: Node
@@ -15,6 +15,8 @@ public class BandPassFilter: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "BandPassFilter"
 
     /// Specification details for centerFrequency
     public static let centerFrequencyDef = NodeParameterDef(

@@ -11,9 +11,10 @@ extension Node {
     }
 
     private func createConnectionTreeDescription(paddedWith indentation: String = "") -> String {
-        var nodeDescription = String(describing: self).components(separatedBy: ".").last ?? "Unknown"
+        let typeName = String(describing: type(of: self))
+        var nodeDescription = typeName
 
-        if let namedSelf = self as? NamedNode {
+        if let namedSelf = self as? NamedNode, namedSelf.name != typeName {
             nodeDescription += "(\"\(namedSelf.name)\")"
         }
 

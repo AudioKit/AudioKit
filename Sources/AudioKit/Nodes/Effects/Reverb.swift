@@ -4,7 +4,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-public class Reverb: Node {
+public class Reverb: NamedNode {
     fileprivate let reverbAU = AVAudioUnitReverb()
 
     let input: Node
@@ -14,6 +14,8 @@ public class Reverb: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
+
+    public var name = "Reverb"
 
     // Hacking start, stop, play, and bypass to use dryWetMix because reverbAU's bypass results in no sound
 
