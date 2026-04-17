@@ -41,8 +41,8 @@ open class NodeRecorder: NSObject {
     /// Used for fixing recordings being truncated
     private var recordBufferDuration: Double = 16384 / Settings.sampleRate
 
-    /// Buffer length used for chunking audioDataCallback deliveries
-    private var bufferLength: AVAudioFrameCount = Settings.recordingBufferLength.samplesCount
+    /// Buffer length used for the recording tap and chunking audioDataCallback deliveries
+    private let bufferLength: AVAudioFrameCount
 
     /// return the AVAudioFile for reading
     open var audioFile: AVAudioFile? {
@@ -81,24 +81,25 @@ open class NodeRecorder: NSObject {
 
     /// Initialize the node recorder
     ///
-    /// Recording buffer size is Settings.recordingBufferLength
-    ///
     /// - Parameters:
     ///   - node: Node to record from
     ///   - fileDirectoryPath: Directory to write audio files to
     ///   - bus: Integer index of the bus to use
     ///   - shouldCleanupRecordings: Determines if recorded files are deleted upon deinit (default = true)
+    ///   - bufferLength: Size of the recording buffer (default = .veryLong)
     ///   - audioDataCallback: Callback after each buffer processing with raw audio data and time stamp
     ///
     public init(node: Node,
                 fileDirectoryURL: URL? = nil,
                 bus: Int = 0,
                 shouldCleanupRecordings: Bool = true,
+                bufferLength: Settings.BufferLength = .veryLong,
                 audioDataCallback: AudioDataCallback? = nil) throws
     {
         self.node = node
         self.fileDirectoryURL = fileDirectoryURL ?? URL(fileURLWithPath: NSTemporaryDirectory())
         self.shouldCleanupRecordings = shouldCleanupRecordings
+        self.bufferLength = bufferLength.samplesCount
         self.audioDataCallback = audioDataCallback
         super.init()
 
@@ -191,7 +192,6 @@ open class NodeRecorder: NSObject {
             }
         }
 
-        bufferLength = Settings.recordingBufferLength.samplesCount
         pauseLock.lock()
         pauseTransitions.removeAll()
         pauseLock.unlock()
