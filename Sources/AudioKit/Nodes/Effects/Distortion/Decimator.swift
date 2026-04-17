@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Decimator Audio Unit
 ///
-public class Decimator: Node {
+public class Decimator: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
@@ -15,6 +15,8 @@ public class Decimator: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "Decimator"
 
     /// Specification details for decimation
     public static let decimationDef = NodeParameterDef(

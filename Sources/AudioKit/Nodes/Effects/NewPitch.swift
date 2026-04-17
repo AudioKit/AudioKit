@@ -6,7 +6,7 @@ import AVFAudio
 /// This is different to `AUNewTimePitch` (`AVAudioUnitTimePitch`).
 /// `AUNewTimePitch` does both time stretching and pitch shifting.
 /// `AUNewTimePitch` is `AVAudioUnitTimeEffect` and `AUNewPitch` is `AVAudioUnitEffect`
-public class NewPitch: Node {
+public class NewPitch: NamedNode {
     private let input: Node
     private let pitchUnit = instantiate(
         componentDescription: AudioComponentDescription(appleEffect: kAudioUnitSubType_NewTimePitch)
@@ -14,6 +14,7 @@ public class NewPitch: Node {
 
     public var connections: [AudioKit.Node] { [input] }
     public var avAudioNode: AVAudioNode { pitchUnit }
+    public var name = "NewPitch"
 
     /// Initialize the time pitch node
     ///

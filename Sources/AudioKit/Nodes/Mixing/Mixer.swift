@@ -19,7 +19,7 @@ public class Mixer: Node, NamedNode {
     public var outputFormat = Settings.audioFormat
 
     /// Name of the node
-    open var name = "(unset)"
+    open var name = "Mixer"
 
     /// Output Volume (Default 1), values above 1 will have gain applied
     public var volume: AUValue = 1.0 {

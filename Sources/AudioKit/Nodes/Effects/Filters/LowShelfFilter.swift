@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's LowShelfFilter Audio Unit
 ///
-public class LowShelfFilter: Node {
+public class LowShelfFilter: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_LowShelfFilter)
 
     let input: Node
@@ -15,6 +15,8 @@ public class LowShelfFilter: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "LowShelfFilter"
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(

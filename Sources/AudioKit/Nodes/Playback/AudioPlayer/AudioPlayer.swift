@@ -7,7 +7,7 @@ import AVFoundation
 /// played from disk. If you want seamless looping then buffer it. You can still loop from disk, but the
 /// loop will not be totally seamless.
 
-public class AudioPlayer: Node {
+public class AudioPlayer: NamedNode {
     /// Nodes providing input to this node.
     public var connections: [Node] { [] }
 
@@ -19,6 +19,8 @@ public class AudioPlayer: Node {
 
     /// The internal AVAudioEngine AVAudioNode
     public var avAudioNode: AVAudioNode { return mixerNode }
+
+    public var name = "AudioPlayer"
 
     /// Just the playerNode's property, values above 1 will have gain applied
     public var volume: AUValue {

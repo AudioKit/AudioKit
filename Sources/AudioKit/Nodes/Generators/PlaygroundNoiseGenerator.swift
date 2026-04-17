@@ -5,7 +5,7 @@ import CoreAudio // for UnsafeMutableAudioBufferListPointer
 
 /// Pure Swift Noise Generator
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, *)
-public class PlaygroundNoiseGenerator: Node {
+public class PlaygroundNoiseGenerator: NamedNode {
     fileprivate lazy var sourceNode = AVAudioSourceNode { [self] _, _, frameCount, audioBufferList in
         let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)
 
@@ -36,6 +36,8 @@ public class PlaygroundNoiseGenerator: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { sourceNode }
+
+    public var name = "PlaygroundNoiseGenerator"
 
     /// Volume usually 0-1
     public var amplitude: AUValue = 1

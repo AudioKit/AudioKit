@@ -8,15 +8,24 @@ extension ObjectIdentifier {
     }
 }
 
+#if !Swift6
 fileprivate var labels: [ObjectIdentifier: String] = [:]
+#endif
 
 extension Node {
 
     /// A label for to use when printing the dot.
+    #if Swift6
+    public var label: String {
+        get { (self as? NamedNode)?.name ?? "" }
+        set { (self as? NamedNode)?.name = newValue }
+    }
+    #else
     public var label: String {
         get { labels[ObjectIdentifier(self)] ?? "" }
         set { labels[ObjectIdentifier(self)] = newValue }
     }
+    #endif
     
     /// Generates Graphviz (.dot) format for a chain of AudioKit nodes.
     ///

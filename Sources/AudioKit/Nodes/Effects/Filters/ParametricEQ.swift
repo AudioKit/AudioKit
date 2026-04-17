@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-public class ParametricEQ: Node {
+public class ParametricEQ: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_ParametricEQ)
 
     let input: Node
@@ -15,6 +15,8 @@ public class ParametricEQ: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "ParametricEQ"
 
     /// Specification details for centerFreq
     public static let centerFreqDef = NodeParameterDef(

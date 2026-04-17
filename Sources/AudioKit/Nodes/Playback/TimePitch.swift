@@ -4,7 +4,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's TimePitch Audio Unit
 ///
-public class TimePitch: Node {
+public class TimePitch: NamedNode {
     fileprivate let timePitchAU = AVAudioUnitTimePitch()
 
     let input: Node
@@ -14,6 +14,8 @@ public class TimePitch: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
+
+    public var name = "TimePitch"
 
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
     public var rate: AUValue = 1.0 {

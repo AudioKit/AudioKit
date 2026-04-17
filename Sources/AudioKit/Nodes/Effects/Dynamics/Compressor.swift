@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Compressor Audio Unit
 ///
-public class Compressor: Node {
+public class Compressor: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     let input: Node
@@ -15,6 +15,8 @@ public class Compressor: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "Compressor"
 
     /// Specification details for threshold
     public static let thresholdDef = NodeParameterDef(

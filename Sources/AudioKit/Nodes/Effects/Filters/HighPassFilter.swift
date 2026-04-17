@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's HighPassFilter Audio Unit
 ///
-public class HighPassFilter: Node {
+public class HighPassFilter: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_HighPassFilter)
 
     let input: Node
@@ -15,6 +15,8 @@ public class HighPassFilter: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "HighPassFilter"
 
     /// Specification details for cutoffFrequency
     public static let cutoffFrequencyDef = NodeParameterDef(

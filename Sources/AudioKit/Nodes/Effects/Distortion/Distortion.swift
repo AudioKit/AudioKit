@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
-public class Distortion: Node {
+public class Distortion: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
@@ -15,6 +15,8 @@ public class Distortion: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "Distortion"
 
     /// Specification details for delay
     public static let delayDef = NodeParameterDef(

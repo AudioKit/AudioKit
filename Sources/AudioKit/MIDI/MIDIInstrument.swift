@@ -21,7 +21,7 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
     open var midiIn = MIDIEndpointRef()
 
     /// Name of the instrument
-    open var name = "(unset)"
+    open var name = "MIDIInstrument"
 
     /// Active MPE notes
     open var mpeActiveNotes: [(note: MIDINoteNumber, channel: MIDIChannel)] = []

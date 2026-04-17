@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's Expander Audio Unit
 ///
-public class Expander: Node {
+public class Expander: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_DynamicsProcessor)
 
     let input: Node
@@ -15,6 +15,8 @@ public class Expander: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "Expander"
 
     /// Specification details for expansionRatio
     public static let expansionRatioDef = NodeParameterDef(

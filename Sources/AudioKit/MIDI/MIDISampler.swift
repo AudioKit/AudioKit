@@ -10,14 +10,11 @@ import os.log
 ///
 /// Similar to ``AppleSampler`` but with added MIDI capabilities
 ///
-open class MIDISampler: AppleSampler, NamedNode {
+open class MIDISampler: AppleSampler {
     // MARK: - Properties
 
     /// MIDI Input
     open var midiIn = MIDIEndpointRef()
-
-    /// Name of the instrument
-    open var name = "(unset)"
 
     /// Initialize the MIDI Sampler
     ///
@@ -25,7 +22,7 @@ open class MIDISampler: AppleSampler, NamedNode {
     ///
     public init(name midiOutputName: String? = nil) {
         super.init()
-        name = midiOutputName ?? MemoryAddress(of: self).description
+        name = midiOutputName ?? "MIDISampler"
         enableMIDI(name: name)
         hideVirtualMIDIPort()
     }

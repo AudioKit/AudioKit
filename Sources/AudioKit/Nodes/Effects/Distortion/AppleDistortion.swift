@@ -5,7 +5,7 @@ import AVFoundation
 /// AudioKit version of Apple's Distortion Audio Unit
 ///
 @available(iOS 8.0, *)
-public class AppleDistortion: Node {
+public class AppleDistortion: NamedNode {
     fileprivate let distAU = AVAudioUnitDistortion()
 
     let input: Node
@@ -15,6 +15,8 @@ public class AppleDistortion: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode
+
+    public var name = "AppleDistortion"
 
     /// Dry/Wet Mix (Default 50)
     public var dryWetMix: AUValue = 50 {

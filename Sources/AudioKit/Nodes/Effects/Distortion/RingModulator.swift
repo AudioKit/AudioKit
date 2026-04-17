@@ -5,7 +5,7 @@ import AVFoundation
 
 /// AudioKit version of Apple's RingModulator Audio Unit
 ///
-public class RingModulator: Node {
+public class RingModulator: NamedNode {
     fileprivate let effectAU = AVAudioUnitEffect(appleEffect: kAudioUnitSubType_Distortion)
 
     let input: Node
@@ -15,6 +15,8 @@ public class RingModulator: Node {
 
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { effectAU }
+
+    public var name = "RingModulator"
 
     /// Specification details for ringModFreq1
     public static let ringModFreq1Def = NodeParameterDef(

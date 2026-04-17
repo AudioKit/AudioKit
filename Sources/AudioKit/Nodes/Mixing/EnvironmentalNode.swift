@@ -45,7 +45,7 @@ public class EnvironmentalNode: Node, NamedNode {
     public var avAudioNode: AVAudioNode {
         avAudioEnvironmentNode
     }
-    open var name = "(unset)"
+    open var name = "EnvironmentalNode"
     /// The listener’s position in the 3D environment.
     public var listenerPosition: AVAudio3DPoint {
         get {
