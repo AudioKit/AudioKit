@@ -18,6 +18,30 @@ extension FormatConverter {
     ///
     /// This is no longer used in this class as it's not possible to convert sample rate or other
     /// required options. It will use the next function instead
+    #if Swift6
+    @available(macOS 15, iOS 18, tvOS 18, visionOS 2.0, *)
+    func convertCompressed(presetName: String) async throws {
+        guard let inputURL = inputURL else {
+            throw Self.createError(message: "Input file can't be nil.")
+        }
+        guard let outputURL = outputURL else {
+            throw Self.createError(message: "Output file can't be nil.")
+        }
+
+        let asset = AVURLAsset(url: inputURL)
+        guard let session = AVAssetExportSession(asset: asset,
+                                                 presetName: presetName) else {
+            throw Self.createError(message: "session can't be nil.")
+        }
+
+        let list = await session.compatibleFileTypes
+        guard let outputFileType: AVFileType = list.first else {
+            throw Self.createError(message: "Unable to determine a compatible file type from \(inputURL.path)")
+        }
+
+        try await session.export(to: outputURL, as: outputFileType)
+    }
+    #else
     @available(visionOS, unavailable, message: "This method is not supported on visionOS")
     func convertCompressed(presetName: String, completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
@@ -49,47 +73,54 @@ extension FormatConverter {
             }
         }
     }
+    #endif
 
-    /// Example of the most simplistic AVFoundation conversion.
-    /// With this approach you can't really specify any settings other than the limited presets.
-    /// No sample rate conversion in this. This isn't used in the public methods but is here
-    /// for example.
-    ///
-    /// see `AVAssetExportSession`:
-    /// *Prior to initializing an instance of AVAssetExportSession, you can invoke
-    /// +allExportPresets to obtain the complete list of presets available. Use
-    /// +exportPresetsCompatibleWithAsset: to obtain a list of presets that are compatible
-    /// with a specific AVAsset.*
-    ///
-    /// This is no longer used in this class as it's not possible to convert sample rate or other
-    /// required options. It will use the next function instead
-    #if swift(>=6.0) // Swift 6.0 corresponds to Xcode 16+
-    @available(macOS 15, iOS 18, tvOS 18, visionOS 2.0, *)
-    func convertCompressed(presetName: String) async throws {
+    /// Convert to compressed first creating a tmp file to PCM to allow more flexible conversion
+    /// options to work.
+    #if Swift6
+    func convertCompressed() async throws {
         guard let inputURL = inputURL else {
             throw Self.createError(message: "Input file can't be nil.")
         }
         guard let outputURL = outputURL else {
             throw Self.createError(message: "Output file can't be nil.")
         }
-
-        let asset = AVURLAsset(url: inputURL)
-        guard let session = AVAssetExportSession(asset: asset,
-                                                 presetName: presetName) else {
-            throw Self.createError(message: "session can't be nil.")
+        guard let options = options else {
+            throw Self.createError(message: "Options can't be nil.")
         }
 
-        let list = await session.compatibleFileTypes
-        guard let outputFileType: AVFileType = list.first else {
-            throw Self.createError(message: "Unable to determine a compatible file type from \(inputURL.path)")
+        let tempName = outputURL.deletingPathExtension().lastPathComponent + "_TEMP.wav"
+        let tempFile = outputURL.deletingLastPathComponent().appendingPathComponent(tempName)
+
+        var tempOptions = FormatConverter.Options()
+        tempOptions.bitDepthRule = .lessThanOrEqual
+        tempOptions.bitDepth = 24
+        tempOptions.sampleRate = options.sampleRate
+        tempOptions.channels = options.channels
+        tempOptions.format = .wav
+
+        let tempConverter = FormatConverter(inputURL: inputURL,
+                                            outputURL: tempFile,
+                                            options: tempOptions)
+
+        do {
+            try await tempConverter.start()
+        } catch {
+            try? FileManager.default.removeItem(at: tempFile)
+            throw Self.createError(message: "Failed to convert input to PCM: \(error.localizedDescription)")
         }
 
-        try await session.export(to: outputURL, as: outputFileType)
+        self.inputURL = tempFile
+
+        do {
+            try await self.convertPCMToCompressed()
+        } catch {
+            try? FileManager.default.removeItem(at: tempFile)
+            throw error
+        }
+        try? FileManager.default.removeItem(at: tempFile)
     }
-    #endif
-
-    /// Convert to compressed first creating a tmp file to PCM to allow more flexible conversion
-    /// options to work.
+    #else
     func convertCompressed(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
@@ -133,9 +164,25 @@ extension FormatConverter {
             }
         }
     }
+    #endif
 
     /// The AVFoundation way. *This doesn't currently handle compressed input - only compressed output.*
+    #if Swift6
+    func convertPCMToCompressed() async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            self.convertPCMToCompressedImpl { error in
+                if let error { continuation.resume(throwing: error) }
+                else { continuation.resume() }
+            }
+        }
+    }
+    #else
     func convertPCMToCompressed(completionHandler: FormatConverterCallback? = nil) {
+        convertPCMToCompressedImpl(completionHandler: completionHandler)
+    }
+    #endif
+
+    private func convertPCMToCompressedImpl(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
@@ -193,6 +240,7 @@ extension FormatConverter {
             formatKey = kAudioFormatLinearPCM
         default:
             Log("Unsupported output format: \(outputFormat)")
+            completionHandler?(Self.createError(message: "Unsupported output format: \(outputFormat)"))
             return
         }
 

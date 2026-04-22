@@ -61,7 +61,62 @@ public class FormatConverter {
     // MARK: - functions
 
     /// The entry point for file conversion
-    /// - Parameter completionHandler: the callback that will be triggered when process has completed.
+    #if Swift6
+    public func start() async throws {
+        guard let inputURL = inputURL else {
+            throw Self.createError(message: "Input file can't be nil.")
+        }
+
+        guard let outputURL = outputURL else {
+            throw Self.createError(message: "Output file can't be nil.")
+        }
+
+        let inputFormat = AudioFileFormat(rawValue: inputURL.pathExtension.lowercased()) ?? .unknown
+        guard FormatConverter.inputFormats.contains(inputFormat) else {
+            throw Self.createError(message: "The input file format is in an incompatible format: \(inputFormat)")
+        }
+
+        if FileManager.default.fileExists(atPath: outputURL.path) {
+            if options?.eraseFile == true {
+                Log("Warning: removing existing file at", outputURL.path)
+                try? FileManager.default.removeItem(at: outputURL)
+            } else {
+                throw Self.createError(message: "The output file exists already. You need to choose a unique URL or delete the file.")
+            }
+        }
+
+        if options?.format == nil {
+            options?.format = AudioFileFormat(rawValue: outputURL.pathExtension.lowercased()) ?? .unknown
+        }
+
+        // Format checks are necessary as AVAssetReader has opinions about compressed
+
+        // PCM output, any supported input
+        if Self.isPCM(url: outputURL) == true {
+            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+                convertToPCM { error in
+                    if let error { continuation.resume(throwing: error) }
+                    else { continuation.resume() }
+                }
+            }
+
+            // PCM input, compressed output
+        } else if Self.isPCM(url: inputURL) == true,
+                  Self.isCompressed(url: outputURL) == true
+        {
+            try await convertPCMToCompressed()
+
+            // Compressed input and output, won't do sample rate
+        } else if Self.isCompressed(url: inputURL) == true,
+                  Self.isCompressed(url: outputURL) == true
+        {
+            try await convertCompressed()
+
+        } else {
+            throw Self.createError(message: "Unable to determine formats for conversion")
+        }
+    }
+    #else
     public func start(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
@@ -118,6 +173,7 @@ public class FormatConverter {
             completionHandler?(Self.createError(message: "Unable to determine formats for conversion"))
         }
     }
+    #endif
 }
 
 // MARK: - Definitions

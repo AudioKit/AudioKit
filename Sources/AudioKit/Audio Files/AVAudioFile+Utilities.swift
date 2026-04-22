@@ -94,6 +94,51 @@ public extension AVAudioFile {
     }
 
     /// - Returns: An extracted section of this file of the passed in conversion options
+    #if Swift6
+    func extract(to url: URL,
+                 from startTime: TimeInterval,
+                 to endTime: TimeInterval,
+                 fadeInTime: TimeInterval = 0,
+                 fadeOutTime: TimeInterval = 0,
+                 options: FormatConverter.Options? = nil) async throws
+    {
+        func createError(message: String, code: Int = 1) -> NSError {
+            let userInfo: [String: Any] = [NSLocalizedDescriptionKey: message]
+            return NSError(domain: "io.audiokit.FormatConverter.error", code: code, userInfo: userInfo)
+        }
+
+        let options = options ?? FormatConverter.Options(audioFile: self)
+
+        let format = options?.format ?? AudioFileFormat(rawValue: url.pathExtension) ?? .unknown
+        let directory = url.deletingLastPathComponent()
+        let filename = url.deletingPathExtension().lastPathComponent
+        let tempFile = directory.appendingPathComponent(filename + "_temp").appendingPathExtension("caf")
+        let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format.rawValue)
+
+        let extracted: AVAudioFile? = extract(to: tempFile,
+                                              from: startTime,
+                                              to: endTime,
+                                              fadeInTime: fadeInTime,
+                                              fadeOutTime: fadeOutTime)
+        guard extracted != nil else {
+            throw createError(message: "Failed to create new file")
+        }
+
+        guard FileManager.default.isReadableFile(atPath: tempFile.path) else {
+            throw createError(message: "File wasn't created correctly")
+        }
+
+        let converter = FormatConverter(inputURL: tempFile, outputURL: outputURL, options: options)
+        do {
+            try await converter.start()
+        } catch {
+            Log("Done, error", error, type: .error)
+            try? FileManager.default.removeItem(at: tempFile)
+            throw error
+        }
+        try? FileManager.default.removeItem(at: tempFile)
+    }
+    #else
     func extract(to url: URL,
                  from startTime: TimeInterval,
                  to endTime: TimeInterval,
@@ -107,7 +152,6 @@ public extension AVAudioFile {
             return NSError(domain: "io.audiokit.FormatConverter.error", code: code, userInfo: userInfo)
         }
 
-        // if options are nil, create them to match the input file
         let options = options ?? FormatConverter.Options(audioFile: self)
 
         let format = options?.format ?? AudioFileFormat(rawValue: url.pathExtension) ?? .unknown
@@ -116,7 +160,6 @@ public extension AVAudioFile {
         let tempFile = directory.appendingPathComponent(filename + "_temp").appendingPathExtension("caf")
         let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format.rawValue)
 
-        // first print CAF file
         guard extract(to: tempFile,
                       from: startTime,
                       to: endTime,
@@ -127,7 +170,6 @@ public extension AVAudioFile {
             return
         }
 
-        // then convert to desired format here:
         guard FileManager.default.isReadableFile(atPath: tempFile.path) else {
             completionHandler?(createError(message: "File wasn't created correctly"))
             return
@@ -150,6 +192,7 @@ public extension AVAudioFile {
             }
         }
     }
+    #endif
 }
 
 public extension AVURLAsset {

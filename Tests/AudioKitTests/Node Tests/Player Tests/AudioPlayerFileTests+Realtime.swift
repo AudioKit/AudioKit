@@ -46,14 +46,14 @@ extension AudioPlayerFileTests {
         realtimeTestEdited(buffered: true)
     }
 
-    func testMixedSampleRates() {
+    func testMixedSampleRates() async {
         guard realtimeEnabled else { return }
-        realtimeTestMixedSampleRates(buffered: true)
+        await realtimeTestMixedSampleRates(buffered: true)
     }
 
-    func testBufferedMixedSampleRates() {
+    func testBufferedMixedSampleRates() async {
         guard realtimeEnabled else { return }
-        realtimeTestMixedSampleRates(buffered: true)
+        await realtimeTestMixedSampleRates(buffered: true)
     }
 
     // testSeek and testSeekBuffered should effectively sound the same
