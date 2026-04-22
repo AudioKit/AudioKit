@@ -101,6 +101,7 @@ class FormatConverterTests: AudioFileTestCase {
         let outputURL = tmp.appendingPathComponent(name).appendingPathExtension(format.rawValue)
 
         defer {
+            // Log("🗑 Deleting:", tmp.lastPathComponent)
             try? FileManager.default.removeItem(at: tmp)
         }
 
