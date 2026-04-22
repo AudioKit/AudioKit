@@ -152,6 +152,7 @@ public extension AVAudioFile {
             return NSError(domain: "io.audiokit.FormatConverter.error", code: code, userInfo: userInfo)
         }
 
+        // if options are nil, create them to match the input file
         let options = options ?? FormatConverter.Options(audioFile: self)
 
         let format = options?.format ?? AudioFileFormat(rawValue: url.pathExtension) ?? .unknown
@@ -160,6 +161,7 @@ public extension AVAudioFile {
         let tempFile = directory.appendingPathComponent(filename + "_temp").appendingPathExtension("caf")
         let outputURL = directory.appendingPathComponent(filename).appendingPathExtension(format.rawValue)
 
+        // first print CAF file
         guard extract(to: tempFile,
                       from: startTime,
                       to: endTime,
@@ -170,6 +172,7 @@ public extension AVAudioFile {
             return
         }
 
+        // then convert to desired format here:
         guard FileManager.default.isReadableFile(atPath: tempFile.path) else {
             completionHandler?(createError(message: "File wasn't created correctly"))
             return

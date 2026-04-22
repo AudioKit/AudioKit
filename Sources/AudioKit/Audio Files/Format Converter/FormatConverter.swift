@@ -72,6 +72,7 @@ public class FormatConverter {
         }
 
         let inputFormat = AudioFileFormat(rawValue: inputURL.pathExtension.lowercased()) ?? .unknown
+        // verify inputFormat, only allow files with path extensions for speed?
         guard FormatConverter.inputFormats.contains(inputFormat) else {
             throw Self.createError(message: "The input file format is in an incompatible format: \(inputFormat)")
         }
@@ -117,6 +118,7 @@ public class FormatConverter {
         }
     }
     #else
+    /// - Parameter completionHandler: the callback that will be triggered when process has completed.
     public func start(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
