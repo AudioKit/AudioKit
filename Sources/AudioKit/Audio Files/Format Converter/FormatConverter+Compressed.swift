@@ -170,19 +170,15 @@ extension FormatConverter {
     #if Swift6
     func convertPCMToCompressed() async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-            self.convertPCMToCompressedImpl { error in
+            self.convertPCMToCompressed { error in
                 if let error { continuation.resume(throwing: error) }
                 else { continuation.resume() }
             }
         }
     }
-    #else
-    func convertPCMToCompressed(completionHandler: FormatConverterCallback? = nil) {
-        convertPCMToCompressedImpl(completionHandler: completionHandler)
-    }
     #endif
 
-    private func convertPCMToCompressedImpl(completionHandler: FormatConverterCallback? = nil) {
+    func convertPCMToCompressed(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
             return
