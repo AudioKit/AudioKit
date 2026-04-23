@@ -11,11 +11,11 @@ class FormatConverterChannelTests: XCTestCase {
 
     /// Verifies that converting a stereo file with audio only in the RIGHT channel
     /// to mono produces non-silent output. This is the core bug from issue #2900.
-    func testStereoToMonoPreservesRightChannel() throws {
+    func testStereoToMonoPreservesRightChannel() async throws {
         let stereoBuffer = createStereoBuffer(leftValue: 0.0, rightValue: 0.5)
         let inputURL = try writeTempFile(buffer: stereoBuffer, name: "rightOnly")
 
-        let monoBuffer = try convertToMono(inputURL: inputURL)
+        let monoBuffer = try await convertToMono(inputURL: inputURL)
 
         XCTAssertEqual(monoBuffer.format.channelCount, 1, "Output should be mono")
         XCTAssertGreaterThan(monoBuffer.frameLength, 0, "Output should have frames")
@@ -27,11 +27,11 @@ class FormatConverterChannelTests: XCTestCase {
 
     /// Verifies that converting a stereo file with audio only in the LEFT channel
     /// to mono also produces non-silent output.
-    func testStereoToMonoPreservesLeftChannel() throws {
+    func testStereoToMonoPreservesLeftChannel() async throws {
         let stereoBuffer = createStereoBuffer(leftValue: 0.5, rightValue: 0.0)
         let inputURL = try writeTempFile(buffer: stereoBuffer, name: "leftOnly")
 
-        let monoBuffer = try convertToMono(inputURL: inputURL)
+        let monoBuffer = try await convertToMono(inputURL: inputURL)
 
         XCTAssertEqual(monoBuffer.format.channelCount, 1)
 
@@ -42,11 +42,11 @@ class FormatConverterChannelTests: XCTestCase {
 
     /// Verifies that both channels are summed when converting stereo to mono.
     /// Left=0.25 and Right=0.25 should produce mono samples of 0.5 (sum of both).
-    func testStereoToMonoMixesBothChannels() throws {
+    func testStereoToMonoMixesBothChannels() async throws {
         let stereoBuffer = createStereoBuffer(leftValue: 0.25, rightValue: 0.25)
         let inputURL = try writeTempFile(buffer: stereoBuffer, name: "bothChannels")
 
-        let monoBuffer = try convertToMono(inputURL: inputURL)
+        let monoBuffer = try await convertToMono(inputURL: inputURL)
 
         XCTAssertEqual(monoBuffer.format.channelCount, 1)
 
@@ -87,7 +87,7 @@ class FormatConverterChannelTests: XCTestCase {
         return url
     }
 
-    private func convertToMono(inputURL: URL) throws -> AVAudioPCMBuffer {
+    private func convertToMono(inputURL: URL) async throws -> AVAudioPCMBuffer {
         let tmp = FileManager.default.temporaryDirectory
             .appendingPathComponent("FormatConverterChannelTests")
         let outputURL = tmp.appendingPathComponent("output_mono.wav")
@@ -107,6 +107,9 @@ class FormatConverterChannelTests: XCTestCase {
 
         let converter = FormatConverter(inputURL: inputURL, outputURL: outputURL, options: options)
 
+        #if Swift6
+        try await converter.start()
+        #else
         let expectation = XCTestExpectation(description: "conversion")
         var conversionError: Error?
 
@@ -115,11 +118,12 @@ class FormatConverterChannelTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 30)
+        await fulfillment(of: [expectation], timeout: 30)
 
         if let error = conversionError {
             throw error
         }
+        #endif
 
         guard FileManager.default.fileExists(atPath: outputURL.path) else {
             throw NSError(domain: "FormatConverterChannelTests", code: 1,

@@ -15,7 +15,7 @@ class FormatConverterTests: AudioFileTestCase {
         Bundle.module.url(forResource: "12345", withExtension: "wav", subdirectory: "TestResources")
     }
 
-    func testbitDepthRule() throws {
+    func testbitDepthRule() async throws {
         var options = FormatConverter.Options()
         options.sampleRate = 48000
         options.bitDepth = UInt32(24)
@@ -23,10 +23,15 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .lessThanOrEqual
 
-        XCTAssertThrowsError(try convert(with: options, input: stereoWAVE44k16Bit))
+        do {
+            try await convert(with: options, input: stereoWAVE44k16Bit)
+            XCTFail("Expected error for bit depth rule violation")
+        } catch {
+            // expected
+        }
     }
 
-    func testConvertAIFF44k16bit() throws {
+    func testConvertAIFF44k16bit() async throws {
         var options = FormatConverter.Options()
         options.sampleRate = 44100
         options.bitDepth = UInt32(16)
@@ -34,10 +39,10 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .any
 
-        try convert(with: options)
+        try await convert(with: options)
     }
 
-    func testConvertCAF96k32bit() throws {
+    func testConvertCAF96k32bit() async throws {
         var options = FormatConverter.Options()
         options.sampleRate = 96000
         options.bitDepth = UInt32(32)
@@ -45,10 +50,10 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .any
 
-        try convert(with: options)
+        try await convert(with: options)
     }
 
-    func testConvertM4A24Bit() throws {
+    func testConvertM4A24Bit() async throws {
         var options = FormatConverter.Options()
         options.sampleRate = 44100
         options.bitRate = 256000
@@ -56,10 +61,10 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .any
 
-        try convert(with: options)
+        try await convert(with: options)
     }
 
-    func testConvertMonoM4A24Bit() throws {
+    func testConvertMonoM4A24Bit() async throws {
         var options = FormatConverter.Options()
         options.sampleRate = 48000
         options.bitRate = 320000
@@ -67,13 +72,13 @@ class FormatConverterTests: AudioFileTestCase {
         options.eraseFile = true
         options.bitDepthRule = .any
 
-        try convert(with: options, input: monoWAVE44k24Bit)
+        try await convert(with: options, input: monoWAVE44k24Bit)
     }
 
     // MARK: helpers
 
     private func convert(with options: FormatConverter.Options,
-                         input: URL? = nil) throws
+                         input: URL? = nil) async throws
     {
         guard let format = options.format,
               let sampleRate = options.sampleRate
@@ -100,8 +105,12 @@ class FormatConverterTests: AudioFileTestCase {
             try? FileManager.default.removeItem(at: tmp)
         }
 
-        let expectation = XCTestExpectation(description: outputURL.path)
         let converter = FormatConverter(inputURL: inputFile, outputURL: outputURL, options: options)
+
+        #if Swift6
+        try await converter.start()
+        #else
+        let expectation = XCTestExpectation(description: outputURL.path)
 
         converter.start { error in
             if let error = error {
@@ -110,7 +119,8 @@ class FormatConverterTests: AudioFileTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 30)
+        await fulfillment(of: [expectation], timeout: 30)
+        #endif
 
         guard FileManager.default.fileExists(atPath: outputURL.path) else {
             throw createError(message: "File is missing at \(outputURL.path)")

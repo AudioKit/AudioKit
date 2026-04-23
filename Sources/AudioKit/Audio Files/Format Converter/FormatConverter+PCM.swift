@@ -98,6 +98,7 @@ extension FormatConverter {
                 completionHandler?(nil)
             } catch let err as NSError {
                 Log(err)
+                completionHandler?(err)
             }
             return
         }
@@ -142,7 +143,7 @@ extension FormatConverter {
             readDescription.mBytesPerPacket = readDescription.mBytesPerFrame
         }
 
-        var readDescriptionSize = UInt32(MemoryLayout.stride(ofValue: readDescription))
+        let readDescriptionSize = UInt32(MemoryLayout.stride(ofValue: readDescription))
 
         if noErr != ExtAudioFileSetProperty(strongInputFile,
                                             kExtAudioFileProperty_ClientDataFormat,

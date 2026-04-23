@@ -90,6 +90,50 @@ extension FormatConverter {
 
     /// Convert to compressed first creating a tmp file to PCM to allow more flexible conversion
     /// options to work.
+    #if Swift6
+    func convertCompressed() async throws {
+        guard let inputURL = inputURL else {
+            throw Self.createError(message: "Input file can't be nil.")
+        }
+        guard let outputURL = outputURL else {
+            throw Self.createError(message: "Output file can't be nil.")
+        }
+        guard let options = options else {
+            throw Self.createError(message: "Options can't be nil.")
+        }
+
+        let tempName = outputURL.deletingPathExtension().lastPathComponent + "_TEMP.wav"
+        let tempFile = outputURL.deletingLastPathComponent().appendingPathComponent(tempName)
+
+        var tempOptions = FormatConverter.Options()
+        tempOptions.bitDepthRule = .lessThanOrEqual
+        tempOptions.bitDepth = 24
+        tempOptions.sampleRate = options.sampleRate
+        tempOptions.channels = options.channels
+        tempOptions.format = .wav
+
+        let tempConverter = FormatConverter(inputURL: inputURL,
+                                            outputURL: tempFile,
+                                            options: tempOptions)
+
+        do {
+            try await tempConverter.start()
+        } catch {
+            try? FileManager.default.removeItem(at: tempFile)
+            throw Self.createError(message: "Failed to convert input to PCM: \(error.localizedDescription)")
+        }
+
+        self.inputURL = tempFile
+
+        do {
+            try await self.convertPCMToCompressed()
+        } catch {
+            try? FileManager.default.removeItem(at: tempFile)
+            throw error
+        }
+        try? FileManager.default.removeItem(at: tempFile)
+    }
+    #else
     func convertCompressed(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
@@ -133,8 +177,20 @@ extension FormatConverter {
             }
         }
     }
+    #endif
 
     /// The AVFoundation way. *This doesn't currently handle compressed input - only compressed output.*
+    #if Swift6
+    func convertPCMToCompressed() async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            self.convertPCMToCompressed { error in
+                if let error { continuation.resume(throwing: error) }
+                else { continuation.resume() }
+            }
+        }
+    }
+    #endif
+
     func convertPCMToCompressed(completionHandler: FormatConverterCallback? = nil) {
         guard let inputURL = inputURL else {
             completionHandler?(Self.createError(message: "Input file can't be nil."))
@@ -193,6 +249,7 @@ extension FormatConverter {
             formatKey = kAudioFormatLinearPCM
         default:
             Log("Unsupported output format: \(outputFormat)")
+            completionHandler?(Self.createError(message: "Unsupported output format: \(outputFormat)"))
             return
         }
 

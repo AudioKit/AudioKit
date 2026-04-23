@@ -430,7 +430,7 @@ extension AudioPlayerFileTests {
 
 extension AudioPlayerFileTests {
     /// Files should play back at normal pitch for both buffered and streamed
-    func realtimeTestMixedSampleRates(buffered: Bool = false) {
+    func realtimeTestMixedSampleRates(buffered: Bool = false) async {
         // this file is 44.1k
         guard let countingURL = countingURL else {
             XCTFail("Didn't find the 12345.wav")
@@ -453,15 +453,27 @@ extension AudioPlayerFileTests {
                                         outputURL: countingURL48k,
                                         options: wav48k)
 
+        #if Swift6
+        do {
+            try await converter.start()
+        } catch {
+            XCTFail(error.localizedDescription)
+            return
+        }
+        #else
+        let expectation = XCTestExpectation(description: "conversion")
         converter.start { error in
             if let error = error {
                 XCTFail(error.localizedDescription)
-                return
             }
-            self.processMixedSampleRates(urls: [countingURL, countingURL48k],
-                                         audioFormat: audioFormat,
-                                         buffered: buffered)
+            expectation.fulfill()
         }
+        await fulfillment(of: [expectation], timeout: 30)
+        #endif
+
+        processMixedSampleRates(urls: [countingURL, countingURL48k],
+                                audioFormat: audioFormat,
+                                buffered: buffered)
     }
 
     private func processMixedSampleRates(urls: [URL],
