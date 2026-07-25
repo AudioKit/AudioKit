@@ -632,6 +632,220 @@ class AudioPlayerTests: XCTestCase {
                        "stop() must not produce a user completion callback")
     }
 
+    /// Regression: seeking while playing must not report end-of-file. On a device, `playerNode.stop()`
+    /// can fire the outgoing segment's `.dataPlayedBack` completion before seek reschedules. Offline
+    /// rendering doesn't reproduce that, so the hook injects the completion at the stop boundary.
+    func testSeekWhilePlayingDoesNotInvokeCompletionHandler() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.isLooping = false
+
+        var completionCount = 0
+        player.completionHandler = {
+            completionCount += 1
+        }
+
+        do {
+            try player.load(url: url)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
+        audio.append(engine.render(duration: 0.1))
+        XCTAssertEqual(player.status, .playing)
+
+        // The playing segment's generation; its stop-completion is what fires during seek.
+        let retiredGeneration = player.currentScheduleGeneration
+        var hookCallCount = 0
+        player.seekPreStopTestHook = {
+            hookCallCount += 1
+            // Assert both pre-stop guards here: internalCompletionHandler checks the generation before
+            // isSeeking, so the completion count alone wouldn't prove isSeeking was set in time.
+            XCTAssertNotEqual(player.currentScheduleGeneration, retiredGeneration,
+                              "seek must retire the outgoing generation before stopping the node")
+            XCTAssertTrue(player.isSeeking,
+                          "seek must mark isSeeking before stopping the node")
+            // Stand in for AVAudioPlayerNode delivering the retired segment's completion on stop.
+            player.internalCompletionHandler(generation: retiredGeneration)
+        }
+
+        player.seek(time: 0.5)
+        player.seekPreStopTestHook = nil
+
+        XCTAssertEqual(hookCallCount, 1, "the pre-stop hook must fire exactly once per seek")
+        XCTAssertEqual(completionCount, 0,
+                       "a seek while playing must not invoke the user completion handler")
+        XCTAssertEqual(player.status, .playing,
+                       "a seek while playing must keep the player playing")
+
+        // The same retired completion arriving after seek() returns (isSeeking is false again)
+        // must still be rejected by generation identity.
+        player.internalCompletionHandler(generation: retiredGeneration)
+
+        XCTAssertEqual(completionCount, 0,
+                       "a late-arriving retired completion must not invoke the user completion handler")
+        XCTAssertEqual(player.status, .playing,
+                       "a late-arriving retired completion must not stop the player")
+    }
+
+    /// Buffered variant of `testSeekWhilePlayingDoesNotInvokeCompletionHandler`: the reschedule goes
+    /// through `scheduleBuffer` rather than `scheduleSegment`, a separate completion path. The injected
+    /// stop-completion must still be suppressed.
+    func testSeekWhilePlayingBufferedDoesNotInvokeCompletionHandler() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.isLooping = false
+
+        var completionCount = 0
+        player.completionHandler = {
+            completionCount += 1
+        }
+
+        do {
+            try player.load(url: url, buffered: true)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
+        audio.append(engine.render(duration: 0.1))
+        XCTAssertEqual(player.status, .playing)
+
+        let retiredGeneration = player.currentScheduleGeneration
+        var hookCallCount = 0
+        player.seekPreStopTestHook = {
+            hookCallCount += 1
+            XCTAssertNotEqual(player.currentScheduleGeneration, retiredGeneration,
+                              "buffered seek must retire the outgoing generation before stopping the node")
+            XCTAssertTrue(player.isSeeking,
+                          "buffered seek must mark isSeeking before stopping the node")
+            player.internalCompletionHandler(generation: retiredGeneration)
+        }
+
+        player.seek(time: 0.5)
+        player.seekPreStopTestHook = nil
+
+        XCTAssertEqual(hookCallCount, 1, "the pre-stop hook must fire exactly once per seek")
+        XCTAssertEqual(completionCount, 0,
+                       "a buffered seek while playing must not invoke the user completion handler")
+        XCTAssertEqual(player.status, .playing,
+                       "a buffered seek while playing must keep the player playing")
+    }
+
+    /// Buffered + looping seek: an injected stop-completion must still be suppressed. This doesn't test
+    /// natural loop callbacks (seamless buffered looping emits none) — only that the retired stop
+    /// completion during seek is ignored.
+    func testSeekWhileLoopingBufferedDoesNotInvokeSpuriousCompletion() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.isLooping = true
+
+        var completionCount = 0
+        player.completionHandler = {
+            completionCount += 1
+        }
+
+        do {
+            try player.load(url: url, buffered: true)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
+        audio.append(engine.render(duration: 0.1))
+        XCTAssertEqual(player.status, .playing)
+
+        let retiredGeneration = player.currentScheduleGeneration
+        var hookCallCount = 0
+        player.seekPreStopTestHook = {
+            hookCallCount += 1
+            XCTAssertNotEqual(player.currentScheduleGeneration, retiredGeneration,
+                              "looping buffered seek must retire the outgoing generation before stopping the node")
+            XCTAssertTrue(player.isSeeking,
+                          "looping buffered seek must mark isSeeking before stopping the node")
+            player.internalCompletionHandler(generation: retiredGeneration)
+        }
+
+        player.seek(time: 0.5)
+        player.seekPreStopTestHook = nil
+
+        XCTAssertEqual(hookCallCount, 1, "the pre-stop hook must fire exactly once per seek")
+        XCTAssertEqual(completionCount, 0,
+                       "a looping buffered seek must not invoke a spurious completion")
+        XCTAssertEqual(player.status, .playing,
+                       "a looping buffered seek must keep the player playing")
+    }
+
+    /// A completion for the current generation is a real end-of-file: it must call the user handler
+    /// once and stop a non-looping player — including for the segment scheduled by a seek, so the
+    /// pre-stop generation bump can't starve legitimate completions. Driven directly (like
+    /// `testStopDoesNotInvokeCompletionHandler`) because offline rendering doesn't reproduce the
+    /// `.dataPlayedBack` callback.
+    func testCurrentGenerationCompletionStillInvokesHandler() {
+        guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
+            XCTFail("Didn't get test file")
+            return
+        }
+
+        let engine = AudioEngine()
+        let player = AudioPlayer()
+        engine.output = player
+        player.isLooping = false
+
+        var completionCount = 0
+        player.completionHandler = {
+            completionCount += 1
+        }
+
+        do {
+            try player.load(url: url)
+        } catch let error as NSError {
+            Log(error, type: .error)
+            XCTFail(error.description)
+        }
+
+        let audio = engine.startTest(totalDuration: 1.0)
+        player.play()
+        audio.append(engine.render(duration: 0.1))
+        XCTAssertEqual(player.status, .playing)
+
+        player.seek(time: 0.5)
+        XCTAssertEqual(player.status, .playing, "the player must still be playing after the seek")
+
+        // The segment scheduled by the seek reaching its natural end-of-file.
+        player.internalCompletionHandler(generation: player.currentScheduleGeneration)
+
+        XCTAssertEqual(completionCount, 1,
+                       "a completion for the current generation must invoke the handler exactly once")
+        XCTAssertEqual(player.status, .stopped,
+                       "a non-looping player must be .stopped after its current segment completes")
+    }
+
     func testSeekWillStop() {
         guard let url = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav") else {
             XCTFail("Didn't get test file")

@@ -89,9 +89,16 @@ public class AudioPlayer: NamedNode {
     /// Indicates the player is in the midst of a seek operation
     public internal(set) var isSeeking: Bool = false
 
-    /// Generation counter incremented for every scheduled playback segment.
-    /// Completion closures capture the generation current at scheduling time so
-    /// callbacks from older schedules can be ignored after seek/reschedule.
+    /// Test hook fired in `seek(time:)` immediately before `playerNode.stop()`, after the outgoing
+    /// segment is retired. Offline rendering doesn't reproduce the `.dataPlayedBack` stop callback,
+    /// so tests use this to inject the retired segment's completion at the point it would fire on
+    /// a device. nil in production.
+    var seekPreStopTestHook: (() -> Void)?
+
+    /// Completion epoch: advances when a segment is scheduled, and when seek retires the
+    /// outgoing segment before stopping the node. Completion closures capture the value
+    /// current at scheduling time, so callbacks from retired schedules are ignored.
+    /// (A seek bumps twice — retire, then reschedule — which is harmless.)
     private var scheduleGeneration: UInt64 = 0
 
     @discardableResult

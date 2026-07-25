@@ -92,11 +92,27 @@ public extension AudioPlayer {
             return
         }
 
+        // playerNode.stop() can deliver the outgoing segment's completion before the new schedule
+        // exists, where internalCompletionHandler would read it as end-of-file. Retire the segment
+        // before stopping: the generation bump rejects that completion by identity whether it
+        // arrives during stop() or later, and isSeeking independently rejects it while the seek is
+        // in progress. Setting isSeeking after stop was the regression introduced in da1165e9e.
+        if wasPlaying {
+            isSeeking = true
+            bumpScheduleGeneration()
+        }
+        defer {
+            isSeeking = false
+            timeBeforePlay = 0
+        }
+
+        seekPreStopTestHook?()
+
         playerNode.stop()
+
         seekStartTime = startTime
 
         if wasPlaying {
-            isSeeking = true
             schedule(at: nil, completionCallbackType: .dataPlayedBack)
             playerNode.play()
             status = .playing
@@ -106,9 +122,6 @@ public extension AudioPlayer {
         } else {
             status = .stopped
         }
-
-        isSeeking = false
-        timeBeforePlay = 0
     }
 
     /// The current playback position, in range [0, 1].
