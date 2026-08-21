@@ -39,6 +39,10 @@ public class PlaygroundNoiseGenerator: NamedNode {
 
     public var name = "PlaygroundNoiseGenerator"
 
+    #if Swift6
+    public var outputFormat: AVAudioFormat = .audioKitDefault
+    #endif
+
     /// Volume usually 0-1
     public var amplitude: AUValue = 1
 

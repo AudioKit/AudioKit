@@ -15,6 +15,10 @@ open class MIDIInstrument: Node, MIDIListener, NamedNode {
     /// The internal AVAudioEngine AVAudioNode
     public var avAudioNode: AVAudioNode
 
+    #if Swift6
+    public var outputFormat: AVAudioFormat = .audioKitDefault
+    #endif
+
     // MARK: - Properties
 
     /// MIDI Input

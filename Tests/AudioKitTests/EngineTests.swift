@@ -7,6 +7,10 @@ class EngineTests: XCTestCase {
     // Changing Settings.audioFormat will change subsequent node connections
     // from 44_100 which the MD5's were created with so be sure to change it back at the end of a test
 
+    #if !Swift6
+    // Under Swift6, audio format is not a settable global — sources determine
+    // their own format and the engine queries the output device. These tests
+    // exercise the legacy `Settings.audioFormat` global which doesn't apply.
     func testEngineSampleRateGraphConsistency() {
         let previousFormat = Settings.audioFormat
 
@@ -94,6 +98,7 @@ class EngineTests: XCTestCase {
         Log("Restoring global sample rate to", previousFormat.sampleRate)
         Settings.audioFormat = previousFormat
     }
+    #endif
 
     func testEngineMainMixerCreated() {
         let engine = AudioEngine()

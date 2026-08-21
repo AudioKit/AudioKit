@@ -45,22 +45,24 @@ public class Settings: NSObject {
             return AVAudioFrameCount(pow(2.0, Double(rawValue)))
         }
 
-        /// The buffer Length expressed as a duration in seconds
+        #if !Swift6
+        /// The buffer Length expressed as a duration in seconds, computed against the default sample rate.
+        /// Under the Swift6 trait, compute this directly:
+        /// `Double(bufferLength.samplesCount) / AVAudioFormat.audioKitDefault.sampleRate`.
         public var duration: Double {
             return Double(samplesCount) / Settings.sampleRate
         }
+        #endif
     }
 
-    /// Default audio format
+    #if !Swift6
+    /// Default audio format. Under the Swift6 trait, use `AVAudioFormat.audioKitDefault`.
     public static let defaultAudioFormat: AVAudioFormat = {
         if #available(iOS 18.0, tvOS 18.0, *) {
             if !ProcessInfo.processInfo.isMacCatalystApp && !ProcessInfo.processInfo.isiOSAppOnMac {
-                /// Default AVAudioFormat for iOS 18 and newer (not on Mac)
                 return AVAudioFormat(standardFormatWithSampleRate: 48_000, channels: 2) ?? AVAudioFormat()
             }
         }
-
-        /// Fallback default
         return AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 2) ?? AVAudioFormat()
     }()
 
@@ -86,6 +88,7 @@ public class Settings: NSObject {
                                         channels: newValue) ?? AVAudioFormat()
         }
     }
+    #endif
 
     /// AudioKit buffer length is set using Settings.bufferLength
     /// default is .VeryLong for a buffer set to 2 power 10 = 1024 samples (232 ms)

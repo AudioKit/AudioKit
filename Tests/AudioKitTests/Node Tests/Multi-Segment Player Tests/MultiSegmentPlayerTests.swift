@@ -4,7 +4,9 @@ import XCTest
 
 class MultiSegmentPlayerTests: XCTestCase {
     override func setUp() {
+        #if !Swift6
         Settings.sampleRate = 44100
+        #endif
     }
 
     func testPlaySegment() {

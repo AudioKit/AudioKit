@@ -20,6 +20,13 @@ public class AudioPlayer: NamedNode {
     /// The internal AVAudioEngine AVAudioNode
     public var avAudioNode: AVAudioNode { return mixerNode }
 
+    #if Swift6
+    /// Audio format used when connecting this node downstream. Reflects the
+    /// currently loaded file or buffer; falls back to `AVAudioFormat.audioKitDefault`
+    /// (44.1 kHz stereo) when neither is set.
+    public var outputFormat: AVAudioFormat = .audioKitDefault
+    #endif
+
     public var name = "AudioPlayer"
 
     /// Just the playerNode's property, values above 1 will have gain applied
@@ -133,6 +140,10 @@ public class AudioPlayer: NamedNode {
                 updateBuffer()
             }
 
+            #if Swift6
+            outputFormat = file?.processingFormat ?? buffer?.format ?? .audioKitDefault
+            #endif
+
             if wasPlaying { play() }
         }
     }
@@ -143,6 +154,9 @@ public class AudioPlayer: NamedNode {
             isBuffered = buffer != nil
             let wasPlaying = status == .playing
             if wasPlaying { stop() }
+            #if Swift6
+            outputFormat = buffer?.format ?? file?.processingFormat ?? .audioKitDefault
+            #endif
             if wasPlaying { play() }
         }
     }

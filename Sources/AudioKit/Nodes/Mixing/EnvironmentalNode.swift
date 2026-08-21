@@ -3,21 +3,22 @@ import AVFoundation
 public extension AVAudioEnvironmentNode {
     /// Make a connection without breaking other connections.
     /// Makes sure the Mixer3D connects to the EnviromentalNode In **MONO**
-    func connectMixer3D(_ input: AVAudioNode, engine: AVAudioEngine, format: AVAudioFormat) {
-        if let monoFormat = AVAudioFormat(
-            standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
-            channels: 1) {
-            var points = engine.outputConnectionPoints(for: input, outputBus: 0)
-            if points.contains(where: { $0.node === self }) { return }
-            points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
-            if points.count == 1 {
-                // If we only have 1 connection point, use connect API
-                // Workaround for a bug where specified format is not correctly applied
-                // http://openradar.appspot.com/radar?id=5490575180562432
-                engine.connect(input, to: self, format: monoFormat)
-            } else {
-                engine.connect(input, to: points, fromBus: 0, format: format)
-            }
+    /// - Parameter monoFormat: format used for the single-input-bus connection
+    ///   (built from the EnvironmentalNode's `outputFormat.sampleRate`).
+    func connectMixer3D(_ input: AVAudioNode,
+                        engine: AVAudioEngine,
+                        format: AVAudioFormat,
+                        monoFormat: AVAudioFormat) {
+        var points = engine.outputConnectionPoints(for: input, outputBus: 0)
+        if points.contains(where: { $0.node === self }) { return }
+        points.append(AVAudioConnectionPoint(node: self, bus: nextAvailableInputBus))
+        if points.count == 1 {
+            // If we only have 1 connection point, use connect API
+            // Workaround for a bug where specified format is not correctly applied
+            // http://openradar.appspot.com/radar?id=5490575180562432
+            engine.connect(input, to: self, format: monoFormat)
+        } else {
+            engine.connect(input, to: points, fromBus: 0, format: format)
         }
     }
 }
@@ -46,6 +47,10 @@ public class EnvironmentalNode: Node, NamedNode {
         avAudioEnvironmentNode
     }
     open var name = "EnvironmentalNode"
+    #if Swift6
+    /// Audio format to use when connecting this node downstream.
+    public var outputFormat: AVAudioFormat = .audioKitDefault
+    #endif
     /// The listener’s position in the 3D environment.
     public var listenerPosition: AVAudio3DPoint {
         get {

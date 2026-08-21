@@ -63,9 +63,11 @@ public class AudioEngine {
     /// Main mixer at the end of the signal chain
     public private(set) var mainMixerNode: Mixer?
 
+    #if !Swift6
     /// Output format to be used when making connections to the output
     public var outputAudioFormat: AVAudioFormat?
-    private var outputFormat: AVAudioFormat { outputAudioFormat ?? Settings.audioFormat }
+    private var audioFormat: AVAudioFormat { outputAudioFormat ?? Settings.audioFormat }
+    #endif
 
     /// Input node mixer
     public class InputNode: Mixer {
@@ -118,17 +120,17 @@ public class AudioEngine {
             if let node = output {
                 avEngine.attach(node.avAudioNode)
 
-                // has the sample rate changed?
-                if let currentSampleRate = mainMixerNode?.avAudioNode.outputFormat(forBus: 0).sampleRate,
-                   let currentChannelCount = mainMixerNode?.avAudioNode.outputFormat(forBus: 0).channelCount,
-                   (currentSampleRate != outputFormat.sampleRate || currentChannelCount != outputFormat.channelCount)
+                // has the output device's format changed since we built the engine mixer?
+                let outputFormat = avEngine.outputNode.outputFormat(forBus: 0)
+                if let currentFormat = mainMixerNode?.avAudioNode.outputFormat(forBus: 0),
+                   (currentFormat.sampleRate != outputFormat.sampleRate || currentFormat.channelCount != outputFormat.channelCount)
                 {
-                    Log("Sample Rate has changed, creating new mainMixerNode at", Settings.sampleRate)
+                    Log("Output device format has changed, recreating engine mixer at", outputFormat.sampleRate)
                     removeEngineMixer()
                 }
 
                 // create the on demand mixer if needed
-				createEngineMixer()
+				createEngineMixer(format: outputFormat)
                 mainMixerNode?.addInput(node)
                 mainMixerNode?.makeAVConnections()
             }
@@ -138,16 +140,16 @@ public class AudioEngine {
     }
 
     // simulate the AVAudioEngine.mainMixerNode, but create it ourselves to ensure the
-    // correct sample rate is used from outputFormat (default: Settings.audioFormat)
-	private func createEngineMixer() {
+    // correct sample rate is used from the engine's audioFormat
+    private func createEngineMixer(format: AVAudioFormat) {
 		guard mainMixerNode == nil else { return }
 
 		let mixer = Mixer(name: "AudioKit Engine Mixer")
-        mixer.outputFormat = outputFormat
+        mixer.outputFormat = format
 		avEngine.attach(mixer.avAudioNode)
 		avEngine.connect(mixer.avAudioNode,
 						 to: avEngine.outputNode,
-						 format: outputFormat)
+						 format: format)
 
 		mainMixerNode = mixer
 	}
@@ -196,12 +198,17 @@ public class AudioEngine {
     /// - Parameter duration: Total duration of the entire test
     /// - Returns: A buffer which you can append to
     public func startTest(totalDuration duration: Double) -> AVAudioPCMBuffer {
-        let samples = Int(duration * outputFormat.sampleRate)
+        #if Swift6
+        let renderFormat = output?.outputFormat ?? .audioKitDefault
+        #else
+        let renderFormat = audioFormat
+        #endif
+        let samples = Int(duration * renderFormat.sampleRate)
 
         do {
             avEngine.reset()
             try avEngine.enableManualRenderingMode(.offline,
-                                                   format: outputFormat,
+                                                   format: renderFormat,
                                                    maximumFrameCount: maximumFrameCount)
             try start()
         } catch let err {
@@ -221,7 +228,7 @@ public class AudioEngine {
     /// - Parameter duration: Length of time to render for
     /// - Returns: Buffer of rendered audio
     public func render(duration: Double) -> AVAudioPCMBuffer {
-        let sampleCount = Int(duration * outputFormat.sampleRate)
+        let sampleCount = Int(duration * avEngine.manualRenderingFormat.sampleRate)
         let startSampleCount = Int(avEngine.manualRenderingSampleTime)
 
         let buffer = AVAudioPCMBuffer(

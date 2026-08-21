@@ -418,10 +418,40 @@ public extension DSPSplitComplex {
 }
 
 public extension AVAudioTime {
+    #if Swift6
+    /// Returns an AVAudioTime set to sampleTime of zero at the default sample rate
+    static func sampleTimeZero(sampleRate: Double = AVAudioFormat.audioKitDefault.sampleRate) -> AVAudioTime {
+        let sampleTime = AVAudioFramePosition(Double(0))
+        return AVAudioTime(sampleTime: sampleTime, atRate: sampleRate)
+    }
+    #else
     /// Returns an AVAudioTime set to sampleTime of zero at the default sample rate
     static func sampleTimeZero(sampleRate: Double = Settings.sampleRate) -> AVAudioTime {
         let sampleTime = AVAudioFramePosition(Double(0))
         return AVAudioTime(sampleTime: sampleTime, atRate: sampleRate)
+    }
+    #endif
+}
+
+public extension AVAudioFormat {
+    #if Swift6
+    /// Fallback audio format used when no upstream node, file, or buffer provides one.
+    /// Stereo at 48 kHz on iOS 18+ devices (matching their default hardware rate)
+    /// to avoid sample-rate conversion in the engine; 44.1 kHz everywhere else.
+    static let audioKitDefault: AVAudioFormat = {
+        if #available(iOS 18.0, *) {
+            if !ProcessInfo.processInfo.isMacCatalystApp && !ProcessInfo.processInfo.isiOSAppOnMac {
+                return AVAudioFormat(standardFormatWithSampleRate: 48_000, channels: 2)
+                    ?? AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 2)!
+            }
+        }
+        return AVAudioFormat(standardFormatWithSampleRate: 44_100, channels: 2)!
+    }()
+    #endif
+
+    /// Mono version of this format at the same sample rate. Falls back to `self` if construction fails.
+    static func mono(matching format: AVAudioFormat) -> AVAudioFormat {
+        AVAudioFormat(standardFormatWithSampleRate: format.sampleRate, channels: 1) ?? format
     }
 }
 

@@ -6,7 +6,9 @@ import XCTest
 class NodeTests: XCTestCase {
 
     override func setUp() {
+        #if !Swift6
         Settings.sampleRate = 44100
+        #endif
     }
 
     func testNodeBasic() {
@@ -43,7 +45,11 @@ class NodeTests: XCTestCase {
         engine.output = verb
 
         XCTAssertEqual(engine.mainMixerNode!.avAudioNode.inputFormat(forBus: 0), outputFormat)
+        #if Swift6
+        XCTAssertEqual(verb.avAudioNode.inputFormat(forBus: 0), player.outputFormat)
+        #else
         XCTAssertEqual(verb.avAudioNode.inputFormat(forBus: 0), Settings.audioFormat)
+        #endif
     }
     
     func testRedundantConnection() {
@@ -566,7 +572,7 @@ class NodeTests: XCTestCase {
     // http://openradar.appspot.com/radar?id=5490575180562432
     // Connection format is not correctly applied when adding a node to paused engine
     // This is only happening when using destination point API with one point
-    #if !os(tvOS)
+    #if !os(tvOS) && !Swift6
     func testConnectionFormatAppliedWhenAddingNode() throws {
         let engine = AudioEngine()
         let previousFormat = Settings.audioFormat

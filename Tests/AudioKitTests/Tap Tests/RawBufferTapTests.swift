@@ -52,7 +52,12 @@ final class RawBufferTapTests: XCTestCase {
         }
         wait(for: [durationExpectation], timeout: duration + 0.5)
 
-        XCTAssertGreaterThan(allBuffers.count, Int(Settings.sampleRate / Double(bufferSize) * duration * rounding))
+        #if Swift6
+        let sampleRate = AVAudioFormat.audioKitDefault.sampleRate
+        #else
+        let sampleRate = Settings.sampleRate
+        #endif
+        XCTAssertGreaterThan(allBuffers.count, Int(sampleRate / Double(bufferSize) * duration * rounding))
     }
 
 }

@@ -8,6 +8,10 @@ public class ConstantGenerator: Node {
     public var connections: [Node] { [] }
     public private(set) var avAudioNode: AVAudioNode
 
+    #if Swift6
+    public var outputFormat: AVAudioFormat = .audioKitDefault
+    #endif
+
     init(constant: Float) {
         avAudioNode = AVAudioSourceNode { _, _, frameCount, audioBufferList in
             let ablPointer = UnsafeMutableAudioBufferListPointer(audioBufferList)

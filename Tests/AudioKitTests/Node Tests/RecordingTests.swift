@@ -84,7 +84,11 @@ class RecordingTests: AudioFileTestCase {
     }
 
     func getSettings() -> [String: Any] {
+        #if Swift6
+        var settings = AVAudioFormat.audioKitDefault.settings
+        #else
         var settings = Settings.audioFormat.settings
+        #endif
         settings[AVFormatIDKey] = kAudioFormatMPEG4AAC
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
         return settings

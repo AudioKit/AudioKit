@@ -21,11 +21,7 @@ public class Mixer3D: Mixer {
 
 	override init(volume: AUValue = 1.0, name: String? = nil) {
         super.init(volume: volume, name: name)
-
-		outputFormat = AVAudioFormat(
-			standardFormatWithSampleRate: Settings.audioFormat.sampleRate,
-			channels: 1
-		) ?? Settings.audioFormat
+        outputFormat = .mono(matching: outputFormat)
     }
 
 	// MARK: - 3D Mixing Properties

@@ -1,11 +1,14 @@
 // Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
 
 import AudioKit
+import AVFoundation
 import XCTest
 
 class PeakLimiterTests: XCTestCase {
     override func setUp() {
+        #if !Swift6
         Settings.sampleRate = 44100
+        #endif
     }
     
     func testAttackTime() {

@@ -6,8 +6,8 @@ import AVFAudio
 
 @available(iOS 13.0, *)
 class MatrixMixerTests: XCTestCase {
-    let engine = AudioEngine()
-    var mixer = MatrixMixer([ConstantGenerator(constant: 1), ConstantGenerator(constant: 2)])
+    var engine: AudioEngine!
+    var mixer: MatrixMixer!
     var data: AVAudioPCMBuffer!
 
     var output0: [Float] { data.toFloatChannelData()!.first! }
@@ -15,7 +15,11 @@ class MatrixMixerTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        #if !Swift6
         Settings.sampleRate = 44100
+        #endif
+        engine = AudioEngine()
+        mixer = MatrixMixer([ConstantGenerator(constant: 1), ConstantGenerator(constant: 2)])
         mixer.outputFormat = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2)!
         engine.output = mixer
         data = engine.startTest(totalDuration: 1)

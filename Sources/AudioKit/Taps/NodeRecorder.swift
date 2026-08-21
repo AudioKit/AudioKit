@@ -39,7 +39,11 @@ open class NodeRecorder: NSObject {
     private var bus: Int = 0
 
     /// Used for fixing recordings being truncated
+    #if Swift6
+    private var recordBufferDuration: Double = 16384 / AVAudioFormat.audioKitDefault.sampleRate
+    #else
     private var recordBufferDuration: Double = 16384 / Settings.sampleRate
+    #endif
 
     /// Buffer length used for the recording tap and chunking audioDataCallback deliveries
     private let bufferLength: AVAudioFrameCount
@@ -140,20 +144,27 @@ open class NodeRecorder: NSObject {
         file = nil
     }
 
-    /// Returns a CAF file in specified directory named using the provided function suitable for writing to via
-    /// Settings.audioFormat
+    /// Returns a CAF file in specified directory named using the provided function suitable for writing to.
     /// - Parameters:
     ///   - fileDirectoryURL: Directory in which to save recorded files. Defaults to Temp.
     ///   - filenameProvider: Function that returns the filename to use within the fileDirectory. Any sub directorys
-    ///   must already exist. Defaults to String containing a date with format `yyyy-MM-dd HH-mm-ss.SSSS`. A `.caf` 
+    ///   must already exist. Defaults to String containing a date with format `yyyy-MM-dd HH-mm-ss.SSSS`. A `.caf`
     ///   extension will be appended.
+    ///   - format: Format to use for the file's settings. When nil, falls back to
+    ///     `Settings.audioFormat` (non-Swift6 trait) or `AVAudioFormat.audioKitDefault` (Swift6 trait).
     /// - Returns: The configured AVAudioFile
     public static func createAudioFile(fileDirectoryURL: URL = URL(fileURLWithPath: NSTemporaryDirectory()),
-                                       filenameProvider: (() -> String)? = nil) -> AVAudioFile? {
+                                       filenameProvider: (() -> String)? = nil,
+                                       format: AVAudioFormat? = nil) -> AVAudioFile? {
         let filenameProvider = filenameProvider ?? NodeRecorder.createDateFileName
         let filename = filenameProvider() + ".caf"
         let url = fileDirectoryURL.appendingPathComponent(filename)
-        var settings = Settings.audioFormat.settings
+        #if Swift6
+        let fileFormat = format ?? .audioKitDefault
+        #else
+        let fileFormat = format ?? Settings.audioFormat
+        #endif
+        var settings = fileFormat.settings
         settings[AVLinearPCMIsNonInterleaved] = NSNumber(value: false)
 
         Log("Creating temp file at", url)
@@ -186,7 +197,8 @@ open class NodeRecorder: NSObject {
 
         if let path = internalAudioFile?.url.path, !FileManager.default.fileExists(atPath: path) {
             // record to new audio file
-            if let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: fileDirectoryURL) {
+            if let audioFile = NodeRecorder.createAudioFile(fileDirectoryURL: fileDirectoryURL,
+                                                            format: recordingFormat) {
                 internalAudioFile = try AVAudioFile(forWriting: audioFile.url,
                                                     settings: audioFile.fileFormat.settings)
             }
@@ -229,7 +241,11 @@ open class NodeRecorder: NSObject {
 
             do {
                 if !wasPaused(at: time.sampleTime) {
+                    #if Swift6
+                    recordBufferDuration = Double(buffer.frameLength) / node.outputFormat.sampleRate
+                    #else
                     recordBufferDuration = Double(buffer.frameLength) / Settings.sampleRate
+                    #endif
                     try internalAudioFile.write(from: buffer)
 
                     // allow an optional timed stop
@@ -370,6 +386,18 @@ open class NodeRecorder: NSObject {
             stop()
         }
 
-        internalAudioFile = NodeRecorder.createAudioFile(fileDirectoryURL: fileDirectoryURL)
+        internalAudioFile = NodeRecorder.createAudioFile(fileDirectoryURL: fileDirectoryURL,
+                                                         format: recordingFormat)
+    }
+
+    /// Format used for writing recordings. Under Swift6 this is the input node's
+    /// `outputFormat`; otherwise nil, letting `createAudioFile` fall back to
+    /// `Settings.audioFormat`.
+    private var recordingFormat: AVAudioFormat? {
+        #if Swift6
+        return node.outputFormat
+        #else
+        return nil
+        #endif
     }
 }

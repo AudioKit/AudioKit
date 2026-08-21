@@ -6,9 +6,12 @@ import AVFoundation
 import os.log
 
 extension Settings {
-    /// Global audio format AudioKit will default to for new objects and connections
+    #if !Swift6
+    /// Global audio format AudioKit will default to for new objects and connections.
+    /// Under the Swift6 trait, format is managed per-node and on `AudioEngine.audioFormat`.
     /// - Tag: SettingsAudioFormat
     public static var audioFormat = defaultAudioFormat
+    #endif
 
     /// The hardware ioBufferDuration. Setting this will request the new value, getting
     /// will query the hardware.

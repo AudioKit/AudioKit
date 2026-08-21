@@ -7,7 +7,9 @@
     import os.log
 
     public extension Settings {
-        /// Global audio format AudioKit will default to for new objects and connections
+        #if !Swift6
+        /// Global audio format AudioKit will default to for new objects and connections.
+        /// Under the Swift6 trait, format is managed per-node and on `AudioEngine.audioFormat`.
         /// - Tag: SettingsAudioFormat
         static var audioFormat = defaultAudioFormat {
             didSet {
@@ -20,6 +22,7 @@
                 }
             }
         }
+        #endif
 
         /// Whether haptics and system sounds are played while a microphone is setup or recording is active
         static var allowHapticsAndSystemSoundsDuringRecording: Bool = false {
@@ -92,7 +95,11 @@
                 Log("Could not allow haptics: \(error)", log: OSLog.settings, type: .error)
             }
 
+            #if Swift6
+            try session.setPreferredIOBufferDuration(Double(bufferLength.samplesCount) / AVAudioFormat.audioKitDefault.sampleRate)
+            #else
             try session.setPreferredIOBufferDuration(bufferLength.duration)
+            #endif
             try session.setActive(true)
         }
 

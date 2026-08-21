@@ -44,6 +44,10 @@ open class AppleSampler: NamedNode {
     /// Underlying AVAudioNode
     public var avAudioNode: AVAudioNode { samplerUnit }
 
+    #if Swift6
+    public var outputFormat: AVAudioFormat = .audioKitDefault
+    #endif
+
     /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
     public var amplitude: AUValue = 0 { didSet { samplerUnit.masterGain = Float(amplitude) } }
 

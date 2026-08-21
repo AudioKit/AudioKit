@@ -17,17 +17,22 @@ public class MultiSegmentAudioPlayer: NamedNode {
     public var avAudioNode: AVAudioNode { return mixerNode }
 
     public var name = "MultiSegmentAudioPlayer"
-    
+
+    #if Swift6
+    public var outputFormat: AVAudioFormat = .audioKitDefault
+    #endif
+
     /// Just the playerNode's property, values above 1 will have gain applied
     public var volume: AUValue {
         get { playerNode.volume }
         set { playerNode.volume = newValue }
     }
-    
+
     var engine: AVAudioEngine? { mixerNode.engine }
-    
+
     public init() {}
-    
+
+
     /// starts the player
     public func play() {
         playerNode.play()

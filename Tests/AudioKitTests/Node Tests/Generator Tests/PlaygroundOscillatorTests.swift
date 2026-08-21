@@ -7,10 +7,13 @@ import GameplayKit
 import XCTest
 
 class PlaygroundOscillatorTests: XCTestCase {
-    let engine = AudioEngine()
+    var engine: AudioEngine!
 
     override func setUp() {
+        #if !Swift6
         Settings.sampleRate = 44100
+        #endif
+        engine = AudioEngine()
     }
 
     func testSine() {
