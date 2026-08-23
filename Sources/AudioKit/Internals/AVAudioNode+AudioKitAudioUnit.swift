@@ -3,13 +3,11 @@
 import AVFoundation
 
 extension AVAudioNode {
-    /// `auAudioUnit`, reachable from a macOS 11 deployment target.
+    /// Accesses `auAudioUnit` when building for a macOS 11 deployment target.
     ///
-    /// Xcode 27's Swift overlay marks `AVAudioNode.auAudioUnit` as macOS 13+, although the
-    /// Objective-C property is available from macOS 10.13. Use the property directly wherever the
-    /// compiler allows it, and only fall back to the selector on macOS 11–12. The fallback runs
-    /// inside its own autorelease pool: `perform(_:)` returns a +0 object that would otherwise sit
-    /// in the caller's pool and keep the node's AVAudioUnit alive until that pool drains.
+    /// Xcode 27 marks the Swift property as macOS 13+, so macOS 11–12 use the Objective-C
+    /// selector. The local autorelease pool prevents that call from extending the audio unit's
+    /// lifetime.
     var audioKitAudioUnit: AUAudioUnit {
         #if os(macOS)
             if #available(macOS 13, *) {
