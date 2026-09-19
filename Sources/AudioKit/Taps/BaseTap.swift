@@ -23,7 +23,8 @@ open class BaseTap {
     }
 
     private var _input: Node
-    private var handleBlock: AVAudioNodeTapBlock?
+    // Accessed only while holding tapLock; callbacks capture an immutable value.
+    private var tapGeneration: UInt64 = 0
 
     /// Input node to analyze
     public var input: Node {
@@ -76,13 +77,14 @@ open class BaseTap {
             Log("The tapped node isn't attached to the engine")
             return
         }
-        handleBlock = { [weak self] in self?.handleTapBlock(buffer: $0, at: $1) }
+        tapGeneration &+= 1
+        let generation = tapGeneration
         input.avAudioNode.installTap(
             onBus: bus,
             bufferSize: bufferSize,
             format: nil,
             block: { [weak self] buffer, time in
-                self?.handleBlock?(buffer, time)
+                self?.handleTapBlock(buffer: buffer, at: time, generation: generation)
             }
         )
     }
@@ -91,7 +93,7 @@ open class BaseTap {
     /// - Parameters:
     ///   - buffer: Buffer to analyze
     ///   - time: Unused in this case
-    private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime) {
+    private func handleTapBlock(buffer: AVAudioPCMBuffer, at time: AVAudioTime, generation: UInt64) {
         var bufferWithCapacity: AVAudioPCMBuffer
 
         if bufferSize > buffer.frameCapacity {
@@ -111,7 +113,7 @@ open class BaseTap {
 
             // Create trackers as needed.
             self.lock()
-            guard self.isStarted == true else {
+            guard self.isStarted, self.tapGeneration == generation else {
                 self.unlock()
                 return
             }
@@ -125,18 +127,11 @@ open class BaseTap {
 
     /// Remove the tap on the input
     open func stop() {
-        // `removeTap` will internally call pending callbacks.
-        // This will call `handleBlock` from inside of the lock
-        // which will result in another lock and therefore deadlock.
-        // Since we are removing the tap,
-        // we are not interested in callbacks anymore.
-        // It is important to do this from the outside of the `lock()`.
-        // Once we are inside of the lock, the deadlock might occur,
-        // if `handleBlock` is called just after lock, but before `removeTap`.
-        handleBlock = nil
         lock()
-        removeTap()
         isStarted = false
+        // removeTap may synchronously invoke pending native callbacks. They only
+        // enqueue delivery; the generation check takes this lock on callbackQueue.
+        removeTap()
         unlock()
     }
 
@@ -156,12 +151,12 @@ open class BaseTap {
         }
     }
 
-    private var unfairLock = os_unfair_lock_s()
+    private let tapLock = NSLock()
     func lock() {
-        os_unfair_lock_lock(&unfairLock)
+        tapLock.lock()
     }
 
     func unlock() {
-        os_unfair_lock_unlock(&unfairLock)
+        tapLock.unlock()
     }
 }
